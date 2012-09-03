@@ -48,7 +48,7 @@ def Mu1(mu,beta,f):
     with mu1 = cos(t1) 
     """
     t1=np.sqrt( 7.5*( -1.+np.sqrt( 1.-0.8*f ) ) )
-    mu1=np.cos(np.pi*t1/180.)
+    mu1=np.cos(t1)
     return mu1
 
 #Adding external parameters
