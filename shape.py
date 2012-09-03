@@ -61,11 +61,15 @@ R0D = cmdargs.R0D
 beta = (R0D/(1.-R0D))**2
 D = cmdargs.dist
 
+print "Beta = ", beta
+
 #Creating the array of mu and calculating mu1 for the spherical case and the non spherical case
 #For negative mu, mu1 has a constant value. Mu has an asymtotic value. That value is such that theta + theta1 = pi with mu=cos(theta)
 #mu1c= Mu1(0,beta,F(0,beta))
 #print mu1c 
 Mu = np.arange(0,1.05,0.05)
+print Mu
+print G(Mu,beta)
 #Mu1 = Mu1(Mu,beta,F(Mu,beta))
 Mu1Sph = Mu1(Mu,beta,G(Mu,beta))
 print Mu1Sph
