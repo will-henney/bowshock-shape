@@ -68,11 +68,11 @@ print "Beta = ", beta
 #mu1c= Mu1(0,beta,F(0,beta))
 #print mu1c 
 Mu = np.arange(0,1.05,0.05)
-print Mu
-print G(Mu,beta)
-#Mu1 = Mu1(Mu,beta,F(Mu,beta))
+print "Mu = ", Mu
+Mu1prop = Mu1(Mu,beta,F(Mu,beta))
+print "Proplyd Mu1 = ", Mu1prop
 Mu1Sph = Mu1(Mu,beta,G(Mu,beta))
-print Mu1Sph
+print "Spherical Mu1 = ", Mu1Sph
 nanFinder = np.isnan(Mu1Sph)
 #Mu1[nanFinder] = 1.  # Replace nan values for the correct value. Please ignore warnings while running the program.
 Mu1Sph[nanFinder] = 1. # In both cases (spherical and non spherical), the value of mu1 is 1 when mu = 1. Check the Figure 1 from Canto,Raga & Wilkin 1996
