@@ -81,14 +81,23 @@ Mu1Sph[nanFinder] = 1. # In both cases (spherical and non spherical), the value 
 
 #Calculating the radius of bowshocks in function of mu and mu1 and replacing the nan values for the correct ones (in mu =1, R is R0)
 
-#RD = np.sqrt(1.-Mu1**2)/(Mu*np.sqrt(1.-Mu1**2)+Mu1*np.sqrt(1.-Mu**2))
-RDSph = np.sqrt(1-Mu1Sph**2)/(Mu*np.sqrt(1-Mu1Sph**2)+Mu1Sph*np.sqrt(1-Mu**2))
-#nanFinder = np.isnan(RD)
-#RD[nanFinder] = R0D
+
+def Radius(mu, mu1):
+    """
+    Equation (23) of CRW96 - shell radius in units of D
+    """
+    return np.sqrt(1.-mu1**2)/(mu*np.sqrt(1.0-mu1**2)+mu1*np.sqrt(1.0-mu**2))
+    
+
+RD = Radius(Mu, Mu1prop)
+RDSph = Radius(Mu, Mu1Sph)
+nanFinder = np.isnan(RD)
+RD[nanFinder] = R0D
 nanFinder = np.isnan(RDSph)
 RDSph[nanFinder] = R0D
 
-print RDSph
+print "Proplyd R(mu) = ", RD
+print "Spherical R(mu) = ", RDSph
 
 
 
