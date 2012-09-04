@@ -99,5 +99,9 @@ RDSph[nanFinder] = R0D
 print "Proplyd R(mu) = ", RD
 print "Spherical R(mu) = ", RDSph
 
+print "Proplyd z = mu R(mu) = ", Mu*RD
+print "Spherical z = mu R(mu) = ", Mu*RDSph
+
+
 
 
