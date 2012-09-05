@@ -1,17 +1,43 @@
-"""
-Module for solving Equation 6 of Canto, Raga, & Wilkin 1996 (CRW96)
+"""Module for solving Equation 6 of Canto, Raga, & Wilkin 1996 (CRW96)
 
-This finds the radius of a stellar wind interaction bowshock in terms of
-the momentum and angular momentum injected by the two winds. 
+This finds the radius of a stellar wind interaction bowshock in terms
+of the momentum and angular momentum injected by the two winds.
 
 CRW96 concentrated on the case of isotropic winds, but this module
 will work generally with any cylindrically symmetric wind
 
-All positions and distances are in units of D, the interstar separation
+All positions and distances are in units of D, the interstar
+separation
+
+The philosophy of this module is to be as straightforward and
+transparent an implementation as possible of the equations in the
+paper.  There is no attempt to be efficient.
 
 """
 import numpy as np
 import scipy.integrate
+import scipy.optimize
+
+###
+### Public functions 
+###
+def isotropic_momentum(theta):
+    """Momentum as a function of angle for an isotropic wind"""
+    return 1.0
+
+DIFFUSE_BETA = 0.0              # Parameter giving relative strength of diffuse field
+def proplyd_momentum(theta): 
+    """Momentum as a function of angle for a proplyd wind
+
+    Proportional to sqrt(cos(theta)) in the head (theta < pi/2), and
+    then a small constant value (zero by default) in the tail (theta >
+    pi/2).  The tail value is set via the module-level variable
+    DIFFUSE_BETA.
+
+    """
+    return DIFFUSE_BETA + (1.0 - DIFFUSE_BETA)*np.sqrt(max(0.0,np.cos(theta)))
+    
+
 
 ###
 ### Public classes
@@ -47,40 +73,44 @@ class Wind(object):
             if self.momentum_law == isotropic_momentum:
                 return 0.25*self.axial_momentum_flux*(theta - np.sin(theta)*np.cos(theta))
             else:
+                # I haven't implemented the numerical integration yet
+                # in this case, but hopefully we will not need it
                 raise NotImplementedError
 
 
     def Pidot_z(self, theta):
-        """
-        Linear z-momentum injection rate, integrated between axis and theta
+        """Linear z-momentum injection rate, integrated between axis
+        and theta
+
         """
         if self.momentum_law == isotropic_momentum:
-            # analytic solution for isotropic case
+            # Analytic solution for isotropic case
             Pdz = 0.25*np.sin(theta)**2
         else:
-            # numerical integration in general
+            # Numerical integration for the general case
             Pdz, err = scipy.integrate.quad(self._integrand_Pdz, 0.0, theta)
         if self.origin:
             return Pdz*self.axial_momentum_flux
         else:
-            # the second star has oppositely directed axial momentum
+            # The second star has oppositely directed axial momentum
             return -Pdz*self.axial_momentum_flux
 
     def Pidot_r(self, theta):
-        """
-        Linear r-momentum injection rate, integrated between axis and theta
+        """Linear r-momentum injection rate, integrated between axis
+        and theta
+
         """
         if self.momentum_law == isotropic_momentum:
-            # analytic solution for isotropic case
+            # Analytic solution for isotropic case
             Pdr = 0.25*(theta - np.sin(theta)*np.cos(theta))
         else:
-            # numerical integration in general
+            # Numerical integration for the general case
             Pdr, err = scipy.integrate.quad(self._integrand_Pdr, 0.0, theta)
         return Pdr*self.axial_momentum_flux
 
-    def _integrand_Pdz(self, theta):
+    def _integrand_Pdz(self, t):
         return 0.5*np.cos(t)*self.momentum_law(t)*np.sin(t)
-    def _integrand_Pdr(self, theta):
+    def _integrand_Pdr(self, t):
         return 0.5*np.sin(t)*self.momentum_law(t)*np.sin(t)
 
                             
