@@ -149,7 +149,7 @@ class BaseShell(object):
         Should work with scalar or vector argument theta
         """
         def _radius(theta):
-            """Helper function"""
+            """Helper function to find the shell radius for a single angle, theta"""
             if theta == 0.0:
                 # special treatment for the axis
                 return self.R0
