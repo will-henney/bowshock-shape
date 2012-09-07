@@ -1,0 +1,71 @@
+#+TITLE:     Transonic bowshocks
+#+AUTHOR:    William Henney
+#+EMAIL:     will@henney.org
+#+DESCRIPTION: Effects of finite Mach number on the bowshocks
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:{} -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+
+The CRW analysis is in the hypersonic approximation, which is not necessarily a very good approximation for the Orion bowshocks.  In particular, the LL Ori bowshocks are propbably Mach 1.5 to 2. 
+
+The proplyd bowshocks will also be affected, albeit to a lesser degree since their Mach number is around 3. 
+
+* Oblique shock waves
+
+#+BEGIN_SRC python :results file
+import numpy as np
+import matplotlib.pyplot as plt
+
+def theta(M1, beta):
+    """
+    Deflection angle versus Mach number and shock angle
+
+    For isothermal shocks
+    """
+    top = np.tan(beta) - 1.0/(M1**2 * np.sin(beta) * np.cos(beta))
+    bot = 1.0 + 1.0/(M1**2 * np.cos(beta) * np.cos(beta))
+    return np.arctan(top/bot)
+
+def M2(M1, beta):
+    """
+    Post-shock Mach number
+    """
+    return 1.0/(M1*np.sin(beta)*np.sin(beta - theta(M1, beta)))
+
+
+beta = np.linspace(0.0, np.pi/2, 300)
+
+bmax, tmax, bsonic, tsonic = list(), list(), list(), list()
+for M1 in [1.25, 1.5, 2.0, 3.0, 5.0, 10.0, 100.0]:
+    b, t = np.degrees(beta), np.degrees(theta(M1, beta))
+    plt.plot(b, t, label="M1 = {}".format(M1))
+    i = np.argmax(t)
+    bmax.append(b[i])
+    tmax.append(t[i])
+    i = np.argmax(b[M2(M1, b) > 1.0])
+    bsonic.append(b[i])
+    tsonic.append(t[i])
+
+plt.plot(bmax, tmax, 'o', label="theta_max")
+plt.plot(bsonic, tsonic, 'ro', label="M_2 = 1")
+plt.title("Oblique isothermal shocks")
+plt.xlabel("Shock angle, beta")
+plt.ylabel("Deflection angle, theta")
+plt.ylim(0.0, 90.0)
+plt.legend(loc="upper left")
+plotfile = "oblique-isothermal-shock-theta-beta-M.png"
+plt.savefig(plotfile)
+
+return plotfile
+#+END_SRC
+
+#+RESULTS:
+[[file:oblique-isothermal-shock-theta-beta-M.png]]
+
