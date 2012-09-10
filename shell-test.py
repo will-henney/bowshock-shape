@@ -80,11 +80,22 @@ for b in beta:
     R = shell.radius(theta)
     R90p.append(R[-1])           # last element is R90
 
+ # Plotting the observationa data of LV1-LV5
+R0LVs = np.array([0.16,0.24,0.29,0.17,0.21])
+R90LVs = np.array([0.31,0.3,0.46,0.29,0.21])
+LVs = ['LV1','LV2','LV3','LV4','LV5']
+plt.axis([0,0.4,0,0.7])
+plt.plot(R0LVs, R90LVs,'or')
+
+#Plotting the theorical models
 plt.plot(R0, R90, label="isotropic inner wind")
 plt.plot(R0, R90p, label="proplyd inner wind")
+#Labels of curves,axis and points
 plt.legend()
 plt.xlabel("R_0 / D")
 plt.ylabel("R_90 / D")
+for s in range(0,5):
+    plt.figtext(2.5*R0LVs[s],10./7.*R90LVs[s],LVs[s],fontsize=10,ha='center')
 plt.title("Perpendicular versus parallel bowshock radii")
 plt.savefig("shell-test-R0-R90.png")
 
