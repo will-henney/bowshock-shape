@@ -41,20 +41,21 @@ def M2(M1, beta):
 
 
 beta = np.linspace(0.0, np.pi/2, 300)
-
+colors = "bgrcmyk"
 bmax, tmax, bsonic, tsonic = list(), list(), list(), list()
-for M1 in [1.25, 1.5, 2.0, 3.0, 5.0, 10.0, 100.0]:
+for M1, color in zip([1.25, 1.5, 2.0, 3.0, 5.0, 10.0, 100.0], colors):
     b, t = np.degrees(beta), np.degrees(theta(M1, beta))
-    plt.plot(b, t, label="M1 = {}".format(M1))
     i = np.argmax(t)
     bmax.append(b[i])
     tmax.append(t[i])
     i = np.argmax(b[M2(M1, b) > 1.0])
     bsonic.append(b[i])
     tsonic.append(t[i])
+    plt.plot(b[:i], t[:i], color, label="M1 = {}".format(M1))
+    plt.plot(b[i:], t[i:], color+'--', label=None)
 
 plt.plot(bmax, tmax, 'o', label="theta_max")
-plt.plot(bsonic, tsonic, 'ro', label="M_2 = 1")
+plt.plot(bsonic, tsonic, 'r.', label="M2 = 1")
 plt.title("Oblique isothermal shocks")
 plt.xlabel("Shock angle, beta")
 plt.ylabel("Deflection angle, theta")
@@ -66,6 +67,9 @@ plt.savefig(plotfile)
 return plotfile
 #+END_SRC
 
-#+RESULTS:
-[[file:oblique-isothermal-shock-theta-beta-M.png]]
+#+CAPTION: Variation of deflection angle with shock angle for isothermal shocks of varying Mach numbers
+[[./oblique-isothermal-shock-theta-beta-M.png]]
+
+
+The shock angle, \(\beta\), is the angle between the plane of the shock and the upstream velocity vector.  The deflection angle, \(\theta\), is the angle between the upstream velocity vector and the downstream velocity vector.  The upstream Mach number is \(M_1\), while the downstream Mach number is \(M_2\).  The solid lines show the weak shock solutions
 
