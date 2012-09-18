@@ -1,0 +1,43 @@
+
+Calculation of projected bowshock shapes
+
+* Jorge's program for CRW and proplyd bowshocks
+
+[[file:~/Work/Bowshocks/Jorge/bowshock-shape/prop-plane-sky.py][prop-plane-sky.py]]
+
+* Will's programs for CRW bowshocks
+
+These all came originally from my LL Ori project 
+
+** Library of utility functions: [[file:bowfuncs.py][bowfuncs.py]]
+
+Uses bisection to find the values of theta for the tangent line along the x' axis at y'=0 (thpar) and along the y' axis at x'=0 (thperp). 
+
+
+** Generate the data: [[file:rparperp.py][rparperp.py]]
+
+For each value of beta, writes a table of thpar, thperp, rpar, rperp for each inclination angle.
+
+*** Example output file
+
+Beta = 0.1
+
+[[file:rparperp-B1.00e-01.dat][rparperp-B1.00e-01.dat]]
+
+
+*** Shell command to run the program
+
+#+BEGIN_SRC sh :results file
+python rparperp.py > rparperp.output
+echo rparperp.output
+#+END_SRC
+
+#+RESULTS:
+[[file:rparperp.output]]
+
+This write a lot of debugging information, so we just save it to a file. 
+
+
+** Plot the data: [[file:rparperp-plot.py][rparperp-plot.py]]
+
+Reads in the files written by rparperp.py and makes a graph of Rpar versus Rperp.
