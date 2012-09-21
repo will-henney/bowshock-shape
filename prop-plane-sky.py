@@ -7,9 +7,22 @@ In this script, we'll create the proyection of proplyd in the sky plane, assumin
 """
 
 def OMEGA(r,rpdr,h):
-    dR = (rpdr - r)/h
+    """
+    Approximation to omega = (1/R) d R / d theta
+    """
+    dRdth = (rpdr - r)/h
     w = dR/r
     return w
+
+
+def omega(r,theta):
+    """
+    Will's version of omega = (1/R) d R / d theta
+    """
+    om = np.zeros_like(r)
+    om[:-1] = np.diff(np.log(r))/np.diff(theta)
+    return om
+    
 
 #First, design a set of beta values to calculate R(theta) (Well, first than that, desgign a theta array)
 
@@ -33,7 +46,15 @@ for inn in innertype:
         R=shell.radius(theta)
         Rdr = shell.radius(theta + h)
         R[R<=0] = np.nan # Set neagtive R to NaN
-        W = OMEGA(R,Rdr,h)
+        # W = OMEGA(R,Rdr,h)
+        W = omega(R, theta)
+
+        # Check that R(theta) is working correctly
+        plt.plot(theta, R)
+        plt.yscale('log')
+        plt.savefig("R-vs-theta-{}-{}.png".format(inn, b))
+        plt.clf()
+
         # Check that omega is working correctly
         plt.plot(theta, W)
         plt.savefig("omega-vs-theta-{}-{}.png".format(inn, b))
