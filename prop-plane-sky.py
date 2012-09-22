@@ -37,7 +37,7 @@ phi = np.linspace(-np.pi,np.pi,N, endpoint=False)
 #Meshgrid theta and phi:
 THETA,PHI = np.meshgrid(theta,phi)
 DPHI = 2*np.pi/N
-i = np.linspace(0.0, 0.01, 2)
+i = np.linspace(0.0, 0.5*np.pi, 10)
 for inn in innertype:
     print "******{} case******".format(inn)
     for b in beta:
@@ -59,34 +59,48 @@ for inn in innertype:
         plt.plot(theta, W)
         plt.savefig("omega-vs-theta-{}-{}.png".format(inn, b))
         plt.clf()
-        #
+
+        # Manage two figures at once
+        xy_fig = plt.figure()     # Shape in xy plane
+        xy_ax = xy_fig.add_subplot(111)
+        thph_fig = plt.figure()   # Variation of ph with theta
+        thph_ax = thph_fig.add_subplot(111)
+
         x,y,z = R*np.cos(THETA),R*np.sin(THETA)*np.cos(PHI),R*np.sin(THETA)*np.sin(PHI)
         for j in i:
             SenodePhiT = np.tan(j) * ( ( 1+ W*np.tan(THETA) )/( W-np.tan(THETA) ) )
             mask = np.abs(SenodePhiT) <= 1.  #Discard non real values for the angle of tangent line
             mask2 = (np.sin(PHI-0.5*DPHI) <= SenodePhiT)  &  (SenodePhiT <= np.sin(PHI +0.5*DPHI)) #change added
-            plt.plot( THETA[mask & mask2], PHI[mask & mask2], '-', 
-                      alpha=0.5, lw=5,
-                      label = "i = {:.2f} (radians)".format(j))
+            thph_ax.plot( THETA[mask & mask2], PHI[mask & mask2], '-', 
+                          alpha=0.5, lw=3,
+                          label = "i = {:.2f} (radians)".format(j))
 
-            # xi,yi,zi = x*np.cos(j) + z*np.sin(j), y , -x*np.sin(j)+z*np.cos(j) 
-            # plt.plot(xi[mask & mask2],yi[mask & mask2],'+',label = "i = {} (radians)".format(j))
+            xi,yi,zi = x*np.cos(j) + z*np.sin(j), y , -x*np.sin(j)+z*np.cos(j) 
+            xy_ax.plot(xi[mask & mask2], yi[mask & mask2], '-',
+                        alpha=0.5, lw=3,
+                        label = "i = {:.2f} (radians)".format(j))
 #first trial: plot (xi,yi) when i = 0 and phi = 0 (Proplyd in the XY plane without any rotation, we should reproduce the last cases)
 #second trial: plot (xi,yi) for i = pi/6 (30 degrees)
 #Third trial: plot (xi,yi) for different i values
 #plt.plot(xi[PHI==0],yi[PHI==0],label = 'No rotation')
-#plt.plot(xi[PHI==np.arcsin(SenodePhiT[mask])],yi[PHI==np.arcsin(SenodePhiT[mask])],label = '30 deg rotation')
-        plt.legend(loc="lower right")
-        plt.axis([0.0, 2*np.pi, -np.pi, np.pi])
-        plt.xlabel('theta')
-        plt.ylabel('phi')
-#plt.title('No rotation')
-#plt.title('30 deg rotation')
-        plt.title('Bowshock shapes for {} wind and beta = {}'.format(inn,b))
-#plt.savefig('trial.png')
-#plt.savefig('trial2.png')
-        plt.savefig('{}-wind-plane-sky-beta = {}.png'.format(inn,b))
-        plt.clf()
+            #plt.plot(xi[PHI==np.arcsin(SenodePhiT[mask])],yi[PHI==np.arcsin(SenodePhiT[mask])],label = '30 deg rotation')
+        thph_ax.legend(loc="lower right")
+        thph_ax.axis([0.0, 2*np.pi, -np.pi, np.pi])
+        thph_ax.set_xlabel('theta')
+        thph_ax.set_ylabel('phi')
+        thph_ax.set_title('Bowshock shapes for {} wind and beta = {}'.format(inn,b))
+        thph_fig.savefig('{}-wind-theta-phi-beta = {}.png'.format(inn,b))
+        thph_fig.clf()
+
+        xy_ax.legend(loc="lower left")
+        xy_ax.axis([-4.5, 1.5, -3.0, 3.0])
+        xy_ax.set_xlabel('x')
+        xy_ax.set_ylabel('y')
+        xy_ax.set_title('Bowshock shapes for {} wind and beta = {}'.format(inn,b))
+        xy_fig.savefig('{}-wind-plane-sky-beta = {}.png'.format(inn,b))
+        xy_fig.clf()
+
+
 #Trial succesful!!
 #Next step: Try to do the same for different vales of beta and also for the proplyd case
 #Now we need R90 vs R0 plots
