@@ -90,11 +90,11 @@ def sphit(t,b,inc):
 
 def xt(t, b, inc):
     "x'_t"
-    return R(t,b)*(cos(t)*cos(inc)-sin(t)*spht(t,b,inc)*sin(inc))
+    return R(t,b)*(cos(t)*cos(inc)-sin(t)*sphit(t,b,inc)*sin(inc))
 
 def yt(t, b, inc):
     "y'_t"
-    return R(t,b)*sin(t)*sqrt(1-spht(t,b,inc)**2)
+    return R(t,b)*sin(t)*sqrt(1-sphit(t,b,inc)**2)
 
 def vt_los(t,b,alpha, inc):
     "Line-of-sight velocity of gas at positions along tangent line"
