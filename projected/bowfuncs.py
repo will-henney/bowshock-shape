@@ -23,6 +23,8 @@ def R(t,b):
 	return 1.0
     elif b == 0.0: 
 	return Ri(t)
+    elif sin(t1(t,b))/sin(t + t1(t,b))/R0(b) < 0.:
+        return np.nan
     else:
 	return sin(t1(t,b))/sin(t + t1(t,b))/R0(b)
 
@@ -86,15 +88,18 @@ def dt1dt(t,b):
 # 
 def sphit(t,b,inc):
     "sin phi_t"
-    return tan(inc)*(1 + omega(t,b)*tan(t))/(omega(t,b) - tan(t))
+    s= tan(inc)*(1 + omega(t,b)*tan(t))/(omega(t,b) - tan(t))
+    if abs(s) > 1.:
+       s = np.nan
+    return s     
 
 def xt(t, b, inc):
     "x'_t"
-    return R(t,b)*(cos(t)*cos(inc)-sin(t)*spht(t,b,inc)*sin(inc))
+    return R(t,b)*(cos(t)*cos(inc)-sin(t)*sphit(t,b,inc)*sin(inc))
 
 def yt(t, b, inc):
     "y'_t"
-    return R(t,b)*sin(t)*sqrt(1-spht(t,b,inc)**2)
+    return R(t,b)*sin(t)*sqrt(1-sphit(t,b,inc)**2)
 
 def vt_los(t,b,alpha, inc):
     "Line-of-sight velocity of gas at positions along tangent line"
@@ -157,7 +162,7 @@ def Rpar(b, inc, thpar=None):
     "Apparent radius along projected symmetry axis"
     if thpar == None:
 	thpar = theta_par(b, inc)
-    return R(thpar, b)*cos(inc - thpar)
+    return R(thpar, b)*cos(inc + thpar)
 
 def Rperp(b, inc, thperp=None):
     "Apparent radius perpendicular to projected symmetry axis"
