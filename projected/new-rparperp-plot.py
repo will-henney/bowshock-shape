@@ -8,8 +8,10 @@ The tables that are written out by rparperp.py are normalized so that Rpar = 1 f
 from os.path import splitext, basename
 import numpy as np
 from matplotlib import pyplot as plt
+from bowfuncs import theta_lim, theta_par_approx, \
+    Rpar, Rperp, theta_par_approx, theta_par, theta_perp
 
-betalist = [0.3, 0.1, 0.01, 0.001]
+betalist = np.logspace(1.e-3, 0.3, 100)
 
 for beta in betalist: 
     # Calcluate the radius of stagnation point R0 in units of separation D
