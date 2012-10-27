@@ -14,25 +14,16 @@ rparlines = []
 rperplines = []
 thparlines = []
 thparapproxlines = []
+verbose = True
 for beta in betalist:
-    f = open("rparperp-B%.2e.dat" % (beta), "w")
+    f = open("rparperp-new-B%.2e.dat" % (beta), "w")
     f.write(
 	"%s\t"*6 % ("beta", "i", "thpar", "thperp", "rpar", "rperp") + "\n"
 	)
     thlim = theta_lim(beta)
     incs = np.linspace(0.0, 0.98*(thlim - 0.5*pi), n)
     for i, inc in enumerate(incs):
-	thpar_approx = theta_par_approx(beta, inc)
-	if inc < 0.2:
-	    thmin = 0.5*thpar_approx
-	    thmax = 1.5*thpar_approx
-	else:
-	    thmin = thpar_approx
-	    thmax = 1.05*thpar_approx
- 	thpar = theta_par(beta, inc, thmin, thmax, thlim)
-	thperp = theta_perp(beta, inc, thpar, thlim)
-	rpar = Rpar(beta, inc, thpar)
-	rperp = Rperp(beta, inc, thperp)
+        rpar, rperp, thpar, thperp = find_Rpar_Rperp(beta, inc, full=True)
 	f.write(
 	    "%.3e\t"*6 % (beta, inc, thpar, thperp, rpar, rperp) + "\n"
 	    )

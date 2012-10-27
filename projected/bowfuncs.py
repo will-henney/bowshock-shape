@@ -4,6 +4,11 @@ import scipy
 from scipy.optimize import fsolve, bisect
 from numpy import sin, cos, tan, sqrt, abs, pi
 
+verbose = False
+
+
+## Utillity functions
+
 def cot(t):
     "Cotangent"
     return 1./tan(t)
@@ -111,42 +116,46 @@ def vt_los(t,b,alpha, inc):
 #                                        par is at y'_t = 0
 #                                        perp is at x'_t = 0
 #
-def theta_par_approx(b, inc):
+def _theta_par_approx(b, inc):
     "Small angle approximation to thpar"
     return inc / (1.0 - 0.4*(1.0 + 1.5*sqrt(b)))
 
-def theta_par(b, inc, thmin = 1.e-4, thmax=None, thlim=0.5*pi):
+def _theta_par(b, inc, thmin = 1.e-4, thmax=None):
     """Minimum theta, corresponding to y'_t = 0
     """
     if (inc == 0.0): return 0.0
+    thlim = theta_lim(b)
     if thmax == None:
 	# calculate thmax if it is not passed as argument
-	thmax = theta_lim(b)
+	thmax = thlim
     tani = abs(tan(inc))
     def f(theta):
 	"Function to be zeroed: f(theta) = 0 for theta = theta_par"
 	om = omega(theta,b)
 	return sin(theta)*(1.0 - om*tani) - cos(theta)*(om + tani)
-    print '%.2e %.4f f(%.2e) is %.2e' % (b, inc, thmin, f(thmin))
-    print '%.2e %.4f f(%.2e) is %.2e' % (b, inc, thmax, f(thmax))
+    if verbose:
+        print '%.2e %.4f f(%.2e) is %.2e' % (b, inc, thmin, f(thmin))
+        print '%.2e %.4f f(%.2e) is %.2e' % (b, inc, thmax, f(thmax))
     while f(thmin)*f(thmax) > 0.0:
 	if 1.1*thmax < thlim:
 	    thmax = 1.1*thmax	# hunt upwards
 	else:
 	    thmax = 0.99*thlim
 	    thmin = 0.9*thmin	# hunt downwards
-	print '%.2e %.4f f(%.2e) is %.2e' % (b, inc, thmax, f(thmax))
-    print thmin, thmax, f(thmin), f(thmax)
+        if verbose:
+            print '%.2e %.4f f(%.2e) is %.2e' % (b, inc, thmax, f(thmax))
+    if verbose:
+        print thmin, thmax, f(thmin), f(thmax)
     return bisect(f, thmin, thmax)
 
-def theta_perp(b, inc, thmin=None, thmax=None):
+def _theta_perp(b, inc, thmin=None, thmax=None):
     "theta corresponding to x'_t = 0"
     if (inc == 0.0): return 0.5*pi
     if thmax == None:
 	# calculate this is not passed as argument
 	thmax = theta_lim(b)
     if thmin == None:
-	thmin = theta_par(b, inc, thmax)
+	thmin = _theta_par(b, inc, thmax)
     sinsq2i = sin(2*inc)**2
     cossqi = cos(inc)**2
     def f(theta):
@@ -155,18 +164,48 @@ def theta_perp(b, inc, thmin=None, thmax=None):
 	return cot(theta) - (1 - sqrt(1 + om**2 * sinsq2i))/(2*om*cossqi)
     if f(thmin)*f(thmax) > 0.0:
 	thmin = 0.5*pi
-    print "theta_perp: ", thmin, thmax, f(thmin), f(thmax)
+    if verbose:
+        print "theta_perp: ", thmin, thmax, f(thmin), f(thmax)
     return bisect(f, thmin, thmax)
 
-def Rpar(b, inc, thpar=None):
+def _Rpar(b, inc, thpar=None):
     "Apparent radius along projected symmetry axis"
     if thpar == None:
-	thpar = theta_par(b, inc)
-    return R(thpar, b)*cos(inc + thpar)
+	thpar = _theta_par(b, inc)
+    return R(thpar, b)*cos(thpar - inc)
 
-def Rperp(b, inc, thperp=None):
+def _Rperp(b, inc, thperp=None):
     "Apparent radius perpendicular to projected symmetry axis"
     if thperp == None:
-	thperp = theta_perp(b, inc)
+	thperp = _theta_perp(b, inc)
     return R(thperp, b)*sin(thperp)*sqrt(1.0 - sphit(thperp,b,inc)**2)
 
+
+##
+## New convenience functions for calculating the parallel and
+## perpendicular projected radii
+##
+
+def find_Rpar_Rperp(beta, inc, full=False):
+    """
+    Do everything necessary to find parallel and perpendicular radii
+
+    if optional argument `full` is True, return the thetas too
+    """
+    thpar_approx = _theta_par_approx(beta, inc)
+    if inc < 0.2:
+        thmin = 0.5*thpar_approx
+        thmax = 1.5*thpar_approx
+    else:
+        thmin = thpar_approx
+        thmax = 1.05*thpar_approx
+    thlim = theta_lim(beta)
+    thpar = _theta_par(beta, inc, thmin, thmax)
+    thperp = _theta_perp(beta, inc, thpar, thlim)
+    rpar = _Rpar(beta, inc, thpar)
+    rperp = _Rperp(beta, inc, thperp)
+
+    if full:
+        return rpar, rperp, thpar, thperp
+    else:
+        return rpar, rperp
