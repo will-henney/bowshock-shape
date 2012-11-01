@@ -40,7 +40,7 @@ def R90_finder(x,y):
     for i in range(0,size-1):
         s = x[i]*x[i+1]
         if s<0:
-            out = 0.5*(y[i]+y[i+1])
+            out = y[i] - x[i]*( ( y[i+1]-y[i] )/ (x[i+1]-x[i]) ) #Linear interpolation
             return out
     return np.nan
 
@@ -52,7 +52,7 @@ def R90_finder(x,y):
 #cmdargs = parser.parse_args()
 #i = cmdargs.iangle
 
-beta = [0.3, 0.1, 0.01, 0.001, 1.e-4, 1.e-5, 1.e-7]
+beta = [0.3, 0.1, 0.01, 0.001, 1.e-4, 1.e-5, 0.05]
 Nth = 200
 Ninc = 50
 #beta = np.linspace(0.01,0.5,20)
@@ -66,15 +66,17 @@ for inn in innertype:
     print "******{} case******".format(inn)
     for b in beta:
         print "beta = ", b
-        thlim = theta_lim(b)
+        thlim = theta_lim(b) # I have to calculate theta_lim for proplyd case
         theta = np.linspace(0,thlim,Nth)
-        i = np.linspace(-0.98*(thlim - 0.5*np.pi),0.98*(thlim - 0.5*np.pi),Ninc)
+        inc = np.linspace(0.,0.98*(thlim - 0.5*np.pi),Ninc)
+        if inn == 'proplyd':
+            inc = np.linspace(0,0.98*(thlim - 0.5*np.pi) + 0.05,Ninc)   # In proplyd case, just added x deg for the range in inclinations
         R0 = list()
         R90 = list()
         shell = Shell(beta=b, innertype=inn)    
         R = shell.radius(theta)
         w = omega(R,theta)
-        for j in i:
+        for j in inc:
     #       x,y,z = R*np.cos(THETA),R*np.sin(THETA)*np.cos(PHI),R*np.sin(THETA)*np.sin(PHI)
             SenodePhiT = np.tan(j) * ( ( 1+ w*np.tan(theta) )/( w-np.tan(theta) ) )
             SenodePhiT[np.abs(SenodePhiT)>=1.] =np.nan #other way to set mask
