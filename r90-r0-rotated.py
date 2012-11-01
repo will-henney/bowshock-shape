@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 from equation6 import Shell
+from StringIO import StringIO
 from scipy.optimize import fsolve,bisect
 """
 In this script, we'll create the proyection of proplyd in the sky plane, assuming the plane of proplyd is rotated respect plane of sky by an angle i
@@ -46,31 +48,66 @@ def R90_finder(x,y):
 
 
 
+
 #First, design a set of beta values to calculate R(theta) (Well, first than that, desgign a theta array)
 #parser = argparse.ArgumentParser(description="Rotation angle")#
 #parser.add_argument("--iangle", "-i", default=0.0, type=float, help="Rotation of z axis in radians")
 #cmdargs = parser.parse_args()
 #i = cmdargs.iangle
 
-beta = [0.3, 0.1, 0.01, 0.001, 1.e-4, 1.e-5, 0.05]
+
+params = {
+    # "font.family": "serif",
+    # "text.usetex": True,
+    # "text.latex.preamble": [r"\usepackage[varg]{txfonts}"],
+    # "figure.figsize": (5, 10),
+    'axes.color_cycle': "bgrmk", # 5 colors for 5 values of beta
+    }
+matplotlib.rcParams.update(params)
+
+
+beta = [0.16, 0.08, 0.04, 0.02, 0.01]
 Nth = 200
-Ninc = 50
+Ninc = 200
 #beta = np.linspace(0.01,0.5,20)
 
 innertype = ['isotropic','proplyd']
 # innertype = ['isotropic']
 
 
-ls = dict(isotropic = '-', proplyd = '--')
+
+# Measured radii for proplyds
+# LV1		05 35 16.83	-05 23 26.23	1"	2"	6.44"	0.16	0.31
+# LV2		05 35 16.74	-05 23 16.51	1.87"	2.6"**	7.68"	0.24	0.3
+# LV3		05 35 16.28	-05 23 16.69	2"	3.14"	6.82"	0.29	0.46
+# LV4		05 35 16.06	-05 23 24.42	1.08"	1.78"	6.18"	0.17	0.29
+# LV5		05 35 15.83	-05 23 22.59	1.94"	2" **	9.46"	0.21	0.21
+
+obs_data = StringIO("""
+    1 0.16 0.31 -20 20 
+    2 0.24 0.3  20 0 
+    3 0.29 0.46 20 20 
+    4 0.17 0.29 0 -20 
+    5 0.21 0.21 20 -20
+    """)
+    
+
+obs_labels, obs_R0, obs_R90, obs_dx, obs_dy = np.loadtxt(obs_data, unpack=True)
+
+lw = dict(isotropic = 1, proplyd = 2)
 for inn in innertype:
     print "******{} case******".format(inn)
     for b in beta:
         print "beta = ", b
         thlim = theta_lim(b) # I have to calculate theta_lim for proplyd case
         theta = np.linspace(0,thlim,Nth)
-        inc = np.linspace(0.,0.98*(thlim - 0.5*np.pi),Ninc)
         if inn == 'proplyd':
-            inc = np.linspace(0,0.98*(thlim - 0.5*np.pi) + 0.05,Ninc)   # In proplyd case, just added x deg for the range in inclinations
+            inc = np.linspace(0.0, 0.5*np.pi, Ninc)   # In proplyd case, just added x deg for the range in inclinations
+        else:
+            inc = np.linspace(0.,0.98*(thlim - 0.5*np.pi),Ninc)
+            print "Maximum Inclination: ", np.degrees(inc[-1])
+
+
         R0 = list()
         R90 = list()
         shell = Shell(beta=b, innertype=inn)    
@@ -86,19 +123,44 @@ for inn in innertype:
             yi = R*np.sin(theta)*np.sqrt(1-SenodePhiT**2)
             mask = np.isfinite(xi) & np.isfinite(yi)
             xim, yim=xi[mask], yi[mask] #Removing nan elements from xi and yi
-            R0.append(xim[0]) # Looks like is a secure criterium ( At least in the beta range (0,0.1] ). For high i and high beta (~0.5), odd things happen
-            R90.append(R90_finder(xim,yim))
+            try:
+                R0.append(xim[0]) # Looks like is a secure criterium ( At least in the beta range (0,0.1] ). For high i and high beta (~0.5), odd things happen
+                R90.append(R90_finder(xim,yim))
+            except IndexError:
+                print "Maximum Inclination: ", np.degrees(j)
+                break        # ignore inclinations with no valid solution and skip remaining incs
         if inn == "isotropic":
             label = 'beta={}'.format(b)
         else:
             label = None
-        plt.plot(R0,R90, ls[inn], label = label)
+        plt.plot(R0,R90, linewidth=lw[inn], label = label)
+
+
+# Add the observations to the plot
+plt.plot(obs_R0, obs_R90, "ko")
+for label, x, y, dx, dy in zip(obs_labels, obs_R0, obs_R90, obs_dx, obs_dy):
+    if dx < 0:
+        ha = "right"
+    else:
+        ha = "left"
+    if dy < 0:
+        va = "top"
+    else:
+        va = "bottom"
+
+    plt.annotate(
+        "LV{:0.0f}".format(label), 
+        xy = (x, y), xytext = (dx, dy),
+        textcoords = 'offset points', ha = ha, va = va,
+        bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),
+        arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
 
 
 plt.legend(loc="upper left")
 #    plt.axis([0,0.5,0,1.5])
 plt.xlabel("R_0 / D")
-plt.ylim(0.0, 4.0)
+plt.xlim(0.0, 0.5)
+plt.ylim(0.0, 1.5)
 plt.ylabel("R_90 / D")
 plt.title("Perpendicular versus parallel bowshock radii")
 plt.savefig("combined-shell-test2-R0-R90.pdf")
