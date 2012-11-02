@@ -56,23 +56,23 @@ def R90_finder(x,y):
 #i = cmdargs.iangle
 
 
+
+beta = [0.16, 0.08, 0.04, 0.02, 0.01, 0.005]
+Nth = 400
+Ninc = 400
+#beta = np.linspace(0.01,0.5,20)
+
+innertype = ['isotropic','proplyd']
+# innertype = ['isotropic']
+
 params = {
     # "font.family": "serif",
     # "text.usetex": True,
     # "text.latex.preamble": [r"\usepackage[varg]{txfonts}"],
     # "figure.figsize": (5, 10),
-    'axes.color_cycle': "bgrmk", # 5 colors for 5 values of beta
+    'axes.color_cycle': "bgrmkybgrmky"[:len(beta)], # ensure same number of colors as betas
     }
 matplotlib.rcParams.update(params)
-
-
-beta = [0.16, 0.08, 0.04, 0.02, 0.01]
-Nth = 200
-Ninc = 200
-#beta = np.linspace(0.01,0.5,20)
-
-innertype = ['isotropic','proplyd']
-# innertype = ['isotropic']
 
 
 
@@ -94,7 +94,7 @@ obs_data = StringIO("""
 
 obs_labels, obs_R0, obs_R90, obs_dx, obs_dy = np.loadtxt(obs_data, unpack=True)
 
-lw = dict(isotropic = 1, proplyd = 2)
+lw = dict(isotropic = 2, proplyd = 4)
 for inn in innertype:
     print "******{} case******".format(inn)
     for b in beta:
@@ -114,13 +114,11 @@ for inn in innertype:
         R = shell.radius(theta)
         w = omega(R,theta)
         for j in inc:
-    #       x,y,z = R*np.cos(THETA),R*np.sin(THETA)*np.cos(PHI),R*np.sin(THETA)*np.sin(PHI)
             SenodePhiT = np.tan(j) * ( ( 1+ w*np.tan(theta) )/( w-np.tan(theta) ) )
             SenodePhiT[np.abs(SenodePhiT)>=1.] =np.nan #other way to set mask
-    #       mask = (np.sin(PHI-0.5*DPHI) <= SenodePhiT)  &  (SenodePhiT <= np.sin(PHI +0.5*DPHI))
-    #       xi,yi,zi = x*np.cos(j*np.pi/180.)-z*np.sin(j*np.pi/180.),y,x*np.sin(j*np.pi/180.)+z*np.cos(j*np.pi/180.)Convention sign in article Henney et al
-            xi = R*np.cos(theta)*np.cos(j)-R*np.sin(theta)*SenodePhiT*np.sin(j)
-            yi = R*np.sin(theta)*np.sqrt(1-SenodePhiT**2)
+            # Correct for fact that observed radii are normalised by D' = D cos(inc)
+            xi = (R/np.cos(j))*(np.cos(theta)*np.cos(j) - np.sin(theta)*SenodePhiT*np.sin(j))
+            yi = (R/np.cos(j))*np.sin(theta)*np.sqrt(1-SenodePhiT**2)
             mask = np.isfinite(xi) & np.isfinite(yi)
             xim, yim=xi[mask], yi[mask] #Removing nan elements from xi and yi
             try:
@@ -133,21 +131,14 @@ for inn in innertype:
             label = 'beta={}'.format(b)
         else:
             label = None
-        plt.plot(R0,R90, linewidth=lw[inn], label = label)
+        plt.plot(R0,R90, '.-', linewidth=lw[inn], label = label, alpha=0.6)
 
 
 # Add the observations to the plot
 plt.plot(obs_R0, obs_R90, "ko")
 for label, x, y, dx, dy in zip(obs_labels, obs_R0, obs_R90, obs_dx, obs_dy):
-    if dx < 0:
-        ha = "right"
-    else:
-        ha = "left"
-    if dy < 0:
-        va = "top"
-    else:
-        va = "bottom"
-
+    ha = "right" if dx < 0 else "left"
+    va = "top" if dy < 0 else "bottom"
     plt.annotate(
         "LV{:0.0f}".format(label), 
         xy = (x, y), xytext = (dx, dy),
