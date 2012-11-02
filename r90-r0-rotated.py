@@ -5,9 +5,9 @@ from equation6 import Shell
 from StringIO import StringIO
 from scipy.optimize import fsolve,bisect
 """
-In this script, we'll create the proyection of proplyd in the sky
-plane, assuming the plane of proplyd is rotated respect plane of sky
-by an angle i
+In this script, we create the projection of proplyd in the sky
+plane, assuming the proplyd axis is at an angle i with respect to
+plane of sky
 """
 def theta_lim(beta): 
     "Asymptotic opening angle from CRW eq (28)"
@@ -27,11 +27,11 @@ def omega(r,t):
 
 def R90_finder(x,y):
     """
-    This fuction finds a plausible value for R90, without calculing
-    Theta_perp. In the ratated frame, r90 is y such that x = 0. So i
+    This fuction finds a plausible value for R90, without calculating
+    Theta_perp. In the rotated frame, r90 is y such that x = 0. So i
     find this value looking for the place where x has a sign change,
     if this function does not find any sign change, returns a NaN. If
-    x and y don't have the same size, returns error (for completness)
+    x and y don't have the same size, returns error (for completeness)
     """
     size = np.size(x)
     sizey = np.size(y)
@@ -64,19 +64,16 @@ def R90_finder(x,y):
 
 beta = [0.16, 0.08, 0.04, 0.02, 0.01, 0.005]
 Nth = 400
-Ninc = 400
-#beta = np.linspace(0.01,0.5,20)
+Ninc = 200
 
 innertype = ['isotropic','proplyd']
 # innertype = ['isotropic']
 
 params = {
-    # "font.family": "serif",
-    # "text.usetex": True,
-    # "text.latex.preamble": [r"\usepackage[varg]{txfonts}"],
-    # "figure.figsize": (5, 10),
-    # ensure same number of colors as betas
-    'axes.color_cycle': "bgrmkybgrmky"[:len(beta)], 
+    "font.family": "serif",
+    "text.usetex": True,
+    "text.latex.preamble": [r"\usepackage[varg]{txfonts}"],
+    "figure.figsize": (5, 10),
     }
 matplotlib.rcParams.update(params)
 
@@ -98,38 +95,43 @@ obs_data = StringIO("""
     """)
 obs_labels, obs_R0, obs_R90, obs_dx, obs_dy = np.loadtxt(obs_data, unpack=True)
 
-lw = dict(isotropic = 2, proplyd = 4)
-opacity = dict(isotropic = 0.4, proplyd = 0.8)
+lw = dict(isotropic = 2, proplyd = 3)
+opacity = dict(isotropic = 0.3, proplyd = 0.7)
 
+colors = "bgrmky"
 for inn in innertype:
     print "******{} case******".format(inn)
-    for b in beta:
+    for b, col in zip(beta, colors[:len(beta)]):
         print "beta = ", b
         thlim = theta_lim(b) # I have to calculate theta_lim for
                              # proplyd case
         theta = np.linspace(0,thlim,Nth)
         if inn == 'proplyd':
             # In proplyd case, try all inclinations
-            inc = np.linspace(0.0, 0.5*np.pi, Ninc)   
+            inclinations = np.linspace(0.0, 0.5*np.pi, Ninc)   
         else:
-            inc = np.linspace(0.,0.98*(thlim - 0.5*np.pi),Ninc)
-            print "Maximum Inclination: ", np.degrees(inc[-1])
+            inclinations = np.linspace(0.,0.98*(thlim - 0.5*np.pi),Ninc)
+            print "Maximum Inclination: ", np.degrees(inclinations[-1])
 
+        # Mask to select inclinations close to multiples of 15 degrees
+        every15 = np.abs((np.degrees(inclinations) + 7.5) % 15.0 - 7.5) <= 0.5*np.degrees(inclinations[1])
 
-        R0 = list()
-        R90 = list()
+        # Initialize the data arrays to NaNs
+        R0 = np.zeros_like(inclinations)*np.nan
+        R90 = np.zeros_like(inclinations)*np.nan
+
         shell = Shell(beta=b, innertype=inn)    
         R = shell.radius(theta)
         w = omega(R,theta)
-        for j in inc:
-            SenodePhiT = np.tan(j) * ( ( 1+ w*np.tan(theta) )/( w-np.tan(theta) ) )
+        for i, inc in enumerate(inclinations):
+            SenodePhiT = np.tan(inc) * ( ( 1+ w*np.tan(theta) )/( w-np.tan(theta) ) )
             SenodePhiT[np.abs(SenodePhiT)>=1.] =np.nan #other way to set mask
 
             # Correct for fact that observed radii are normalised by
             # D' = D cos(inc)
-            xi = (R/np.cos(j))*(np.cos(theta)*np.cos(j) 
-                                - np.sin(theta)*SenodePhiT*np.sin(j))
-            yi = (R/np.cos(j))*np.sin(theta)*np.sqrt(1-SenodePhiT**2)
+            xi = (R/np.cos(inc))*(np.cos(theta)*np.cos(inc) 
+                                - np.sin(theta)*SenodePhiT*np.sin(inc))
+            yi = (R/np.cos(inc))*np.sin(theta)*np.sqrt(1-SenodePhiT**2)
             mask = np.isfinite(xi) & np.isfinite(yi)
             xim, yim=xi[mask], yi[mask] #Removing nan elements from xi
                                         #and yi
@@ -137,18 +139,20 @@ for inn in innertype:
                 # Looks like is a secure criterion ( At least in the
                 # beta range (0,0.1] ). For high i and high beta
                 # (~0.5), odd things happen
-                R0.append(xim[0]) 
-                R90.append(R90_finder(xim,yim))
+                R0[i] = xim[0] 
+                R90[i] = R90_finder(xim,yim)
             except IndexError:
-                print "Maximum Inclination: ", np.degrees(j)
+                print "Maximum Inclination: ", np.degrees(inc)
                 break        # ignore inclinations with no valid
                              # solution and skip remaining incs
-        if inn == "isotropic":
-            label = 'beta={}'.format(b)
-        else:
-            label = None
-        plt.plot(R0,R90, '.-', linewidth=lw[inn], label = label, alpha=opacity[inn])
-
+ 
+        label = r'\(\beta={}\)'.format(b) if inn == "proplyd" else None
+        # First, plot a line with all the inclinations
+        plt.plot(R0,R90, '-', linewidth=lw[inn], c=col, label=label, alpha=opacity[inn])
+        # Second, add symbols every 15 degrees
+        print np.degrees(inclinations[every15])
+        plt.plot(R0[every15], R90[every15], '.', c=col, alpha=opacity[inn])
+        
 
 # Add the observations to the plot
 plt.plot(obs_R0, obs_R90, "ko")
@@ -165,10 +169,12 @@ for label, x, y, dx, dy in zip(obs_labels, obs_R0, obs_R90, obs_dx, obs_dy):
 
 plt.legend(loc="upper left")
 #    plt.axis([0,0.5,0,1.5])
-plt.xlabel("R_0 / D")
-plt.xlim(0.0, 0.5)
-plt.ylim(0.0, 1.5)
-plt.ylabel("R_90 / D")
+plt.xlabel(r"\(R'_0 / D'\)")
+# avoid numbering the origin
+epsilon = 1.e-6
+plt.xlim(0.0 + epsilon, 0.35)
+plt.ylim(0.0 + epsilon, 1.0)
+plt.ylabel(r"\(R'_{90} / D'\)")
 plt.title("Perpendicular versus parallel bowshock radii")
 plt.savefig("combined-shell-test2-R0-R90.pdf")
 plt.clf()
