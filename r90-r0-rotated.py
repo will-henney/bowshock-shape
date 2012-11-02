@@ -5,7 +5,9 @@ from equation6 import Shell
 from StringIO import StringIO
 from scipy.optimize import fsolve,bisect
 """
-In this script, we'll create the proyection of proplyd in the sky plane, assuming the plane of proplyd is rotated respect plane of sky by an angle i
+In this script, we'll create the proyection of proplyd in the sky
+plane, assuming the plane of proplyd is rotated respect plane of sky
+by an angle i
 """
 def theta_lim(beta): 
     "Asymptotic opening angle from CRW eq (28)"
@@ -16,8 +18,8 @@ def theta_lim(beta):
 
 def omega(r,t):
     """
-    Will's version of omega(theta), looks like work better.
-    uses d(log(r))/dtheta = 1/r * dr/dtheta (ingenious)
+    Will's version of omega(theta), looks like work better.  uses
+    d(log(r))/dtheta = 1/r * dr/dtheta (ingenious)
     """
     womega = np.zeros_like(r)
     womega[:-1] = np.diff(np.log(r))/np.diff(theta)
@@ -25,9 +27,11 @@ def omega(r,t):
 
 def R90_finder(x,y):
     """
-    This fuction finds a plausible value for R90, without calculing Theta_perp. In the ratated frame, r90 is y such that x = 0. So i find this value
-    looking for the place where x has a sign change, if this function does not find any sign change, returns a NaN. If x and y don't have the same size, 
-    returns error (for completness) 
+    This fuction finds a plausible value for R90, without calculing
+    Theta_perp. In the ratated frame, r90 is y such that x = 0. So i
+    find this value looking for the place where x has a sign change,
+    if this function does not find any sign change, returns a NaN. If
+    x and y don't have the same size, returns error (for completness)
     """
     size = np.size(x)
     sizey = np.size(y)
@@ -49,7 +53,8 @@ def R90_finder(x,y):
 
 
 
-#First, design a set of beta values to calculate R(theta) (Well, first than that, desgign a theta array)
+#First, design a set of beta values to calculate R(theta) (Well, first
+#than that, desgign a theta array)
 #parser = argparse.ArgumentParser(description="Rotation angle")#
 #parser.add_argument("--iangle", "-i", default=0.0, type=float, help="Rotation of z axis in radians")
 #cmdargs = parser.parse_args()
@@ -70,7 +75,8 @@ params = {
     # "text.usetex": True,
     # "text.latex.preamble": [r"\usepackage[varg]{txfonts}"],
     # "figure.figsize": (5, 10),
-    'axes.color_cycle': "bgrmkybgrmky"[:len(beta)], # ensure same number of colors as betas
+    # ensure same number of colors as betas
+    'axes.color_cycle': "bgrmkybgrmky"[:len(beta)], 
     }
 matplotlib.rcParams.update(params)
 
@@ -90,19 +96,21 @@ obs_data = StringIO("""
     4 0.17 0.29 0 -20 
     5 0.21 0.21 20 -20
     """)
-    
-
 obs_labels, obs_R0, obs_R90, obs_dx, obs_dy = np.loadtxt(obs_data, unpack=True)
 
 lw = dict(isotropic = 2, proplyd = 4)
+opacity = dict(isotropic = 0.4, proplyd = 0.8)
+
 for inn in innertype:
     print "******{} case******".format(inn)
     for b in beta:
         print "beta = ", b
-        thlim = theta_lim(b) # I have to calculate theta_lim for proplyd case
+        thlim = theta_lim(b) # I have to calculate theta_lim for
+                             # proplyd case
         theta = np.linspace(0,thlim,Nth)
         if inn == 'proplyd':
-            inc = np.linspace(0.0, 0.5*np.pi, Ninc)   # In proplyd case, just added x deg for the range in inclinations
+            # In proplyd case, try all inclinations
+            inc = np.linspace(0.0, 0.5*np.pi, Ninc)   
         else:
             inc = np.linspace(0.,0.98*(thlim - 0.5*np.pi),Ninc)
             print "Maximum Inclination: ", np.degrees(inc[-1])
@@ -116,22 +124,30 @@ for inn in innertype:
         for j in inc:
             SenodePhiT = np.tan(j) * ( ( 1+ w*np.tan(theta) )/( w-np.tan(theta) ) )
             SenodePhiT[np.abs(SenodePhiT)>=1.] =np.nan #other way to set mask
-            # Correct for fact that observed radii are normalised by D' = D cos(inc)
-            xi = (R/np.cos(j))*(np.cos(theta)*np.cos(j) - np.sin(theta)*SenodePhiT*np.sin(j))
+
+            # Correct for fact that observed radii are normalised by
+            # D' = D cos(inc)
+            xi = (R/np.cos(j))*(np.cos(theta)*np.cos(j) 
+                                - np.sin(theta)*SenodePhiT*np.sin(j))
             yi = (R/np.cos(j))*np.sin(theta)*np.sqrt(1-SenodePhiT**2)
             mask = np.isfinite(xi) & np.isfinite(yi)
-            xim, yim=xi[mask], yi[mask] #Removing nan elements from xi and yi
+            xim, yim=xi[mask], yi[mask] #Removing nan elements from xi
+                                        #and yi
             try:
-                R0.append(xim[0]) # Looks like is a secure criterium ( At least in the beta range (0,0.1] ). For high i and high beta (~0.5), odd things happen
+                # Looks like is a secure criterion ( At least in the
+                # beta range (0,0.1] ). For high i and high beta
+                # (~0.5), odd things happen
+                R0.append(xim[0]) 
                 R90.append(R90_finder(xim,yim))
             except IndexError:
                 print "Maximum Inclination: ", np.degrees(j)
-                break        # ignore inclinations with no valid solution and skip remaining incs
+                break        # ignore inclinations with no valid
+                             # solution and skip remaining incs
         if inn == "isotropic":
             label = 'beta={}'.format(b)
         else:
             label = None
-        plt.plot(R0,R90, '.-', linewidth=lw[inn], label = label, alpha=0.6)
+        plt.plot(R0,R90, '.-', linewidth=lw[inn], label = label, alpha=opacity[inn])
 
 
 # Add the observations to the plot
