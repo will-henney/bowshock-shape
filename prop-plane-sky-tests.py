@@ -35,35 +35,39 @@ Ninc = 10
 beta = np.array([0.16, 0.08, 0.04, 0.02, 0.01])
 innertype = ['isotropic','proplyd']
 lw = dict(isotropic = 1, proplyd = 2)
+
+incdeg = np.array([0.0, 15.0, 30.0, 45.0, 60.0, 75.0])
+colors = "bgrmkcy"
+
 for b in beta:
     print "******beta = {}******".format(b)
     thlim = theta_lim(b) 
     theta = np.linspace(0,thlim,Nth)
     for inn in innertype:
-        if inn == 'proplyd':
-            inc = np.linspace(0.0, 0.5*np.pi, Ninc)   
-        else:
-            inc = np.linspace(0.,0.98*(thlim - 0.5*np.pi),Ninc)
-        print "Maximum Inclination: ", np.degrees(inc[-1])
+        inc = np.radians(incdeg)
         shell = Shell(beta=b,innertype=inn)
 #       Calculing R(theta)
         R=shell.radius(theta)
         R[R<=0] = np.nan # Set neagtive R to NaN
         w = omega(R,theta)
-        for jnc in inc:
+        for jnc, col in zip(inc, colors[:len(inc)]):
             SenodePhiT = np.tan(jnc) * ( ( 1+ w*np.tan(theta) )/( w-np.tan(theta) ) )
             SenodePhiT[np.abs(SenodePhiT)>=1.] =np.nan 
-            xi = R*np.cos(theta)*np.cos(jnc)-R*np.sin(theta)*SenodePhiT*np.sin(jnc)
-            yi = R*np.sin(theta)*np.sqrt(1-SenodePhiT**2) 
+            xi = (R/np.cos(jnc))*(np.cos(theta)*np.cos(jnc) 
+                                  - np.sin(theta)*SenodePhiT*np.sin(jnc))
+            yi = (R/np.cos(jnc))*np.sin(theta)*np.sqrt(1-SenodePhiT**2) 
             if inn == "isotropic":
-                label = 'i={}'.format(jnc)
+                label = 'i={:.0f}'.format(np.degrees(jnc))
             else:
                 label = None
-            plt.plot(xi,yi,linewidth=lw[inn],label=label)                             
+            plt.plot(xi, yi, linewidth=lw[inn], c=col, label=label)                             
 #    plt.axis([-1.0,1.0,-0.05,yi[-1]+0.5])
     plt.legend()
     plt.xlabel('z')
     plt.ylabel('r')
+    plt.axis("equal")
+    plt.xlim(-0.5, 0.5)
+    plt.ylim(0.0, 1.0)
     plt.title('Bowshock shapes for wind and beta = {}'.format(b))
     plt.savefig('bowshock-wind-plane-sky-beta-{}.pdf'.format(b))
     plt.clf()
