@@ -1,14 +1,36 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
-from equation6 import Shell
-from StringIO import StringIO
-from scipy.optimize import fsolve,bisect
 """
 In this script, we create the projection of proplyd in the sky
 plane, assuming the proplyd axis is at an angle i with respect to
 plane of sky
 """
+
+import argparse
+from StringIO import StringIO
+
+import numpy as np
+from scipy.optimize import fsolve,bisect
+import matplotlib
+import matplotlib.pyplot as plt
+
+from equation6 import Shell
+
+
+#
+# Command line arguments 
+#
+parser = argparse.ArgumentParser(
+    description="""Find parallel and perpendicular projected radii for
+    bowshock models"""
+    )#
+parser.add_argument("--observations", type=str, 
+                    choices=("jorge_mir", "will_mir"), default="will_mir", 
+                    help="Which version of the observational measurements to use")
+parser.add_argument("--yaxis", type=str, 
+                    choices=("R90/D", "R90/R0"), default="R90/D", 
+                    help="Which quantity to plot on the y axis")
+cmd_args = parser.parse_args()
+isNormalized = cmd_args.yaxis == "R90/R0"
+
 def theta_lim(beta): 
     "Asymptotic opening angle from CRW eq (28)"
     def f(theta):
@@ -55,14 +77,11 @@ def R90_finder(x,y):
 
 #First, design a set of beta values to calculate R(theta) (Well, first
 #than that, desgign a theta array)
-#parser = argparse.ArgumentParser(description="Rotation angle")#
-#parser.add_argument("--iangle", "-i", default=0.0, type=float, help="Rotation of z axis in radians")
-#cmdargs = parser.parse_args()
-#i = cmdargs.iangle
 
 
 
-beta = [0.16, 0.08, 0.04, 0.02, 0.01, 0.005]
+
+beta = [0.16, 0.08, 0.04, 0.02, 0.01, 0.005, 0.002]
 Nth = 400
 Ninc = 200
 
@@ -73,32 +92,58 @@ params = {
     "font.family": "serif",
     "text.usetex": True,
     "text.latex.preamble": [r"\usepackage[varg]{txfonts}"],
-    "figure.figsize": (5, 10),
+    "figure.figsize": (5, 5),
     }
 matplotlib.rcParams.update(params)
 
 
 
-# Measured radii for proplyds
+# Jorge's measured radii for proplyds
 # LV1		05 35 16.83	-05 23 26.23	1"	2"	6.44"	0.16	0.31
 # LV2		05 35 16.74	-05 23 16.51	1.87"	2.6"**	7.68"	0.24	0.3
 # LV3		05 35 16.28	-05 23 16.69	2"	3.14"	6.82"	0.29	0.46
 # LV4		05 35 16.06	-05 23 24.42	1.08"	1.78"	6.18"	0.17	0.29
 # LV5		05 35 15.83	-05 23 22.59	1.94"	2" **	9.46"	0.21	0.21
 
-obs_data = StringIO("""
+# Will's measured radii for proplyds
+"""
+| Object |    D' |  R'_0 | R'_90A | R'_90B | R0/D | R90/D | R90/R0 | Notes       |
+|--------+-------+-------+--------+--------+------+-------+--------+-------------|
+| LV1    | 6.651 | 0.830 |  2.260 |  2.260 | 0.12 |  0.34 |   2.83 | S side only |
+| LV2    | 7.777 | 2.078 |  2.442 |  2.442 | 0.27 |  0.31 |   1.15 | E side only |
+| LV3    | 6.977 | 2.057 |  3.422 |  3.422 | 0.29 |  0.49 |   1.69 | E side only |
+| LV4    |  6.22 | 1.098 |  1.763 |   2.05 | 0.18 |  0.31 |   1.72 |             |
+| LV5    | 9.426 | 1.819 |  2.831 |  3.189 | 0.19 |  0.32 |   1.68 |             |
+| LV2b   | 7.024 | 0.815 |  2.146 |  2.146 | 0.12 |  0.31 |   2.58 | W side only |
+      #+TBLFM: $6=$3/$2 ;f2::$7=0.5 ($4 + $5)/$2; f2::$8=$7/$6 ; f2
+"""
+
+obs_data = dict(
+    jorge_mir = """
     1 0.16 0.31 -20 20 
     2 0.24 0.3  20 0 
     3 0.29 0.46 20 20 
     4 0.17 0.29 0 -20 
     5 0.21 0.21 20 -20
-    """)
-obs_labels, obs_R0, obs_R90, obs_dx, obs_dy = np.loadtxt(obs_data, unpack=True)
+    """,
+    will_mir = """
+    1 0.12 0.34 -20 20 
+    2 0.27 0.31  20 0 
+    3 0.29 0.49 20 20 
+    4 0.18 0.31 -20 -20 
+    5 0.19 0.32 20 -20
+    20 0.12 0.31 -20 0 
+    """,
+    )
+
+
+obs_labels, obs_R0, obs_R90, obs_dx, obs_dy = \
+    np.loadtxt(StringIO(obs_data[cmd_args.observations]), unpack=True)
 
 lw = dict(isotropic = 2, proplyd = 3)
 opacity = dict(isotropic = 0.3, proplyd = 0.7)
 
-colors = "bgrmky"
+colors = "bgrmkcy"
 for inn in innertype:
     print "******{} case******".format(inn)
     for b, col in zip(beta, colors[:len(beta)]):
@@ -147,16 +192,19 @@ for inn in innertype:
                              # solution and skip remaining incs
  
         label = r'\(\beta={}\)'.format(b) if inn == "proplyd" else None
+        Y = R90/R0 if isNormalized else R90
+            
         # First, plot a line with all the inclinations
-        plt.plot(R0,R90, '-', linewidth=lw[inn], c=col, label=label, alpha=opacity[inn])
+        plt.plot(R0, Y, '-', linewidth=lw[inn], c=col, label=label, alpha=opacity[inn])
         # Second, add symbols every 15 degrees
         print np.degrees(inclinations[every15])
-        plt.plot(R0[every15], R90[every15], '.', c=col, alpha=opacity[inn])
+        plt.plot(R0[every15], Y[every15], '.', c=col, alpha=opacity[inn])
         
 
 # Add the observations to the plot
-plt.plot(obs_R0, obs_R90, "ko")
-for label, x, y, dx, dy in zip(obs_labels, obs_R0, obs_R90, obs_dx, obs_dy):
+obs_Y = obs_R90/obs_R0 if isNormalized else obs_R90
+plt.plot(obs_R0, obs_Y, "ko")
+for label, x, y, dx, dy in zip(obs_labels, obs_R0, obs_Y, obs_dx, obs_dy):
     ha = "right" if dx < 0 else "left"
     va = "top" if dy < 0 else "bottom"
     plt.annotate(
@@ -164,17 +212,26 @@ for label, x, y, dx, dy in zip(obs_labels, obs_R0, obs_R90, obs_dx, obs_dy):
         xy = (x, y), xytext = (dx, dy),
         textcoords = 'offset points', ha = ha, va = va,
         bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),
-        arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
+        arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0')
+        )
 
 
-plt.legend(loc="upper left")
-#    plt.axis([0,0.5,0,1.5])
 plt.xlabel(r"\(R'_0 / D'\)")
 # avoid numbering the origin
 epsilon = 1.e-6
-plt.xlim(0.0 + epsilon, 0.35)
-plt.ylim(0.0 + epsilon, 1.0)
-plt.ylabel(r"\(R'_{90} / D'\)")
+if isNormalized:
+    plt.xlim(0.0 + epsilon, 0.5)
+    plt.ylim(0.0 + epsilon, 4.0)
+    plt.ylabel(r"\(R'_{90} / R'_0\)")
+    plt.legend(loc="lower left", ncol=2, prop=dict(size="x-small"))
+else:
+    plt.xlim(0.0 + epsilon, 0.35)
+    plt.ylim(0.0 + epsilon, 1.0)
+    plt.ylabel(r"\(R'_{90} / D'\)")
+    plt.legend(loc="upper left")
+
+suffix = "-norm" if isNormalized else ""
+
 plt.title("Perpendicular versus parallel bowshock radii")
-plt.savefig("combined-shell-test2-R0-R90.pdf")
+plt.savefig("combined-shell-R0-R90{}.pdf".format(suffix))
 plt.clf()
