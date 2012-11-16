@@ -28,6 +28,7 @@ parser.add_argument("--observations", type=str,
 parser.add_argument("--yaxis", type=str, 
                     choices=("R90/D", "R90/R0"), default="R90/D", 
                     help="Which quantity to plot on the y axis")
+parser.add_argument('--tobs',type = float,default = 90,help='projected bowshock radius at theta = tobs respect to axis')
 cmd_args = parser.parse_args()
 isNormalized = cmd_args.yaxis == "R90/R0"
 
@@ -47,7 +48,7 @@ def omega(r,t):
     womega[:-1] = np.diff(np.log(r))/np.diff(theta)
     return womega
 
-def R90_finder(x,y):
+def Rt_finder(x,y,t):
     """
     This fuction finds a plausible value for R90, without calculating
     Theta_perp. In the rotated frame, r90 is y such that x = 0. So i
@@ -66,7 +67,7 @@ def R90_finder(x,y):
     #     return out
 
     for i in range(0,size-1):
-        s = x[i]*x[i+1]
+        s = (np.degrees(np.arctan2(y[i],x[i])) - t)*( np.degrees( np.arctan2(y[i+1],x[i+1]) ) - t )
         if s<0:
             out = y[i] - x[i]*( ( y[i+1]-y[i] )/ (x[i+1]-x[i]) ) #Linear interpolation
             return out
@@ -163,7 +164,7 @@ for inn in innertype:
 
         # Initialize the data arrays to NaNs
         R0 = np.zeros_like(inclinations)*np.nan
-        R90 = np.zeros_like(inclinations)*np.nan
+        Rt = np.zeros_like(inclinations)*np.nan
 
         shell = Shell(beta=b, innertype=inn)    
         R = shell.radius(theta)
@@ -185,14 +186,14 @@ for inn in innertype:
                 # beta range (0,0.1] ). For high i and high beta
                 # (~0.5), odd things happen
                 R0[i] = xim[0] 
-                R90[i] = R90_finder(xim,yim)
+                Rt[i] = Rt_finder(xim,yim,cmd_args.tobs)
             except IndexError:
                 print "Maximum Inclination: ", np.degrees(inc)
                 break        # ignore inclinations with no valid
                              # solution and skip remaining incs
  
         label = r'\(\beta={}\)'.format(b) if inn == "proplyd" else None
-        Y = R90/R0 if isNormalized else R90
+        Y = Rt/R0 if isNormalized else Rt
             
         # First, plot a line with all the inclinations
         plt.plot(R0, Y, '-', linewidth=lw[inn], c=col, label=label, alpha=opacity[inn])
@@ -233,5 +234,5 @@ else:
 suffix = "-norm" if isNormalized else ""
 
 plt.title("Perpendicular versus parallel bowshock radii")
-plt.savefig("combined-shell-R0-R90{}.pdf".format(suffix))
+plt.savefig("combined-shell-R0-R{:0.0f}{}.pdf".format(cmd_args.tobs,suffix))
 plt.clf()
