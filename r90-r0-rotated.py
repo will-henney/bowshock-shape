@@ -69,8 +69,10 @@ def Rt_finder(x,y,t):
     for i in range(0,size-1):
         s = (np.degrees(np.arctan2(y[i],x[i])) - t)*( np.degrees( np.arctan2(y[i+1],x[i+1]) ) - t )
         if s<0:
-            out = y[i] - x[i]*( ( y[i+1]-y[i] )/ (x[i+1]-x[i]) ) #Linear interpolation
-            return out
+            slope = (y[i+1]-y[i])/(x[i+1]-x[i])
+            xout = (y[i]-slope*x[i])/( np.tan( np.radians(t) ) -slope )
+            yout = y[i] + slope*(xout-x[i])
+            return np.sqrt(xout**2+yout**2)
     return np.nan
 
 
