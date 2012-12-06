@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-regionfile = "LV-OIII-positions.reg" 
+regionfile = "LV-OIII-positions-2.reg" 
 
 
 def extract_data(line):
@@ -94,7 +94,7 @@ for proplyd in proplyds:
 
     plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
 
-plt.plot(0.0, 0.0, "+", label=None)
+plt.plot(0.0, 0.0, "x", label=None)
 plt.legend(loc="lower left")
 plt.xlabel("x")
 plt.ylabel("y")
