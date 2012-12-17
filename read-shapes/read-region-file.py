@@ -119,7 +119,10 @@ for proplyd in proplyds:
     th2nda,th2nd = extract_2nd(theta)
     th3rda,th3rd = extract_2nd(th2nda)
     theta_mean,rt = extract_n_mean(theta,R,th3rd)
-    print "{} {:.2f} {:.2f}".format(proplyd,rt,theta_mean)
+    for x,y in zip(R,theta):
+        if x == np.array(R).min():
+            r0,th0 = x,y            
+    print "{} {:.2f} {:.2f} {:.2f} {:.2f}".format(proplyd,r0,th0,rt,theta_mean)
     plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
 
 plt.plot(0.0, 0.0, "rx", label=None)
