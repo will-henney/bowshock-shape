@@ -3,6 +3,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 regionfile = "LV-OIII-positions-2.reg" 
 
+def extract_2nd(x):
+    """
+    This function extracts the second maximum value from an array, and also the reduced array, in case you want the third highest value or another.
+    """
+    xm = np.max(np.abs(x))
+    xout =[]
+    for y in x:
+        if y != xm:
+            xout.append(y)
+    return xout, np.max(xout)
+
+def extract_n_mean(A,B,value):
+    """
+    This function extracts the elements from an array with numerical value near to the input "value", and gets the mean of those elements. If the ith
+    element is extracted from array A, will do the same with array B
+    """
+    interval = []
+    intervalr = []
+    for x,y in zip(A,B):
+        if ( (np.abs(x) <= value +5) & (np.abs(x) >= value-5) ):
+            interval.append(np.abs(x))
+            intervalr.append(y)
+    exAmean = np.mean(np.array(interval))
+    exBmean = np.mean(np.array(intervalr))
+    return exAmean,exBmean
 
 def extract_data(line):
     """
@@ -76,25 +101,28 @@ for proplyd in proplyds:
     # unit vector perpendicular to star->proplyd
     yunit = np.array([-xunit[1], xunit[0]])
 
-    print
-    print "Proplyd ", proplyd
-    print "D = ", D
-    print "xunit = ", xunit
-    print "yunit = ", yunit
+   # print
+   # print "Proplyd ", proplyd
+   # print "D = ", D
+   # print "xunit = ", xunit
+   # print "yunit = ", yunit
 
     x = []; y = []; R = []; theta = []
     for shockpos in Shapes[proplyd]:
         # vector radius proplyd->shock normalized by separation D
         vecR = (shockpos - Centers[proplyd])/D
-        R.append(np.hypot(*vecR))
+        R.append(np.hypot(*vecR)) 
         x.append(np.dot(vecR, xunit))
         y.append(np.dot(vecR, yunit))
-        theta.append(np.degrees(np.arctan2(y, x)))
-        # print "R, theta, x, y = {}, {}, {}, {}".format(R, np.degrees(theta), x, y)
-
+        theta.append( np.degrees( np.arctan2( np.dot(vecR,yunit),np.dot(vecR,xunit) ) ) )
+#        print "R, theta, x, y = {}, {}, {}, {}".format(R,theta, x, y)
+    th2nda,th2nd = extract_2nd(theta)
+    th3rda,th3rd = extract_2nd(th2nda)
+    theta_mean,rt = extract_n_mean(theta,R,th3rd)
+    print "{} {:.2f} {:.2f}".format(proplyd,rt,theta_mean)
     plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
 
-plt.plot(0.0, 0.0, "x", label=None)
+plt.plot(0.0, 0.0, "rx", label=None)
 plt.legend(loc="lower left")
 plt.xlabel("x")
 plt.ylabel("y")
