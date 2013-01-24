@@ -126,7 +126,7 @@ for proplyd in proplyds:
     plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
 
 plt.plot(0.0, 0.0, "rx", label=None)
-plt.legend(loc="lower left")
+plt.legend(loc="lower left", prop=dict(size="x-small"))
 plt.xlabel("x")
 plt.ylabel("y")
 plt.axis("equal")
