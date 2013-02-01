@@ -23,7 +23,7 @@ parser = argparse.ArgumentParser(
     bowshock models"""
     )#
 parser.add_argument("--observations", type=str, 
-                    choices=("jorge_mir", "will_mir"), default="will_mir", 
+                    choices=("jorge_mir", "will_mir","jorge_new"), default="will_mir", 
                     help="Which version of the observational measurements to use")
 parser.add_argument("--yaxis", type=str, 
                     choices=("R90/D", "R90/R0"), default="R90/D", 
@@ -50,7 +50,7 @@ def omega(r,t):
 
 def Rt_finder(x,y,t):
     """
-    This fuction finds a plausible value for R90, without calculating
+    This function finds a plausible value for R90, without calculating
     Theta_perp. In the rotated frame, r90 is y such that x = 0. So i
     find this value looking for the place where x has a sign change,
     if this function does not find any sign change, returns a NaN. If
@@ -137,6 +137,16 @@ obs_data = dict(
     5 0.19 0.32 20 -20
     20 0.12 0.31 -20 0 
     """,
+    jorge_new = """
+    2 0.24 0.26 20 0
+    3 0.33 0.44 20 20
+    4 0.19 0.22 -20 -20
+    5 0.21 0.26 20 -20
+    20 0.09 0.15 -20 0
+    141 0.06 0.11 20 20
+    177 0.13 0.14 -20 0
+    180 0.05 0.05 -20 -20
+    """
     )
 
 
