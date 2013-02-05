@@ -1,7 +1,22 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-regionfile = "LV-OIII-positions-3.reg" 
+import argparse
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a region file to work and the angle to measure radius""")
+
+parser.add_argument("--region",type = str, 
+                   choices = ("LV-OIII-positions-2.reg","LV-OIII-positions-3.reg","LV-Ha-positions-far.reg"),default = "LV-OIII-positions-3.reg",
+                   help = " Choose a region file to work ")
+
+parser.add_argument('--angle',type = float,default = 60, help = 'angle to measure radius')
+
+cmd_args = parser.parse_args()
+regionfile = cmd_args.region
+angle = cmd_args.angle 
+name,ext = regionfile.split('.')
+regfl_chsn = name.split('-')[1] + name.split('-')[-1]
 
 def extract_2nd(x):
     """
@@ -10,9 +25,10 @@ def extract_2nd(x):
     xm = np.max(np.abs(x))
     xout =[]
     for y in x:
-        if y != xm:
+        if np.abs(y) != xm:
             xout.append(y)
-    return xout, np.max(xout)
+#    return xout, np.max(xout)  #<----- This is a mistake. What'd happen if the max angle is negative?
+    return xout,np.max(np.abs(xout))
 
 def extract_n_mean(A,B,value):
     """
@@ -25,8 +41,8 @@ def extract_n_mean(A,B,value):
         if ( (np.abs(x) <= value +5) & (np.abs(x) >= value-5) ):
             interval.append(np.abs(x))
             intervalr.append(y)
-    exAmean = np.mean(np.array(interval))
-    exBmean = np.mean(np.array(intervalr))
+    exAmean = np.mean(interval)
+    exBmean = np.mean(intervalr)
     return exAmean,exBmean
 
 def extract_data(line):
@@ -56,7 +72,6 @@ with open(regionfile) as f:
         if skipthisline: 
             continue
         ra, dec, text = extract_data(line)
-        
         # name of source (LV knot or star)
         source = text.split()[0]
         if "OW" in text or text == "NO TEXT":
@@ -78,14 +93,13 @@ with open(regionfile) as f:
             Centers[source] = np.array([ra_arcsec, dec_arcsec])
 
 
-
 # print Centers
 # print
 # print Shapes
 
 proplyds = Shapes.keys()
 
-
+print proplyds
 
 for proplyd in proplyds: 
     # vector star->proplyd
@@ -116,13 +130,13 @@ for proplyd in proplyds:
         y.append(np.dot(vecR, yunit))
         theta.append( np.degrees( np.arctan2( np.dot(vecR,yunit),np.dot(vecR,xunit) ) ) )
 #        print "R, theta, x, y = {}, {}, {}, {}".format(R,theta, x, y)
-    th2nda,th2nd = extract_2nd(theta)
-    th3rda,th3rd = extract_2nd(th2nda)
-    theta_mean,rt = extract_n_mean(theta,R,th3rd)
+#    th2nda,th2nd = extract_2nd(theta)
+#    th3rda,th3rd = extract_2nd(th2nda)             #changing method
+    theta_mean,rt = extract_n_mean(theta,R,angle)
     plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
     for x,y in zip(R,theta):
         if x == np.array(R).min():
-            r0,th0 = x,y            
+            r0,th0 = x,y       
     print "{} {:.2f} {:.2f} {:.2f} {:.2f}".format(proplyd,r0,th0,rt,theta_mean)
     
 
@@ -132,5 +146,5 @@ plt.xlabel("x")
 plt.ylabel("y")
 plt.axis("equal")
 plt.grid()
-plt.savefig("LV-bowshocks-xy.pdf")
+plt.savefig("LV-bowshocks-xy-{}.pdf".format(regfl_chsn))
 
