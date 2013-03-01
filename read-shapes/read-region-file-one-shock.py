@@ -2,6 +2,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
+from scipy import optimize
 
 parser = argparse.ArgumentParser(
     description=""" Choose a region file to work and the angle to measure radius""")
@@ -18,6 +19,15 @@ regionfile = cmd_args.region
 name,ext = regionfile.split('.')
 regfl_chsn = name.split('-')[1] + name.split('-')[-1]
 
+def calc_R(xc, yc):
+    """ calculate the distance of each 2D points from the center (xc, yc) """
+    return np.sqrt((x-xc)**2 + (y-yc)**2)
+
+#@countcalls
+def f_2(c):
+    """ calculate the algebraic distance between the 2D points and the mean circle centered at c=(xc, yc) """
+    Ri = calc_R(*c)
+    return Ri - Ri.mean()
 
 
 def extract_n_mean(A,B,value):
@@ -119,26 +129,72 @@ for shockpos in Shapes[proplyd]:
     y.append(np.dot(vecR, yunit))
     theta.append( np.degrees( np.arctan2( np.dot(vecR,yunit),np.dot(vecR,xunit) ) ) )
 #    print "R, theta, x, y = {}, {}, {}, {}".format(R,theta, x, y)
+
+#**********************************************************************************************
+
+#Here is where the fit start
+method_2  = "leastsq"
+x_m = np.mean(x)
+y_m = np.mean(y)
+
+center_estimate = x_m, y_m
+center_2, ier = optimize.leastsq(f_2, center_estimate)
+
+
+xc_2, yc_2 = center_2
+Ri_2       = calc_R(xc_2, yc_2)
+R_2        = Ri_2.mean()
+residu_2   = sum((Ri_2 - R_2)**2)
+residu2_2  = sum((Ri_2**2-R_2**2)**2)
+theta_fit = np.linspace(-np.pi, np.pi, 180)
+x_fit2 = xc_2 + R_2*np.cos(theta_fit)
+y_fit2 = yc_2 + R_2*np.sin(theta_fit)
+
+#**********************************************************************************************
+#Calculate R_45 and R_0
 theta_mean,rt = extract_n_mean(theta,R,45)
 for r,t in zip(R,theta):
     if r == np.array(R).min():
         r0,th0 = r,t
+
+
+#**********************************************************************************************
+#Plotting data
+plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
+#**********************************************************************************************
+#Plotting R_45 (both sides)
 plt.plot(rt*np.cos(np.radians(theta_mean)),rt*np.sin(np.radians(theta_mean)),'*',label = None)
 plt.plot(rt*np.cos(np.radians(theta_mean)),-rt*np.sin(np.radians(theta_mean)),'*',label = None)
-plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
+#**********************************************************************************************
+#Calculating R_60, plotting R_60 and R_0
 theta_mean,rt = extract_n_mean(theta,R,60)
 plt.plot(rt*np.cos(np.radians(theta_mean)),rt*np.sin(np.radians(theta_mean)),'p',label = None)
 plt.plot(rt*np.cos(np.radians(theta_mean)),-rt*np.sin(np.radians(theta_mean)),'p',label = None)
 plt.plot(r0*np.cos(np.radians(th0)),r0*np.sin(np.radians(th0)),'s',label = None)
-
+#**********************************************************************************************
+#Plotting the circle fit
+plt.plot(x_fit2, y_fit2, 'k--', label=method_2, lw=2)
+plt.plot([xc_2], [yc_2], 'gD', mec='r', mew=1)
+#**********************************************************************************************
 print "{} {:.2f} {:.2f} {:.2f} {:.2f}".format(proplyd,r0,th0,rt,theta_mean)
     
 
-plt.plot(0.0, 0.0, "rx", label=None)
+plt.plot(0.0, 0.0, "rx", label=None) # Proplyd position (at the origin in this frame)
+
+xmin, xmax = plt.xlim()
+ymin, ymax = plt.ylim()
+
+vmin = min(xmin, ymin)
+vmax = max(xmax, ymax)
+
+plt.xlim(xmin=vmin, xmax=vmax)
+plt.ylim(ymin=vmin, ymax=vmax)
+
 plt.legend(loc="lower left", prop=dict(size="x-small"))
 plt.xlabel("x")
 plt.ylabel("y")
 plt.axis("equal")
 plt.grid()
+plt.title("{} fit circle".format(proplyd))
 plt.savefig("LV-bowshocks-xy-{}-{}.pdf".format(regfl_chsn,proplyd))
 
