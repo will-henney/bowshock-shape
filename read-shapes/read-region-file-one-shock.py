@@ -29,6 +29,10 @@ def f_2(c):
     Ri = calc_R(*c)
     return Ri - Ri.mean()
 
+def wf_2(c):
+    """ calculate the algebraic distance between the 2D weighted points and the mean circle centered at c=(xc, yc) """
+    Ri = calc_R(*c)
+    return u*(Ri - Ri.mean())
 
 def extract_n_mean(A,B,value):
     """
@@ -136,9 +140,11 @@ for shockpos in Shapes[proplyd]:
 method_2  = "leastsq"
 x_m = np.mean(x)
 y_m = np.mean(y)
+u = np.ones(len(x))
+
 
 center_estimate = x_m, y_m
-center_2, ier = optimize.leastsq(f_2, center_estimate)
+center_2, ier = optimize.leastsq(wf_2, center_estimate)
 
 
 xc_2, yc_2 = center_2
@@ -152,7 +158,7 @@ y_fit2 = yc_2 + R_2*np.sin(theta_fit)
 
 #**********************************************************************************************
 #Calculate R_45 and R_0
-theta_mean,rt = extract_n_mean(theta,R,45)
+#theta_mean,rt = extract_n_mean(theta,R,45)
 for r,t in zip(R,theta):
     if r == np.array(R).min():
         r0,th0 = r,t
@@ -163,20 +169,20 @@ for r,t in zip(R,theta):
 plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
 #**********************************************************************************************
 #Plotting R_45 (both sides)
-plt.plot(rt*np.cos(np.radians(theta_mean)),rt*np.sin(np.radians(theta_mean)),'*',label = None)
-plt.plot(rt*np.cos(np.radians(theta_mean)),-rt*np.sin(np.radians(theta_mean)),'*',label = None)
+#plt.plot(rt*np.cos(np.radians(theta_mean)),rt*np.sin(np.radians(theta_mean)),'*',label = None)
+#plt.plot(rt*np.cos(np.radians(theta_mean)),-rt*np.sin(np.radians(theta_mean)),'*',label = None)
 #**********************************************************************************************
 #Calculating R_60, plotting R_60 and R_0
-theta_mean,rt = extract_n_mean(theta,R,60)
-plt.plot(rt*np.cos(np.radians(theta_mean)),rt*np.sin(np.radians(theta_mean)),'p',label = None)
-plt.plot(rt*np.cos(np.radians(theta_mean)),-rt*np.sin(np.radians(theta_mean)),'p',label = None)
-plt.plot(r0*np.cos(np.radians(th0)),r0*np.sin(np.radians(th0)),'s',label = None)
+#theta_mean,rt = extract_n_mean(theta,R,60)
+#plt.plot(rt*np.cos(np.radians(theta_mean)),rt*np.sin(np.radians(theta_mean)),'p',label = None)
+#plt.plot(rt*np.cos(np.radians(theta_mean)),-rt*np.sin(np.radians(theta_mean)),'p',label = None)
+#plt.plot(r0*np.cos(np.radians(th0)),r0*np.sin(np.radians(th0)),'s',label = None)
 #**********************************************************************************************
 #Plotting the circle fit
 plt.plot(x_fit2, y_fit2, 'k--', label=method_2, lw=2)
 plt.plot([xc_2], [yc_2], 'gD', mec='r', mew=1)
 #**********************************************************************************************
-print "{} {:.2f} {:.2f} {:.2f} {:.2f}".format(proplyd,r0,th0,rt,theta_mean)
+print "{} {:.2f} {:.2f} {:.2f}".format(proplyd,r0,th0,R_2)
     
 
 plt.plot(0.0, 0.0, "rx", label=None) # Proplyd position (at the origin in this frame)
@@ -190,7 +196,7 @@ vmax = max(xmax, ymax)
 plt.xlim(xmin=vmin, xmax=vmax)
 plt.ylim(ymin=vmin, ymax=vmax)
 
-plt.legend(loc="lower left", prop=dict(size="x-small"))
+plt.legend(loc="best", prop=dict(size="x-small"))
 plt.xlabel("x")
 plt.ylabel("y")
 plt.axis("equal")
