@@ -8,7 +8,7 @@ import argparse
 from StringIO import StringIO
 
 import numpy as np
-from scipy.optimize import fsolve,bisect
+from scipy.optimize import fsolve,bisect,leastsq
 import matplotlib
 import matplotlib.pyplot as plt
 
@@ -23,7 +23,7 @@ parser = argparse.ArgumentParser(
     bowshock models"""
     )#
 parser.add_argument("--observations", type=str, 
-                    choices=("jorge_mir", "will_mir","jorge_60","jorge_45"), default="will_mir", 
+                    choices=("jorge_mir", "will_mir","jorge_60","jorge_45","jorge_curv"), default="will_mir", 
                     help="Which version of the observational measurements to use")
 parser.add_argument("--yaxis", type=str, 
                     choices=("R90/D", "R90/R0"), default="R90/D", 
@@ -75,7 +75,20 @@ def Rt_finder(x,y,t):
             return np.sqrt(xout**2+yout**2)
     return np.nan
 
+def calc_R(xc, yc):
+    """ calculate the distance of each 2D points from the center (xc, yc) """
+    return np.sqrt((xim_fit-xc)**2 + (yim_fit-yc)**2)
 
+#@countcalls
+def f_2(c):
+    """ calculate the algebraic distance between the 2D points and the mean circle centered at c=(xc, yc) """
+    Ri = calc_R(*c)
+    return Ri - Ri.mean()
+
+def wf_2(c):
+    """ calculate the algebraic distance between the 2D weighted points and the mean circle centered at c=(xc, yc) """
+    Ri = calc_R(*c)
+    return u*(Ri - Ri.mean())
 
 
 #First, design a set of beta values to calculate R(theta) (Well, first
@@ -141,7 +154,7 @@ obs_data = dict(
     3 0.33 0.43 20 20
     4 0.19 0.22 -20 -20
     5 0.21 0.28 20 -20
-    20 0.09 0.09 -20 0
+    20 0.09 0.09 -20 20
     141 0.06 0.10 20 20
     180 0.05 0.06 20 20
     """,
@@ -153,6 +166,16 @@ obs_data = dict(
     20 0.09 0.11 -20 20
     141 0.06 0.08 0 20
     176 0.13 0.14 -20 0
+    """,
+    jorge_curv = """
+    2 0.33 0.55 20 20
+    3 0.24 0.23 20 -20
+    4 0.19 0.37 0 -20
+    5 0.21 0.33 20 20
+    20 0.09 0.23 0 20
+    141 0.06 0.12 20 20
+    176 0.13 0.16 -20 0
+    180 0.05 0.11 -20 20
     """
     )
 
@@ -160,6 +183,7 @@ obs_data = dict(
 obs_labels, obs_R0, obs_R90, obs_dx, obs_dy = \
     np.loadtxt(StringIO(obs_data[cmd_args.observations]), unpack=True)
 
+obs_label = ['LV2','LV3','LV4','LV5','LV2b','141-301','176-341','180-331']
 lw = dict(isotropic = 2, proplyd = 3)
 opacity = dict(isotropic = 0.3, proplyd = 0.7)
 
@@ -184,6 +208,7 @@ for inn in innertype:
         # Initialize the data arrays to NaNs
         R0 = np.zeros_like(inclinations)*np.nan
         Rt = np.zeros_like(inclinations)*np.nan
+        Rc = np.zeros_like(inclinations)*np.nan
 
         shell = Shell(beta=b, innertype=inn)    
         R = shell.radius(theta)
@@ -200,19 +225,29 @@ for inn in innertype:
             mask = np.isfinite(xi) & np.isfinite(yi)
             xim, yim=xi[mask], yi[mask] #Removing nan elements from xi
                                         #and yi
+            xim_fit,yim_fit = xim[xim>=0],yim[xim>=0]
+            c0 = 0,0 # initail guess for the circle fit to calculate curvature radius
+            try:
+                c_fit,ier = leastsq(f_2,c0)
+                xfit,yfit = c_fit
+                Ri_2 = calc_R(xfit, yfit)
+            except TypeError:
+                print "Maximum Inclination:",np.degrees(inc)
+                break
+                #skip invalid inputs for fitting and skip to next beta value
             try:
                 # Looks like is a secure criterion ( At least in the
                 # beta range (0,0.1] ). For high i and high beta
                 # (~0.5), odd things happen
                 R0[i] = xim[0] 
-                Rt[i] = Rt_finder(xim,yim,cmd_args.tobs)
+                Rc[i] = Ri_2.mean() # The fit uses ALL the bowshock data
             except IndexError:
                 print "Maximum Inclination: ", np.degrees(inc)
                 break        # ignore inclinations with no valid
                              # solution and skip remaining incs
  
         label = r'\(\beta={}\)'.format(b) if inn == "proplyd" else None
-        Y = Rt/R0 if isNormalized else Rt
+        Y = Rc/R0 if isNormalized else Rc
             
         # First, plot a line with all the inclinations
         plt.plot(R0, Y, '-', linewidth=lw[inn], c=col, label=label, alpha=opacity[inn])
@@ -224,11 +259,11 @@ for inn in innertype:
 # Add the observations to the plot
 obs_Y = obs_R90/obs_R0 if isNormalized else obs_R90
 plt.plot(obs_R0, obs_Y, "ko")
-for label, x, y, dx, dy in zip(obs_labels, obs_R0, obs_Y, obs_dx, obs_dy):
+for label, x, y, dx, dy in zip(obs_label, obs_R0, obs_Y, obs_dx, obs_dy):
     ha = "right" if dx < 0 else "left"
     va = "top" if dy < 0 else "bottom"
     plt.annotate(
-        "LV{:0.0f}".format(label), 
+        "{}".format(label), 
         xy = (x, y), xytext = (dx, dy),
         textcoords = 'offset points', ha = ha, va = va,
         bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),
@@ -241,17 +276,17 @@ plt.xlabel(r"\(R'_0 / D'\)")
 epsilon = 1.e-6
 if isNormalized:
     plt.xlim(0.0 + epsilon, 0.5)
-    plt.ylim(0.0 + epsilon, 4.0)
-    plt.ylabel(r"\(R'_{90} / R'_0\)")
-    plt.legend(loc="lower left", ncol=2, prop=dict(size="x-small"))
+    plt.ylim(0.0 - epsilon, 8 + epsilon)
+    plt.ylabel(r"\(R'_{c} / R'_0\)")
+    plt.legend(loc="best", ncol=2, prop=dict(size="x-small"))
 else:
     plt.xlim(0.0 + epsilon, 0.35)
     plt.ylim(0.0 + epsilon, 1.0)
-    plt.ylabel(r"\(R'_{90} / D'\)")
-    plt.legend(loc="upper left")
+    plt.ylabel(r"\(R'_{c} / D'\)")
+    plt.legend(loc="best")
 
 suffix = "-norm" if isNormalized else ""
 
-plt.title("Perpendicular versus parallel bowshock radii")
-plt.savefig("combined-shell-R0-R{:0.0f}{}.pdf".format(cmd_args.tobs,suffix))
+plt.title("Curvature radii versus parallel bowshock radii")
+plt.savefig("combined-shell-R0-Rc{}.pdf".format(suffix))
 plt.clf()
