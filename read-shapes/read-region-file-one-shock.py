@@ -152,6 +152,13 @@ def circle_function(theta, xc, yc, rc):
     return fac1 + np.sqrt(rc**2 - fac2**2)
 
 
+radius_fixed = 1.0
+
+
+def circle_fixed_radius(theta, xc, yc):
+    return circle_function(theta, xc, yc, radius_fixed)
+
+
 print "Initial parameter:"
 print "Circle x, y, r = ", p0
 print theta
