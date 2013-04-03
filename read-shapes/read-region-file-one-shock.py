@@ -16,6 +16,9 @@ parser.add_argument("--region", type=str,
 
 parser.add_argument('--proplyd', type=str, default='LV3',
                     help='choose a proplyd to work')
+parser.add_argument('--on-axis', action="store_true",
+                    help='Force circle center to lie on star-proplyd axis')
+
 cmd_args = parser.parse_args()
 regionfile = cmd_args.region
 name, ext = regionfile.split('.')
@@ -138,10 +141,6 @@ pixel_size = 0.05
 sigma = np.ones(len(x))*pixel_size
 
 
-# Initial estimate for parameters
-p0 = x_m, y_m, calc_R(x_m, y_m).mean()
-
-
 def circle_function(theta, xc, yc, rc):
     """Calculate distance from the origin as a function of theta for a
     circle that is centered at xc, yc, with radius rc
@@ -152,24 +151,43 @@ def circle_function(theta, xc, yc, rc):
     return fac1 + np.sqrt(rc**2 - fac2**2)
 
 
-radius_fixed = 1.0
+def circle_on_axis(theta, xc, rc):
+    """Same as circle_function but with yc=0.
+    """
+    return circle_function(theta, xc, 0.0, rc)
 
 
-def circle_fixed_radius(theta, xc, yc):
-    return circle_function(theta, xc, yc, radius_fixed)
+def data_minus_model(thdata, rdata, rmodel_func, model_pars):
+    return rdata - rmodel_func(thdata, *model_pars)
 
+R_m = calc_R(x_m, y_m).mean()
+if cmd_args.on_axis:
+    # Two-parameter version
+    p0 = x_m, R_m
+    f = circle_on_axis
+else:
+    # Three-parameter version
+    p0 = x_m, y_m, R_m
+    f = circle_function
 
 print "Initial parameter:"
-print "Circle x, y, r = ", p0
-print theta
-print R
-print circle_function(theta, *p0)
-popt, pcov = optimize.curve_fit(circle_function, theta, R, p0, sigma)
+print "Circle x, y, r = ", x_m, y_m, R_m
+popt, pcov = optimize.curve_fit(f, theta, R, p0, sigma)
 
-xc_2, yc_2, R_2 = popt
+if cmd_args.on_axis:
+    xc_2, R_2 = popt
+    yc_2 = 0.0
+else:
+    xc_2, yc_2, R_2 = popt
+
 print "Fit results:"
-print "Circle x, y, r = ", popt
+print "Circle x, y, r = ", xc_2, yc_2, R_2
 print "Covariance matrix: ", pcov
+
+# Deviation betwen model and data
+error = data_minus_model(theta, R, f, popt)
+print "Deviations between model and data:"
+print "Max, rms: ", abs(error).max(), np.sqrt(np.mean(error**2))
 
 theta_fit = np.linspace(-np.pi, np.pi, 180)
 x_fit2 = xc_2 + R_2*np.cos(theta_fit)
