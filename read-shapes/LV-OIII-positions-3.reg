@@ -1,0 +1,191 @@
+# Region file format: DS9 version 4.1
+# Filename: C:/Users/Dark Lxndrs/Dropbox/ProplydMIR/HST/oiii-trap-fix.fits[SCI]
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(05:35:16.455,-05:23:22.95) # point=x color=red width=4 font="helvetica 10 normal roman" text={th1C} move=0
+circle(05:35:16.830,-05:23:26.23,0.150001") # text={LV1 - 168-326 - OW position}
+circle(05:35:16.842,-05:23:26.50,0.150001") # color=yellow text={LV1 - 168-326 - best position}
+circle(05:35:16.740,-05:23:16.51,0.150001") # text={LV2 - 167-317 - OW}
+circle(05:35:16.752,-05:23:16.41,0.150001") # color=yellow text={LV2 - 167-317 - best}
+circle(05:35:16.060,-05:23:24.42,0.150001") # text={LV4 - 161-324 - OW position}
+circle(05:35:16.043,-05:23:24.40,0.150001") # color=yellow text={LV4 - 161-324 - best position}
+circle(05:35:16.280,-05:23:16.69,0.150001") # text={LV3 - 163-317 - OW position}
+circle(05:35:15.813,-05:23:22.47,0.150001") # color=yellow text={LV5 - 158-323 - best position}
+circle(05:35:15.830,-05:23:22.59,0.150001") # text={LV5 - 158-323 - OW position}
+circle(05:35:16.275,-05:23:16.44,0.150001") # color=yellow text={LV3 - 163-317 - best position}
+point(05:35:16.076,-05:23:23.09) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.085,-05:23:23.19) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.093,-05:23:23.32) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.099,-05:23:23.45) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.104,-05:23:23.57) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.110,-05:23:23.72) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.114,-05:23:23.84) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.118,-05:23:23.96) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.120,-05:23:24.09) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.123,-05:23:24.25) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.125,-05:23:24.42) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.125,-05:23:24.61) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.125,-05:23:24.74) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.124,-05:23:24.89) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.125,-05:23:25.02) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.125,-05:23:25.16) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.127,-05:23:25.29) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV4 shock outer}
+point(05:35:16.704,-05:23:18.19) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.687,-05:23:18.11) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.671,-05:23:18.04) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.658,-05:23:17.98) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.642,-05:23:17.92) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.630,-05:23:17.84) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.612,-05:23:17.66) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.604,-05:23:17.40) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.595,-05:23:17.20) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.586,-05:23:17.01) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.617,-05:23:17.80) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV2 shock outer}
+point(05:35:16.535,-05:23:16.45) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.553,-05:23:16.53) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.565,-05:23:16.63) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.580,-05:23:16.66) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.596,-05:23:16.72) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.612,-05:23:16.72) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.629,-05:23:16.70) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.644,-05:23:16.57) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.654,-05:23:16.40) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.664,-05:23:16.22) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.673,-05:23:16.07) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.683,-05:23:15.93) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.694,-05:23:15.77) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.707,-05:23:15.53) # point=cross font="helvetica 10 normal roman" tag={LV2b shock outer}
+point(05:35:16.457,-05:23:16.49) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.453,-05:23:16.91) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.446,-05:23:17.20) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.436,-05:23:17.41) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.428,-05:23:17.68) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.418,-05:23:17.88) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.398,-05:23:18.06) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.381,-05:23:18.19) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.368,-05:23:18.33) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.357,-05:23:18.44) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.341,-05:23:18.60) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.326,-05:23:18.74) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.300,-05:23:18.85) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.281,-05:23:18.94) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.245,-05:23:19.01) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.269,-05:23:18.98) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.193,-05:23:19.10) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.170,-05:23:18.98) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.148,-05:23:18.92) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.133,-05:23:18.82) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:16.112,-05:23:18.67) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV3 shock outer}
+point(05:35:15.910,-05:23:24.13) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.922,-05:23:23.77) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.931,-05:23:23.41) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.939,-05:23:23.07) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.949,-05:23:22.71) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.952,-05:23:22.41) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.956,-05:23:22.06) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.954,-05:23:21.63) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.945,-05:23:21.31) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.938,-05:23:21.13) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.925,-05:23:20.77) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.917,-05:23:20.47) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.906,-05:23:20.14) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:15.896,-05:23:19.95) # point=cross color=cyan font="helvetica 10 normal roman" tag={LV5 shock outer}
+point(05:35:16.735,-05:23:18.12) # point=cross color=cyan font="helvetica 10 normal roman"
+point(05:35:16.720,-05:23:18.10) # point=cross color=cyan font="helvetica 10 normal roman"
+# projection(05:35:16.456,-05:23:22.94,05:35:16.752,-05:23:16.40,0") font="helvetica 10 normal roman"
+circle(05:35:17.674,-05:23:41.47,0.158752") # color=yellow text={176-341}
+circle(05:35:14.119,-05:23:00.45,0.20938") # color=yellow text={141-301}
+point(05:35:14.261,-05:22:58.80) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.268,-05:22:59.05) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.275,-05:22:59.32) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.278,-05:22:59.55) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.281,-05:22:59.77) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.283,-05:23:00.00) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.283,-05:23:00.27) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.282,-05:23:00.51) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.282,-05:23:00.77) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.282,-05:23:01.02) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.279,-05:23:01.22) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.279,-05:23:01.40) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.278,-05:23:01.59) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.278,-05:23:01.77) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.274,-05:23:01.90) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.271,-05:23:02.10) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.267,-05:23:02.27) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.265,-05:23:02.45) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.262,-05:23:02.57) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.257,-05:23:02.70) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.254,-05:23:02.84) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.249,-05:23:02.99) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.244,-05:23:03.10) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.239,-05:23:03.22) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.235,-05:23:03.34) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.231,-05:23:03.47) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.226,-05:23:03.59) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.219,-05:23:03.70) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.213,-05:23:03.83) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.205,-05:23:03.98) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.199,-05:23:04.09) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.191,-05:23:04.20) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.180,-05:23:04.34) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.172,-05:23:04.45) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.163,-05:23:04.58) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.154,-05:23:04.69) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.144,-05:23:04.80) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.136,-05:23:04.89) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.128,-05:23:04.97) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.119,-05:23:05.05) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.109,-05:23:05.14) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.101,-05:23:05.22) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.092,-05:23:05.29) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.084,-05:23:05.35) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.076,-05:23:05.42) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:14.067,-05:23:05.47) # point=cross color=cyan font="helvetica 10 normal roman"  tag={141-301 shock outer}
+point(05:35:17.519,-05:23:38.90) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.432,-05:23:41.83) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.434,-05:23:41.66) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.437,-05:23:41.50) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.439,-05:23:41.32) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.442,-05:23:41.08) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.444,-05:23:40.92) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.447,-05:23:40.76) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.451,-05:23:40.57) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.457,-05:23:40.41) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.462,-05:23:40.25) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.467,-05:23:40.13) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.472,-05:23:39.97) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.477,-05:23:39.85) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.483,-05:23:39.67) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.489,-05:23:39.52) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.495,-05:23:39.38) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.500,-05:23:39.27) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.507,-05:23:39.15) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.514,-05:23:39.02) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.527,-05:23:38.81) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.535,-05:23:38.67) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.544,-05:23:38.57) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.551,-05:23:38.48) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.560,-05:23:38.40) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.570,-05:23:38.32) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.577,-05:23:38.25) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.586,-05:23:38.18) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.595,-05:23:38.12) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.604,-05:23:38.07) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.612,-05:23:38.01) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.621,-05:23:37.97) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.632,-05:23:37.92) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.642,-05:23:37.91) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.652,-05:23:37.88) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.663,-05:23:37.86) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+point(05:35:17.673,-05:23:37.87) # point=cross color=cyan font="helvetica 10 normal roman" tag={176-341 shock outer}
+circle(05:35:16.612,-05:23:16.08,0.10706") # color=yellow text={LV2b}
+circle(05:35:18.053,-05:23:31.18,0.320556") # color=yellow text={180-331}
+point(05:35:17.992,-05:23:32.55) # point=cross color=cyan tag={180-331 shock outer }
+point(05:35:17.986,-05:23:32.20) # point=cross color=cyan tag={180-331 shock outer }
+point(05:35:17.976,-05:23:31.95) # point=cross color=cyan tag={180-331 shock outer }
+point(05:35:17.972,-05:23:31.60) # point=cross color=cyan tag={180-331 shock outer }
+point(05:35:17.972,-05:23:31.22) # point=cross color=cyan tag={180-331 shock outer }
+point(05:35:17.977,-05:23:30.77) # point=cross color=cyan tag={180-331 shock outer }
+point(05:35:17.982,-05:23:30.37) # point=cross color=cyan tag={180-331 shock outer }
+circle(05:35:15.384,-05:22:39.12,0.510707") # color=magenta text={154-240}
+circle(05:35:16.984,-05:22:48.09,0.674188") # color=magenta text={170-248}
