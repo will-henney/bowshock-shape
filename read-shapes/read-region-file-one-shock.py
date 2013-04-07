@@ -10,8 +10,10 @@ parser = argparse.ArgumentParser(
 parser.add_argument("--region", type=str,
                     choices=("LV-OIII-positions-2.reg",
                              "LV-OIII-positions-3.reg",
-                             "LV-Ha-positions-far.reg"),
-                    default="LV-OIII-positions-3.reg",
+                             "LV-Ha-positions-far.reg",
+			     "LV-OIII-positions-3a.reg",
+	                     "LV-502e-positions.reg"),
+                    default="LV-OIII-positions-3a.reg",
                     help=" Choose a region file to work ")
 
 parser.add_argument('--proplyd', type=str, default='LV3',
@@ -220,5 +222,8 @@ plt.ylabel("r'/R'")
 plt.axis("equal")
 plt.grid()
 plt.title("{} fit circle".format(proplyd))
-plt.savefig("LV-bowshocks-xy-{}-{}.pdf".format(regfl_chsn, proplyd))
+if cmd_args.on_axis:
+    plt.savefig("LV-bowshocks-xy-onaxis-{}-{}.pdf".format(regfl_chsn,proplyd))
+else:
+    plt.savefig("LV-bowshocks-xy-{}-{}.pdf".format(regfl_chsn, proplyd))
 
