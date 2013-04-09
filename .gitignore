@@ -1,5 +1,9 @@
 *.py[co]
 
+*.aux
+*.dvi
+*.out
+
 # Packages
 *.egg
 *.egg-info
