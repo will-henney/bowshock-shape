@@ -5,12 +5,10 @@ plane of sky
 """
 
 import argparse
-from StringIO import StringIO
+import json
 
 import numpy as np
 from scipy.optimize import bisect, leastsq
-import matplotlib
-import matplotlib.pyplot as plt
 
 from equation6 import Shell
 
@@ -29,6 +27,7 @@ parser.add_argument(
     help='upper angle of fit data')
 
 cmd_args = parser.parse_args()
+
 
 def theta_lim(beta):
     "Asymptotic opening angle from CRW eq (28)"
@@ -94,29 +93,25 @@ def f_2(c):
 #than that, desgign a theta array)
 
 
-beta = [0.08, 0.04, 0.02, 0.01, 0.005, 0.002, 0.001]
+# beta = [0.08, 0.04, 0.02, 0.01, 0.005, 0.002, 0.001]
+beta = [0.005, 0.002, 0.001]
 Nth = 800
 Ninc = 100
 
 innertype = ['isotropic', 'proplyd']
 # innertype = ['isotropic']
 
-params = {
-    "font.family": "serif",
-    "text.usetex": True,
-    "text.latex.preamble": [r"\usepackage[varg]{txfonts}"],
-    "figure.figsize": (5, 5),
-}
-matplotlib.rcParams.update(params)
-
-lw = dict(isotropic=2, proplyd=3)
-opacity = dict(isotropic=0.3, proplyd=0.7)
-
-colors = "bgrmkcy"
 tfit = cmd_args.tfit
+
+# Save all the curves in a dictionary for dumping
+try:
+    shelldata = json.load(open("rc-r0.json"))
+except IOError:
+    shelldata = {}
+
 for inn in innertype:
     print "******{} case******".format(inn)
-    for b, col in zip(beta, colors[:len(beta)]):
+    for b in beta:
         print "beta = ", b
         thlim = theta_lim(b)  # I have to calculate theta_lim for
                              # proplyd case
@@ -127,12 +122,6 @@ for inn in innertype:
         else:
             inclinations = np.linspace(0., 0.98*(thlim - 0.5*np.pi), Ninc)
             print "Maximum Inclination: ", np.degrees(inclinations[-1])
-
-        # Mask to select inclinations close to multiples of 15 degrees
-        every15 = np.zeros(Ninc, dtype=bool)
-        for thisinc in 0.0, 15.0, 30.0, 45.0, 60.0, 75.0:
-            iclosest = np.argmin(np.abs(np.degrees(inclinations) - thisinc))
-            every15[iclosest] = True
 
         # Initialize the data arrays to NaNs
         R0 = np.zeros_like(inclinations)*np.nan
@@ -182,43 +171,13 @@ for inn in innertype:
                 break
                 #skip invalid inputs for fitting and skip to next beta value
 
-        label = r'\(\beta={}\)'.format(b) if inn == "proplyd" else None
-        Y = Rc/R0
-        # First, plot a line with all the inclinations
-        plt.plot(R0, Y, '-', linewidth=lw[inn], c=col,
-                 label=label, alpha=opacity[inn])
-        # Second, add symbols every 15 degrees
-        print np.degrees(inclinations[every15])
-        plt.plot(R0[every15], Y[every15], '.', c=col, alpha=opacity[inn])
+        shelldata[inn][b] = {
+            "inc": inclinations[np.isfinite(R0)].astype(float).tolist(),
+            "R0'": R0[np.isfinite(R0)].astype(float).tolist(),
+            "Rc": Rc[np.isfinite(R0)].astype(float).tolist()
+        }
 
 
-# Add the observations to the plot
-pdata = np.genfromtxt("best-proplyds.dat", names=True, dtype=None)
-plt.errorbar(pdata["R0D"], pdata["RcR0"],
-             xerr=pdata["ER0D"], yerr=pdata["ERcR0"],
-             fmt="ko", label="Proplyds")
-for label, x, y, dx, dy in zip(
-        pdata["Proplyd"], pdata["R0D"], pdata["RcR0"],
-        pdata["dx"], pdata["dy"]):
-    ha = "right" if dx < 0 else "left"
-    va = "top" if dy < 0 else "bottom"
-    plt.annotate(
-        "{}".format(label),
-        xy=(x, y), xytext=(dx, dy), fontsize="xx-small",
-        textcoords = 'offset points', ha = ha, va = va,
-        bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
-        arrowprops = dict(arrowstyle='->', connectionstyle='arc3,rad=0')
-    )
-
-
-plt.xlabel(r"\(R'_0 / D'\)")
-# avoid numbering the origin
-epsilon = 1.e-6
-plt.xlim(0.0 + epsilon, 0.5)
-plt.ylim(0.0 - epsilon, 4 + epsilon)
-plt.ylabel(r"\(R'_{c} / R'_0\)")
-plt.legend(loc="best", ncol=2, prop=dict(size="x-small"))
-
-plt.title("Curvature radii versus parallel bowshock radii")
-plt.savefig("proplyd-shell-R0-Rc-errors.pdf")
-plt.clf()
+# Save all the theoretical curves
+with open("rc-r0.json", "w") as f:
+    json.dump(shelldata, f)
