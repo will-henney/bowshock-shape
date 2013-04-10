@@ -219,8 +219,10 @@ for inn in innertype:
             print "Maximum Inclination: ", np.degrees(inclinations[-1])
 
         # Mask to select inclinations close to multiples of 15 degrees
-        every15 = (np.abs((np.degrees(inclinations) + 7.5) % 15.0 - 7.5) <=
-                   0.5*np.degrees(inclinations[1]))
+        every15 = np.zeros(Ninc, dtype=bool)
+        for thisinc in 0.0, 15.0, 30.0, 45.0, 60.0, 75.0:
+            iclosest = np.argmin(np.abs(np.degrees(inclinations) - thisinc))
+            every15[iclosest] = True
 
         # Initialize the data arrays to NaNs
         R0 = np.zeros_like(inclinations)*np.nan
