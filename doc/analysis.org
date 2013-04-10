@@ -1,0 +1,11 @@
+High-level description of analysis of proplyd bowshocks
+
+* Bowshock shapes
+
++ Purely empirical analysis of the shapes gives three fundamental parameters:
+  + Projected distance: \(D'\)
+  + Projected stand-off radius: \(R_0'\)
+  + Projected radius of curvature: \(R_{\mathrm{c}}'\)
++ For a given model of the two winds (e.g., inner proplyd + outer isotropic), then we theoretically calculate \((R_0' / D', R_{\mathrm{c}}' / R_0') \) as a function of \(\beta, i\) where \(\beta\) is the wind-wind momentum flux ratio and \(i\) is the inclination. 
+
+* Proplyd models
