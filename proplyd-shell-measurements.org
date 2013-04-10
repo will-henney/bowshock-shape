@@ -21,6 +21,45 @@ New measurements of the proplyd shell parameters by fitting circles.
 
 
 
+** Edited tables for python program
+   :PROPERTIES:
+   :TABLE_EXPORT_FORMAT: orgtbl-to-tsv
+   :END:
+
+
+Run =M-x org-table-export= with point inside each table to update the files. 
+
+*** Best proplyds
+    :PROPERTIES:
+    :TABLE_EXPORT_FILE: best-proplyds.dat
+    :END:
+
+#+name: best-proplyds
+| Proplyd | delta |  R0/D | E(R0/D) | Rc/R0 | E(Rc/R0) | dx | dy |
+|---------+-------+-------+---------+-------+----------+----+----|
+| LV2     |  -14. | 0.238 |   0.003 | 1.471 |    0.211 | 20 | 20 |
+| LV3     |   -9. | 0.344 |   0.004 | 1.642 |    0.048 | 20 | 20 |
+| LV4     |   -6. | 0.187 |   0.003 | 1.925 |    0.062 | 20 | 20 |
+| LV5     |   14. | 0.208 |   0.002 | 1.779 |    0.193 | 20 | 20 |
+| 177-341 |    7. | 0.130 |    5e-4 | 1.423 |    0.116 | 20 | 20 |
+| 167-328 |  -28. | 0.099 |   0.002 | 1.465 |    0.059 | 20 | 20 |
+
+
+*** Second best proplyds
+    :PROPERTIES:
+    :TABLE_EXPORT_FILE: second-proplyds.dat
+    :END:
+
+#+name: second-best-proplyds
+| Proplyd | delta |  R0/D | E(R0/D) | Rc/R0 | E(Rc/R0 | dx | dy |
+|---------+-------+-------+---------+-------+---------+----+----|
+| LV1     |   99. | 0.200 |   0.040 | 1.900 |   0.537 | 20 | 20 |
+| LV2b    |  -35. | 0.086 |   0.014 | 2.151 |   0.630 | 20 | 20 |
+| 141-301 |  -39. | 0.068 |   0.012 | 1.544 |   0.351 | 20 | 20 |
+| 180-331 |  -19. | 0.057 |    5e-4 | 1.667 |   0.264 | 20 | 20 |
+
+
+
 ** Circle center restricted to axis (Yc = 0)
 | Proplyd |   Xc/D | Rc/D |  R0/D | err_max | err_rms |
 |---------+--------+------+-------+---------+---------|
