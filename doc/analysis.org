@@ -117,3 +117,10 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
 
 
 
+* Measure widths to calculate Mach number
++ Need to work out how this varies with inclination
+
+* Measure shell densities to estimate stagnation pressure
++ Use Ha surface brightness and model caclulation of path length
+
+
