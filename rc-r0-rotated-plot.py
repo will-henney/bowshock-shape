@@ -41,15 +41,16 @@ for inn, modeldata in shelldata.items():
         plt.plot(R0[every15], Y[every15], '.', c=col, alpha=opacity[inn])
 
 
+
 # Add the observations to the plot
-for pset, palpha in [
-        ["best", 1.0],
-        # ["second", 0.5]
+for pset, color,colorbox in [
+        ["best", 'ko','yellow'],
+        ["best45", 'ro','blue']
 ]:
     pdata = np.genfromtxt(pset + "-proplyds.dat", names=True, dtype=None)
     plt.errorbar(pdata["R0D"], pdata["RcR0"],
                  xerr=pdata["ER0D"], yerr=pdata["ERcR0"],
-                 fmt="ko", label="", alpha=palpha)
+                 fmt=color, label="", alpha=1.0)
     for label, x, y, dx, dy in zip(
             pdata["Proplyd"], pdata["R0D"], pdata["RcR0"],
             pdata["dx"], pdata["dy"]):
@@ -57,9 +58,9 @@ for pset, palpha in [
         va = "top" if dy < 0 else "bottom"
         plt.annotate(
             "{}".format(label),
-            xy=(x, y), xytext=(dx, dy), fontsize="xx-small", alpha=palpha,
+            xy=(x, y), xytext=(dx, dy), fontsize="xx-small", alpha=1.0,
             textcoords = 'offset points', ha = ha, va = va,
-            bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5*palpha),
+            bbox=dict(boxstyle='round,pad=0.5', fc=colorbox, alpha=0.5),
             arrowprops = dict(arrowstyle='->', connectionstyle='arc3,rad=0')
         )
 
