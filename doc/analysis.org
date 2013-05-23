@@ -23,6 +23,25 @@ High-level description of analysis of proplyd bowshocks
 
 
 
+** TODO Variation in stellar wind
++ th1C is thought to be an oblique magnetic rotator
+  + Stahl 1996 http://adsabs.harvard.edu/abs/1996A%26A...312..539S
+  + period 15 days
+  + angle \beta between magnetic axis and rotation axis \approx 45 deg
+  + inclination i of rotation axis to line-of-sight \approx 45 deg
++ Papers on models of the wind
+  + ud-Doula 2013 http://adsabs.harvard.edu/abs/2013MNRAS.428.2723U
++ Variation with latitude of \dot{M} and V_{\infty}
+  + Do the papers give any information on this?
+  + If not, we need to write to ud-Douls
++ Calculate relevant timescale for interaction of wind with proplyd:
+  + t ~ R_{c} / V_{\infty}
+  + Any shorter-scale variations in the wind will not affect the bowshocks
+  + => average over orbital period will reduce the effects of variation with latitude of the wind parameters
+  + We need to quantify this
+
+
+
 
 
 
@@ -117,8 +136,19 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
 
 
 
-* Measure widths to calculate Mach number
+* TODO Measure widths to calculate Mach number
+
+** Empirical measurements
++ Jorge can do this
++ On the symmetry axis
++ Measure h'/R_{0}'
+** Theoretical estimation
++ h/R_{0} = k / M^{2} (para M >> 1)
+  + Find constant k
+  + Find how it is modified for small M
+  + See Henney (2002) sec 4.3
 + Need to work out how this varies with inclination
+  + h/R_{0} => h'/R_{0}'
 
 * Measure shell densities to estimate stagnation pressure
 + Use Ha surface brightness and model caclulation of path length
