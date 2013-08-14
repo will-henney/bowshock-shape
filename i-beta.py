@@ -40,6 +40,26 @@ Rcd   = 0.139
 ylow  = Rcm-Rcd  
 yhigh = Rcm+Rcd
 
-inc  = np.linspace(0,90,200)
-incr = np.radians(inc)
 
+shelldata = json.load(open("rc-r0.json"))
+
+for model in shelldata.items():
+    uni_beta,radii = model
+    beta = float(uni_beta)
+    r0 = np.array(radii["R0'"])
+    rc = np.array(radii['Rc'])
+    inc = np.array(radii['inc'])
+    
+# choose the matching radii with observations
+    m1 = (r0 < xhigh) & (r0 > xlow)
+    m2 = (rc/r0 < yhigh) & (rc/r0 > ylow)
+# if the m1 and m2 conditions are satisfied, then plot the data, the y axis is beta and the
+# x axis is the inclination. This only applies for LV3 so far
+    plt.plot(np.degrees(inc[m1 & m2]),np.ones(len(inc[m1&m2]))*beta,'r.')
+
+plt.xlim(0,90)
+plt.ylim(0.001 - 1e-4,0.08 + 1e-4)
+plt.xlabel("i(deg)")
+plt.ylabel("beta")
+plt.title("i vs beta plausible for LV3")
+plt.savefig("i-beta.pdf")
