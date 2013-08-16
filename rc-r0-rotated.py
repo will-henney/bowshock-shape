@@ -94,7 +94,8 @@ def f_2(c):
 
 
 # beta = [0.08, 0.04, 0.02, 0.01, 0.005, 0.002, 0.001]
-beta = [0.005, 0.002, 0.001]
+#beta = [0.005, 0.002, 0.001]
+beta = np.linspace(0.08,0.001,50)
 Nth = 800
 Ninc = 100
 
@@ -137,7 +138,7 @@ for inn in innertype:
             # other way to set mask
             SenodePhiT[np.abs(SenodePhiT) >= 1.] = np.nan
 
-            # Correct for fact that observed radii are normalised by
+            # Correct for projection and for fact that observed radii are normalised by
             # D' = D cos(inc)
             xi = (R/np.cos(inc))*(np.cos(theta)*np.cos(inc)
                                   - np.sin(theta)*SenodePhiT*np.sin(inc))
@@ -171,11 +172,13 @@ for inn in innertype:
                 break
                 #skip invalid inputs for fitting and skip to next beta value
 
-        shelldata[inn][b] = {
-            "inc": inclinations[np.isfinite(R0)].astype(float).tolist(),
-            "R0'": R0[np.isfinite(R0)].astype(float).tolist(),
-            "Rc": Rc[np.isfinite(R0)].astype(float).tolist()
-        }
+#organize all the data in order to save everything in a file, I only need the proplyd data so:
+        if inn == "proplyd":
+            shelldata[b] = {
+                "inc": inclinations[np.isfinite(R0)].astype(float).tolist(),
+                "R0'": R0[np.isfinite(R0)].astype(float).tolist(),
+                "Rc": Rc[np.isfinite(R0)].astype(float).tolist()
+                }
 
 
 # Save all the theoretical curves
