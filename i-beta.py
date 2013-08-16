@@ -65,8 +65,14 @@ for j,p in enumerate(proplyd):
 # x axis is the inclination. This only applies for LV3 so far
 #    print R0m,f(R0m),beta,ylow,yhigh,m1
         if m1 == True:
-            plt.plot(np.degrees(g(R0m[j])),beta,color[j],label=p)
+            plt.plot(np.degrees(g(R0m[j])),beta,color[j]) #How to set the legend just once?
 
+#Add the data from GAH (2002)
+
+obs_beta = [0.126,0.061,0.040,0.073,0.135] 
+obs_inc = [60,45,45,45,60]
+del_inc = [7,15,15,15,7]
+plt.errorbar(obs_inc,obs_beta,xerr=del_inc,fmt='ko')
 plt.yscale('log')            
 plt.grid()
 plt.xlim(0,90)
