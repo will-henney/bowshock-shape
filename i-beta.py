@@ -31,41 +31,47 @@ R0/D = 0.336 +- 1e-3
 Rc/R0 = 2.0342262 +- 0.139
 And so on for the rest of the proplyds
 """
+shelldata = json.load(open("rc-r0.json"))
+
 #input of observational measurements of R0/D
-R0m   = 0.336
+proplyd = ["LV2","LV3","LV4","LV5","177-341","167-328"]
+color = ['r.','g.','b.','y.','c.','m.']
+R0m   = np.array([0.2385,0.336,0.188,0.2125,0.132,0.096])
 
 #input of observational inputs for Rc and errorbars
-Rcm   = 2.0342262
-Rcd   = 0.139
+Rcm   = np.array([1.468,2.034,1.987,1.501,1.405,1.297])
+Rcd   = np.array([0.194,0.139,0.072,0.146,0.118,0.269])
 ylow  = Rcm-Rcd  
 yhigh = Rcm+Rcd
 
 
-shelldata = json.load(open("rc-r0.json"))
 
-for model in shelldata.items():
-    uni_beta,radii = model
-    beta = float(uni_beta)
-    r0 = np.array(radii["R0'"])
-    rc = np.array(radii['Rc'])
-    inc = np.array(radii['inc'])
-    f = interp1d(r0,rc/r0)
-    g = interp1d(r0,inc)
+for j,p in enumerate(proplyd):
+    for model in shelldata.items():
+        uni_beta,radii = model
+        beta = float(uni_beta)
+        r0 = np.array(radii["R0'"])
+        rc = np.array(radii['Rc'])
+        inc = np.array(radii['inc'])
+        f = interp1d(r0,rc/r0)
+        g = interp1d(r0,inc)
 # choose the matching radii with observations, supposing that we can neglect the errorbars in R0/D
 # and checking if the interpolated Rc/R0 value matches with the y errorbar
-    
-    m1 = (f(R0m) < yhigh) & (f(R0m) > ylow)
-
+        try:
+            m1 = (f(R0m[j]) < yhigh[j]) & (f(R0m[j]) > ylow[j])
+        except ValueError:
+            continue
 # if the m1 condition is satisfied, then plot the data, the y axis is beta and the
 # x axis is the inclination. This only applies for LV3 so far
 #    print R0m,f(R0m),beta,ylow,yhigh,m1
-    if m1 == True:
-        plt.plot(np.degrees(g(R0m)),beta,'r.')
+        if m1 == True:
+            plt.plot(np.degrees(g(R0m[j])),beta,color[j],label=p)
 
+plt.yscale('log')            
 plt.grid()
 plt.xlim(0,90)
 plt.ylim(0.001 - 1e-4,0.08 + 1e-4)
 plt.xlabel("i(deg)")
 plt.ylabel("beta")
-plt.title("i vs beta plausible for LV3")
+plt.title("i vs beta plausible for proplyds")
 plt.savefig("i-beta.pdf")
