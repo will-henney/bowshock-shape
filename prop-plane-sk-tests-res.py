@@ -112,11 +112,14 @@ for b in beta:
         RC2 = f(t_m)
 	res = (RM - RC2)/RM  
 	plt.plot(np.degrees(t_m),res,color[inn],label = 'residuo-{}'.format(inn))
+    plt.fill_betweenx([-1.0, 1.0], [-tdata]*2, [tdata]*2, alpha=0.3, color='k')
     plt.xlabel('theta')
     plt.ylabel('e')
-    plt.legend(loc ='best')
+    plt.legend(loc ='upper center')
     plt.grid()
+    plt.ylim(-0.025, 0.155)
+    plt.xlim(-100., 100.)
     plt.title('Residual R vs theta-b-{}-w-{}'.format(b,tdata))
-    plt.savefig('Residual-b-{}-w-{}.png'.format(b,tdata))
+    plt.savefig('Residual-b-{}-w-{}.pdf'.format(b,tdata))
     plt.clf()
 

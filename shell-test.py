@@ -40,21 +40,22 @@ for beta, color in zip([0.002, 0.005, 0.02], "rgb"):
     R = shell.radius(theta)
     R[R <= 0.0] = np.nan
     x, y = R*np.cos(theta), R*np.sin(theta)
-    plt.plot(x, y, color + "--", label="isotropic: beta = {}".format(beta))
+    plt.plot(x, y, color + "--", lw=2, label="isotropic: beta = {}".format(beta))
 
     shell = Shell(beta=beta, innertype="proplyd")
     R = shell.radius(theta)
     R[R <= 0.0] = np.nan
     x, y = R*np.cos(theta), R*np.sin(theta)
-    plt.plot(x, y, color, label="proplyd: beta = {}".format(beta))
+    plt.plot(x, y, color, lw=2, label="proplyd: beta = {}".format(beta))
 
-plt.axis([-0.2, 0.2, -0.05, 0.35])
-plt.legend()
+plt.plot([-0.2, 0.25], [0.0, 0.0], "k")
+plt.axis([-0.2, 0.25, -0.02, 0.35])
+plt.legend(fontsize="small")
 plt.xlabel("z")
 plt.ylabel("r")
 plt.title("Comparison between proplyd and isotropic inner winds".format(innertype))
 plt.axes().set_aspect("equal")
-plt.savefig("shell-test-compare.png")
+plt.savefig("shell-test-compare.pdf")
 plt.clf()
 
 
@@ -97,5 +98,5 @@ plt.ylabel("R_90 / D")
 for s in range(0,5):
     plt.figtext(2.5*R0LVs[s],10./7.*R90LVs[s],LVs[s],fontsize=10,ha='center')
 plt.title("Perpendicular versus parallel bowshock radii")
-plt.savefig("shell-test-R0-R90.png")
+plt.savefig("shell-test-R0-R90.pdf")
 

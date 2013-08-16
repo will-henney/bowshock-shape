@@ -1,6 +1,13 @@
+#+property: board-name    Proplyd bowshocks
+#+property: board-id      52091a8e59aa475c0d005603
+#+property: DONE nil
+#+property: TODO 52091a902f8f2d7c7e009182
 High-level description of analysis of proplyd bowshocks
 
 * Bowshock shapes
+:PROPERTIES:
+:orgtrello-id: 52091ab8c54dfb63510021f0
+:END:
 
 + Purely empirical analysis of the shapes gives three fundamental parameters:
   + Projected distance: \(D'\)
@@ -8,7 +15,10 @@ High-level description of analysis of proplyd bowshocks
   + Projected radius of curvature: \(R_{\mathrm{c}}'\)
 + For a given model of the two winds (e.g., inner proplyd + outer isotropic), then we theoretically calculate \((R_0' / D', R_{\mathrm{c}}' / R_0') \) as a function of \(\beta, i\) where \(\beta\) is the wind-wind momentum flux ratio and \(i\) is the inclination. 
 
-* Wind-wind proplyd models 
+* Wind-wind proplyd models
+:PROPERTIES:
+:orgtrello-id: 52091abaa4cb978f7300333b
+:END: 
 + We can estimate \((\beta, i)\) independently from known data about the proplyd and the wind.
 + \[
   \beta = \frac{\dot{M}_{\mathrm{eff}} V_{\mathrm{p}}} {\dot{M}_{\mathrm{w}} V_{\mathrm{w}}}
@@ -24,6 +34,9 @@ High-level description of analysis of proplyd bowshocks
 
 
 ** TODO Variation in stellar wind
+:PROPERTIES:
+:orgtrello-id: 52091abb39ecbefd21004f7d
+:END:
 + th1C is thought to be an oblique magnetic rotator
   + Stahl 1996 http://adsabs.harvard.edu/abs/1996A%26A...312..539S
   + period 15 days
@@ -46,6 +59,9 @@ High-level description of analysis of proplyd bowshocks
 
 
 ** New table of relevant proplyds
+:PROPERTIES:
+:orgtrello-id: 52091abc9e9ef89a200058c5
+:END:
 
 + From GAH 2002
   + \(V_{\mathrm{w}} = 1200~\mathrm{km\ s^{-1}}\)
@@ -92,6 +108,9 @@ High-level description of analysis of proplyd bowshocks
 #+TBLFM: $14=4 $pi (1e14 $r14)**2 1e6 $N6 1.3 $mp (13.0 $km) (3.0 13.0 $km) / (3.5e-7 $Msun / $yr) (1200 $km) ; f3
 
 ** Original table from Henney & Arthur (1998)
+:PROPERTIES:
+:orgtrello-id: 52091abc13ecaa6c2e002faf
+:END:
 
 Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
 
@@ -137,12 +156,21 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
 
 
 * TODO Measure widths to calculate Mach number
+:PROPERTIES:
+:orgtrello-id: 52091abd0b1556e1050021a6
+:END:
 
 ** Empirical measurements
+:PROPERTIES:
+:orgtrello-id: 52091abd0a34fc67310038e5
+:END:
 + Jorge can do this
 + On the symmetry axis
 + Measure h'/R_{0}'
 ** Theoretical estimation
+:PROPERTIES:
+:orgtrello-id: 52091abe939d72bc49001c1f
+:END:
 + h/R_{0} = k / M^{2} (para M >> 1)
   + Find constant k
   + Find how it is modified for small M
@@ -151,6 +179,9 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
   + h/R_{0} => h'/R_{0}'
 
 * Measure shell densities to estimate stagnation pressure
+:PROPERTIES:
+:orgtrello-id: 52091abe161405ed7b001390
+:END:
 + Use Ha surface brightness and model caclulation of path length
 
 
