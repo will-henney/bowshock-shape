@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import bisect, leastsq
 from equation6 import Shell
 import json
+from scipy.interpolate import interp1d
 """
 * First step:  Set interval for R0 and Rc
 * Second step: Create the bowshock NA
@@ -28,13 +29,12 @@ set interval:
 For LV3, for example:
 R0/D = 0.336 +- 1e-3
 Rc/R0 = 2.0342262 +- 0.139
+And so on for the rest of the proplyds
 """
-
+#input of observational measurements of R0/D
 R0m   = 0.336
-R0d   = 1e-3
-xlow  = R0m-R0d
-xhigh = R0m+R0d
 
+#input of observational inputs for Rc and errorbars
 Rcm   = 2.0342262
 Rcd   = 0.139
 ylow  = Rcm-Rcd  
@@ -49,14 +49,20 @@ for model in shelldata.items():
     r0 = np.array(radii["R0'"])
     rc = np.array(radii['Rc'])
     inc = np.array(radii['inc'])
+    f = interp1d(r0,rc/r0)
+    g = interp1d(r0,inc)
+# choose the matching radii with observations, supposing that we can neglect the errorbars in R0/D
+# and checking if the interpolated Rc/R0 value matches with the y errorbar
     
-# choose the matching radii with observations
-    m1 = (r0 < xhigh) & (r0 > xlow)
-    m2 = (rc/r0 < yhigh) & (rc/r0 > ylow)
-# if the m1 and m2 conditions are satisfied, then plot the data, the y axis is beta and the
-# x axis is the inclination. This only applies for LV3 so far
-    plt.plot(np.degrees(inc[m1 & m2]),np.ones(len(inc[m1&m2]))*beta,'r.')
+    m1 = (f(R0m) < yhigh) & (f(R0m) > ylow)
 
+# if the m1 condition is satisfied, then plot the data, the y axis is beta and the
+# x axis is the inclination. This only applies for LV3 so far
+#    print R0m,f(R0m),beta,ylow,yhigh,m1
+    if m1 == True:
+        plt.plot(np.degrees(g(R0m)),beta,'r.')
+
+plt.grid()
 plt.xlim(0,90)
 plt.ylim(0.001 - 1e-4,0.08 + 1e-4)
 plt.xlabel("i(deg)")
