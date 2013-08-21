@@ -36,8 +36,11 @@ shelldata = json.load(open("rc-r0.json"))
 #input of observational measurements of R0/D
 proplyd = ["LV2","LV3","LV4","LV5","177-341","167-328"]
 color = ['r','g','b','y','c','m']
-obs_beta = [0.126,0.061,0.040,0.073,0.135, None] 
+obs_beta = [0.126,0.061,0.040,0.073,0.135, None]
+del_beta = [0.010,0.015,0.007,0.014,0.021,None]
 obs_inc = [60,45,45,45,60, None]
+mirror_inc = [30,45,45,45,30,None] #in the GAH 2002 data the reported inclination is the complementary angle of
+                          #the inclinations in my model
 del_inc = [7,15,15,15,7, None]
 
 R0m   = np.array([0.2385,0.336,0.188,0.2125,0.132,0.096])
@@ -56,8 +59,9 @@ for j,p in enumerate(proplyd):
     label = p
     # Plot the beta-inc derived from HA98 parameters
     if obs_beta[j] is not None:
-        plt.errorbar(obs_inc[j], obs_beta[j], xerr=del_inc[j], fmt=color[j]+'o', label="")
-
+        plt.errorbar(obs_inc[j], obs_beta[j], xerr=del_inc[j],yerr = del_beta[j], fmt=color[j]+'o', label="")
+        plt.errorbar(mirror_inc[j], obs_beta[j], xerr=del_inc[j],yerr = del_beta[j], fmt=color[j]+'D', label="")
+        #Also plot for the complementary inclinations
     for beta, beta_data in shelldata.items():
         beta = float(beta)
         r0 = np.array(beta_data["R0'"])
@@ -80,7 +84,7 @@ for j,p in enumerate(proplyd):
         beta_good = np.ones((ngood,))*beta
         if ngood > 0:
             plt.plot(np.degrees(inc_good), beta_good, color[j]+'.', label="", alpha=0.1)
-#Add the data from GAH (2002)
+
 
 plt.yscale('log')            
 plt.grid()
@@ -88,6 +92,6 @@ plt.xlim(0,90)
 plt.ylim(0.001 - 1e-4, 0.16 + 1e-4)
 plt.xlabel("i(deg)")
 plt.ylabel("beta")
-plt.legend()
+plt.legend(loc="best")
 plt.title("i vs beta plausible for proplyds")
 plt.savefig("i-beta-will.pdf")
