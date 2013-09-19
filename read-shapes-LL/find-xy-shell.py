@@ -50,9 +50,10 @@ def extract_data(line):
 
     return ra, dec, point_type, text
 
-
-th1C_x = 3600*83.818289 
-th1C_y = 3600*-5.3895909
+th1C_RA_dg = 83.818289
+th1C_Dec_dg = -5.3895909
+th1C_x = 3600*th1C_RA_dg * np.cos(np.radians(th1C_Dec_dg))
+th1C_y = 3600*(th1C_Dec_dg)
 
 # lists to contain x, y coords of inner and outer arcs
 inner_x, inner_y = [], []
@@ -67,7 +68,7 @@ with open(regionfile) as f:
         if skipthisline:
             continue
         ra, dec, point_type, text = extract_data(line)
-
+    
         sdeg, samin, sasec = dec.split(':')
         deg, amin, asec = float(sdeg), float(samin), float(sasec)
         dec_arcsec = 3600.*deg + np.sign(deg)*(60*amin + asec)
@@ -144,19 +145,19 @@ for arc_type, x, y in [
     # The theta that minimizes R is the (only) root of the derivative of p
     th0, = p.deriv().r
     R0 = p(th0)
-    # Extract 2nd derivative
-    d2R_dth2, = p.deriv().deriv()
     # And check that th0 is really a minimum of R(th)
-    assert d2R_dth2 > 0.0, "Polynomial\n {:s}\n\ndoes not have a minimum!".format(p)
-    if cmd_args.debug:
-        print "R0 = {:.2f} arcsec, PA0 = {:.2f} deg".format(R0, 90.0 - np.degrees(th0))
+    assert p[0] > 0.0, "Polynomial\n {:s}\n\ndoes not have a minimum!".format(p)
 
     # Transform to new frame where x-axis is along the th0 direction
     xx = R*np.cos(th - th0)
     yy = R*np.sin(th - th0)
+    PA0 = 90.0 - np.degrees(th0)
+
+    if cmd_args.debug:
+        print "R0 = {:.2f} arcsec, PA0 = {:.2f} deg".format(R0, PA0)
     # Save results into data structure
     arc_data[arc_type] = {
-        "PA0": 90.0 - np.degrees(th0),
+        "PA0": PA0,
         "R0": R0,
         "x": list(x),
         "y": list(y),
