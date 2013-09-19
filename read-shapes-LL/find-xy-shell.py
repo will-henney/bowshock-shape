@@ -106,19 +106,42 @@ arc_data = {
         "Dec": dec,
         "RA_dg": ra_arcsec/3600.0, 
         "Dec_dg": dec_arcsec/3600.0,
-        "PA": np.degrees(pa_star),
+        "PA": np.degrees(pa_star) % 360.0,
         "D": D_star
      } 
 }
+
+
+def find_th_order(th): 
+    """Returns a sort order for a collection of angles theta
+    
+    Takes care to account for the wrap-around of angles by shifting
+    the mean angle to be pi, so that all points are in the range [0,
+    pi]
+
+    """
+    xmean = np.mean(np.cos(th))
+    ymean = np.mean(np.sin(th))
+    thmean = np.arctan2(ymean, xmean)
+    th1 = (th - thmean + np.pi) % (2*np.pi)
+    if cmd_args.debug: 
+        print "Finding theta order: " 
+        print "    th = ", np.degrees(th)
+        print "    thmean = ", np.degrees(thmean)
+        print "    th1 = ", np.degrees(th1)
+        print "    order = ", th1.argsort()
+    return th1.argsort()
+
 
 for arc_type, x, y in [
         ["inner", inner_x, inner_y],
         ["outer", outer_x, outer_y],
 ]:
     R = np.hypot(x, y)
-    th = np.arctan2(y, x)
+    th = np.arctan2(y, x) % (2*np.pi)
     # Need to make sure all arrays sorted in ascending theta order
-    order = th.argsort()
+    
+    order = find_th_order(th)
     x = x[order]
     y = y[order]
     th = th[order]
@@ -151,7 +174,7 @@ for arc_type, x, y in [
     # Transform to new frame where x-axis is along the th0 direction
     xx = R*np.cos(th - th0)
     yy = R*np.sin(th - th0)
-    PA0 = 90.0 - np.degrees(th0)
+    PA0 = (90.0 - np.degrees(th0)) % 360.0
 
     if cmd_args.debug:
         print "R0 = {:.2f} arcsec, PA0 = {:.2f} deg".format(R0, PA0)
