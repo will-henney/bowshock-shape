@@ -9,10 +9,6 @@ parser.add_argument("--region", type=str,
                     default="LL1-forma.reg",
                     help="Region file containing shell and star positions")
 
-parser.add_argument("--fit-method", type=str,
-                    default="closest", choices=["closest", "all"],
-                    help="Which points to use when fitting quadratic to arcs")
-
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info about each line in region file")
 
@@ -80,7 +76,7 @@ with open(regionfile) as f:
         if point_type == "circle":
             # Position of star
             star_x, star_y = ra_arcsec, dec_arcsec
-            pa_star = np.arctan2(th1C_x - star_x, th1C_y - star_y)
+            pa_star = np.arctan2(th1C_x - star_x, th1C_y - star_y) % (2*np.pi)
             D_star = np.hypot(star_x - th1C_x, star_y - th1C_y)
 
         elif point_type == "cross":
@@ -116,29 +112,36 @@ def find_th_order(th):
     """Returns a sort order for a collection of angles theta
     
     Takes care to account for the wrap-around of angles by shifting
-    the mean angle to be pi, so that all points are in the range [0,
-    pi]
+    the star-th1C vector to be at pi, so that all points are (with
+    luck) in the range [0, 2 pi]
 
     """
-    xmean = np.mean(np.cos(th))
-    ymean = np.mean(np.sin(th))
-    thmean = np.arctan2(ymean, xmean)
-    th1 = (th - thmean + np.pi) % (2*np.pi)
+    th1 = (canonicalize(th - pa_star) + np.pi) % (2*np.pi)
     if cmd_args.debug: 
         print "Finding theta order: " 
         print "    th = ", np.degrees(th)
-        print "    thmean = ", np.degrees(thmean)
+        print "    pa_star = ", np.degrees(pa_star)
         print "    th1 = ", np.degrees(th1)
         print "    order = ", th1.argsort()
     return th1.argsort()
 
 
+def canonicalize(th, unit="radians"):
+    """Fold an angle theta into the canonical range [-pi:pi]"""
+    if unit == "radians":
+        return ((th + np.pi) % (2*np.pi)) - np.pi
+    elif unit == "degrees":
+        return ((th + 180.0) % (360.0)) - 180.0
+    else:
+        raise NotImplementedError
+
+        
 for arc_type, x, y in [
         ["inner", inner_x, inner_y],
         ["outer", outer_x, outer_y],
 ]:
     R = np.hypot(x, y)
-    th = np.arctan2(y, x) % (2*np.pi)
+    th = np.arctan2(x, y) % (2*np.pi) # this now a PA for simplicity
     # Need to make sure all arrays sorted in ascending theta order
     
     order = find_th_order(th)
@@ -153,28 +156,25 @@ for arc_type, x, y in [
         print "R: ", R
         print "th: ", np.degrees(th)
 
-    if cmd_args.fit_method == "closest":
-        # Find closest point to star
-        i0 = np.argmin(R)
-        assert i0 > 1 and i0 + 1 < len(R), "Not enough points either side of closest point: i0 = {}".format(i0)
-        # Fit quadratic through radii @ i0-1, i0, i0+1
+    i0 = np.argmin(R)
+    if i0 > 0 and i0 + 1 < len(R):
         nbhood = slice(i0-1, i0+2)
-    elif cmd_args.fit_method == "all":
-        nbhood = slice(None)    # Use all the points in the quadratic fit
     else:
-        raise NotImplementedError, 'Unrecognised Fit Method, ', cmd_args.fit_method
+        nbhood = slice(None)    # Use all the points in the quadratic fit
+        print "Warning: Closest point of {} arc is at one end, using all points in parabola fit".format(arc_type)
 
-    p = np.poly1d(np.polyfit(th[nbhood], R[nbhood], 2))
+    p = np.poly1d(np.polyfit(canonicalize(th[nbhood] - th[i0]), R[nbhood], 2))
     # The theta that minimizes R is the (only) root of the derivative of p
     th0, = p.deriv().r
     R0 = p(th0)
     # And check that th0 is really a minimum of R(th)
     assert p[0] > 0.0, "Polynomial\n {:s}\n\ndoes not have a minimum!".format(p)
+    th0 += th[i0]
 
     # Transform to new frame where x-axis is along the th0 direction
     xx = R*np.cos(th - th0)
     yy = R*np.sin(th - th0)
-    PA0 = (90.0 - np.degrees(th0)) % 360.0
+    PA0 = np.degrees(th0) % 360.0
 
     if cmd_args.debug:
         print "R0 = {:.2f} arcsec, PA0 = {:.2f} deg".format(R0, PA0)
@@ -187,7 +187,7 @@ for arc_type, x, y in [
         "X": list(xx),
         "Y": list(yy),
         "R": list(R),
-        "theta": list(th - th0),
+        "theta": list(np.degrees(canonicalize(th - th0))),
         }
 
 arc_data["help"] = {
@@ -216,6 +216,7 @@ arc_data["help"] = {
 arc_data["info"] = {
     "description": "JSON data file for stationary bowshock arcs",
     "author": "Written by find-xy-shell.py",
+    "command args": vars(cmd_args),
 }
 
 
