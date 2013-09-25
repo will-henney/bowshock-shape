@@ -177,6 +177,35 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
   + See Henney (2002) sec 4.3
 + Need to work out how this varies with inclination
   + h/R_{0} => h'/R_{0}'
+** Relationship between projected FWHM, \Delta, and real width, h, for spherical homogeneous shells
+:LOGBOOK:
+CLOCK: [2013-09-18 Wed 23:39]--[2013-09-18 Wed 23:50] =>  0:11
+:END:
++ Assuming the following:
+  + spherical shell of outer radius R
+  + and thickness H
+  + constant emission coefficient, \eta 
++ Find surface brightness as function of projected radius, r
+  + S(r) = \eta s(r)
+  + s(r) is path length through shell
++ For r > R - H:
+  + s_1(r) = 2 sqrt(R^2 - r^2)
++ For r < R - H:
+  + s_2(r) = 2 {sqrt(R^2 - r^2) - sqrt[ (R - H)^2 - r^2 ]}
++ Maximum occurs at r = R - H: 
+  + s_0 =  2 sqrt(R^2 - (R - H)^2 )= 2 sqrt((R^2 - (R^2 -2 R H + H^2)) = 2 sqrt[ H (2 R - H) ]
++ We can eliminate r in favour of X = R - r => r = R - X
++ {0 < X < H} : s_1(r) = 2 sqrt(R^2 - R^2 + 2R X - X^2) = 2 sqrt(X (2R - X))
++ {X > H} : s_2(r) = 2 sqrt(X (2R - X)) - 2 sqrt( R^2 - 2R H + H^2 - R^2 + 2R X - X^2)
+  =  2 sqrt(X (2R - X)) - 2 sqrt( X (2R - X) - H (2R - H) )
++ Write h = H/R , x = X/H 
++ => s_1/s_0 = sqrt[ (X (2R - X) / H (2 R - H) ] = sqrt[ (X/H) (2 - X/R) / (2 - H/R)
++ => s_1/s_0 = sqrt[ x (2 - x h) / (2 - h) ]
++ and s_2/s_0 = sqrt[ x (2 - x h) / (2 - h) ] - sqrt{ [x (2 - x h) / (2 - h)] - 1 }
++ => s_2/s_0 =  sqrt[ x (2 - x h) / (2 - h) ] - sqrt( (x - 1) / (2 - h) ) = [sqrt(x(2 - xh)) - sqrt(x - 1)] / sqrt(2 - h)
+  + Working: x (2 - x h) - (2 - h) = 2x - xh - 2 + h = -2 (1 - x) + h (1 - x) = (h - 2) ( 1 - x)  = (2 - h) (x - 1)
+  + Remember x > 1 for s_2
+
 
 * Measure shell densities to estimate stagnation pressure
 :PROPERTIES:

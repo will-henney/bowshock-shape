@@ -31,7 +31,29 @@ R0/D = 0.336 +- 1e-3
 Rc/R0 = 2.0342262 +- 0.139
 And so on for the rest of the proplyds
 """
+
+
+class Proplyd(object):
+    def __init__(self, name, beta=(0.01, 0.001), inc=(30.0, 15.0), color="r"):
+        self.name = name
+        self.beta, self.dbeta = beta
+        self.inc, self.dinc = inc
+        self.color = color
+
+
+
 shelldata = json.load(open("rc-r0.json"))
+
+
+proplyds = [
+    # inclination from Henney et al 2002
+    Proplyd("LV2", beta=(0.126, 0.01), inc=(40.0, 10.0), color="r"),
+    Proplyd("LV3", beta=(0.061, 0.015), inc=(45.0, 15.0), color="g"),
+    Proplyd("LV4", beta=(0.126, 0.01), inc=(40.0, 10.0), color="b"),
+    Proplyd("LV5", beta=(0.126, 0.01), inc=(40.0, 10.0), color="y"),
+    Proplyd("177-341", beta=(0.126, 0.01), inc=(40.0, 10.0), color="c"),
+    Proplyd("167-328", beta=(0.126, 0.01), inc=(40.0, 10.0), color="m"),
+]
 
 #input of observational measurements of R0/D
 proplyd = ["LV2","LV3","LV4","LV5","177-341","167-328"]
@@ -42,6 +64,11 @@ obs_inc = [60,45,45,45,60, None]
 mirror_inc = [30,45,45,45,30,None] #in the GAH 2002 data the reported inclination is the complementary angle of
                           #the inclinations in my model
 del_inc = [7,15,15,15,7, None]
+
+# Will's original changes - now superseded
+# obs_beta = [0.126,0.061,0.040,0.073,0.135, None] 
+# obs_inc = [40,45,45,45,10, None]
+# del_inc = [10,15,15,15,5, None]
 
 R0m   = np.array([0.2385,0.336,0.188,0.2125,0.132,0.096])
 
