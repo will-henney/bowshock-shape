@@ -5,13 +5,18 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 shelldata = json.load(open("rc-r0.json"))
+shelltype = ["isotropic","proplyd"]
+shellcolor= ["r.","g."]
 
-for modeldata in shelldata.items():
-    beta,param = modeldata
-    r0 = np.array(param["R0'"])
-    rc = np.array(param["Rc"])
-    inc = np.array(param["inc"])
-    plt.plot(np.array(float(beta)), r0[inc==0.0]/rc[inc==0.0], "r.")
+for inn,col in zip(shelltype,shellcolor):
+    label = inn
+    for modeldata in shelldata[inn].items():
+        beta,param = modeldata
+        r0 = np.array(param["R0'"])
+        rc = np.array(param["Rc"])
+        inc = np.array(param["inc"])
+        plt.plot(np.array(float(beta)), r0[inc==0.0]/rc[inc==0.0], col,label=label)
+        label =None
 
 def y(x, b, d): 
     c = np.exp(-1.0/b)
@@ -21,7 +26,8 @@ y0 = 0.66
 b = 50.0
 d = 0.49
 x = np.linspace(0.0, 0.1, 500)
-plt.plot(x, y(x, b, d))
+plt.plot(x, y(x, b, d),label = "proplyd fit")
+plt.legend(loc="best")
 plt.grid()
 plt.xlabel("beta")
 plt.ylabel("1/A")
