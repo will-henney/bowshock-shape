@@ -40,10 +40,10 @@ def omega(r, t):
 #1:
 Nth = 800
 th_lim = theta_lim(0.01)
-theta = np.linspace(0,th_lim,Nth)
+#theta = np.linspace(0,th_lim,Nth)
 shell = Shell(beta=0.01,innertype="proplyd")
-R_ext = shell.radius(theta)
-w = omega(R_ext,theta) 
+#R_ext = shell.radius(theta)
+#w = omega(R_ext,theta) 
 #for r,t,m in zip(R_ext,theta,w):
 #    print r,np.degrees(t),m
 
@@ -54,15 +54,23 @@ w = omega(R_ext,theta)
 
 #3: switch to circular approximation for calculating R_in
 # First: design an angle theta_c
-A = 1.7
+
+#Add the analytic fit found for A = Rc/R0
+y0 = 0.66
+b = 50.0
+c = np.exp(-1./b)
+d = 0.49
+A =  (1-c)/(y0*(np.exp(-0.01**d/b)-c))
 a = (A-1)/A
 theta_c = np.linspace(0,0.5*np.pi,Nth)
-theta_ = np.arctan2(np.sin(theta_c),np.cos(theta_c)-a)
+theta = np.arctan2(np.sin(theta_c),np.cos(theta_c)-a)
 
+R_ext = shell.radius(theta)
 R_circ = R_ext[theta==0]*np.sqrt( 1+( 2*a*( 1-np.cos(theta_c) ) ) / (1-a)**2 )
+
 #alpha = np.arctan2(1+w*np.tan(theta),np.tan(theta)-w)
 h0 = 0.2
-sqcosine = (np.cos(theta_c-theta_))**2
+sqcosine = (np.cos(theta_c-theta))**2
 #h = h0*(np.sin(alpha+theta))**(-2)
 h = h0/sqcosine**2
 R_in = R_ext*(1-h) 
@@ -71,13 +79,13 @@ R_in = R_ext*(1-h)
 
 x_e,y_e = R_ext*np.cos(theta),R_ext*np.sin(theta)
 x_i, y_i = R_in*np.cos(theta),R_in*np.sin(theta)
-x_c,y_c = R_circ*np.cos(theta_),R_circ*np.sin(theta_)
+x_c,y_c = R_circ*np.cos(theta),R_circ*np.sin(theta)
 plt.plot(x_e,y_e,"r-",label="Outer shock (CRW formalism)")
 plt.plot(x_i,y_i,"g-",label="Inner Shock")
 plt.plot(x_c,y_c,"b-",label="Circular approximation")
 plt.legend(loc="best")
 plt.axis("equal")
-plt.xlim(-0.5,0.2)
+#plt.xlim(-0.5,0.2)
 plt.ylim(0,0.25)
 plt.grid()
 #plt.plot(np.degrees(theta_c),h)
