@@ -99,7 +99,7 @@ beta = np.linspace(0.08,0.001,50)
 Nth = 800
 Ninc = 100
 
-innertype = ['isotropic', 'proplyd']
+innertype = ["isotropic", "proplyd"]
 # innertype = ['isotropic']
 
 tfit = cmd_args.tfit
@@ -108,9 +108,10 @@ tfit = cmd_args.tfit
 try:
     shelldata = json.load(open("rc-r0.json"))
 except IOError:
-    shelldata = {}
+    shelldata = {"isotropic":"","proplyd":""}
 
 for inn in innertype:
+    shelldat={}
     print "******{} case******".format(inn)
     for b in beta:
         print "beta = ", b
@@ -173,13 +174,13 @@ for inn in innertype:
                 #skip invalid inputs for fitting and skip to next beta value
 
 #organize all the data in order to save everything in a file, I only need the proplyd data so:
-        if inn == "proplyd":
-            shelldata[b] = {
+#        if inn == "proplyd":
+        shelldat[b]= {
                 "inc": inclinations[np.isfinite(R0)].astype(float).tolist(),
                 "R0'": R0[np.isfinite(R0)].astype(float).tolist(),
                 "Rc": Rc[np.isfinite(R0)].astype(float).tolist()
                 }
-
+    shelldata[inn]=shelldat
 
 # Save all the theoretical curves
 with open("rc-r0.json", "w") as f:
