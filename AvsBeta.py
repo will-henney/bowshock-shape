@@ -21,12 +21,22 @@ for inn,col in zip(shelltype,shellcolor):
 def y(x, b, d): 
     c = np.exp(-1.0/b)
     return y0*(np.exp(-((x**d)/b)) - c)/(1.0 - c)
-
+print "Proplyd parameters"
 y0 = 0.66
 b = 50.0
 d = 0.49
 x = np.linspace(0.0, 0.1, 500)
 plt.plot(x, y(x, b, d),label = "proplyd fit")
+print "b = ", b
+print "d = ", d
+print "exp(-1/b) = ", np.exp(-1.0/b)
+print "y0^-1 = ", 1./y0
+
+print "Isotropic parameters"
+y0 = 0.585
+b = 5
+d = 0.5
+plt.plot(x,y(x, b, d),"g-",label="isotropic fit")
 plt.legend(loc="best")
 plt.grid()
 plt.xlabel("beta")
