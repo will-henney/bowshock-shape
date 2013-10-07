@@ -102,3 +102,37 @@ plt.plot(np.degrees(theta),h,label="h")
 plt.legend(loc="best")
 plt.grid()
 plt.savefig("h-vs-t-{}{}.pdf".format(beta,innertype))
+plt.clf()
+#transform to observer reference frame (rotate to an angle inc)
+
+#inc = np.array([15,30])
+inc = np.radians(15)
+#phi angle for tangent line
+w_ext = omega(R_ext,theta)
+w_in  = omega(R_in,theta)
+tangent_e = np.tan(inc)*((1+w_ext*np.tan(theta))/(w_ext-np.tan(theta)))
+tangent_i = np.tan(inc)*((1+w_in*np.tan(theta))/(w_in-np.tan(theta)))
+x_ep,y_ep = x_e - R_ext*np.sin(theta)*np.tan(inc)*tangent_e, y_e*np.sqrt(1-tangent_e**2)/np.cos(inc)
+x_ip,y_ip = x_i - R_in*np.sin(theta)*np.tan(inc)*tangent_i, y_i*np.sqrt(1-tangent_i**2)/np.cos(inc)
+
+#calculate projected width
+
+R_ep = np.hypot(x_ep,y_ep)
+R_ip = np.hypot(x_ip,y_ip)
+h_p = 1 - R_ip/R_ep
+
+#plot inner and outer shell projected
+
+plt.plot(x_ep,y_ep,"c-",label= "outer projected shell")
+plt.plot(x_ip,y_ip,"m-",label= "inner projected shell")
+plt.legend(loc="best")
+plt.grid()
+plt.axis("equal")
+plt.title("i={}".format(inc))
+plt.savefig("projected{}{}.pdf".format(beta,innertype))
+plt.clf()
+
+plt.plot(np.degrees(theta),h_p,"k-",label="projected width")
+plt.legend(loc="best")
+plt.grid()
+plt.savefig("projected-h-vs-t{}{}.pdf".format(beta,innertype))
