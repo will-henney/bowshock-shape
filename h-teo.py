@@ -2,6 +2,7 @@ from equation6 import Shell
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import bisect
+import argparse
 """
 Main goal: Trace the theoretical inner and outer shell in bowshock
 Hypothesis:
@@ -37,15 +38,21 @@ def omega(r, t):
     womega[:-1] = np.diff(np.log(r))/np.diff(t)
     return womega
 
+#beta and shell type will be introduced via Terminal
+
+parser = argparse.ArgumentParser(description= """Inputs: wind type and inner wind parameter "beta" """)
+parser.add_argument("--beta",type=float,default = 0.01,help= "winds momentum-rate ratio")
+parser.add_argument("--innertype",type=str,choices=("isotropic","proplyd"),default="proplyd",help="inner wind model")
+cmd_args=parser.parse_args()
+beta = cmd_args.beta
+innertype = cmd_args.innertype
+
 #1:
 Nth = 800
-th_lim = theta_lim(0.01)
+th_lim = theta_lim(beta)
 #theta = np.linspace(0,th_lim,Nth)
-shell = Shell(beta=0.01,innertype="proplyd")
-#R_ext = shell.radius(theta)
-#w = omega(R_ext,theta) 
-#for r,t,m in zip(R_ext,theta,w):
-#    print r,np.degrees(t),m
+shell = Shell(beta=beta,innertype=innertype)
+
 
 #2: using geometrical arguments, we can say that 
 # \beta_a = alpha + theta - 90 so
@@ -56,11 +63,11 @@ shell = Shell(beta=0.01,innertype="proplyd")
 # First: design an angle theta_c
 
 #Add the analytic fit found for A = Rc/R0
-y0 = 0.66
-b = 50.0
-c = np.exp(-1./b)
-d = 0.49
-A =  (1-c)/(y0*(np.exp(-0.01**d/b)-c))
+y0 = {"proplyd":0.66,"isotropic": 0.585}
+b = {"proplyd":50.0,"isotropic":5.0}
+c = np.exp(-1./b[innertype])
+d = {"proplyd": 0.49, "isotropic": 0.5}
+A =  (1-c)/(y0[innertype]*(np.exp(-beta**d[innertype]/b[innertype])-c))
 a = (A-1)/A
 theta_c = np.linspace(0,0.5*np.pi,Nth)
 theta = np.arctan2(np.sin(theta_c),np.cos(theta_c)-a)
@@ -85,9 +92,13 @@ plt.plot(x_i,y_i,"g-",label="Inner Shock")
 plt.plot(x_c,y_c,"b-",label="Circular approximation")
 plt.legend(loc="best")
 plt.axis("equal")
-#plt.xlim(-0.5,0.2)
-plt.ylim(0,0.25)
+#plt.xlim(-0.3,0.3)
+#plt.ylim(0,0.25)
 plt.grid()
 #plt.plot(np.degrees(theta_c),h)
-plt.savefig("test.pdf")
+plt.savefig("B{}{}.pdf".format(beta,innertype))
 plt.clf()
+plt.plot(np.degrees(theta),h,label="h")
+plt.legend(loc="best")
+plt.grid()
+plt.savefig("h-vs-t-{}{}.pdf".format(beta,innertype))
