@@ -140,6 +140,8 @@ for arc_type, x, y in [
         ["inner", inner_x, inner_y],
         ["outer", outer_x, outer_y],
 ]:
+    if len(x) == 0:
+        continue
     R = np.hypot(x, y)
     th = np.arctan2(x, y) % (2*np.pi) # this now a PA for simplicity
     # Need to make sure all arrays sorted in ascending theta order
