@@ -76,6 +76,7 @@ with open(regionfile) as f:
         if point_type == "circle":
             # Position of star
             star_x, star_y = ra_arcsec, dec_arcsec
+            ra_star, dec_star = ra, dec
             pa_star = np.arctan2(th1C_x - star_x, th1C_y - star_y) % (2*np.pi)
             D_star = np.hypot(star_x - th1C_x, star_y - th1C_y)
 
@@ -98,10 +99,10 @@ outer_y = np.array(outer_y) - star_y
 arc_data = {
     "star": {
         "id": regionfile.replace("-forma.reg", ""),
-        "RA": ra, 
-        "Dec": dec,
-        "RA_dg": ra_arcsec/3600.0, 
-        "Dec_dg": dec_arcsec/3600.0,
+        "RA": ra_star, 
+        "Dec": dec_star,
+        "RA_dg": star_x/3600.0, 
+        "Dec_dg": star_y/3600.0,
         "PA": np.degrees(pa_star) % 360.0,
         "D": D_star
      } 
