@@ -11,8 +11,8 @@ from matplotlib import pyplot as plt
 # Define my beta values and inclination angles
 
 beta = np.array([0.001,0.005,0.01,0.05,0.08])
-betacolor = ["r","g","b","c","m"]
-inc = np.radians([0.0,15.0,30.0,45.0,60.0,75.0])
+betacolor = ["r.-","g.-","b.-","c.-","m.-"]
+inc = np.radians([0.0,5.0,10.0,15.0,25.0,30.0,40.0,45.0])
 #2
 # Compute R0/D and A as a function of beta
 innertype = ["isotropic","proplyd"]
@@ -37,7 +37,7 @@ for inn in innertype:
 #4 
 # Plot plot plot
         label = {"isotropic":None,"proplyd":"beta={}".format(B)}
-        plt.plot(R0p,Ap,color=betacolor[i],alpha=opacity[inn],label=label[inn])
+        plt.plot(R0p,Ap,betacolor[i],alpha=opacity[inn],label=label[inn])
 
 plt.legend(loc="best")
 plt.grid()
