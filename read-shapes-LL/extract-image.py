@@ -69,10 +69,10 @@ if cmd_args.debug:
 
 margin = cmd_args.margin * u.arcsecond
 # Ignore the cos(delta) factor since it is ~= 1 for Orion
-ra1 = ra.min() - margin
-ra2 = ra.max() + margin
-dec1 = dec.min() - margin
-dec2 = dec.max() + margin
+ra1 =  coord.Angle(ra.min() - margin ) 
+ra2 =  coord.Angle(ra.max() + margin ) 
+dec1 = coord.Angle(dec.min() - margin) 
+dec2 = coord.Angle(dec.max() + margin) 
 
 print "RA range: ", HMS(ra1), HMS(ra2)
 print "Dec range: ", DMS(dec1), DMS(dec2)
@@ -81,11 +81,12 @@ print "Dec range: ", DMS(dec1), DMS(dec2)
 ## Rectangle in RA, Dec that encloses object with margin
 ##
 coords = [
-    [ra1.degree, dec1.degree], 
-    [ra1.degree, dec2.degree], 
-    [ra2.degree, dec1.degree], 
-    [ra2.degree, dec2.degree],
-]
+    [ra1.deg, dec1.deg], 
+    [ra1.deg, dec2.deg], 
+    [ra2.deg, dec1.deg], 
+    [ra2.deg, dec2.deg],
+]#.to(u.deg)
+
 
 ##
 ## Convert to pixel coords and find enclosing rectangle
@@ -96,6 +97,11 @@ y = pix_coords[:,1]
 i1, i2 = int(x.min()), int(x.max()) + 1
 j1, j2 = int(y.min()), int(y.max()) + 1
 
+ny, nx = hdu.data.shape
+i1 = max(0, i1)
+i2 = min(i2, nx-1)
+j1 = max(0, j1)
+j2 = min(j2, ny-1)
 print "Extracted image window: [{}:{}, {}:{}]".format(i1, i2, j1, j2)
 
 ##
