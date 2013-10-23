@@ -1,0 +1,40 @@
+Documentation of python installation and configuration
+
+* Installation on CRyA linux machines
+
+** DONE Install old version of EPD (7.3)
+CLOSED: [2013-10-23 Wed 12:12]
+** TODO Install Canopy
+:LOGBOOK:
+- Note taken on [2013-10-23 Wed 12:12] \\
+  Currently does not work
+:END:
+
+*** Download 
+#+BEGIN_SRC sh
+wget -O canopy-1.1.0-rh5-64.sh https://www.enthought.com/downloads/canopy/rh5-64/free/
+#+END_SRC
+
+*** Run the installer
+#+BEGIN_SRC sh
+bash canopy-1.1.0-rh5-64.sh 
+#+END_SRC
++ You have to accept the licence and choose where to install it
+  + The defailt is =~/Canopy=
+  + I am installing it in =/home/will/Canopy= for now.
+  + It takes about 5 min and writes 0.8GB of stuff, so it might be better to do a sytem-wide install
+  + On the other hand, an installation in my home directory can be used on all machines
+*** Set up python environment
++ I am following [[http://docs.enthought.com/canopy/configure/canopy-cli.html#create-epd-dist][these instructions]]
++ This avoids using the GUI installer
+#+BEGIN_SRC sh
+~/Canopy/canopy_cli --default -v --no-gui-setup setup ~/canopy 
+#+END_SRC
+This give the following error: 
+#+BEGIN_EXAMPLE
+Setting up installation in /home/will/canopy...
+No handlers could be found for logger "canopy.app.bootstrap"
+Unable to load library icui18n "Cannot load library icui18n: (icui18n: cannot open shared object file: No such file or directory)" 
+__boot__.py: cannot connect to X server 
+#+END_EXAMPLE
+But looking on the web suggests it may be harmless. 
