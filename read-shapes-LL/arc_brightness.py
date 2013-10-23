@@ -101,8 +101,9 @@ else:
     mask["good"] = ~regions.get_mask(hdu=hdu)
 #
 # Calculate robust statistics 
-avbg, wbg = trimean_and_iqr(hdu.data[mask["<60"] & mask["bg"]])
-avsh, wsh = trimean_and_iqr(hdu.data[mask["<60"] & mask["shell"]])
+avbg, wbg = trimean_and_iqr(hdu.data[mask["<45"] & mask["bg"]])
+avsh, wsh = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell"]])
+avshc, wshc = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell center"]])
 ymin = avbg - 2*wbg 
 ymax = avsh + 2*wsh
 
@@ -110,6 +111,17 @@ ymax = avsh + 2*wsh
 print "BG trimean = {:.2f}, iqr = {:.2f}".format(avbg, wbg)
 print "Shell trimean = {:.2f}, iqr = {:.2f}".format(avsh, wsh)
 print "Adopting plot range of {:.2f} to {:.2f}".format(ymin, ymax)
+
+# In the future, we will generalise this to do other filters/cameras
+image_id = "ACS F658N"
+# Save brightness statistics to a new JSON file
+arcdata[image_id] = {
+    "background": {"value": avbg, "delta": wbg},
+    "shell": {"value": avsh, "delta": wsh},
+    "shell center": {"value": avshc, "delta": wshc},
+}
+with open(cmd_args.source + "-xycb.json", "w") as f:
+    json.dump(arcdata, f, indent=4)
 
 # Calculate average binned profiles versus theta
 th_edges = np.linspace(-60.0, 60.0, 25)
@@ -178,24 +190,3 @@ plt.grid()
 plt.savefig(cmd_args.source + "-arcbright-th.png", dpi=600)
 
 
-#
-# Plot image of the FITS array of this object
-# 
-import aplpy
-plt.clf()
-f = plt.figure(figsize=(12,6))
-
-ax1 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 1), north=True)
-ax1.recenter(ra0.to(u.deg).value, dec0.to(u.deg).value, 2*Rc.to(u.deg).value)
-ax1.show_grayscale(invert=True, vmin=ymin, vmax=ymax)
-
-ax2 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 2), north=True)
-ax2.recenter(ra0.to(u.deg).value, dec0.to(u.deg).value, 2*Rc.to(u.deg).value)
-ax2.show_grayscale(invert=True, vmin=ymin, vmax=ymax)
-ax2.show_regions(cmd_args.source + "-forma.reg")
-ax2.show_regions(cmd_args.source + "-arcfits.reg")
-ax2.axis_labels.hide_y()
-ax2.tick_labels.hide_y()
-
-f.tight_layout()
-f.savefig(cmd_args.source + "-extract.pdf")
