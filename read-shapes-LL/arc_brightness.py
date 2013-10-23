@@ -178,3 +178,24 @@ plt.grid()
 plt.savefig(cmd_args.source + "-arcbright-th.png", dpi=600)
 
 
+#
+# Plot image of the FITS array of this object
+# 
+import aplpy
+plt.clf()
+f = plt.figure(figsize=(12,6))
+
+ax1 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 1), north=True)
+ax1.recenter(ra0.to(u.deg).value, dec0.to(u.deg).value, 2*Rc.to(u.deg).value)
+ax1.show_grayscale(invert=True, vmin=ymin, vmax=ymax)
+
+ax2 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 2), north=True)
+ax2.recenter(ra0.to(u.deg).value, dec0.to(u.deg).value, 2*Rc.to(u.deg).value)
+ax2.show_grayscale(invert=True, vmin=ymin, vmax=ymax)
+ax2.show_regions(cmd_args.source + "-forma.reg")
+ax2.show_regions(cmd_args.source + "-arcfits.reg")
+ax2.axis_labels.hide_y()
+ax2.tick_labels.hide_y()
+
+f.tight_layout()
+f.savefig(cmd_args.source + "-extract.pdf")
