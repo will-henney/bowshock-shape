@@ -101,9 +101,9 @@ else:
     mask["good"] = ~regions.get_mask(hdu=hdu)
 #
 # Calculate robust statistics 
-avbg, wbg = trimean_and_iqr(hdu.data[mask["<45"] & mask["bg"]])
-avsh, wsh = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell"]])
-avshc, wshc = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell center"]])
+avbg, wbg = trimean_and_iqr(hdu.data[mask["<45"] & mask["bg"] & mask["good"]])
+avsh, wsh = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell"] & mask["good"]])
+avshc, wshc = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell center"] & mask["good"]])
 ymin = avbg - 2*wbg 
 ymax = avsh + 2*wsh
 
