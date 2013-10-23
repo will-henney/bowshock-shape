@@ -5,6 +5,8 @@ from astropy import wcs
 from astropy import coordinates as coord
 from astropy import units as u 
 import argparse
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from image_statistics import trimean_and_iqr, robust_statistics
 import pyregion
@@ -77,12 +79,15 @@ z = (R - R_arc["inner"]) / (R_arc["outer"] - R_arc["inner"])
 
 # Various masks for the shell, background, etc
 mask = {
-    "core": R < 1.5*R_arc["outer"],
+    "core": R < 2.5*R_arc["outer"],
     "shell": np.abs(z - 0.5) <= 0.5,
     "shell center": np.abs(z - 0.5) <= 0.25,
     "<45": np.abs(theta["outer"].deg) <= 45,
     "<60": np.abs(theta["outer"].deg) <= 60,
     "<90": np.abs(theta["outer"].deg) <= 90,
+    "<15":  np.abs(theta["outer"].deg) <= 15.0, 
+    "+15 to +45":  np.abs(theta["outer"].deg - 30.0) <= 15.0, 
+    "-15 to -45":  np.abs(theta["outer"].deg + 30.0) <= 15.0, 
     "bg": np.abs(z - 1.5) <= 0.3,
 }
 
@@ -114,16 +119,35 @@ bg, dbg = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges)
 m = mask["<60"] & mask["good"] & mask["shell center"]
 sh, dsh = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges)
 
+# Calculate average binned profiles versus radius
+z_edges = np.linspace(-2.0, 3.0, 50)
+z_centers = 0.5*(z_edges[:-1] + z_edges[1:])
+m = mask["good"] & mask["<15"]
+axis, daxis = robust_statistics(z[m], hdu.data[m], z_edges)
+m = mask["good"] & mask["+15 to +45"]
+upper, dupper = robust_statistics(z[m], hdu.data[m], z_edges)
+m = mask["good"] & mask["-15 to -45"]
+lower, dlower = robust_statistics(z[m], hdu.data[m], z_edges)
+
 # Plot graph of radial profiles
 #
+plt.plot(z_centers, lower, color="y", alpha=0.8, zorder=111, lw=2.0, label=r"$\theta = -45^\circ$ to $-15^\circ$")
+plt.fill_between(z_centers, lower-dlower, lower+dlower, color="y", alpha=0.05, lw=0, zorder=101)
+plt.plot(z_centers, axis, color="c", alpha=0.8, zorder=112, lw=2.0, label=r"$\theta = -15^\circ$ to $+15^\circ$")
+plt.fill_between(z_centers, axis-daxis, axis+daxis, color="c", alpha=0.05, lw=0, zorder=102)
+plt.plot(z_centers, upper, color="b", alpha=0.8, zorder=113, lw=2.0, label=r"$\theta = +15^\circ$ to $+45^\circ$")
+plt.fill_between(z_centers, upper-dupper, upper+dupper, color="b", alpha=0.05, lw=0, zorder=103)
+
 m = mask["<60"] & mask["good"] & mask["core"]
 plt.scatter(z[m], hdu.data[m], s=2, c=theta["outer"][m].deg,
-            marker="o", cmap=plt.cm.gist_rainbow, alpha=0.6, faceted=False)
+            marker="o", cmap=plt.cm.gist_rainbow, alpha=0.6, faceted=False, zorder=100)
 cb = plt.colorbar()
 cb.set_label("theta")
 plt.xlabel("Radius relative to shell: (R - R_in) / (R_out - R_in)")
 plt.ylabel("Surface brightness")
+plt.legend(fontsize="small")
 plt.title(cmd_args.source)
+plt.xlim(-2.0, 3.0)
 plt.ylim(ymin, ymax)
 plt.grid()
 plt.savefig(cmd_args.source + "-arcbright-z.png", dpi=600)
@@ -133,18 +157,18 @@ plt.savefig(cmd_args.source + "-arcbright-z.png", dpi=600)
 # Plot graph of angular profiles
 #
 plt.clf()
-plt.plot(th_centers, bg, color="k", alpha=0.3, zorder=10, label="Background")
-plt.fill_between(th_centers, bg-dbg, bg+dbg, color="k", alpha=0.1, lw=0, zorder=0)
-plt.plot(th_centers, sh, color="g", alpha=0.3, zorder=11, label="Shell center")
-plt.fill_between(th_centers, sh-dsh, sh+dsh, color="m", alpha=0.1, lw=0, zorder=1)
+plt.plot(th_centers, bg, color="k", alpha=0.3, zorder=110, label="Background")
+plt.fill_between(th_centers, bg-dbg, bg+dbg, color="k", alpha=0.1, lw=0, zorder=100)
+plt.plot(th_centers, sh, color="g", alpha=0.3, zorder=111, lw=2, label="Shell center")
+plt.fill_between(th_centers, sh-dsh, sh+dsh, color="m", alpha=0.1, lw=0, zorder=101)
 m = mask["<60"] & mask["good"] & mask["shell"]
 mb = mask["<60"] & mask["good"] & mask["bg"]
 plt.scatter(theta["outer"][m].deg, hdu.data[m], s=4, c=z[m], marker="o",
-            cmap=plt.cm.gist_rainbow, alpha=0.6, faceted=False, zorder=200)
+            cmap=plt.cm.gist_rainbow, alpha=0.6, faceted=False, zorder=20)
 cb = plt.colorbar()
 cb.set_label("z = (R - R_in) / (R_out - R_in)")
 plt.scatter(theta["outer"][mb].deg, hdu.data[mb], s=2, c="k", marker="o",
-            cmap=plt.cm.gist_rainbow, alpha=0.2, faceted=False, zorder=100)
+            cmap=plt.cm.gist_rainbow, alpha=0.2, faceted=False, zorder=10)
 plt.xlabel("Angle, theta, from outer shell axis")
 plt.ylabel("Surface brightness")
 plt.legend()
