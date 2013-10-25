@@ -26,7 +26,10 @@ parser.add_argument("--debug", action="store_true",
 
 cmd_args = parser.parse_args()
 
-hdu = fits.open(cmd_args.fitsfile)['SCI']
+try:
+    hdu = fits.open(cmd_args.fitsfile)['SCI']
+except KeyError:
+    hdu = fits.open(cmd_args.fitsfile)[0]  
 with open(cmd_args.source + "-xyc.json") as f:
      db = json.load(f)
 w = wcs.WCS(hdu.header)

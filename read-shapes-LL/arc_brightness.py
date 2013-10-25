@@ -23,7 +23,10 @@ parser.add_argument("--debug", action="store_true",
 cmd_args = parser.parse_args()
 
 arcdata = json.load(open(cmd_args.source + "-xyc.json"))
-hdu = fits.open(cmd_args.source + "-extract.fits")['SCI']
+try:
+    hdu = fits.open(cmd_args.source + "-extract.fits")['SCI']
+except KeyError:
+    hdu = fits.open(cmd_args.source + "-extract.fits")[0]
 w = wcs.WCS(hdu.header)
 # Pixel coordinate arrays
 x, y = np.meshgrid(np.arange(hdu.data.shape[1]), np.arange(hdu.data.shape[0]))
