@@ -5,19 +5,19 @@ Fit circles to bowshock arcs
 
 import numpy as np
 import json
-import sys
+import argparse
 import lmfit
 from region_utils import region_hdr_lines, region_circle_to_string, region_point_to_string
 from astropy import coordinates as coord
 from astropy import units as u
-
+import matplotlib.pyplot as plt
 
 def create_arc_regions(arcdata):
     regions = []
     ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour)
     dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg)
     for arc, c in ["inner", "magenta"], ["outer", "green"]:
-        ra = ra0 + arcdata[arc]["xc"]*u.arcsec
+        ra = ra0 + arcdata[arc]["xc"]*u.arcsec/np.cos(dec0.to(u.rad).value)
         dec = dec0 + arcdata[arc]["yc"]*u.arcsec
         radius = arcdata[arc]["Rc"]
         regions.append(region_circle_to_string(ra.to_string(sep=":"), dec.to_string(sep=":"), radius, text="", color=c))
@@ -74,6 +74,12 @@ def update_arc_data(data):
     yc0 = data["R0"]*np.cos(np.radians(data["PA0"]+180))
     Rc, xc, yc = fit_circle(x[m], y[m], xc=xc0, yc=yc0)
     data.update(Rc=Rc, xc=xc, yc=yc, PAc=PA_circle(xc, yc))
+    if cmd_args.savefig:
+        plt.plot(-x, y, ".")
+        plt.plot(-xc, yc, "+" + colors[arc], ms=5.0)
+        c = plt.Circle((-xc, yc), radius=Rc,
+                       fc='none', ec=colors[arc], alpha=0.4, lw=0.2)
+        plt.gca().add_patch(c)
     return None
 
 
@@ -84,11 +90,21 @@ def PA_circle(xc, yc):
     return np.degrees(np.arctan2(-xc, -yc))
 
 
-try: 
-    infile = sys.argv[1]
-except: 
-    print "Usage: ", sys.argv[0], " INPUTFILE.json"
-    sys.exit()
+colors = {"inner": "m", "outer": "g"}
+
+parser = argparse.ArgumentParser(
+    description="""Fit circles to all the arcs and save as ds9 region file""")
+
+parser.add_argument("infile", type=str,
+                    default="LL1-xy.json",
+                    help="JSON file containing arc data")
+parser.add_argument("--savefig", action="store_true",
+                    help="Save a figure showing the fit")
+parser.add_argument("--debug", action="store_true",
+                    help="Print out verbose debugging info")
+
+cmd_args = parser.parse_args()
+infile = cmd_args.infile
 
 db = json.load(open(infile))
 
@@ -103,7 +119,11 @@ region_file = infile.replace("-xy.json", "-arcfits.reg")
 with open(region_file, "w") as f:
       f.writelines([s + "\n" for s in create_arc_regions(db)])
 
-
+if cmd_args.savefig:
+    plotfile = infile.replace("-xy.json", "-arcfits.pdf")
+    plt.plot(0.0, 0.0, 'o')
+    plt.axis("equal")
+    plt.savefig(plotfile)
 
 
 
