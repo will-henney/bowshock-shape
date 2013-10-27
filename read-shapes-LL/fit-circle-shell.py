@@ -13,6 +13,16 @@ from astropy import units as u
 import matplotlib.pyplot as plt
 
 def create_arc_regions(arcdata):
+    def check_coordinates():
+        c0 = coord.ICRSCoordinates(ra0, dec0)
+        print "#### Checking offset of {} arc center ####".format(arc)
+        c1 = coord.ICRSCoordinates(ra, dec)
+        sep = c0.separation(c1)
+        print "Star coords: ", c0
+        print "Arc center coords: ", c1
+        print "Separation star->center in arcsec: ", sep.arcsec
+        print "sqrt(xc**2 + yc**2) = ", np.sqrt(arcdata[arc]["xc"]**2 + arcdata[arc]["yc"]**2)
+        
     regions = []
     ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour)
     dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg)
@@ -20,8 +30,12 @@ def create_arc_regions(arcdata):
         ra = ra0 + arcdata[arc]["xc"]*u.arcsec/np.cos(dec0.to(u.rad).value)
         dec = dec0 + arcdata[arc]["yc"]*u.arcsec
         radius = arcdata[arc]["Rc"]
-        regions.append(region_circle_to_string(ra.to_string(sep=":"), dec.to_string(sep=":"), radius, text="", color=c))
-        regions.append(region_point_to_string(ra.to_string(sep=":"), dec.to_string(sep=":"), "diamond", text=arc, color=c))
+        if cmd_args.debug:
+            check_coordinates()
+        regions.append(region_circle_to_string(ra.to_string(sep=":"), dec.to_string(sep=":"),
+                                               radius, text="", color=c))
+        regions.append(region_point_to_string(ra.to_string(sep=":"), dec.to_string(sep=":"),
+                                              "diamond", text=arc, color=c))
     return region_hdr_lines + regions
 
 
@@ -76,6 +90,7 @@ def update_arc_data(data):
     data.update(Rc=Rc, xc=xc, yc=yc, PAc=PA_circle(xc, yc))
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
+        print arc, ":", xc, yc, Rc
         plt.plot(-xc, yc, "+" + colors[arc], ms=5.0)
         c = plt.Circle((-xc, yc), radius=Rc,
                        fc='none', ec=colors[arc], alpha=0.4, lw=0.2)
