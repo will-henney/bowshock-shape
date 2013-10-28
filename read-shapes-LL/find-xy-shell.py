@@ -1,6 +1,10 @@
 import numpy as np
 import argparse
+import datetime
 import json
+from astropy import coordinates as coord
+from astropy import units as u
+from angle_utils import vector_separation
 
 parser = argparse.ArgumentParser(
     description="""Find (X, Y) positions of shell boundaries from a DS9 region file""")
@@ -48,13 +52,14 @@ def extract_data(line):
 
 th1C_RA_dg = 83.818289
 th1C_Dec_dg = -5.3895909
-th1C_x = 3600*th1C_RA_dg * np.cos(np.radians(th1C_Dec_dg))
-th1C_y = 3600*(th1C_Dec_dg)
+th1C_c = coord.ICRSCoordinates(th1C_RA_dg, th1C_Dec_dg, unit=(u.degree, u.degree))
 
-# lists to contain x, y coords of inner and outer arcs
-inner_x, inner_y = [], []
-outer_x, outer_y = [], []
-star_x, star_y = None, None
+# lists to contain coords of inner and outer arcs
+inner_c, outer_c = [], []
+star_c = None
+
+
+
 with open(regionfile) as f:
     lines = f.readlines()
     for line in lines:
@@ -64,45 +69,47 @@ with open(regionfile) as f:
         if skipthisline:
             continue
         ra, dec, point_type, text = extract_data(line)
-    
-        sdeg, samin, sasec = dec.split(':')
-        deg, amin, asec = float(sdeg), float(samin), float(sasec)
-        dec_arcsec = 3600.*deg + np.sign(deg)*(60*amin + asec)
-        shr, smin, ssec = ra.split(':')
-        hr, mn, sec = float(shr), float(smin), float(ssec)
-        ra_arcsec = 15*np.cos(np.radians(dec_arcsec/3600.0))*(3600.*hr+60.*mn+sec)
         
+        c = coord.ICRSCoordinates(ra, dec, unit=(u.hour, u.degree))
 
         if point_type == "circle":
             # Position of star
-            star_x, star_y = ra_arcsec, dec_arcsec
+            star_c = c
             ra_star, dec_star = ra, dec
-            pa_star = np.arctan2(th1C_x - star_x, th1C_y - star_y) % (2*np.pi)
-            D_star = np.hypot(star_x - th1C_x, star_y - th1C_y)
+            D_star, pa_star = vector_separation(star_c, th1C_c, mode="polar")
 
         elif point_type == "cross":
             # Points that trace inner edge
-            inner_x.append(ra_arcsec)
-            inner_y.append(dec_arcsec)
+            inner_c.append(c)
         elif point_type == "x":
             # Points that trace outer edge
-            outer_x.append(ra_arcsec)
-            outer_y.append(dec_arcsec)
+            outer_c.append(c)
 
-assert star_x is not None, "Central star position not found - sorry!"
+assert star_c is not None, "Central star position not found - sorry!"
 
-inner_x = np.array(inner_x) - star_x
-inner_y = np.array(inner_y) - star_y
-outer_x = np.array(outer_x) - star_x
-outer_y = np.array(outer_y) - star_y
+inner_x, inner_y = [], []
+for c in inner_c:
+    x, y = vector_separation(star_c, c)
+    inner_x.append(x)
+    inner_y.append(y)
+inner_x = np.array(inner_x)
+inner_y = np.array(inner_y)
+
+outer_x, outer_y = [], []
+for c in outer_c:
+    x, y = vector_separation(star_c, c)
+    outer_x.append(x)
+    outer_y.append(y)
+outer_x = np.array(outer_x)
+outer_y = np.array(outer_y)
 
 arc_data = {
     "star": {
         "id": regionfile.replace("-forma.reg", ""),
         "RA": ra_star, 
         "Dec": dec_star,
-        "RA_dg": star_x/3600.0, 
-        "Dec_dg": star_y/3600.0,
+        "RA_dg": star_c.ra.deg, 
+        "Dec_dg": star_c.dec.deg,
         "PA": np.degrees(pa_star) % 360.0,
         "D": D_star
      } 
@@ -218,7 +225,8 @@ arc_data["help"] = {
 
 arc_data["info"] = {
     "description": "JSON data file for stationary bowshock arcs",
-    "author": "Written by find-xy-shell.py",
+    "history": ["Initially created by find-xy-shell.py: {}".format(
+        datetime.datetime.now())],
     "command args": vars(cmd_args),
 }
 
@@ -226,4 +234,16 @@ arc_data["info"] = {
 jsonfile = regionfile.replace("-forma.reg", "-xy.json")
 with open(jsonfile, "w") as f:
     json.dump(arc_data, f, indent=4)
+
+
+
+
+
+
+
+
+
+
+
+
 
