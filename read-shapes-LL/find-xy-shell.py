@@ -77,6 +77,9 @@ with open(regionfile) as f:
             star_c = c
             ra_star, dec_star = ra, dec
             D_star, pa_star = vector_separation(star_c, th1C_c, mode="polar")
+            # PA must be in radians for next steps, then converted
+            # back to degrees at the end
+            pa_star = np.radians(pa_star)
 
         elif point_type == "cross":
             # Points that trace inner edge

@@ -30,23 +30,31 @@ if __name__ == "__main__":
     # Coordinates of 177-341
     c1 = coord.ICRSCoordinates("5:35:17.633", "-5:23:41.68", unit=(u.hour, u.deg))
     # Coordinates of th1C
-    c2 = coord.ICRSCoordinates(83.818289, -5.3895909, unit=(u.deg, u.deg))
+    c0 = coord.ICRSCoordinates(83.818289, -5.3895909, unit=(u.deg, u.deg))
 
     # Test vector separation
-    x, y = vector_separation(c1, c2)
-    print "Separation proplyd-th1C: alpha = {} arcsec, delta = {} arcsec".format(x, y) 
+    x, y = vector_separation(c1, c0)
+    print "Separation HST1-th1C: alpha = {} arcsec, delta = {} arcsec".format(x, y) 
     # Test polar version of the same
-    R, PA = vector_separation(c1, c2, mode="polar")
-    print "Separation proplyd-th1C: R = {} arcsec, PA = {} degrees".format(R, PA) 
+    R, PA = vector_separation(c1, c0, mode="polar")
+    print "Separation HST1-th1C: R = {} arcsec, PA = {} degrees".format(R, PA) 
+    print "Scalar separation calculated by astropy: ", c1.separation(c0)
 
-    print "Scalar separation calculated by astropy: ", c1.separation(c2)
+    # Coordinates of LL Ori
+    c2 = coord.ICRSCoordinates("5:35:05.566", "-5:25:19.02", unit=(u.hour, u.deg))
+    R, PA = vector_separation(c2, c0, mode="polar")
+    print "Separation LL1-th1C: R = {} arcsec, PA = {} degrees".format(R, PA) 
+    print "Scalar separation calculated by astropy: ", c2.separation(c0)
 
 
 test_results = """
-Output generated 27 Oct 2013:
+Output generated 28 Oct 2013:
+
 Separation proplyd-th1C: alpha = -18.5719660761 arcsec, delta = 19.15276 arcsec
-Separation proplyd-th1C: R = 26.6785707929 arcsec, PA = 315.8820319 degrees
+Separation HST1-th1C: R = 26.6785707929 arcsec, PA = 315.8820319 degrees
 Scalar separation calculated by astropy:  0d00m26.67863s
+Separation LL1-th1C: R = 199.230736498 arcsec, PA = 54.2172973923 degrees
+Scalar separation calculated by astropy:  0d03m19.23424s
 
 That seems to be accurate enough
 """
