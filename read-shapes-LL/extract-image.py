@@ -110,12 +110,21 @@ print "Extracted image window: [{}:{}, {}:{}]".format(i1, i2, j1, j2)
 ##
 ## Extract window from image and adjust WCS info
 ##
-hdu.data = hdu.data[j1:j2, i1:i2]
-hdu.header["CRPIX1"] -= i1
-hdu.header["CRPIX2"] -= j1
+outhdu = fits.PrimaryHDU(
+     data=hdu.data[j1:j2, i1:i2],
+     # Use header from astropy.wcs since this has fixed
+     # all non-standard stuff (e.g., equinox, dates)
+     header=w.to_header()
+)
+outhdu.header["CRPIX1"] -= i1
+outhdu.header["CRPIX2"] -= j1
+
+## TODO: copy over more keywords from the original FITS header
+## E.g., filter, camera, etc
 
 ##
 ## Save the small image
 ##
-hdu.writeto(cmd_args.source + "-extract.fits", clobber=True)
+outhdu.writeto(cmd_args.source + "-extract.fits",
+            output_verify="fix", clobber=True)
 

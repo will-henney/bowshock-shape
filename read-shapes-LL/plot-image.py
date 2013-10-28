@@ -25,7 +25,10 @@ parser.add_argument("--debug", action="store_true",
 cmd_args = parser.parse_args()
 
 arcdata = json.load(open(cmd_args.source + "-xycb.json"))
-hdu = fits.open(cmd_args.source + "-extract.fits")['SCI']
+try:
+    hdu = fits.open(cmd_args.source + "-extract.fits")['SCI']
+except KeyError:
+    hdu = fits.open(cmd_args.source + "-extract.fits")[0]
 
 # Find coordinates of the central star and radius of curvature
 # We want all the values in degrees for use with aplpy
