@@ -9,6 +9,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from image_statistics import trimean_and_iqr, robust_statistics
+from misc_utils import run_info
 import pyregion
 
 parser = argparse.ArgumentParser(
@@ -123,6 +124,8 @@ arcdata[image_id] = {
     "shell": {"value": avsh, "delta": wsh},
     "shell center": {"value": avshc, "delta": wshc},
 }
+arcdata["info"]["history"].append(image_id + " statistics by " + run_info())
+
 with open(cmd_args.source + "-xycb.json", "w") as f:
     json.dump(arcdata, f, indent=4)
 

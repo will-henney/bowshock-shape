@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print "Scalar separation calculated by astropy: ", c1.separation(c2)
 
 
-test_resuts = """
+test_results = """
 Output generated 27 Oct 2013:
 Separation proplyd-th1C: alpha = -18.5719660761 arcsec, delta = 19.15276 arcsec
 Separation proplyd-th1C: R = 26.6785707929 arcsec, PA = 315.8820319 degrees

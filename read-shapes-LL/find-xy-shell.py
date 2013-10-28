@@ -1,10 +1,10 @@
 import numpy as np
 import argparse
-import datetime
 import json
 from astropy import coordinates as coord
 from astropy import units as u
 from angle_utils import vector_separation
+from misc_utils import run_info
 
 parser = argparse.ArgumentParser(
     description="""Find (X, Y) positions of shell boundaries from a DS9 region file""")
@@ -225,9 +225,8 @@ arc_data["help"] = {
 
 arc_data["info"] = {
     "description": "JSON data file for stationary bowshock arcs",
-    "history": ["Initially created by find-xy-shell.py: {}".format(
-        datetime.datetime.now())],
-    "command args": vars(cmd_args),
+    "history": ["Initially created by " + run_info()],
+    "region": cmd_args.region,
 }
 
 

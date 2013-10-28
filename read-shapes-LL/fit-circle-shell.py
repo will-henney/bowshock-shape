@@ -11,6 +11,7 @@ from region_utils import region_hdr_lines, region_circle_to_string, region_point
 from astropy import coordinates as coord
 from astropy import units as u
 import matplotlib.pyplot as plt
+from misc_utils import run_info
 
 def create_arc_regions(arcdata):
     def check_coordinates():
@@ -125,6 +126,8 @@ db = json.load(open(infile))
 
 for arc in "inner", "outer":
     update_arc_data(db[arc])
+
+db["info"]["history"].append("Circle fits added by " + run_info())
 
 outfile = infile.replace("-xy", "-xyc")
 with open(outfile, "w") as f:
