@@ -112,12 +112,28 @@ print "Extracted image window: [{}:{}, {}:{}]".format(i1, i2, j1, j2)
 ##
 outhdu = fits.PrimaryHDU(
      data=hdu.data[j1:j2, i1:i2],
-     # Use header from astropy.wcs since this has fixed
-     # all non-standard stuff (e.g., equinox, dates)
-     header=w.to_header()
+     header=hdu.header
 )
 outhdu.header["CRPIX1"] -= i1
 outhdu.header["CRPIX2"] -= j1
+
+# Only use header from astropy.wcs to correct
+# non-standard stuff (e.g., equinox, dates)
+whdr=w.to_header()
+for kwd in "EQUINOX", "DATE-OBS":
+     if kwd in whdr:
+          if cmd_args.debug:
+               print "Replacing {} = {} with {}".format(
+                    kwd, outhdu.header[kwd], whdr[kwd]
+               )
+          outhdu.header[kwd] = whdr[kwd]
+
+## Further correction to EQUINOX keyword if necessary
+equinox = outhdu.header.get("EQUINOX")
+if isinstance(equinox, basestring):
+     if cmd_args.debug:
+          print "Converting EQUINOX to float"
+     outhdu.header["EQUINOX"] = 2000.0
 
 ## TODO: copy over more keywords from the original FITS header
 ## E.g., filter, camera, etc
