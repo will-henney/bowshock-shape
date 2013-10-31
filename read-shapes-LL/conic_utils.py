@@ -1,12 +1,25 @@
-"""
-Functions for fitting conic sections to arcs
+"""Functions for fitting conic sections to arcs
 
 This generalises the previous circle fits
 
 First we do hyperbolas, but maybe we will do ellipses too at a later date
+
+CONVENTIONS USED IN THIS FILE 
+-----------------------------
+
+* (xx, yy) are Cartesian world coordinates with xx increasing to left
+  (for instance RA and Dec arcsec offsets from star)
+
+* (x, y) are normalized Cartesian coordinates in the frame of the
+  hyperbola (or other conic section), with x increasing to right
+
+Note that different conventions are used elsewhere
+
 """
+
 import numpy as np
 import lmfit
+import matplotlib.pyplot as plt
 
 
 def yhyperbola(x, th_inf=45.0):
@@ -25,7 +38,7 @@ def ycircle(x):
     return 1.0 - np.sqrt(1.0 - x**2)
 
 
-def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh):
+def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False):
     """Fit hyperbola to the data xx, yy
 
     The hyperbola is described by 5 parameters:
@@ -61,7 +74,7 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh):
     """
     
     def model_minus_data(params, xx, yy):
-        """Function to minimize - equal weight to all points"""
+        """Function to minimize - gives equal weight to all points"""
         # Unpack parameters
         PAh = params["PA"].value
         Rh = params["R"].value
@@ -71,7 +84,7 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh):
         # Transform from (xx,yy) to (x,y) frame
         sPA, cPA = np.sin(np.radians(PAh)), np.cos(np.radians(PAh))
         xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
-        x = ((xx0 - xx)*cPA + (yy0 - yy)*sPA)/Rh
+        x = (-(xx0 - xx)*cPA + (yy0 - yy)*sPA)/Rh
         y = ((xx0 - xx)*sPA + (yy0 - yy)*cPA)/Rh
         return yhyperbola(x, thh) - y
 
@@ -81,7 +94,7 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh):
     params.add("R", value=Rh)
     params.add("xx", value=xxh)
     params.add("yy", value=yyh)
-    params.add("th", value=thh)
+    params.add("th", value=thh, min=0.0, max=90.0, vary=not freeze_theta)
     lmfit.minimize(model_minus_data, params, args=(xx, yy))
     lmfit.report_errors(params)
 
@@ -90,7 +103,22 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh):
     return tuple(results)
 
 
+def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200):
+    """Return the (xx, yy) world coordinates of a hyperbola
 
+    Required arguments as in fit_hyperbola: 
+    Rh - radius of curvature
+    thh - asymptotic angle
+    PAh - orientation of axis
+    (xxh, yyh) - location of center of curvature
+    """
+    x = np.linspace(xmin, xmax, N) 
+    y = yhyperbola(x, thh)
+    sPA, cPA = np.sin(np.radians(PAh)), np.cos(np.radians(PAh))
+    xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
+    xx = xx0 + Rh*(x*cPA - y*sPA)
+    yy = yy0 + Rh*(-x*sPA - y*cPA)
+    return xx, yy
 
 
 testdata = {
@@ -121,18 +149,28 @@ testdata = {
 
 if __name__ == "__main__":
     print "Testing hyperbola functions ..."
-    Rh, thh, PAh, xxh, yyh = fit_hyperbola(
-        xx=np.array(testdata["x"]),
-        yy=np.array(testdata["y"]),
-        Rh=testdata["Rc"],
-        thh=45,
-        PAh=testdata["PAc"],
-        xxh=testdata["xc"],
-        yyh=testdata["yc"])
-    print "R = ", Rh
-    print "th = ", thh
-    print "PA = ", PAh
-    print "Center = (", xxh, ", ", yyh, ")"
+    plt.plot(testdata['x'], testdata['y'], 'o')
+
+    for theta_inf in 0.0001, 15.0, 30.0, 45.0:
+        Rh, thh, PAh, xxh, yyh = fit_hyperbola(
+            xx=np.array(testdata["x"]),
+            yy=np.array(testdata["y"]),
+            Rh=testdata["Rc"]/3,
+            thh=theta_inf,
+            PAh=testdata["PAc"],
+            xxh=testdata["xc"],
+            yyh=testdata["yc"],
+            freeze_theta=True
+        )
+        x, y = world_hyperbola(Rh, thh, PAh, xxh, yyh)
+        plt.plot(x, y, '-', label=str(int(thh)))
+    plt.axis('equal')
+    plt.xlim(10, -10)
+    plt.ylim(-10, 10)
+    plt.legend()
+    plt.savefig("test/hyperbola-test.pdf")
+
+    
 
 
 

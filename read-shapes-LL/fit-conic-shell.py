@@ -19,11 +19,11 @@ def update_arc_data(data):
     """
     Update the data dictionary for an arc with the hyperbola fit parameters
     """
-    x, y, theta = np.array(data["x"]), np.array(data["y"])
+    x, y = np.array(data["x"]), np.array(data["y"])
     # Force the hyperbola axis to be along the circle fit axis
     # Initial guess is that center is also the same.
     Rh, thh, PAh, xh, yh = conic_utils.fit_hyperbola(
-        x, y, Rh=data["Rc"], thh=45.0, PAh=data["PAc"], xh=data["xc"], yh=data["yc"])
+        x, y, Rh=data["Rc"], thh=45.0, PAh=data["PAc"], xxh=data["xc"], yyh=data["yc"])
     data.update(Rh=Rh, thh=thh, PAh=PAh, xh=xh, yh=yh)
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
@@ -45,18 +45,18 @@ def PA_circle(xc, yc):
 colors = {"inner": "m", "outer": "g"}
 
 parser = argparse.ArgumentParser(
-    description="""Fit circles to all the arcs and save as ds9 region file""")
+    description="""Fit conic sections to all the arcs and save to database file""")
 
-parser.add_argument("infile", type=str,
-                    default="LL1-xy.json",
-                    help="JSON file containing arc data")
+parser.add_argument("--source", type=str,
+                    default="LL1",
+                    help="Name of source (prefix for data file)")
 parser.add_argument("--savefig", action="store_true",
                     help="Save a figure showing the fit")
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 
 cmd_args = parser.parse_args()
-infile = cmd_args.infile
+infile = cmd_args.source + "-xyc.json"
 
 db = json.load(open(infile))
 
@@ -74,7 +74,7 @@ with tempfile.NamedTemporaryFile(
 os.rename(tempname, outfile)
 
 if cmd_args.savefig:
-    plotfile = infile.replace("-xy.json", "-arcfits.pdf")
+    plotfile = infile.replace("-xy.json", "-conic-fits.pdf")
     plt.plot(0.0, 0.0, 'o')
     plt.axis("equal")
     plt.savefig(plotfile)
