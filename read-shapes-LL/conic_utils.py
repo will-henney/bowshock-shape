@@ -6,14 +6,16 @@ This generalises the previous circle fits
 First we do hyperbolas, but maybe we will do ellipses too at a later date
 """
 import numpy as np
+import lmfit
 
-def yhyperbol(x, th_inf=45.0):
+
+def yhyperbola(x, th_inf=45.0):
     "Hyperbola in y(x) version"
     B = np.tan(np.radians(th_inf))
     return (np.sqrt(1.0 + x**2*B**2) - 1.0)/B**2
 
 
-def yparabol(x):
+def yparabola(x):
     "Parabola in y(x) version"
     return 0.5*x**2
 
@@ -23,34 +25,120 @@ def ycircle(x):
     return 1.0 - np.sqrt(1.0 - x**2)
 
 
-def R_vs_th_hyperbola(theta, A=1.0, th_inf=45.0, B=None, units="degrees"):
-    """Polar equation of a scale-free offset hyperbola 
-    
-    In R(theta) format with respect to an arbitrary origin
-    
-    A is Rc/R0, where Rc is the radius of curvature on the hyperbola
-    axis and R0 is the distance of the hyperbola "nose" from the
-    origin
+def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh):
+    """Fit hyperbola to the data xx, yy
 
-    Returns radius in units of Rc
+    The hyperbola is described by 5 parameters:
+
+    Rh : radius of curvature on the axis
+    thh: asymptotic angle of wings from axis
+    PAh: Position Angle of axis
+    xxh: xx position of center-of-curvature
+    yyh: yy position of center-of-curvature
+
+    The hyperbola is given as y(x), where y goes along the hyperbola
+    axis and x is perpendicular to the hyperbola axis.
+
+    The origin of the xy frame (x = y = 0) is the "nose" of the
+    hyperbola, with coordinates in the xx-yy frame of 
+
+    xx0 = xxh + Rh sin(PAh)
+    yy0 = yyh + Rh cos(PAh)
+
+    The y-axis is along the [xx, yy] unit vector: 
+
+    yhat = [-sin(PAh), -cos(PAh)]
+
+    The x-axis is along the [xx, yy] unit vector: 
+
+    xhat = [-cos(PAh), -sin(PAh)]
+
+    Unit distance in the xy frame corresponds to Rh in the xx-yy frame
+
+    So that x = ((xx - xx0) (-cos(PAh)) + (yy - yy0) (-sin(PAh)))/Rh
+            y = ((xx - xx0) (-sin(PAh)) + (yy - yy0) (-cos(PAh)))/Rh
+
     """
-    if B is None: 
-        B = np.tan(np.radians(th_inf))
+    
+    def model_minus_data(params, xx, yy):
+        """Function to minimize - equal weight to all points"""
+        # Unpack parameters
+        PAh = params["PA"].value
+        Rh = params["R"].value
+        xxh = params["xx"].value
+        yyh = params["yy"].value
+        thh = params["th"].value
+        # Transform from (xx,yy) to (x,y) frame
+        sPA, cPA = np.sin(np.radians(PAh)), np.cos(np.radians(PAh))
+        xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
+        x = ((xx0 - xx)*cPA + (yy0 - yy)*sPA)/Rh
+        y = ((xx0 - xx)*sPA + (yy0 - yy)*cPA)/Rh
+        return yhyperbola(x, thh) - y
 
-    if "deg" in units:
-        th = np.radians(theta)
-    else:
-        th = theta
+    # Pack arguments into parameters for the fit
+    params = lmfit.Parameters()
+    params.add("PA", value=PAh)
+    params.add("R", value=Rh)
+    params.add("xx", value=xxh)
+    params.add("yy", value=yyh)
+    params.add("th", value=thh)
+    lmfit.minimize(model_minus_data, params, args=(xx, yy))
+    lmfit.report_errors(params)
 
-    numerator1 = (A + B**2)*np.cos(th)
-    numerator2 = np.sqrt(A**2 - (A**2 + 2*A + B**2)*np.sin(th)**2)
-    denominator = B**2 + (1.0 - B**2)*np.sin(th)**2
-    return (numerator1 - numerator2)/denominator
+    # Unpack parameters again for results to return
+    results = [params[k].value for k in "R", "th", "PA", "xx", "yy"]
+    return tuple(results)
+
+
+
+
+
+testdata = {
+    "xc": -5.665723355313418, 
+    "yc": -0.8801883891895861, 
+    "Rc": 8.720647445668673, 
+    "PAc": 81.16950464679529, 
+    "x": [
+        -1.6874162965569341, -0.9258390297935146, -0.2687919763362173, 
+        0.4629195150877455, 1.0453021307693653, 1.5679531959630597, 
+        2.060738486199274, 2.6431211016899057, 2.9716446285140483, 
+        3.0761748416291823, 3.0313761788109854, 2.867114415398914, 
+        2.672986876838374, 2.404194900502157, 1.9562082730841397, 
+        1.2394296693299052, 0.6122483908300884, -0.16426176322108316, 
+        -1.0602350180571172
+    ], 
+    "y": [
+        7.310000000000727, 6.820000000001514, 6.050000000000466, 
+        5.310000000000414, 4.620000000003088, 3.830000000000311, 
+        3.090000000000259, 1.9900000000010465, 0.8300000000030394, 
+        -0.2299999999991087, -1.2799999999987932, -2.2799999999989495, 
+        -3.2299999999995777, -4.2999999999977945, -5.179999999997165, 
+        -6.179999999997321, -7.029999999998893, -7.959999999997791, 
+        -8.749999999997371
+    ], 
+}
 
 
 if __name__ == "__main__":
     print "Testing hyperbola functions ..."
-    th = np.linspace(0.0, 90.0)
-    r = R_vs_th_hyperbola(th)
-    for a, b in zip(th, r):
-        print a, b
+    Rh, thh, PAh, xxh, yyh = fit_hyperbola(
+        xx=np.array(testdata["x"]),
+        yy=np.array(testdata["y"]),
+        Rh=testdata["Rc"],
+        thh=45,
+        PAh=testdata["PAc"],
+        xxh=testdata["xc"],
+        yyh=testdata["yc"])
+    print "R = ", Rh
+    print "th = ", thh
+    print "PA = ", PAh
+    print "Center = (", xxh, ", ", yyh, ")"
+
+
+
+
+
+
+
+
+
