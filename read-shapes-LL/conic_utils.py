@@ -38,7 +38,7 @@ def ycircle(x):
     return 1.0 - np.sqrt(1.0 - x**2)
 
 
-def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False):
+def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False, full=False):
     """Fit hyperbola to the data xx, yy
 
     The hyperbola is described by 5 parameters:
@@ -73,7 +73,7 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False):
 
     """
     
-    def model_minus_data(params, xx, yy):
+    def model_minus_data(params, xx, yy, full=False):
         """Function to minimize - gives equal weight to all points"""
         # Unpack parameters
         PAh = params["PA"].value
@@ -86,7 +86,11 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False):
         xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
         x = (-(xx0 - xx)*cPA + (yy0 - yy)*sPA)/Rh
         y = ((xx0 - xx)*sPA + (yy0 - yy)*cPA)/Rh
-        return yhyperbola(x, thh) - y
+        residual = yhyperbola(x, thh) - y
+        if full:
+            return {"residual": residual, "x": x, "y": y}
+        else:
+            return residual
 
     # Pack arguments into parameters for the fit
     params = lmfit.Parameters()
@@ -100,7 +104,10 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False):
 
     # Unpack parameters again for results to return
     results = [params[k].value for k in "R", "th", "PA", "xx", "yy"]
-    return tuple(results)
+    if full:
+        return tuple(results + [model_minus_data(params, xx, yy, True)])
+    else:
+        return tuple(results)
 
 
 def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200):
@@ -146,31 +153,61 @@ testdata = {
     ], 
 }
 
+import json
+import glob
+import os
 
 if __name__ == "__main__":
     print "Testing hyperbola functions ..."
-    plt.plot(testdata['x'], testdata['y'], 'o')
 
-    for theta_inf in 0.0001, 15.0, 30.0, 45.0:
-        Rh, thh, PAh, xxh, yyh = fit_hyperbola(
-            xx=np.array(testdata["x"]),
-            yy=np.array(testdata["y"]),
-            Rh=testdata["Rc"]/3,
-            thh=theta_inf,
-            PAh=testdata["PAc"],
-            xxh=testdata["xc"],
-            yyh=testdata["yc"],
-            freeze_theta=True
-        )
-        x, y = world_hyperbola(Rh, thh, PAh, xxh, yyh)
-        plt.plot(x, y, '-', label=str(int(thh)))
-    plt.axis('equal')
-    plt.xlim(10, -10)
-    plt.ylim(-10, 10)
-    plt.legend()
-    plt.savefig("test/hyperbola-test.pdf")
+    datadir = os.path.expanduser("~/Dropbox/JorgeBowshocks/")
+    datafiles = glob.glob(datadir + "*/*/*-xyc.json")
+    for datafile in datafiles:
+        db = json.load(open(datafile))
+        testdata = db["outer"]
 
-    
+        fig = plt.figure()
+        ax = fig.add_subplot(211)
+        ax.plot(testdata['x'], testdata['y'], 'ko', alpha=0.4)
+        axres = fig.add_subplot(212)
+        for theta_inf in 0.0001, 15.0, 30.0, 45.0, 60.0, -15.0:
+            Rh, thh, PAh, xxh, yyh, fit = fit_hyperbola(
+                xx=np.array(testdata["x"]),
+                yy=np.array(testdata["y"]),
+                Rh=testdata["Rc"]/2,
+                thh=np.abs(theta_inf),
+                PAh=testdata["PAc"],
+                xxh=testdata["xc"],
+                yyh=testdata["yc"],
+                freeze_theta=theta_inf > 0.0,
+                full=True,
+            )
+            x, y = world_hyperbola(Rh, thh, PAh, xxh, yyh)
+            label = r"$\theta_{{\infty}} = {}^\circ$, $R_{{\mathrm{{c}}}} = {:.2f}''$".format(int(thh), Rh)
+            ax.plot(x, y, '-', label=label, alpha=0.5)
+            axres.plot(fit['x']*Rh, fit['residual']*Rh, label=label, alpha=0.5)
+        ax.axis('equal')
+        scale = testdata["Rc"]
+        ax.set_xlim(3*scale, -3*scale)
+        ax.set_ylim(-3*scale, 3*scale)
+        ax.legend(loc="best", fancybox=True, shadow=True, fontsize="small")
+        ax.set_xlabel("Delta alpha, arcsec")
+        ax.set_ylabel("Delta delta, arcsec")
+        ax.grid(alpha=0.2, linestyle='-')
+        ax.set_title(os.path.basename(datafile))
+
+        axres.legend(ncol=2, loc="lower center", fancybox=True, shadow=True, fontsize="small")
+        axres.set_xlabel("Lateral coordinate, x, arcsec")
+        axres.set_ylabel("(Model - data) for axial coordinate, y, arcsec")
+        axres.set_xlim(-2*scale, 2*scale)
+        axres.set_ylim(-0.5, 0.5)
+        axres.grid(alpha=0.2, linestyle='-')
+
+        fig.set_size_inches(6, 10)
+        fig.tight_layout()
+        figfile = os.path.basename(datafile).replace("-xyc.json", "-hyper-test.png")
+        fig.savefig("test/" + figfile)
+
 
 
 
