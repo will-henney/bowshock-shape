@@ -128,30 +128,19 @@ def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200):
     return xx, yy
 
 
-testdata = {
-    "xc": -5.665723355313418, 
-    "yc": -0.8801883891895861, 
-    "Rc": 8.720647445668673, 
-    "PAc": 81.16950464679529, 
-    "x": [
-        -1.6874162965569341, -0.9258390297935146, -0.2687919763362173, 
-        0.4629195150877455, 1.0453021307693653, 1.5679531959630597, 
-        2.060738486199274, 2.6431211016899057, 2.9716446285140483, 
-        3.0761748416291823, 3.0313761788109854, 2.867114415398914, 
-        2.672986876838374, 2.404194900502157, 1.9562082730841397, 
-        1.2394296693299052, 0.6122483908300884, -0.16426176322108316, 
-        -1.0602350180571172
-    ], 
-    "y": [
-        7.310000000000727, 6.820000000001514, 6.050000000000466, 
-        5.310000000000414, 4.620000000003088, 3.830000000000311, 
-        3.090000000000259, 1.9900000000010465, 0.8300000000030394, 
-        -0.2299999999991087, -1.2799999999987932, -2.2799999999989495, 
-        -3.2299999999995777, -4.2999999999977945, -5.179999999997165, 
-        -6.179999999997321, -7.029999999998893, -7.959999999997791, 
-        -8.749999999997371
-    ], 
-}
+def axis_hyperbola(Rh, thh, PAh, xxh, yyh):
+    """Anchored vector along the axis of the hyperbola
+
+    Returns two points as [x1, x2], [y1, y2]
+
+    Starts at the center of curvature and goes through the nose, and
+    then as far again out the other side
+
+    """
+    x = [xxh, xxh + 2*Rh*np.sin(np.radians(PAh))]
+    y = [yyh, yyh + 2*Rh*np.cos(np.radians(PAh))]
+    return x, y
+
 
 import json
 import glob
@@ -170,7 +159,7 @@ if __name__ == "__main__":
         ax = fig.add_subplot(211)
         ax.plot(testdata['x'], testdata['y'], 'ko', alpha=0.4)
         axres = fig.add_subplot(212)
-        for theta_inf in 0.0001, 15.0, 30.0, 45.0, 60.0, -15.0:
+        for theta_inf, color in zip([0.0001, 15.0, 30.0, 45.0, 60.0, -15.0], "bgrcmy"):
             Rh, thh, PAh, xxh, yyh, fit = fit_hyperbola(
                 xx=np.array(testdata["x"]),
                 yy=np.array(testdata["y"]),
@@ -184,19 +173,22 @@ if __name__ == "__main__":
             )
             x, y = world_hyperbola(Rh, thh, PAh, xxh, yyh)
             label = r"$\theta_{{\infty}} = {}^\circ$, $R_{{\mathrm{{c}}}} = {:.2f}''$".format(int(thh), Rh)
-            ax.plot(x, y, '-', label=label, alpha=0.5)
-            axres.plot(fit['x']*Rh, fit['residual']*Rh, label=label, alpha=0.5)
+            ax.plot(x, y, '-' + color, label=label, alpha=0.5)
+            xxa, yya = axis_hyperbola(Rh, thh, PAh, xxh, yyh)
+            ax.arrow(xxh, yyh, 2*Rh*np.sin(np.radians(PAh)), 2*Rh*np.cos(np.radians(PAh)), 
+                     fc='none', ec=color, width=0.0003, alpha=0.5, lw=0.5, head_width=0.05*Rh, head_length=0.1*Rh)
+            axres.plot(fit['x']*Rh, fit['residual']*Rh, '-' + color, label=label, alpha=0.5)
         ax.axis('equal')
         scale = testdata["Rc"]
         ax.set_xlim(3*scale, -3*scale)
         ax.set_ylim(-3*scale, 3*scale)
-        ax.legend(loc="best", fancybox=True, shadow=True, fontsize="small")
+        ax.legend(loc="best", fancybox=True, shadow=True, fontsize="x-small")
         ax.set_xlabel("Delta alpha, arcsec")
         ax.set_ylabel("Delta delta, arcsec")
         ax.grid(alpha=0.2, linestyle='-')
         ax.set_title(os.path.basename(datafile))
 
-        axres.legend(ncol=2, loc="lower center", fancybox=True, shadow=True, fontsize="small")
+        axres.legend(ncol=2, loc="lower center", fancybox=True, shadow=True, fontsize="x-small")
         axres.set_xlabel("Lateral coordinate, x, arcsec")
         axres.set_ylabel("(Model - data) for axial coordinate, y, arcsec")
         axres.set_xlim(-2*scale, 2*scale)
@@ -206,7 +198,7 @@ if __name__ == "__main__":
         fig.set_size_inches(6, 10)
         fig.tight_layout()
         figfile = os.path.basename(datafile).replace("-xyc.json", "-hyper-test.png")
-        fig.savefig("test/" + figfile)
+        fig.savefig("test/" + figfile, dpi=300)
 
 
 
