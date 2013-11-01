@@ -38,16 +38,20 @@ def ycircle(x):
     return 1.0 - np.sqrt(1.0 - x**2)
 
 
-def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False, full=False):
+def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh,
+                  symmetrical=True, freeze_theta=False, full=False, Rmin=0.0):
     """Fit hyperbola to the data xx, yy
 
     The hyperbola is described by 5 parameters:
 
     Rh : radius of curvature on the axis
     thh: asymptotic angle of wings from axis
-    PAh: Position Angle of axis
+    PAh: Position Angle of axis (pegged to xhh, yhh if symmetrical=True)
     xxh: xx position of center-of-curvature
     yyh: yy position of center-of-curvature
+
+    If symmetrical=True, then the axis must pass through the star (origin of xx, yy frame)
+    => tan(PAh) = xxh/yyh
 
     The hyperbola is given as y(x), where y goes along the hyperbola
     axis and x is perpendicular to the hyperbola axis.
@@ -74,7 +78,7 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False, full=False
     """
     
     def model_minus_data(params, xx, yy, full=False):
-        """Function to minimize - gives equal weight to all points"""
+        """Function to minimize - gives equal weight to all points and is in units of arcsec"""
         # Unpack parameters
         PAh = params["PA"].value
         Rh = params["R"].value
@@ -86,19 +90,23 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh, freeze_theta=False, full=False
         xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
         x = (-(xx0 - xx)*cPA + (yy0 - yy)*sPA)/Rh
         y = ((xx0 - xx)*sPA + (yy0 - yy)*cPA)/Rh
-        residual = yhyperbola(x, thh) - y
+        residual = Rh*(yhyperbola(x, thh) - y)
         if full:
             return {"residual": residual, "x": x, "y": y}
         else:
             return residual
 
+    approx_scale = abs(xx[0]) + abs(xx[-1]) + abs(yy[0]) + abs(yy[-1])
+
     # Pack arguments into parameters for the fit
     params = lmfit.Parameters()
     params.add("PA", value=PAh)
-    params.add("R", value=Rh)
+    params.add("R", value=Rh, min=Rmin, max=2*approx_scale)    
     params.add("xx", value=xxh)
     params.add("yy", value=yyh)
     params.add("th", value=thh, min=0.0, max=90.0, vary=not freeze_theta)
+    if symmetrical:
+        params["xx"].expr = "yy * tan(PA*pi/180.0)"
     lmfit.minimize(model_minus_data, params, args=(xx, yy))
     lmfit.report_errors(params)
 
@@ -127,21 +135,6 @@ def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200):
     yy = yy0 + Rh*(-x*sPA - y*cPA)
     return xx, yy
 
-
-def axis_hyperbola(Rh, thh, PAh, xxh, yyh):
-    """Anchored vector along the axis of the hyperbola
-
-    Returns two points as [x1, x2], [y1, y2]
-
-    Starts at the center of curvature and goes through the nose, and
-    then as far again out the other side
-
-    """
-    x = [xxh, xxh + 2*Rh*np.sin(np.radians(PAh))]
-    y = [yyh, yyh + 2*Rh*np.cos(np.radians(PAh))]
-    return x, y
-
-
 import json
 import glob
 import os
@@ -151,33 +144,45 @@ if __name__ == "__main__":
 
     datadir = os.path.expanduser("~/Dropbox/JorgeBowshocks/")
     datafiles = glob.glob(datadir + "*/*/*-xyc.json")
+    colors = "bgrcmy"
     for datafile in datafiles:
+        print "*"*80
+        print "Processing ", datafile
+        print "*"*80
         db = json.load(open(datafile))
         testdata = db["outer"]
 
         fig = plt.figure()
-        ax = fig.add_subplot(211)
+        ax = fig.add_subplot(311)
         ax.plot(testdata['x'], testdata['y'], 'ko', alpha=0.4)
-        axres = fig.add_subplot(212)
-        for theta_inf, color in zip([0.0001, 15.0, 30.0, 45.0, 60.0, -15.0], "bgrcmy"):
+        axres = fig.add_subplot(312)
+        axsig = fig.add_subplot(313)
+        model_theta_infs = []
+        model_sigmas = []
+        for theta_inf, color in zip([0.0001, 15.0, 30.0, 45.0, 60.0, -15.0], colors):
             Rh, thh, PAh, xxh, yyh, fit = fit_hyperbola(
                 xx=np.array(testdata["x"]),
                 yy=np.array(testdata["y"]),
-                Rh=testdata["Rc"]/2,
+                Rh=testdata["Rc"],
                 thh=np.abs(theta_inf),
                 PAh=testdata["PAc"],
                 xxh=testdata["xc"],
                 yyh=testdata["yc"],
                 freeze_theta=theta_inf > 0.0,
                 full=True,
+                Rmin=testdata["R0"],
             )
             x, y = world_hyperbola(Rh, thh, PAh, xxh, yyh)
             label = r"$\theta_{{\infty}} = {}^\circ$, $R_{{\mathrm{{c}}}} = {:.2f}''$".format(int(thh), Rh)
             ax.plot(x, y, '-' + color, label=label, alpha=0.5)
-            xxa, yya = axis_hyperbola(Rh, thh, PAh, xxh, yyh)
             ax.arrow(xxh, yyh, 2*Rh*np.sin(np.radians(PAh)), 2*Rh*np.cos(np.radians(PAh)), 
                      fc='none', ec=color, width=0.0003, alpha=0.5, lw=0.5, head_width=0.05*Rh, head_length=0.1*Rh)
-            axres.plot(fit['x']*Rh, fit['residual']*Rh, '-' + color, label=label, alpha=0.5)
+            ax.plot([xxh], [yyh], '.' + color, alpha=0.5)
+            axres.plot(fit['x']*Rh, fit['residual'], ls='-', color=color, marker='.', label=label, alpha=0.5)
+            model_theta_infs.append(thh)
+            rms = np.sqrt(np.mean(fit['residual']**2))
+            model_sigmas.append(rms)
+
         ax.axis('equal')
         scale = testdata["Rc"]
         ax.set_xlim(3*scale, -3*scale)
@@ -191,11 +196,19 @@ if __name__ == "__main__":
         axres.legend(ncol=2, loc="lower center", fancybox=True, shadow=True, fontsize="x-small")
         axres.set_xlabel("Lateral coordinate, x, arcsec")
         axres.set_ylabel("(Model - data) for axial coordinate, y, arcsec")
-        axres.set_xlim(-2*scale, 2*scale)
-        axres.set_ylim(-0.5, 0.5)
+        axres.set_xlim(None, None)
+        res_scale = 5*np.array(model_sigmas).min()
+        axres.set_ylim(-res_scale, res_scale)
         axres.grid(alpha=0.2, linestyle='-')
 
-        fig.set_size_inches(6, 10)
+        axsig.scatter(model_theta_infs, model_sigmas, c=colors)
+        axsig.set_xlabel("theta_inf, degrees")
+        axsig.set_ylabel("RMS residual, arcsec")
+        axsig.set_xlim(-5.0, 90.0)
+        axsig.set_ylim(0.0, None)
+        axsig.grid(alpha=0.2, linestyle='-')
+
+        fig.set_size_inches(6, 15)
         fig.tight_layout()
         figfile = os.path.basename(datafile).replace("-xyc.json", "-hyper-test.png")
         fig.savefig("test/" + figfile, dpi=300)

@@ -2,6 +2,7 @@
 *#
 doc/ltxpng
 *.py[co]
+read-shapes-LL/test-asymmetric
 
 *.aux
 *.dvi
