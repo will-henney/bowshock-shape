@@ -38,9 +38,23 @@ def ycircle(x):
     return 1.0 - np.sqrt(1.0 - x**2)
 
 
-def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh,
-                  symmetrical=True, freeze_theta=False, full=False, Rmin=0.0):
-    """Fit hyperbola to the data xx, yy
+def yconic_th(x, th_inf=45.0):
+    B = np.tan(np.radians(th_inf))
+    return yconic(x, B)
+
+
+def yconic(x, B=-1.0):
+    """General conic section of axis ratio B=b/a"""
+    if B==0.0:
+        return 0.5*x**2
+    else:
+        s = np.sign(B)
+        return s*(1.0 - np.sqrt(1.0 - s*x**2*B**2))/B**2
+
+    
+def fit_conic(xx, yy, Rh, thh, PAh, xxh, yyh,
+              symmetrical=True, freeze_theta=False, full=False, Rmin=0.0):
+    """Fit conic section to the data xx, yy
 
     The hyperbola is described by 5 parameters:
 
@@ -90,7 +104,7 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh,
         xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
         x = (-(xx0 - xx)*cPA + (yy0 - yy)*sPA)/Rh
         y = ((xx0 - xx)*sPA + (yy0 - yy)*cPA)/Rh
-        residual = Rh*(yhyperbola(x, thh) - y)
+        residual = Rh*(yconic_th(x, thh) - y)
         if full:
             return {"residual": residual, "x": x, "y": y}
         else:
@@ -104,7 +118,7 @@ def fit_hyperbola(xx, yy, Rh, thh, PAh, xxh, yyh,
     params.add("R", value=Rh, min=Rmin, max=2*approx_scale)    
     params.add("xx", value=xxh)
     params.add("yy", value=yyh)
-    params.add("th", value=thh, min=0.0, max=90.0, vary=not freeze_theta)
+    params.add("th", value=thh, min=-90.0, max=90.0, vary=not freeze_theta)
     if symmetrical:
         params["xx"].expr = "yy * tan(PA*pi/180.0)"
     lmfit.minimize(model_minus_data, params, args=(xx, yy))
@@ -128,7 +142,7 @@ def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200):
     (xxh, yyh) - location of center of curvature
     """
     x = np.linspace(xmin, xmax, N) 
-    y = yhyperbola(x, thh)
+    y = yconic_th(x, thh)
     sPA, cPA = np.sin(np.radians(PAh)), np.cos(np.radians(PAh))
     xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
     xx = xx0 + Rh*(x*cPA - y*sPA)
@@ -144,7 +158,7 @@ if __name__ == "__main__":
 
     datadir = os.path.expanduser("~/Dropbox/JorgeBowshocks/")
     datafiles = glob.glob(datadir + "*/*/*-xyc.json")
-    colors = "bgrcmy"
+    colors = "kkkbgrcmy"
     for datafile in datafiles:
         print "*"*80
         print "Processing ", datafile
@@ -159,16 +173,16 @@ if __name__ == "__main__":
         axsig = fig.add_subplot(313)
         model_theta_infs = []
         model_sigmas = []
-        for theta_inf, color in zip([0.0001, 15.0, 30.0, 45.0, 60.0, -15.0], colors):
-            Rh, thh, PAh, xxh, yyh, fit = fit_hyperbola(
+        for theta_inf, color in zip([45.0, 30.0, 15.0, -0.0001, -15.0, -30.0, -45.0, -60.0, -15.0], colors):
+            Rh, thh, PAh, xxh, yyh, fit = fit_conic(
                 xx=np.array(testdata["x"]),
                 yy=np.array(testdata["y"]),
                 Rh=testdata["Rc"],
-                thh=np.abs(theta_inf),
+                thh=theta_inf,
                 PAh=testdata["PAc"],
                 xxh=testdata["xc"],
                 yyh=testdata["yc"],
-                freeze_theta=theta_inf > 0.0,
+                freeze_theta=color!="y",
                 full=True,
                 Rmin=testdata["R0"],
             )
@@ -204,7 +218,7 @@ if __name__ == "__main__":
         axsig.scatter(model_theta_infs, model_sigmas, c=colors)
         axsig.set_xlabel("theta_inf, degrees")
         axsig.set_ylabel("RMS residual, arcsec")
-        axsig.set_xlim(-5.0, 90.0)
+        axsig.set_xlim(-90.0, 90.0)
         axsig.set_ylim(0.0, None)
         axsig.grid(alpha=0.2, linestyle='-')
 
