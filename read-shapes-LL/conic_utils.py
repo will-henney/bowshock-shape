@@ -51,6 +51,22 @@ def yconic(x, B=-1.0):
         s = np.sign(B)
         return s*(1.0 - np.sqrt(1.0 - s*x**2*B**2))/B**2
 
+def x90(R0,th):
+    """
+    R90 value in function of R0 in the conic frame (normalized with Rc)
+    Input parameters: 
+    R0: Distance between the arc nose and the proplyd
+    th: the assymptotic angle of hyperbolae (also applicable 
+    to the other conics)
+    """
+    B = np.tan(np.radians(th))
+    s = np.sign(B)
+    if B ==0:
+        x = np.sqrt(2*R0)
+    else:
+        x = np.sqrt((s/B**2)*( 1-B**4*( -R0+s/B**2 )**2 ) )   
+    return x
+
     
 def fit_conic(xx, yy, Rh, thh, PAh, xxh, yyh,
               symmetrical=True, freeze_theta=False, full=False, Rmin=0.0):
