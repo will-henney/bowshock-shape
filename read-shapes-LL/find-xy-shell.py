@@ -213,6 +213,7 @@ arc_data["help"] = {
         "Y": "(list) [arcsec] Offsets from star perpendicular to axis of shell points",
         "R": "(list) [arcsec] Radii of shell points from star",
         "theta": "(list) [deg] Angle from axis of shell points",
+        "h": "[arcsec] Bowshock width along symmetry axis"
     },
     "star": {
         "id": "Source identifier deduced from region filename",
@@ -230,6 +231,7 @@ arc_data["info"] = {
     "description": "JSON data file for stationary bowshock arcs",
     "history": ["Initially created by " + run_info()],
     "region": cmd_args.region,
+    "h": np.abs(arc_data["inner"]["R0"]-arc_data["outer"]["R0"])
 }
 
 
