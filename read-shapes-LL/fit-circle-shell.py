@@ -125,7 +125,8 @@ infile = cmd_args.infile
 db = json.load(open(infile))
 
 for arc in "inner", "outer":
-    update_arc_data(db[arc])
+    if arc in db:
+        update_arc_data(db[arc])
 
 db["info"]["history"].append("Circle fits added by " + run_info())
 
