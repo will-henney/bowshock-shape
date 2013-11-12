@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 from image_statistics import trimean_and_iqr, robust_statistics
 from misc_utils import run_info
 import pyregion
+import sys
 
 parser = argparse.ArgumentParser(
     description="""Calculate surface brightness profile for bowshock arcs""")
@@ -23,11 +24,16 @@ parser.add_argument("--debug", action="store_true",
 
 cmd_args = parser.parse_args()
 
-arcdata = json.load(open(cmd_args.source + "-xyc.json"))
+
 try:
-    hdu = fits.open(cmd_args.source + "-extract.fits")['SCI']
+    hdu = fits.open(cmd_args.source+"-extract.fits")['SCI']
+    hdu2 = fits.open(cmd_args.source+"-extract.fits")[0]
 except KeyError:
-    hdu = fits.open(cmd_args.source + "-extract.fits")[0]
+    hdu = fits.open(cmd_args.source+"-extract.fits")[0]
+
+
+arcdata = json.load(open(cmd_args.source + "-xyc.json"))
+
 w = wcs.WCS(hdu.header)
 # Pixel coordinate arrays
 x, y = np.meshgrid(np.arange(hdu.data.shape[1]), np.arange(hdu.data.shape[0]))
@@ -116,8 +122,18 @@ print "BG trimean = {:.2f}, iqr = {:.2f}".format(avbg, wbg)
 print "Shell trimean = {:.2f}, iqr = {:.2f}".format(avsh, wsh)
 print "Adopting plot range of {:.2f} to {:.2f}".format(ymin, ymax)
 
-# In the future, we will generalise this to do other filters/cameras
-image_id = "ACS F658N"
+# In the future, we will generalise this to do other filters/cameras 
+
+
+try:
+    filtro = hdu2.header["FILTER1"]
+    camera = hdu2.header["INSTRUME"]
+except:
+    filtro = hdu.header["FILTNAM1"]
+    camera = hdu.header["INSTRUME"]
+
+image_id = camera+ " " + filtro
+
 # Save brightness statistics to a new JSON file
 arcdata[image_id] = {
     "background": {"value": avbg, "delta": wbg},
@@ -125,6 +141,13 @@ arcdata[image_id] = {
     "shell center": {"value": avshc, "delta": wshc},
 }
 arcdata["info"]["history"].append(image_id + " statistics by " + run_info())
+
+# Save brightness statistics in the help section
+help_brightness = {"shell":"Trimean brightness and interquartile (difference between quartiles) of shell",
+                   "Shell center":"Trimean brightness and interquartile (difference between quartiles) of shell center",
+                   "Background":"Trimean brightness and interquartile (difference between quartiles) of background"}
+
+arcdata["help"].update(brightness=help_brightness)
 
 with open(cmd_args.source + "-xycb.json", "w") as f:
     json.dump(arcdata, f, indent=4)
@@ -190,7 +213,7 @@ plt.scatter(theta["outer"][mb].deg, hdu.data[mb], s=2, c="k", marker="o",
 plt.xlabel("Angle, theta, from outer shell axis")
 plt.ylabel("Surface brightness")
 plt.legend()
-plt.title(cmd_args.source)
+plt.title(cmd_args.source + " " + filtro)
 plt.ylim(ymin, ymax)
 plt.grid()
 plt.savefig(cmd_args.source + "-arcbright-th.png", dpi=600)

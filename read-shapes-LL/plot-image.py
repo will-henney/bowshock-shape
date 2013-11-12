@@ -7,7 +7,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import aplpy
-
+from misc_utils import run_info
 
 parser = argparse.ArgumentParser(
     description="""Plot side-by-side pure image of source and image with overlays""")
@@ -25,8 +25,12 @@ parser.add_argument("--debug", action="store_true",
 cmd_args = parser.parse_args()
 
 arcdata = json.load(open(cmd_args.source + "-xycb.json"))
+
+arcdata["info"]["history"].append("brightness limits by " + run_info())
+
 try:
     hdu = fits.open(cmd_args.source + "-extract.fits")['SCI']
+    hdu2 = fits.open(cmd_args.source+ "-extract.fits")[0]
 except KeyError:
     hdu = fits.open(cmd_args.source + "-extract.fits")[0]
 
@@ -36,8 +40,19 @@ ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg).value
 dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg).value
 Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
 
+#correct for image_id. Now it is accoring to fitsfile header
+
+try:
+    filtro = hdu2.header["FILTER1"]
+    camera = hdu2.header["INSTRUME"]
+except:
+    filtro = hdu.header["FILTNAM1"]
+    camera = hdu.header["INSTRUME"]
+
+image_id = camera+ " " + filtro
+
 # Try to guess suitable brightness limits for plot
-image_id = "ACS F658N"
+
 avsh = max(arcdata[image_id]["shell"]["value"], 
            arcdata[image_id]["shell center"]["value"])
 dsh = max(arcdata[image_id]["shell"]["delta"], 
@@ -82,3 +97,14 @@ ax2.colorbar.set_axis_label_text("counts")
 
 f.tight_layout()
 f.savefig(cmd_args.source + "-images.pdf")
+
+# record the --maxfactor and the --minfactor in the *-xycb.json file
+# also their respective help section
+
+arcdata[image_id].update(Mf=cmd_args.maxfactor,mf=cmd_args.minfactor)
+help_Mf = "Set the maximum brightness in units of shell dispersions above shell average"
+help_mf = "Set the minimum brightness in units of bg dispersions below bg average"
+arcdata["help"].update(Mf = help_Mf,mf=help_mf)
+
+with open(cmd_args.source + "-xycb.json", "w") as f:
+    json.dump(arcdata, f, indent=4)
