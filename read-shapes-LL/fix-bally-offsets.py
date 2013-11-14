@@ -48,7 +48,7 @@ def shift_fits_file(fn, dx, dy, replace=("_drz", "_wcs")):
     hdu.header["CRVAL1"] += dx/3600.0
     hdu.header["CRVAL2"] += dy/3600.0
     outfile = fn.replace(*replace)
-    hdu.writeto(outfile, clobber=True)
+    hdu.writeto(os.path.join(fits_dir, outfile), clobber=True)
     return
 
 # Now actually update the FITS files
