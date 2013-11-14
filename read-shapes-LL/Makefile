@@ -4,7 +4,7 @@ DROPBOX_FOLDER = ~/Dropbox/JorgeBowshocks/LuisLL/programas
 all: install_to_dropbox make_read_only
 
 install_to_dropbox: 
-	rsync -av $(PROGRAMS) $(DROPBOX_FOLDER)
+	@rsync -av $(PROGRAMS) $(DROPBOX_FOLDER)
 
 make_read_only: 
-	for f in $(PROGRAMS); do chmod a-w $(DROPBOX_FOLDER)/$$f; ls -l $(DROPBOX_FOLDER)/$$f; done
+	@for f in $(PROGRAMS); do chmod a-w $(DROPBOX_FOLDER)/$$f; done
