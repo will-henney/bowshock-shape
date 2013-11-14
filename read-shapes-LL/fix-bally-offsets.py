@@ -11,11 +11,12 @@ except:
 
 # Groups of fields that seem to have common offsets
 groups = {
-    "I": ["01", "16", "14", "17", "06", "24"],
-    "II": ["07", "08"],
+    "I": ["01", "16", "17", "06", "24", "07"],
+    "II": ["08"],
     "III": ["09"],
     "IV": ["02"],
     "V": ["18"],
+    "VI": ["14"]
 }
 
 data = json.load(open("bally-offsets.json"))
@@ -45,8 +46,8 @@ def shift_fits_file(fn, dx, dy, replace=("_drz", "_wcs")):
     except IOError:
         print fn, "not found"
         return
-    hdu.header["CRVAL1"] += dx/3600.0
-    hdu.header["CRVAL2"] += dy/3600.0
+    hdu.header["CRVAL1"] -= dx/3600.0
+    hdu.header["CRVAL2"] -= dy/3600.0
     outfile = fn.replace(*replace)
     hdu.writeto(os.path.join(fits_dir, outfile), clobber=True)
     return
