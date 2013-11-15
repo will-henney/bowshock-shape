@@ -11,7 +11,7 @@ from region_utils import region_hdr_lines, region_circle_to_string, region_point
 from astropy import coordinates as coord
 from astropy import units as u
 import matplotlib.pyplot as plt
-from misc_utils import run_info
+from misc_utils import run_info, update_json_file
 
 def create_arc_regions(arcdata):
     def check_coordinates():
@@ -111,18 +111,18 @@ colors = {"inner": "m", "outer": "g"}
 parser = argparse.ArgumentParser(
     description="""Fit circles to all the arcs and save as ds9 region file""")
 
-parser.add_argument("infile", type=str,
-                    default="LL1-xy.json",
-                    help="JSON file containing arc data")
+parser.add_argument("source", type=str,
+                    default="LL1",
+                    help="Name of source")
 parser.add_argument("--savefig", action="store_true",
                     help="Save a figure showing the fit")
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 
 cmd_args = parser.parse_args()
-infile = cmd_args.infile
+dbfile = cmd_args.source + "-arcdata.json"
 
-db = json.load(open(infile))
+db = json.load(open(dbfile))
 
 for arc in "inner", "outer":
     if arc in db:
@@ -130,19 +130,16 @@ for arc in "inner", "outer":
 
 db["info"]["history"].append("Circle fits added by " + run_info())
 
-outfile = infile.replace("-xy", "-xyc")
-with open(outfile, "w") as f:
-    json.dump(db, f, indent=4)
+update_json_file(db, dbfile)
 
-region_file = infile.replace("-xy.json", "-arcfits.reg")
+region_file = dbfile.replace("-arcdata.json", "-arcfits.reg")
 with open(region_file, "w") as f:
       f.writelines([s + "\n" for s in create_arc_regions(db)])
 
 if cmd_args.savefig:
-    plotfile = infile.replace("-xy.json", "-arcfits.pdf")
+    plotfile = dbfile.replace("-arcdata.json", "-arcfits.pdf")
     plt.plot(0.0, 0.0, 'o')
     plt.axis("equal")
     plt.savefig(plotfile)
-
 
 

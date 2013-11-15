@@ -14,15 +14,24 @@ def find(name, path):
     return None
             
 
-def plot_map(limits, figname):
+def plot_map(limits, figname, canvas_size, exclude=0.0):
     x, y = coords.radec_str_to_decimal(RAs, Decs) 
     x = -(x - x0)*3600.0
     y = (y - y0)*3600.0
 
     plt.plot(x, y, "o", alpha=0.2)
     for label, xx, yy, field_list in zip(names, x, y, Fields):
-        plt.annotate(label, (xx, yy), alpha=0.8, size=5,
-                     xytext=(-2,2), textcoords='offset points', ha='right', va='bottom',)
+        
+        if xx*2 + yy**2 > exclude**2:
+            plt.annotate(label, (xx, yy), alpha=0.8, size=5,
+                         xytext=(-2,2), textcoords='offset points',
+                         ha='right', va='bottom',
+                         bbox={'facecolor': 'white', 
+                               'alpha': 0.5,
+                               'pad': 2,
+                               'linewidth': 0.1,
+                           },
+            )
         #
         # Try and draw the inner and outer arcs
         #
@@ -104,7 +113,7 @@ def plot_map(limits, figname):
     plt.ylabel("Dec offset, arcsec")
     plt.title("Positions of LL objects in the Orion Nebula")
     plt.grid()
-    plt.gcf().set_size_inches( (20, 20) )
+    plt.gcf().set_size_inches(canvas_size)
     plt.savefig(figname)
 
 
@@ -144,5 +153,15 @@ if __name__ == "__main__":
 
     [x0], [y0] = coords.radec_str_to_decimal(["05:35:16.463"], ["-05:23:23.18"])
 
-    plot_map([-400, 600, -700, 200], "ll-positions.pdf")
-    plot_map([-75, 75, -75, 75], "ll-positions-zoom.pdf")
+    plot_map([-350, 600, -650, 200], "ll-positions.pdf", (20, 20), exclude=50.0)
+    plot_map([-50, 50, -35, 65], "ll-positions-zoom.pdf", (10, 10))
+
+
+
+
+
+
+
+
+
+

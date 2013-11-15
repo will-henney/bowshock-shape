@@ -8,13 +8,17 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import aplpy
 from misc_utils import run_info
+from fits_utils import get_image_hdu, get_instrument_configuration
 
 parser = argparse.ArgumentParser(
     description="""Plot side-by-side pure image of source and image with overlays""")
 
-parser.add_argument("--source", type=str,
+parser.add_argument("source", type=str,
                     default="LL1",
                     help="Name of source (prefix for files)")
+parser.add_argument("--image", type=str,
+                    default="j8oc01010_drz",
+                    help="Name of original FITS image (section in database)")
 parser.add_argument("--maxfactor", type=float, default=3.0,
                     help="Set the maximum brightness in units of shell dispersions above shell average")
 parser.add_argument("--minfactor", type=float, default=3.0,
@@ -24,15 +28,22 @@ parser.add_argument("--debug", action="store_true",
 
 cmd_args = parser.parse_args()
 
-arcdata = json.load(open(cmd_args.source + "-xycb.json"))
+arcdata = json.load(open(cmd_args.source + "-arcdata.json"))
 
-arcdata["info"]["history"].append("brightness limits by " + run_info())
+image_name = cmd_args.image
 
-try:
-    hdu = fits.open(cmd_args.source + "-extract.fits")['SCI']
-    hdu2 = fits.open(cmd_args.source+ "-extract.fits")[0]
-except KeyError:
-    hdu = fits.open(cmd_args.source + "-extract.fits")[0]
+if not image_name in arcdata:
+    raise ValueError, image_name + " not found - try running extract-image.py first"
+if not "shell" in arcdata[image_name]:
+    raise ValueError, "Shell data not found - try running arc_brightness.py first"
+
+
+arcdata["info"]["history"].append("Brightness limits for " + image_name + " " + run_info())
+
+fitsfile = arcdata[image_name]["extracted FITS file"]
+hdulist = fits.open(fitsfile)
+hdu = get_image_hdu(hdulist, debug=cmd_args.debug)
+
 
 # Find coordinates of the central star and radius of curvature
 # We want all the values in degrees for use with aplpy
@@ -40,26 +51,15 @@ ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg).value
 dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg).value
 Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
 
-#correct for image_id. Now it is accoring to fitsfile header
-
-try:
-    filtro = hdu2.header["FILTER1"]
-    camera = hdu2.header["INSTRUME"]
-except:
-    filtro = hdu.header["FILTNAM1"]
-    camera = hdu.header["INSTRUME"]
-
-image_id = camera+ " " + filtro
-
 # Try to guess suitable brightness limits for plot
-
-avsh = max(arcdata[image_id]["shell"]["value"], 
-           arcdata[image_id]["shell center"]["value"])
-dsh = max(arcdata[image_id]["shell"]["delta"], 
-          arcdata[image_id]["shell center"]["delta"])
+avsh = max(arcdata[image_name]["shell"]["value"], 
+           arcdata[image_name]["shell center"]["value"])
+dsh = max(arcdata[image_name]["shell"]["delta"], 
+          arcdata[image_name]["shell center"]["delta"])
 vmax = avsh + cmd_args.maxfactor*dsh
-vmin = arcdata[image_id]["background"]["value"] - \
-       cmd_args.minfactor*arcdata[image_id]["background"]["delta"]
+vmin = arcdata[image_name]["background"]["value"] - \
+       cmd_args.minfactor*arcdata[image_name]["background"]["delta"]
+
 
 #
 # Plot image of the FITS array of this object
@@ -101,7 +101,7 @@ f.savefig(cmd_args.source + "-images.pdf")
 # record the --maxfactor and the --minfactor in the *-xycb.json file
 # also their respective help section
 
-arcdata[image_id].update(Mf=cmd_args.maxfactor,mf=cmd_args.minfactor)
+arcdata[image_name].update(Mf=cmd_args.maxfactor,mf=cmd_args.minfactor)
 help_Mf = "Set the maximum brightness in units of shell dispersions above shell average"
 help_mf = "Set the minimum brightness in units of bg dispersions below bg average"
 arcdata["help"].update(Mf = help_Mf,mf=help_mf)

@@ -9,15 +9,15 @@ from misc_utils import run_info
 parser = argparse.ArgumentParser(
     description="""Find (X, Y) positions of shell boundaries from a DS9 region file""")
 
-parser.add_argument("--region", type=str,
-                    default="LL1-forma.reg",
-                    help="Region file containing shell and star positions")
+parser.add_argument("source", type=str,
+                    default="LL1",
+                    help="Name of source, taken as prefix for region file containing shell and star positions")
 
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info about each line in region file")
 
 cmd_args = parser.parse_args()
-regionfile = cmd_args.region
+regionfile = cmd_args.source + "-forma.reg"
 
 
 def extract_data(line):
@@ -223,19 +223,24 @@ arc_data["help"] = {
         "Dec_dg": "[deg] Declination of source",
         "PA": "[deg] Position Angle of th^1 C from source",
         "D": "[arcsec] Distance of th^1 C from source",
-     } 
+     },
+    "thickness": {
+        "h0": "Shell thickness on axis: h0 = R0(outer) - R0(inner)"
+    }
 
 }
 
 arc_data["info"] = {
     "description": "JSON data file for stationary bowshock arcs",
     "history": ["Initially created by " + run_info()],
-    "region": cmd_args.region,
-    "h": np.abs(arc_data["inner"]["R0"]-arc_data["outer"]["R0"])
-}
+    "region": regionfile,
+} 
 
+arc_data["thickness"] = {
+    "h0": np.abs(arc_data["inner"]["R0"]-arc_data["outer"]["R0"]),
+} 
 
-jsonfile = regionfile.replace("-forma.reg", "-xy.json")
+jsonfile = regionfile.replace("-forma.reg", "-arcdata.json")
 with open(jsonfile, "w") as f:
     json.dump(arc_data, f, indent=4)
 

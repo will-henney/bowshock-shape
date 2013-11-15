@@ -1,15 +1,18 @@
 import numpy as np
 import json
+import os
 from astropy.io import fits
 from astropy import wcs
 from astropy import coordinates as coord
 from astropy import units as u 
 import argparse
+import fits_utils
+import misc_utils
 
 parser = argparse.ArgumentParser(
     description="""Extract a small image around a bowshock and save it as a FITS file""")
 
-parser.add_argument("--source", type=str,
+parser.add_argument("source", type=str,
                     default="LL1",
                     help="Name of source (prefix for files)")
 
@@ -26,11 +29,11 @@ parser.add_argument("--debug", action="store_true",
 
 cmd_args = parser.parse_args()
 
-try:
-    hdu = fits.open(cmd_args.fitsfile)['SCI']
-except KeyError:
-    hdu = fits.open(cmd_args.fitsfile)[0]  
-with open(cmd_args.source + "-xyc.json") as f:
+image_name = os.path.basename(cmd_args.fitsfile).replace(".fits", "")
+hdu = fits_utils.get_image_hdu(fits.open(cmd_args.fitsfile), debug=cmd_args.debug)
+
+dbfile = cmd_args.source + "-arcdata.json"
+with open(dbfile) as f:
      db = json.load(f)
 w = wcs.WCS(hdu.header)
 
@@ -141,6 +144,20 @@ if isinstance(equinox, basestring):
 ##
 ## Save the small image
 ##
-outhdu.writeto(cmd_args.source + "-extract.fits",
-            output_verify="fix", clobber=True)
+outfile = "-".join([cmd_args.source, image_name, "extract.fits"])
+outhdu.writeto(outfile, output_verify="fix", clobber=True)
 
+
+##
+## Update the JSON database with information about the image
+##
+
+# Always overwrite an existing section with the same name
+db[image_name] = {
+    "original FITS file": cmd_args.fitsfile,
+    "extracted FITS file": outfile,
+}
+db[image_name].update(fits_utils.get_instrument_configuration(hdu))
+db["info"]["history"].append("Image " + image_name + " added by " + misc_utils.run_info())
+
+misc_utils.update_json_file(db, dbfile)
