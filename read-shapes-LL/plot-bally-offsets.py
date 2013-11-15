@@ -13,6 +13,7 @@ else:
 f = plt.figure()
 # Additional graph of all the data
 axx = f.add_subplot(nrows, ncols, nrows*ncols)
+limits = [-2.0, 0.5, -1.25, 1.25]
 for i, (field, d) in enumerate(data.items()):
     ax = f.add_subplot(nrows, ncols, i+1)
     # Plot offsets of individual sources
@@ -30,6 +31,7 @@ for i, (field, d) in enumerate(data.items()):
         if abs(dx - d["avdx"][0]) > d["avdx"][1] or abs(dy - d["avdy"][0]) > d["avdy"][1]:
             ax.text(dx, dy, s, fontsize=4, alpha=0.6)
     ax.axis("equal")
+    ax.axis(limits)
     ax.grid()
     ax.set_xlabel(r"$\Delta\alpha$")
     ax.set_ylabel(r"$\Delta\delta$")
@@ -38,6 +40,7 @@ for i, (field, d) in enumerate(data.items()):
 axx.plot([-0.5, 0.5], [0.0, 0.0], "-k", lw=3.0, zorder=0)
 axx.plot([0.0, 0.0], [-0.5, 0.5], "-k", lw=3.0, zorder=0)
 axx.axis("equal")
+axx.axis(limits)
 axx.grid()
 axx.set_xlabel(r"$\Delta\alpha$")
 axx.set_ylabel(r"$\Delta\delta$")
