@@ -7,8 +7,9 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import aplpy
+import pyregion
 from misc_utils import run_info, update_json_file
-from fits_utils import get_image_hdu, get_instrument_configuration
+from fits_utils import get_image_hdu
 
 parser = argparse.ArgumentParser(
     description="""Plot side-by-side pure image of source and image with overlays""")
@@ -127,6 +128,17 @@ ax2.recenter(ra0, dec0, 2*Rc)
 ax2.show_grayscale(invert=True, vmin=vmin, vmax=vmax)
 ax2.show_regions(cmd_args.source + "-forma.reg")
 ax2.show_regions(cmd_args.source + "-arcfits.reg")
+# With the mask regions, the file may not exist
+try:
+    mask_regions = pyregion.open(cmd_args.source + "-mask.reg")
+except IOError:
+    print "No mask regions found"
+else:
+    # If it does, then we switch the color to yellow and linestyle to dashed
+    for r in mask_regions:
+        r.attr[1]['color'] = 'yellow'
+        r.attr[1]['dash'] = '1 '
+    ax2.show_regions(mask_regions)
 ax2.add_scalebar(5.0/3600)
 ax2.scalebar.set_label('5 arcsec')
 ax2.scalebar.set(color='orange', linewidth=4, alpha=0.9)
