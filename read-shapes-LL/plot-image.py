@@ -7,28 +7,36 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import aplpy
-from misc_utils import run_info
+from misc_utils import run_info, update_json_file
 from fits_utils import get_image_hdu, get_instrument_configuration
 
 parser = argparse.ArgumentParser(
     description="""Plot side-by-side pure image of source and image with overlays""")
 
 parser.add_argument("source", type=str,
-                    default="LL1",
                     help="Name of source (prefix for files)")
 parser.add_argument("--image", type=str,
                     default="j8oc01010_drz",
                     help="Name of original FITS image (section in database)")
-parser.add_argument("--maxfactor", type=float, default=3.0,
-                    help="Set the maximum brightness in units of shell dispersions above shell average")
-parser.add_argument("--minfactor", type=float, default=3.0,
-                    help="Set the minimum brightness in units of bg dispersions below bg average")
+parser.add_argument("--maxfactor", type=float, default=None,
+                    help="""\
+Set the maximum brightness in units of shell dispersions above shell average.
+Default is to use any value already saved in the JSON file
+with fall-back of 3.0""")
+parser.add_argument("--minfactor", type=float, default=None,
+                    help="""\
+Set the minimum brightness in units of shell dispersions below shell average.
+Default is to use any value already saved in the JSON file
+with fall-back of 3.0""")
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 
+MAXFACTOR_DEFAULT = 3.0
+MINFACTOR_DEFAULT = 3.0
 cmd_args = parser.parse_args()
 
-arcdata = json.load(open(cmd_args.source + "-arcdata.json"))
+dbfile = cmd_args.source + "-arcdata.json"
+arcdata = json.load(open(dbfile))
 
 image_name = cmd_args.image
 
@@ -38,7 +46,6 @@ if not "shell" in arcdata[image_name]:
     raise ValueError, "Shell data not found - try running arc_brightness.py first"
 
 
-arcdata["info"]["history"].append("Brightness limits for " + image_name + " " + run_info())
 
 fitsfile = arcdata[image_name]["extracted FITS file"]
 hdulist = fits.open(fitsfile)
@@ -51,16 +58,58 @@ ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg).value
 dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg).value
 Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
 
-# Try to guess suitable brightness limits for plot
+
+#
+# Find brightness limits for plot
+#
+
+# Average and dispersion for shell and background
 avsh = max(arcdata[image_name]["shell"]["value"], 
            arcdata[image_name]["shell center"]["value"])
 dsh = max(arcdata[image_name]["shell"]["delta"], 
           arcdata[image_name]["shell center"]["delta"])
-vmax = avsh + cmd_args.maxfactor*dsh
-vmin = arcdata[image_name]["background"]["value"] - \
-       cmd_args.minfactor*arcdata[image_name]["background"]["delta"]
+avbg = arcdata[image_name]["background"]["value"]
+dbg = arcdata[image_name]["background"]["delta"]
 
+plot_limits_modified = False
 
+# Maximum
+vmax = None
+if cmd_args.maxfactor is None:
+    if "plot limits" in arcdata[image_name]:
+        # Use previously stored value if present
+        vmax = arcdata[image_name]["plot limits"]["max"]
+    else:
+        maxfactor = MAXFACTOR_DEFAULT
+else:
+    maxfactor = cmd_args.maxfactor
+if vmax is None:
+    vmax = avsh + maxfactor*dsh
+    plot_limits_modified = True
+    
+# Minimum
+vmin = None
+if cmd_args.minfactor is None:
+    if "plot limits" in arcdata[image_name]:
+        # Use previously stored value if present
+        vmin = arcdata[image_name]["plot limits"]["min"]
+    else:
+        minfactor = MINFACTOR_DEFAULT
+else:
+    minfactor = cmd_args.minfactor
+if vmin is None:
+    vmin = avbg - minfactor*dbg
+    plot_limits_modified = True
+
+# Now update the db if necessary
+if plot_limits_modified:
+    arcdata[image_name]["plot limits"] = {"max": vmax, "min": vmin}
+    arcdata["info"]["history"].append(
+        "Plot limits modified for " + image_name + " " + run_info())
+    arcdata["help"]["brightness"]["plot limits"] \
+        = "Minimum and maximum brightness for *-images.pdf"
+    update_json_file(arcdata, dbfile)
+    
 #
 # Plot image of the FITS array of this object
 # 
@@ -101,10 +150,3 @@ f.savefig(cmd_args.source + "-images.pdf")
 # record the --maxfactor and the --minfactor in the *-xycb.json file
 # also their respective help section
 
-arcdata[image_name].update(Mf=cmd_args.maxfactor,mf=cmd_args.minfactor)
-help_Mf = "Set the maximum brightness in units of shell dispersions above shell average"
-help_mf = "Set the minimum brightness in units of bg dispersions below bg average"
-arcdata["help"].update(Mf = help_Mf,mf=help_mf)
-
-with open(cmd_args.source + "-xycb.json", "w") as f:
-    json.dump(arcdata, f, indent=4)

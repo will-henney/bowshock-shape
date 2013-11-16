@@ -135,15 +135,15 @@ for image_name in arcdata:
 
 
     # Save brightness statistics to a new JSON file
-    arcdata[image_name]["background"] = {"value": avbg, "delta": wbg},
-    arcdata[image_name]["shell"] = {"value": avsh, "delta": wsh},
-    arcdata[image_name]["shell center"] = {"value": avshc, "delta": wshc},
+    arcdata[image_name]["background"] = {"value": avbg, "delta": wbg}
+    arcdata[image_name]["shell"] = {"value": avsh, "delta": wsh}
+    arcdata[image_name]["shell center"] = {"value": avshc, "delta": wshc}
     arcdata["info"]["history"].append("Shell data for " + image_name + " added/modified by " + run_info())
 
     # Save brightness statistics in the help section
     help_brightness = {"shell":"Trimean brightness and interquartile (difference between quartiles) of shell",
-                       "Shell center":"Trimean brightness and interquartile (difference between quartiles) of shell center",
-                       "Background":"Trimean brightness and interquartile (difference between quartiles) of background"}
+                       "shell center":"Trimean brightness and interquartile (difference between quartiles) of shell center",
+                       "background":"Trimean brightness and interquartile (difference between quartiles) of background"}
 
     arcdata["help"].update(brightness=help_brightness)
 
