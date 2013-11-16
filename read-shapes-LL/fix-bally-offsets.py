@@ -30,7 +30,7 @@ for group, fields in groups.items():
     for field in fields:
         dx.extend(data[field]["dx"])
         dy.extend(data[field]["dy"])
-        files.append(data[field]["file"] + ".fits")
+        files.append(data[field]["file"])
     avdx, sigdx = image_statistics.trimean_and_iqr(dx)
     avdy, sigdy = image_statistics.trimean_and_iqr(dy)
     groupdata[group] = {
@@ -53,6 +53,13 @@ def shift_fits_file(fn, dx, dy, replace=("_drz", "_wcs")):
     return
 
 # Now actually update the FITS files
+fieldshifts = {}
 for data in groupdata.values():
     for fn in data["files"]:
-        shift_fits_file(fn, data["dx"], data["dy"])
+        shift_fits_file(fn + ".fits", data["dx"], data["dy"])
+        fieldshifts[fn] = {"dx": data["dx"], "dy":  data["dy"]}
+
+# And save a dict of the shifts for each field
+# so we ca use them later to correct the .reg files
+with open("bally-fieldshifts.json", "w") as f:
+    json.dump(fieldshifts, f, indent=2)
