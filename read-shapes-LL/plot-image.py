@@ -157,8 +157,18 @@ ax2.colorbar.set_axis_label_text("counts")
 
 
 f.tight_layout()
-f.savefig(cmd_args.source + "-images.pdf")
+f.savefig("-".join([cmd_args.source, image_name, "images.pdf"]))
 
 # record the --maxfactor and the --minfactor in the *-xycb.json file
 # also their respective help section
+
+
+
+
+
+
+
+
+
+
 
