@@ -111,7 +111,9 @@ if plot_limits_modified:
         = "Minimum and maximum brightness for *-images.pdf"
     update_json_file(arcdata, dbfile)
     
-#
+instrument = " ".join([arcdata[image_name][k] 
+                       for k in ["camera", "filter", "date"] 
+                       if k in arcdata[image_name]])
 # Plot image of the FITS array of this object
 # 
 plt.clf()
@@ -149,6 +151,13 @@ ax2.add_label(0.5, 0.3, cmd_args.source, color="white",
               weight='bold', size='x-large', relative=True, zorder=1000)
 dx, dy = 0.001, -0.001
 ax2.add_label(0.5+dx, 0.3+dy, cmd_args.source, color="black", alpha=0.6,
+              weight='bold', size='x-large', relative=True, zorder=999)
+ax2.add_label(0.1, 0.9, instrument, color="white",
+              horizontalalignment='left',
+              weight='bold', size='x-large', relative=True, zorder=1000)
+dx, dy = 0.001, -0.001
+ax2.add_label(0.1+dx, 0.9+dy, instrument, color="black", alpha=0.6,
+              horizontalalignment='left',
               weight='bold', size='x-large', relative=True, zorder=999)
 ax2.axis_labels.hide_y()
 ax2.tick_labels.hide_y()

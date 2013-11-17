@@ -1,5 +1,3 @@
-from astropy.io import fits
-
 def get_image_hdu(hdulist, debug=False):
     """
     Return the main image from a FITS file
@@ -32,11 +30,12 @@ def get_instrument_configuration(hdu, debug=False):
     """
     filter_kwds = ["FILTER1", "FILTNAM1", "FILTER2", "FILTNAM2"]
     camera = hdu.header.get("INSTRUME", "Unknown Camera")
+    date = hdu.header.get("DATE-OBS", "Unknown Date")
     for k in filter_kwds:
         filter_ = hdu.header.get(k)
         if filter_ and str(filter_).startswith("F"):
             break
     else:
         filter_ = "Unknown Filter"
-    return {"filter": filter_, "camera": camera}
+    return {"filter": filter_, "camera": camera, "date": date}
     

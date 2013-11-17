@@ -131,6 +131,7 @@ for kwd in "EQUINOX", "DATE-OBS":
                     kwd, outhdu.header[kwd], whdr[kwd]
                )
           outhdu.header[kwd] = whdr[kwd]
+          hdu.header[kwd] = whdr[kwd]
 
 ## Further correction to EQUINOX keyword if necessary
 equinox = outhdu.header.get("EQUINOX")
@@ -138,6 +139,7 @@ if isinstance(equinox, basestring):
      if cmd_args.debug:
           print "Converting EQUINOX to float"
      outhdu.header["EQUINOX"] = 2000.0
+     hdu.header["EQUINOX"] = 2000.0
 
 ## TODO: copy over more keywords from the original FITS header
 ## E.g., filter, camera, etc
