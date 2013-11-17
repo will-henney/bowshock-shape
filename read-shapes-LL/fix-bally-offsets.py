@@ -42,14 +42,14 @@ for group, fields in groups.items():
 
 def shift_fits_file(fn, dx, dy, replace=("_drz", "_wcs")):
     try:
-        hdu = fits.open(os.path.join(fits_dir, fn))["SCI"]
+        hdulist = fits.open(os.path.join(fits_dir, fn))
     except IOError:
         print fn, "not found"
         return
-    hdu.header["CRVAL1"] -= dx/3600.0
-    hdu.header["CRVAL2"] -= dy/3600.0
+    hdulist["SCI"].header["CRVAL1"] -= dx/3600.0
+    hdulist["SCI"].header["CRVAL2"] -= dy/3600.0
     outfile = fn.replace(*replace)
-    hdu.writeto(os.path.join(fits_dir, outfile), clobber=True)
+    hdulist.writeto(os.path.join(fits_dir, outfile), clobber=True)
     return
 
 # Now actually update the FITS files
