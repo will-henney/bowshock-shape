@@ -169,6 +169,7 @@ for image_name in arcdata:
 
     # Plot graph of radial profiles
     #
+    plt.clf()
     plot_prefix = "-".join([cmd_args.source, image_name, "arcbright"])
     plt.plot(z_centers, lower, color="y", alpha=0.8, zorder=111, lw=2.0, label=r"$\theta = -45^\circ$ to $-15^\circ$")
     plt.fill_between(z_centers, lower-dlower, lower+dlower, color="y", alpha=0.05, lw=0, zorder=101)

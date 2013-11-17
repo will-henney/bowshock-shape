@@ -30,13 +30,13 @@ def get_instrument_configuration(hdu, debug=False):
     """
     Return a string that describes the instrument and camera
     """
-    filter_kwds = ["FILTER1", "FILTNAM1"]
+    filter_kwds = ["FILTER1", "FILTNAM1", "FILTER2", "FILTNAM2"]
     camera = hdu.header.get("INSTRUME", "Unknown Camera")
     for k in filter_kwds:
-        filtro = hdu.header.get(k)
-        if filtro:
+        filter_ = hdu.header.get(k)
+        if filter_ and filter_.startswith("F"):
             break
     else:
-        filtro = "Unknown Filter"
-    return {"filter": filtro, "camera": camera}
+        filter_ = "Unknown Filter"
+    return {"filter": filter_, "camera": camera}
     
