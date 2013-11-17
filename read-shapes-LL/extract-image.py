@@ -30,6 +30,7 @@ parser.add_argument("--debug", action="store_true",
 cmd_args = parser.parse_args()
 
 image_name = os.path.basename(cmd_args.fitsfile).replace(".fits", "")
+image_name = misc_utils.short_image_name(image_name)
 hdu = fits_utils.get_image_hdu(fits.open(cmd_args.fitsfile), debug=cmd_args.debug)
 
 dbfile = cmd_args.source + "-arcdata.json"

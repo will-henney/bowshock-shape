@@ -29,3 +29,14 @@ def update_json_file(data, jsonfile):
     filedata.update(data)
     with open(jsonfile, "w") as f:
         json.dump(filedata, f, indent=4)
+
+
+def short_image_name(long_name):
+    if "hlsp_orion_hst_" in long_name:
+        short_name = long_name.replace("hlsp_orion_hst_", 
+                                       "Robberto_").replace("_v1_drz", "")
+    elif long_name.startswith("j8oc"):
+        short_name = long_name.replace("j8oc", "Bally_").replace("010_wcs", "")
+    else:
+        short_name = long_name
+    return short_name
