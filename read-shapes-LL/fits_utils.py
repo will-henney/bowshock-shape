@@ -34,7 +34,7 @@ def get_instrument_configuration(hdu, debug=False):
     camera = hdu.header.get("INSTRUME", "Unknown Camera")
     for k in filter_kwds:
         filter_ = hdu.header.get(k)
-        if filter_ and filter_.startswith("F"):
+        if filter_ and str(filter_).startswith("F"):
             break
     else:
         filter_ = "Unknown Filter"
