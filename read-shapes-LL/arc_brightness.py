@@ -129,9 +129,17 @@ for image_name in arcdata:
         mask["good"] = ~regions.get_mask(hdu=hdu)
     #
     # Calculate robust statistics 
-    avbg, wbg = trimean_and_iqr(hdu.data[mask["<45"] & mask["bg"] & mask["good"]])
-    avsh, wsh = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell"] & mask["good"]])
-    avshc, wshc = trimean_and_iqr(hdu.data[mask["<45"] & mask["shell center"] & mask["good"]])
+    m = mask["<45"] & mask["bg"] & mask["good"]
+    avbg, wbg = trimean_and_iqr(hdu.data[m])
+    nbg = m.sum()
+
+    m = mask["<45"] & mask["shell"] & mask["good"]
+    avsh, wsh = trimean_and_iqr(hdu.data[m])
+    nsh = m.sum()
+
+    m = mask["<45"] & mask["shell center"] & mask["good"]
+    avshc, wshc = trimean_and_iqr(hdu.data[m])
+    nshc = m.sum()
     ymin = avbg - 2*wbg 
     ymax = avsh + 2*wsh
 
@@ -141,9 +149,9 @@ for image_name in arcdata:
     print "Adopting plot range of {:.2f} to {:.2f}".format(ymin, ymax)
 
     # Save brightness statistics to a new JSON file
-    arcdata[image_name]["background"] = {"value": avbg, "delta": wbg}
-    arcdata[image_name]["shell"] = {"value": avsh, "delta": wsh}
-    arcdata[image_name]["shell center"] = {"value": avshc, "delta": wshc}
+    arcdata[image_name]["background"] = {"value": avbg, "delta": wbg, "N": nbg}
+    arcdata[image_name]["shell"] = {"value": avsh, "delta": wsh, "N": nsh}
+    arcdata[image_name]["shell center"] = {"value": avshc, "delta": wshc, "N": nshc}
     arcdata["info"]["history"].append("Shell data for " + image_name + " added/modified by " + run_info())
 
     # Save brightness statistics in the help section
@@ -153,13 +161,12 @@ for image_name in arcdata:
 
     arcdata["help"].update(brightness=help_brightness)
 
-    update_json_file(arcdata, dbfile)
 
     # Calculate average binned profiles versus theta
     th_edges = np.linspace(-60.0, 60.0, 25)
     th_centers = 0.5*(th_edges[:-1] + th_edges[1:])
     m = mask["<60"] & mask["good"] & mask["bg"]
-    bg, dbg = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges)
+    bg, dbg, nbg = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges, return_npix=True)
     m = mask["<60"] & mask["good"] & mask["shell center"]
     sh, dsh = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges)
 
@@ -172,6 +179,15 @@ for image_name in arcdata:
     upper, dupper = robust_statistics(z[m], hdu.data[m], z_edges)
     m = mask["good"] & mask["-15 to -45"]
     lower, dlower = robust_statistics(z[m], hdu.data[m], z_edges)
+
+    # Save th-binned profiles for later use
+    arcdata[image_name]["binned"] = {
+        "theta": list(th_centers),
+        "background N": list(nbg),
+        "background": list(bg),
+        "background sigma": list(dbg),
+        "shell": list(sh),
+    }
 
     # Plot graph of radial profiles
     #
@@ -231,4 +247,7 @@ for image_name in arcdata:
     plt.grid()
     plt.savefig(plot_prefix + "-th.png", dpi=600)
 
+
+
+    update_json_file(arcdata, dbfile)
 

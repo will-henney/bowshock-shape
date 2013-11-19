@@ -21,7 +21,7 @@ def trimean_and_iqr(data):
     return trimean, iqr
 
 
-def robust_statistics(x, y, xedges):
+def robust_statistics(x, y, xedges, return_npix=False):
     """Calculate robust estimates of location and scale of a distribution
 
     Returns (loc, scale) of y, binned by x according to xedges
@@ -37,10 +37,12 @@ def robust_statistics(x, y, xedges):
     The IQR and trimean are much less affected by outliers and
     power-law wings than are the regular mean and sigma
 
+    Optionally also return number of pixels (npix) that contribute to each bin
+
     """
     # Interquartile range in units of std for Gaussian profile
     iqr_over_sigma = 2.0*np.sqrt(2.0)*sp.erfinv(0.5)
-    trimeans, iqrs = [], []
+    trimeans, iqrs, Ns = [], [], []
     # Loop over bins in x
     for x1, x2 in zip(xedges[:-1], xedges[1:]):
         # Construct a mask that selects this bin
@@ -52,8 +54,13 @@ def robust_statistics(x, y, xedges):
     
         trimeans.append(trimean)
         iqrs.append(iqr)
+        Ns.append(m.sum())
     # Convert lists to numpy arrays before returning
     loc = np.array(trimeans)
     # Put scale in units of Gaussian standard deviation
     scale = np.array(iqrs)/iqr_over_sigma
-    return loc, scale 
+    npix = np.array(Ns)
+    if return_npix:
+        return loc, scale, npix
+    else:
+        return loc, scale 
