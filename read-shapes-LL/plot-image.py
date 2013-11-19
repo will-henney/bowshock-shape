@@ -126,6 +126,7 @@ ax1 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 1), north=True)
 ax1.recenter(ra0, dec0, 2*Rc)
 ax1.show_grayscale(invert=True, vmin=vmin, vmax=vmax)
 ax1.add_colorbar()
+ax1.colorbar.set_location("top")
 ax1.colorbar.hide()             # necessary to get panels to be same size
 
 ax2 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 2), north=True)
@@ -154,6 +155,8 @@ ax2.add_label(0.5, 0.3, cmd_args.source, color="white",
               weight='bold', size='x-large', relative=True, zorder=1000)
 dx, dy = 0.001, -0.001
 ax2.add_label(0.5+dx, 0.3+dy, cmd_args.source, color="black", alpha=0.6,
+              bbox={"facecolor": "black", "edgecolor": "none",# "pad": 20,
+                    "alpha": 0.3, "boxstyle": "round,pad=0.5"},
               weight='bold', size='x-large', relative=True, zorder=999)
 ax2.add_label(0.1, 0.9, instrument, color="white",
               horizontalalignment='left',
@@ -161,14 +164,17 @@ ax2.add_label(0.1, 0.9, instrument, color="white",
 dx, dy = 0.001, -0.001
 ax2.add_label(0.1+dx, 0.9+dy, instrument, color="black", alpha=0.6,
               horizontalalignment='left',
+              bbox={"facecolor": "black", "edgecolor": "none",# "pad": 20,
+                    "alpha": 0.3, "boxstyle": "round,pad=0.5"},
               weight='bold', size='x-large', relative=True, zorder=999)
 ax2.axis_labels.hide_y()
 ax2.tick_labels.hide_y()
 ax2.add_colorbar()
 ax2.colorbar.set_axis_label_text("counts")
+ax2.colorbar.set_location("top")
+#ax2.colorbar.set_box([0.95, 0.1, 0.015, 0.8])
 
-
-f.tight_layout()
+#f.tight_layout()
 f.savefig("-".join([cmd_args.source, image_name, "images.pdf"]))
 
 # record the --maxfactor and the --minfactor in the *-xycb.json file
