@@ -63,9 +63,11 @@ def DMS(angle):
     return coord.Angle(angle).to_string(u.degree, sep=":")
 
 ra = np.hstack([np.array(db[arc]["x"]) 
-                for arc in "inner", "outer"]) * u.arcsecond + star_pos.ra
+                for arc in "inner", "outer"
+                if arc in db]) * u.arcsecond + star_pos.ra
 dec = np.hstack([np.array(db[arc]["y"]) 
-                 for arc in "inner", "outer"]) * u.arcsecond + star_pos.dec
+                 for arc in "inner", "outer"
+                 if arc in db]) * u.arcsecond + star_pos.dec
 
 if cmd_args.debug:
     print HMS(ra)

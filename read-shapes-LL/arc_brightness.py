@@ -72,6 +72,7 @@ for image_name in arcdata:
     # Get circle parameters for outer/inner arc
     theta = {}
     R_arc = {}
+    missing = []
     for arc in "inner", "outer":
         if arc in arcdata:
             PAc = coord.Longitude(arcdata[arc]["PAc"], u.deg)
@@ -86,15 +87,23 @@ for image_name in arcdata:
             # (in circle approximation) for the pixel's theta
             R_arc[arc] = Rc*offset_circle_radius(theta[arc], b)
         else:
-            raise NotImplementedError("Case of only one arc not covered yet.")
+            missing.append(arc)
+
+    assert len(missing) <= 1, "At least one arc must be present!"
+
+    # Default values in case an arc is missing
+    if "inner" in missing:
+        theta["inner"] = theta["outer"]
+        R_arc["inner"] = 0.5*R_arc["outer"]
+    if "outer" in missing:
+        theta["outer"] = theta["inner"]
+        R_arc["outer"] = 1.5*R_arc["inner"]
 
     # Position with respect to the arcs:
     # z < 0 -- inside inner arc
     # z = 0 -> 1 -- between arcs
     # z > 0 -- outside outer arc
     z = (R - R_arc["inner"]) / (R_arc["outer"] - R_arc["inner"])
-
-
 
     # Various masks for the shell, background, etc
     mask = {
@@ -130,9 +139,6 @@ for image_name in arcdata:
     print "BG trimean = {:.2f}, iqr = {:.2f}".format(avbg, wbg)
     print "Shell trimean = {:.2f}, iqr = {:.2f}".format(avsh, wsh)
     print "Adopting plot range of {:.2f} to {:.2f}".format(ymin, ymax)
-
-    # In the future, we will generalise this to do other filters/cameras 
-
 
     # Save brightness statistics to a new JSON file
     arcdata[image_name]["background"] = {"value": avbg, "delta": wbg}
@@ -171,16 +177,23 @@ for image_name in arcdata:
     #
     plt.clf()
     plot_prefix = "-".join([cmd_args.source, image_name, "arcbright"])
-    plt.plot(z_centers, lower, color="y", alpha=0.8, zorder=111, lw=2.0, label=r"$\theta = -45^\circ$ to $-15^\circ$")
-    plt.fill_between(z_centers, lower-dlower, lower+dlower, color="y", alpha=0.05, lw=0, zorder=101)
-    plt.plot(z_centers, axis, color="c", alpha=0.8, zorder=112, lw=2.0, label=r"$\theta = -15^\circ$ to $+15^\circ$")
-    plt.fill_between(z_centers, axis-daxis, axis+daxis, color="c", alpha=0.05, lw=0, zorder=102)
-    plt.plot(z_centers, upper, color="b", alpha=0.8, zorder=113, lw=2.0, label=r"$\theta = +15^\circ$ to $+45^\circ$")
-    plt.fill_between(z_centers, upper-dupper, upper+dupper, color="b", alpha=0.05, lw=0, zorder=103)
+    plt.plot(z_centers, lower, color="y", alpha=0.8, zorder=111,
+             lw=2.0, label=r"$\theta = -45^\circ$ to $-15^\circ$")
+    plt.fill_between(z_centers, lower-dlower, lower+dlower, color="y",
+                     alpha=0.05, lw=0, zorder=101)
+    plt.plot(z_centers, axis, color="c", alpha=0.8, zorder=112, lw=2.0,
+             label=r"$\theta = -15^\circ$ to $+15^\circ$")
+    plt.fill_between(z_centers, axis-daxis, axis+daxis,
+                     color="c", alpha=0.05, lw=0, zorder=102)
+    plt.plot(z_centers, upper, color="b", alpha=0.8, zorder=113, lw=2.0,
+             label=r"$\theta = +15^\circ$ to $+45^\circ$")
+    plt.fill_between(z_centers, upper-dupper, upper+dupper, color="b",
+                     alpha=0.05, lw=0, zorder=103)
 
     m = mask["<60"] & mask["good"] & mask["core"]
     plt.scatter(z[m], hdu.data[m], s=2, c=theta["outer"][m].deg,
-                marker="o", cmap=plt.cm.gist_rainbow, alpha=0.6, faceted=False, zorder=100)
+                marker="o", cmap=plt.cm.gist_rainbow, alpha=0.6,
+                edgecolors='none', zorder=100)
     cb = plt.colorbar()
     cb.set_label("theta")
     plt.xlabel("Radius relative to shell: (R - R_in) / (R_out - R_in)")
@@ -204,15 +217,16 @@ for image_name in arcdata:
     m = mask["<60"] & mask["good"] & mask["shell"]
     mb = mask["<60"] & mask["good"] & mask["bg"]
     plt.scatter(theta["outer"][m].deg, hdu.data[m], s=4, c=z[m], marker="o",
-                cmap=plt.cm.gist_rainbow, alpha=0.6, faceted=False, zorder=20)
+                cmap=plt.cm.gist_rainbow, alpha=0.6, edgecolors='none', zorder=20)
     cb = plt.colorbar()
     cb.set_label("z = (R - R_in) / (R_out - R_in)")
     plt.scatter(theta["outer"][mb].deg, hdu.data[mb], s=2, c="k", marker="o",
-                cmap=plt.cm.gist_rainbow, alpha=0.2, faceted=False, zorder=10)
+                cmap=plt.cm.gist_rainbow, alpha=0.2, edgecolors='none', zorder=10)
     plt.xlabel("Angle, theta, from outer shell axis")
     plt.ylabel("Surface brightness")
     plt.legend()
-    plt.title(" ".join([cmd_args.source, arcdata[image_name]["camera"], arcdata[image_name]["filter"]]))
+    plt.title(" ".join([
+        cmd_args.source, arcdata[image_name]["camera"], arcdata[image_name]["filter"]]))
     plt.ylim(ymin, ymax)
     plt.grid()
     plt.savefig(plot_prefix + "-th.png", dpi=600)

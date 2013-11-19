@@ -28,6 +28,8 @@ def create_arc_regions(arcdata):
     ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour)
     dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg)
     for arc, c in ["inner", "magenta"], ["outer", "green"]:
+        if not arc in arcdata:
+            continue
         ra = ra0 + arcdata[arc]["xc"]*u.arcsec/np.cos(dec0.to(u.rad).value)
         dec = dec0 + arcdata[arc]["yc"]*u.arcsec
         radius = arcdata[arc]["Rc"]

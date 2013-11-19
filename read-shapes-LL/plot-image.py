@@ -57,7 +57,10 @@ hdu = get_image_hdu(hdulist, debug=cmd_args.debug)
 # We want all the values in degrees for use with aplpy
 ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg).value
 dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg).value
-Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
+if "outer" in arcdata:
+    Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
+else:
+    Rc = 1.5*arcdata["inner"]["Rc"] * u.arcsec / u.deg
 
 
 #

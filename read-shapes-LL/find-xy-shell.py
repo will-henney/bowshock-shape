@@ -203,6 +203,17 @@ for arc_type, x, y in [
         "theta": list(np.degrees(canonicalize(th - th0))),
         }
 
+
+if "inner" in arc_data and "outer" in arc_data:
+    h0 =  np.abs(arc_data["inner"]["R0"]-arc_data["outer"]["R0"])
+else:
+    h0 = 0.0
+
+arc_data["thickness"] = {
+    "h0": h0,
+} 
+
+
 arc_data["help"] = {
     "arcs":{
         "PA0": "[deg] Position angle of symmetry axis",
@@ -234,10 +245,6 @@ arc_data["info"] = {
     "description": "JSON data file for stationary bowshock arcs",
     "history": ["Initially created by " + run_info()],
     "region": regionfile,
-} 
-
-arc_data["thickness"] = {
-    "h0": np.abs(arc_data["inner"]["R0"]-arc_data["outer"]["R0"]),
 } 
 
 jsonfile = regionfile.replace("-forma.reg", "-arcdata.json")
