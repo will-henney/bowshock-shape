@@ -9,7 +9,7 @@ def find(name, path):
     Original from http://stackoverflow.com/questions/1724693/find-a-file-in-python
     """
     for root, dirs, files in os.walk(path):
-        if name in files:
+        if name in files and not "_drz" in root:
             return os.path.join(root, name)
     return None
             
@@ -47,26 +47,13 @@ def plot_map(limits, figname, canvas_size, exclude=0.0):
                 continue
 
         # folder = "j8oc{}010_drz".format(field)
-        jsonfile = "{}-xy.json".format(label.split()[-1])
-        jsoncfile = "{}-xyc.json".format(label.split()[-1])
-        found = find(jsoncfile, "..")
+        jsonfile = "{}-arcdata.json".format(label.split()[-1])
+        found = find(jsonfile, "..")
         if found is not None:
             f = open(found)
         else:
-            found = find(jsonfile, "..")
-            if found is not None:
-                f = open(found)
-            else:
-                print "Could not open ", jsonfile
-                continue
-        # try:
-        #     f = open(jsoncfile)
-        # except IOError:
-        #     try: 
-        #         f = open(jsonfile)
-        #     except IOError:
-        #         print "Could not open ", jsonfile
-        #         continue
+            print "Could not open ", jsonfile
+            continue
 
         # Second, load in the data and draw the arcs
         arc_data = json.load(f)
