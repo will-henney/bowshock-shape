@@ -55,9 +55,9 @@ for sourcefile in glob.glob(json_patterns):
         rcoords = coords(table[source])
         dRa = pcoords.ra - rcoords.ra
         dDec = pcoords.dec - rcoords.dec
-        print "Offset:", dRa,dDec
-        dx.append(dRa)
-        dy.append(dDec)
+        print "Offset:", dRa.arcsec, dDec.arcsec
+        dx.append(dRa.arcsec)
+        dy.append(dDec.arcsec)
         sources.append(source)
 #print dx,dy
 avdx, sigdx = image_statistics.trimean_and_iqr(dx)
@@ -65,13 +65,13 @@ avdy, sigdy = image_statistics.trimean_and_iqr(dy)
 
 #Apparently dx and dy cannot be converted into arrays, so i'm having troubles
 
-#offsets = {
-#    "dx":dx,
-#    "dy":dy,
-#    "sources":sources,
-#    "avdx": [avdx,sigdx],
-#    "avdy": [avdy,sigdy]
-#    }
-#with open("mosaic_offsets.json",w) as f:
-#    json.dump(offsets,f,indent=2)
+offsets = {
+   "dx":dx,
+   "dy":dy,
+   "sources":sources,
+   "avdx": [avdx,sigdx],
+   "avdy": [avdy,sigdy]
+   }
+with open("mosaic_offsets.json", "w") as f:
+   json.dump(offsets,f,indent=2)
 
