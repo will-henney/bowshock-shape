@@ -173,7 +173,7 @@ if __name__ == "__main__":
     print "Testing hyperbola functions ..."
 
     datadir = os.path.expanduser("~/Dropbox/JorgeBowshocks/")
-    datafiles = glob.glob(datadir + "*/*/*-xyc.json")
+    datafiles = glob.glob(datadir + "*/*/*-arcdata.json")
     thetas = [75.0, 60.0, 45.0, 30.0, 15.0, 0.0001, -15.0, -30.0, -45.0, -60.0, -75.0, -15.0]
     lws = [1.0]*5 + [1.0] + [0.5]*5 + [2.0]
     colors = "ymcrgbgrcmyk"
@@ -263,7 +263,7 @@ if __name__ == "__main__":
 
         fig.set_size_inches(12, 12)
         fig.tight_layout()
-        figfile = os.path.basename(datafile).replace("-xyc.json", "-hyper-test.png")
+        figfile = os.path.basename(datafile).replace("-arcdata.json", "-hyper-test.png")
         fig.savefig("test/" + figfile, dpi=300)
 
 
