@@ -42,9 +42,84 @@ source activate py27
 source deactivate
 #+END_SRC
 
+*** Checking requirements for our programs
++ Checking against [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/requirements.txt][requirements.txt]]
+#+BEGIN_SRC python 
+>>> np.__version__
+'1.7.1'
+>>> astropy.__version__
+'0.2.5'
+>>> matplotlib.__version__
+'1.3.1'
+>>> scipy.__version__
+'0.13.0'
+#+END_SRC
 
+**** [3/5] Missing or out-of-date libs
+:LOGBOOK:
+CLOCK: [2013-11-21 Thu 16:36]
+:END:
+***** DONE astropy
+CLOSED: [2013-11-21 Thu 16:52]
+Install from =Source/= dir
++ [X] Python 2.7, updated to 0.3.dev570
++ [X] Python 3
+#+BEGIN_SRC python
+Python 3.3.2 |Anaconda 1.8.0 (x86_64)| (default, Aug  5 2013, 15:07:24) 
+[GCC 4.0.1 (Apple Inc. build 5493)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import astropy
+>>> astropy.__version__
+'0.3.dev5708'
+#+END_SRC
+***** TODO pyregion
+Install from =Source/= dir
++ [X] Python 2.7
+#+BEGIN_SRC python
+>>> pyregion.__version__
+'1.1.1'
+#+END_SRC
++ [ ] Python 3
+  + fails on requirement for pyparsing>=2.0.0
+#+BEGIN_SRC python
+In [1]: import pyparsing
+In [2]: pyparsing.__version__
+Out[2]: '1.5.6'
+#+END_SRC
+  + [ ] try again when I have internet
+
+***** TODO lmfit
+Install via pip
+***** DONE APLpy
+CLOSED: [2013-11-21 Thu 17:08]
+Install from =Source/= dir
++  [X] Python 2.7
+#+BEGIN_SRC python
+>>> aplpy.__version__
+'0.9.10.dev574'
+#+END_SRC
++ [X] Python 3c
+  + it does work, but it would be better with updated pyparsing:
+#+BEGIN_EXAMPLE
+Warning: Due to a bug in pyparsing <= 2.0.0 on Python 3.x, packrat parsing has been disabled.  Mathtext rendering will be much slower as a result.  Install pyparsing 2.0.0 or later to improve performance.
+#+END_EXAMPLE
+***** DONE pywcsgrid2
+CLOSED: [2013-11-21 Thu 17:08]
+Install from =Source/= dir
++ [X] Python 2.7
++ [X] Python 3
+  + also would be better with newer pyparsing
+#+BEGIN_SRC python
+>>> pywcsgrid2.__version__
+'1.0.dev151'
+#+END_SRC
 *** Testing on Macbook
-Seems to work fine. 
++ [X] IDE =spyder=
++ [-] ipython
+  + [X] works in python 3.3
+  + [-] but not in python 2.7
+    + for some reason it is picking up Canopy folders in =sys.path=
+
 **** Issue with locale
 + Trying to start the =spyder= IDE gave me an error similar to what is [[http://patrick.arminio.info/blog/2012/02/fix-valueerror-unknown-locale-utf8/][described here]].
 + I fixed it by setting the following:
