@@ -2,6 +2,64 @@ Documentation of python installation and configuration
 
 * Installation on CRyA linux machines
 
+** TODO Install Python 3 environment with Anaconda
+:LOGBOOK:
+CLOCK: [2013-11-21 Thu 10:33]--[2013-11-21 Thu 11:15] =>  0:42
+:END:
+
+*** Download minimal installer and run it
+#+BEGIN_SRC bash
+wget -nd http://repo.continuum.io/miniconda/Miniconda3-2.0.3-Linux-x86_64.sh
+bash Miniconda3-2.0.3-Linux-x86_64.sh
+#+END_SRC
+Choose =/fs/robbie/other0/will/anaconda= as the installation dir. 
+
+I am also doing a parallel installation on my Macbook, using the default of =~/anaconda= as the installation dir. 
+
+*** Set run PATH
+#+BEGIN_SRC bash
+export PATH="/fs/robbie/other0/will/anaconda/bin:$PATH"
+#+END_SRC
+
+*** Install the full distribution with all the packages
+#+BEGIN_SRC bash
+conda install anaconda
+#+END_SRC
+
+*** And for good measure install a Python 2.7 distribution too
+#+BEGIN_SRC bash
+conda create -n py27 anaconda python=2.7
+#+END_SRC
+
+*** How to switch between the Python 3 and Python 2 installations
++ The python 3 installation is used by default
++ Switch to python 2.7 with 
+#+BEGIN_SRC bash
+source activate py27
+#+END_SRC
++ And switch back again with
+#+BEGIN_SRC bash
+source deactivate
+#+END_SRC
+
+
+*** Testing on Macbook
+Seems to work fine. 
+**** Issue with locale
++ Trying to start the =spyder= IDE gave me an error similar to what is [[http://patrick.arminio.info/blog/2012/02/fix-valueerror-unknown-locale-utf8/][described here]].
++ I fixed it by setting the following:
+#+BEGIN_SRC bash
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_ALL=
+#+END_SRC
+*** Testing on linux servers
+
 ** DONE Install old version of EPD (7.3)
 CLOSED: [2013-10-23 Wed 12:12]
 ** TODO Install Canopy
