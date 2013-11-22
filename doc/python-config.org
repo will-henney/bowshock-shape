@@ -55,9 +55,10 @@ source deactivate
 '0.13.0'
 #+END_SRC
 
-**** [3/5] Missing or out-of-date libs
+**** DONE [6/6] Missing or out-of-date libs
+CLOSED: [2013-11-21 Thu 19:38]
 :LOGBOOK:
-CLOCK: [2013-11-21 Thu 16:36]
+CLOCK: [2013-11-21 Thu 16:36]--[2013-11-21 Thu 19:38] =>  3:02
 :END:
 ***** DONE astropy
 CLOSED: [2013-11-21 Thu 16:52]
@@ -72,23 +73,25 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> astropy.__version__
 '0.3.dev5708'
 #+END_SRC
-***** TODO pyregion
+***** DONE pyregion
+CLOSED: [2013-11-21 Thu 19:36]
 Install from =Source/= dir
 + [X] Python 2.7
 #+BEGIN_SRC python
 >>> pyregion.__version__
 '1.1.1'
 #+END_SRC
-+ [ ] Python 3
++ [X] Python 3
   + fails on requirement for pyparsing>=2.0.0
 #+BEGIN_SRC python
 In [1]: import pyparsing
 In [2]: pyparsing.__version__
 Out[2]: '1.5.6'
 #+END_SRC
-  + [ ] try again when I have internet
+  + [X] try again when I have internet
 
-***** TODO lmfit
+***** DONE lmfit
+CLOSED: [2013-11-21 Thu 19:38]
 Install via pip
 ***** DONE APLpy
 CLOSED: [2013-11-21 Thu 17:08]
@@ -113,6 +116,25 @@ Install from =Source/= dir
 >>> pywcsgrid2.__version__
 '1.0.dev151'
 #+END_SRC
+***** DONE pyparsing >= 2.0.0 but only for Python 3
+CLOSED: [2013-11-21 Thu 19:37]
+Install via pip:
++ [X] Python 3
+#+BEGIN_EXAMPLE
+iris:Source will$ pip install 'pyparsing>=2.0.0'
+Downloading/unpacking pyparsing>=2.0.0
+  Downloading pyparsing-2.0.1.tar.gz (1.1MB): 1.1MB downloaded
+  Running setup.py egg_info for package pyparsing
+    
+Installing collected packages: pyparsing
+  Found existing installation: pyparsing 1.5.6
+    Uninstalling pyparsing:
+      Successfully uninstalled pyparsing
+  Running setup.py install for pyparsing
+    
+Successfully installed pyparsing
+Cleaning up...
+#+END_EXAMPLE
 *** Testing on Macbook
 + [X] IDE =spyder=
 + [-] ipython
