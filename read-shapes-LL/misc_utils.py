@@ -34,7 +34,7 @@ def update_json_file(data, jsonfile):
 
 
 def short_image_name(long_name):
-    imset, imset_data = find_image_set_re(long_name)
+    imset, imset_data = find_image_set(long_name)
     return "_".join([imset.replace(" ", "_")] + [str(v) for v in imset_data.values ()])
 
 
@@ -61,57 +61,24 @@ def who_am_i():
     return "{}@{}".format(user, system)
 
 
+# Filters are "f" followed by 3 digits, followed by optional letters
+FILTER_NAME = "(?P<filter>f\d\d\d[nwml]?p?)"
+# Fields are 1 or 2 hexadecimal digits, or a digit followed by "l" or "r"
+FIELD_NAME = "(?P<field>[0-9a-flr]{1,2})"
 IMAGE_SET_PATTERNS = {
-    "Bally": "j8oc{field}010_wcs", 
-    "Robberto ACS": "hlsp_orion_hst_acs_strip{field}_{filter}_v1_drz",
-    "Robberto WFPC2": "hlsp_orion_hst_wfpc2_{field}_{filter}_v1_sci",
-    "PC": "{field:d}f{filter:3w}",
-    "PC mosaic": "wcs_GO5469PC{filter}e",
-    "WFC mosaic": "mosaic{filter}",
+    "Bally": "j8oc" + FIELD_NAME + "010_wcs", 
+    "Robberto ACS": "hlsp_orion_hst_acs_strip" + FIELD_NAME + "_" + FILTER_NAME + "_v1_drz",
+    "Robberto WFPC2": "hlsp_orion_hst_wfpc2_" +  FIELD_NAME + "_" + FILTER_NAME + "_v1_sci",
+    "PC": FIELD_NAME + FILTER_NAME,
+    "PC mosaic": "wcs_GO5469PC" + FILTER_NAME + "e",
+    "WFC mosaic": "mosaic" + FILTER_NAME,
+    "ACS Ramp fr505n": "oiii-trap-fix",
 }
 UNKNOWN_SET_PATTERNS = {
-    "Unknown dataset": "f{filter:3w}",
+    "Unknown dataset": FILTER_NAME,
 }
 
 
-# Filters are optional "f" followed by 3 digits, followed by optional letters
-RE_FILTER_NAME = "(?P<filter>f?\d\d\d[nwml]?p?)"
-# Fields are 1 or 2 hexadecimal digits, or a digit followed by "l" or "r"
-RE_FIELD_NAME = "(?P<field>[0-9a-flr]{1,2})"
-IMAGE_SET_RE_PATTERNS = {
-    "Bally": "j8oc" + RE_FIELD_NAME + "010_wcs", 
-    "Robberto ACS": "hlsp_orion_hst_acs_strip" + RE_FIELD_NAME + "_" + RE_FILTER_NAME + "_v1_drz",
-    "Robberto WFPC2": "hlsp_orion_hst_wfpc2_" +  RE_FIELD_NAME + "_" + RE_FILTER_NAME + "_v1_sci",
-    "PC": RE_FIELD_NAME + RE_FILTER_NAME,
-    "PC mosaic": "wcs_GO5469PC" + RE_FILTER_NAME + "e",
-    "WFC mosaic": "mosaic" + RE_FILTER_NAME,
-}
-UNKNOWN_SET_RE_PATTERNS = {
-    "Unknown dataset": RE_FILTER_NAME,
-}
-
-
-
-
-def find_image_set_re(filename):
-    """Auto detect which dataset a given file comes from
-    
-    Returns name of image set and dict containing other info gleaned
-    from the filename, such as field id and filter name.
-
-    Rewrite using the re module
-    """
-    for imset, pattern in IMAGE_SET_RE_PATTERNS.items():
-        match = re.match(pattern, filename)
-        if match:
-            return imset, match.groupdict()
-    else:
-        for imset, pattern in UNKNOWN_SET_RE_PATTERNS.items():
-            match = re.search(pattern, filename)
-            if match:
-                return imset, match.groupdict()
-        else:
-            return "Unknown dataset no filter", {}
 
 
 def find_image_set(filename):
@@ -120,20 +87,17 @@ def find_image_set(filename):
     Returns name of image set and dict containing other info gleaned
     from the filename, such as field id and filter name.
 
-    Uses the parse module, which is a little nicer than regexps,
-    although maybe I should just learn to use named groups: 
-    (?P<name>...), then accesed via match.groupdict()
-
+    Rewrite using the re module - wasn't too hard
     """
     for imset, pattern in IMAGE_SET_PATTERNS.items():
-        match = parse.search(pattern, filename)
+        match = re.match(pattern, filename)
         if match:
-            return imset, match.named
+            return imset, match.groupdict()
     else:
         for imset, pattern in UNKNOWN_SET_PATTERNS.items():
-            match = parse.search(pattern, filename)
+            match = re.search(pattern, filename)
             if match:
-                return imset, match.named
+                return imset, match.groupdict()
         else:
             return "Unknown dataset no filter", {}
     
