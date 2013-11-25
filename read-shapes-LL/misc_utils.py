@@ -4,6 +4,7 @@ import sys
 import os
 import json
 import parse
+import re
 
 def run_info():
     """
@@ -33,7 +34,7 @@ def update_json_file(data, jsonfile):
 
 
 def short_image_name(long_name):
-    imset, imset_data = find_image_set(long_name)
+    imset, imset_data = find_image_set_re(long_name)
     return "_".join([imset.replace(" ", "_")] + [str(v) for v in imset_data.values ()])
 
 
@@ -72,10 +73,49 @@ UNKNOWN_SET_PATTERNS = {
     "Unknown dataset": "f{filter:3w}",
 }
 
-RE_FILTER_NAME = "f(?P<filter>\d\d\d)"
+
+# Filters are optional "f" followed by 3 digits, followed by optional letters
+RE_FILTER_NAME = "(?P<filter>f?\d\d\d[nwml]?p?)"
+# Fields are 1 or 2 hexadecimal digits, or a digit followed by "l" or "r"
+RE_FIELD_NAME = "(?P<field>[0-9a-flr]{1,2})"
+IMAGE_SET_RE_PATTERNS = {
+    "Bally": "j8oc" + RE_FIELD_NAME + "010_wcs", 
+    "Robberto ACS": "hlsp_orion_hst_acs_strip" + RE_FIELD_NAME + "_" + RE_FILTER_NAME + "_v1_drz",
+    "Robberto WFPC2": "hlsp_orion_hst_wfpc2_" +  RE_FIELD_NAME + "_" + RE_FILTER_NAME + "_v1_sci",
+    "PC": RE_FIELD_NAME + RE_FILTER_NAME,
+    "PC mosaic": "wcs_GO5469PC" + RE_FILTER_NAME + "e",
+    "WFC mosaic": "mosaic" + RE_FILTER_NAME,
+}
+UNKNOWN_SET_RE_PATTERNS = {
+    "Unknown dataset": RE_FILTER_NAME,
+}
+
+
+
+
+def find_image_set_re(filename):
+    """Auto detect which dataset a given file comes from
+    
+    Returns name of image set and dict containing other info gleaned
+    from the filename, such as field id and filter name.
+
+    Rewrite using the re module
+    """
+    for imset, pattern in IMAGE_SET_RE_PATTERNS.items():
+        match = re.match(pattern, filename)
+        if match:
+            return imset, match.groupdict()
+    else:
+        for imset, pattern in UNKNOWN_SET_RE_PATTERNS.items():
+            match = re.search(pattern, filename)
+            if match:
+                return imset, match.groupdict()
+        else:
+            return "Unknown dataset no filter", {}
+
 
 def find_image_set(filename):
-    """Auto detect which dataset a given file is from
+    """Auto detect which dataset a given file comes from
     
     Returns name of image set and dict containing other info gleaned
     from the filename, such as field id and filter name.
