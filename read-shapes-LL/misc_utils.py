@@ -26,7 +26,10 @@ def update_json_file(data, jsonfile):
     the json.load and the json.dump
 
     """
-    filedata = json.load(open(jsonfile))
+    try:
+        filedata = json.load(open(jsonfile))
+    except IOError:
+        filedata = {}
     filedata.update(data)
     with open(jsonfile, "w") as f:
         json.dump(filedata, f, indent=4)
@@ -100,12 +103,13 @@ def find_image_set(filename):
 #   
 # Utility functions to deal with data directories
 #
-def fits_dirs():
+def fits_dirs(user=None):
     """
     Find the root directory for various collections of FITS files
     """
     dropbox_root = os.path.expanduser("~/Dropbox")
-    user = who_am_i()
+    if user is None:
+        user = who_am_i()
     if user.endswith("crya"):
         large_fits_dir = "/fs/nas11/other0/will/Orion"
     else:
@@ -122,11 +126,11 @@ def fits_dirs():
     return small_fits_dir, large_fits_dir
 
 
-def expand_fits_path(p):
+def expand_fits_path(p, user=None):
     """
     Expand out to the full path
     """
-    small_fits_dir, large_fits_dir = fits_dirs()
+    small_fits_dir, large_fits_dir = fits_dirs(user)
     if "$SMALL" in p:
         return p.replace("$SMALL_FITS_DIR", small_fits_dir)
     elif "$LARGE" in p:
@@ -135,11 +139,11 @@ def expand_fits_path(p):
         return p
 
 
-def contract_fits_path(p):
+def contract_fits_path(p, user=None):
     """
     Canonicalize path
     """
-    small_fits_dir, large_fits_dir = fits_dirs()
+    small_fits_dir, large_fits_dir = fits_dirs(user)
     return p.replace(small_fits_dir, "$SMALL_FITS_DIR").replace(large_fits_dir, "$LARGE_FITS_DIR")
 
 
