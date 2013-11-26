@@ -1,0 +1,57 @@
+#+TITLE: README-LL
+#+AUTHOR: William Henney
+
+Description of the programs in =read-shapes-LL= 
+
+* Basic analysis of arcs
+
+Material copied from [[id:8C43BCD8-5AC5-4C80-AB7C-73A7D8DB3B42][=luis-angel-ll.org=]]
+
+** find-xy-shell.py
+=find-xy-shell.py SOURCE=
+   + Reads arcs from =SOURCE-forma.reg=
+   + Writes data to =SOURCE-arcdata.json=
+** fit-circle-shell.py
+=fit-circle-shell.py SOURCE=
+   + Reads arc data from =SOURCE-arcdata.json=
+   + Fits circles to inner and outer arcs
+   + Saves plot: =SOURCE-arcfits.pdf=
+   + Saves DS9 region file: =SOURCE-arcfits.reg=
+   + Writes fit data to =SOURCE-arcdata.json=
+** extract-image.py
+=extract-image.py SOURCE --fitsfile BIGFITSFILE.fits=
+   + Run separately for each =BIGFITSFILE=
+   + Reads arc data from =SOURCE-arcdata.json=
+   + Reads large image data from =BIGFITSFILE.fits=
+     + (Note that it now finds the data directory automatically) 
+   + Reads instrument configuration from  =BIGFITSFILE.fits=
+   + Constructs a short name: =IMAGE= 
+   + Writes small image around source to =SOURCE-IMAGE-extract.fits=
+   + Writes data about instrument configuration and image files to an =IMAGE= section in =SOURCE-arcdata.json=
+** arc_brightness.py
+=arc_brightness.py SOURCE=
+   + Reads arc data and instrument data from =SOURCE-arcdata.json=
+   + For each =IMAGE= found:
+     + Reads image data from =SOURCE-IMAGE-extract.fits=
+     + Calculates brightness in shell and background regions
+     + Writes data about shell brightness to =SOURCE-arcdata.json=
+     + Saves plots: =SOURCE-IMAGE-arcbright-th.png= and =SOURCE-IMAGE-arcbright-z.png=
+** plot-image.py
+=plot-image.py SOURCE --image IMAGE=
+   + Reads arc data from =SOURCE-arcdata.json=
+   + Reads image data from =SOURCE-IMAGE-extract.fits=
+   + Saves image plot: =SOURCE-IMAGE-images.pdf=
+   + Writes data about plot limits to =SOURCE-arcdata.json=
+
+* Options                                                          :noexport:
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+OPTIONS: e:t email:nil f:t inline:t num:nil p:nil pri:nil stat:t
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+
+
