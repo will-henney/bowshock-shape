@@ -17,8 +17,8 @@ parser.add_argument("source", type=str,
                     help="Name of source (prefix for files)")
 
 parser.add_argument("--fitsfile", type=str,
-                    default="j8oc01010_drz.fits",
-                    help="Original FITS image that contains the object")
+                    default="j8oc01010_wcs.fits",
+                    help="Base name of FITS image that contains the source")
 
 parser.add_argument("--margin", type=float,
                     default=10.0,
@@ -29,9 +29,16 @@ parser.add_argument("--debug", action="store_true",
 
 cmd_args = parser.parse_args()
 
-image_name = os.path.basename(cmd_args.fitsfile).replace(".fits", "")
-image_name = misc_utils.short_image_name(image_name)
-hdu = fits_utils.get_image_hdu(fits.open(cmd_args.fitsfile), debug=cmd_args.debug)
+assert not "/" in cmd_args.fitsfile, \
+     "Please do not give path to FITS file - it will be found automatically"
+
+
+image_name = misc_utils.short_image_name(cmd_args.fitsfile)
+fits_path = os.path.join(
+     misc_utils.image_set_fits_dir (image_name),
+     cmd_args.fitsfile
+)
+hdu = fits_utils.get_image_hdu(fits.open(fits_path), debug=cmd_args.debug)
 
 dbfile = cmd_args.source + "-arcdata.json"
 with open(dbfile) as f:
@@ -159,10 +166,13 @@ outhdu.writeto(outfile, output_verify="fix", clobber=True)
 
 # Always overwrite an existing section with the same name
 db[image_name] = {
-    "original FITS file": cmd_args.fitsfile,
+    "original FITS file": misc_utils.contract_fits_path(fits_path),
     "extracted FITS file": outfile,
 }
 db[image_name].update(fits_utils.get_instrument_configuration(hdu))
 db["info"]["history"].append("Image " + image_name + " added by " + misc_utils.run_info())
 
 misc_utils.update_json_file(db, dbfile)
+
+
+
