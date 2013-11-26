@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>README-LL</title>
+<!-- 2013-11-26 Tue 08:53 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="William Henney" />
+<style type="text/css">
+<!--/*--><![CDATA[/*><!--*/
+html {
+    font-family: Lucida Grande, Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    /* color:  rgb(224, 224, 224); */
+    /* background: rgb(48, 48, 48); */
+}
+
+/* Links */
+a:link {color: #333399; }
+a:visited {color: #777788; }
+a:hover {color: #2222ff; }
+
+
+/* Added by Will 03 Sep 2007 */
+li {padding: 4px; }
+
+/* Added by Will 08 Oct 2007 */ 
+
+/* Headings shamelessly copied from MoinMoin theme "sinorca4moin" by David Linke*/
+
+h1, h2, h3, h4, h5 {
+	margin: 1em 0 0.5em 0;
+	padding: 0.5em 0.5em 0.5em 0.5em;
+        font-weight: bold;
+	/* background-color: #fafada; */
+	line-height: 1.2em;
+}	
+
+/* h5, h6 { */
+/*     border-bottom: 1px dashed rgb(135,135,135); */
+/* }   */
+/* h1, h2, h3, h4 { */
+/*     /\* border-left: 1px solid rgb(135,135,135); *\/ */
+/*     border-bottom: 2px solid rgb(135,135,135); */
+/* }   */
+
+h1, h2, h3, h4, h5, h6 {
+    color: rgb(16,16,32);
+}
+h1 {font-size: 140%;}
+h2 {font-size: 120%;}
+h3, h4, h5, h6 {font-size: 100%;}
+h6 {font-style: italic;}
+
+/* .src:before {  */
+/*     background: #3F3F3F; */
+/*     border-right: 1px solid #DCDCDC; border-bottom: 1px solid #DCDCDC; */
+/* } */
+
+.src {
+    background: #4F4F4F;
+    color: #ECECEC;
+}
+.example, thead {
+    background: #E3E3E3;
+}
+
+pre.src:before {
+    color: black;
+}
+
+pre.src {
+    overflow: auto;
+}
+
+/* pre.src-python:before { content: 'Python'; } */
+
+.wjhfig {
+    background-color: #eee;
+    padding: 10pt;
+    margin: 10pt;
+}
+.figure, img {
+    padding: 0pt;
+    margin: 0pt;
+}
+
+/* Make sure paragraphs are no thinner than a certain width, even if
+   there is a floating div eating up their space - based on this tip:
+   http://css-tricks.com/minimum-paragraph-widths */ 
+p:before {
+  content: "";
+  width: 20em;
+  display: block;
+  overflow: hidden;
+  /* For Demonstration */
+  /* border: 1px solid green; */
+}
+
+/* ul { */
+/*     /\* try and fix item indentation when the list is to the right pf a */
+/*        "float:left" div.  Initially inspired by advice from */
+/*        http://wordpress.org/support/topic/left-float-and-bullet-lists-not-playing-well-together */
+/*        although in the end I had to do things differently*\/ */
+/*     list-style: inside; */
+/*     text-indent: 10pt; */
+/* } */
+/* ul > li > ul { text-indent: 20pt; } */
+/* ul > li > ul > li > ul { text-indent: 30pt; } */
+
+.src, .example, table {
+    font-size: 80%;
+}
+
+tbody {
+    background-color: #fafada;
+    /* background-color: rgb(250, 250, 200); */
+}
+
+
+#table-of-contents {
+    background-color: #f0f0f0;
+}
+
+
+
+
+/*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">README-LL</h1>
+<p>
+Description of the programs in <code>read-shapes-LL</code> 
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Basic analysis of arcs</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Material copied from <a href="../../../../../Dropbox/JorgeBowshocks/LuisLL/luis-angel-ll.html#ID-8C43BCD8-5AC5-4C80-AB7C-73A7D8DB3B42"><code>luis-angel-ll.org</code></a>
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">find-xy-shell.py</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="source">
+<p>
+find-xy-shell.py SOURCE
+</p>
+
+</div>
+<ul class="org-ul">
+<li>Reads arcs from <code>SOURCE-forma.reg</code>
+</li>
+<li>Writes data to <code>SOURCE-arcdata.json</code>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">fit-circle-shell.py</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="source">
+<p>
+fit-circle-shell.py SOURCE
+</p>
+
+</div>
+<ul class="org-ul">
+<li>Reads arc data from <code>SOURCE-arcdata.json</code>
+</li>
+<li>Fits circles to inner and outer arcs
+</li>
+<li>Saves plot: <code>SOURCE-arcfits.pdf</code>
+</li>
+<li>Saves DS9 region file: <code>SOURCE-arcfits.reg</code>
+</li>
+<li>Writes fit data to <code>SOURCE-arcdata.json</code>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">extract-image.py</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="source">
+<p>
+extract-image.py SOURCE &#x2013;fitsfile BIGFITSFILE.fits
+</p>
+
+</div>
+<ul class="org-ul">
+<li>Run separately for each <code>BIGFITSFILE</code>
+</li>
+<li>Reads arc data from <code>SOURCE-arcdata.json</code>
+</li>
+<li>Reads large image data from <code>BIGFITSFILE.fits</code>
+<ul class="org-ul">
+<li>(Note that it now finds the data directory automatically) 
+</li>
+</ul>
+</li>
+<li>Reads instrument configuration from  <code>BIGFITSFILE.fits</code>
+</li>
+<li>Constructs a short name: <code>IMAGE</code> 
+</li>
+<li>Writes small image around source to <code>SOURCE-IMAGE-extract.fits</code>
+</li>
+<li>Writes data about instrument configuration and image files to an <code>IMAGE</code> section in <code>SOURCE-arcdata.json</code>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">arc_brightness.py</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="source">
+<p>
+arc_brightness.py SOURCE
+</p>
+
+</div>
+<ul class="org-ul">
+<li>Reads arc data and instrument data from <code>SOURCE-arcdata.json</code>
+</li>
+<li>For each <code>IMAGE</code> found:
+<ul class="org-ul">
+<li>Reads image data from <code>SOURCE-IMAGE-extract.fits</code>
+</li>
+<li>Calculates brightness in shell and background regions
+</li>
+<li>Writes data about shell brightness to <code>SOURCE-arcdata.json</code>
+</li>
+<li>Saves plots: <code>SOURCE-IMAGE-arcbright-th.png</code> and <code>SOURCE-IMAGE-arcbright-z.png</code>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">plot-image.py</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="source">
+<p>
+plot-image.py SOURCE &#x2013;image IMAGE
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: William Henney</p>
+<p class="date">Created: 2013-11-26 Tue 08:53</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.3b)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
