@@ -47,6 +47,9 @@ Material copied from [[id:8C43BCD8-5AC5-4C80-AB7C-73A7D8DB3B42][=luis-angel-ll.o
 =fix-fits-dirs.py SOURCE=
 + Replaces hard-wired paths with vars like =$LARGE_FITS_DIR=.
 + This can be used to fix legacy files.
+* Finding all the images that contain a source
+
+* Collecting data from many sources
 ** collect-plot-limits.py
 =collect-plot-limits.py --dirs j8oc*_wcs=
 + Write a file =image-plot-limits.json= that collects the min/max levels for plotting the image of each extracted FITS file.
