@@ -1,3 +1,4 @@
+from __future__ import print_function
 import datetime
 import getpass
 import sys
@@ -116,17 +117,19 @@ def fits_dirs(user=None):
         if user == "will@mac":
             large_fits_dir = "/Users/will/Work/OrionTreasury"
         elif user.endswith("linux"):
-            print "No large fits directory" #Avoid Error when using Laptop
+            print("No large fits directory") #Avoid Error when using Laptop
             large_fits_dir= ""
         else:
             raise EnvironmentError("Unrecognised user@system - please add to misc_utils.py")
     if user.startswith("will"):
         dropbox_folder = "JorgeBowshocks"
-    elif user.startswith("jtarango") or user.startswith("angel") or user.startswith("dark_lxndrs"):
+    elif user.split("@")[0] in ["jtarango", "angel", "dark_lxndrs"]:
         dropbox_folder = "ProplydMIR"
-        # Jorge's Laptop also needs this Dropbox folder, check if Luis can use this from laptop and crya machine
+        # Jorge's Laptop also needs this Dropbox folder, check if Luis
+        # can use this from laptop and crya machine
     if user == "jtarango@crya":
-        dropbox_root ="/fs/posgrado01/other0/jtarango/Dropbox" #Dropbox folder is not at home folder in Jorge's CRyA machine
+        # Dropbox folder is not at home folder in Jorge's CRyA machine
+        dropbox_root ="/fs/posgrado01/other0/jtarango/Dropbox"
     small_fits_dir = os.path.join(dropbox_root, dropbox_folder, "HST")
     return small_fits_dir, large_fits_dir
 
