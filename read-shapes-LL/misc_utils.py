@@ -71,7 +71,7 @@ IMAGE_SET_PATTERNS = {
     "Bally": "j8oc" + FIELD + "010_wcs", 
     "Robberto ACS": "hlsp_orion_hst_acs_strip" + FIELD + "_" + FILTER + "_v1_drz",
     "Robberto WFPC2": "hlsp_orion_hst_wfpc2_" +  FIELD + "_" + FILTER + "_v1_sci",
-    "PC": FIELD + FILTER,
+    "PC": "wcs_" + FIELD + FILTER,
     "PC mosaic": "wcs_GO5469PC" + FILTER + "e",
     "WFC mosaic": "mosaic" + FILTER,
     "ACS Ramp fr505n": "oiii-trap-fix",
