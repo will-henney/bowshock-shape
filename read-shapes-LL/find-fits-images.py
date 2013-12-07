@@ -9,7 +9,27 @@ import glob
 import argparse
 import tempfile
 import misc_utils
+import fits_utils
 import montage_wrapper
+from astropy.io import fits
+from astropy import wcs
+
+
+def has_data(fitsfile, ra0, dec0):
+    "Check whether there is any non-zero data in fitsfile at the source position (ra0, dec0)"
+    fitspath = misc_utils.expand_fits_path(fitsfile)
+    if cmd_args.debug: print("\nReading from", fitspath)
+    hdu = fits_utils.get_image_hdu(fits.open(fitspath), debug=cmd_args.debug)
+    if cmd_args.debug: print("Image size", hdu.data.shape)
+    w = wcs.WCS(hdu.header)
+    x, y = w.wcs_world2pix(ra0, dec0, 0)
+    if cmd_args.debug: print("Coords", ra0, dec0, "->", x, y)
+    i1 = int(x)
+    j1 = int(y)
+    pixel_data = hdu.data[j1:j1+2, i1:i1+2].mean()
+    if cmd_args.debug: print("{}[{}:{},{}:{}] = {}".format(
+            fitsfile, j1, j1+2, i1, i1+2, pixel_data))
+    return pixel_data > 0.0 
 
 
 parser = argparse.ArgumentParser(
@@ -19,6 +39,8 @@ parser.add_argument("--dirs", type=str,
                     help="Pattern matching folders to be searched for SOURCE-arcdata.json files")
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
+parser.add_argument("--full-check", action="store_true",
+                    help="Check that each image has data of the source")
 
 cmd_args = parser.parse_args()
 pattern = os.path.join(cmd_args.dirs, "*-arcdata.json")
@@ -76,16 +98,20 @@ for dbfile in glob.glob(pattern):
 
     # Look for source in both tables
     source_table = os.path.join(tempdir, "{}-images.tbl".format(source))
-    if cmd_args.debug: print("Writing", source_table)
+    if cmd_args.debug: print("\n\nWriting", source_table)
     # FIXME mCoverage check has a bug where it needs two extra args
     montage_wrapper.mCoverageCheck("BUG BUG " + combo_table, source_table,
                                    "point", None, ra=ra, dec=dec)
     # Grab the names of the FITS images from the table that
     # mCoverageCheck wrote
-    imdb[source] = [misc_utils.contract_fits_path(line.split()[-1])
-                    for line in open(source_table).readlines()
-                    if ".fits" in line]
-
+    candidate_images = [misc_utils.contract_fits_path(line.split()[-1])
+                        for line in open(source_table).readlines()
+                        if ".fits" in line]
+    # And optionally check that there is really data at the relevant position
+    if cmd_args.full_check:
+        imdb[source] = [fitsfile for fitsfile in candidate_images if has_data(fitsfile, ra, dec)]
+    else:
+        imdb[source] = candidate_images
 
 
 #
