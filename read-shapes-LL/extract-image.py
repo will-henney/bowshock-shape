@@ -1,3 +1,4 @@
+from __future__ import print_function
 import numpy as np
 import json
 import os
@@ -76,9 +77,7 @@ dec = np.hstack([np.array(db[arc]["y"])
                  for arc in "inner", "outer"
                  if arc in db]) * u.arcsecond + star_pos.dec
 
-if cmd_args.debug:
-    print HMS(ra)
-    print DMS(dec)
+if cmd_args.debug: print(HMS(ra), DMS(dec))
 ##
 ## Find minimum and maximum RA, DEC
 ##
@@ -90,8 +89,8 @@ ra2 =  coord.Angle(ra.max() + margin )
 dec1 = coord.Angle(dec.min() - margin) 
 dec2 = coord.Angle(dec.max() + margin) 
 
-print "RA range: ", HMS(ra1), HMS(ra2)
-print "Dec range: ", DMS(dec1), DMS(dec2)
+print("RA range:", HMS(ra1), HMS(ra2))
+print("Dec range:", DMS(dec1), DMS(dec2))
 
 ##
 ## Rectangle in RA, Dec that encloses object with margin
@@ -118,7 +117,7 @@ i1 = max(0, i1)
 i2 = min(i2, nx-1)
 j1 = max(0, j1)
 j2 = min(j2, ny-1)
-print "Extracted image window: [{}:{}, {}:{}]".format(i1, i2, j1, j2)
+print("Extracted image window: [{}:{}, {}:{}]".format(i1, i2, j1, j2))
 
 ##
 ## Extract window from image and adjust WCS info
@@ -136,9 +135,9 @@ whdr=w.to_header()
 for kwd in "EQUINOX", "DATE-OBS":
      if kwd in whdr:
           if cmd_args.debug:
-               print "Replacing {} = {} with {}".format(
+               print("Replacing {} = {} with {}".format(
                     kwd, outhdu.header[kwd], whdr[kwd]
-               )
+               ))
           outhdu.header[kwd] = whdr[kwd]
           hdu.header[kwd] = whdr[kwd]
 
@@ -146,7 +145,7 @@ for kwd in "EQUINOX", "DATE-OBS":
 equinox = outhdu.header.get("EQUINOX")
 if isinstance(equinox, basestring):
      if cmd_args.debug:
-          print "Converting EQUINOX to float"
+          print("Converting EQUINOX to float")
      outhdu.header["EQUINOX"] = 2000.0
      hdu.header["EQUINOX"] = 2000.0
 

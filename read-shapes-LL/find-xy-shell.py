@@ -1,4 +1,4 @@
-#from __future__ import print_function
+from __future__ import print_function
 import numpy as np
 import argparse
 import json
@@ -33,9 +33,9 @@ def extract_data(line):
     ra, dec = numbers.split(",")[0:2]
     shape = shape.strip()
     if cmd_args.debug:
-        print "Shape: ({})".format(shape)
-        print "RA, Dec: ", ra, dec
-        print "Params: ", paramstring
+        print("Shape: ({})".format(shape))
+        print("RA, Dec:", ra, dec)
+        print("Params:", paramstring)
 
     if "point" in shape:
         point_type = paramstring.split("point=")[1].split(" ")[0].strip()
@@ -130,11 +130,11 @@ def find_th_order(th):
     """
     th1 = (canonicalize(th - pa_star) + np.pi) % (2*np.pi)
     if cmd_args.debug: 
-        print "Finding theta order: " 
-        print "    th = ", np.degrees(th)
-        print "    pa_star = ", np.degrees(pa_star)
-        print "    th1 = ", np.degrees(th1)
-        print "    order = ", th1.argsort()
+        print("Finding theta order:") 
+        print("    th =", np.degrees(th)) 
+        print("    pa_star =", np.degrees(pa_star)) 
+        print("    th1 =", np.degrees(th1)) 
+        print("    order =", th1.argsort()) 
     return th1.argsort()
 
 
@@ -164,18 +164,18 @@ for arc_type, x, y in [
     th = th[order]
     R = R[order]
     if cmd_args.debug:
-        print arc_type
-        print "x: ", x
-        print "y: ", y
-        print "R: ", R
-        print "th: ", np.degrees(th)
+        print(arc_type) 
+        print("x:", x) 
+        print("y:", y) 
+        print("R:", R) 
+        print("th:", np.degrees(th)) 
 
     i0 = np.argmin(R)
     if i0 > 0 and i0 + 1 < len(R):
         nbhood = slice(i0-1, i0+2)
     else:
         nbhood = slice(None)    # Use all the points in the quadratic fit
-        print "Warning: Closest point of {} arc is at one end, using all points in parabola fit".format(arc_type)
+        print("Warning: Closest point of {} arc is at one end, using all points in parabola fit".format(arc_type))
 
     p = np.poly1d(np.polyfit(canonicalize(th[nbhood] - th[i0]), R[nbhood], 2))
     # The theta that minimizes R is the (only) root of the derivative of p
@@ -191,7 +191,7 @@ for arc_type, x, y in [
     PA0 = np.degrees(th0) % 360.0
 
     if cmd_args.debug:
-        print "R0 = {:.2f} arcsec, PA0 = {:.2f} deg".format(R0, PA0)
+        print("R0 = {:.2f} arcsec, PA0 = {:.2f} deg".format(R0, PA0))
     # Save results into data structure
     arc_data[arc_type] = {
         "PA0": PA0,

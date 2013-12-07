@@ -2,7 +2,7 @@
 Fit circles to bowshock arcs
 """
 
-
+from __future__ import print_function
 import numpy as np
 import json
 import argparse
@@ -16,15 +16,15 @@ from misc_utils import run_info, update_json_file
 def create_arc_regions(arcdata):
     def check_coordinates():
         c0 = coord.ICRSCoordinates(ra0, dec0)
-        print "#### Checking offset of {} arc center ####".format(arc)
+        print("#### Checking offset of {} arc center ####".format(arc))
         c1 = coord.ICRSCoordinates(ra, dec)
         sep = c0.separation(c1)
-        print "Star coords: ", c0
-        print "Arc center coords: ", c1
-        print "Separation star->center in arcsec: ", sep.arcsec
-        print "sqrt(xc**2 + yc**2) = ", np.sqrt(arcdata[arc]["xc"]**2 + arcdata[arc]["yc"]**2)
-        
-    regions = []
+        print("Star coords: ", c0)
+        print("Arc center coords: ", c1)
+        print("Separation star->center in arcsec: ", sep.arcsec)
+        print("sqrt(xc**2 + yc**2) = ", np.sqrt (arcdata[arc]["xc"]**2 + arcdata[arc]["yc"]**2)
+              
+    regions) = []
     ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour)
     dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg)
     for arc, c in ["inner", "magenta"], ["outer", "green"]:
@@ -85,7 +85,7 @@ def update_arc_data(data):
     x, y, theta = np.array(data["x"]), np.array(data["y"]), np.array(data["theta"])
     m = np.abs(theta) < 90.0
     if m.sum() < 3:
-        print "Warning: only {} points within 90 deg of axis. Using all points instead".format(m.sum())
+        print("Warning: only {} points within 90 deg of axis. Using all points instead".format(m.sum()))
         m = np.ones_like(theta, dtype=bool)
     xc0 = data["R0"]*np.sin(np.radians(data["PA0"]+180))
     yc0 = data["R0"]*np.cos(np.radians(data["PA0"]+180))
@@ -93,7 +93,7 @@ def update_arc_data(data):
     data.update(Rc=Rc, xc=xc, yc=yc, PAc=PA_circle(xc, yc))
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
-        print arc, ":", xc, yc, Rc
+        print(arc, ":", xc, yc, Rc)
         plt.plot(-xc, yc, "+" + colors[arc], ms=5.0)
         c = plt.Circle((-xc, yc), radius=Rc,
                        fc='none', ec=colors[arc], alpha=0.4, lw=0.2)

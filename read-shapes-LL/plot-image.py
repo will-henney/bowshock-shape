@@ -1,3 +1,4 @@
+from __future__ import print_function
 import json
 from astropy.io import fits
 from astropy import coordinates as coord
@@ -138,7 +139,7 @@ ax2.show_regions(cmd_args.source + "-arcfits.reg")
 try:
     mask_regions = pyregion.open(cmd_args.source + "-mask.reg")
 except IOError:
-    print "No mask regions found"
+    print("No mask regions found")
 else:
     # If it does, then we switch the color to yellow and linestyle to dashed
     for r in mask_regions:

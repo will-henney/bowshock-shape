@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 def get_image_hdu(hdulist, debug=False):
     """
     Return the main image from a FITS file

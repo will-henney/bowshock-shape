@@ -1,3 +1,4 @@
+from __future__ import print_function
 import numpy as np
 import json
 from astropy.io import fits
@@ -44,9 +45,9 @@ for image_name in arcdata:
     if not "extracted FITS file" in arcdata[image_name]:
         # Jump over sections that are not images
         continue
-    print "**************************************************"
-    print "Calculating shell brightness for ", image_name
-    print "**************************************************"
+    print("**************************************************")
+    print("Calculating shell brightness for", image_name)
+    print("**************************************************")
 
     fitsfile = arcdata[image_name]["extracted FITS file"]
     hdulist = fits.open(fitsfile)
@@ -122,10 +123,10 @@ for image_name in arcdata:
     try:
         regions = pyregion.open(cmd_args.source + "-mask.reg")
     except IOError:
-        print "No bad pixel mask found"
+        print("No bad pixel mask found")
         mask["good"] = np.ones_like(x, dtype=bool)
     else:
-        print "Using " + cmd_args.source + "-mask.reg as bad pixel mask"
+        print("Using " + cmd_args.source + "-mask.reg as bad pixel mask")
         mask["good"] = ~regions.get_mask(hdu=hdu)
     #
     # Calculate robust statistics 
@@ -144,9 +145,9 @@ for image_name in arcdata:
     ymax = avsh + 2*wsh
 
 
-    print "BG trimean = {:.2f}, iqr = {:.2f}".format(avbg, wbg)
-    print "Shell trimean = {:.2f}, iqr = {:.2f}".format(avsh, wsh)
-    print "Adopting plot range of {:.2f} to {:.2f}".format(ymin, ymax)
+    print("BG trimean = {:.2f}, iqr = {:.2f}".format(avbg, wbg))
+    print("Shell trimean = {:.2f}, iqr = {:.2f}".format(avsh, wsh))
+    print("Adopting plot range of {:.2f} to {:.2f}".format(ymin, ymax))
 
     # Save brightness statistics to a new JSON file
     arcdata[image_name]["background"] = {"value": avbg, "delta": wbg, "N": nbg}
