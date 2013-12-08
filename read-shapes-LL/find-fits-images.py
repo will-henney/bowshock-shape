@@ -32,6 +32,14 @@ def has_data(fitsfile, ra0, dec0):
     return pixel_data > 0.0 
 
 
+def mcov_prefix():
+    """Work around bug in some versions of mCoverageCheck"""
+    if misc_utils.who_am_i() == "will@mac":
+        return "BUG BUG "
+    else:
+        return ""
+
+
 parser = argparse.ArgumentParser(
     description="""Find all the images that include a source""")
 parser.add_argument("--dirs", type=str,
@@ -100,7 +108,7 @@ for dbfile in glob.glob(pattern):
     source_table = os.path.join(tempdir, "{}-images.tbl".format(source))
     if cmd_args.debug: print("\n\nWriting", source_table)
     # FIXME mCoverage check has a bug where it needs two extra args
-    montage_wrapper.mCoverageCheck("BUG BUG " + combo_table, source_table,
+    montage_wrapper.mCoverageCheck(mcov_prefix() + combo_table, source_table,
                                    "point", None, ra=ra, dec=dec)
     # Grab the names of the FITS images from the table that
     # mCoverageCheck wrote
