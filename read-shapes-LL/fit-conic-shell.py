@@ -22,13 +22,15 @@ def update_arc_data(data):
     x, y = np.array(data["x"]), np.array(data["y"])
     # Force the hyperbola axis to be along the circle fit axis
     # Initial guess is that center is also the same.
-    Rh, thh, PAh, xh, yh = conic_utils.fit_hyperbola(
+    Rh, thh, PAh, xh, yh = conic_utils.fit_conic(
         x, y, Rh=data["Rc"], thh=45.0, PAh=data["PAc"], xxh=data["xc"], yyh=data["yc"])
     data.update(Rh=Rh, thh=thh, PAh=PAh, xh=xh, yh=yh)
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
         print arc, ":", xh, yh, Rh, thh
         plt.plot(-xh, yh, "+" + colors[arc], ms=5.0)
+        xx,yy = conic_utils.world_hyperbola(Rh,thh,PAh,xh,yh)
+        plt.plot(-xx,yy,colors[arc],alpha=0.9)
         # c = plt.Circle((-xc, yc), radius=Rc,
         #                fc='none', ec=colors[arc], alpha=0.4, lw=0.2)
         # plt.gca().add_patch(c)
@@ -56,16 +58,16 @@ parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 
 cmd_args = parser.parse_args()
-infile = cmd_args.source + "-xyc.json"
+infile = cmd_args.source + "-arcdata.json"
 
 db = json.load(open(infile))
 
 for arc in "inner", "outer":
     update_arc_data(db[arc])
 
-db["info"]["history"].append("Hyperbola fits added by " + run_info())
+db["info"]["history"].append("Conic fits added by " + run_info())
 
-# save database to the same name: *-xyc.json
+# save database to the same name: *-arcdata.json
 outfile = infile
 with tempfile.NamedTemporaryFile(
         'w', dir=os.path.dirname(outfile), delete=False) as tf:
@@ -74,7 +76,7 @@ with tempfile.NamedTemporaryFile(
 os.rename(tempname, outfile)
 
 if cmd_args.savefig:
-    plotfile = infile.replace("-xy.json", "-conic-fits.pdf")
+    plotfile = infile.replace("-arcdata.json", "-conic-fits.pdf")
     plt.plot(0.0, 0.0, 'o')
     plt.axis("equal")
     plt.savefig(plotfile)
