@@ -68,6 +68,7 @@ for table, path in zip(tables, misc_utils.fits_dirs()):
 #
 # Second, clean up and merge the tables
 #
+UNWANTED_DATASETS = ["wfi", "ispi", "spitzer"]
 newtable_lines = []
 for table in tables:
     table_lines = open(table).readlines()
@@ -77,11 +78,19 @@ for table in tables:
     for line in table_lines[3:]:
         fields = line.split()
         nhdu, fitsname = fields[-2:]
-        # All the reasons to skip this line
+        # All the reasons to skip this line ...
+        # ... we don't want ds9's backup files ...
         if ".bck.dir" in fitsname: continue
+        # ... we only want the brightness, not the sigma or DQ ...
         if int(nhdu) > 1: continue
+        # ... only some Bally images are corrected, skip the rest ...
         if "Bally" in fitsname and not "_wcs.fits" in fitsname: continue
-        if "/wfi/" in fitsname or "/ispi/" in fitsname: continue
+        # ... some datasets we want to skip entirely ...
+        for unwanted in UNWANTED_DATASETS:
+            if "/" + unwanted + "/" in fitsname: continue
+        # ... not sure what these are, but we don't want them ...
+        if "/acs/" in fitsname and "_colorimage_" in fitsname: continue
+        # ... try to select only the corrected images in the small dir ...
         if "small" in table:
             if not ("wcs_" in fitsname or "fix" in fitsname): continue
         # Otherwise, add to the combined list
