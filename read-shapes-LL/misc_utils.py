@@ -123,13 +123,15 @@ def fits_dirs(user=None):
             raise EnvironmentError("Unrecognised user@system - please add to misc_utils.py")
     if user.startswith("will"):
         dropbox_folder = "JorgeBowshocks"
-    elif user.split("@")[0] in ["jtarango", "angel", "dark_lxndrs"]:
+    elif user.split("@")[0] in ["jtarango", "angel", "dark_lxndrs", "luis"]:
         dropbox_folder = "ProplydMIR"
-        # Jorge's Laptop also needs this Dropbox folder, check if Luis
-        # can use this from laptop and crya machine
+    
+    # Special cases for Dropbox location on CRyA machines
     if user == "jtarango@crya":
-        # Dropbox folder is not at home folder in Jorge's CRyA machine
         dropbox_root ="/fs/posgrado01/other0/jtarango/Dropbox"
+    if user == "angel@crya":
+        dropbox_root = "/fs/computo20/other0/angel/Dropbox" 
+
     small_fits_dir = os.path.join(dropbox_root, dropbox_folder, "HST")
     return small_fits_dir, large_fits_dir
 

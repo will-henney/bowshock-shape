@@ -1,7 +1,7 @@
 """
 Fit hyperbolae to bowshock arcs
 """
-
+from __future__ import print_function
 
 import numpy as np
 import json
@@ -11,8 +11,6 @@ import os
 import matplotlib.pyplot as plt
 from misc_utils import run_info
 import conic_utils 
-
-
 
 
 def update_arc_data(data):
@@ -27,7 +25,7 @@ def update_arc_data(data):
     data.update(Rh=Rh, thh=thh, PAh=PAh, xh=xh, yh=yh)
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
-        print arc, ":", xh, yh, Rh, thh
+        print(arc, ":", xh, yh, Rh, thh)
         plt.plot(-xh, yh, "+" + colors[arc], ms=5.0)
         xx,yy = conic_utils.world_hyperbola(Rh,thh,PAh,xh,yh)
         plt.plot(-xx,yy,colors[arc],alpha=0.9)

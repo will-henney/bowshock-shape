@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 def get_image_hdu(hdulist, debug=False):
     """
     Return the main image from a FITS file
@@ -9,18 +11,19 @@ def get_image_hdu(hdulist, debug=False):
         # If there is only one HDU in the FITS file then use it
         hdu, = hdulist
         if debug:
-            print "Only one HDU found"
+            print("Only one HDU found")
     else:
         # Otherwise, use the HDU named "SCI"
         hdu = hdulist["SCI"]
         if debug:
-            print "Using 'SCI' HDU"
+            print("Using 'SCI' HDU")
         # And copy in the keywords from the Primary HDU 
         if hdu.header.get("INHERIT"):
-            hdu.header.update(hdulist[0].header)
+            hdu.header.update(hdulist[0].header.items())
             if debug:
-                print "Inheriting from Primary HDU"
+                print("Inheriting from Primary HDU")
     return hdu
+
 
 
 
