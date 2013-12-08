@@ -106,6 +106,7 @@ with open(combo_table, "w") as f:
 #
 imdb = {}
 for dbfile in glob.glob(pattern):
+    print(dbfile)
     # Load the source info database
     db = json.load(open(dbfile))
     # Extract relevant data
