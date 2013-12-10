@@ -13,7 +13,7 @@ from misc_utils import run_info
 import conic_utils 
 
 
-def update_arc_data(data):
+def update_arc_data(data,teo=False):
     """
     Update the data dictionary for an arc with the hyperbola fit parameters
     """
@@ -25,10 +25,15 @@ def update_arc_data(data):
     data.update(Rh=Rh, thh=thh, PAh=PAh, xh=xh, yh=yh)
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
+        xx,yy = conic_utils.world_hyperbola(Rh,thh,PAh,xh,yh) 
         print(arc, ":", xh, yh, Rh, thh)
-        plt.plot(-xh, yh, "+" + colors[arc], ms=5.0)
-        xx,yy = conic_utils.world_hyperbola(Rh,thh,PAh,xh,yh)
-        plt.plot(-xx,yy,colors[arc],alpha=0.9)
+        if teo:
+            plt.plot(-xh, yh, "+r", ms=5.0)
+            plt.plot(-xx,yy,"-b",alpha=0.9)
+        else:
+            plt.plot(-xh, yh, "+" + colors[arc], ms=5.0)
+            plt.plot(-xx,yy,colors[arc],alpha=0.9)
+        
         # c = plt.Circle((-xc, yc), radius=Rc,
         #                fc='none', ec=colors[arc], alpha=0.4, lw=0.2)
         # plt.gca().add_patch(c)
@@ -60,8 +65,12 @@ infile = cmd_args.source + "-arcdata.json"
 
 db = json.load(open(infile))
 
-for arc in "inner", "outer":
-    update_arc_data(db[arc])
+if beta in infile:
+    for i in [0.0,15.0,30.0,45.0,60.0]:
+        update_arc_data(db["outer"]["i="+str(i)],teo=True)
+else:
+    for arc in "inner", "outer":
+        update_arc_data(db[arc])
 
 db["info"]["history"].append("Conic fits added by " + run_info())
 
