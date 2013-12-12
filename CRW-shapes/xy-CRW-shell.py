@@ -8,6 +8,7 @@ import json
 from misc_utils import run_info
 from scipy.optimize import bisect
 import sys
+import lmfit
 """
 Goal: The idea of this program is create a CRW bowshock and write an output *xy.json file to use it later with Will's former programs
 Steps: 
@@ -51,6 +52,7 @@ def rotate(i,r,t):
         """
         ww = np.zeros_like(r)
         ww[:-1] = np.diff(np.log(r))/np.diff(t)
+        ww[-1]=ww[-2]  # in the wings the slope is more or less constant (instead of zero)
         return ww
 
     def sin_tan_phi(i,w,t):
@@ -72,6 +74,42 @@ def theta_lim(beta):
         "Function to be zeroed: f(theta) = 0 for theta = theta_lim"
         return theta - np.tan(theta) - np.pi/(1.0 - beta)
     return bisect(f, 0.5*np.pi+0.01, np.pi)
+
+def radius_from_point(x, y, x0, y0):
+    return np.hypot(x-x0, y-y0)
+
+
+def Rc_from_data(x, y, xc, yc):
+    return np.mean(radius_from_point(x, y, xc, yc))
+
+
+def deviation_from_circle(x, y, xc, yc):
+    return radius_from_point(x, y, xc, yc) - Rc_from_data(x, y, xc, yc)
+
+
+def model_minus_data(params, x, y):
+    xc = params["xc"].value
+    yc = params["yc"].value
+    return deviation_from_circle(x, y, xc, yc)
+
+
+def fit_circle(x, y, xc=0.0, yc=0.0):
+    """
+    Fit a circle to the shape of an arc with coordinates x, y
+
+    Optionally provide initial guesses for the circle parameters: 
+    xc, yc, Rc
+    """
+    params = lmfit.Parameters()
+    params.add("xc", value=xc)
+    params.add("yc", value=yc)
+    lmfit.minimize(model_minus_data, params, args=(x, y))
+    lmfit.report_errors(params)
+    xc = params["xc"].value
+    yc = params["yc"].value
+    Rc = Rc_from_data(x, y, xc, yc)
+    return Rc, xc, yc
+
 
 parser = argparse.ArgumentParser(description = "model parameters")
 parser.add_argument("--beta",type= float,default=0.01,help="two winds momentum ratio")
@@ -111,11 +149,17 @@ arcdata = {
         },
     "outer":{}
 }
-for inc in [0.0,15.0,30.0,45.0,60.0,75.0]:
+for inc in [0.0,15.0,30.0,45.0,60.0]:
     xp,yp = rotate(np.radians(inc),R_com,theta_com) 
+    m = np.abs(np.degrees(np.arctan2(yp, xp))) - 45.0 <= 0.
+    rc,xc,yc = fit_circle(xp[m],yp[m])
     arcdata["outer"]["i="+str(inc)] = {
         "x":list(xp),
-        "y":list(yp)        
+        "y":list(yp),
+        "Rc": rc,
+        "xc": xc,
+        "yc": yc,
+        "PAc":np.degrees(np.arctan2(-yc,-xc))        
     }      
 
 
