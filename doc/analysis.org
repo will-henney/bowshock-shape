@@ -155,6 +155,35 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
 
 
 
+* Return to theoretical shapes and approximations thereof
+
+** Summary of current results
++ We have the analytic CRW results for both proplyd and isotropic case
++ We have circular fits to both
+  + The parameter A describes the radius of curvature: A = R_c/R_0
+  + We have a figure showing how this varies with momentum ratio: \beta
+    + [[file:~/Work/Bowshocks/Jorge/bowshock-shape/AVSb.pdf][AVSb.pdf]]
++ We have calculated the projection effects on this A \to A\prime
+  + /but we don't fully understand them/
+** What still needs to be done
+*** Understanding the difference between the proplyd and isotropic cases
+*** More approximations to the shell shape
++ Circle: this works for \theta < 45\deg 
++ [ ] Hyperbola: still to do, should work better
++ [ ] R = 1 / cos(a \theta): still to do 
+*** Finite thickness of inner shell
++ Necessary for calculating path length through shell
++ But also may affect the apparent shape of the shell
+  + The shell brightness peak at each \theta will not be at the contact discontinuity, but will be offset by some fraction of h
+  + Fraction of 0.5 if density is constant across shell, but in general it will vary:
+    + On the axis, we know that density increases from shock to CD, so peak will be closer to CD than shock
+      + For example, R - 0.3 h
+    + For \beta > Mach angle (20\deg for M = 3) then shell flow is supersonic and divergent (probably), so density will /decrease/ from shock to CD, so brightness peak will be closer to the shock
+      + For example, R - 0.7 h
+  + We also have that h increases as some power of 1/cos\beta
+    + Power index between 3 and 4 for the plane CD case
+    + Still unknown for the curved CD case
+
 * TODO Measure widths to calculate Mach number
 :PROPERTIES:
 :orgtrello-id: 52091abd0b1556e1050021a6
