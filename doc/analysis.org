@@ -163,14 +163,26 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
   + The parameter A describes the radius of curvature: A = R_c/R_0
   + We have a figure showing how this varies with momentum ratio: \beta
     + [[file:~/Work/Bowshocks/Jorge/bowshock-shape/AVSb.pdf][AVSb.pdf]]
+    + Created by [[AvsBeta.py]]
 + We have calculated the projection effects on this A \to A\prime
   + /but we don't fully understand them/
 ** What still needs to be done
 *** Understanding the difference between the proplyd and isotropic cases
++ We should compare shapes that have the same value of A
+  + 1/A = y0 (e^{-\beta^{d}/b} - c) / (1 - c)
+  + => \beta = -{b ln [ (1 - c)/(A y_0) + c]}^{1/d
+  + For instance, A = 1.8 corresponds to 
+    + Proplyd \beta = 0.02
+    + Isotropic \beta = 0.001
 *** More approximations to the shell shape
 + Circle: this works for \theta < 45\deg 
-+ [ ] Hyperbola: still to do, should work better
-+ [ ] R = 1 / cos(a \theta): still to do 
++ [ ] Hyperbola: still to do, should work better out to larger angles
++ [ ] R = 1 / cos(a \theta): still to do
+  + This can fit the wings by construction since R \to \infty as \theta \to \pi/2a = \theta_{\infty}
+  + But it doesn't work so well for \theta = 0 \to 120, which is the most important
+  + Can be improved by taking 1 / cos^b(a \theta) with b = 1.4 but it isn't clear that the extra complication is worth it
++ [ ] Small angle approximations to the CRW and modified CRW results
+  + This should at least give us the radius of curvature on the axis
 *** Finite thickness of inner shell
 + Necessary for calculating path length through shell
 + But also may affect the apparent shape of the shell

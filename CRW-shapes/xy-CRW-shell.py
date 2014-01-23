@@ -1,3 +1,4 @@
+from __future__ import print_function
 from equation6 import Shell 
 import numpy as np
 import astropy
@@ -123,7 +124,7 @@ if cmd_args.type=="isotropic":
 elif cmd_args.type=="proplyd":
     theta = np.linspace(0,np.pi,1500)
 else:
-    print "Unknown shell type"
+    print("Unknown shell type")
     sys.exit()
 shell = Shell(beta,cmd_args.type)
 R = shell.radius(theta)
