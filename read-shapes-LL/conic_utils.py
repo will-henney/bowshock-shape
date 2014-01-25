@@ -38,18 +38,23 @@ def ycircle(x):
     return 1.0 - np.sqrt(1.0 - x**2)
 
 
-def yconic_th(x, th_inf=45.0):
+def yconic_th(x, th_inf=45.0, branch=1):
     B = np.tan(np.radians(th_inf))
-    return yconic(x, B)
+    return yconic(x, B, branch)
 
 
-def yconic(x, B=-1.0):
+def yconic(x, B=-1.0, branch=1):
     """General conic section of axis ratio B=b/a"""
     if B==0.0:
         return 0.5*x**2
     else:
+        if B > 0.0:
+            # Circles and ellipses have two branches of y(x)
+            sb = np.sign(branch)
+        else:
+            sb = 1
         s = np.sign(B)
-        return s*(1.0 - np.sqrt(1.0 - s*x**2*B**2))/B**2
+        return s*(1.0 - sb*np.sqrt(1.0 - s*x**2*B**2))/B**2
 
 def x90(R0,th):
     """
@@ -148,7 +153,7 @@ def fit_conic(xx, yy, Rh, thh, PAh, xxh, yyh,
         return tuple(results)
 
 
-def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200):
+def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200, full=False):
     """Return the (xx, yy) world coordinates of a hyperbola
 
     Required arguments as in fit_hyperbola: 
@@ -159,6 +164,13 @@ def world_hyperbola(Rh, thh, PAh, xxh, yyh, xmin=-2.0, xmax=2.0, N=200):
     """
     x = np.linspace(xmin, xmax, N) 
     y = yconic_th(x, thh)
+    if full and thh > 0.0:
+        # Add the other branch for ellipses and circles
+        xb = x[::-1]
+        yb = yconic_th(x, thh, branch=-1)
+        x = np.hstack((x, xb, x[0:1]))
+        y = np.hstack((y, yb, y[0:1]))
+
     sPA, cPA = np.sin(np.radians(PAh)), np.cos(np.radians(PAh))
     xx0, yy0 = xxh + Rh*sPA, yyh + Rh*cPA
     xx = xx0 + Rh*(x*cPA - y*sPA)
