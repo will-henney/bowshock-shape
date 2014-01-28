@@ -18,7 +18,7 @@ def update_arc_data(data,teo=False):
     Update the data dictionary for an arc with the hyperbola fit parameters
     """
     x, y = np.array(data["x"]), np.array(data["y"])
-    m = np.abs(np.degrees(np.arctan2(y, x))) - 105.0 <= 0.
+    m = np.abs(np.degrees(np.arctan2(y, x))) - 100.0 <= 0.
     # Force the hyperbola axis to be along the circle fit axis
     # Initial guess is that center is also the same.
     if teo:
@@ -27,8 +27,11 @@ def update_arc_data(data,teo=False):
     else:
         Rh, thh, PAh, xh, yh = conic_utils.fit_conic(
             x, y, Rh=data["Rc"], thh=45.0, PAh=data["PAc"], xxh=data["xc"], yyh=data["yc"])
+    
+    R0 = np.max(x)
+    R90 = Rh*conic_utils.x90(R0,thh)
 
-    data.update(Rh=Rh, thh=thh, PAh=PAh, xh=xh, yh=yh)
+    data.update(Rh=Rh, thh=thh, PAh=PAh, xh=xh, yh=yh,R0=R0,R90=R90)
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
         xx,yy = conic_utils.world_hyperbola(Rh,thh,PAh,xh,yh) 
@@ -79,8 +82,12 @@ db = json.load(open(infile))
 if "beta" in infile:
     f = plt.figure()
     for i,inc in enumerate([0.0,15.0,30.0,45.0,60.0]):
-        ax = f.add_subplot(2,3,i+1)
-        update_arc_data(db["outer"]["i="+str(inc)],teo=True)
+        try:
+            ax = f.add_subplot(2,3,i+1)
+            update_arc_data(db["outer"]["i="+str(inc)],teo=True)
+        except KeyError:
+            #print "inclination not available",inc
+            break
 else:
     for arc in "inner", "outer":
         update_arc_data(db[arc])
