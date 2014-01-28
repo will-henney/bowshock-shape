@@ -176,8 +176,11 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
     + Isotropic \beta = 0.001
 *** More approximations to the shell shape
 + Circle: this works for \theta < 45\deg 
-+ [ ] Hyperbola: still to do, should work better out to larger angles
-+ [ ] R = 1 / cos(a \theta): still to do
++ [-] Hyperbola/ellipse: still to do, should work better out to larger angles
+  + [X] \theta vs \theta\prime
+    + Do this in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Ellipse%20projection.ipynb][file:~/Work/Bowshocks/Jorge/bowshock-shape/Ellipse projection.ipynb]]
+  + [ ] R_{c}\prime/R_{0}\prime vs R_{0}\prime/D\prime
++ [X] R = 1 / cos(a \theta): still to do CANCELLED
   + This can fit the wings by construction since R \to \infty as \theta \to \pi/2a = \theta_{\infty}
   + But it doesn't work so well for \theta = 0 \to 120, which is the most important
   + Can be improved by taking 1 / cos^b(a \theta) with b = 1.4 but it isn't clear that the extra complication is worth it
