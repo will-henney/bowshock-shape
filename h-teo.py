@@ -38,11 +38,35 @@ def omega(r, t):
     womega[:-1] = np.diff(np.log(r))/np.diff(t)
     return womega
 
-#beta and shell type will be introduced via Terminal
+def alpha(x,y):
+    """
+    tangent of alpha is the drivative of y respect x
+    """
+    a = np.zeros_like(x)
+    a[:-1] = np.diff(y)/np.diff(x)
+    a[-1] = a[-2]
+    return a
+
+#def psi(t,tc,tinf):
+#    """
+#    The angle between the radial line from proplyd and the line normal to the shell.
+#    For the circular approximation has a form that doesn't work for the shock wings.
+#    at theta ~ 60 deg looks like the circular approximation differs from the real solution
+#    """
+#    p = []
+#    for th,thc in zip(t,tc):
+#        if np.degrees(th) < 90.:
+#            p.append(th - thc)
+#        else:
+#            p.append(np.pi/2. - (tinf-th)) 
+#    return np.array(b)  
+#psi and shell type will be introduced via Terminal
 
 parser = argparse.ArgumentParser(description= """Inputs: wind type and inner wind parameter "beta" """)
 parser.add_argument("--beta",type=float,default = 0.01,help= "winds momentum-rate ratio")
 parser.add_argument("--innertype",type=str,choices=("isotropic","proplyd"),default="proplyd",help="inner wind model")
+parser.add_argument("--shell",action="store_true",help="If true, plot the shell shape, else plot h vs theta")
+
 cmd_args=parser.parse_args()
 beta = cmd_args.beta
 innertype = cmd_args.innertype
@@ -50,17 +74,10 @@ innertype = cmd_args.innertype
 #1:
 Nth = 800
 th_lim = theta_lim(beta)
-#theta = np.linspace(0,th_lim,Nth)
+theta = np.linspace(0,th_lim,Nth)
 shell = Shell(beta=beta,innertype=innertype)
 
 
-#2: using geometrical arguments, we can say that 
-# \beta_a = alpha + theta - 90 so
-# (\cos(\beta_a))**2 = (\sin(alpha+theta))**2
-# where \tan(alpha) = (1+w*\tan(theta))/(\tan(theta)-w) 
-
-#3: switch to circular approximation for calculating R_in
-# First: design an angle theta_c
 
 #Add the analytic fit found for A = Rc/R0
 y0 = {"proplyd":0.66,"isotropic": 0.585}
@@ -69,79 +86,53 @@ c = np.exp(-1./b[innertype])
 d = {"proplyd": 0.49, "isotropic": 0.5}
 A =  (1-c)/(y0[innertype]*(np.exp(-beta**d[innertype]/b[innertype])-c))
 a = (A-1)/A
-theta_c = np.linspace(0,0.5*np.pi,Nth)
-theta = np.arctan2(np.sin(theta_c),np.cos(theta_c)-a)
 
+
+#The respective radii (CRW and circular)
 R_ext = shell.radius(theta)
-R_circ = R_ext[theta==0]*np.sqrt( 1+( 2*a*( 1-np.cos(theta_c) ) ) / (1-a)**2 )
-
-#alpha = np.arctan2(1+w*np.tan(theta),np.tan(theta)-w)
-h0 = 0.2
-sqcosine = (np.cos(theta_c-theta))**2
-#h = h0*(np.sin(alpha+theta))**(-2)
-h = h0/sqcosine**2
-R_in = R_ext*(1-h) 
-
-#4 Translate to cartesian coordinates and plot
-
-x_e,y_e = R_ext*np.cos(theta),R_ext*np.sin(theta)
-x_i, y_i = R_in*np.cos(theta),R_in*np.sin(theta)
-x_c,y_c = R_circ*np.cos(theta),R_circ*np.sin(theta)
-#plt.plot(x_e,y_e,"r-",label="Outer shock (CRW formalism)")
-#plt.plot(x_i,y_i,"g-",label="Inner Shock")
-#plt.plot(x_c,y_c,"b-",label="Circular approximation")
-#plt.legend(loc="best")
-#plt.axis("equal")
-#plt.xlim(-0.3,0.3)
-#plt.ylim(0,0.25)
-#plt.grid()
-#plt.plot(np.degrees(theta_c),h)
-#plt.savefig("B{}{}.pdf".format(beta,innertype))
-#plt.clf()
-#plt.plot(np.degrees(theta),h,label="h")
-#plt.legend(loc="best")
-#plt.grid()
-#plt.savefig("h-vs-t-{}{}.pdf".format(beta,innertype))
-#plt.clf()
-#transform to observer reference frame (rotate to an angle inc)
-
-#inc = np.array([15,30])
-inc = np.radians([0,15,30,45])
-#phi angle for tangent line
-w_ext = omega(R_ext,theta)
-w_in  = omega(R_in,theta)
-for j in inc:
-    tangent_e = np.tan(j)*((1+w_ext*np.tan(theta))/(w_ext-np.tan(theta)))
-    tangent_i = np.tan(j)*((1+w_in*np.tan(theta))/(w_in-np.tan(theta)))
-    x_ep,y_ep = x_e - R_ext*np.sin(theta)*np.tan(j)*tangent_e, y_e*np.sqrt(1-tangent_e**2)/np.cos(j)
-    tp = np.arctan2(y_ep,x_ep)
-    x_ip,y_ip = x_i - R_in*np.sin(theta)*np.tan(j)*tangent_i, y_i*np.sqrt(1-tangent_i**2)/np.cos(j)
-
-#calculate projected width
-
-    R_ep = np.hypot(x_ep,y_ep)
-    R_ip = np.hypot(x_ip,y_ip)
-    h_p = 1 - R_ip/R_ep
-
-#plot inner and outer shell projected
-
-#plt.plot(x_ep,y_ep,"c-",label= "outer projected shell")
-#plt.plot(x_ip,y_ip,"m-",label= "inner projected shell")
-#plt.legend(loc="best")
-#plt.grid()
-#plt.axis("equal")
-#plt.title("i={}".format(inc))
-#plt.savefig("projected{}{}.pdf".format(beta,innertype))
-#plt.clf()
-
-    plt.plot(np.degrees(tp),np.abs(h_p))
-#plt.plot([90.0,90.],[0.18,0.32])
+R0=R_ext[0]
+#R_circ = R_ext[theta==0]*np.sqrt( 1+( 2*a*( 1-np.cos(theta_c) ) ) / (1-a)**2 )
+x_e,y_e = R_ext/R0*np.cos(theta),R_ext/R0*np.sin(theta)
+alfa = alpha(x_e,y_e) #slope of CD
+alpha_a = -np.arctan(alfa) #Angle of tangent line, defined as positive
+psi = theta+alpha_a-0.5*np.pi
+M = np.array([2.0,3.0,3.5,4.0]) #Mach Number
 plt.rc("text",usetex=True)
 plt.rc("font",family="serif")
-plt.grid()
-plt.ylim(0.18,0.32)
-plt.xlabel(r"$\theta'$ (deg)")
-plt.ylabel("h'")
-plt.title(r"h' vs \(\theta'\) at different inclinations")
-#plt.axis("equal")
-plt.savefig("projected-h-vs-t{}{}.pdf".format(beta,innertype))
+
+
+for m in M:
+    H0 = 3./(4*m**2+1.) #Shell width at axis
+    n = 3.4*(4*m**2+1)/(4*m**2+35)
+    H = H0*np.cos(theta)**(-n)
+    if cmd_args.shell:
+        R_in = R_ext/R0 - H/np.cos(psi)
+        R_in[R_in<0] = np.nan 
+        x_i,y_i = R_in*np.cos(theta),R_in*np.sin(theta)    
+        plt.plot(x_i,y_i,"--",label="M={}".format(m))
+    else:
+        plt.plot(np.degrees(theta),H,label="M={}".format(m))
+
+
+
+if cmd_args.shell:
+    plt.plot(x_e,y_e,label=r"type={},$\beta$={}".format(innertype,beta))
+    plt.grid()
+    plt.legend(loc="best",prop=dict(size="x-small"))
+    plt.xlabel(r"x/$R_0$")
+    plt.axis("equal")
+    plt.xlim(-1,1)
+    plt.ylim(0,2)
+    plt.ylabel(r"y/$R_0$")
+    plt.title("Shell shape")
+    plt.savefig("shell-shape.pdf")
+
+else:
+    plt.legend(loc="best",prop=dict(size="x-small"))
+    plt.grid()
+    plt.xlabel(r"$\theta({}^{\circ})$")
+    plt.ylabel("H")
+    plt.xlim(0,90)
+    plt.ylim(0,1)
+    plt.title(r"H vs $\theta$. $\beta={}$,{}".format(beta,innertype))
+    plt.savefig("H-vs-theta.pdf")
