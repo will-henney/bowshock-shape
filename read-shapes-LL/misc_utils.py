@@ -171,7 +171,7 @@ def image_set_fits_dir(image_name):
         if "ACS" in image_name:
             return os.path.join(large_fits_dir, "acs")
         elif "WFPC2" in image_name:
-            return os.path.join(large_fits_dir, "wfc")
+            return os.path.join(large_fits_dir, "wfpc2")
         else:
             raise NotImplementedError()
     else:

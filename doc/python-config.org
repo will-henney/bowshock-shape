@@ -37,6 +37,7 @@ conda create -n py27 anaconda python=2.7
 
 *** How to switch between the Python 3 and Python 2 installations
 + The python 3 installation is used by default
+
 + Switch to python 2.7 with 
 #+BEGIN_SRC bash
 source activate py27
