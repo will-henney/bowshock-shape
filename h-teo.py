@@ -1,3 +1,4 @@
+from __future__ import print_function
 from equation6 import Shell
 import numpy as np
 import matplotlib.pyplot as plt
@@ -104,7 +105,7 @@ plt.rc("font",family="serif")
 for m in M:
     H0 = 3./(4*m**2+1.) #Shell width at axis
     n = 3.4*(4*m**2+1)/(4*m**2+35)
-    H = H0*np.cos(theta)**(-n)
+    H = H0*np.cos(psi)**(-n)
     if cmd_args.shell:
         R_in = R_ext/R0 - H/np.cos(psi)
         R_in[R_in<0] = np.nan 
@@ -120,11 +121,11 @@ if cmd_args.shell:
     plt.grid()
     plt.legend(loc="best",prop=dict(size="x-small"))
     plt.xlabel(r"x/$R_0$")
-    plt.axis("equal")
-    plt.xlim(-1,1)
-    plt.ylim(0,2)
+    plt.xlim(-4.8,1.2)
+    plt.ylim(0,6)
     plt.ylabel(r"y/$R_0$")
     plt.title("Shell shape")
+    plt.gcf().set_size_inches(8, 8)
     plt.savefig("shell-shape.pdf")
 
 else:
@@ -132,7 +133,7 @@ else:
     plt.grid()
     plt.xlabel(r"$\theta({}^{\circ})$")
     plt.ylabel("H")
-    plt.xlim(0,90)
+    plt.xlim(0,np.degrees(th_lim))
     plt.ylim(0,1)
     plt.title(r"H vs $\theta$. $\beta={}$,{}".format(beta,innertype))
     plt.savefig("H-vs-theta.pdf")

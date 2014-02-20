@@ -14,6 +14,7 @@ transparent an implementation as possible of the equations in the
 paper.  There is no attempt to be efficient.
 
 """
+from __future__ import print_function
 import numpy as np
 import scipy.integrate
 import scipy.optimize
@@ -192,10 +193,10 @@ class Shell(BaseShell):
         elif innertype == "isotropic":
             mlaw = isotropic_momentum
         else:
-            raise NotImplementedError, "Inner wind must be isotropic or proplyd"
+            raise NotImplementedError("Inner wind must be isotropic or proplyd")
 
         if not outertype == "isotropic":
-            raise NotImplementedError, "Outer wind must be isotropic for now"
+            raise NotImplementedError("Outer wind must be isotropic for now")
 
         w = Wind(axial_momentum_flux=beta, momentum_law=mlaw, origin=True)
         w1 = Wind(origin=False)
@@ -264,11 +265,11 @@ if __name__ == "__main__":
     R = shell.radius(theta)
 
     # Print the z coordinate of the shell: R cos(theta)
-    print R*np.cos(theta)       # These should all be 0.5
+    print(R*np.cos(theta))       # These should all be 0.5
 
     
     # Now do the same for the proplyd case
     shell = Shell(beta=1.0, innertype="proplyd")
     R = shell.radius(theta)
-    print R*np.cos(theta)       
+    print(R*np.cos(theta))
     
