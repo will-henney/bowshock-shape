@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import bisect
 import argparse
+import json
 
 """
 Main goal: Trace the theoretical inner and outer shell in bowshock
@@ -22,7 +23,8 @@ So, we conclude that h/h_0 = (cos(\psi))**{-n} where h_0 is the shell width at t
 #1: Create a theta array and create a bowshock shell using CRW formalism
 #2: Calculate \psi for each theta: we can use geometrical arguments
 #3: Calculate h and R_in
-#4: Plot everything
+#4: Change to the plane of sky reference frame and get h'
+#5: Plot everything
 
 def csc(t):
     """
@@ -69,7 +71,7 @@ parser = argparse.ArgumentParser(description= """Inputs: wind type and inner win
 parser.add_argument("--beta",type=float,default = 0.01,help= "winds momentum-rate ratio")
 parser.add_argument("--innertype",type=str,choices=("isotropic","proplyd"),default="proplyd",help="inner wind model")
 parser.add_argument("--shell",action="store_true",help="If true, plot the shell shape, else plot h vs theta")
-
+parser.add_argument("--inc",type=float,default = 15.0,help="inlination angle (in degrees) between proplyd reference frame and plane of sky reference frame")
 cmd_args=parser.parse_args()
 beta = cmd_args.beta
 innertype = cmd_args.innertype
@@ -79,7 +81,7 @@ Nth = 800
 th_lim = theta_lim(beta)
 theta = np.linspace(0,th_lim,Nth)
 shell = Shell(beta=beta,innertype=innertype)
-
+inc = np.radians(cmd_args.inc)
 
 
 #Add the analytic fit found for A = Rc/R0
@@ -99,59 +101,81 @@ R_ext,theta=R_ext[R_ext>0], theta[R_ext>0] #avoid bad points (usually the last o
 x_e,y_e = R_ext/R0*np.cos(theta),R_ext/R0*np.sin(theta)
 alfa = alpha(x_e,y_e) #slope of CD
 alpha_a = -np.arctan(alfa) #Angle of tangent line, defined as positive
+
+phitan= alfa*np.tan(inc) #Tangent line is at an azimutal angle \phi_t, this is \sin\phi_t
+x_pe,y_pe = R_ext/np.cos(inc)*(np.cos(theta)*np.cos(inc) - np.sin(theta)*np.sin(inc)*phitan),R_ext/np.cos(inc)*(np.sin(theta)*np.sqrt(1-phitan))
+#x_pe,y_pe = x_pe[np.isfinite(x_pe) & np.isfinite(y_pe)],y_pe[np.isfinite(x_pe) & np.isfinite(y_pe)]
+R_pe = np.hypot(x_pe,y_pe)
+theta_p = np.arctan2(y_pe,x_pe)
+alpha_pa = -np.arctan(alpha(x_pe,y_pe))
+psi_p = theta_p+alpha_pa-0.5*np.pi
+
 psi = theta+alpha_a-0.5*np.pi
 M = np.array([2.0,3.0,3.5,4.0]) #Mach Number
+cm = ["r","g","b","m"]
 theta1 = theta_1(R_ext,theta)
 
 
 plt.rc("text",usetex=True)
 plt.rc("font",family="serif")
-f =plt.figure()
-ax1 = f.add_subplot(2,1,1)
-ax2= f.add_subplot(2,1,2)
 
 
-for m in M:
+for i,m in enumerate(M):
     H0 = 3./(4*m**2+1.) #Shell width at axis
     n = 3.4*(4*m**2+1)/(4*m**2+35)
     H = H0*np.cos(psi)**(-n)
-    sigma = (np.sin(theta+theta1)*csc(theta)*csc(theta1)*(beta*(1-np.cos(theta))+0.01*m*(1-np.cos(theta1)))**2)/np.sqrt(
-         (beta*(theta-np.sin(theta)*np.cos(theta))+(theta1-np.sin(theta1)*np.cos(theta1)))**2+(beta*(np.sin(theta))**2-np.sin(theta1)**2)**2)
-    if cmd_args.shell:
-        R_in = R_ext/R0 - H/np.cos(psi)
-        R_in[R_in<0] = np.nan 
-        x_i,y_i = R_in*np.cos(theta),R_in*np.sin(theta)    
-        plt.plot(x_i,y_i,"--",label="M={}".format(m))
+    R_in = R_ext/R0 - H/np.cos(psi)
+    R_in[R_in<=0] = np.nan 
+    x_i,y_i = R_in*np.cos(theta),R_in*np.sin(theta)
+    alpha_in = alpha(x_i,y_i)
+    phitan_i = np.tan(inc)*alpha_in
+    x_pi,y_pi = R_in*R0/np.cos(inc)*(np.cos(theta)*np.cos(inc) - np.sin(theta)*np.sin(inc)*phitan_i),R_in*R0/np.cos(inc)*(np.sin(theta)*np.sqrt(1-phitan_i))
+#    x_pi,y_pi = x_pi[np.isfinite(x_pi) & np.isfinite(y_pi)],y_pe[np.isfinite(x_pi) & np.isfinite(y_pi)]
+    R_pi = np.hypot(x_pi,y_pi)
+    if cmd_args.shell:    
+        plt.plot(x_i,y_i,cm[i]+"--",label="M={}".format(m))
+	plt.plot(x_pi/R0,y_pi/R0,cm[i]+":",alpha=0.5,label="M={} projected, i={}".format(m,cmd_args.inc))
     else:
-        ax1.plot(np.degrees(theta),H,label="M={}".format(m))
-        ax2.plot(np.degrees(theta),sigma,label="M={}".format(m))
-
+        plt.plot(np.degrees(theta),H,cm[i],label="M={}".format(m))
+        H_p = (R_pe/R0-R_pi/R0)*np.cos(psi_p)
+        plt.plot(np.degrees(theta_p),H_p,cm[i]+"--",label="M={} projected, i={}".format(m,cmd_args.inc))
 
 if cmd_args.shell:
-    plt.plot(x_e,y_e,label=r"type={},$\beta$={}".format(innertype,beta))
+    plt.plot(x_e,y_e,"k-",lw=2,label=r"type={}, $\beta$={}".format(innertype,beta))
+    plt.plot(x_pe/R0,y_pe/R0,"k-",lw=2,alpha =0.5,label="projected, i={}".format(cmd_args.inc))
     plt.grid()
     plt.legend(loc="best",prop=dict(size="x-small"))
-    plt.xlabel(r"x/$R_0$")
+    plt.xlabel(r"x'/$R_0$")
     plt.xlim(-4.8,1.2)
     plt.ylim(0,6)
-    plt.ylabel(r"y/$R_0$")
+    plt.ylabel(r"y'/$R_0$")
     plt.title("Shell shape")
     plt.gcf().set_size_inches(8, 8)
-    plt.savefig("shell-shape.pdf")
+    plt.savefig("shell-shape-{}-{}-inc-{}.pdf".format(innertype,beta,cmd_args.inc))
 
 else:
-    ax1.legend(loc="best",prop=dict(size="x-small"))
-    ax2.legend(loc="best",prop=dict(size="x-small"))
-    ax1.grid()
-    ax2.grid()
-    ax1.set_xlabel(r"$\theta({}^{\circ})$")
-    ax2.set_xlabel(r"$\theta({}^{\circ})$")
-    ax1.set_ylabel("H")
-    ax2.set_ylabel(r"$\sigma/\sigma_0$")
-#    ax1.xlim(0,np.degrees(th_lim))
-#    ax2.xlim(0,np.degrees(th_lim))
-#    ax1.ylim(0,1)
-#    ax1.ylim(0,1)
-    ax1.set_title(r"H. $\beta={}$,{}".format(beta,innertype))
-    ax2.set_title(r"Mass Surface Density".format(beta,innertype))
-    f.savefig("H,s-vs-theta.pdf")
+    plt.grid()
+    plt.legend(loc="best",prop=dict(size="x-small"))
+    plt.xlabel(r"$\theta'({}^{\circ})$")
+    plt.ylabel("H'")
+    plt.xlim(0,np.degrees(th_lim))
+    plt.ylim(0,1)
+    plt.title(r"H'. $\beta={}$, {}".format(beta,innertype))
+    plt.savefig("H-{}-{}-inc-{}.pdf".format(beta,innertype,cmd_args.inc))
+
+#save the output in a json file
+
+out = {"innertype":innertype,
+"beta":beta,
+"theta":list(theta),
+"inc":cmd_args.inc,
+"psi":list(psi),
+"CD Radius":list(R_ext),
+"indexes":[3.4*(4*m**2+1)/(4*m**2+35) for m in M],
+"H0":[3./(4*m**2+1.) for m in M]
+}
+
+jsonfile = "H-{}-{}-inc-{}.json".format(beta,innertype,cmd_args.inc)
+
+with open(jsonfile,"w") as f:
+    json.dump(out,f,indent=2)
