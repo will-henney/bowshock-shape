@@ -119,6 +119,16 @@ theta1 = theta_1(R_ext,theta)
 plt.rc("text",usetex=True)
 plt.rc("font",family="serif")
 
+out = {"innertype":innertype,
+"beta":beta,
+"theta":list(theta),
+"inc":cmd_args.inc,
+"psi":list(psi),
+"CD Radius":list(R_ext),
+"indexes":[3.4*(4*m**2+1)/(4*m**2+35) for m in M],
+"H0":[3./(4*m**2+1.) for m in M],
+"Rc/R0":A
+}
 
 for i,m in enumerate(M):
     H0 = 3./(4*m**2+1.) #Shell width at axis
@@ -132,12 +142,13 @@ for i,m in enumerate(M):
     x_pi,y_pi = R_in*R0/np.cos(inc)*(np.cos(theta)*np.cos(inc) - np.sin(theta)*np.sin(inc)*phitan_i),R_in*R0/np.cos(inc)*(np.sin(theta)*np.sqrt(1-phitan_i))
 #    x_pi,y_pi = x_pi[np.isfinite(x_pi) & np.isfinite(y_pi)],y_pe[np.isfinite(x_pi) & np.isfinite(y_pi)]
     R_pi = np.hypot(x_pi,y_pi)
+    H_p = (R_pe/R0-R_pi/R0)*np.cos(psi_p)
+    out["H'(M={})".format(m)] = list(H_p)
     if cmd_args.shell:    
         plt.plot(x_i,y_i,cm[i]+"--",label="M={}".format(m))
 	plt.plot(x_pi/R0,y_pi/R0,cm[i]+":",alpha=0.5,label="M={} projected, i={}".format(m,cmd_args.inc))
     else:
         plt.plot(np.degrees(theta),H,cm[i],label="M={}".format(m))
-        H_p = (R_pe/R0-R_pi/R0)*np.cos(psi_p)
         plt.plot(np.degrees(theta_p),H_p,cm[i]+"--",label="M={} projected, i={}".format(m,cmd_args.inc))
 
 if cmd_args.shell:
@@ -165,15 +176,7 @@ else:
 
 #save the output in a json file
 
-out = {"innertype":innertype,
-"beta":beta,
-"theta":list(theta),
-"inc":cmd_args.inc,
-"psi":list(psi),
-"CD Radius":list(R_ext),
-"indexes":[3.4*(4*m**2+1)/(4*m**2+35) for m in M],
-"H0":[3./(4*m**2+1.) for m in M]
-}
+
 
 jsonfile = "H-{}-{}-inc-{}.json".format(beta,innertype,cmd_args.inc)
 
