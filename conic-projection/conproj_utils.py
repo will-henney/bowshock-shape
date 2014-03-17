@@ -26,6 +26,7 @@ class Conic(object):
     def __init__(self, A=1.0, th_conic=45.0):
         # Hyperbolic or not?
         self.hyper = th_conic < 0.0
+        self.sign = -1.0 if self.hyper else 1.0
         # Axis ratio
         self.b_a = np.tan(np.radians(abs(th_conic)))
         # Scaled radius of curvature: Rc/r0
@@ -77,6 +78,18 @@ class Conic(object):
         at = np.arctanh if self.hyper else np.arctan
         tani = np.tan(np.radians(inc))
         return at(self.b_a*tani) 
+
+    def g(self, inc):
+        """q'/q = (R _0'/D') / (R_0/D) """
+        return 1.0 + self.sign * self.A * (self.f(inc) - 1.0)/self.b_a**2
+
+    def f(self, inc):
+        return np.sqrt(1.0 + self.sign * self.b_a**2 * np.tan(np.radians(inc))**2)
+
+    def Aprime(self, inc):
+        return self.A/(np.cos(np.radians(inc))**2 * self.f(inc) * self.g(inc))
+
+
         
 if __name__ == "__main__":
     # TODO Test the mechanism by drawing some conics
