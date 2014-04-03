@@ -22,9 +22,9 @@ def create_arc_regions(arcdata):
         print("Star coords: ", c0)
         print("Arc center coords: ", c1)
         print("Separation star->center in arcsec: ", sep.arcsec)
-        print("sqrt(xc**2 + yc**2) = ", np.sqrt (arcdata[arc]["xc"]**2 + arcdata[arc]["yc"]**2)
+        print("sqrt(xc**2 + yc**2) = ", np.sqrt (arcdata[arc]["xc"]**2 + arcdata[arc]["yc"]**2))
               
-    regions) = []
+    regions = []
     ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour)
     dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg)
     for arc, c in ["inner", "magenta"], ["outer", "green"]:
