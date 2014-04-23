@@ -39,14 +39,27 @@ conda create -n py27 anaconda python=2.7
 + The python 3 installation is used by default
 
 + Switch to python 2.7 with 
-#+BEGIN_SRC bash
+#+BEGIN_SRC sh
 source activate py27
 #+END_SRC
 + And switch back again with
-#+BEGIN_SRC bash
+#+BEGIN_SRC sh
 source deactivate
 #+END_SRC
 
+*** Libraries that do not work with python 3
+
+**** pysynphot
++ [2014-04-22 Tue] The released version (0.95), installed with pip, does not work in python 3.3
+  + some problem with a circular dependency
+  + it works fine with python 2.7, so long as you set an environment variable to say where all the data is:
+#+BEGIN_SRC sh
+export PYSYN_CDBS=~/Work/cdbs.20.1rc1
+#+END_SRC
+
+
+**** pyneb
++ requires python 2.7
 *** Checking requirements for our programs
 + Checking against [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/requirements.txt][requirements.txt]]
 #+BEGIN_SRC python 
