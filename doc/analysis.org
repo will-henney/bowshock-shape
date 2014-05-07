@@ -157,6 +157,16 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
 
 * Return to theoretical shapes and approximations thereof
 
+** Statistical study of projected shapes
++ Compare with Luis sample results for A' vs q'
++ We already have A' versus q'/q graphs for all conic sections
++ Combine with A(\beta) and q(\beta) curves
++ Use Monte Carlo to generate a cloud of points
++ Distributed in radius according to some law
+*** Some general points
++ Mostly, A'/A < 1 and falls with inclination
+  + Exceptions are with hyperbolae: for smallish A, A' starts to climb.  Also, A' curves up steeply just before reaching the maximum inclination (but this is unlikely to be seen, since it is over only a small range in i)
+
 ** Summary of current results
 + We have the analytic CRW results for both proplyd and isotropic case
 + We have circular fits to both
@@ -164,6 +174,9 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
   + We have a figure showing how this varies with momentum ratio: \beta
     + [[file:~/Work/Bowshocks/Jorge/bowshock-shape/AVSb.pdf][AVSb.pdf]]
     + Created by [[AvsBeta.py]]
+  + /But this is contradicted by our work on the small-angle expansion of the CRW and proplyd shapes/
+    + Jorge found that the on-axis Rc was identical for proplyd and isotropic cases
+    + This can perhaps be reconciled since the R_{c} we measured here is a compromise value, fit to the curve from \theta = 0 \to 45\deg^{}, and is not necessarily equal to the on-axis value. 
 + We have calculated the projection effects on this A \to A\prime
   + /but we don't fully understand them/
 ** What still needs to be done
@@ -174,21 +187,25 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
   + For instance, A = 1.8 corresponds to 
     + Proplyd \beta = 0.02
     + Isotropic \beta = 0.001
-*** More approximations to the shell shape
+*** DONE More approximations to the shell shape
+CLOSED: [2014-05-06 Tue 23:11]
 + Circle: this works for \theta < 45\deg 
 + [X] Hyperbola/ellipse: still to do, should work better out to larger angles
   + [X] \theta vs \theta\prime
     + Do this in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Ellipse%20projection.ipynb][file:~/Work/Bowshocks/Jorge/bowshock-shape/Ellipse projection.ipynb]]
   + [X] R_{c}\prime/R_{0}\prime vs R_{0}\prime/D\prime
     + This is done for the circle \to ellipse \to parabola sequence in [[https://www.evernote.com/shard/s36/sh/821ee470-13aa-467d-9543-41062d406f08/f974d7b44c31e2b9a8f31e8fead6301a][these notes]]
-    + We still need to extend this to hyperbolae
+    + [X] We still need to extend this to hyperbolae
+      + DONE [2014-05-06 Tue] 
 
 + [X] R = 1 / cos(a \theta): still to do CANCELLED
   + This can fit the wings by construction since R \to \infty as \theta \to \pi/2a = \theta_{\infty}
   + But it doesn't work so well for \theta = 0 \to 120, which is the most important
   + Can be improved by taking 1 / cos^b(a \theta) with b = 1.4 but it isn't clear that the extra complication is worth it
-+ [ ] Small angle approximations to the CRW and modified CRW results
++ [X] Small angle approximations to the CRW and modified CRW results
   + This should at least give us the radius of curvature on the axis
+  + DONE [2014-05-06 Tue] Hand-written version in Evernote
+    + And Jorge is writing it up in LaTeX
 *** Finite thickness of inner shell
 + Necessary for calculating path length through shell
 + But also may affect the apparent shape of the shell
