@@ -1,5 +1,4 @@
 from __future__ import print_function
-import sys
 import json
 from astropy.io import fits
 from astropy import coordinates as coord
@@ -31,6 +30,10 @@ parser.add_argument("--minfactor", type=float, default=None,
 Set the minimum brightness in units of shell dispersions below shell average.
 Default is to use any value already saved in the JSON file
 with fall-back of 3.0""")
+parser.add_argument("--vmin", type=float, default=None,
+                    help="""Set minimum brightness directly - overrides minfactor""")
+parser.add_argument("--vmax", type=float, default=None,
+                    help="""Set maximum brightness directly - overrides maxfactor""")
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 
@@ -87,9 +90,9 @@ dbg = arcdata[image_name]["background"]["delta"]
 plot_limits_modified = False
 
 # Maximum
-vmax = None
+vmax = cmd_args.vmax
 if cmd_args.maxfactor is None:
-    if "plot limits" in arcdata[image_name]:
+    if "plot limits" in arcdata[image_name] and vmax is None:
         # Use previously stored value if present
         vmax = arcdata[image_name]["plot limits"]["max"]
     else:
@@ -99,11 +102,13 @@ else:
 if vmax is None:
     vmax = avsh + maxfactor*dsh
     plot_limits_modified = True
+elif vmax == cmd_args.vmax:
+    plot_limits_modified = True
     
 # Minimum
-vmin = None
+vmin = cmd_args.vmin
 if cmd_args.minfactor is None:
-    if "plot limits" in arcdata[image_name]:
+    if "plot limits" in arcdata[image_name] and vmin is None:
         # Use previously stored value if present
         vmin = arcdata[image_name]["plot limits"]["min"]
     else:
@@ -112,6 +117,8 @@ else:
     minfactor = cmd_args.minfactor
 if vmin is None:
     vmin = avbg - minfactor*dbg
+    plot_limits_modified = True
+elif vmin == cmd_args.vmin:
     plot_limits_modified = True
 
 # Now update the db if necessary
