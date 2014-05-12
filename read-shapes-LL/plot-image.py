@@ -1,4 +1,5 @@
 from __future__ import print_function
+import sys
 import json
 from astropy.io import fits
 from astropy import coordinates as coord
@@ -43,9 +44,9 @@ arcdata = json.load(open(dbfile))
 image_name = cmd_args.image
 
 if not image_name in arcdata:
-    raise ValueError, image_name + " not found - try running extract-image.py first"
+    raise ValueError(image_name + " not found - try running extract-image.py first")
 if not "shell" in arcdata[image_name]:
-    raise ValueError, "Shell data not found - try running arc_brightness.py first"
+    raise ValueError("Shell data not found - try running arc_brightness.py first")
 
 
 
@@ -56,14 +57,21 @@ hdu = get_image_hdu(hdulist, debug=cmd_args.debug)
 
 # Find coordinates of the central star and radius of curvature
 # We want all the values in degrees for use with aplpy
-ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg).value
-dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg).value
+ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg) / u.deg
+dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg) / u.deg
+ra0, dec0 = float(ra0), float(dec0)
+print(ra0, dec0)
+
 if "outer" in arcdata:
     Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
 else:
     Rc = 1.5*arcdata["inner"]["Rc"] * u.arcsec / u.deg
 
-
+Rc = Rc.to(u.dimensionless_unscaled)
+Rc = float(Rc)
+print(Rc)
+                                        
+# sys.exit()
 #
 # Find brightness limits for plot
 #
