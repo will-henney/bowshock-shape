@@ -34,6 +34,11 @@ parser.add_argument("--vmin", type=float, default=None,
                     help="""Set minimum brightness directly - overrides minfactor""")
 parser.add_argument("--vmax", type=float, default=None,
                     help="""Set maximum brightness directly - overrides maxfactor""")
+
+parser.add_argument("--zoom", type=float, default=1.0,
+                    help="""\
+Zoom factor to adjust size of plot box - values > 1.0 mean to zoom in""")
+
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 
@@ -65,14 +70,16 @@ dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg) / u.deg
 ra0, dec0 = float(ra0), float(dec0)
 print(ra0, dec0)
 
-if "outer" in arcdata:
-    Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
-else:
-    Rc = 1.5*arcdata["inner"]["Rc"] * u.arcsec / u.deg
+deg_per_arcsec = 1.0/3600.0
 
-Rc = Rc.to(u.dimensionless_unscaled)
-Rc = float(Rc)
-print(Rc)
+if "outer" in arcdata:
+    Rc = arcdata["outer"]["Rc"] * deg_per_arcsec
+    R0 = arcdata["outer"]["R0"] * deg_per_arcsec
+else:
+    Rc = 1.5*arcdata["inner"]["Rc"] * deg_per_arcsec
+    R0 = 1.5*arcdata["inner"]["R0"] * deg_per_arcsec
+
+print(R0, Rc)
                                         
 # sys.exit()
 #
@@ -139,14 +146,14 @@ plt.clf()
 f = plt.figure(figsize=(18,9))
 
 ax1 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 1), north=True)
-ax1.recenter(ra0, dec0, 2*Rc)
+ax1.recenter(ra0, dec0, 4*R0/cmd_args.zoom)
 ax1.show_grayscale(invert=True, vmin=vmin, vmax=vmax)
 ax1.add_colorbar()
 ax1.colorbar.set_location("top")
 ax1.colorbar.hide()             # necessary to get panels to be same size
 
 ax2 = aplpy.FITSFigure(hdu, figure=f, subplot=(1, 2, 2), north=True)
-ax2.recenter(ra0, dec0, 2*Rc)
+ax2.recenter(ra0, dec0, 4*R0/cmd_args.zoom)
 ax2.show_grayscale(invert=True, vmin=vmin, vmax=vmax)
 ax2.show_regions(cmd_args.source + "-forma.reg")
 ax2.show_regions(cmd_args.source + "-arcfits.reg")
