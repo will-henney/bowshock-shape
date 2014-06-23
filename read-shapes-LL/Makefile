@@ -1,5 +1,5 @@
 PROGRAMS = $(shell ls *.py)
-DROPBOX_FOLDER = ~/Dropbox/JorgeBowshocks/LuisLL/programas
+DROPBOX_FOLDER = ~/Dropbox/LuisBowshocks/programas
 
 all: install_to_dropbox make_read_only
 

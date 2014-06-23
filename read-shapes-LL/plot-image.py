@@ -30,6 +30,10 @@ parser.add_argument("--minfactor", type=float, default=None,
 Set the minimum brightness in units of shell dispersions below shell average.
 Default is to use any value already saved in the JSON file
 with fall-back of 3.0""")
+parser.add_argument("--vmin", type=float, default=None,
+                    help="""Set minimum brightness directly - overrides minfactor""")
+parser.add_argument("--vmax", type=float, default=None,
+                    help="""Set maximum brightness directly - overrides maxfactor""")
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 
@@ -43,9 +47,9 @@ arcdata = json.load(open(dbfile))
 image_name = cmd_args.image
 
 if not image_name in arcdata:
-    raise ValueError, image_name + " not found - try running extract-image.py first"
+    raise ValueError(image_name + " not found - try running extract-image.py first")
 if not "shell" in arcdata[image_name]:
-    raise ValueError, "Shell data not found - try running arc_brightness.py first"
+    raise ValueError("Shell data not found - try running arc_brightness.py first")
 
 
 
@@ -56,14 +60,21 @@ hdu = get_image_hdu(hdulist, debug=cmd_args.debug)
 
 # Find coordinates of the central star and radius of curvature
 # We want all the values in degrees for use with aplpy
-ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg).value
-dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg).value
+ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour).to(u.deg) / u.deg
+dec0 = coord.Latitude(arcdata["star"]["Dec"], unit=u.deg) / u.deg
+ra0, dec0 = float(ra0), float(dec0)
+print(ra0, dec0)
+
 if "outer" in arcdata:
     Rc = arcdata["outer"]["Rc"] * u.arcsec / u.deg
 else:
     Rc = 1.5*arcdata["inner"]["Rc"] * u.arcsec / u.deg
 
-
+Rc = Rc.to(u.dimensionless_unscaled)
+Rc = float(Rc)
+print(Rc)
+                                        
+# sys.exit()
 #
 # Find brightness limits for plot
 #
@@ -79,9 +90,9 @@ dbg = arcdata[image_name]["background"]["delta"]
 plot_limits_modified = False
 
 # Maximum
-vmax = None
+vmax = cmd_args.vmax
 if cmd_args.maxfactor is None:
-    if "plot limits" in arcdata[image_name]:
+    if "plot limits" in arcdata[image_name] and vmax is None:
         # Use previously stored value if present
         vmax = arcdata[image_name]["plot limits"]["max"]
     else:
@@ -91,11 +102,13 @@ else:
 if vmax is None:
     vmax = avsh + maxfactor*dsh
     plot_limits_modified = True
+elif vmax == cmd_args.vmax:
+    plot_limits_modified = True
     
 # Minimum
-vmin = None
+vmin = cmd_args.vmin
 if cmd_args.minfactor is None:
-    if "plot limits" in arcdata[image_name]:
+    if "plot limits" in arcdata[image_name] and vmin is None:
         # Use previously stored value if present
         vmin = arcdata[image_name]["plot limits"]["min"]
     else:
@@ -104,6 +117,8 @@ else:
     minfactor = cmd_args.minfactor
 if vmin is None:
     vmin = avbg - minfactor*dbg
+    plot_limits_modified = True
+elif vmin == cmd_args.vmin:
     plot_limits_modified = True
 
 # Now update the db if necessary

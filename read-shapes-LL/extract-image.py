@@ -71,10 +71,10 @@ def DMS(angle):
     return coord.Angle(angle).to_string(u.degree, sep=":")
 
 ra = np.hstack([np.array(db[arc]["x"]) 
-                for arc in "inner", "outer"
+                for arc in ("inner", "outer")
                 if arc in db]) * u.arcsecond + star_pos.ra
 dec = np.hstack([np.array(db[arc]["y"]) 
-                 for arc in "inner", "outer"
+                 for arc in ("inner", "outer")
                  if arc in db]) * u.arcsecond + star_pos.dec
 
 if cmd_args.debug: print(HMS(ra), DMS(dec))
@@ -143,7 +143,13 @@ for kwd in "EQUINOX", "DATE-OBS":
 
 ## Further correction to EQUINOX keyword if necessary
 equinox = outhdu.header.get("EQUINOX")
-if isinstance(equinox, basestring):
+try:
+     # Python 2
+     isstring = isinstance(equinox, basestring)
+except NameError:
+     # Python 3
+     isstring = isinstance(equinox, str)
+if isstring:
      if cmd_args.debug:
           print("Converting EQUINOX to float")
      outhdu.header["EQUINOX"] = 2000.0

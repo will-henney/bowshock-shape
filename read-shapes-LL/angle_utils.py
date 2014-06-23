@@ -1,6 +1,7 @@
 """
 Functions to make it easier to use astropy.coordinates objects
 """
+from __future__ import print_function
 from astropy import coordinates as coord
 from astropy import units as u
 import numpy as np
@@ -34,17 +35,17 @@ if __name__ == "__main__":
 
     # Test vector separation
     x, y = vector_separation(c1, c0)
-    print "Separation HST1-th1C: alpha = {} arcsec, delta = {} arcsec".format(x, y) 
+    print("Separation HST1-th1C: alpha = {} arcsec, delta = {} arcsec".format(x, y))
     # Test polar version of the same
     R, PA = vector_separation(c1, c0, mode="polar")
-    print "Separation HST1-th1C: R = {} arcsec, PA = {} degrees".format(R, PA) 
-    print "Scalar separation calculated by astropy: ", c1.separation(c0)
+    print("Separation HST1-th1C: R = {} arcsec, PA = {} degrees".format(R, PA) )
+    print("Scalar separation calculated by astropy: ", c1.separation(c0))
 
     # Coordinates of LL Ori
     c2 = coord.ICRSCoordinates("5:35:05.566", "-5:25:19.02", unit=(u.hour, u.deg))
     R, PA = vector_separation(c2, c0, mode="polar")
-    print "Separation LL1-th1C: R = {} arcsec, PA = {} degrees".format(R, PA) 
-    print "Scalar separation calculated by astropy: ", c2.separation(c0)
+    print("Separation LL1-th1C: R = {} arcsec, PA = {} degrees".format(R, PA) )
+    print("Scalar separation calculated by astropy: ", c2.separation(c0))
 
 
 test_results = """

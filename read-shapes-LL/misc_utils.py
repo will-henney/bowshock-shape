@@ -5,6 +5,7 @@ import sys
 import os
 import json
 import re
+import numpy as np
 
 def run_info():
     """
@@ -20,6 +21,13 @@ def run_info():
     )
 
 
+class NumpyAwareJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray) and obj.ndim <= 1:
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
+
+
 def update_json_file(data, jsonfile):
     """Try and update the JSON database file in the safest way possible
 
@@ -33,7 +41,7 @@ def update_json_file(data, jsonfile):
         filedata = {}
     filedata.update(data)
     with open(jsonfile, "w") as f:
-        json.dump(filedata, f, indent=4)
+        json.dump(filedata, f, indent=4, cls=NumpyAwareJSONEncoder)
 
 
 def short_image_name(long_name):
