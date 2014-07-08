@@ -46,7 +46,7 @@ def update_json_file(data, jsonfile):
 
 def short_image_name(long_name):
     imset, imset_data = find_image_set(long_name)
-    return "_".join([imset.replace(" ", "_")] + [str(v) for v in imset_data.values ()])
+    return "_".join([imset.replace(" ", "_")] + [str(v) for v in imset_data])
 
 
 def who_am_i():
@@ -92,7 +92,7 @@ UNKNOWN_SET_PATTERNS = {
 def find_image_set(filename):
     """Auto detect which dataset a given file comes from
     
-    Returns name of image set and dict containing other info gleaned
+    Returns name of image set and list containing other info gleaned
     from the filename, such as field id and filter name.
 
     Rewrite using the re module - wasn't too hard
@@ -100,14 +100,14 @@ def find_image_set(filename):
     for imset, pattern in IMAGE_SET_PATTERNS.items():
         match = re.match(pattern, filename)
         if match:
-            return imset, match.groupdict()
+            return imset, match.groups()
     else:
         for imset, pattern in UNKNOWN_SET_PATTERNS.items():
             match = re.search(pattern, filename)
             if match:
-                return imset, match.groupdict()
+                return imset, match.groups()
         else:
-            return "Unknown dataset no filter", {}
+            return "Unknown dataset no filter", []
 
 #   
 # Utility functions to deal with data directories
@@ -131,14 +131,17 @@ def fits_dirs(user=None):
             raise EnvironmentError("Unrecognised user@system - please add to misc_utils.py")
     if user.startswith("will"):
         dropbox_folder = "JorgeBowshocks"
-    elif user.split("@")[0] in ["jtarango", "angel", "dark_lxndrs", "luis"]:
+    elif user.split("@")[0] in ["jtarango", "dark_lxndrs"]:
         dropbox_folder = "ProplydMIR"
+    elif user.split("@")[0] in ["angel", "luis"]:
+        dropbox_folder = "LuisBowshocks"
+
     
     # Special cases for Dropbox location on CRyA machines
     if user == "jtarango@crya":
         dropbox_root ="/fs/posgrado01/other0/jtarango/Dropbox"
     if user == "angel@crya":
-        dropbox_root = "/fs/computo20/other0/angel/Dropbox" 
+        dropbox_root = "/fs/posgrado01/other0/angel/Dropbox" 
 
     small_fits_dir = os.path.join(dropbox_root, dropbox_folder, "HST")
     return small_fits_dir, large_fits_dir
@@ -169,7 +172,7 @@ def image_set_fits_dir(image_name):
     """Find the full path a given set of image files
 
     We are quite flexible with the format of image_name.  It could be
-    a short image name o a short sunny spell.
+    a short image name 
 
     """
     small_fits_dir, large_fits_dir = fits_dirs()
