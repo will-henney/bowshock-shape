@@ -10,6 +10,12 @@ import argparse
 import fits_utils
 import misc_utils
 
+# Python 2 compatibility kludge
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
+
 parser = argparse.ArgumentParser(
     description="""Extract a small image around a bowshock and save it as a FITS file""")
 
