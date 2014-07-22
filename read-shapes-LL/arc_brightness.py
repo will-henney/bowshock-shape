@@ -167,12 +167,28 @@ for image_name in arcdata:
 
 
     # Calculate average binned profiles versus theta
-    th_edges = np.linspace(-60.0, 60.0, 25)
-    th_centers = 0.5*(th_edges[:-1] + th_edges[1:])
-    m = mask["<60"] & mask["good"] & mask["bg"]
-    bg, dbg, nbg = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges, return_npix=True)
-    m = mask["<60"] & mask["good"] & mask["shell center"]
-    sh, dsh = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges)
+    NTH = 25
+    need_to_bin_profiles = True
+    while need_to_bin_profiles: 
+        th_edges = np.linspace(-60.0, 60.0, NTH)
+        th_centers = 0.5*(th_edges[:-1] + th_edges[1:])
+        m = mask["<60"] & mask["good"] & mask["bg"]
+        bg, dbg, nbg = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges,
+                                         return_npix=True)
+        m = mask["<60"] & mask["good"] & mask["shell center"]
+        sh, dsh = robust_statistics(theta["outer"][m].deg, hdu.data[m], th_edges)
+        # Check that there were not to many NaNs in the shell arrays
+        # These are caused by there being fewer than 2 points in the bin
+        number_of_nans = np.isnan(sh).sum()
+        if number_of_nans > 0.25*NTH:
+            # If more than 25% are NaNs, we try again with fewer bins
+            NTH = NTH // 2
+            print('Insufficient points, reducing theta bins to N =', NTH)
+            assert NTH > 0, 'Not enough points for good statistics'
+        else:
+            # Otherwise, we are done
+            need_to_bin_profiles = False
+
 
     # Calculate average binned profiles versus radius
     z_edges = np.linspace(-2.0, 3.0, 50)
@@ -187,11 +203,14 @@ for image_name in arcdata:
     # Save th-binned profiles for later use
     arcdata[image_name]["binned"] = {
         "theta": list(th_centers),
-        "background N": list(nbg),
+        "background N": [int(n) for n in nbg],
         "background": list(bg),
         "background sigma": list(dbg),
         "shell": list(sh),
     }
+    if cmd_args.debug:
+        print("Binned profiles:")
+        print(arcdata[image_name]["binned"])
 
     # Plot graph of radial profiles
     #
