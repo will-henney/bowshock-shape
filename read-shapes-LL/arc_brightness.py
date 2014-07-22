@@ -226,6 +226,17 @@ for image_name in arcdata:
         print("Binned profiles:")
         print(arcdata[image_name]["binned"])
 
+    camera = arcdata[image_name]["camera"]
+    fname = arcdata[image_name]["filter"]
+    # Work around bad headers in the WFC mosaics
+    if "WFC_mosaic" in image_name:
+        if "656" in image_name:
+            fname = "F656N"
+        elif "658" in image_name:
+            fname = "F658N"
+        elif "502" in image_name:
+            fname = "F502N"
+
     # Plot graph of radial profiles
     #
     plt.clf()
@@ -253,7 +264,7 @@ for image_name in arcdata:
     plt.xlabel("Radius relative to shell: (R - R_in) / (R_out - R_in)")
     plt.ylabel("Surface brightness")
     plt.legend(prop={"size": "small"})
-    plt.title(" ".join([cmd_args.source, arcdata[image_name]["camera"], arcdata[image_name]["filter"]]))
+    plt.title(" ".join([cmd_args.source, camera, fname]))
     plt.xlim(-2.0, 3.0)
     plt.ylim(ymin, ymax)
     plt.grid()
@@ -279,8 +290,7 @@ for image_name in arcdata:
     plt.xlabel("Angle, theta, from outer shell axis")
     plt.ylabel("Surface brightness")
     plt.legend()
-    plt.title(" ".join([
-        cmd_args.source, arcdata[image_name]["camera"], arcdata[image_name]["filter"]]))
+    plt.title(" ".join([cmd_args.source, camera, fname]))
     plt.ylim(ymin, ymax)
     plt.grid()
     plt.savefig(plot_prefix + "-th.jpg", dpi=600)
