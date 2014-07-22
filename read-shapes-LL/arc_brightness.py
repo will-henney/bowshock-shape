@@ -191,14 +191,28 @@ for image_name in arcdata:
 
 
     # Calculate average binned profiles versus radius
-    z_edges = np.linspace(-2.0, 3.0, 50)
-    z_centers = 0.5*(z_edges[:-1] + z_edges[1:])
-    m = mask["good"] & mask["<15"]
-    axis, daxis = robust_statistics(z[m], hdu.data[m], z_edges)
-    m = mask["good"] & mask["+15 to +45"]
-    upper, dupper = robust_statistics(z[m], hdu.data[m], z_edges)
-    m = mask["good"] & mask["-15 to -45"]
-    lower, dlower = robust_statistics(z[m], hdu.data[m], z_edges)
+    NZ = 50
+    need_to_bin_profiles = True
+    while need_to_bin_profiles: 
+        z_edges = np.linspace(-2.0, 3.0, NZ)
+        z_centers = 0.5*(z_edges[:-1] + z_edges[1:])
+        m = mask["good"] & mask["<15"]
+        axis, daxis = robust_statistics(z[m], hdu.data[m], z_edges)
+        m = mask["good"] & mask["+15 to +45"]
+        upper, dupper = robust_statistics(z[m], hdu.data[m], z_edges)
+        m = mask["good"] & mask["-15 to -45"]
+        lower, dlower = robust_statistics(z[m], hdu.data[m], z_edges)
+        # Perform the same check as we did above for th bins
+        number_of_nans = np.isnan(axis).sum()
+        if number_of_nans > 0.33*NZ:
+            # If more than 33% are NaNs, we try again with fewer bins
+            NZ = NZ // 2
+            print('Insufficient points, reducing z bins to N =', NZ)
+            assert NZ > 0, 'Not enough points for good statistics'
+        else:
+            # Otherwise, we are done
+            need_to_bin_profiles = False
+
 
     # Save th-binned profiles for later use
     arcdata[image_name]["binned"] = {
@@ -243,7 +257,7 @@ for image_name in arcdata:
     plt.xlim(-2.0, 3.0)
     plt.ylim(ymin, ymax)
     plt.grid()
-    plt.savefig(plot_prefix + "-z.png", dpi=600)
+    plt.savefig(plot_prefix + "-z.jpg", dpi=600)
 
 
     #
@@ -269,7 +283,7 @@ for image_name in arcdata:
         cmd_args.source, arcdata[image_name]["camera"], arcdata[image_name]["filter"]]))
     plt.ylim(ymin, ymax)
     plt.grid()
-    plt.savefig(plot_prefix + "-th.png", dpi=600)
+    plt.savefig(plot_prefix + "-th.jpg", dpi=600)
 
 
 
