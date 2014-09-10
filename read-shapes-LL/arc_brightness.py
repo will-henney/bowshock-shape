@@ -236,6 +236,8 @@ for image_name in arcdata:
             fname = "F658N"
         elif "502" in image_name:
             fname = "F502N"
+        elif "547" in image_name:
+            fname = "F547M"
 
     # Plot graph of radial profiles
     #
