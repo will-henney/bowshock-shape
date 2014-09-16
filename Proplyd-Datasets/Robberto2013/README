@@ -1,0 +1,369 @@
+J/ApJS/207/10         HST Treasury Program on the ONC         (Robberto+, 2013)
+================================================================================
+The Hubble Space Telescope Treasury Program on the Orion Nebula Cluster.
+    Robberto M., Soderblom D.R., Bergeron E., Kozhurina-Platais V.,
+    Makidon R.B., McCullough P.R., McMaster M., Panagia N., Reid I.N.,
+    Levay Z., Frattare L., Da Rio N., Andersen M., O'Dell C.R., Stassun K.G.,
+    Simon M., Feigelson E.D., Stauffer J.R., Meyer M., Reggiani M., Krist J.,
+    Manara C.F., Romaniello M., Hillenbrand L.A., Ricci L., Palla F.,
+    Najita J.R., Ananna T.T., Scandariato G., Smith K.
+   <Astrophys. J. Suppl. Ser., 207, 10 (2013)>
+   =2013ApJS..207...10R    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Clusters, open ; Photometry, HST ; Photometry, infrared
+Keywords: brown dwarfs - ISM: individual objects (M42) - stars: formation -
+          stars: low-mass - stars: pre-main sequence
+
+Abstract:
+    The Hubble Space Telescope (HST) Treasury Program on the Orion Nebula
+    Cluster (ONC) has used 104 orbits of HST time to image the Great Orion
+    Nebula region with the Advanced Camera for Surveys (ACS), the
+    Wide-Field/Planetary Camera 2 (WFPC2), and the Near-Infrared Camera
+    and Multi-Object Spectrograph (NICMOS) instrument in 11 filters
+    ranging from the U band to the H band equivalent of HST. The program
+    has been intended to perform the definitive study of the stellar
+    component of the ONC at visible wavelengths, addressing key questions
+    like the cluster initial mass function, age spread, mass accretion,
+    binarity, and cirumstellar disk evolution. The scanning pattern
+    allowed us to cover a contiguous field of approximately 600 arcmin2
+    with both ACS and WFPC2, with a typical exposure time of approximately
+    11 minutes per ACS filter, corresponding to a point source depth
+    AB(F435W) = 25.8 and AB(F775W) = 25.2 with 0.2 mag of photometric
+    error. We describe the observations, data reduction, and data
+    products, including images, source catalogs, and tools for quick look
+    preview. In particular, we provide ACS photometry for 3399 stars, most
+    of them detected at multiple epochs; WFPC2 photometry for 1643 stars,
+    1021 of them detected in the U band; and NICMOS JH photometry for 2116
+    stars. We summarize the early science results that have been presented
+    in a number of papers.
+
+Description:
+    The full fields covered by the HST ACS/WFC and WFPC2 surveys are
+    shown, respectively, in Figures 2 and 3. Both are approximately
+    centered at RA=05:35:00 and DEC=-5:26:00 (J2000), approximately 200"
+    to the SW of the Trapezium asterism and extend over about one-sixth of
+    a square degree. In particular, the full ACS mosaic covers
+    627arcmin^2^, whereas the WFPC2 mosaic covers 570.5arcmin^2^. With
+    NICMOS, our survey covered only a fraction of the ACS field due to the
+    limited field of view of the instrument (Figure 4). A total of 102
+    regions were covered in both the filter F110W and F160W bands,
+    corresponding to about 177arcmin^2^ and 171.5arcmin^2^ in the F110W
+    and F160W filters, respectively.
+
+    In order to exchange the relative position of ACS and WFPC2, we
+    rotated by 180{deg} the roll angle of the HST by scheduling the
+    observations in two epochs separated by approximately 6 months. The
+    first epoch, executed in the fall of 2004 (2004 October 11-November
+    7), covered strips 2, 5, and 6 with a position angle of 280{deg}, for
+    a total of 36 orbits. The second epoch, executed in the spring of 2005
+    (2005 March 3-April 26) covered strips 0, 1, 3, 4, 7, and 8 with a
+    position angle of 100{deg}, for a total of 68 orbits. Both epochs and
+    position angles were optimized to schedule the observations at the
+    peaks of the visibility periods of the Orion Nebula. Table 2
+    summarizes the scheduling of our observations. Figure 6 presents the
+    overall coverage of the survey.
+
+    See section 2 for further explanations about the observations.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table2.dat        89      104   Observations log
+table5.dat       670     8185   ACS source catalog
+table6.dat       329     1643   WFPC2 source catalog
+table7.dat        78     2116   NICMOS source catalog
+--------------------------------------------------------------------------------
+
+See also:
+ B/hst : HST Archived Exposures Catalog (STScI, 2007)
+ J/A+A/534/A10   : HST/NICMOS III imaging in ONC (Andersen+, 2011)
+ J/ApJ/733/50    : MIR monitoring of the ONC (Morales-Calderon+, 2011)
+ J/A+A/533/A38   : Extinction map of OMC-1 (Scandariato+, 2011)
+ J/ApJ/722/1092  : Optical photometry of the ONC. II. (Da Rio+, 2010)
+ J/A+A/515/A13   : Very low mass objects in ONC (Rodriguez-Ledesma+, 2010)
+ J/AJ/139/950    : JHKs photometry in ONC (Robberto+, 2010)
+ J/ApJS/183/261  : Optical photometry of the ONC (Da Rio+, 2009)
+ J/AJ/136/2136   : HST/ACS Atlas of Great Orion Nebula proplyds (Ricci+, 2008)
+ J/ApJ/677/401   : Xray properties of protostars in ONC (Prisinzano+, 2008)
+ J/ApJS/160/353  : Membership of the Orion nebula population (Getman+, 2005)
+ J/MNRAS/361/211 : JHK photometry of brown dwarfs in Orion (Lucas+, 2005)
+ J/A+A/396/513   : Stellar Rotation in the Orion Nebula Cluster (Herbst+, 2002)
+ J/ApJ/573/366   : Infrared photometry of Trapezium cluster (Muench+, 2002)
+ J/ApJ/540/236   : KH photometry of Orion Nebula Cluster (Hillenbrand+, 2000)
+ J/ApJ/540/1016  : K + NICMOS photometry of Trapezium Cluster (Luhman+, 2000)
+ J/AJ/117/2941   : Rotation periods of Orion PMS stars (Stassun+, 1999)
+ J/AJ/113/1733   : Orion Nebula Cluster population (Hillenbrand 1997)
+ J/AJ/111/846    : Orion HST survey (O'Dell+, 1996)
+ http://archive.stsci.edu/prepds/orion/ : HST Treasury Program on the ONC page
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units         Label  Explanations
+--------------------------------------------------------------------------------
+  1- 11  A11   "YYYY/MMM/DD" Date   Observation date
+ 13- 15  I3    deg           Orient [100/287] Orientation
+ 17- 18  A2    ---           visit  Visit (orbit) identification
+ 20- 21  I2    h             RAh    [5] ACS hour of right ascension (J2000)
+ 23- 24  I2    min           RAm    [34/35] ACS minute of R.A. (J2000)
+ 26- 30  F5.2  s             RAs    ACS second of right ascension (J2000)
+     32  A1    ---           DE-    ACS declination sign (J2000)
+ 33- 34  I2    deg           DEd    [5] ACS degree of declination (J2000)
+ 36- 37  I2    arcmin        DEm    [13/39] ACS arcminute of declination (J2000)
+ 39- 43  F5.2  arcsec        DEs    ACDS arcsecond of declination (J2000)
+ 45- 46  I2    h             RAWh   [5] WFPC2 hour of right ascension (J2000)
+ 48- 49  I2    min           RAWm   [34/35] WFPC2 minute of R.A. (J2000)
+ 51- 55  F5.2  s             RAWs   WFPC2 second of right ascension (J2000)
+     57  A1    ---           DEW-   WFPC2 declination sign (J2000)
+ 58- 59  I2    deg           DEWd   [5] WFPC2 degree of declination (J2000)
+ 61- 62  I2    arcmin        DEWm   [15/40] WFPC2 arcminute of DEC (J2000)
+ 64- 67  F4.1  arcsec        DEWs   WFPC2 arcsecond of declination (J2000)
+     69  I1    h             RANh   [5]? NIC3 hour of right ascension (J2000)
+ 71- 72  I2    min           RANm   [34/35]? NIC3 minute of R.A. (J2000)
+ 74- 78  F5.2  s             RANs   ? NIC3 second of right ascension (J2000)
+     80  A1    ---           DEN-   NIC3 declination sign (J2000)
+     81  I1    deg           DENd   [5]? NIC3 degree of declination (J2000)
+ 83- 84  I2    arcmin        DENm   [11/44]? NIC3 arcminute of DEC (J2000)
+ 86- 89  F4.1  arcsec        DENs   ? NIC3 arcsecond of declination (J2000)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units       Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---         Seq       [1/8185] Sequential entry number (1)
+   6-  9  I4    ---         oncacs    [1/8185] First (Main) entry number
+                                        (3399 unique numbers) (2)
+  11- 12  I2    h           RAh       [5] Hour of Right Ascension (J2000)
+  14- 15  I2    min         RAm       [34/35] Minute of Right Ascension (J2000)
+  17- 22  F6.3  s           RAs       Second of Right Ascension (J2000)
+      24  A1    ---         DE-       [-] Sign of the Declination (J2000)
+  25- 26  I2    deg         DEd       [5] Degree of Declination (J2000)
+  28- 29  I2    arcmin      DEm       [12/41] Arcminute of Declination (J2000)
+  31- 35  F5.2  arcsec      DEs       Arcsecond of Declination (J2000)
+  37- 38  A2    ---         visit     HST Visit
+      40  I1    ---         CCD       [1/4] ACS CCD chip
+  42- 49  F8.2  pix         x435      X pixel position in F435W image
+  51- 58  F8.2  pix         x555      [-1/4102] X pixel position in F555W image
+  60- 67  F8.2  pix         x658      X pixel position in F658N image
+  69- 76  F8.2  pix         x775      X pixel position in F775W image
+  78- 85  F8.2  pix         x850      X pixel position in F850LP image
+  87- 94  F8.2  pix         y435      Y pixel position in F435W image
+  96-103  F8.2  pix         y555      [-13/2061] Y pixel position in F555W image
+ 105-112  F8.2  pix         y658      Y pixel position in F658N image
+ 114-121  F8.2  pix         y775      Y pixel position in F775W image
+ 123-130  F8.2  pix         y850      Y pixel position in F850LP image
+ 132-138  F7.4  mag         F435mag   [13/26]?=99.9999 HST/ACS F435W Vega
+                                        magnitude
+ 140-146  F7.4  mag       e_F435mag   [0.0006/27]?=99.9999 F435mag uncertainty
+     148  I1    ---       f_F435mag   [0/4]? Flag on F435mag (3)
+ 150-156  F7.4  mag         F555mag   ?=99.9999 HST/ACS F555W Vega magnitude
+ 158-164  F7.4  mag       e_F555mag   ?=99.9999 Uncertainty in F555mag
+     166  I1    ---       f_F555mag   [0/4]? Flag on F555mag (3)
+ 168-174  F7.4  mag         F658mag   ?=99.9999 HST/ACS F658N Vega magnitude
+ 176-182  F7.4  mag       e_F658mag   ?=99.9999 Uncertainty in F658mag
+     184  I1    ---       f_F658mag   [0/4]? Flag on F658mag (3)
+ 186-192  F7.4  mag         F775mag   ?=99.9999 HST/ACS F775W Vega magnitude
+ 194-200  F7.4  mag       e_F775mag   ?=99.9999 Uncertainty in F775mag
+     202  I1    ---       f_F775mag   [0/4]? Flag on F775mag (3)
+ 204-210  F7.4  mag         F850mag   ?=99.9999 HST/ACS F850LP Vega magnitude
+ 212-218  F7.4  mag       e_F850mag   ?=99.9999 Uncertainty in F850mag
+     220  I1    ---       f_F850mag   [0/4]? Flag on F850mag (3)
+ 222-223  I2    pix         rad435    Extraction radius in F435W image
+ 225-226  I2    pix         rad555    [2/10] Extraction radius in F555W image
+ 228-229  I2    pix         rad658    Extraction radius in F658N image
+ 231-232  I2    pix         rad775    Extraction radius in F775W image
+ 234-235  I2    pix         rad850    Extraction radius in F850LP image
+ 236-244  F9.2  ct          csky435   Sky counts in F435W image
+ 245-253  F9.2  ct          csky555   [0/100428] Sky counts in F555W image
+ 255-262  F8.2  ct          csky658   Sky counts in F658N image
+ 263-271  F9.2  ct          csky775   Sky counts in F775W image
+ 272-280  F9.2  ct          csky850   Sky counts in F850LP image
+ 282-289  F8.2  ct        e_csky435   Sigma sky counts in F435W image
+ 291-298  F8.2  ct        e_csky555   [-1/7987] Sigma sky counts in F555W image
+ 300-307  F8.2  ct        e_csky658   Sigma sky counts in F658N image
+ 309-316  F8.2  ct        e_csky775   Sigma sky counts in F775W image
+ 318-325  F8.2  ct        e_csky850   Sigma sky counts in F850LP image
+ 327-328  I2    pix         isky435   Inner sky radius in F435W image
+ 330-331  I2    pix         isky555   [5/20] Inner sky radius in F555W image
+ 333-334  I2    pix         isky658   Inner sky radius in F658N image
+ 336-337  I2    pix         isky775   Inner sky radius in F775W image
+ 339-340  I2    pix         isky850   Inner sky radius in F850LP image
+ 342-343  I2    pix         osky435   Outer sky radius in F435W image
+ 345-346  I2    pix         osky555   [8/30] Outer sky radius in F555W image
+ 348-349  I2    pix         osky658   Outer sky radius in F658N image
+ 351-352  I2    pix         osky775   Outer sky radius in F775W image
+ 354-355  I2    pix         osky850   Outer sky radius in F850LP image
+ 356-364  F9.2  ct          max435    Peak counts in F435W image
+ 365-373  F9.2  ct          max555    [-32692/100000] Peak counts in F435W image
+ 374-382  F9.2  ct          max658    Peak counts in F435W image
+ 383-391  F9.2  ct          max775    Peak counts in F435W image
+ 392-400  F9.2  ct          max850    Peak counts in F850LP image
+ 402-405  I4    pix         pixsat435 Saturated pix in F435W aperture
+ 407-410  I4    pix         pixsat555 [0/318] Saturated pix in F555W aperture
+ 412-415  I4    pix         pixsat658 Saturated pix in F658N aperture
+ 417-420  I4    pix         pixsat775 Saturated pix in F775W aperture
+ 422-425  I4    pix         pixsat850 Saturated pix in F850LP aperture
+ 427-428  I2    ct          radsat435 dmax saturated pixel in F435W image
+ 430-431  I2    ct          radsat555 [0/10] dmax saturated pixel in F555W image
+ 433-434  I2    ct          radsat658 dmax saturated pixel in F658N image
+ 436-437  I2    ct          radsat775 dmax saturated pixel in F775W image
+ 439-440  I2    ct          radsat850 dmax saturated pixel in F850LP image
+     442  I1    ---         type      [0/8] Type of source (from quick look) (4)
+ 444-445  A2    ---         strip     Drizzled strip ([0-8][L/R]; xx if none)
+ 447-455  F9.3  pix         xstrip    ?=0 X position in drz. strip
+ 457-465  F9.3  pix         ystrip    ?=0 Y position in drz. strip
+ 467-473  F7.4  mag         F435smag  ?=99.9999 Vega magnitude in F435W strip
+ 475-481  F7.4  mag         F555smag  [0/26.2]?=99.9999 Vega magnitude in F555W
+                                       strip
+ 483-489  F7.4  mag         F658smag  ?=99.9999 Vega magnitude in F558N strip
+ 491-497  F7.4  mag         F775smag  ?=99.9999 Vega magnitude in F775W strip
+ 499-505  F7.4  mag         F850smag  ?=99.9999 Vega magnitude in F850LP strip
+ 507-513  F7.4  mag       e_F435smag  Uncertainty in F435smag
+ 515-521  F7.4  mag       e_F555smag  [0/27.31] Uncertainty in F555smag
+ 523-529  F7.4  mag       e_F658smag  Uncertainty in F658smag
+ 531-537  F7.4  mag       e_F775smag  Uncertainty in F775smag
+ 539-545  F7.4  mag       e_F850smag  Uncertainty in F850smag
+ 547-548  I2    pix         rad435s   Extraction radius in F435W strip
+ 550-551  I2    pix         rad555s   [0/10] Extraction radius in F555W strip
+ 553-554  I2    pix         rad658s   Extraction radius in F658N strip
+ 556-557  I2    pix         rad775s   Extraction radius in F775W strip
+ 559-560  I2    pix         rad850s   Extraction radius in F850LP strip
+ 562-569  F8.2  ct          sky435s   Sky counts in F435W strip
+ 571-578  F8.2  ct          sky555s   [0/36396] Sky counts in F555W strip
+ 580-587  F8.2  ct          sky658s   Sky counts in F658N strip
+ 589-596  F8.2  ct          sky775s   Sky counts in F775W strip
+ 598-605  F8.2  ct          sky850s   Sky counts in F850LP strip
+ 607-614  F8.2  ct          dsky435s  Sigma sky counts in F435W strip
+ 616-623  F8.2  ct          dksy555s  [0/999.99] Sigma sky counts in F555W strip
+ 625-632  F8.2  ct          dsky658s  Sigma sky counts in F658N strip
+ 634-641  F8.2  ct          dksy775s  Sigma sky counts in F775W strip
+ 643-650  F8.2  ct          dsky850s  Sigma sky counts in F850LP strip
+ 652-661  A10 "YYYY/MM/DD"  Date      Date of the observation; GMT
+ 663-670  A8   "h:m:s"      time      ? Time of the observation (start); GMT
+--------------------------------------------------------------------------------
+Note (1): Designation, or sequential entry number; identifies the observation of
+          a source within a visit (orbit).
+Note (2): First entry number. This field facilitates finding sources observed
+          multiple times. It provides the entry number (onc_acs) of the first
+          appearance in the catalog. For example, entries onc_acs=100, 101, and
+          102 are three observations of the same star (in different visits).
+          They all have onc_acs=100, as this is the first entry number
+          attributed to this particular source.
+Note (3): Flag as follows:
+   0 = undetected;
+   1 = good;
+   2 = saturated but recovered;
+   3 = saturated;
+   4 = from drizzle/coadded image.
+Note (4): Source type, from visual inspection as follows:
+   0 = not measured;
+   1 = detected in at least one filter and unresolved;
+   2 = double (companion closer than ~3 pixels, one entry for both sources);
+   3 = wide double (companion further than ~3 pixel, one entry for each source);
+   5 = silhouette disk;
+   6 = photoionized (proplyd or with other evidence of photoionization);
+   7 = galaxy;
+   8 = Herbig-Haro
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units       Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---         Seq       [1/1643] Sequential entry number
+   6-  9  I4    ---         oncwfpc2  [1/1643] First (Main) entry number
+                                        (1488 unique numbers)
+  11- 12  I2    h           RAh       [5] Hour of Right Ascension (J2000)
+  14- 15  I2    min         RAm       [34/35] Minute of Right Ascension (J2000)
+  17- 22  F6.3  s           RAs       Second of Right Ascension (J2000)
+      24  A1    ---         DE-       [-] Sign of the Declination (J2000)
+  25- 26  I2    deg         DEd       [5] Degree of Declination (J2000)
+  28- 29  I2    arcmin      DEm       [14/42] Arcminute of Declination (J2000)
+  31- 35  F5.2  arcsec      DEs       Arcsecond of Declination (J2000)
+  37- 38  A2    ---         visit     HST Visit
+  39- 40  I2    ---         CCD       [1/4] WFPC2 CCD chip; 1:PC; 2,3,4: WFC
+  42- 49  F8.2  pix         x336      X position in F336W image
+  51- 58  F8.2  pix         x439      X position in F439W image
+  60- 67  F8.2  pix         x656      [50.73/795.99] X position in F656N image
+  69- 76  F8.2  pix         x814      X position in F814W image
+  78- 85  F8.2  pix         y336      Y position in F336W image
+  87- 94  F8.2  pix         y439      Y position in F439W image
+  96-103  F8.2  pix         y656      [44/798.9] Y position in F656N image
+ 105-112  F8.2  pix         y814      Y position in F814W image
+ 114-120  F7.4  mag         F336mag   ?=99.9999 HST/WFPC2 F336W Vega magnitude
+ 122-128  F7.4  mag       e_F336mag   ?=99.9999 Uncertainty in F336W (1)
+     130  I1    ---       f_F336mag   ? Flag on F336W (2)
+ 132-138  F7.4  mag         F439mag   ?=99.9999 HST/WFPC2 F439W Vega magnitude
+ 140-146  F7.4  mag       e_F439mag   ?=99.9999 Uncertainty in F439W (1)
+     148  I1    ---       f_F439mag   ? Flag on F439W (2)
+ 150-156  F7.4  mag         F656mag   [0/21]?=99.9999 HST/WFPC2 F656N Vega
+                                       magnitude
+ 158-164  F7.4  mag       e_F656mag   ?=99.9999 Uncertainty in F656N (1)
+     166  I1    ---       f_F656mag   ? Flag on F656N (2)
+ 168-174  F7.4  mag         F814mag   ?=99.9999 HST/WFPC2 F814W Vega magnitude
+ 176-182  F7.4  mag       e_F814mag   ?=99.9999 Uncertainty in F814W (1)
+     184  I1    ---       f_F814mag   ? Flag on F814W (2)
+ 186-188  F3.1  arcsec      rad336    Extraction radius in F336W image
+ 190-192  F3.1  arcsec      rad439    Extraction radius in F439W image
+ 194-196  F3.1  arcsec      rad656    [0.1/0.5] Extraction radius in F656N image
+ 198-200  F3.1  arcsec      rad814    Extraction radius in F814W image
+ 202-209  F8.2  ct          csky336   Sky counts in F336W image
+ 211-218  F8.2  ct          csky439   Sky counts in F439W image
+ 220-227  F8.2  ct          csky656   [0/6.55] Sky counts in F656N image
+ 229-236  F8.2  ct          csky814   Sky counts in F814W image
+ 238-245  F8.2  ct        e_csky336   Sigma sky counts in F336W image
+ 247-254  F8.2  ct        e_csky439   Sigma sky counts in F439W image
+ 256-263  F8.2  ct        e_csky656   [0/0.81] Sigma sky counts in F656N image
+ 265-272  F8.2  ct        e_csky814   Sigma sky counts in F814W image
+ 274-281  F8.2  ct          max336    Peak counts in F336W image
+ 283-290  F8.2  ct          max439    Peak counts in F439W image
+ 292-299  F8.2  ct          max656    [1.71/4664.47] Peak counts in F656N image
+ 301-308  F8.2  ct          max814    Peak counts in F814W image
+ 311-320  A10 "YYYY/MM/DD"  Date      Date of the observation; GMT
+ 322-329  A8   "h:m:s"      time      Time of the observation; GMT
+--------------------------------------------------------------------------------
+Note (1): If both magnitude and its uncertainty are 99.999, then the source
+          could not be measured (e.g. at the edge of the field, negative
+          counts, etc.).
+Note (2): Flag as follows:
+    0 = undetected;
+    1 = ok;
+    3 = upper limit;
+    4 = not measured.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label    Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---     oncnic3  [1/2116] Designation; sequential entry number
+   7-  8  A2    ---     visit    HST Visit
+  10- 12  I3    pix     xPos     [0/787] X pixel position
+  14- 16  I3    pix     yPos     [0/679] Y pixel position
+  18- 19  I2    h       RAh      [5] Hour of Right Ascension (J2000)
+  21- 22  I2    min     RAm      [34/35] Minute of Right Ascension (J2000)
+  24- 29  F6.3  s       RAs      Second of Right Ascension (J2000)
+      31  A1    ---     DE-      [-] Sign of the Declination (J2000)
+  32- 33  I2    deg     DEd      [5] Degree of Declination (J2000)
+  35- 36  I2    arcmin  DEm      [11/44] Arcminute of Declination (J2000)
+  38- 42  F5.2  arcsec  DEs      Arcsecond of Declination (J2000)
+  44- 50  F7.4  mag     F110mag  [7/25]?=99.9999 HST/NICMOS F110W Vega magnitude
+  52- 58  F7.4  mag   e_F110mag  [0.001/23]?=99 Uncertainty in F110mag
+      60  I1    ---   f_F110mag  [0/2]? Flag on F110mag (1)
+  62- 68  F7.4  mag     F160mag  [7/22]?=99.9999 HST/NICMOS F160W Vega magnitude
+  70- 76  F7.4  mag   e_F160mag  [0.001/22.1]?=99 Uncertainty in F160mag
+      78  I1    ---   f_F160mag  [0/2]? Flag on F160mag (1)
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+    0 = not measured;
+    1 = ok;
+    2 = undetected, upper limit in uncertainty.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                 Greg Schwarz [AAS], Emmanuelle Perret [CDS]    08-Aug-2013
