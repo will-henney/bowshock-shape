@@ -33,6 +33,33 @@ High-level description of analysis of proplyd bowshocks
 
 
 
+** Distribution of proplyd sizes
++ I am measuring sizes for the Ricci (2008) sample with D' < 60 arcsec
+
+*** Mis-classified objects
++ 168-235 :: high proper motion so clearly a jet knot
++ 187-314 :: has a star but no sign of proplyd: possibly has a jet knot or a binary companion
++ 160-253 :: from the proper motion looks like a complex jet knot that is going past a star
+*** Objects with no obvious proplyd-morphology in H\alpha
++ 166-406 :: looks like proplyd from PC [O I] and [S II] images
+  + present in Ricci catalog
++ 174-400 :: exactly the same as 166-406
+  + *absent* from Ricci catalog
+  + these two may be neutral proplyds
+
+
+*** Obvious proplyds missing from Ricci catalog
++ 170-400 :: circular bright rim with dark disk inside
+  + right on top of one of the HH529 shocks, which is why it might have been missed
++ 168-404 :: elliptical bright object - clearly not a point source - with bright star inside
++ 182-316 :: small proplyd with faint but well-defined tail
++ 181-401 :: a very faint tail, but definitely there
++ 153-321 :: looks most convincing in the Bally image
+*** Shadow disks in the inner arcminute
++ 165-254 :: almost edge-on disk with reflection nebula
++ 167-231 :: circular disk with central star and the faintest of bright rims
+  + I include this in the radius samples, but not the other two
++ 183-405 :: nice elliptical disk with star in middle
 ** TODO Variation in stellar wind
 :PROPERTIES:
 :orgtrello-id: 52091abb39ecbefd21004f7d
