@@ -34,6 +34,9 @@ High-level description of analysis of proplyd bowshocks
 
 
 ** Distribution of proplyd sizes
+:PROPERTIES:
+:ID:       8C1F7790-DD52-48CF-9086-7E96163F19DE
+:END:
 + I am measuring sizes for the Ricci (2008) sample with D' < 60 arcsec
 
 *** Mis-classified objects
@@ -55,6 +58,8 @@ High-level description of analysis of proplyd bowshocks
 + 182-316 :: small proplyd with faint but well-defined tail
 + 181-401 :: a very faint tail, but definitely there
 + 153-321 :: looks most convincing in the Bally image
++ 171-334 :: has a bright star that makes the proplyd very hard to see.  Only obvious in [O III] PC images, where it is clearly extended
++ 
 *** Shadow disks in the inner arcminute
 + 165-254 :: almost edge-on disk with reflection nebula
 + 167-231 :: circular disk with central star and the faintest of bright rims

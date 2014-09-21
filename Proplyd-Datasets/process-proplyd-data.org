@@ -1,0 +1,21 @@
+Some little scripts for reorganizing and processing the datasets
+
+* Proplyd sizes
++ I measured sizes of all proplyds within 60 arcsec of th1C, as described [[id:8C1F7790-DD52-48CF-9086-7E96163F19DE][here]].
+** Extract a data table from the ds9 region file
++ I wrote the chord positions as a ds9 region [[file:proplyd-new-sizes.reg][file]]
++ I have converted this to a [[file:proplyd-chords-D60.tab][TSV file]]
+** Calculate the sizes from the chords
+:PROPERTIES:
+:ID:       9CDE482F-CAD3-4DE6-8A14-684ECBCC92CB
+:END:
+#+BEGIN_SRC python
+  from astropy.table import Table
+
+  sizedata = Table.read("proplyd-chords-D60.dat", format='ascii.commented_header')
+
+
+#+END_SRC
+
+#+RESULTS:
+

@@ -1,6 +1,165 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 icrs
+box(5:34:36.438,-5:21:45.93,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={4364-146}
+box(5:34:46.588,-5:23:24.17,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={4466-324}
+box(5:34:46.758,-5:26:04.77,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={4468-605}
+box(5:34:53.788,-5:23:10.71,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={4538-311}
+box(5:34:59.558,-5:24:00.17,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={4596-400}
+box(5:34:58.158,-5:26:35.11,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={4582-635}
+box(5:35:00.468,-5:25:14.32,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={005-514}
+box(5:35:00.578,-5:24:38.77,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={006-439}
+box(5:35:01.598,-5:21:49.33,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={016-149}
+box(5:35:04.188,-5:26:27.87,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={038-627}
+box(5:35:04.418,-5:25:27.38,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={044-527}
+box(5:35:04.608,-5:38:37.98,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={046-3838}
+box(5:35:04.628,-5:22:44.83,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={046-245}
+box(5:35:04.938,-5:21:42.97,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={049-143}
+box(5:35:05.048,-5:35:40.82,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={051-3541}
+box(5:35:05.398,-5:27:16.97,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={053-717}
+box(5:35:05.728,-5:24:18.53,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={057-419}
+box(5:35:06.088,-5:24:00.58,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={061-401}
+box(5:35:06.438,-5:33:35.23,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={064-3335}
+box(5:35:06.568,-5:32:51.47,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={066-3251}
+box(5:35:06.588,-5:26:51.97,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={066-652}
+box(5:35:06.908,-5:26:00.58,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={069-601}
+box(5:35:07.208,-5:21:34.41,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={072-135}
+box(5:35:07.268,-5:22:26.54,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={073-227}
+box(5:35:07.838,-5:36:58.13,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={078-3658}
+box(5:35:09.018,-5:23:26.18,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={090-326}
+box(5:35:09.588,-5:28:22.90,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={093-822}
+box(5:35:09.888,-5:23:38.48,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={099-339}
+box(5:35:10.128,-5:22:32.72,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={102-233}
+box(5:35:10.188,-5:20:20.97,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={102-021}
+box(5:35:10.198,-5:23:21.54,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={102-322}
+box(5:35:10.538,-5:24:16.68,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={106-417}
+box(5:35:10.578,-5:21:56.22,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={106-156}
+box(5:35:10.898,-5:22:46.34,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={109-246}
+box(5:35:10.948,-5:23:26.43,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={109-327}
+box(5:35:10.978,-5:30:35.21,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={110-3035}
+box(5:35:11.298,-5:24:26.48,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={114-426}
+box(5:35:11.648,-5:24:21.48,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={117-421}
+box(5:35:11.728,-5:23:51.68,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={117-352}
+box(5:35:11.898,-5:23:39.68,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={119-340}
+box(5:35:12.088,-5:19:24.78,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={121-1925}
+box(5:35:12.118,-5:24:33.78,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={121-434}
+box(5:35:12.378,-5:21:31.37,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={124-132}
+box(5:35:13.048,-5:20:45.77,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={131-046}
+box(5:35:13.108,-5:22:47.09,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={131-247}
+box(5:35:13.238,-5:18:32.93,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={132-1832}
+box(5:35:13.238,-5:20:41.92,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={132-042}
+box(5:35:13.508,-5:22:19.47,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={135-220}
+box(5:35:13.778,-5:22:07.37,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={138-207}
+box(5:35:14.048,-5:25:20.48,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={141-520}
+box(5:35:14.048,-5:19:51.88,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={140-1952}
+box(5:35:14.268,-5:24:24.53,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={143-425}
+box(5:35:14.338,-5:25:22.28,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={144-522}
+box(5:35:14.608,-5:22:00.92,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={146-201}
+box(5:35:14.998,-5:21:47.32,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={150-147}
+box(5:35:15.208,-5:27:37.83,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={152-738}
+box(5:35:15.928,-5:22:21.03,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={159-221}
+box(5:35:16.188,-5:21:32.37,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={162-133}
+box(5:35:16.308,-5:20:25.22,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={163-026}
+box(5:35:16.268,-5:22:10.43,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={163-210}
+box(5:35:16.298,-5:22:21.48,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={163-222}
+box(5:35:16.348,-5:25:09.58,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={164-511}
+box(5:35:16.538,-5:22:53.68,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={165-254}
+box(5:35:16.568,-5:25:17.72,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={166-519}
+box(5:35:17.108,-5:24:34.38,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={171-434}
+box(5:35:17.218,-5:20:27.82,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={172-028}
+box(5:35:17.538,-5:25:42.87,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={175-543}
+box(5:35:17.688,-5:24:54.08,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={177-454}
+box(5:35:17.708,-5:25:40.74,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={177-541}
+box(5:35:17.728,-5:24:43.73,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={177-444}
+box(5:35:17.808,-5:24:41.03,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={178-441}
+box(5:35:17.918,-5:20:55.42,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={179-056}
+box(5:35:18.098,-5:28:25.02,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={181-825}
+box(5:35:18.278,-5:24:38.83,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={183-439}
+box(5:35:18.308,-5:24:18.83,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={183-419}
+box(5:35:18.328,-5:24:04.83,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={183-405}
+box(5:35:18.348,-5:24:26.83,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={184-427}
+box(5:35:18.438,-5:25:19.27,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={184-520}
+box(5:35:19.128,-5:22:31.18,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={191-232}
+box(5:35:19.248,-5:16:58.67,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={193-1659}
+box(5:35:19.648,-5:24:26.68,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={197-427}
+box(5:35:19.818,-5:22:21.53,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={198-222}
+box(5:35:19.828,-5:24:47.93,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={198-448}
+box(5:35:19.888,-5:15:08.23,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={199-1508}
+box(5:35:20.038,-5:21:05.97,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={200-106}
+box(5:35:20.138,-5:25:33.82,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={201-534}
+box(5:35:20.148,-5:22:28.28,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={202-228}
+box(5:35:20.258,-5:25:04.03,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={203-504}
+box(5:35:20.318,-5:25:05.53,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={203-506}
+box(5:35:20.518,-5:20:52.03,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={205-052}
+box(5:35:20.528,-5:24:20.98,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={205-421}
+box(5:35:20.618,-5:24:46.43,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={206-446}
+box(5:35:20.828,-5:21:21.43,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={208-122}
+box(5:35:20.998,-5:21:52.28,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={209-151}
+box(5:35:21.028,-5:22:25.18,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={210-225}
+box(5:35:21.148,-5:25:57.02,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={212-557}
+box(5:35:21.188,-5:24:00.18,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={212-400}
+box(5:35:21.238,-5:22:59.49,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={212-260}
+box(5:35:21.278,-5:25:33.09,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={213-533}
+box(5:35:21.298,-5:23:46.08,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={213-346}
+box(5:35:21.448,-5:26:52.38,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={215-652}
+box(5:35:21.488,-5:23:16.69,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={215-317}
+box(5:35:21.548,-5:21:05.58,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={215-106}
+box(5:35:21.598,-5:25:40.68,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={216-541}
+box(5:35:21.618,-5:27:14.63,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={216-715}
+box(5:35:21.768,-5:23:39.28,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={218-339}
+box(5:35:21.788,-5:23:53.88,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={218-354}
+box(5:35:21.818,-5:25:28.44,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={218-529}
+box(5:35:21.838,-5:23:06.44,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={218-306}
+box(5:35:22.078,-5:24:32.93,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={221-433}
+box(5:35:22.308,-5:24:14.23,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={223-414}
+box(5:35:22.368,-5:27:28.38,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={224-728}
+box(5:35:22.828,-5:25:47.67,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={228-548}
+box(5:35:23.018,-5:25:36.27,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={230-536}
+box(5:35:23.048,-5:24:59.84,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={231-460}
+box(5:35:23.158,-5:25:02.17,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={231-502}
+box(5:35:23.098,-5:28:37.32,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={231-838}
+box(5:35:23.218,-5:24:52.77,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={232-453}
+box(5:35:23.398,-5:28:53.17,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={234-853}
+box(5:35:23.588,-5:25:26.52,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={236-527}
+box(5:35:23.658,-5:26:27.13,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={237-627}
+box(5:35:23.798,-5:23:34.28,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={238-334}
+box(5:35:23.858,-5:23:34.03,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={239-334}
+box(5:35:23.978,-5:25:09.92,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={239-510}
+box(5:35:24.018,-5:23:13.83,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={240-314}
+box(5:35:24.218,-5:25:18.77,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={242-519}
+box(5:35:24.378,-5:24:39.72,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={244-440}
+box(5:35:24.448,-5:26:31.53,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={245-632}
+box(5:35:24.478,-5:19:09.82,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={245-1910}
+box(5:35:24.508,-5:25:01.57,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={245-502}
+box(5:35:24.688,-5:24:35.72,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={247-436}
+box(5:35:25.018,-5:24:38.47,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={250-439}
+box(5:35:25.208,-5:24:57.32,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={252-457}
+box(5:35:25.298,-5:15:35.52,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={253-1536}
+box(5:35:25.368,-5:24:11.48,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={254-412}
+box(5:35:25.518,-5:25:11.82,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={255-512}
+box(5:35:26.178,-5:25:20.47,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={262-521}
+box(5:35:26.418,-5:25:31.67,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={264-532}
+box(5:35:26.618,-5:25:57.82,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={266-558}
+box(5:35:27.958,-5:29:31.13,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={280-931}
+box(5:35:28.048,-5:17:20.31,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={280-1720}
+box(5:35:28.128,-5:23:06.43,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={281-306}
+box(5:35:28.198,-5:24:58.17,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={282-458}
+box(5:35:28.198,-5:26:14.18,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={282-614}
+box(5:35:28.398,-5:24:38.67,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={284-439}
+box(5:35:29.428,-5:37:56.58,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={294-757}
+box(5:35:29.478,-5:26:06.61,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={294-606}
+box(5:35:29.668,-5:30:24.73,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={297-025}
+box(5:35:30.408,-5:25:38.61,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={304-539}
+box(5:35:30.698,-5:18:07.22,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={307-1807}
+box(5:35:31.398,-5:28:16.46,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={314-816}
+box(5:35:32.098,-5:26:01.92,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={321-602}
+box(5:35:33.188,-5:24:04.72,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={332-405}
+box(5:35:33.198,-5:16:05.36,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={332-1605}
+box(5:35:34.618,-5:15:52.90,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={346-1553}
+box(5:35:34.668,-5:15:34.86,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={347-1535}
+box(5:35:35.128,-5:33:49.16,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={351-3349}
+box(5:35:35.318,-5:21:29.57,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={353-130}
+box(5:35:47.338,-5:22:44.80,2",2",360) # color=#dd8822 font="helvetica 6 normal roman" text={473-245}
 line(5:35:15.394,-5:22:39.61,5:35:15.354,-5:22:39.71) # line=0 0 color=red text={154-240}
 line(5:35:16.340,-5:22:48.79,5:35:16.324,-5:22:48.80) # line=0 0 color=red text={163-249}
 line(5:35:16.487,-5:22:35.29,5:35:16.458,-5:22:35.22) # line=0 0 color=red text={165-235}
@@ -23,7 +182,7 @@ line(5:35:14.130,-5:23:00.27,5:35:14.103,-5:23:01.15) # line=0 0 color=red text=
 line(5:35:13.908,-5:23:19.97,5:35:13.907,-5:23:20.12) # line=0 0 color=red text={139-320}
 line(5:35:14.706,-5:23:22.62,5:35:14.705,-5:23:22.93) # line=0 0 color=red text={147-323}
 line(5:35:14.913,-5:23:28.95,5:35:14.915,-5:23:29.04) # line=0 0 color=red text={149-329}
-line(5:35:15.489,-5:23:37.43,5:35:15.508,-5:23:37.66) # line=0 0 color=red text={155-338}
+line(5:35:15.495,-5:23:37.32,5:35:15.515,-5:23:37.59) # line=0 0 color=red text={155-338}
 line(5:35:15.881,-5:23:38.02,5:35:15.891,-5:23:38.14) # line=0 0 color=red text={159-338}
 line(5:35:15.952,-5:23:49.68,5:35:15.964,-5:23:49.72) # line=0 0 color=red text={159-350b}
 line(5:35:15.917,-5:23:50.06,5:35:15.958,-5:23:50.19) # line=0 0 color=red text={159-350}
@@ -50,24 +209,24 @@ line(5:35:13.292,-5:23:52.97,5:35:13.299,-5:23:53.14) # line=0 0 color=red text=
 line(5:35:16.846,-5:23:26.25,5:35:16.839,-5:23:26.47) # line=0 0 color=red text={168-326}
 line(5:35:16.824,-5:23:25.94,5:35:16.821,-5:23:26.03) # line=0 0 color=red text={168-326b}
 line(5:35:16.763,-5:23:28.11,5:35:16.757,-5:23:28.20) # line=0 0 color=red text={168-328}
-line(5:35:16.060,-5:23:27.92,5:35:16.055,-5:23:27.79) # line=0 0 color=red text={161-328}
-line(5:35:15.770,-5:23:26.80,5:35:15.759,-5:23:26.56) # line=0 0 color=red text={158-327}
-line(5:35:15.825,-5:23:25.65,5:35:15.823,-5:23:25.48) # line=0 0 color=red text={158-326}
+line(5:35:16.066,-5:23:27.89,5:35:16.059,-5:23:27.72) # line=0 0 color=red text={161-328}
+line(5:35:15.782,-5:23:26.76,5:35:15.769,-5:23:26.41) # line=0 0 color=red text={158-327}
+line(5:35:15.831,-5:23:25.65,5:35:15.826,-5:23:25.43) # line=0 0 color=red text={158-326}
 line(5:35:16.044,-5:23:24.36,5:35:16.043,-5:23:24.26) # line=0 0 color=red text={161-324}
 line(5:35:15.804,-5:23:22.54,5:35:15.805,-5:23:22.37) # line=0 0 color=red text={158-323}
 line(5:35:15.705,-5:23:22.50,5:35:15.705,-5:23:22.40) # line=0 0 color=red text={157-323}
 line(5:35:16.738,-5:23:16.19,5:35:16.753,-5:23:16.30) # line=0 0 color=red text={167-317}
 line(5:35:16.603,-5:23:15.93,5:35:16.610,-5:23:15.98) # line=0 0 color=red text={166-316}
 line(5:35:16.264,-5:23:16.34,5:35:16.276,-5:23:16.31) # line=0 0 color=red text={163-317}
-line(5:35:15.342,-5:23:24.01,5:35:15.342,-5:23:24.11) # line=0 0 color=red text={151-324}
-line(5:35:15.203,-5:23:18.48,5:35:15.190,-5:23:18.77) # line=0 0 color=red text={152-319}
+line(5:35:15.342,-5:23:24.01,5:35:15.342,-5:23:24.11) # line=0 0 color=red text={154-324}
+line(5:35:15.203,-5:23:18.48,5:35:15.191,-5:23:18.84) # line=0 0 color=red text={152-319}
 line(5:35:15.886,-5:24:17.86,5:35:15.907,-5:24:17.88) # line=0 0 color=red text={159-418}
 line(5:35:17.376,-5:24:13.98,5:35:17.394,-5:24:13.96) # line=0 0 color=red text={174-414}
 line(5:35:18.185,-5:24:13.36,5:35:18.246,-5:24:12.95) # line=0 0 color=red text={182-413}
 line(5:35:18.060,-5:24:01.24,5:35:18.069,-5:24:01.22) # line=0 0 color=red text={181-401}
 line(5:35:15.368,-5:22:25.14,5:35:15.356,-5:22:25.16) # line=0 0 color=red text={154-225}
-line(5:35:16.092,-5:23:14.00,5:35:16.100,-5:23:13.98) # line=0 0 color=red text={161-314}
-line(5:35:16.308,-5:23:22.69,5:35:16.310,-5:23:22.49) # line=0 0 color=red text={163-323}
-line(5:35:16.308,-5:23:22.69,5:35:16.310,-5:23:22.49) # line=0 0 color=red text={163-323}
-line(5:35:15.344,-5:23:21.27,5:35:15.343,-5:23:21.39) # line=0 0 color=red text={153-321}
+line(5:35:16.089,-5:23:14.08,5:35:16.101,-5:23:14.03) # line=0 0 color=red text={161-314}
+line(5:35:15.342,-5:23:21.27,5:35:15.342,-5:23:21.35) # line=0 0 color=red text={153-321}
 line(5:35:16.739,-5:22:31.18,5:35:16.717,-5:22:31.18) # line=0 0 color=red text={167-231}
+line(5:35:17.057,-5:23:34.18,5:35:17.068,-5:23:34.05) # line=0 0 color=red text={171-334}
+line(5:35:16.312,-5:23:22.65,5:35:16.313,-5:23:22.55) # line=0 0 color=red text={163-323}
