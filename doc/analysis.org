@@ -195,6 +195,16 @@ Copied from [[file:~/Dropbox/Proplyds07/Proplyd2005/Sizes/proplyd-sizes.org]]
 + Combine with A(\beta) and q(\beta) curves
 + Use Monte Carlo to generate a cloud of points
 + Distributed in radius according to some law
+*** Going from \beta to A and q and \theta
++ For the moment, we will just do the CD - add in the modification for the inner shock later.
++ Jorge's radii.pdf gives most of the formulae
++ For CRW isotropic and proplyd cases:
+  + q = \beta^{1/2}/(1 + \beta^{1/2})
+  + A = 1.5/(1 - \beta^{1/2})
++ B \equiv R_{90} / R_{0 }depends on type:
+  + isotropic:
+    + B = 3^{1/2 }(1 + \beta^{1/2}))
+    + tan \theta_c = 3 [(1 - \beta^{1/2})^{-1} - (1 + \beta^{1/2})^{2}] 
 *** Some general points
 + Mostly, A'/A < 1 and falls with inclination
   + Exceptions are with hyperbolae: for smallish A, A' starts to climb.  Also, A' curves up steeply just before reaching the maximum inclination (but this is unlikely to be seen, since it is over only a small range in i)
