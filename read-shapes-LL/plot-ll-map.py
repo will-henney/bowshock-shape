@@ -1,5 +1,6 @@
 from __future__ import print_function
-from astropysics import coords
+import astropy.units as u
+import astropy.coordinates as coord
 import numpy as np
 import matplotlib.pyplot as plt
 import json
@@ -17,8 +18,9 @@ def find(name, path):
 
 def plot_map(limits, figname, canvas_size, exclude=0.0, arrowscale=1.0):
     plt.clf()
-    x, y = coords.radec_str_to_decimal(RAs, Decs) 
-    x = -(x - x0)*3600.0
+    c = coord.SkyCoord(RAs, Decs, unit=(u.hourangle, u.degree))
+    x, y = c.ra.deg, c.dec.deg
+    x = -(x - x0)*np.cos(c.dec.radian)*3600.0
     y = (y - y0)*3600.0
 
     plt.plot(x, y, "o", alpha=0.2)
@@ -86,10 +88,11 @@ def plot_map(limits, figname, canvas_size, exclude=0.0, arrowscale=1.0):
                           )
 
 
-    x, y = coords.radec_str_to_decimal(pRAs, pDecs)
-    x = -(x - x0)*3600.0
+    c = coord.SkyCoord(pRAs, pDecs, unit=(u.hourangle, u.degree))
+    x, y = c.ra.deg, c.dec.deg
+    x = -(x - x0)*np.cos(c.dec.radian)*3600.0
     y = (y - y0)*3600.0
-    plt.scatter(x, y, c=pColors, s=pSizes, faceted=False, alpha=0.5, zorder=100)
+    plt.scatter(x, y, c=pColors, s=pSizes, edgecolors='none', alpha=0.5, zorder=100)
 
     plt.axis("equal")
     plt.axis(limits)
@@ -114,7 +117,6 @@ if __name__ == "__main__":
     Decs = [v["Dec"] for v in table.values()]
     Fields = [v["Bally"] for v in table.values()]
 
-
     #
     # Set up proplyd data 
     #
@@ -135,7 +137,9 @@ if __name__ == "__main__":
     pSizes = np.array(pSizes)*15.0
 
 
-    [x0], [y0] = coords.radec_str_to_decimal(["05:35:16.463"], ["-05:23:23.18"])
+    c0 = coord.SkyCoord("05:35:16.463", "-05:23:23.18",
+                        unit=(u.hourangle, u.degree))
+    x0, y0 = c0.ra.deg, c0.dec.deg
 
     plot_map([-350, 600, -650, 200], "ll-positions.pdf", (10, 10),
              exclude=50.0, arrowscale=2.0)
