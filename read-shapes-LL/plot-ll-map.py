@@ -11,12 +11,13 @@ def find(name, path):
     Original from http://stackoverflow.com/questions/1724693/find-a-file-in-python
     """
     for root, dirs, files in os.walk(path):
-        if name in files and not "_drz" in root:
-            return os.path.join(root, name)
+        for realname in name, "w" + name:
+            if realname in files and not "_drz" in root:
+                return os.path.join(root, realname)
     return None
             
 
-def plot_map(limits, figname, canvas_size, exclude=0.0, arrowscale=1.0):
+def plot_map(limits, figname, canvas_size, innerbox=None, arrowscale=1.0):
     plt.clf()
     c = coord.SkyCoord(RAs, Decs, unit=(u.hourangle, u.degree))
     x, y = c.ra.deg, c.dec.deg
@@ -26,16 +27,6 @@ def plot_map(limits, figname, canvas_size, exclude=0.0, arrowscale=1.0):
     plt.plot(x, y, "o", alpha=0.2)
     for label, xx, yy, field_list in zip(names, x, y, Fields):
         
-        if xx*2 + yy**2 > exclude**2:
-            plt.annotate(label, (xx, yy), alpha=0.8, size=5,
-                         xytext=(-2,2), textcoords='offset points',
-                         ha='right', va='bottom',
-                         bbox={'facecolor': 'white', 
-                               'alpha': 0.5,
-                               'pad': 2,
-                               'linewidth': 0.1,
-                           },
-            )
         #
         # Try and draw the inner and outer arcs
         #
@@ -51,25 +42,15 @@ def plot_map(limits, figname, canvas_size, exclude=0.0, arrowscale=1.0):
             else:
                 print("Could not open ", jsonfile)
                 continue
+        arc_data = json.load(f)
 
         # Second, load in the data and draw the arcs
-        arc_data = json.load(f)
         for arc, color in ["inner", "m"], ["outer", "g"]:
             if arc in arc_data:
                 dx = np.array(arc_data[arc]["x"])
                 dy = np.array(arc_data[arc]["y"])
                 plt.plot(xx - dx, yy + dy, "-" + color, lw=1.0, alpha=0.6)
                 print("Plotted {} arc for {}".format(arc, found))
-                # Now try and draw arrows for the arc axes too
-                # R0 = arc_data[arc]["R0"]
-                # PA = np.radians(arc_data[arc]["PA0"])
-                # ax = -R0*np.sin(PA)
-                # ay = R0*np.cos(PA)
-                # plt.arrow(xx, yy, 4*ax*arrowscale, 4*ay*arrowscale,
-                #           fc='none', ec=color, 
-                #           width=0.0006, alpha=0.6, lw=0.5,
-                #           head_width=4.0*arrowscale, head_length=8.0*arrowscale,
-                # )
                 if "Rc" in arc_data[arc]:
                     xc = arc_data[arc]["xc"]
                     yc = arc_data[arc]["yc"]
@@ -87,6 +68,26 @@ def plot_map(limits, figname, canvas_size, exclude=0.0, arrowscale=1.0):
                               head_width=2.0*arrowscale, head_length=4.0*arrowscale,
                           )
 
+        if innerbox is None:
+            skip_annotation = False
+        else:
+            x1, x2, y1, y2 = innerbox
+            skip_annotation = (x1 <= xx <= x2) and (y1 <= yy <= y2)
+        
+        if not skip_annotation:
+            PA = np.radians(arc_data["star"]["PA"] + 180.0)
+            ha = 'right' if np.sin(PA) > 0.0 else 'left'
+            va = 'bottom' if np.cos(PA) > 0.0 else 'top'
+            xytext = (-3*np.sin(PA), 3*np.cos(PA))
+            plt.annotate(label, (xx, yy), alpha=0.8, size=5,
+                         xytext=xytext, textcoords='offset points',
+                         ha=ha, va=va,
+                         bbox={'facecolor': 'white', 
+                               'alpha': 0.5,
+                               'pad': 2,
+                               'linewidth': 0.1,
+                           },
+            )
 
     c = coord.SkyCoord(pRAs, pDecs, unit=(u.hourangle, u.degree))
     x, y = c.ra.deg, c.dec.deg
@@ -94,6 +95,9 @@ def plot_map(limits, figname, canvas_size, exclude=0.0, arrowscale=1.0):
     y = (y - y0)*3600.0
     plt.scatter(x, y, c=pColors, s=pSizes, edgecolors='none', alpha=0.5, zorder=100)
 
+    if innerbox is not None:
+        plt.fill_between([x1, x2], [y1, y1], [y2, y2],
+                         edgecolor='none', facecolor='k', alpha=0.1)
     plt.axis("equal")
     plt.axis(limits)
     plt.xlabel("RA offset, arcsec")
@@ -141,9 +145,10 @@ if __name__ == "__main__":
                         unit=(u.hourangle, u.degree))
     x0, y0 = c0.ra.deg, c0.dec.deg
 
-    plot_map([-350, 600, -650, 200], "ll-positions.pdf", (10, 10),
-             exclude=50.0, arrowscale=2.0)
-    plot_map([-50, 50, -35, 65], "ll-positions-zoom.pdf", (10, 10), arrowscale=0.7)
+    zoombox = [-50, 50, -35, 65]
+    fullbox = [-350, 600, -650, 200]
+    plot_map(fullbox, "ll-positions.pdf", (10, 10), innerbox=zoombox, arrowscale=2.0)
+    plot_map(zoombox, "ll-positions-zoom.pdf", (10, 10), arrowscale=0.7)
 
 
 
