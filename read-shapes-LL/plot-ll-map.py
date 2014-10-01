@@ -1,10 +1,21 @@
 from __future__ import print_function
 import astropy.units as u
 import astropy.coordinates as coord
+from astropy.table import Table
 import numpy as np
 import matplotlib.pyplot as plt
 import json
 import os
+
+
+nicknames = {
+    "166-316": "LV2b", 
+    "177-341": "HST1", 
+    "167-317": "LV2",  
+    "163-317": "LV3",  
+    "161-324": "LV4",  
+    "158-323": "LV5", 
+}
 
 def find(name, path):
     """
@@ -24,15 +35,22 @@ def plot_map(limits, figname, canvas_size, innerbox=None, arrowscale=1.0):
     x = -(x - x0)*np.cos(c.dec.radian)*3600.0
     y = (y - y0)*3600.0
 
+    print(x, y)
     plt.plot(x, y, "o", alpha=0.2)
-    for label, xx, yy, field_list in zip(names, x, y, Fields):
+    for label, xx, yy in zip(names, x, y):
         
         #
         # Try and draw the inner and outer arcs
         #
 
-        jsonfile = "{}-arcdata.json".format(label.split()[-1])
-        found = find(jsonfile, "../Jorge_prop/PC-correct")
+        name = label.split()[-1]
+        if name in problem_sources:
+            continue
+
+        nickname = nicknames.get(name, name)
+        jsonfile = "{}-arcdata.json".format(name)
+        jsonfilex = "{}-arcdata.json".format(nickname)
+        found = find(jsonfilex, "../JorgeBowshocks/Jorge_prop/PC-will")
         if found is not None:
             f = open(found)
         else:
@@ -45,6 +63,7 @@ def plot_map(limits, figname, canvas_size, innerbox=None, arrowscale=1.0):
         arc_data = json.load(f)
 
         # Second, load in the data and draw the arcs
+        small_A = []
         for arc, color in ["inner", "m"], ["outer", "g"]:
             if arc in arc_data:
                 dx = np.array(arc_data[arc]["x"])
@@ -56,12 +75,22 @@ def plot_map(limits, figname, canvas_size, innerbox=None, arrowscale=1.0):
                     yc = arc_data[arc]["yc"]
                     Rc = arc_data[arc]["Rc"]
                     PAc = np.radians(arc_data[arc]["PAc"])
+                    if arc_data[arc]["Rc"] < arc_data[arc]["R0"]:
+                        # Flip the arrow for Rc < R0
+                        PAc += np.pi
+                    if arc_data[arc]["Rc"] < 1.5*arc_data[arc]["R0"]:
+                        small_A.append(arc)
+                        PAm = np.radians(arc_data[arc]["PA0"]
+                                         + np.mean(arc_data[arc]["theta"]))
+                    else:
+                        PAm = None
                     # Plot the fitted circle if present
                     plt.plot(xx - xc, yy + yc, "+k", ms=2.0)
                     c = plt.Circle((xx - xc, yy + yc), radius=Rc, fc='none', ec="k", alpha=0.2, lw=0.2)
                     plt.gca().add_patch(c)
-                    ax = -0.5*Rc*np.sin(PAc)
-                    ay = 0.5*Rc*np.cos(PAc)
+                    PA = PAc if PAm is None else PAm
+                    ax = -0.5*Rc*np.sin(PA)
+                    ay = 0.5*Rc*np.cos(PA)
                     plt.arrow(xx-xc, yy+yc, 4*ax*arrowscale, 4*ay*arrowscale,
                               fc='none', ec=color, 
                               width=0.001, alpha=0.8, lw=1.5,
@@ -74,15 +103,39 @@ def plot_map(limits, figname, canvas_size, innerbox=None, arrowscale=1.0):
             x1, x2, y1, y2 = innerbox
             skip_annotation = (x1 <= xx <= x2) and (y1 <= yy <= y2)
         
+        # Order of octants is anticlockwise around square starting at top:
+        #    1 0 7
+        #    2 * 6
+        #    3 4 5
+        alignment_by_octant = [
+            ('center', 'bottom'),
+            ('right', 'bottom'),
+            ('right', 'center'),
+            ('right', 'top'),
+            ('center', 'top'),
+            ('left', 'top'),
+            ('left', 'center'),
+            ('left', 'bottom'),
+        ]
         if not skip_annotation:
+            boxcolor = 'orange' if name in interprop_sources else 'white'
+            if len(small_A) == 2:
+                labelcolor = 'red'
+            elif 'inner' in small_A:
+                labelcolor = 'magenta'
+            elif 'outer' in small_A:
+                labelcolor = 'green'
+            else:
+                labelcolor = 'black'
             PA = np.radians(arc_data["star"]["PA"] + 180.0)
-            ha = 'right' if np.sin(PA) > 0.0 else 'left'
-            va = 'bottom' if np.cos(PA) > 0.0 else 'top'
+            ioctant = int(((np.degrees(PA) + 22.5) % 360)*8/360)
+            print('Octant:', ioctant, 'PA:', np.degrees(PA))
+            ha, va = alignment_by_octant[ioctant]
             xytext = (-3*np.sin(PA), 3*np.cos(PA))
-            plt.annotate(label, (xx, yy), alpha=0.8, size=5,
+            plt.annotate(label, (xx, yy), alpha=0.8, size=5, color=labelcolor,
                          xytext=xytext, textcoords='offset points',
                          ha=ha, va=va,
-                         bbox={'facecolor': 'white', 
+                         bbox={'facecolor': boxcolor, 
                                'alpha': 0.5,
                                'pad': 2,
                                'linewidth': 0.1,
@@ -113,13 +166,21 @@ if __name__ == "__main__":
     #
     # Set up arc data
     #
-    TABLE_FILE = "ll-data.json"
-    table = json.load(open(TABLE_FILE))
 
-    names = table.keys()
-    RAs = [v["RA"] for v in table.values()]
-    Decs = [v["Dec"] for v in table.values()]
-    Fields = [v["Bally"] for v in table.values()]
+    table = Table.read("luis-programas/arcs-summary-merge.tab", 
+                     format="ascii.commented_header", delimiter="\t",
+                     fill_values=('--', np.nan) ).filled(np.nan)
+    names = table["Object"].data
+    RAs = table["RA"].data
+    Decs = table["Dec"].data
+
+    # TABLE_FILE = "ll-data.json"
+    # table = json.load(open(TABLE_FILE))
+
+    # names = table.keys()
+    # RAs = [v["RA"] for v in table.values()]
+    # Decs = [v["Dec"] for v in table.values()]
+    # Fields = [v["Bally"] for v in table.values()]
 
     #
     # Set up proplyd data 
@@ -140,6 +201,10 @@ if __name__ == "__main__":
     pSizes = [pSize_from_Type[v["Type"]] for v in ptable.values()]
     pSizes = np.array(pSizes)*15.0
 
+    with open("luis-programas/problem-sources.txt") as f:
+        problem_sources = f.read().split('\n')
+    with open("luis-programas/interproplyd.txt") as f:
+        interprop_sources = f.read().split('\n')
 
     c0 = coord.SkyCoord("05:35:16.463", "-05:23:23.18",
                         unit=(u.hourangle, u.degree))
