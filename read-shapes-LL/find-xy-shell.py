@@ -53,7 +53,7 @@ def extract_data(line):
 
 th1C_RA_dg = 83.818289
 th1C_Dec_dg = -5.3895909
-th1C_c = coord.ICRSCoordinates(th1C_RA_dg, th1C_Dec_dg, unit=(u.degree, u.degree))
+th1C_c = coord.SkyCoord(th1C_RA_dg, th1C_Dec_dg, unit=(u.degree, u.degree))
 
 # lists to contain coords of inner and outer arcs
 inner_c, outer_c = [], []
@@ -71,7 +71,7 @@ with open(regionfile) as f:
             continue
         ra, dec, point_type, text = extract_data(line)
         
-        c = coord.ICRSCoordinates(ra, dec, unit=(u.hour, u.degree))
+        c = coord.SkyCoord(ra, dec, unit=(u.hour, u.degree))
 
         if point_type == "circle":
             # Position of star

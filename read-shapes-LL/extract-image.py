@@ -79,7 +79,7 @@ w = wcs.WCS(hdu.header)
 
 # w.wcs.print_contents()
 
-star_pos = coord.ICRSCoordinates(
+star_pos = coord.SkyCoord(
     ra=db["star"]["RA"], 
     dec=db["star"]["Dec"], 
     unit=(u.hour, u.degree)
