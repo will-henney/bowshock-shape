@@ -9,6 +9,15 @@ import astropy.coordinates as coord
 import aplpy
 from misc_utils import expand_fits_path
 
+nicknames = {
+    "166-316": "LV2b", 
+    "177-341": "HST1", 
+    "167-317": "LV2",  
+    "163-317": "LV3",  
+    "161-324": "LV4",  
+    "158-323": "LV5", 
+}
+
 def find(name, path):
     """
     Original from http://stackoverflow.com/questions/1724693/find-a-file-in-python
@@ -54,8 +63,14 @@ def plot_map(limits, figname, canvas_size,
         # Try and draw the inner and outer arcs
         #
 
-        jsonfile = "{}-arcdata.json".format(label.split()[-1])
-        found = find(jsonfile, "../Jorge_prop/PC-correct")
+        name = label.split()[-1]
+        if name in problem_sources:
+            continue
+
+        nickname = nicknames.get(name, name)
+        jsonfile = "{}-arcdata.json".format(name)
+        jsonfilex = "{}-arcdata.json".format(nickname)
+        found = find(jsonfilex, "../JorgeBowshocks/Jorge_prop/PC-will")
         if found is not None:
             f = open(found)
         else:
@@ -79,17 +94,21 @@ def plot_map(limits, figname, canvas_size,
                     yc = arc_data[arc]["yc"]/pix_scale
                     Rc = arc_data[arc]["Rc"]/pix_scale
                     PAc = np.radians(arc_data[arc]["PAc"])
+                    PAm = np.radians(arc_data[arc]["PA0"]
+                                     + np.mean(arc_data[arc]["theta"]))
+
                     # Plot the fitted circle if present
                     ax.plot(xx - xc, yy + yc, "+k", ms=2.0)
                     c = plt.Circle((xx - xc, yy + yc), radius=Rc, fc='none', ec="k", alpha=0.2, lw=0.2)
                     ax.add_patch(c)
-                    arrowx = -0.5*Rc*np.sin(PAc)
-                    arrowy = 0.5*Rc*np.cos(PAc)
+                    PA = PAm if arc_data[arc]["Rc"] < 1.5*arc_data[arc]["R0"] else PAc
+                    arrowx = -0.5*Rc*np.sin(PA)
+                    arrowy = 0.5*Rc*np.cos(PA)
                     ax.arrow(xx-xc, yy+yc, 4*arrowx*arrowscale, 4*arrowy*arrowscale,
-                              fc='none', ec=color, 
-                              width=0.001, alpha=0.8, lw=1.5,
-                              head_width=2.0*arrowscale, head_length=4.0*arrowscale,
-                          )
+                             fc='none', ec=color, 
+                             width=0.001, alpha=0.8, lw=1.5,
+                             head_width=8.0*arrowscale, head_length=16.0*arrowscale,
+                         )
 
         if innerbox is None:
             skip_annotation = False
@@ -115,6 +134,7 @@ def plot_map(limits, figname, canvas_size,
             ('left', 'bottom'),
         ]
         if not skip_annotation:
+            boxcolor = 'orange' if name in interprop_sources else 'white'
             PA = np.radians(arc_data["star"]["PA"] + 180.0)
             ioctant = int(((np.degrees(PA) + 22.5) % 360)*8/360)
             print('Octant:', ioctant, 'PA:', np.degrees(PA))
@@ -123,7 +143,7 @@ def plot_map(limits, figname, canvas_size,
             ax.annotate(label, (xx, yy), alpha=0.8, size=5,
                         xytext=xytext, textcoords='offset points',
                         ha=ha, va=va,
-                        bbox={'facecolor': 'white', 
+                        bbox={'facecolor': boxcolor, 
                               'alpha': 0.5,
                               'pad': 2,
                               'linewidth': 0.1,
@@ -172,6 +192,10 @@ if __name__ == "__main__":
     pSizes = [pSize_from_Type[v["Type"]] for v in ptable.values()]
     pSizes = np.array(pSizes)*15.0
 
+    with open("luis-programas/problem-sources.txt") as f:
+        problem_sources = f.read().split('\n')
+    with open("luis-programas/interproplyd.txt") as f:
+        interprop_sources = f.read().split('\n')
 
     c0 = coord.SkyCoord("05:35:16.463", "-05:23:23.18",
                         unit=(u.hourangle, u.degree))
@@ -184,7 +208,7 @@ if __name__ == "__main__":
     plot_map(zoombox, "ll-pos-image-zoom.pdf", (10, 10),
              fitsfile='$LARGE_FITS_DIR/acs/hlsp_orion_hst_acs_strip0l_f658n_v1_drz.fits',
              north=False,
-             vmin=8.0, vmax=500.0,
+             vmin=8.0, vmax=400.0,
              arrowscale=0.7)
 
 
