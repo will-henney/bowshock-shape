@@ -60,7 +60,7 @@ inner_c, outer_c = [], []
 star_c = None
 
 
-
+is_binary = False
 with open(regionfile) as f:
     lines = f.readlines()
     for line in lines:
@@ -73,7 +73,11 @@ with open(regionfile) as f:
         
         c = coord.SkyCoord(ra, dec, unit=(u.hour, u.degree))
 
-        if point_type == "circle":
+        if point_type == "box":
+            # Position of primary for binary interproplyd shells
+            primary_c = c
+            is_binary = True
+        elif point_type == "circle":
             # Position of star
             star_c = c
             ra_star, dec_star = ra, dec
@@ -81,7 +85,10 @@ with open(regionfile) as f:
             # PA must be in radians for next steps, then converted
             # back to degrees at the end
             pa_star = np.radians(pa_star)
-
+            if is_binary:
+                D_binary, pa_binary = vector_separation(star_c, primary_c,
+                                                        mode="polar")
+                pa_binary = np.radians(pa_binary)
         elif point_type == "cross":
             # Points that trace inner edge
             inner_c.append(c)
@@ -119,6 +126,12 @@ arc_data = {
      } 
 }
 
+if is_binary:
+    arc_data["star"].update(D_binary=D_binary,
+                            PA_binary=np.degrees(pa_binary) % 360.0)
+
+if cmd_args.debug:
+    print(arc_data["star"])
 
 def find_th_order(th): 
     """Returns a sort order for a collection of angles theta
@@ -128,11 +141,12 @@ def find_th_order(th):
     luck) in the range [0, 2 pi]
 
     """
-    th1 = (canonicalize(th - pa_star) + np.pi) % (2*np.pi)
+    pa_ref = pa_binary if is_binary else pa_star
+    th1 = (canonicalize(th - pa_ref) + np.pi) % (2*np.pi)
     if cmd_args.debug: 
         print("Finding theta order:") 
         print("    th =", np.degrees(th)) 
-        print("    pa_star =", np.degrees(pa_star)) 
+        print("    pa_ref =", np.degrees(pa_ref)) 
         print("    th1 =", np.degrees(th1)) 
         print("    order =", th1.argsort()) 
     return th1.argsort()
@@ -235,6 +249,8 @@ arc_data["help"] = {
         "Dec_dg": "[deg] Declination of source",
         "PA": "[deg] Position Angle of th^1 C from source",
         "D": "[arcsec] Distance of th^1 C from source",
+        "PA_binary": "[deg] Position Angle of primary from source",
+        "D_binary": "[arcsec] Distance of primary from source",
      },
     "thickness": {
         "h0": "Shell thickness on axis: h0 = R0(outer) - R0(inner)"
