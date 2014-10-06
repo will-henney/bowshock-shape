@@ -15,9 +15,9 @@ from misc_utils import run_info, update_json_file
 
 def create_arc_regions(arcdata):
     def check_coordinates():
-        c0 = coord.ICRSCoordinates(ra0, dec0)
+        c0 = coord.SkyCoord(ra0, dec0)
         print("#### Checking offset of {} arc center ####".format(arc))
-        c1 = coord.ICRSCoordinates(ra, dec)
+        c1 = coord.SkyCoord(ra, dec)
         sep = c0.separation(c1)
         print("Star coords: ", c0)
         print("Arc center coords: ", c1)
