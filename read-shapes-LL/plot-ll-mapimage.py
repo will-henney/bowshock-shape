@@ -201,7 +201,7 @@ if __name__ == "__main__":
                         unit=(u.hourangle, u.degree))
 
     zoombox = [-50, 50, -35, 65]
-    fullbox = [-350, 600, -700, 250]
+    fullbox = [-325, 775, -725, 275]
     plot_map(fullbox, "ll-pos-image.pdf", (10, 10),
              vmin=5.0, vmax=2000.0, stretch='sqrt',
              innerbox=zoombox, arrowscale=2.0)

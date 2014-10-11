@@ -211,7 +211,7 @@ if __name__ == "__main__":
     x0, y0 = c0.ra.deg, c0.dec.deg
 
     zoombox = [-50, 50, -35, 65]
-    fullbox = [-350, 600, -650, 200]
+    fullbox = [-325, 775, -725, 275]
     plot_map(fullbox, "ll-positions.pdf", (10, 10), innerbox=zoombox, arrowscale=2.0)
     plot_map(zoombox, "ll-positions-zoom.pdf", (10, 10), arrowscale=0.7)
 
