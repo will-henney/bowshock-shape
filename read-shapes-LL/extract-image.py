@@ -180,9 +180,9 @@ try:
 except NameError:
      # Python 3
      isstring = isinstance(equinox, str)
-if isstring:
+if isstring or equinox == 0.0:
      if cmd_args.debug:
-          print("Converting EQUINOX to float")
+          print("Fixing EQUINOX from string or zero value")
      outhdu.header["EQUINOX"] = 2000.0
      hdu.header["EQUINOX"] = 2000.0
 
