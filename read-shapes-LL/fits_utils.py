@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-def get_image_hdu(hdulist, debug=False):
+def get_image_hdu(hdulist, debug=False, fix=True):
     """
     Return the main image from a FITS file
 
@@ -22,6 +22,10 @@ def get_image_hdu(hdulist, debug=False):
             hdu.header.update(hdulist[0].header.items())
             if debug:
                 print("Inheriting from Primary HDU")
+
+    # Fix up potential problems with the header
+    if fix:
+        if "EQUINOX" in hdu.header
     return hdu
 
 
