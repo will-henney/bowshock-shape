@@ -7,6 +7,9 @@ read-shapes-LL/test-asymmetric
 *.aux
 *.dvi
 *.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
 
 # Packages
 *.egg
@@ -34,3 +37,4 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 */.ropeproject/*
+/papers/Paper1/auto/
