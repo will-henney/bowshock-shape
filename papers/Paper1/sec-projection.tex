@@ -83,6 +83,7 @@ The values for $\phi$ that satisfy this relation for each inclination $i$ are gi
 
 \begin{equation}
 \sin\phi_t = \tan i \frac{1+\omega\tan\theta}{\omega-\tan\theta}
+\label{eq:tanphi}
 \end{equation}
 
 With this, the coordinates of the limb brightened shell are given by:
@@ -95,7 +96,41 @@ x'_t \\ y'_t \\ z'_t
 \sin\theta(1-\sin^2\phi_t)^{1/2} \\
 \cos\theta\sin i +\sin\theta\sin\phi_t\cos i
 \end{array}\right)
+\label{eq:tangential}
 \end{equation} 
+
+It is important to note that the equation (\ref{eq:tanphi}) does not have a solution for arbitrary values for $\theta$ and $i$, since
+it's required that $|\sin\phi_t|<1$. If $i\neq 0$, then, the  allowed values for $\theta$ are such that $\theta > \theta_\parallel$, where
+$\theta_\parallel$ is given implicitly by:
+
+\begin{align}
+\tan\theta_\parallel = \frac{|\tan i| + \omega(\theta_\parallel)}{1-\omega(\theta_\parallel |\tan i|)}
+\label{eq:thetapar}
+\end{align}
+
+\subsection{Parallel and perpendicular projected shell radii}
+
+Considering further applications to bow shocks, we will consider open shells. In order to compare the shell shape given by $R(\theta)$ with observations,
+it is convenient to define the following apparent radii in the observer frame: $R'_\parallel$ and $R'_\perp$. These are projected distances of the shell tangent line
+from the origin. The first is measured in the direction of the symetry axis, and the second in a perpendicular direction. More concretely $R'_\parallel = x'_t(y'_t=0)$
+and $R'_\perp = y'_t(x'_t=0)$. From equations (\ref{eq:tanphi}) and (\ref{eq:tangential}) we find that:
+
+\begin{align}
+R'_\parallel = R(\theta_\parallel)\cos(\theta + i) \label{eq:Rpar} 
+\end{align}
+
+Where $\theta_\parallel$ is the solution of equation (\ref{eq:thetapar}), and
+
+\begin{align}
+R'_\perp = R(\theta_\perp)\sin\theta_\perp\left(1-\sin^2(\phi_t(\theta_\perp))\right)^{1/2}
+\end{align}
+
+Where $\theta_\perp$ is the solution of the next implicit equation:
+
+\begin{align}
+\cot\theta_\perp = \frac{1-\left(1+\omega(\theta_\perp)^2\sin^22i\right)^{1/2}}{2\omega(\theta_\perp\cos^2 i)}
+\end{align}
+
 
 %%% Local Variables:
 %%% mode: latex
