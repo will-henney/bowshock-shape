@@ -12,7 +12,52 @@ described in the last section on other bowshocks. Instead of the excentricity, w
 $\tan\theta_c = \frac{b}{a}$,  $b$ and $a$ are the typical parameters of conics. A positive value for $\theta_c$ indicates thethe given curve is a closed one, i.e
 an ellipse, while a negative value indicates that is an hyperbola. %Insert figures if neccesary  
 
+Due to the similitudes between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
 
-\subsection{Characteristic radii}
+\begin{align}
+x = au_c(t)-x_0 \\ 
+y = bv_c(t)
+\end{align}
+
+where:
+\begin{align}
+u_c(t) = \left\lbrace \begin{array}{c}
+\cos t ~\mathrm{if~ellipse} \\
+\cosh t ~mathrm{if~hyperbola}
+\end{array}\right
+\end{align}\\
+v_c(t) = \left\lbrace \begin{array}{c}
+\sin t ~\mathrm{if~ellipse} \\
+\sinh t ~mathrm{if~hyperbola}
+\end{array}\right \\
+-\pi < t < \pi \\
+R_0 = a - x_0 
+\end{align}
 
 \subsection{Projection onto the plane of sky} 
+
+Once the parametrization is done, we can find the apparent shape of the shell in the observer's frame, following the procedure explained in section \ref{sec:projection}.
+
+First of all, the intrinsic 3D shape of the shell is given by:
+
+\begin{align}
+x = au_c(t)-x_0 \\ 
+y = bv_c(t)\cos\phi \\
+z =  bv_c(t)\sin\phi
+\end{align}
+
+The azimutal angle where the line of sight is tangent to the shell is given by equation (\ref{eq:tanphi}) and (\ref{eq:tanalpha}), then:
+
+\begin{align}
+\tan\phi &= \frac{b}{a}w_c(t) 
+\end{align}
+where:
+
+\begin{align}
+w_c(t) = \left\lbrace \begin{array}{c}
+\cot t ~\mathrm{if~ellipse} \\
+-\coth t ~mathrm{if~hyperbola}
+\end{array}\right
+\end{align}
+\subsection{Characteristic radii}
+
