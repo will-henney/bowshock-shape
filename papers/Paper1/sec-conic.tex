@@ -47,7 +47,7 @@ z =  b\Sin(t)\sin\phi
 The azimutal angle where the line of sight is tangent to the shell is given by equation (\ref{eq:tanphi}) and (\ref{eq:tanalpha}), then:
 
 \begin{align}
-\tan\phi &= \frac{b}{a}\Cot(t) 
+\sin\phi_t &= \frac{b}{a}\tan i\Cot(t) 
 \end{align}
 where:
 
@@ -57,7 +57,44 @@ where:
 -\coth t ~\mathrm{if~hyperbola}
 \end{array}\right.
 \end{align}
-\subsection{Characteristic radii}
+
+We could work in another frame   where the origin is located at the conic's center: $(X,Y)$, where $X=x-X_0$ and $Y=y$.
+
+In this frame,  we use the transformations (\ref{eq:Trans})  to obtain the apparent shape of the shell:
+
+\begin{align}
+X' = \frac{\Cos(t)}{a\cos i}\left(a^2\cos^2 i \pm b^2\sin^2 i\right)  \label{eq:conic-projected-x}\\
+Y'= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot(t)\right)^{1/2}
+\label{eq:conic-projected-y}
+\end{align}
+
+
+We must show that the apparent shape of the shell in the observer's frame is still the same conic. To do that, we can write equations
+(\ref{eq:conic-projected-x}) and (\ref{eq:conic-projected-y}) as follows:
+
+\begin{align}
+X' = a'\Cos t' \label{eq:conic-projected-x-2} \\
+Y' = b'\Sin t' \label{eq:conic-projected-y-2}
+\end{align}
+
+Comparing, (\ref{eq:conic-projected-x}), (\ref{eq:conic-projected-x-2}), (\ref{eq:conic-projected-y}) and (\ref{eq:conic-projected-y}) we find that
+
+\begin{align}
+a' = a^2\cos^2 i \pm b^2\sin^2 i \\
+\Cos t' = \frac{\Cos(t)}{a\cos i} \\
+b' = b
+\end{align} 
+
+Which proves that effectively the projection of a given conic is the same conic. With this knowledge, we can obtain the characteristic radii in
+the observer's frame.
+
+The minimum value of $t$ is such that $1-\frac{b^2}{a^2}\tan^2 i T^2(t_\parallel) =0$, where:
+
+\begin{align}
+X'(t_\parallel) = R'_0 \\
+\Cot t = \frac{a^2}{b^2}\tan i
+\end{align}
+
 
 %%% Local Variables:
 %%% mode: latex
