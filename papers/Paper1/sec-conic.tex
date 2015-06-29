@@ -1,6 +1,10 @@
 \section{Conic section approximation to bow shock shapes}
 \label{sec:conic}
 
+\newcommand\Sin{\ensuremath{\mathcal{S}}}
+\newcommand\Cos{\ensuremath{\mathcal{C}}}
+\newcommand\Cot{\ensuremath{\mathcal{T}}}
+
 In this section we will analyze the case where the resultant shape is a conic curve (circle, ellipse, parabola or hyperbola).
 These curves are mathematical simple to model and give us a good reference to understand the effects of the projection effects
 described in the last section on other bowshocks. Instead of the excentricity, we utilize the parameter $\theta_c$ to characterize the different curves, where
@@ -10,17 +14,17 @@ an ellipse, while a negative value indicates that is an hyperbola. %Insert figur
 Due to the similitudes between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
 
 \begin{align}
-x = au_c(t)-x_0 \\ 
-y = bv_c(t)
+x = a\Cos(t)-x_0 \\ 
+y = b\Sin(t)
 \end{align}
 
 where:
 \begin{align}
-u_c(t) = \left\lbrace \begin{array}{c}
+\Cos(t) = \left\lbrace \begin{array}{c}
 \cos t ~\mathrm{if~ellipse} \\
 \cosh t ~\mathrm{if~hyperbola}
 \end{array}\right.\\
-v_c(t) = \left\lbrace \begin{array}{c}
+\Sin(t) = \left\lbrace \begin{array}{c}
 \sin t ~\mathrm{if~ellipse} \\
 \sinh t ~\mathrm{if~hyperbola}
 \end{array}\right. \\
@@ -35,20 +39,20 @@ Once the parametrization is done, we can find the apparent shape of the shell in
 First of all, the intrinsic 3D shape of the shell is given by:
 
 \begin{align}
-x = au_c(t)-x_0 \\ 
-y = bv_c(t)\cos\phi \\
-z =  bv_c(t)\sin\phi
+x = a\Cos(t)-x_0 \\ 
+y = b\Sin(t)\cos\phi \\
+z =  b\Sin(t)\sin\phi
 \end{align}
 
 The azimutal angle where the line of sight is tangent to the shell is given by equation (\ref{eq:tanphi}) and (\ref{eq:tanalpha}), then:
 
 \begin{align}
-\tan\phi &= \frac{b}{a}w_c(t) 
+\tan\phi &= \frac{b}{a}\Cot(t) 
 \end{align}
 where:
 
 \begin{align}
-w_c(t) = \left\lbrace \begin{array}{c}
+\Cot(t) = \left\lbrace \begin{array}{c}
 \cot t ~\mathrm{if~ellipse} \\
 -\coth t ~\mathrm{if~hyperbola}
 \end{array}\right.
