@@ -5,11 +5,13 @@
 \newcommand\Cos{\ensuremath{\mathcal{C}}}
 \newcommand\Cot{\ensuremath{\mathcal{T}}}
 
-In this section we will analyze the case where the resultant shape is a conic curve (circle, ellipse, parabola or hyperbola).
+In this section we will analyze the case where the resultant shape  of the bow shock is a conic curve (circle, ellipse, parabola or hyperbola).
 These curves are mathematical simple to model and give us a good reference to understand the effects of the projection effects
-described in the last section on other bowshocks. Instead of the excentricity, we utilize the parameter $\theta_c$ to characterize the different curves, where
-$\tan\theta_c = \frac{b}{a}$,  $b$ and $a$ are the typical parameters of conics. A positive value for $\theta_c$ indicates thethe given curve is a closed one, i.e
-an ellipse, while a negative value indicates that is an hyperbola. %Insert figures if neccesary  
+described in the last section on other bow shocks. The source of the inner wind is located at the origin, and the center of the conic is located at
+a distance $x_0$ from the source.
+%Instead of the excentricity, we utilize the parameter $\theta_c$ to characterize the different curves, where
+%$\tan\theta_c = \frac{b}{a}$,  $b$ and $a$ are the typical parameters of conics. A positive value for $\theta_c$ indicates thethe given curve is a closed one, i.e
+%an ellipse, while a negative value indicates that is an hyperbola. %Insert figures if neccesary  
 
 Due to the similitudes between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
 
@@ -29,7 +31,8 @@ where:
 \sinh t ~\mathrm{if~hyperbola}
 \end{array}\right. \\
 -\pi < t < \pi \\
-R_0 = a - x_0 
+R_0 = a - x_0 \\
+a<0 ~ \mathrm{for~hyperbola}
 \end{align}
 
 \subsection{Projection onto the plane of sky} 
@@ -80,7 +83,7 @@ Y' = b'\Sin t' \label{eq:conic-projected-y-2}
 Comparing, (\ref{eq:conic-projected-x}), (\ref{eq:conic-projected-x-2}), (\ref{eq:conic-projected-y}) and (\ref{eq:conic-projected-y}) we find that
 
 \begin{align}
-a' = a^2\cos^2 i \pm b^2\sin^2 i \\
+a' = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} \\
 \Cos t' = \frac{\Cos(t)}{a\cos i} \\
 b' = b
 \end{align} 
@@ -88,14 +91,20 @@ b' = b
 Which proves that effectively the projection of a given conic is the same conic. With this knowledge, we can obtain the characteristic radii in
 the observer's frame.
 
-The minimum value of $t$ is such that $1-\frac{b^2}{a^2}\tan^2 i T^2(t_\parallel) =0$, where:
-
 \begin{align}
-X'(t_\parallel) = R'_0 \\
-\Cot t = \frac{a^2}{b^2}\tan i
+D' = D\cos i \\
+R'_0 = a' - (a-R_0)\cos i \\
+R'_0 = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (a-R_0)\cos i
 \end{align}
 
+With $\tan\theta_c\equiv \frac{b}{a}$,  $f(i;\theta_c)\equiv\left(1-\tan^2\theta_c\tan^2i\right)^{1/2}$ and introducing the
+radius of curvature $R_c\equiv \frac{b^2}{a}$ we find that:
 
+\begin{align}
+\frac{R'_0}{D'}={R_0}{D}\left(1-A\cot^2\theta_c(f(i;\theta_c)-1) \right)
+\end{align}
+
+Where $A\equiv \frac{R_c}{R_0}$
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "proplyd-bowshocks"
