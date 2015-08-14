@@ -20,15 +20,15 @@ flag= args.fig <= 0
 # 0: parabola
 #-15- -45:hyperbola
 if flag:
-    for t in [45,30,15,-15,-30,-45]:
-        c  = conproj.Conic(A=1.0,th_conic = t)
+    for t in [60, 45, 30, 0.01, -30,-45]:
+        c  = conproj.Conic(A=2.0,th_conic = t)
         trange = c.make_t_array()
-        plt.plot(c.x(trange),c.y(trange),label =r"$\theta_c={}^\circ$".format(t))
+        plt.plot(c.x(trange),c.y(trange),label =r"$\theta_c={:.0f}^\circ$".format(t))
 
-    plt.legend(loc="best")
-    plt.xlim(-3,1.1)
+    plt.legend(loc="center left", fontsize='small')
+    plt.xlim(-5,2.1)
     plt.gca().set_aspect("equal",adjustable="box") #Trick to set equal axes found in stackoverflow.com
-    plt.ylim(-2.1,2.1)
+    plt.ylim(-4.1,4.1)
     plt.xlabel(r"$x/R_0$")
     plt.ylabel(r"$y/R_0$")
     plt.savefig("conic1.pdf")
@@ -47,7 +47,7 @@ else:
     t = ch.make_t_array()
     for n,i in enumerate(inc):
         ax = f.add_subplot(2,2,n+1,aspect="equal")
-        ax.plot(ch.xt(i,t)*np.cos(i),ch.yt(i,t))#,label=r"i={}^\circ".format(i))
+        ax.plot(ch.xt(i,t),ch.yt(i,t))#,label=r"i={}^\circ".format(i))
         Ap = ch.Aprime(i)
         ax.plot(Ap*np.cos(t),Ap*np.sin(t))#,label=r"A'={}".format(Ap))
 #        ax.legend(loc="best")
