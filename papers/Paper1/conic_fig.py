@@ -20,7 +20,7 @@ flag= args.fig <= 0
 # 0: parabola
 #-15- -45:hyperbola
 if flag:
-    for t in [60, 45, 30, 0.01, -30,-45]:
+    for t in [60, 45, 30, 0.0, -30,-45]:
         c  = conproj.Conic(A=2.0,th_conic = t)
         trange = c.make_t_array()
         plt.plot(c.x(trange),c.y(trange),label =r"$\theta_c={:.0f}^\circ$".format(t))
