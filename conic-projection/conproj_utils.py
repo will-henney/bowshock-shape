@@ -27,6 +27,7 @@ class Conic(object):
         # Hyperbolic or not?
         self.hyper = th_conic < 0.0
         self.sign = -1.0 if self.hyper else 1.0
+        self.parab = th_conic == 0.0 # special case: parabola
         # Axis ratio
         self.b_a = np.tan(np.radians(abs(th_conic)))
         # Scaled radius of curvature: Rc/r0
@@ -35,18 +36,20 @@ class Conic(object):
     def make_t_array(self, limits=None, N=2001):
         """Return an array of `N` equal-spaced t-parameter values between `limits`"""
         if limits is None:
-            limits = self.tlimits_h if self.hyper else self.tlimits_e
+            limits = self.tlimits_h if self.hyper or self.parab else self.tlimits_e
         return np.linspace(limits[0], limits[1], N)
 
     def x(self, t):
         """Body-frame x-position wrt star"""
-        fac = 1.0 - np.cosh(t) if self.hyper else np.cos(t) - 1.0
-        return 1.0 + self.A*fac/self.b_a**2
+        fac = 1.0 - np.cosh(t) if self.hyper  else np.cos(t) - 1.0
+        out = -0.5*self.A*t**2+1 if self.parab else 1.0 + self.A*fac/self.b_a**2 
+        return out
 
     def y(self, t):
         """Body-frame y-position wrt star"""
         fac = np.sinh(t) if self.hyper else np.sin(t)
-        return self.A*fac/self.b_a
+        out = self.A*t if self.parab else self.A*fac/self.b_a
+        return out
 
     def theta(self, t):
         """Body-frame angle from x-axis in degrees"""
@@ -58,14 +61,35 @@ class Conic(object):
         fac2 = np.cosh(t) if self.hyper else np.cos(t)
         cosi = np.cos(np.radians(inc))
         tani = np.tan(np.radians(inc))
-        return cosi*(1.0 + self.A*(fac1/self.b_a**2 + fac2*tani**2))
+        if self.parab:
+            out = xtpar(self,inc,i) 
+        else:
+            out =  cosi*(1.0 + self.A*(fac1/self.b_a**2 + fac2*tani**2))
+        return out
+    def xtpar(self,inc,t):
+        """Observer-frame x'-position of parabola tangent line"""
+
+        cosi = np.cos(np.radians(inc))
+        sini = np.sin(np.radians(inc))
+        tani = np.tan(np.radians(inc))
+        fac = 0.5*self.A*t**2+1
+        return fac*cosi - self.A*sini*tani
+
+    def ytpar(self,inc,t):
+        """Observer-frame y'-position of parabola tangent line"""
+        tani = np.tan(np.radians(inc))
+        return self.A*t*np.sqrt(1-(tani/t)**2)
 
     def yt(self, inc, t):
         """Observer-frame y'-position of tangent line"""
         st = np.sinh(t) if self.hyper else np.sin(t)
         ct = np.cosh(t) if self.hyper else np.cos(t)
         tani = np.tan(np.radians(inc))
-        return np.sign(t)*(self.A/self.b_a)*np.sqrt(st**2 - (self.b_a*tani*ct)**2)
+        if self.parab:
+            out =  ytpar(self,inc,t) 
+        else:
+           out = np.sign(t)*(self.A/self.b_a)*np.sqrt(st**2 - (self.b_a*tani*ct)**2)
+        return out
 
     def theta_t(self, inc, t):
         """Observer-frame angle of tangent line from x'-axis in degrees"""
@@ -77,7 +101,11 @@ class Conic(object):
         Corresponds to y'=0"""
         at = np.arctanh if self.hyper else np.arctan
         tani = np.tan(np.radians(inc))
-        return at(self.b_a*tani) 
+        if self.parab:
+            out = tani 
+        else:
+            out =  at(self.b_a*tani) 
+        return out
 
     def g(self, inc):
         """q'/q = (R _0'/D') / (R_0/D) """
