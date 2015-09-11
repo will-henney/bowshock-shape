@@ -50,7 +50,7 @@ else:
     b = 0.1
     t = np.linspace(-np.pi,np.pi)
     BS = Shell(beta=b,innertype="proplyd")
-    A = 1./(1-np.sqrt(b))
+    A = 1.5/(1-np.sqrt(b))
     R = BS.radius(theta)
     R[R<=0]=np.nan
     plt.plot(R*np.cos(theta),R*np.sin(theta),"k-",R*np.cos(theta),-R*np.sin(theta),"k-")
@@ -59,6 +59,8 @@ else:
     plt.plot([-R[0]*(A-1)],[0],"k.")
     plt.grid()
     plt.gca().set_aspect("equal",adjustable="box")
+    plt.xlabel("x/D")
+    plt.ylabel("y/D")
     plt.xlim(-R[0]*(A+1)-0.1,R[0]+0.1)
     plt.ylim(-0.7,0.7)
     plt.savefig("ch-radii.pdf") 
