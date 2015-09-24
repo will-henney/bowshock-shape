@@ -1,8 +1,8 @@
 from __future__ import print_function
 from equation6 import Shell 
 import numpy as np
-import astropy
-from astropy import coordinates as coord
+#import astropy
+#from astropy import coordinates as coord
 from region_utils import region_point_to_string
 import argparse
 import json
