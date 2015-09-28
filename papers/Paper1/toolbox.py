@@ -10,10 +10,8 @@ def omega(R,t):
     """
     Calculates the deivate of ln(R(theta))
     """
-    w = np.zeros_like(t)
-    w[:-1] = np.diff(np.log(R))/np.diff(t)
-    w[-1]= w[-2] # assumes w is nearly constant at the shell's wings
-    return w
+
+    return np.gradient(np.log(R))/np.gradient(t)
 
 def tangent_line(i,t,R):
     """
@@ -52,5 +50,5 @@ def Rc(R,t):
     result, but is accurate enough. Note: Enter projected R & theta
     """
     w = omega(R,t)
-    dw = (w[1]-w[0])/(t[1]-t[0]) # Derivative of omega at theta'=0
-    return R[0]*(w[0]**2+1)**1.5/np.abs(w[0]**2-dw+1)
+    dw = np.gradient(w)/np.gradient(t) # Derivative of omega
+    return R[0]*(w[0]**2+1)**1.5/np.abs(w[0]**2-dw[0]+1)
