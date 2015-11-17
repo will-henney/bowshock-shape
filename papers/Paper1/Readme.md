@@ -26,3 +26,6 @@ Some python scripts which creates some figures for the article.
     - **Rc-R0Vsbeta.json** gives a dictionary which contains $R_c, $R_0$ and $\beta$ for a sample of inclinations
   - **json-plot.py** makes a plot using the json files mentioned above. The choices of axis are made via 
     command line 
+ - **plot_log_fit.py** plots $\logR'_c$, $\logR'_0$ and $\logR'_{90}$ vs $\log\beta$, compared with the analytic
+   formula for each radii at $i=0$, with the choice of normalizing with $R'_0$ . The idea is to fit these curves via least squares to find the dependence with inclination
+   (which is a task I haven't completed yet)
