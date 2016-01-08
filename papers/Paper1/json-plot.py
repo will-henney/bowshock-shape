@@ -67,6 +67,7 @@ matplotlib.rcParams.update(params)
 if r0_choice_x:
     shelldata = json.load(open("RcVsR0.json"))
     shelldata1 = json.load(open("Rc-R0VsBeta.json"))
+    color = "rgbmyck"
     if rc_choice:
    #     Y = Rc
         ylab =r"$R'_c/R'_0$"
@@ -79,43 +80,63 @@ if r0_choice_x:
         ylab = r"$R'_{90}/R'_0$"
         out = "R90-R0-b.pdf"
         out1 = "R90-R0-i.pdf"
+    iteration=0
     for b, modeldata in shelldata.items():
-        inclinations = shelldata[b]["inc"]
-        R0 = np.array(shelldata[b]["R0'"])
-        Rc = np.array(shelldata[b]["Rc'_f"])
-        R90 = np.array(shelldata[b]["R90'"])
+        inclinations = modeldata["inc"]
+        R0 = np.array(modeldata["R0'"])
+        Rc = np.array(modeldata["Rc'_f"])
+        R90 = np.array(modeldata["R90'"])
+        every15 = np.zeros(R0.shape,dtype=bool)
+        for inc15 in 0.0,15.0,30.0,45.0,60.0,75.0:
+            iclosest = np.argmin(np.abs(np.array(inclinations)-inc15))
+            every15[iclosest]=True
         if rc_choice:
             Y=Rc/R0
             #dY = np.array(shelldata[b]["dRc'"])
-            plt.plot(R0,Y,label=r"$\beta={}$".format(b))
+            plt.plot(R0,Y,lw=3,c=color[iteration],label=r"$\beta={}$".format(b))
+            plt.plot(R0[every15],Y[every15],"d",c=color[iteration])
         else:
             Y=R90/R0
-            plt.plot(R0,Y,label=r"$\beta={}$".format(b))
+            plt.plot(R0,Y,c=color[iteration],lw=3,label=r"$\beta={}$".format(b))
+            plt.plot(R0[every15],Y[every15],"d",c=color[iteration])
+        iteration+=1
+        if iteration>6:
+            iteration-=7
     plt.legend(fontsize="small")
     plt.xlabel(r"$R'_0/D'$")
     plt.ylabel(ylab)
     plt.xlim(-1e-4,0.5+1e-4)
-    plt.ylim(-1e-4,8+1e-4)
+    plt.ylim(-1e-4,5+1e-4)
     plt.savefig(out)
     plt.clf()
-
+    iteration=0
     for i, modeldata in shelldata1.items():
         beta = np.array(shelldata1[i]["beta"])
         R0 = np.array(shelldata1[i]["R0'"])
         Rc = np.array(shelldata1[i]["Rc'_f"])
         R90 = np.array(shelldata1[i]["R90'"])
+        bpoint = np.zeros(R0.shape,dtype=bool)
+        for bskip in 0.002,0.005,0.01,0.05,0.1:
+            bclosest = np.argmin(np.abs(beta-bskip))
+            bpoint[bclosest] = True
+
         if rc_choice:
             Y=Rc/R0
             #dY = np.array(shelldata1[i]["dRc'"])
-            plt.plot(R0,Y,label=r"$i={}$".format(i))
+            plt.plot(R0,Y,c=color[iteration],lw=3,label=r"$i={}$".format(i))
+            plt.plot(R0[bpoint],Y[bpoint],"o",c=color[iteration])
         else:
             Y=R90/R0
-            plt.plot(R0,Y,label=r"$i={}$".format(i))
+            plt.plot(R0,Y,c=color[iteration],lw=3,label=r"$i={}$".format(i))
+            plt.plot(R0[bpoint],Y[bpoint],"o",c=color[iteration])
+        iteration+=1
+        if iteration>6:
+            iteration-=7
     plt.legend(fontsize="small")
     plt.xlabel(r"$R'_0/D'$")
     plt.ylabel(ylab)
     plt.xlim(-1e-4,0.5+1e-4)
-    plt.ylim(-1e-4,8+1e-4)
+    plt.ylim(-1e-4,5+1e-4)
     plt.savefig(out1)
 
 elif inc_choice:
@@ -157,18 +178,22 @@ elif  beta_choice:
             Y=R0
             ylabel=r"$R'_0/D'$"
             out = "R0-b.pdf"
+            y_analytic = np.sqrt(beta)/(1+np.sqrt(beta))
             #dy=None
         elif rc_choice:
             Y=Rc
             ylabel=r"$R'_c/D'$"
             out = "Rc-b.pdf"
+            y_analytic = R0/(1-np.sqrt(beta))
             #dy = np.array(shelldata[i]["dRc'"])
         elif r90_choice:
             Y = R90
             ylabel=r"$R'_{90}/D'$"
             out = "R90-b.pdf"
+            y_analytic = np.sqrt(2.4*beta/(1-0.8*beta)**3)
             #dy=None
         plt.plot(beta,Y,label=r"$i={}$".format(i))
+    plt.plot(beta,y_analytic,"k--",label = "analytic i=0")
     plt.legend(fontsize="small")
     plt.xlabel(r"$\beta$")
     plt.ylabel(ylabel)
