@@ -17,35 +17,75 @@ N(r_{IF},\theta) = N_0 \cos^{0.5}\theta
 This scenario can be described with the formalism of \citep{Canto:1996}, who proposes an algebraic solution for the two winds interaction problem in the thin shell approximation, in terms of a free parameter $\beta\equiv\frac{\dot{M}_wv_w}{\dot{M}_{w1}v_{w1}}$,
 the winds momentum ratio, which the quantities with subindex 1 corresponds to the strongest wind, therefore $\beta<=1$. 
 
-
- Combining equations (6),(9)-(11) and (19)-(23) from \citep{Canto:1996} and (\ref{eq:nprop}), we can solve numerically for $R(\theta)$, which gives us the shell's shape. Also we can
-obtain a relation between $\theta$ and $\theta_1$
+If we apply the \citep{Canto:1996} formalism for a photoevaporated flow with density given by (\ref{eq:nprop}), we find that the solutions for equations (8) - (11) of \citep{Canto:1996} are the following:
 
 \begin{align}
-\theta_1\cot\theta_1 = 1+ 2\beta I(\theta)\cot\theta - \frac{4}{5}\beta\left(1-\cos^{5/2}\theta\right)
-\label{eq:th1th}
-\end{align}
+\dot{M}_w &= \frac{\dot{M}_w^0}{3}\left(1-\cos^{3/2}\theta\right) \label{eq:dotprop} \\
+\dot{\Pi}_z &= \frac{1}{5}v_w \dot{M}_w^0\left(1-\cos^{5/2}\theta\right)  \label{eq:pir}\\
+\dot{\Pi}_r &= \frac{1}{2}v_w\dot{M}_w^0\left(\frac{4}{5}E\left(\frac{\theta}{2}|2\right) - \frac{1}{5}\sin 2\theta\cos^{1/2}\theta\right) \label{eq:piz}\\
+\dot{J}_w = 0 \label{eq:jdot}
+\end{align}  
+The solution for (\ref{eq:piz}) includes an incomplete elliptic integral of the second kind. Combining equations  (\ref{eq:dotprop}) to (\ref{eq:jdot}) with equation (6) of \citep{Canto:1996}
+numerically in python code, we can obtain the bow shock shape $R(\theta)$, as illustred in figure (\ref{fig:r-beta}).
 
-Where $I(\theta)\equiv \int^\theta_0 \cos^{1/2}\theta\sin^2\theta$
+
+% Combining equations (6),(9)-(11) and (19)-(23) from \citep{Canto:1996} and (\ref{eq:nprop}), we can solve numerically for $R(\theta)$, which gives us the shell's shape. Also we can
+%obtain a relation between $\theta$ and $\theta_1$
+
+%\begin{align}
+%\theta_1\cot\theta_1 = 1+ 2\beta I(\theta)\cot\theta - \frac{4}{5}\beta\left(1-\cos^{5/2}\theta\right)
+%\label{eq:th1th}
+%\end{align}
+
+%Where $I(\theta)\equiv \int^\theta_0 \cos^{1/2}\theta\sin^2\theta~d\theta$. The solution of this integral is an incomplete elliptical integral of the second kind:
+
+%\begin{align}
+%\int^\theta_0 \cos^{1/2}\theta\sin^2\theta~d\theta = \frac{4}{5}E\left(\frac{\theta}{2}|2\right) - \frac{1}{5}\sin 2\theta\cos^{1/2}\theta
+%\end{align}
 
 \begin{figure}
 \includegraphics[width=\linewidth]{r-beta}
 \caption{Bow shock shapes obtained with the \citep{Canto:1996} algebraic formalism using (\ref{eq:nprop}) to describe the proplyd wind density. The distance are normalized with $D$
 to avoid dependency with this parameter.}
+\label{fig:r-beta}
 \end{figure}
 
 \subsection{Characteristic Radii}
 
-$R_0$ is obtained directly from equation (27) of \citep{Canto:1996} as the distance from the inner source where the RAM pressure of the interacting winds is in equilibrium.
+In order to find an analytic form of the characteristic radii $(R_0,R_c,R_{90})$, we may combine equations (\ref{eq:dotprop}) to (\ref{eq:jdot}) with (6) and (23) from \citep{Canto:1996}
+and obtain the following relation:
 
-Combining equation (23) from \citep{Canto:1996} and  (\ref{eq:th1th}) evaluated at $\theta=\frac{\pi}{2}$, we can obtain $R_{90}$ 
 
 \begin{align}
-R_{90} \simeq \frac{\left(2.4\beta\right)^{1/2}}{1-0.8\beta}
-\label{eq:r90}
+\theta_1\cot\theta_1 -1 =  \frac{8}{5}\beta E\left(\frac{\theta}{2}|2\right)\cot\theta - \frac{4}{5}\beta
+\label{eq:th1th}
 \end{align}
 
-Expanding (\ref{eq:th1th}) until order 3th around $\theta=0$, we found for $\theta \ll 1$ that $\theta_1\simeq \beta^{1/2}\theta$. 
+$R_0$ is obtained directly from equation (27) of \citep{Canto:1996} as the distance from the inner source where the RAM pressure of the interacting winds is in equilibrium.
+
+We can obtain $R_{90}$ by the following process:
+Evaluating equations  (\ref{eq:th1th}) and (23) from \citep{canto:1996} at $\theta=\frac{\pi}{2}$ we obtain the following:
+
+\begin{align}
+R_{90} &= D\tan\theta_{1,90} \\
+\theta_{1,90}\cot\theta_{1,90} &= 1-\frac{4}{5}\beta \label{eq:th190}
+\end{align}
+Where $\theta_{1,90}\equiv \theta_º(\frac{\pi}{2})$. Combining both equations we have:
+
+\begin{align}
+R_{90} &= D\frac{\theta_{1,90}}{1-\frac{4}{5}\beta} 
+\end{align}
+
+Expanding (\ref{eq:th190}) until 3rd order and solving for $\theta_{1,90}$:
+\begin{align}
+\theta_{1,90} \simeq \left(\frac{2.4\beta}{1-0.8\beta}\right)^{1/2} \\
+R_{90} \simeq \left(\frac{2.4\beta}{(1-0.8\beta)^3}\right)^{1/2}
+\label{eq:r90}
+\end{align}
+%%%% Here we go in edition
+
+Now, to obtaining $R_c$ we expand  (\ref{eq:th1th}) until order 2nd order for small $\theta$ values to find that for such values
+$\theta_1 = \beta^{1/2}\theta$
 
 Expanding equation (23) from \citep{Canto:1996} and substituting $\theta_1$ we found that:
 
