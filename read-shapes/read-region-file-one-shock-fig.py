@@ -199,13 +199,7 @@ theta_fit = np.linspace(-np.pi, np.pi, 180)
 x_fit2 = xc_2 + R_2*np.cos(theta_fit)
 y_fit2 = yc_2 + R_2*np.sin(theta_fit)
 
-#***************************************************************************
-#Plotting data
-plt.plot(x, y, "o", label="{}: D = {:.2f} arcsec".format(proplyd, D))
-#***************************************************************************
-#Plotting the circle fit
-plt.plot(x_fit2, y_fit2, 'k--', label=method_2, lw=2)
-plt.plot([xc_2], [yc_2], 'bx')
+
 #***************************************************************************
 #We need two points to draw the R0 and Rc Line if on-axis
 xrcline, yrcline = xc_2 + R_2/np.sqrt(2.), yc_2 + R_2/np.sqrt(2.)
@@ -215,20 +209,26 @@ if cmd_args.on_axis:
 else:
     xr0line, yr0line = xc_2 + R_2*np.cos(delta+np.pi), yc_2 + R_2*np.sin(delta+np.pi)
 #***************************************************************************
-#Drawing R0 and Rc:
+#Plotting data (normalized with R0)
+R0 = np.sqrt(xr0line**2+yr0line**2)
+plt.plot(x/R0, y/R0, "o", label=r"{}: $D = {:.2f}''$".format(proplyd, D))
+#***************************************************************************
+#Plotting the circle fit
+plt.plot(x_fit2/R0, y_fit2/R0, 'k--', label=method_2, lw=2)
+plt.plot([xc_2/R0], [yc_2/R0], 'bx')#Drawing R0 and Rc:
 r0x,r0y = np.array([0,xr0line]),np.array([0,yr0line])
 rcx,rcy = np.array([xc_2,xrcline]),np.array([yc_2,yrcline])
-plt.plot(r0x,r0y,'g-',label = 'r0 = {:.3f}'.format(np.sqrt(xr0line**2+yr0line**2)))
-plt.plot(rcx,rcy,'m-',label = 'rc = {:.3f}'.format(R_2))
+plt.plot(r0x/R0,r0y/R0,'g-',label = r'$R_0 = {:.3f}$'.format(R0))
+plt.plot(rcx/R0,rcy/R0,'m-',label = r'$R_c = {:.3f}$'.format(R_2))
 #***************************************************************************
 
 
-plt.annotate("R0",xy=(0.5*xr0line,0.5*yr0line),xytext=(20,-20),fontsize='xx-small',
+plt.annotate(r"$R'_0$",xy=(0.5*xr0line/R0,0.5*yr0line/R0),xytext=(20,-20),fontsize='x-small',
     alpha=1.0,textcoords='offset points',ha ='right',va='bottom',
     bbox=dict(boxstyle='round,pad=0.5', fc='blue', alpha=0.5),
     arrowprops = dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
-plt.annotate("Rc",xy=(0.5*(xc_2+xrcline),0.5*(yc_2+yrcline)),xytext=(-20,20),
-    fontsize='xx-small',alpha=1.0,textcoords = 'offset points',ha = 'left',va='top',
+plt.annotate(r"$R'_c$",xy=(0.5*(xc_2+xrcline)/R0,0.5*(yc_2+yrcline)/R0),xytext=(-20,20),
+    fontsize='x-small',alpha=1.0,textcoords = 'offset points',ha = 'left',va='top',
      bbox=dict(boxstyle='round,pad=0.5', fc='blue', alpha=0.5),
      arrowprops = dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
 # Proplyd position (at the origin in this frame)
@@ -243,9 +243,9 @@ vmax = max(xmax, ymax)
 plt.xlim(xmin=vmin, xmax=vmax)
 plt.ylim(ymin=vmin, ymax=vmax)
 
-plt.legend(loc="best", prop=dict(size="x-small"))
-plt.xlabel("z'/D'")
-plt.ylabel("r'/R'")
+plt.legend(loc="lower left")
+plt.xlabel(r"$z'/R'_0$",fontsize = "large")
+plt.ylabel(r"$r'/R'_0$",fontsize = "large")
 plt.axis("equal")
 plt.grid()
 plt.title("{} fit circle".format(proplyd))
