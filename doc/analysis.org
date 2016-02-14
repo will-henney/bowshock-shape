@@ -4,6 +4,14 @@
 #+property: TODO 52091a902f8f2d7c7e009182
 High-level description of analysis of proplyd bowshocks
 
+* Empirical material to include in Paper 1
+
+** Jorge's question [2016-02-12 Fri]
+Relayed by Jane via Skype
+#+BEGIN_QUOTE
+Las leyendas de las figuras de los ajustes de los proplyds no coinciden con la información de la tabla que llené para el artículo. La cual según recuerdo, fueron las mediciones más actualizadas que hicimos. Revisando el archivo de donde saqué las mediciones, hay otras tablas donde sí coinciden los datos de la tabla con las leyendas de las figuras y no recuerdo bien cómo obtuvimos las últimas mediciones
+#+END_QUOTE
+
 * Bowshock shapes
 :PROPERTIES:
 :orgtrello-id: 52091ab8c54dfb63510021f0
