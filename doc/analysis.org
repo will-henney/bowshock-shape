@@ -4,8 +4,35 @@
 #+property: TODO 52091a902f8f2d7c7e009182
 High-level description of analysis of proplyd bowshocks
 
+* Weekly meetings
+
+** [2016-03-04 Fri]
+
+*** Bowshock fits
++ There is a problem with the algorithm ignoring points due to the +/- 45 degree cut-off
+  + Jorge will try using all the points in the fit
++ We would like a way to assign weights to the points
+  + Points further from the axis will be less well determined
+  + Solution: vary spacing between points so that they are closer together in regions where we have more confidence in the measurements
++ We have discovered that most of the measurements are for the outer boundary, which is theoretically simpler because it should correspond directly to the momentum balance surface
++ Will has found better images, which are astrometrically aligned
+  + This allows us to see which shocks are stationary and which are moving
+  + LV1 shock is clearly non-stationary (but we are not using it anyway)
+  + LV2b is stationary with respect to the proplyd, but the proplyd is moving!
+  + LV4 seems to have sharpened up, especially in the wings, and the ings have opened slightly.  But it seems stable on the axis
++ There is a new image from 2015, which we should look at
+  + Will needs to do the drizzling and astrometric alignment
++ Jorge should stop working on the fits until all the images are sorted out
++ Jorge will revise the entire article to check which sections still need more attention
+
 * Empirical material to include in Paper 1
 
+** New aligned images
++ In =Dropbox/JorgeBowshocks/HST=
++ =fr505n-5007-align-rob_drz_sci.fits=
+  + ACS ramp filter
++ =f502n-allpc-align-rob_drz_sci.fits=
+  + WFPC2 PC mosaic
 ** Jorge's question [2016-02-12 Fri]
 Relayed by Jane via Skype
 #+BEGIN_QUOTE
