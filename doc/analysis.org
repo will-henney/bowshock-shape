@@ -27,6 +27,47 @@ High-level description of analysis of proplyd bowshocks
 
 * Empirical material to include in Paper 1
 
+** TODO New method of measuring the uncertainty in the bow shock R_0 and R_c measurements  
++ Do further fits, but each time removing a one point from the points that are fitted
++ Remove each point in turn
++ This will give an envelope in (R_0/D, R_c/R_0) space
++ We could then show that directly, or fit an ellipse to the convex hull, or something ...
+** Notes on individual shocks
+
+*** LV3 
++ Very thin shell
++ Very faint in [O III]
++ NE portion of bow is measured in continuum image since it is not visible in [O III]
+*** LV2
++ Shell is very thick
++ Comprises overlapping filaments
++ I have taken the outermost envelope for the shape
++ The innermost two filaments, including one that bridges towards the LV2b shell, both seem to be moving S towards the main shell
++ There is a microjet pointing to the SE, but that does not seem to be interacting with the other features
+*** LV2b
++ Some evidence that both proplyd and shock are moving south at about 10 km/s (1 pixel in 10 years)
++ But shell is stationary in frame of proplyd
++ The one I measure is the inner front-facing shell,
++ But there is also a partial shell outside that, which seems to be the extension of some of the LV2 filaments, and at least part of this has a proper motion towards the NW
++ Finally, there is a thick clumpy shell between the flanks of LV2 and LV2b
+*** LV1 and LV1b
++ Shells are complex and clearly moving so we do not include them
+*** LV4 
++ Some evidence in change in morphology between epochs
++ *But* it can partially be explained by the wider filter of the ACS letting in more continuum, which causes the shell to be contaminated with PSF from th1C
++ Also, there may be a faint fast-moving feature crossing LV4, possibly related to the other shocks crossing around LV5
+*** 177-341
++ SW side is possibly affected by neighbouring 173-341
++ Faint moving features are crossing the position of proplyd, but don't affect main shell
+*** 180-331
++ Very asymmetric shock
++ May be binary Proplyd
+  + Double-lobed structure in [O III], but looks smoother in lower ionization lines
+  + Some evidence from F850LP image, which shows continuum excess (due to star?) in only one of the two lobes
++ Shock may continue to SE
+  + But it is has high proper-motion feature superimposed so it is hard to say
+
+
 ** New aligned images
 + In =Dropbox/JorgeBowshocks/HST=
 + =fr505n-5007-align-rob_drz_sci.fits=
