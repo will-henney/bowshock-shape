@@ -28,8 +28,9 @@ High-level description of analysis of proplyd bowshocks
 * Empirical material to include in Paper 1
 
 ** TODO New method of measuring the uncertainty in the bow shock R_0 and R_c measurements  
-+ Do further fits, but each time removing a one point from the points that are fitted
-+ Remove each point in turn
++ Do further fits, but each time removing one point from the points that are fitted
+  + Remove each point in turn
+  + Or perhaps take random samples of 50% of the points, which might be better if there are a lot of points
 + This will give an envelope in (R_0/D, R_c/R_0) space
 + We could then show that directly, or fit an ellipse to the convex hull, or something ...
 ** Notes on individual shocks
