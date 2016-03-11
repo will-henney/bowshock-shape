@@ -12,8 +12,9 @@ parser.add_argument("--region", type=str,
                              "LV-OIII-positions-3.reg",
                              "LV-Ha-positions-far.reg",
 			     "LV-OIII-positions-3a.reg",
-	                     "LV-502e-positions.reg"),
-                    default="LV-OIII-positions-3a.reg",
+	                     "LV-502e-positions.reg",
+                             "LV-positions-new-will.reg"),
+                    default="LV-positions-new-will.reg",
                     help=" Choose a region file to work ")
 
 parser.add_argument('--proplyd', type=str, default='LV3',
@@ -46,7 +47,7 @@ def extract_data(line):
     regions file
 
     """
-    coordstring, paramstring = line.split("#")
+    coordstring, paramstring = line.split("# ")
     shape, numbers = coordstring.split(")")[0].split("(")
     ra, dec = numbers.split(",")[0:2]
     if "tag" in line:
@@ -218,8 +219,8 @@ plt.plot(x_fit2/R0, y_fit2/R0, 'k--', label=method_2, lw=2)
 plt.plot([xc_2/R0], [yc_2/R0], 'bx')#Drawing R0 and Rc:
 r0x,r0y = np.array([0,xr0line]),np.array([0,yr0line])
 rcx,rcy = np.array([xc_2,xrcline]),np.array([yc_2,yrcline])
-plt.plot(r0x/R0,r0y/R0,'g-',label = r'$R_0 = {:.3f}$'.format(R0))
-plt.plot(rcx/R0,rcy/R0,'m-',label = r'$R_c = {:.3f}$'.format(R_2))
+plt.plot(r0x/R0,r0y/R0,'g-',label = r"$R'_0/D' = {:.3f}$".format(R0))
+plt.plot(rcx/R0,rcy/R0,'m-',label = r"$R'_c/D' = {:.3f}$".format(R_2))
 #***************************************************************************
 
 
