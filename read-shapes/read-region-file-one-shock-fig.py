@@ -112,8 +112,9 @@ xunit = vecD/D
 # unit vector perpendicular to star->proplyd
 yunit = np.array([-xunit[1], xunit[0]])
 
-   # print
-   # print "Proplyd ", proplyd
+print "Proplyd ", proplyd
+print "theta cutoff",tfit
+print "On axis",cmd_args.on_axis
    # print "D = ", D
    # print "xunit = ", xunit
    # print "yunit = ", yunit
@@ -138,7 +139,7 @@ theta = np.array(theta)
 #choosing the desired data to fit
 th_fit = theta[np.abs(theta)<=np.radians(tfit)]
 R_fit = R[np.abs(theta)<=np.radians(tfit)]
-print len(th_fit),len(R_fit)
+#print len(th_fit),len(R_fit)
 #Here is where the fit start
 method_2 = "leastsq"
 x_m = 0.0
