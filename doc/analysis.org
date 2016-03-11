@@ -449,3 +449,15 @@ Use fixed D_0 = 1 arcmin
 |   1.0 | 3.57 | 4500 |  162. |   -9.65 | 10.0 |
 #+TBLFM: $4=$-1 $2**2 exp(-0.5 ($2**2 - 1));f0::$5=log10($k 1e4 $-1);f2::$6=sqrt(1/($2 exp(-0.5 ($2**2 - 1))));f1
 
+
+
+
+* Export options
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
+#+TITLE: analysis
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
