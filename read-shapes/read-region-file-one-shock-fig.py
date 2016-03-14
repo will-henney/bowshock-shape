@@ -8,12 +8,6 @@ parser = argparse.ArgumentParser(
     to measure radius""")
 
 parser.add_argument("--region", type=str,
-                    choices=("LV-OIII-positions-2.reg",
-                             "LV-OIII-positions-3.reg",
-                             "LV-Ha-positions-far.reg",
-			     "LV-OIII-positions-3a.reg",
-	                     "LV-502e-positions.reg",
-                             "LV-positions-new-will.reg"),
                     default="LV-positions-new-will.reg",
                     help=" Choose a region file to work ")
 
@@ -104,7 +98,7 @@ try:
     vecD = Centers['th1C'] - Centers[proplyd]
 except KeyError:
     # no center for this proplyd, so skip it
-    print 'No center'
+    print('No center')
 # scalar distance star->proplyd
 D = np.hypot(*vecD)
 # unit vector in direction star->proplyd
@@ -112,9 +106,9 @@ xunit = vecD/D
 # unit vector perpendicular to star->proplyd
 yunit = np.array([-xunit[1], xunit[0]])
 
-print "Proplyd ", proplyd
-print "theta cutoff",tfit
-print "On axis",cmd_args.on_axis
+print("Proplyd ", proplyd)
+print("theta cutoff",tfit)
+print("On axis",cmd_args.on_axis)
    # print "D = ", D
    # print "xunit = ", xunit
    # print "yunit = ", yunit
@@ -178,8 +172,8 @@ else:
     p0 = x_m, y_m, R_m
     f = circle_function
 
-print "Initial parameter:"
-print "Circle x, y, r = ", x_m, y_m, R_m
+print("Initial parameter:")
+print("Circle x, y, r = ", x_m, y_m, R_m)
 popt, pcov = optimize.curve_fit(f, th_fit, R_fit, p0, sigma)
 
 if cmd_args.on_axis:
@@ -188,14 +182,14 @@ if cmd_args.on_axis:
 else:
     xc_2, yc_2, R_2 = popt
 
-print "Fit results:"
-print "Circle x, y, r = ", xc_2, yc_2, R_2
-print "Covariance matrix: ", pcov
+print("Fit results:")
+print("Circle x, y, r = ", xc_2, yc_2, R_2)
+print("Covariance matrix: ", pcov)
 
 # Deviation betwen model and data
 error = data_minus_model(theta, R, f, popt)
-print "Deviations between model and data:"
-print "Max, rms: ", abs(error).max(), np.sqrt(np.mean(error**2))
+print("Deviations between model and data:")
+print("Max, rms: ", abs(error).max(), np.sqrt(np.mean(error**2)))
 
 theta_fit = np.linspace(-np.pi, np.pi, 180)
 x_fit2 = xc_2 + R_2*np.cos(theta_fit)
