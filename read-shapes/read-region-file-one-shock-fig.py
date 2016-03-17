@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
+import json
 from scipy import optimize
 
 parser = argparse.ArgumentParser(
@@ -201,10 +202,13 @@ y_fit2 = yc_2 + R_2*np.sin(theta_fit)
 xrcline, yrcline = xc_2 + R_2/np.sqrt(2.), yc_2 + R_2/np.sqrt(2.)
 delta = np.arctan2(yc_2,xc_2)
 if cmd_args.on_axis:
+    dth = 0.0
     xr0line, yr0line = xc_2 + R_2, 0
 elif (delta<0.5*np.pi)and (delta> -0.5*np.pi):
+    dth = delta
     xr0line,yr0line = xc_2 + R_2*np.cos(delta),yc_2+R_2*np.sin(delta)
 else:
+    dth = delta+np.pi
     xr0line, yr0line = xc_2 + R_2*np.cos(delta+np.pi), yc_2 + R_2*np.sin(delta+np.pi)
 #***************************************************************************
 #Plotting data (normalized with R0)
@@ -232,23 +236,46 @@ plt.annotate(r"$R'_c$",xy=(0.5*(xc_2+xrcline)/R0,0.5*(yc_2+yrcline)/R0),xytext=(
 # Proplyd position (at the origin in this frame)
 plt.plot(0.0, 0.0, "rx", label=None)
 
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
+# xmin, xmax = plt.xlim()
+# ymin, ymax = plt.ylim()
 
-vmin = min(xmin, ymin)
-vmax = max(xmax, ymax)
+# vmin = min(xmin, ymin)
+# vmax = max(xmax, ymax)
 
-plt.xlim(xmin=vmin, xmax=vmax)
-plt.ylim(ymin=vmin, ymax=vmax)
+# plt.xlim(xmin=vmin, xmax=vmax)
+# plt.ylim(ymin=vmin, ymax=vmax)
+
 
 plt.legend(loc="lower left")
 plt.xlabel(r"$z'/R'_0$",fontsize = "large")
 plt.ylabel(r"$r'/R'_0$",fontsize = "large")
-plt.axis("equal")
+
 plt.grid()
 plt.title("{} fit circle".format(proplyd))
+
+plt.xlim(-3.0, 3.0)
+plt.ylim(-2.0, 2.0)
+ax = plt.gca()
+ax.set_aspect('equal', adjustable='box')
+
 if cmd_args.on_axis:
-    plt.savefig("LV-bowshocks-xyfancy-onaxis-{}-{}.pdf".format(regfl_chsn,proplyd))
+    plotfile = "LV-bowshocks-xyfancy-onaxis-{}-{}.pdf".format(regfl_chsn,proplyd)
 else:
-    plt.savefig("LV-bowshocks-xyfancy-{}-{}.pdf".format(regfl_chsn, proplyd))
+    plotfile = "LV-bowshocks-xyfancy-{}-{}.pdf".format(regfl_chsn, proplyd)
+plt.savefig(plotfile)
+
+
+
+# Write data to a save file
+savefile = plotfile.replace('.pdf', '.save')
+savedict = {
+    'proplyd': proplyd,
+    'D': D,
+    'R0': R0,
+    'Rc': R_2,
+    'd theta': dth
+}
+
+with open(savefile, 'w') as f:
+    json.dump(savedict, f)
 
