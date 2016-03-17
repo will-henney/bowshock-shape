@@ -202,6 +202,8 @@ xrcline, yrcline = xc_2 + R_2/np.sqrt(2.), yc_2 + R_2/np.sqrt(2.)
 delta = np.arctan2(yc_2,xc_2)
 if cmd_args.on_axis:
     xr0line, yr0line = xc_2 + R_2, 0
+elif (delta<0.5*np.pi)and (delta> -0.5*np.pi):
+    xr0line,yr0line = xc_2 + R_2*np.cos(delta),yc_2+R_2*np.sin(delta)
 else:
     xr0line, yr0line = xc_2 + R_2*np.cos(delta+np.pi), yc_2 + R_2*np.sin(delta+np.pi)
 #***************************************************************************
