@@ -32,7 +32,7 @@ for inn, modeldata in shelldata.items():
             iclosest = np.argmin(np.abs(np.degrees(inclinations) - thisinc))
             every15[iclosest] = True
 
-        label = r'\(\beta={}\)'.format(b) if inn == "proplyd" else ""
+        label = r'\(\beta={:.3f}\)'.format(float(b)) if inn == "proplyd" else ""
         Y = Rc/R0
         # First, plot a line with all the inclinations
         plt.plot(R0, Y, '-', linewidth=lw[inn], c=col,
@@ -52,28 +52,51 @@ leaf_green = "#15ae26"
 brown = "#b6451e"
 gray = "#515952"
 guinda = "#aa1c47"
-gold = "#FFD700" 
+gold = "#FFD700"
+orange = "#E08000"
 #Create a dictionary with hex colors for the objects
 colordict = {"LV2":dark_blue,"LV2b":pearl_turquoise,"LV3":mexican_pink,"LV4":crimson,"LV5":brown,
-             "168-328":leaf_green,"169-338":gray,"177-341":guinda,"180-331":gold}
+             "168-328":leaf_green,"169-338":gray,"177-341":guinda,"180-331":orange}
 
-# get all the savefiles of samples
-savefiles = glob.glob("./Multi-Fit/samp*/*.save")
-for savefile in savefiles:
-    data = json.load(open(savefile))
-    plt.plot(data["R0"],data["Rc"]/data["R0"],color=colordict[data["proplyd"]],marker="*")
+# # get all the savefiles of samples
+# savefiles = glob.glob("./Multi-Fit/samp*/*.save")
+# for savefile in savefiles:
+#     data = json.load(open(savefile))
+#     plt.plot(data["R0"],data["Rc"]/data["R0"],color=colordict[data["proplyd"]],marker="*")
 
 #plot the main poins (without removing points in the shell in the *.reg files)
 
-m_savefiles = glob.glob("./*.save")
+m_savefiles = glob.glob("LV-bowshocks-xyfancy-positionswill-*.save")
 dict_xtext = {"LV2":10,"LV2b":-10,"LV3":10,"LV4":10,"LV5":10,"168-328":-10,"169-338":-10,"177-341":10,"180-331":-20}
 dict_ytext = {"LV2":10,"LV2b":10,"LV3":-10,"LV4":10,"LV5":10,"168-328":10,"169-338":10,"177-341":-10,"180-331":-20}
 for savefile in m_savefiles:
     data = json.load(open(savefile))
-    plt.plot(data["R0"],data["Rc"]/data["R0"],color=colordict[data["proplyd"]],marker="o")
-    plt.annotate(data["proplyd"],xy=(data["R0"],data["Rc"]/data["R0"]),xytext=(dict_xtext[data["proplyd"]],dict_ytext[data["proplyd"]]),
-                 textcoords="offset points",fontsize="small",bbox=dict(boxstyle='round,pad=0.5',fc=colordict[data["proplyd"]],alpha=0.5)
-    )
+    combined_file = savefile.replace('positionswill', 'variations')
+    vardata = json.load(open(combined_file))
+    plt.plot(data["R0"],data["Rc"]/data["R0"],
+             # color=colordict[data["proplyd"]],
+             color='k',
+             marker="o")
+    plt.annotate(data["proplyd"], xy=(data["R0"],data["Rc"]/data["R0"]),
+                 xytext=(dict_xtext[data["proplyd"]], dict_ytext[data["proplyd"]]),
+                 textcoords="offset points", fontsize="xx-small",
+                 bbox=dict(boxstyle='round,pad=0.5',
+                           fc=colordict[data["proplyd"]],
+                           alpha=0.5))
+    # Plot the variations of the fits with points removed
+    R0 = data["R0"]
+    A = data["Rc"]/data["R0"]
+    var_R0 = vardata["R0"]
+    var_A = np.array(vardata["Rc"])/np.array(vardata["R0"])
+    for vR0, vA in zip(var_R0, var_A):
+        # Scale gives fractional deviation from typical value
+        scale = np.hypot((vR0 - R0)/0.25, (vA - A)/1.5)
+        alpha = 1./(1 + 20.0*scale)
+        plt.plot([R0, vR0], [A, vA], '-',
+                  lw=2, alpha=alpha, color=colordict[data["proplyd"]])
+    # plt.plot(vardata["R0"], np.array(vardata["Rc"])/np.array(vardata["R0"]),
+    #          '*', 
+    #          color=colordict[data["proplyd"]])
 
 #for pset, color,colorbox in [
  #       ["best", 'ko','yellow'],
@@ -107,4 +130,3 @@ plt.legend(loc="best", ncol=2, prop=dict(size="x-small"))
 
 plt.title("Curvature radii versus parallel bowshock radii")
 plt.savefig("proplyd-shell-R0-Rc-cloud.pdf")
-plt.clf()
