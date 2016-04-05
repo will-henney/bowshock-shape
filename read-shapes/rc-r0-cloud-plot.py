@@ -3,6 +3,8 @@ import glob
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
+import matplotlib.cm as cmx
+import matplotlib.colors as colors
 
 shelldata = json.load(open("../rc-r0.json"))
 
@@ -17,28 +19,45 @@ matplotlib.rcParams.update(params)
 lw = dict(isotropic=1, proplyd=2)
 opacity = dict(isotropic=0.3, proplyd=0.7)
 
-colors = "bgrmkcy"
+#colors = "bgrmkcy"
 
-
-for inn, modeldata in shelldata.items():
-    for b, col in zip(modeldata, colors[:len(modeldata)]):
-        inclinations = np.array(modeldata[b]["inc"])
-        R0 = np.array(modeldata[b]["R0'"])
-        Rc = np.array(modeldata[b]["Rc"])
-
+#sort beta in ascending order
+beta_keys = shelldata["proplyd"].keys()
+beta =[]
+for b in beta_keys:
+    beta.append(float(b))
+#******************
+# Counting the number of curves for obtaining the color of the curves
+beta = sorted(beta,reverse=True)
+Ncurves = len(beta)
+values = range(Ncurves)
+#********************
+# Setting colormap
+colmap = plt.get_cmap("Purples")
+cNorm = colors.Normalize(vmin=-1,vmax = values[-1])
+scalarMap = cmx.ScalarMappable(norm=cNorm,cmap=colmap)
+#**********************
+#plot model data
+for inn in shelldata.keys():
+    for b in beta:
+        inclinations = np.array(shelldata[inn][str(b)]["inc"])
+        R0 = np.array(shelldata[inn][str(b)]["R0'"])
+        Rc = np.array(shelldata[inn][str(b)]["Rc"])
+        colorVal = scalarMap.to_rgba(values[beta.index(b)]) # assign color to each beta value
+        
         # Mask to select inclinations close to multiples of 15 degrees
         every15 = np.zeros(R0.shape, dtype=bool)
         for thisinc in 0.0, 15.0, 30.0, 45.0, 60.0, 75.0:
             iclosest = np.argmin(np.abs(np.degrees(inclinations) - thisinc))
             every15[iclosest] = True
 
-        label = r'\(\beta={:.3f}\)'.format(float(b)) if inn == "proplyd" else ""
+        label = r'\(\beta={:.3f}\)'.format(b) if inn == "proplyd" else ""
         Y = Rc/R0
         # First, plot a line with all the inclinations
-        plt.plot(R0, Y, '-', linewidth=lw[inn], c=col,
+        plt.plot(R0, Y, '-', linewidth=lw[inn], c=colorVal, 
                  label=label, alpha=opacity[inn])
         # Second, add symbols every 15 degrees
-        plt.plot(R0[every15], Y[every15], '.', c=col, alpha=opacity[inn])
+        plt.plot(R0[every15], Y[every15], '.', c=colorVal, alpha=opacity[inn])
 
 
 
