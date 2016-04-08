@@ -195,19 +195,37 @@ with a fraction of the shell's marks removed. Proplyds with less data marks or h
 %\end{figure*}
 
 \begin{figure*}
+  \setkeys{Gin}{width=0.33\linewidth, trim=10 30 55 62.5}
 \begin{tabular}{@{}c@{}c@{}c@{}}
-  \includegraphics[width=0.33\linewidth]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-177-341} & \includegraphics[width=0.33\linewidth]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-177-341} &
-  \includegraphics[width=0.33\linewidth]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-177-341} \\
-  \includegraphics[width=0.33\linewidth]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-LV5} & \includegraphics[width=0.33\linewidth]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-LV5} &
-  \includegraphics[width=0.33\linewidth]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-LV5} \\
-  \includegraphics[width=0.33\linewidth]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-168-328} & 
-  \includegraphics[width=0.33\linewidth]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-168-328} & \includegraphics[width=0.33\linewidth]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-168-328}
+ 
+All points & First sub-sample & Second sub-sample \\ \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-177-341} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-177-341} &
+  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-177-341} \\
+  \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-LV4} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp05/LV-bowshocks-xyfancy-positionssamp05-LV4} &
+  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-LV4} \\
+  \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-168-328} & 
+  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-168-328} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-168-328}
 \end{tabular}
 \label{fig:char-radii-obs}
-\caption{Examples of shell's circle fit for three sources:177-341, LV5 and 168-328. In the left side, for each source, the fit is done using all the ds9 marks, while in the middle and the right we show two variations removing a 
-fraction of the marks, but always keeping at least four points. 177-341 is an example where the measurementsonly change very slightly from one variation to other. While with 168-328 the changes are a little more noticeable. LV4 is a case where the most external points are crucial
-in the determination of the radius of curvature}
+\caption{Examples of systematic uncertainties in the circle fits to
+  the shell shapes for three sources (top to bottom rows): 177-341,
+  LV4 and 168-328.  The left hand column shows the fit to all of the
+  points identified on the shell border, where the number and spacing
+  of the points is a subjective measure of our confidence in tracing
+  the edge of each shell. The remaining two columns show fits to
+  randomly selected sub-samples of 2/3 of the points for each shell.}
 \end{figure*}
+
+In the better observed shells such as 177-341 (top row), the circle
+fits are relatively robust to removing points, resulting in little
+variation between the subsamples.
+
+In the left side, for each source, the fit is done using all the ds9
+marks, while in the middle and the right we show two variations
+removing a fraction of the marks, but always keeping at least four
+points. 177-341 is an example where the measurements only change very
+slightly from one variation to other. While with 168-328 the changes
+are a little more noticeable. LV4 is a case where the most external
+points are crucial in the determination of the radius of curvature.
 
 \input{proplyds-table}
 
