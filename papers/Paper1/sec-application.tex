@@ -133,16 +133,13 @@ Thus, we used few points in small bow shocks and/our the bow shock's outer shell
 and each proplyd's position. The radius of curvature $R_c$ is measured as the radius of the 
 best circle fit of all the data points taken for each proplyd's shell. Finally, we measure $R_0$ as the distance between the proplyd's position and the circle's border in the line which 
 include the center of curvature.
-To estimate the uncertainties of our measurements, we remove a fraction of the shell's marks, adn made 10 sets of randomly chosen removed marks, and made the measurements again to 
-see how much these ``variations'' deviates from the original data. The results are summarized and explained in figure (\ref{fig:prop-shell-rad})
-%is $(0,0)$ and measured distances in arcseconds. In this reference, the proplyd-$\theta_1^C$ line is $y=0$. With the shell's positions, we optimize a circle, whose radius is $R_c$, but
-%this optimization has two variants: the first one with the restriction that the center of the circle must lie in the symmetry axis (y=0), and the second variation is with no restrictions. $R_0$ is calculated as the distance between the proplyd position and the bow shock in a line which is also included the
-%center of curvature. The figure (\ref{fig:radii-measures-example}) shows a representation of the metodology described. 
-%Our first goal was comparing measurements of $(R_0,R_{90})$ of the LV group of proplyds in mid infrared by \citep{Robberto:2005} against observations in [OIII] with better angular resolution but less contrast against
-%the background.
-%In \citep{Robberto:2005} they compare their observations with shells obtained with the \citep{Canto:1996} two winds interactions formalism. They found no concordance between the model and observations. We attempted to redo the measurements with better resolution observations. We found quickly that we cannot measure $R_{90}$ in a reliable way since the shell's brightness decays toward the wings. Also, we are using a more sophisticated model where the proplyd's wind density decays as $n \propto \cos {1/2}\theta$ instead of an isotropic wind.
-%A better replacement of $R_{90}$ is the radius of curvature, defined as the radius of the circle that fits the observations, because always is measurable. Figures (\ref{fig:char-radii-obs}) and (\ref{fig:char-radii-obs-2}) show our measurements of the radius of curvature for the LV group, with exception of LV1, which actually is a binary proplyd, thus our model is not adequate in this case. Also we include the proplyds 167-328, 169-338, 177-341 (HST1), 189-339 and 180-331 which are close enough to $\theta^1~\mathrm{C~Ori}$ to be influenced by it stellar wind.
-%Our results show a better concordance (but still not perfect) between models and observations, as shown in figure (\ref{fig:prop-shell-err}). A possible cause of the discrepancy may be that the \citep{Canto:1996} model assumes that the interacting winds are hypersonic in such way that the shocked gas can be considered as a bidimensional surface. In practice, the bow shock has a finite width, which can afect the apparent shape due to projection effects
+To estimate the uncertainties of our measurements, we remove a fraction of the shell's marks, and made 10 sets of randomly chosen removed marks, and made the measurements again to 
+see how much these ``variations'' deviates from the original data. The results are summarized and explained in figure (\ref{fig:prop-shell-rad}).  In this figure, in the left side, for each source, 
+the fit is done using all the ds9 marks, while in the middle and the right we show two variations removing 2/3 of the marks, but always keeping at least four points. 
+In the better observed shells such as 177-341 (top row), the circle
+fits are relatively robust to removing points, resulting in little variation between the subsamples. But also there are cases where the variations are more noticeable.
+
+
 
 \begin{figure*}
 \includegraphics[width=\linewidth]{LV-full-field-annotated.png}
@@ -162,6 +159,58 @@ with a fraction of the shell's marks removed. Proplyds with less data marks or h
 %Our measures match far better than \citep{Robberto:2005}, but our data tend to lie at high inclinations $i \gtrsim 45^\circ$, when we expected the opposite. Right side: The same
 }
 \end{figure}
+
+
+\begin{figure*}
+  \setkeys{Gin}{width=0.33\linewidth, trim=10 30 55 62.5}
+\begin{tabular}{@{}c@{}c@{}c@{}}
+ 
+All points & First sub-sample & Second sub-sample \\ \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-177-341} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-177-341} &
+  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-177-341} \\
+  \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-LV4} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp05/LV-bowshocks-xyfancy-positionssamp05-LV4} &
+  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-LV4} \\
+  \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-168-328} & 
+  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-168-328} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-168-328}
+\end{tabular}
+\label{fig:char-radii-obs}
+\caption{Examples of systematic uncertainties in the circle fits to
+  the shell shapes for three sources (top to bottom rows): 177-341,
+  LV4 and 168-328.  The left hand column shows the fit to all of the
+  points identified on the shell border, where the number and spacing
+  of the points is a subjective measure of our confidence in tracing
+  the edge of each shell. The remaining two columns show fits to
+  randomly selected sub-samples of 2/3 of the points for each shell.}
+\end{figure*}
+
+
+
+
+
+\input{proplyds-table}
+
+%\begin{figure}
+%\end{figure} 
+
+%\begin{figure*}
+%\begin{tabular}{cc}
+%\includegraphics[width=0.5\linewidth]{R90-R0-b}&
+%\includegraphics[width=0.5\linewidth]{Rc-R0-b}
+%\end{tabular}
+%\label{fig:radii-r0}
+%\caption{Left: $R_c$ normalized with $R_0$ vs $R_0$ normalized with $D$. Right:$R_{90}$ normalized with $R_0$ vs $R_0$ normalized with $D$. Since the bow shock brightness decays 
+%at the wings, it is more difficult to measure $R_{90}$. Along every single curve, $\beta$ is constant. The marks in the curves represents jumps of $15^\circ$ in inclination, and the most left 
+%mark in each curve represent $i=0^\circ$}
+%\end{figure*}
+
+%is $(0,0)$ and measured distances in arcseconds. In this reference, the proplyd-$\theta_1^C$ line is $y=0$. With the shell's positions, we optimize a circle, whose radius is $R_c$, but
+%this optimization has two variants: the first one with the restriction that the center of the circle must lie in the symmetry axis (y=0), and the second variation is with no restrictions. $R_0$ is calculated as the distance between the proplyd position and the bow shock in a line which is also included the
+%center of curvature. The figure (\ref{fig:radii-measures-example}) shows a representation of the metodology described. 
+%Our first goal was comparing measurements of $(R_0,R_{90})$ of the LV group of proplyds in mid infrared by \citep{Robberto:2005} against observations in [OIII] with better angular resolution but less contrast against
+%the background.
+%In \citep{Robberto:2005} they compare their observations with shells obtained with the \citep{Canto:1996} two winds interactions formalism. They found no concordance between the model and observations. We attempted to redo the measurements with better resolution observations. We found quickly that we cannot measure $R_{90}$ in a reliable way since the shell's brightness decays toward the wings. Also, we are using a more sophisticated model where the proplyd's wind density decays as $n \propto \cos {1/2}\theta$ instead of an isotropic wind.
+%A better replacement of $R_{90}$ is the radius of curvature, defined as the radius of the circle that fits the observations, because always is measurable. Figures (\ref{fig:char-radii-obs}) and (\ref{fig:char-radii-obs-2}) show our measurements of the radius of curvature for the LV group, with exception of LV1, which actually is a binary proplyd, thus our model is not adequate in this case. Also we include the proplyds 167-328, 169-338, 177-341 (HST1), 189-339 and 180-331 which are close enough to $\theta^1~\mathrm{C~Ori}$ to be influenced by it stellar wind.
+%Our results show a better concordance (but still not perfect) between models and observations, as shown in figure (\ref{fig:prop-shell-err}). A possible cause of the discrepancy may be that the \citep{Canto:1996} model assumes that the interacting winds are hypersonic in such way that the shocked gas can be considered as a bidimensional surface. In practice, the bow shock has a finite width, which can afect the apparent shape due to projection effects
+
 %Initially we tried to measure the radii $(R_0,R_{90})$, but it wasn't possible due to the fact that the brightness of the shell decays rapidly towards the wings, and using $R_\theta$ where $60 \lesssim \theta < 0 $ is not so useful, because there is not a significant difference between $R_0$ and $R_\theta$. Instead, we introduced the radius of curvature after we realized how well the shell's marks fits into a circle for all the proplyds (see figure (\ref{fig:char-radii-obs})).
 
 %\begin{figure*}
@@ -192,55 +241,6 @@ with a fraction of the shell's marks removed. Proplyds with less data marks or h
 %\end{tabular}
 %\label{fig:char-radii-obs-3}
 %\caption{Continuation of figure (\ref{fig:char-radii-obs}), (new sample)}
-%\end{figure*}
-
-\begin{figure*}
-  \setkeys{Gin}{width=0.33\linewidth, trim=10 30 55 62.5}
-\begin{tabular}{@{}c@{}c@{}c@{}}
- 
-All points & First sub-sample & Second sub-sample \\ \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-177-341} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-177-341} &
-  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-177-341} \\
-  \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-LV4} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp05/LV-bowshocks-xyfancy-positionssamp05-LV4} &
-  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-LV4} \\
-  \includegraphics[clip]{../../read-shapes/LV-bowshocks-xyfancy-positionswill-168-328} & 
-  \includegraphics[clip]{../../read-shapes/Multi-Fit/samp00/LV-bowshocks-xyfancy-positionssamp00-168-328} & \includegraphics[clip]{../../read-shapes/Multi-Fit/samp01/LV-bowshocks-xyfancy-positionssamp01-168-328}
-\end{tabular}
-\label{fig:char-radii-obs}
-\caption{Examples of systematic uncertainties in the circle fits to
-  the shell shapes for three sources (top to bottom rows): 177-341,
-  LV4 and 168-328.  The left hand column shows the fit to all of the
-  points identified on the shell border, where the number and spacing
-  of the points is a subjective measure of our confidence in tracing
-  the edge of each shell. The remaining two columns show fits to
-  randomly selected sub-samples of 2/3 of the points for each shell.}
-\end{figure*}
-
-In the better observed shells such as 177-341 (top row), the circle
-fits are relatively robust to removing points, resulting in little
-variation between the subsamples.
-
-In the left side, for each source, the fit is done using all the ds9
-marks, while in the middle and the right we show two variations
-removing a fraction of the marks, but always keeping at least four
-points. 177-341 is an example where the measurements only change very
-slightly from one variation to other. While with 168-328 the changes
-are a little more noticeable. LV4 is a case where the most external
-points are crucial in the determination of the radius of curvature.
-
-\input{proplyds-table}
-
-%\begin{figure}
-%\end{figure} 
-
-%\begin{figure*}
-%\begin{tabular}{cc}
-%\includegraphics[width=0.5\linewidth]{R90-R0-b}&
-%\includegraphics[width=0.5\linewidth]{Rc-R0-b}
-%\end{tabular}
-%\label{fig:radii-r0}
-%\caption{Left: $R_c$ normalized with $R_0$ vs $R_0$ normalized with $D$. Right:$R_{90}$ normalized with $R_0$ vs $R_0$ normalized with $D$. Since the bow shock brightness decays 
-%at the wings, it is more difficult to measure $R_{90}$. Along every single curve, $\beta$ is constant. The marks in the curves represents jumps of $15^\circ$ in inclination, and the most left 
-%mark in each curve represent $i=0^\circ$}
 %\end{figure*}
 
 
