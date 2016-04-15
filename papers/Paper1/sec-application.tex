@@ -1,6 +1,9 @@
 \section{Application to proplyd bowshocks}
 \label{sec:application}
 
+\defcitealias{Canto:1996}{CRW}
+\newcommand\CRW{\citetalias{Canto:1996}}
+
 Proplyds are comet-like structures observed in HII regions like Orion Nebula Cluster (ONC). 
 These objects are interpreted as a D-type Ionization Front (IF) of a photoevaporated flow 
 originated in the protoplanetary disk of a nearby low mass YSO \citep{Johnstone:1998}.
@@ -14,10 +17,15 @@ N(r_{IF},\theta) = N_0 \cos^{0.5}\theta
 \label{eq:nprop}
 \end{align}
 
-This scenario can be described with the formalism of \citep{Canto:1996}, who proposes an algebraic solution for the two winds interaction problem in the thin shell approximation, in terms of a free parameter $\beta\equiv\frac{\dot{M}_wv_w}{\dot{M}_{w1}v_{w1}}$,
-the winds momentum ratio, which the quantities with subindex 1 corresponds to the strongest wind, therefore $\beta<=1$. 
+This scenario can be described with the formalism of
+\citet[][hereafter \CRW{}]{Canto:1996}, who proposes an algebraic
+solution for the two winds interaction problem in the thin shell
+approximation, in terms of a free parameter
+$\beta\equiv\frac{\dot{M}_wv_w}{\dot{M}_{w1}v_{w1}}$, the winds
+momentum ratio, which the quantities with subindex 1 corresponds to
+the strongest wind, therefore $\beta<=1$.
 
-If we apply the \citep{Canto:1996} formalism for a photoevaporated flow with density given by (\ref{eq:nprop}), we find that the solutions for equations (8) - (11) of \citep{Canto:1996} are the following:
+If we apply the \CRW{} formalism for a photoevaporated flow with density given by (\ref{eq:nprop}), we find that the solutions for equations (8) - (11) of \citep{Canto:1996} are the following:
 
 \begin{align}
 \dot{M}_w &= \frac{\dot{M}_w^0}{3}\left(1-\cos^{3/2}\theta\right) \label{eq:dotprop} \\
@@ -25,7 +33,7 @@ If we apply the \citep{Canto:1996} formalism for a photoevaporated flow with den
 \dot{\Pi}_r &= \frac{1}{2}v_w\dot{M}_w^0\left(\frac{4}{5}E\left(\frac{\theta}{2}|2\right) - \frac{1}{5}\sin 2\theta\cos^{1/2}\theta\right) \label{eq:piz}\\
 \dot{J}_w = 0 \label{eq:jdot}
 \end{align}  
-The solution for (\ref{eq:piz}) includes an incomplete elliptic integral of the second kind. Combining equations  (\ref{eq:dotprop}) to (\ref{eq:jdot}) with equation (6) of \citep{Canto:1996}
+The solution for (\ref{eq:piz}) includes an incomplete elliptic integral of the second kind. Combining equations  (\ref{eq:dotprop}) to (\ref{eq:jdot}) with equation (6) of \CRW{}
 numerically in python code, we can obtain the bow shock shape $R(\theta)$, as illustred in figure (\ref{fig:r-beta}).
 
 
@@ -45,16 +53,19 @@ numerically in python code, we can obtain the bow shock shape $R(\theta)$, as il
 
 \begin{figure}
 \includegraphics[width=\linewidth]{r-beta}
-\caption{Bow shock shapes obtained with the \citep{Canto:1996} algebraic formalism using (\ref{eq:nprop}) to describe the proplyd wind density. The distance are normalized with $D$
-to avoid dependency with this parameter. In dashed lines, the \citep{Canto:1996} solution for two 
-spherical, isotropic  interacting winds is shown, while in continuos lines we show the solution where the
-weakest wind has a density distribution given by (\ref{eq:nprop})}
+\caption{Bow shock shapes for interacting winds in the thin-shell
+  approximation. Coordinates are normalized by $D$, the distance
+  between the two wind sources.  The weaker source is at \((0.0, 0.0)\)
+  and the stronger source is at \((1.0, 0.0)\).  Results are shown for
+  different values of the wind momentum ratio, \(\beta\), and for the
+  case where the weaker wind is isotropic (dashed lines) or an
+  anisotropic proplyd photoevaporation flow (solid lines).}
 \label{fig:r-beta}
 \end{figure}
 
 \subsection{Characteristic Radii}
 
-In order to find an analytic form of the characteristic radii $(R_0,R_c,R_{90})$, we may combine equations (\ref{eq:dotprop}) to (\ref{eq:jdot}) with (6) and (23) from \citep{Canto:1996}
+In order to find an analytic form of the characteristic radii $(R_0,R_c,R_{90})$, we may combine equations (\ref{eq:dotprop}) to (\ref{eq:jdot}) with (6) and (23) from \CRW{}
 and obtain the following relation:
 
 
@@ -63,10 +74,10 @@ and obtain the following relation:
 \label{eq:th1th}
 \end{align}
 
-$R_0$ is obtained directly from equation (27) of \citep{Canto:1996} as the distance from the inner source where the RAM pressure of the interacting winds is in equilibrium.
+$R_0$ is obtained directly from equation (27) of \CRW{} as the distance from the inner source where the RAM pressure of the interacting winds is in equilibrium.
 
 We can obtain $R_{90}$ by the following process:
-Evaluating equations  (\ref{eq:th1th}) and (23) from \citep{Canto:1996} at $\theta=\frac{\pi}{2}$ we obtain the following:
+Evaluating equations  (\ref{eq:th1th}) and (23) from \CRW{} at $\theta=\frac{\pi}{2}$ we obtain the following:
 
 \begin{align}
 R_{90} &= D\tan\theta_{1,90} \\
@@ -111,7 +122,7 @@ Equations (\ref{eq:r90}),  (\ref{eq:Rcurv}) and (27) from \citep{Canto:1996} are
 \includegraphics[width=0.35\linewidth]{Rc-b} &
 \includegraphics[width=0.35\linewidth]{R90-b}
 \end{tabular}
-\caption{$R_0$, $R_c$ and $R_{90}$ versus $\beta$ for a fixed set of inclinations. Equations (\ref{eq:r90}), (\ref{eq:Rcurv}), and (27) from \citep{Canto:1996}
+\caption{$R_0$, $R_c$ and $R_{90}$ versus $\beta$ for a fixed set of inclinations. Equations (\ref{eq:r90}), (\ref{eq:Rcurv}), and (27) from \CRW{}
 are labeled as ``analytic i=0''. Note that the analytic solution deviates from the numeric solution when $\beta \gtrsim 0.1$}
 \label{fig:rad-beta}
 \end{figure*}

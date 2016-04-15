@@ -6,7 +6,28 @@ High-level description of analysis of proplyd bowshocks
 
 * Weekly meetings
 
-** 
+** [2016-04-15 Fri]
+
+*** Completed tasks
+
+**** Figure 7
++ Jorge made a new version that includes the bowshock shapes for isotropic and non-isotropic winds
++ Will and Jorge re-wrote the figure caption
+
+**** Figure 2
++ Jorge has added the asymptotic angle
++ A few things still to fix, see below
+
+*** Next tasks
+
++ [ ] *Jorge* Figure 2
+  + Add symmetry axis as solid line
+  + Thicker lines for R90 and R0, Rc
+  + Very thick line for shell
+  + Maybe extend box further in negative /y/ direction
++ [ ] *Jorge*  Carry on with the \theta_c work from last week
++ [ ] *Will* New version of Figure 1, as described last week
+
 
 ** [2016-04-12 Tue]
 We are revising section 5 of the paper
@@ -59,10 +80,10 @@ We are revising section 5 of the paper
 + Should show two shocks and contact discontinuity, and possibly streamlines too
 + [ ] *Will* can do a version based on previous LL figures
 **** Figure 2 showing bowshock parameters R_0, R_90, etc
-+ [ ] *Jorge* Should add in \theta_\infty
++ [X] *Jorge* Should add in \theta_\infty
 
 **** Figure 7 showing bowshock shapes in the CRW approximation
-+ [ ] *Jorge* should also include the isotropic shapes for the same beta in this graph
++ [X] *Jorge* should also include the isotropic shapes for the same beta in this graph
 ** [2016-03-04 Fri]
 
 *** Bowshock fits
