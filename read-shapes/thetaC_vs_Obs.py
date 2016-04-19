@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.cm
 import argparse
+import seaborn as sns
 import sys
 sys.path.insert(0,"../conic-projection")
 from conproj_utils import Conic
@@ -35,24 +37,27 @@ Xi = args.xi
 
 #Step 2: Initialize arrays
 
-beta = [0.001,0.005,0.01,0.05,0.08]
-beta_color=["r","g","b","c","m"]
+
+beta = [5e-4, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1]
+sns.set_style("ticks")
+colors = sns.color_palette('Blues', len(beta))
+
 inc = np.linspace(0,75,100)
 #print(inc)
 
 #step 3: Beta loop  for plotting
-for b,c in zip(beta,beta_color):
+for b, c in zip(beta, colors):
     conic = Conic(A=A(b),th_conic=np.degrees(theta_c(b,Xi)))
     print(r"$\beta={}$".format(b))
     q_prime = q(b)*conic.g(inc)
     A_prime = conic.Aprime(inc)
-    plt.plot(q_prime,A_prime,linestyle="-",color=c,linewidth=2.0,
-	label=r"$\beta={}${}$\theta_c={:.2f}$".format(b,"\n",np.degrees(theta_c(b,Xi))))
+    plt.plot(q_prime,A_prime, linestyle="-", linewidth=2.0, color=c,
+	label=r"$\beta={}${}$\theta_c={:.0f}^\circ$".format(b,"\n",np.degrees(theta_c(b,Xi))))
     every15 = np.zeros(q_prime.shape, dtype=bool)
     for thisinc in 0.0, 15.0, 30.0, 45.0, 60.0, 75.0:
         iclosest = np.argmin(np.abs(inc - thisinc))
         every15[iclosest] = True
-        plt.plot(q_prime[every15], A_prime[every15], '.', c=c)
+        plt.plot(q_prime[every15], A_prime[every15], '.', color=c)
 #step 4: Add the observational points
 
 
@@ -101,7 +106,9 @@ for savefile in m_savefiles:
                   lw=2, alpha=alpha, color=colordict[data["proplyd"]])
 epsilon=1e-4
 plt.grid()
-plt.legend(loc="upper right",fontsize="small")
+legend = plt.legend(loc="upper left",fontsize="small", ncol=2,
+                    fancybox=True, frameon=True)
+legend.get_frame().set_facecolor('white')
 plt.xlim(epsilon,0.4+epsilon)
 plt.ylim(epsilon,4+epsilon)
 plt.xlabel(r"$R'_0/D'$")
