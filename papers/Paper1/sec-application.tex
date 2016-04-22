@@ -17,6 +17,16 @@ N(r_{IF},\theta) = N_0 \cos^{0.5}\theta
 \label{eq:nprop}
 \end{align}
 
+Neverthless, we should not restrict to the 0.5 index in equation (\ref{eq:nprop}). We may generalize this relation as follows:
+
+\begin{align}
+n(r_{IF},\theta) = n_0 \cos^{k}\theta
+\label{eq:ngen}
+\end{align}
+
+Where $k >0$ implies that the wind's density decays towards wings, when $k<0$ the wind's density incresases towards the wings and $k=0$ implies that the wind is isotropic.
+
+\subsection{\CRW{} Scenario}
 This scenario can be described with the formalism of
 \citet[][hereafter \CRW{}]{Canto:1996}, who proposes an algebraic
 solution for the two winds interaction problem in the thin shell
@@ -25,16 +35,19 @@ $\beta\equiv\frac{\dot{M}_wv_w}{\dot{M}_{w1}v_{w1}}$, the winds
 momentum ratio, which the quantities with subindex 1 corresponds to
 the strongest wind, therefore $\beta<=1$.
 
-If we apply the \CRW{} formalism for a photoevaporated flow with density given by (\ref{eq:nprop}), we find that the solutions for equations (8) - (11) of \citep{Canto:1996} are the following:
+If we apply the \CRW{} formalism for a more generalized photoevaporated flow with density given by (\ref{eq:ngen}), we find that the solutions for equations (8) - (11) of \CRW{} are the following:
 
 \begin{align}
-\dot{M}_w &= \frac{\dot{M}_w^0}{3}\left(1-\cos^{3/2}\theta\right) \label{eq:dotprop} \\
-\dot{\Pi}_z &= \frac{1}{5}v_w \dot{M}_w^0\left(1-\cos^{5/2}\theta\right)  \label{eq:pir}\\
-\dot{\Pi}_r &= \frac{1}{2}v_w\dot{M}_w^0\left(\frac{4}{5}E\left(\frac{\theta}{2}|2\right) - \frac{1}{5}\sin 2\theta\cos^{1/2}\theta\right) \label{eq:piz}\\
+\dot{M}_w &= \frac{\dot{M}_w^0}{2(k+1)}\left(1-\cos^{k+1}\theta\right) \label{eq:dotprop} \\
+\mathrm{where} & M^0_w \equiv 4\piv_w r^2_{IF} n_0 \bar{m}\\
+\dot{\Pi}_z &= \frac{v_w\dot{M}_w^0}{2(k+2)}\left(1-\cos^{5/2}\theta\right)  \label{eq:pir}\\
+\dot{\Pi}_r &= \frac{1}{2}\dot{M}^0_w V_w I_k (\theta) \label{eq:piz}\\
+I_k(\theta) & = \int^\theta_0 \cos^k \theta \sin^2\theta~d\theta
 \dot{J}_w = 0 \label{eq:jdot}
 \end{align}  
-The solution for (\ref{eq:piz}) includes an incomplete elliptic integral of the second kind. Combining equations  (\ref{eq:dotprop}) to (\ref{eq:jdot}) with equation (6) of \CRW{}
-numerically in python code, we can obtain the bow shock shape $R(\theta)$, as illustred in figure (\ref{fig:r-beta}).
+Combining equations  (\ref{eq:dotprop}) to (\ref{eq:jdot}) with equation (6) of \CRW{}  we can obtain the bow shock shape $R(\theta)$. Actually, we work with two different scenarios:
+% as illustred in figure (\ref{fig:r-beta}), where we show the resulting bow shock shapes for two scenarios:
+$k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, the ``isotropic case'', following \CRW{}. The comparison betwwen both solutions is shown in figure (\ref{fig:r-beta}).
 
 
 % Combining equations (6),(9)-(11) and (19)-(23) from \citep{Canto:1996} and (\ref{eq:nprop}), we can solve numerically for $R(\theta)$, which gives us the shell's shape. Also we can
@@ -70,7 +83,7 @@ and obtain the following relation:
 
 
 \begin{align}
-\theta_1\cot\theta_1 -1 =  \frac{8}{5}\beta E\left(\frac{\theta}{2}|2\right)\cot\theta - \frac{4}{5}\beta
+\theta_1\cot\theta_1 -1 = 2\beta I_k(\theta) \cot\theta - \frac{2\beta}{k+2}\left(1-\cos^{k+2}\theta\right)
 \label{eq:th1th}
 \end{align}
 
@@ -81,21 +94,29 @@ Evaluating equations  (\ref{eq:th1th}) and (23) from \CRW{} at $\theta=\frac{\pi
 
 \begin{align}
 R_{90} &= D\tan\theta_{1,90} \\
-\theta_{1,90}\cot\theta_{1,90} &= 1-\frac{4}{5}\beta \label{eq:th190}
+\theta_{1,90}\cot\theta_{1,90} &= 1-\frac{2\beta}{k+2} \label{eq:th190}
 \end{align}
-Where $\theta_{1,90}\equiv \theta_º(\frac{\pi}{2})$. Combining both equations we have:
+Where $\theta_{1,90}\equiv \theta_1(\frac{\pi}{2})$. Combining both equations and  introducing the parameter 
+$\xi\equiv \frac{2}{k+2}$ we have:
 
 \begin{align}
-R_{90} &= D\frac{\theta_{1,90}}{1-\frac{4}{5}\beta} 
+R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta} 
 \end{align}
 
-Expanding (\ref{eq:th190}) until 3rd order and solving for $\theta_{1,90}$:
+
+Solving for $\theta_{1,90}$ from equation (\ref{eq:th190}) we find that:
+
 \begin{align}
-\theta_{1,90} \simeq \left(\frac{2.4\beta}{1-0.8\beta}\right)^{1/2} \\
-R_{90} \simeq \left(\frac{2.4\beta}{(1-0.8\beta)^3}\right)^{1/2}
-\label{eq:r90}
+\theta_{1,90} \simeq \left(\frac{3\xi\beta}{1+\frac{1}{5}\xi\beta}\right)^{1/2} \\
+\label{eq:th190sol}
 \end{align}
 
+With this, we have a solution for $B \equiv \frac{R_{90}}{R_0}$:
+
+\begin{align}
+B = \frac{\sqrt(\xi\beta)\left(1+\beta^{1/2}\right)}{(1-\xi\beta)\left(1+\frac{1}{5}\xi\beta\right)^{1/2}}
+\label{eq:B}
+\end{align}
 
 Now, to obtaining $R_c$ we expand  (\ref{eq:th1th}) until order 2nd order for small $\theta$ values to find that for such values
 $\theta_1 = \beta^{1/2}\theta$
@@ -128,12 +149,14 @@ are labeled as ``analytic i=0''. Note that the analytic solution deviates from t
 \end{figure*}
 
 Observationally, we can measure the projected radii. In order to estimate the model parameters is neccesary to measure at least two of the mentioned radii, being $R_0$ the
-easiest to measure. Therefore, we may compare both $R_c$ and $R_{90}$ against $R_0$ as shown in figure (\ref{fig:prop-shell-rad}).
+easiest to measure. Therefore, we may compare both $R_c$ and $R_{90}$ against $R_0$ as shown in figure (\ref{fig:prop-shell-rad}). 
 
 Although there is an analytical form for the radius of curvature, for $i\ne 0$ there is not an intuitive form for  $R'_c$. Plus, in practice, we are working with discret arrays, so, when transforming the shell's coordinates to the primed system, we almost certainly will miss the $\theta'=0$ point, which
 should allow us to estimate the radii $(R'_0,R'_c)$, the first with equation (\ref{eq:Rpar}) and the second with the mathematical definition of the radius of curvature using the primed coordinates. Insted, we estimate $R'_0$ as the projected radius with the value of $\theta'$ closest to zero, and
 $R'_c$ doing a least square fit to the points such as $\theta' \leq 45^\circ$. This restriction allows to obtain the best estimation of the radius of curvature at the nos of the shell. A lower cuttoff may undestimate $R'_c$ while higher cutoffs might be unaccurate, too.
 
+
+ 
 \subsection{Observational data}
 
 %We measured the Characteristic radii in Orion Nebula proplyds from observations with the ACS camera from the Hubble Space Telescope (HST) using a lamp filter around $\lambda = 5007 \AA$. The proposal for these observations were done by  Jogee, S. in 2004 with calibration purposes but (he never published anything using explicitly these observations). % We must check if this phrase should be included
@@ -195,6 +218,9 @@ All points & First sub-sample & Second sub-sample \\ \includegraphics[clip]{../.
   randomly selected sub-samples of 2/3 of the points for each shell.}
 \end{figure*}
 
+\subsection{Conic Scenario}
+
+Using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$. Continue edition from here...
 
 
 
