@@ -42,7 +42,7 @@ If we apply the \CRW{} formalism for a more generalized photoevaporated flow wit
 \mathrm{where} & M^0_w \equiv 4\pi v_w r^2_{IF} n_0 \bar{m}\\
 \dot{\Pi}_z &= \frac{v_w\dot{M}_w^0}{2(k+2)}\left(1-\cos^{5/2}\theta\right)  \label{eq:pir}\\
 \dot{\Pi}_r &= \frac{1}{2}\dot{M}^0_w V_w I_k (\theta) \label{eq:piz}\\
-I_k(\theta) & = \int^\theta_0 \cos^k \theta \sin^2\theta~d\theta
+I_k(\theta) & = \int^\theta_0 \cos^k \theta \sin^2\theta~d\theta \\
 \dot{J}_w = 0 \label{eq:jdot}
 \end{align}  
 Combining equations  (\ref{eq:dotprop}) to (\ref{eq:jdot}) with equation (6) of \CRW{}  we can obtain the bow shock shape $R(\theta)$. Actually, we work with two different scenarios:
@@ -104,7 +104,7 @@ R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta}
 \end{align}
 
 
-Solving for $\theta_{1,90}$ from equation (\ref{eq:th190}) we find that:
+Solving for $\theta_{1,90}$ from equation (\ref{eq:th190}), using a small angle  approximation, we find that:
 
 \begin{align}
 \theta_{1,90} \simeq \left(\frac{3\xi\beta}{1+\frac{1}{5}\xi\beta}\right)^{1/2} \\
@@ -114,12 +114,14 @@ Solving for $\theta_{1,90}$ from equation (\ref{eq:th190}) we find that:
 With this, we have a solution for $B \equiv \frac{R_{90}}{R_0}$:
 
 \begin{align}
-B = \frac{\sqrt(\xi\beta)\left(1+\beta^{1/2}\right)}{(1-\xi\beta)\left(1+\frac{1}{5}\xi\beta\right)^{1/2}}
+B = \frac{\sqrt(3\xi)\left(1+\beta^{1/2}\right)}{(1-\xi\beta)\left(1+\frac{1}{5}\xi\beta\right)^{1/2}}
 \label{eq:B}
 \end{align}
 
 Now, to obtaining $R_c$ we expand  (\ref{eq:th1th}) until order 2nd order for small $\theta$ values to find that for such values
 $\theta_1 = \beta^{1/2}\theta$
+
+This expansion is valid when k is integer or multiple of 1/2.
 
 Expanding equation (23) from \citep{Canto:1996} and substituting $\theta_1$ we found that:
 
@@ -135,6 +137,7 @@ R_c = \frac{3}{2}R_0\left(1-\beta^{1/2}\right)^{-1}
 \label{eq:Rcurv}
 \end{equation}
 
+--- Rethink if should be included on paper ---
 Equations (\ref{eq:r90}),  (\ref{eq:Rcurv}) and (27) from \citep{Canto:1996} are labeled as ``analytic i=0'' in figure (\ref{fig:rad-beta}).
 
 \begin{figure*}
@@ -148,6 +151,7 @@ are labeled as ``analytic i=0''. Note that the analytic solution deviates from t
 \label{fig:rad-beta}
 \end{figure*}
 
+--- Finished rethinking ---
 Observationally, we can measure the projected radii. In order to estimate the model parameters is neccesary to measure at least two of the mentioned radii, being $R_0$ the
 easiest to measure. Therefore, we may compare both $R_c$ and $R_{90}$ against $R_0$ as shown in figure (\ref{fig:prop-shell-rad}). 
 
@@ -220,10 +224,14 @@ All points & First sub-sample & Second sub-sample \\ \includegraphics[clip]{../.
 
 \subsection{Conic Scenario}
 
-Using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$. Continue edition from here...
+Using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (make it in conics section)
 
+\begin{align}
+\tan^2\theta_c &= 3\left| \frac{\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{1}{\left(1-\beta^{1/2}\right)}\right| 
+\end{align}
 
-
+With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds momenta and different density distributions. In figure () we show 
+the theoretical conic curves for different vales of $\beta$ with a fixed $\xi$
 
 \input{proplyds-table}
 
