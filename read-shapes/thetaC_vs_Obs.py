@@ -12,11 +12,18 @@ import json
 # Contrast  conic curves against observations
 
 
-def A(b):
+def A(b, xi):
     """
     Returns the radius of curvature normalized with R0
+
+    Corrected version that also depends on anisotropy index k
+
+    xi = 2/(k+2) => k = 2 (1/xi - 1)
     """
-    return 1.5/(1.0-np.sqrt(b))
+    k = 2*(1./xi - 1.)
+    sb = np.sqrt(b)
+    alpha = (1 + 2*sb*(1 + 0.1*(1 - sb) - (3./40.)*k/(1  +sb)))/6.
+    return 1./(1.0-2*alpha)
 
 def theta_c(beta,xi=1.0):
     """
@@ -47,7 +54,7 @@ inc = np.linspace(0,75,100)
 
 #step 3: Beta loop  for plotting
 for b, c in zip(beta, colors):
-    conic = Conic(A=A(b),th_conic=np.degrees(theta_c(b,Xi)))
+    conic = Conic(A=A(b, Xi),th_conic=np.degrees(theta_c(b,Xi)))
     print(r"$\beta={}$".format(b))
     q_prime = q(b)*conic.g(inc)
     A_prime = conic.Aprime(inc)
