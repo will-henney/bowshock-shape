@@ -38,8 +38,11 @@ def proplyd_momentum(theta):
     """
     return DIFFUSE_BETA + (1.0 - DIFFUSE_BETA)*np.sqrt(max(0.0,np.cos(theta)))
     
-
-
+global MOMENTUM_K
+MOMENTUM_K = 1.0
+def anisotropic_momentum(theta):
+    return DIFFUSE_BETA + (1.0 - DIFFUSE_BETA)*max(0.0,np.cos(theta))**MOMENTUM_K
+    
 ###
 ### Public classes
 ###
@@ -182,12 +185,17 @@ class BaseShell(object):
 
 class Shell(BaseShell):
     """Easy-to-use class to represent a two-wind interaction shell"""
-    def __init__(self, beta=1.0, innertype="isotropic", outertype="isotropic"):
+    def __init__(self, beta=1.0, innertype="isotropic", outertype="isotropic", xi=None):
         """Parameters: 
         beta: axial momentum flux ratio (inner/outer)
         innertype: either 'proplyd' or 'isotropic'
         outertype: must be 'isotropic'
         """
+        global MOMENTUM_K 
+        if innertype == "anisotropic":
+            mlaw = anisotropic_momentum
+            # xi = 2 / (k + 2) => k = (2/xi) - 2 
+            MOMENTUM_K = 2.0/xi - 2.0
         if innertype == "proplyd":
             mlaw = proplyd_momentum
         elif innertype == "isotropic":
