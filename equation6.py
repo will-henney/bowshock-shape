@@ -196,7 +196,7 @@ class Shell(BaseShell):
             mlaw = anisotropic_momentum
             # xi = 2 / (k + 2) => k = (2/xi) - 2 
             MOMENTUM_K = 2.0/xi - 2.0
-        if innertype == "proplyd":
+        elif innertype == "proplyd":
             mlaw = proplyd_momentum
         elif innertype == "isotropic":
             mlaw = isotropic_momentum
