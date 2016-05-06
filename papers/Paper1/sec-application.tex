@@ -72,7 +72,9 @@ $k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, 
   and the stronger source is at \((1.0, 0.0)\).  Results are shown for
   different values of the wind momentum ratio, \(\beta\), and for the
   case where the weaker wind is isotropic (dashed lines) or an
-  anisotropic proplyd photoevaporation flow (solid lines).}
+  anisotropic photoevaporation flow. The solid lines shows a wind with a
+  moderate degree of anisotropy $(k=0.5)$, which is expected for the proplyds.
+  And the dooted lines show a wind with extreme anisotropy degree $(k=8)$.}
 \label{fig:r-beta}
 \end{figure}
 
@@ -177,7 +179,12 @@ To estimate the uncertainties of our measurements, we remove a fraction of the s
 see how much these ``variations'' deviates from the original data. The results are summarized and explained in figure (\ref{fig:prop-shell-rad}).  In this figure, in the left side, for each source, 
 the fit is done using all the ds9 marks, while in the middle and the right we show two variations removing 2/3 of the marks, but always keeping at least four points. 
 In the better observed shells such as 177-341 (top row), the circle
-fits are relatively robust to removing points, resulting in little variation between the subsamples. But also there are cases where the variations are more noticeable.
+fits are relatively robust to removing points, resulting in little variation between the subsamples. 
+But also there are cases where the variations are more noticeable.
+
+Beneath the error margins, our measurements are consistent with \citet{Robberto:2005} for $R'_0/D$. From figure (\ref{fig:conic-xi}), we also
+note that the LV4 measurements fits better with models where its photoevaporated flow is isotropic. The same is true with \citet{Robberto:2005} data.The rest of the proplyds fit better with more anisotropic winds, which may explain why \citet{Robberto:2005} did not find a match between models
+and data, since they only showed models where the interacting winds are isotropic.
 
 
 
@@ -189,16 +196,16 @@ The black circles only schematize a circle fit to each shell but they actually a
 \end{figure*}
 
 
-\begin{figure}
-\includegraphics[width=\linewidth]{../../read-shapes/proplyd-shell-R0-Rc-cloud} 
-\label{fig:prop-shell-rad}
-\caption{Measurements of proplyd's characteristic radii $R_c$ and $R_0$. The curves represent a single bow shock with  fixed wind's momentum ratio $\beta$. 
-The dots represent separations in inclination of $15^{\circ}$. The semitransparent curves represent bow shocks which the inner wind is isotropic and the full colored 
-curves bow shocks which inner wind density decays as $\cos^{1/2}\theta$. The observational measurements are accompained with radial bars which represents the variations 
-with a fraction of the shell's marks removed. Proplyds with less data marks or high asymmetry show higher deviations in the measurements.
+%\begin{figure}
+%\includegraphics[width=\linewidth]{../../read-shapes/proplyd-shell-R0-Rc-cloud} 
+%\label{fig:prop-shell-rad}
+%\caption{Measurements of proplyd's characteristic radii $R_c$ and $R_0$. The curves represent a single bow shock with  fixed wind's momentum ratio $\beta$. 
+%The dots represent separations in inclination of $15^{\circ}$. The semitransparent curves represent bow shocks which the inner wind is isotropic and the full colored 
+%curves bow shocks which inner wind density decays as $\cos^{1/2}\theta$. The observational measurements are accompained with radial bars which represents the variations 
+%with a fraction of the shell's marks removed. Proplyds with less data marks or high asymmetry show higher deviations in the measurements.
 %Our measures match far better than \citep{Robberto:2005}, but our data tend to lie at high inclinations $i \gtrsim 45^\circ$, when we expected the opposite. Right side: The same
-}
-\end{figure}
+%}
+%\end{figure}
 
 
 \begin{figure*}
@@ -230,19 +237,28 @@ Using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter 
 \tan^2\theta_c &= 3\left| \frac{\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{1}{\left(1-\beta^{1/2}\right)}\right| 
 \end{align}
 
-With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds momenta and different density distributions. 
-In figure (\ref{fig:conic-xi}) we show the theoretical conic curves for different vales of $\beta$ with a fixed $\xi$. Most of the proplyds fit well with a elliptic-like conic shape.
-LV4 is a special case which fits better with an hyperbola
+With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds 
+momenta and different density distributions. 
+In figure (\ref{fig:conic-xi}) we show the theoretical conic curves for different vales of $\beta$ with a fixed $\xi$. Most of the proplyds fit well 
+with a elliptic-like conic shape and moderate to high degree of anisotropy of their wind.
+LV4 is a special case which fits better with an hyperbola and isotropic wind. 
 
 \begin{figure*}
 \begin{tabular}{cc}
 \includegraphics[width=0.48\linewidth]{../../read-shapes/conic_xi-10} & \includegraphics[width=0.48\linewidth]{../../read-shapes/conic_xi-08} \\
-\includegraphics[width=0.48\linewidth]{../../read-shapes/conic_xi-06} & \includegraphics[width=0.48\linewidth]{../../read-shapes/conic_xi-04} 
+\includegraphics[width=0.48\linewidth]{../../read-shapes/conic_xi-04} & \includegraphics[width=0.48\linewidth]{../../read-shapes/conic_xi-02} 
 \end{tabular}
 \label{fig:conic-xi}
-\caption{Comparison of projected radii for conic models against with the observed proplyds. A fixed value of $\xi$, which describes the anisotropy of the inner wind, is used
-in each graph. Models with $\theta_c > 0$ correspond to elliptical-like shapes, while $\theta_c<0$ describes hyperbolic-like shapes.}
+\caption{Measurements of proplyd's characteristic radii $R_c$ and $R_0$. The curves represent a conic-like bow shock with 
+fixed momentum ratio $\beta$ and the derived value of $\theta_c$ is also shown.The dots along each curve represent separation in inclination of 
+$15^\circ$. The measurements of each proplyd are accompained with the set of variations represented as colored radial lines. In 
+each graph we use a different degree of the weaker wind anisotropy, starting from an isotropic wind $(\xi=1)$, to the most anisotropic wind
+$(\xi=0.2)$.}
 \end{figure*}
+%Measurements of proplyd's characteristic radii $R_c$ and $R_0$. The curves represent a single bow shock with fixed wind's momentum ratio $\beta$. 
+%The dots represent separations in inclination of $15^{\circ}$. The semitransparent curves represent bow shocks which the inner wind is isotropic and the full colored 
+%curves bow shocks which inner wind density decays as $\cos^{1/2}\theta$. The observational measurements are accompained with radial bars which represents the variations 
+%with a fraction of the shell's marks removed. Proplyds with less data marks or high asymmetry show higher deviations in the measurements.
 
 \input{proplyds-table}
 
