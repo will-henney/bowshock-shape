@@ -31,6 +31,7 @@ High-level description of analysis of proplyd bowshocks
 + [ ] Jorge insert figure showing pressures versus distance for the model fits
   + And write discussion about it
 + [ ] Jorge regenerate Fig 7, but adding in the xi=0.2 case
++ [ ] Will still needs to do Fig 1 remake
 
 ** [2016-04-15 Fri]
 
@@ -46,12 +47,12 @@ High-level description of analysis of proplyd bowshocks
 
 *** Next tasks
 
-+ [ ] *Jorge* Figure 2
++ [X] *Jorge* Figure 2
   + Add symmetry axis as solid line
   + Thicker lines for R90 and R0, Rc
   + Very thick line for shell
   + Maybe extend box further in negative /y/ direction
-+ [ ] *Jorge*  Carry on with the \theta_c work from last week
++ [X] *Jorge*  Carry on with the \theta_c work from last week
 + [ ] *Will* New version of Figure 1, as described last week
 
 
