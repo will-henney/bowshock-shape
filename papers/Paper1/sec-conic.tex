@@ -15,8 +15,8 @@ a distance $x_0$ from the source.
 %an ellipse, while a negative value indicates that is an hyperbola. %Insert figures if neccesary  
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.4\linewidth]{ellipse} &
-\includegraphics[width=0.4\linewidth]{hiperbola}
+\includegraphics[width=0.4\linewidth]{ellipse_py_lab} &
+\includegraphics[width=0.4\linewidth]{hiperbola_py_lab}
 \end{tabular}
 \label{fig:conics}
 \caption{Schematic representation of conic like bowshocks: A) Ellipse and B) Hyperbola The center of the conic is located at a distance $x_0$ from the origin at the $x$ axis. The shell position is 
@@ -25,8 +25,8 @@ described either by cartesian coordinates $(x,y)$ or polar coordinates $(R,\thet
 Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
 
 \begin{align}
-x = a\Cos(t)-x_0 \\ 
-y = b\Sin(t)
+x = a\Cos(t)-x_0 \label{eq:par-x}\\ 
+y = b\Sin(t) \label{eq:par-y}
 \end{align}
 
 where:
@@ -148,7 +148,17 @@ an assymptotic limit for the projected radius of curvature at high inclinations,
 \label{fig:Apqp}
 \end{figure*}
 
+Finally, we need to obtain $R_{90}$ using equations (\ref{eq:par-x}) and (\ref{eq:par-y}):
 
+\begin{align}
+x_{90} = a - R_0 = a\Cos(t_{90}) \\
+y_{90} = R_{90} = b\Sin(t_{90})
+\end{align}
+
+With this we find that:
+\begin{align}
+R_{90} = b\left(1 \mp \frac{(R_0-a)^2}{a^2}\right)
+\end{align}
  
 %%% Local Variables:
 %%% mode: latex
