@@ -1,4 +1,4 @@
-\section{Conic section approximation to bow shock shapes}
+\section{Conic section approximation}
 \label{sec:conic}
 
 \newcommand\Sin{\ensuremath{\mathcal{S}}}
@@ -14,21 +14,27 @@ a distance $x_0$ from the source.
 %$\tan\theta_c = \frac{b}{a}$,  $b$ and $a$ are the typical parameters of conics. A positive value for $\theta_c$ indicates that the given curve is a closed one, i.e
 %an ellipse, while a negative value indicates that is an hyperbola. %Insert figures if neccesary  
 \begin{figure}
+\setlength\tabcolsep{0pt}
 \begin{tabular}{cc}
-\includegraphics[width=0.4\linewidth]{ellipse_py_lab} &
-\includegraphics[width=0.4\linewidth]{hyperbola_py}
+\includegraphics[height=0.44\linewidth, trim=30 0 30 0, clip]{ellipse_py_lab} &
+\includegraphics[height=0.44\linewidth, trim=60 0 70 0, clip]{hyperbola_py}
 \end{tabular}
 \label{fig:conics}
 \caption{Schematic representation of conic like bowshocks: A) Ellipse and B) Hyperbola The center of the conic is located at a distance $x_0$ from the origin at the $x$ axis. The shell position is 
 described either by cartesian coordinates $(x,y)$ or polar coordinates $(R,\theta)$. In this section is more convenient to use cartesian coordinates, as their parametrization is quite easy.}
 \end{figure}
-Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
+\begin{figure}
+\includegraphics[width=\linewidth]{conic1}
+\caption{A whole set of conics with the same radius of curvature. The parameter $\theta_c$ is used as the equivalent of the excentricity. This angle is defined as positive for closed curves
+and negative for the opened ones. An special case is $\theta_c=0$, which describes a parabola.}
+\label{fig:conics-family}
+\end{figure}
 
+Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
 \begin{align}
 x = a\Cos(t)-x_0 \label{eq:par-x}\\ 
 y = b\Sin(t) \label{eq:par-y}
 \end{align}
-
 where:
 \begin{align}
 \Cos(t) = \left\lbrace \begin{array}{c}
@@ -46,31 +52,29 @@ a<0 ~ \mathrm{for~hyperbola}
 We have set a whole family of curves with a singular parameter denoted as $\tan\theta_c \equiv \frac{b}{a}$. Positive values of this parameter describe closed curves
 (i.e. ellipses) and the negative ones describe open curves (i.e. hyperbolas). Particular cases are $\theta_c =\frac{\pi}{4}$, which describes a circle and $\theta_c=0$, which describes
 a parabola.
-\begin{figure}
-\includegraphics[width=\linewidth]{conic1}
-\caption{A whole set of conics with the same radius of curvature. The parameter $\theta_c$ is used as the equivalent of the excentricity. This angle is defined as positive for closed curves
-and negative for the opened ones. An special case is $\theta_c=0$, which describes a parabola.}
-\label{fig:conics-family}
-\end{figure}
-\subsection{Projection onto the plane of sky} 
 
-Once the parametrization is done, we can find the apparent shape of the shell in the observer's frame, following the procedure explained in section \ref{sec:projection}.
+\subsection{Plane-of-sky projection of conic sections} 
+\begin{figure*}
+\includegraphics[width=0.9\linewidth]{annotated}
+\caption{Projected Radius of curvature vs projected $R_0$ for $\theta_c=60^\circ,45^\circ,28^\circ, 0^\circ,-15^\circ,-30^\circ$. Each colored points represent
+the same shape at a different inclination. Being the dark blue the ones with the lower inclination and the red ones with the highest value. For closed shapes, there is
+an assymptotic limit for the projected radius of curvature at high inclinations, while for open shapes there is an upper limit for inclination where a tangent line can be observed.}
+\label{fig:Apqp}
+\end{figure*}
 
-First of all, the intrinsic 3D shape of the shell is given by:
-
+Once the parametrization is done, we can find the apparent shape of
+the shell in the observer's frame, following the procedure explained
+in section \ref{sec:projection}.  First of all, the intrinsic 3D shape of the shell is given by:
 \begin{align}
 x = a\Cos(t)-x_0 \\ 
 y = b\Sin(t)\cos\phi \\
 z =  b\Sin(t)\sin\phi
 \end{align}
-
 The azimutal angle where the line of sight is tangent to the shell is given by equation (\ref{eq:tanphi}) and (\ref{eq:tanalpha}), then:
-
 \begin{align}
 \sin\phi_t &= \frac{b}{a}\tan i\Cot(t) 
 \end{align}
 where:
-
 \begin{align}
 \Cot(t) = \left\lbrace \begin{array}{c}
 \cot t ~\mathrm{if~ellipse} \\
@@ -79,9 +83,7 @@ where:
 \end{align}
 
 We could work in another frame where the origin is located at the conic's center: $(X,Y)$, where $X=x-X_0$ and $Y=y$.
-
 In this frame,  we use the transformations (\ref{eq:Trans})  to obtain the apparent shape of the shell:
-
 \begin{align}
 X' = \frac{\Cos(t)}{a\cos i}\left(a^2\cos^2 i \pm b^2\sin^2 i\right)  \label{eq:conic-projected-x}\\
 Y'= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot(t)\right)^{1/2}
@@ -91,23 +93,19 @@ Y'= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot(t)\right)^{1/2}
 
 We must show that the apparent shape of the shell in the observer's frame is still the same conic. To do that, we can write equations
 (\ref{eq:conic-projected-x}) and (\ref{eq:conic-projected-y}) as follows:
-
 \begin{align}
 X' = a'\Cos t' \label{eq:conic-projected-x-2} \\
-Y' = b'\Sin t' \label{eq:conic-projected-y-2}
+Y' = b'\Sin t' \label{eq:conic-projected-y-2} . 
 \end{align}
 
 Comparing, (\ref{eq:conic-projected-x}), (\ref{eq:conic-projected-x-2}), (\ref{eq:conic-projected-y}) and (\ref{eq:conic-projected-y}) we find that
-
 \begin{align}
 a' = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} \\
 \Cos(t') = \frac{\Cos(t)}{a\cos i} \\
 b' = b
 \end{align} 
-
 Which proves that effectively the projection of a given conic is the same conic. With this knowledge, we can obtain the characteristic radii in
 the observer's frame.
-
 \begin{align}
 D' = D\cos i \\
 R'_0 = a' - (a-R_0)\cos i \\
@@ -116,45 +114,32 @@ R'_0 = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (a-R_0)\cos i
 
 With  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ and introducing the
 radius of curvature $R_c\equiv \frac{b^2}{a}$ we find that:
-
 \begin{align}
 \frac{R'_0}{D'}=\frac{R_0}{D}\left(1+A\cot^2\theta_c(f(i;\theta_c)-1) \right)
 \end{align}
-
 Where $A\equiv \frac{R_c}{R_0}$
 
 The Radius of curvature in the observer's frame is given by $R'_c=\frac{b'^2}{a'}$. Then:
-
 \begin{align}
 \frac{R'_c}{R'_0} = \frac{A}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
 \end{align}
-
-Where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$
-\begin{figure*}
-\includegraphics[width=0.8\linewidth]{conic2}
-\label{fig:conic2}
-\caption{Graphic example of the increasing of the projected radius of curvature with inclination}
-\end{figure*}
+where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$. 
+% \begin{figure*}
+% \includegraphics[width=0.8\linewidth]{conic2}
+% \label{fig:conic2}
+% \caption{Graphic example of the increasing of the projected radius of curvature with inclination}
+% \end{figure*}
 
 The space parameter $A'$ vs $q'$ can be seen in figure (\ref{fig:Apqp}). In this figure is assumed that we know the intrinsic Radius of curvature and $R_0$, which is not the case with
 real observations.
 
 
-\begin{figure*}
-\includegraphics[width=0.9\linewidth]{annotated}
-\caption{Projected Radius of curvature vs projected $R_0$ for $\theta_c=60^\circ,45^\circ,28^\circ, 0^\circ,-15^\circ,-30^\circ$. Each colored points represent
-the same shape at a different inclination. Being the dark blue the ones with the lower inclination and the red ones with the highest value. For closed shapes, there is
-an assymptotic limit for the projected radius of curvature at high inclinations, while for open shapes there is an upper limit for inclination where a tangent line can be observed.}
-\label{fig:Apqp}
-\end{figure*}
 
 Finally, we need to obtain $R_{90}$ using equations (\ref{eq:par-x}) and (\ref{eq:par-y}):
-
 \begin{align}
 x_{90} = a - R_0 = a\Cos(t_{90}) \\
 y_{90} = R_{90} = b\Sin(t_{90})
 \end{align}
-
 With this we find that:
 \begin{align}
 R_{90} = b\left(1 \mp \frac{(R_0-a)^2}{a^2}\right)
