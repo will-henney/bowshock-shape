@@ -6,6 +6,34 @@ High-level description of analysis of proplyd bowshocks
 
 * Weekly meetings
 
+
+** [2016-05-06 Fri]
+
+*** Completed tasks
+
+**** Proplyd model fit figures
+Jorge has now finished incoroporating these
+
+**** Shape of proplyd bowshocks for different \xi
+Jorge has done this, but has not yet pushed the results to github
+
+**** Tidying up the conic section
+We did this during the meeting
+
+*** Next tasks
+
+**** Held over from previous meeting
++ [ ] Jorge insert figure showing pressures versus distance for the model fits
+  + And write discussion about it
++ [ ] Will still needs to do Fig 1 remake
+**** New tasks 
++ [ ] Jorge incorporate analysis of R_c into sec 5
++ [ ] A new figure to accompany sec 5 - characteristic radii of CRW models
+  + Show:
+    + R_c(\beta, \xi)
+    + R_90(\beta, \xi)
+    + \theta_c(\beta, \xi)
+
 ** [2016-05-03 Tue]
 
 *** Completed tasks
@@ -25,12 +53,12 @@ High-level description of analysis of proplyd bowshocks
 + Will and Jorge have added the general anisotropic case, but it hasn't been tested
 
 *** Next tasks
-+ [ ] Jorge update =conic_xi*.pdf= figures in paper
++ [X] Jorge update =conic_xi*.pdf= figures in paper
   + Use \xi = 1.0, 0.8, 0.4, 0.2
   + Remove old figure that these replace (but see what can be salvaged from the figure caption)
 + [ ] Jorge insert figure showing pressures versus distance for the model fits
   + And write discussion about it
-+ [ ] Jorge regenerate Fig 7, but adding in the xi=0.2 case
++ [-] Jorge regenerate Fig 7, but adding in the xi=0.2 case
 + [ ] Will still needs to do Fig 1 remake
 
 ** [2016-04-15 Fri]
