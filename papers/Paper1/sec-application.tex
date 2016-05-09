@@ -120,22 +120,24 @@ B = \frac{\sqrt(3\xi)\left(1+\beta^{1/2}\right)}{(1-\xi\beta)\left(1+\frac{1}{5}
 \label{eq:B}
 \end{align}
 
-Now, to obtaining $R_c$ we expand  (\ref{eq:th1th}) until order 2nd order for small $\theta$ values to find that for such values
-$\theta_1 = \beta^{1/2}\theta$
+Now, to obtaining $R_c$ we expand  (\ref{eq:th1th}) until order 4th order for small $\theta$ values to find that for such values
 
-This expansion is valid when k is integer or multiple of 1/2.
-
+\begin{align}
+\theta_1^2 &\simeq \beta\theta^2\left[1+ \left(A_k-\frac{\beta}{15}\right)\theta^2\right] \\
+\mathrm{where:~} & A_k = \frac{1}{15}-\frac{k}{20}
+\end{align}
 Expanding equation (23) from \citep{Canto:1996} and substituting $\theta_1$ we found that:
 
 \begin{align}
-R \simeq R_0 \left(1+\frac{1+2\beta^{1/2}}{6}\theta^2\right)
+R &\simeq R_0 \left(1+\gamma\theta^2\right)
 \label{eq:R_approx}
+\mathrm{where:~} & \gamma = \frac{1}{6} + \frac{\beta^{1/2}}{3}\left[1+\frac{1-\beta^{1/2}}{10}-\frac{3}{40}\frac{k}{1+\beta^{1/2}}\right]
 \end{align}
 
 Which lead us to derive the radius of curvature at the symmetry axis:
 
 \begin{equation}
-R_c = \frac{3}{2}R_0\left(1-\beta^{1/2}\right)^{-1}
+R_c = R_0\left(1-2\gamma\right)^{-1}
 \label{eq:Rcurv}
 \end{equation}
 
