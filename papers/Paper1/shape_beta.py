@@ -18,27 +18,38 @@ with the result of other authors
 ############ Figure 1 #############
 # Shell shape vs $\beta$ ##########
 
-beta = [0.001,0.005,0.01,0.05,0.1,0.5,0.99]
+beta = [0.01,0.1,0.99]
 theta = np.linspace(0,0.99*np.pi)
 
 parser =argparse.ArgumentParser(description="choose figure output")
 parser.add_argument("--fig",type=int,default=0,choices=[0,1],help="figure output")
 args = parser.parse_args()
 flag = args.fig <= 0
-
+inner_list = ["isotropic","proplyd"]
+xi_list = [1.0,0.8,0.2]
+line_dict = {"isotropic":"--","proplyd":"-"}
+line_list = ["--","-",":",]
+color_list = ["r","g","b","m","c","k"]
+#label = {"isotropic":None,"proplyd":r"$\beta={}$".format(b)}
 if flag:
-    for b in beta:
-        shell = Shell(beta=b,innertype="proplyd")
-        R = shell.radius(theta)
-        R[R<=0] = np.nan
-        plt.plot(R*np.cos(theta),R*np.sin(theta),label=r"$\beta={}$".format(b))
+    for xi,line in zip(xi_list,line_list):
+        for b,col in zip(beta,color_list):
+            shell = Shell(beta=b,innertype="anisotropic",xi=xi)
+            R = shell.radius(theta)
+            R[R<=0] = np.nan
+            if xi==0.8:
+                label = r"$\beta={}$".format(b)
+            else:
+                label = None
+            plt.plot(R*np.cos(theta),R*np.sin(theta),color=col,linestyle=line,
+                     label=label)
 
     plt.legend(fontsize="small")
-    plt.xlabel(r"x/D")
-    plt.ylabel(r"y/D")
+    plt.xlabel(r"z/D")
+    plt.ylabel(r"r/D")
     plt.gca().set_aspect("equal",adjustable="box")
     plt.xlim(-0.4,1)
-    plt.ylim(-1,1)
+    plt.ylim(0,1)
     plt.savefig("r-beta.pdf")
 
 ####### Figure 2 #################
@@ -53,16 +64,16 @@ else:
     A = 1.5/(1-np.sqrt(b))
     R = BS.radius(theta)
     R[R<=0]=np.nan
-    plt.plot(R*np.cos(theta),R*np.sin(theta),"k-",R*np.cos(theta),-R*np.sin(theta),"k-")
+    plt.plot(R*np.cos(theta),R*np.sin(theta),"k-",R*np.cos(theta),-R*np.sin(theta),"k-",lw=3)
     plt.plot(A*R[0]*np.cos(t)-R[0]*(A-1),A*R[0]*np.sin(t))
     plt.plot([0],[0],"r*")
     plt.plot([-R[0]*(A-1)],[0],"k.")
     plt.grid()
     plt.gca().set_aspect("equal",adjustable="box")
-    plt.xlabel("x/D")
-    plt.ylabel("y/D")
-    plt.xlim(-R[0]*(A+1)-0.1,R[0]+0.1)
-    plt.ylim(-0.7,0.7)
+    plt.xlabel("z/D")
+    plt.ylabel("r/D")
+    plt.xlim(-R[0]*(A+1)-0.1,R[0]+0.6)
+    plt.ylim(-0.3,1.5)
     plt.savefig("ch-radii.pdf") 
     
 
