@@ -141,27 +141,36 @@ R_c = R_0\left(1-2\gamma\right)^{-1}
 \label{eq:Rcurv}
 \end{equation}
 
---- Rethink if should be included on paper ---
-Equations (\ref{eq:r90}),  (\ref{eq:Rcurv}) and (27) from \citep{Canto:1996} are labeled as ``analytic i=0'' in figure (\ref{fig:rad-beta}).
+finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (make it in conics section)
+
+\begin{align}
+\tan^2\theta_c &= 3\left| \frac{\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{1}{\left(1-\beta^{1/2}\right)}\right| 
+\end{align}
 
 \begin{figure*}
 \begin{tabular}{ccc}
-\includegraphics[width=0.35\linewidth]{R0-b}&
-\includegraphics[width=0.35\linewidth]{Rc-b} &
-\includegraphics[width=0.35\linewidth]{R90-b}
+\includegraphics[width=0.35\linewidth]{A-beta}&
+\includegraphics[width=0.35\linewidth]{B-beta} &
+\includegraphics[width=0.35\linewidth]{thc-beta}
 \end{tabular}
-\caption{$R_0$, $R_c$ and $R_{90}$ versus $\beta$ for a fixed set of inclinations. Equations (\ref{eq:r90}), (\ref{eq:Rcurv}), and (27) from \CRW{}
-are labeled as ``analytic i=0''. Note that the analytic solution deviates from the numeric solution when $\beta \gtrsim 0.1$}
+\caption{$\theta_c$, $R_c$ and $R_{90}$ versus $\beta$ for different anisotropy degrees, represented with the $\xi$ paramenter.}
 \label{fig:rad-beta}
 \end{figure*}
 
---- Finished rethinking ---
-Observationally, we can measure the projected radii. In order to estimate the model parameters is neccesary to measure at least two of the mentioned radii, being $R_0$ the
-easiest to measure. Therefore, we may compare both $R_c$ and $R_{90}$ against $R_0$ as shown in figure (\ref{fig:prop-shell-rad}). 
 
-Although there is an analytical form for the radius of curvature, for $i\ne 0$ there is not an intuitive form for  $R'_c$. Plus, in practice, we are working with discret arrays, so, when transforming the shell's coordinates to the primed system, we almost certainly will miss the $\theta'=0$ point, which
-should allow us to estimate the radii $(R'_0,R'_c)$, the first with equation (\ref{eq:Rpar}) and the second with the mathematical definition of the radius of curvature using the primed coordinates. Insted, we estimate $R'_0$ as the projected radius with the value of $\theta'$ closest to zero, and
-$R'_c$ doing a least square fit to the points such as $\theta' \leq 45^\circ$. This restriction allows to obtain the best estimation of the radius of curvature at the nos of the shell. A lower cuttoff may undestimate $R'_c$ while higher cutoffs might be unaccurate, too.
+%Observationally, we can measure the projected radii. In order to estimate the model parameters is neccesary to measure at least two of the mentioned radii, being $R_0$ the
+%easiest to measure. Therefore, we may compare both $R_c$ and $R_{90}$ against $R_0$ as shown in figure (\ref{fig:prop-shell-rad}). 
+
+With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds 
+momenta and different density distributions. 
+
+In figure (\ref{fig:conic-xi}) we show the theoretical conic curves for different vales of $\beta$ with a fixed $\xi$. Most of the proplyds fit well 
+with a elliptic-like conic shape and moderate to high degree of anisotropy of their wind.
+LV4 is a special case which fits better with an hyperbola and isotropic wind.
+
+%Although there is an analytical form for the radius of curvature, for $i\ne 0$ there is not an intuitive form for  $R'_c$. Plus, in practice, we are working with discret arrays, so, when transforming the shell's coordinates to the primed system, we almost certainly will miss the $\theta'=0$ point, which
+%should allow us to estimate the radii $(R'_0,R'_c)$, the first with equation (\ref{eq:Rpar}) and the second with the mathematical definition of the radius of curvature using the primed coordinates. Insted, we estimate $R'_0$ as the projected radius with the value of $\theta'$ closest to zero, and
+%$R'_c$ doing a least square fit to the points such as $\theta' \leq 45^\circ$. This restriction allows to obtain the best estimation of the radius of curvature at the nos of the shell. A lower cuttoff may undestimate $R'_c$ while higher cutoffs might be unaccurate, too.
 
 
  
@@ -231,19 +240,10 @@ All points & First sub-sample & Second sub-sample \\ \includegraphics[clip]{../.
   randomly selected sub-samples of 2/3 of the points for each shell.}
 \end{figure*}
 
-\subsection{Conic Scenario}
+%\subsection{Conic Scenario}
 
-Using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (make it in conics section)
 
-\begin{align}
-\tan^2\theta_c &= 3\left| \frac{\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{1}{\left(1-\beta^{1/2}\right)}\right| 
-\end{align}
-
-With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds 
-momenta and different density distributions. 
-In figure (\ref{fig:conic-xi}) we show the theoretical conic curves for different vales of $\beta$ with a fixed $\xi$. Most of the proplyds fit well 
-with a elliptic-like conic shape and moderate to high degree of anisotropy of their wind.
-LV4 is a special case which fits better with an hyperbola and isotropic wind. 
+ 
 
 \begin{figure*}
 \begin{tabular}{cc}
