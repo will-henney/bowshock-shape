@@ -7,6 +7,13 @@ High-level description of analysis of proplyd bowshocks
 * Weekly meetings
 
 
+** [2016-05-13 Fri 11:00]
+
+*** Some remaining issues with paper
++ [ ] Section 3 (Projection onto Plane of Sky) needs a figure or two
+  + Didn't I have one for the original version of this? No - can't find it
++ [ ] Section 3.3 - for consistency with the later material in sec 4 and 5 might be getter to use \(R_{0}'\) and \(R_{90}'\) here instead of \perp and \parallel
+
 ** [2016-05-06 Fri]
 
 *** Completed tasks
