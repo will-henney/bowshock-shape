@@ -26,10 +26,23 @@ ax2.loglog(D, tab['P(wind)']/k_Boltzmann, c='k', alpha=0.1, lw=10, label='')
 mm = (tab['F(ph)/F(*)'] > 0.707) & (tab['F(ph)/F(*)'] < 1.414)
 out_colnames = ['Source' ,'D prime', 'R0/D prime', 'Rc/R0 prime full',
                 'Rc/R0 prime select', 'beta', 'xi', 'inc', 'D', 'R0/D']
+
+out_formats = {
+    'D prime': '%.1f',
+    'R0/D prime':         '%.4f',
+    'Rc/R0 prime full':   '%.4f',
+    'Rc/R0 prime select': '%.4f',
+    'beta':               '%.4f',
+    'xi':                 '%.4f',
+    'inc':                '%.4f',
+    'D':                  '%.4f',
+    'R0/D':               '%.4f',
+}
+
 out_rows = []
 
 def var_range(x, dx):
-    return x
+    return x, dx
 
 
 for source, color in zip(sources, colors):
@@ -86,6 +99,7 @@ out_tab = Table(names=out_colnames, rows=out_rows)
 
 print(out_tab.pprint(max_width=-1, max_lines=-1))
 
-out_tab.write('arc-fit-table-for-paper.tab', format='ascii.tab')
+out_tab.write('arc-fit-table-for-paper.tab',
+              format='ascii.fixed_width', formats=out_formats)
 
 
