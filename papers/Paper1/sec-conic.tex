@@ -17,11 +17,12 @@ a distance $x_0$ from the source.
 \setlength\tabcolsep{0pt}
 \begin{tabular}{cc}
 \includegraphics[height=0.44\linewidth, trim=30 0 30 0, clip]{ellipse_py_lab} &
-\includegraphics[height=0.44\linewidth, trim=60 0 70 0, clip]{hyperbola_py}
+\includegraphics[height=0.44\linewidth, trim=60 0 70 0, clip]{hyperbola_py_lab}
 \end{tabular}
 \label{fig:conics}
-\caption{Schematic representation of conic like bowshocks: A) Ellipse and B) Hyperbola The center of the conic is located at a distance $x_0$ from the origin at the $x$ axis. The shell position is 
-described either by cartesian coordinates $(x,y)$ or polar coordinates $(R,\theta)$. In this section is more convenient to use cartesian coordinates, as their parametrization is quite easy.}
+\caption{Schematic representation of conic like bowshocks: A) Ellipse and B) Hyperbola The center of the conic is located at a distance $x_0=R_0-a$ from the origin at the $x$ axis. 
+The radius of curvature at the axis is $R_c$, and $R_{90}$ is t he radius of the conic in the perpendicular direction to $R_0$.
+}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{conic1}
@@ -52,7 +53,21 @@ a<0 ~ \mathrm{for~hyperbola}
 We have set a whole family of curves with a singular parameter denoted as $\tan\theta_c \equiv \frac{b}{a}$. Positive values of this parameter describe closed curves
 (i.e. ellipses) and the negative ones describe open curves (i.e. hyperbolas). Particular cases are $\theta_c =\frac{\pi}{4}$, which describes a circle and $\theta_c=0$, which describes
 a parabola.
-
+To determine uniquely a given conic in terms of measurable quantities, we use the set of characteristic radii $(R_0,R_c,R_{90})$ in such way the conic parameters $(a,b,$\theta_c$)$
+could be derived from the former. The transformation betwwen the conic parameters and the characteristic radii are given by:
+\begin{align}
+\frac{R_c}{D} &= \frac{b^2}{a} \label{eq:Rc-conic}\\ 
+\frac{R_{90}}{D} &= b\left(1 \mp \frac{(R_0-a)^2}{a^2}\right)
+\end{align}
+The inverse transformation is given by:
+\begin{align}
+a &= (not finished) \label{eq:a-conic}\\
+b &= \left(aR_c\right)^{1/2}\\
+\theta_c &= \left|B^2 - 2A\right|^{1/2} \label{eq:thc-conic} 
+\end{align}
+From equations (\ref{eq:a-conic}) we can see that for $R^2_{90} > 2 R_c$, the conic parameter $a$ is negative, so in this case the resulting conic is an hyperbola, and we must take the negative root
+in equation (\ref{eq:thc-conic}). The opposite applies for ellipses.
+will be an ellipse
 \subsection{Plane-of-sky projection of conic sections} 
 \begin{figure*}
 \includegraphics[width=0.9\linewidth]{annotated}
@@ -133,17 +148,6 @@ where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$.
 The space parameter $A'$ vs $q'$ can be seen in figure (\ref{fig:Apqp}). In this figure is assumed that we know the intrinsic Radius of curvature and $R_0$, which is not the case with
 real observations.
 
-
-
-Finally, we need to obtain $R_{90}$ using equations (\ref{eq:par-x}) and (\ref{eq:par-y}):
-\begin{align}
-x_{90} = a - R_0 = a\Cos(t_{90}) \\
-y_{90} = R_{90} = b\Sin(t_{90})
-\end{align}
-With this we find that:
-\begin{align}
-R_{90} = b\left(1 \mp \frac{(R_0-a)^2}{a^2}\right)
-\end{align}
  
 %%% Local Variables:
 %%% mode: latex
