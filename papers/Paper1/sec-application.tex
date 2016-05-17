@@ -1,6 +1,6 @@
 \section{Application to proplyd bowshocks}
 \label{sec:application}
-
+\newcommand\thC{\(\theta^1\)\,Ori~C}
 \defcitealias{Canto:1996}{CRW}
 \newcommand\CRW{\citetalias{Canto:1996}}
 
@@ -27,6 +27,7 @@ n(r_{IF},\theta) = n_0 \cos^{k}\theta
 Where $k >0$ implies that the wind's density decays towards wings, when $k<0$ the wind's density incresases towards the wings and $k=0$ implies that the wind is isotropic.
 
 \subsection{\CRW{} Scenario}
+\label{sec:crw-scenario}
 This scenario can be described with the formalism of
 \citet[][hereafter \CRW{}]{Canto:1996}, who proposes an algebraic
 solution for the two winds interaction problem in the thin shell
@@ -180,6 +181,7 @@ LV4 is a special case which fits better with an hyperbola and isotropic wind.
 %Nevertheless, as we are only interested in measure the geometric shape of bow shocks, these observations are more than enough.
 
 \subsubsection{Methodology}
+\label{sec:methodology}
 Using the DS9 SAO image tools, we marked the positions of the proplyds and $\theta^1 ~C$. For the shell's position, the marks were placed in the outer border of each shock. 
 The number of marks used in each shell varies with shell's size, and with our confidence with our measurements.
 Thus, we used few points in small bow shocks and/our the bow shock's outer shell is not well defined. The distance $D$ is measured as the distance between the position of $\theta^1 ~C~Ori$ 
@@ -261,12 +263,66 @@ each graph we use a different degree of the weaker wind anisotropy, starting fro
 $(\xi=0.2)$.}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure}
 \includegraphics[width=\linewidth]{../../proplyd-wind-figs/plot-wind-fits}
 \label{fig:pressure}
 \caption{Up: In colored lines,  the required ionizing flux to balance the photoevaporated flow for each proplyd. The gray line represents the stellar flux at the distance $D$. Down: In colored lines, estiamted stagnation pressure for each proplyd. 
 The gray solid line represent the stellar wind at the distance $D$. in both cases, the big dots represent the variations which have more agreement with ionization balance and pressure balance, respectively.}
-\end{figure*}
+\end{figure}
+
+\begin{table*}
+  \caption{Fitted arc parameters for proplyd bowshocks}
+  \label{tab:arc-fits} 
+\newcommand\C[1]{\multicolumn{1}{c}{#1}}
+\begin{tabular}{llrllllrlll}\toprule
+             &          & \multicolumn{3}{c}{\dotfill Observed \dotfill}              & \multicolumn{6}{c}{\dotfill Model fits \dotfill} \\ 
+  \C{OW}     & \C{Name} & \(D'\) &\C{ \(R_0'/D'\) }&\C{ \((R_c'/R_0')_{\mathrm{shape}}\) }&\C{ \((R_c'/R_0')_{\mathrm{flux}}\) }&\C{ \(\beta\) }&\C{ \(\xi\) }&\C{ \(|i|\) }&\C{ \(D\) }&\C{ \(R_0/D\)}\\
+  \C{(1)}& \C{ (2) }&\C{ (3)    }&\C{    (4)      }&\C{              (5)           }&\C{           (6)             }&\C{     (7)   }&\C{   (8)   }&\C{   (9) }&\C{  (10) }&\C{   (11)} \\
+\midrule     
+168-328  &     & 6.8 & \(0.152 \pm 0.001\) & \(1.42 \pm 0.09\) & \(1.45 \pm 0.05\) & \(0.018 \pm 0.003\) & 0.4--0.6 & \(33 \pm 3\) & \(0.017 \pm 0.001\) & \(0.115 \pm 0.005\)\\
+169-338  &     & 16.5 & \(0.059 \pm 0.001\) & \(1.76 \pm 0.48\) & \(1.50 \pm 0.05\) & \(0.002 \pm 0.001\) & 0.8--0.8 & \(43 \pm 8\) & \(0.049 \pm 0.006\) & \(0.035 \pm 0.005\)\\
+177-341  & HST1& 25.6 & \(0.144 \pm 0.001\) & \(1.21 \pm 0.02\) & \(1.21 \pm 0.02\) & \(0.018 \pm 0.003\) & 0.1--0.2 & \(30 \pm 5\) & \(0.064 \pm 0.003\) & \(0.115 \pm 0.005\)\\
+180-331  &     & 25.1 & \(0.061 \pm 0.007\) & \(1.30 \pm 0.04\) & \(1.27 \pm 0.05\) & \(0.003 \pm 0.001\) & 0.4--0.4 & \(35 \pm 7\) & \(0.067 \pm 0.007\) & \(0.047 \pm 0.005\)\\
+167-317  & LV2 & 7.8 & \(0.305 \pm 0.025\) & \(0.81 \pm 0.28\) & \(1.50 \pm 0.1\) & \(0.085 \pm 0.015\) & 0.1--0.2 & \(13 \pm 13\) & \(0.018 \pm 0.001\) & \(0.225 \pm 0.005\)\\
+         & LV2b& 7.0 & \(0.097 \pm 0.002\) & \(2.00 \pm 0.62\) & \(1.63 \pm 0.08\) & \(0.008 \pm 0.003\) & 0.8--0.8 & \(28 \pm 13\) & \(0.018 \pm 0.002\) & \(0.078 \pm 0.012\)\\
+163-317  & LV3 & 6.9 & \(0.334 \pm 0.002\) & \(1.81 \pm 0.11\) & \(1.81 \pm 0.15\) & \(0.075 \pm 0.025\) & 0.6--0.8 & \(35 \pm 5\) & \(0.018 \pm 0.001\) & \(0.205 \pm 0.025\)\\
+161-324  & LV4 & 6.2 & \(0.186 \pm 0.002\) & \(2.59 \pm 0.24\) & \(2.05 \pm 0.07\) & \(0.040 \pm 0.014\) & 0.8--1.0 & \(18 \pm 12\) & \(0.014 \pm 0.001\) & \(0.160 \pm 0.028\)\\
+168-323  & LV5 & 9.4 & \(0.213 \pm 0.002\) & \(1.57 \pm 0.07\) & \(1.60 \pm 0.07\) & \(0.055 \pm 0.005\) & 0.2--0.4 & \(20 \pm 5\) & \(0.022 \pm 0.001\) & \(0.190 \pm 0.010\)\\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\linewidth}
+  Notes --
+%
+  Col.~(1): Source ID \citep{ODell:1994a}.
+%
+  Col.~(2): Alternative name of source.
+% 
+  Col.~(3): Projected distance from \thC{}, arcseconds.
+%
+  Col.~(4): Apparent shell outer radius along axis, normalized to
+  projected distance, with \(\pm 1\sigma\) uncertainties, determined
+  from circle fits described in \S~\ref{sec:methodology}.
+% 
+  Col.~(5): Apparent shell radius of curvature, normalized to radius
+  along axis, with \(\pm 1\sigma\) uncertainties, determined from
+  circle fits described in \S~\ref{sec:methodology}.
+% 
+  Col.~(6): As Col.~(5) but applying the additional requirement that
+  the proplyd surface brightness from model fits should agree with the
+  theoretical prediction.
+%
+  Col.~(7): Proplyd-to-O~star wind momentum ratio (see \S~\ref{sec:crw-scenario}). 
+% 
+  Col.~(8): Proplyd wind anisotropy factor.
+% 
+  Col.~(9): Inclination to plane of sky, degrees.
+% 
+  Col.~(10): True distance from \thC{}, parsecs.
+%
+  Col.~(11): True shell radius along axis, normalized to distance.
+
+\end{minipage}
+\end{table*}
 %Measurements of proplyd's characteristic radii $R_c$ and $R_0$. The curves represent a single bow shock with fixed wind's momentum ratio $\beta$. 
 %The dots represent separations in inclination of $15^{\circ}$. The semitransparent curves represent bow shocks which the inner wind is isotropic and the full colored 
 %curves bow shocks which inner wind density decays as $\cos^{1/2}\theta$. The observational measurements are accompained with radial bars which represents the variations 
