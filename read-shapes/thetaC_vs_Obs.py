@@ -29,7 +29,8 @@ def theta_c(beta,xi=1.0):
     """
     theta_c defines the excentricity of a given conic
     """
-    arg = 3*(1.0/(1.0 - np.sqrt(beta)) - xi*(1.0 + np.sqrt(beta))**2/(1.0 - xi*beta)**2/(1 + 0.2*xi*beta))
+    Acurv = A(beta,xi)
+    arg = 2*Acurv - 3*xi*(1.0 + np.sqrt(beta))**2/(1.0 - xi*beta)**2/(1 + 0.2*xi*beta)
     return np.sign(arg)*np.arctan(np.sqrt(np.abs(arg)))
 
 def q(b):
@@ -121,4 +122,4 @@ plt.ylim(epsilon,4+epsilon)
 plt.xlabel(r"$R'_0/D'$")
 plt.ylabel(r"$R'_c/R'_0$")
 plt.title(r"$\xi={:.1f}$".format(Xi))
-plt.savefig("conic_xi-{}.pdf".format(Xi))
+plt.savefig("conic_xi-{:02.0f}.pdf".format(10*Xi)) #avoids writing a period in the file name
