@@ -8,9 +8,10 @@ Proplyds are comet-like structures observed in HII regions like Orion Nebula Clu
 These objects are interpreted as a D-type Ionization Front (IF) of a photoevaporated flow 
 originated in the protoplanetary disk of a nearby low mass YSO \citep{Johnstone:1998}.
 The pressure of the surrounding gas is not enough to confine this flow \citep{HA:1998}
-may be formed by the interaction of the photoevaporated wind of the proplyds with the stellar wind of $\theta^1~C~Ori$, which is highly supersonic $(M \sim 100)$. 
+may be formed by the interaction of the photoevaporated wind of the proplyds with the stellar wind of \thC{}, which is highly supersonic $(M \sim 100)$. 
 
-The density distribution of the photoevaporated flow can be determined using the steady state continuity equation and assuming that almost all ionizing photons are absorbed at the IF \citep{HA:1998} and ignoring dust absorption, can be found that
+The density distribution of the photoevaporated flow can be determined using the steady state continuity equation and assuming that almost all ionizing photons are absorbed at the IF 
+\citep{HA:1998} and ignoring dust absorption, can be found that
 
 \begin{align}
 N(r_{IF},\theta) = N_0 \cos^{0.5}\theta
@@ -142,10 +143,11 @@ R_c = R_0\left(1-2\gamma\right)^{-1}
 \label{eq:Rcurv}
 \end{equation}
 
-finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (make it in conics section)
+finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (\ref{eq:thc-conic})
 
 \begin{align}
-\tan^2\theta_c &= 3\left| \frac{\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{1}{\left(1-\beta^{1/2}\right)}\right| 
+\tan^2\theta_c &= \left| \frac{3\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{2}{\left(1-2\gamma\right)}\right| 
+\label{eq:thc-CRW}
 \end{align}
 
 \begin{figure*}
@@ -163,11 +165,8 @@ finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the p
 %easiest to measure. Therefore, we may compare both $R_c$ and $R_{90}$ against $R_0$ as shown in figure (\ref{fig:prop-shell-rad}). 
 
 With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds 
-momenta and different density distributions. 
+momenta and different density distributions. Figure \ref{fig:rad-beta} shows  eqautions  ( \ref{eq:B}), (\ref{eq:Rcurv}) and (\ref{eq:thc-CRW}) for different anisotropy indexes. 
 
-In figure (\ref{fig:conic-xi}) we show the theoretical conic curves for different vales of $\beta$ with a fixed $\xi$. Most of the proplyds fit well 
-with a elliptic-like conic shape and moderate to high degree of anisotropy of their wind.
-LV4 is a special case which fits better with an hyperbola and isotropic wind.
 
 %Although there is an analytical form for the radius of curvature, for $i\ne 0$ there is not an intuitive form for  $R'_c$. Plus, in practice, we are working with discret arrays, so, when transforming the shell's coordinates to the primed system, we almost certainly will miss the $\theta'=0$ point, which
 %should allow us to estimate the radii $(R'_0,R'_c)$, the first with equation (\ref{eq:Rpar}) and the second with the mathematical definition of the radius of curvature using the primed coordinates. Insted, we estimate $R'_0$ as the projected radius with the value of $\theta'$ closest to zero, and
@@ -182,26 +181,34 @@ LV4 is a special case which fits better with an hyperbola and isotropic wind.
 
 \subsubsection{Methodology}
 \label{sec:methodology}
-Using the DS9 SAO image tools, we marked the positions of the proplyds and $\theta^1 ~C$. For the shell's position, the marks were placed in the outer border of each shock. 
+Using the DS9 SAO image tools, we marked the positions of the proplyds and \thC{}. For the shell's position, the marks were placed in the outer border of each shock. 
 The number of marks used in each shell varies with shell's size, and with our confidence with our measurements.
-Thus, we used few points in small bow shocks and/our the bow shock's outer shell is not well defined. The distance $D$ is measured as the distance between the position of $\theta^1 ~C~Ori$ 
+Thus, we used few points in small bow shocks and/our the bow shock's outer shell is not well defined. The distance $D$ is measured as the distance between the position of \thC{} 
 and each proplyd's position. The radius of curvature $R_c$ is measured as the radius of the 
 best circle fit of all the data points taken for each proplyd's shell. Finally, we measure $R_0$ as the distance between the proplyd's position and the circle's border in the line which 
 include the center of curvature.
 To estimate the uncertainties of our measurements, we remove a fraction of the shell's marks, and made 10 sets of randomly chosen removed marks, and made the measurements again to 
-see how much these ``variations'' deviates from the original data. The results are summarized and explained in figure (\ref{fig:prop-shell-rad}).  In this figure, in the left side, for each source, 
-the fit is done using all the ds9 marks, while in the middle and the right we show two variations removing 2/3 of the marks, but always keeping at least four points. 
+see how much these ``variations'' deviates from the original data. Some examples are shown  in figure (\ref{fig:char-radii-obs}).  In the left side, for each source, 
+the fit is done using all the shell points, while in the middle and the right we show two variations removing 2/3 of thepoints, but always keeping at least four. 
 In the better observed shells such as 177-341 (top row), the circle
 fits are relatively robust to removing points, resulting in little variation between the subsamples. 
-But also there are cases where the variations are more noticeable.
+But also there are cases where the variations are more noticeable. Colums 3, 4 and 5 of table (\ref{tab:arc-fits}) represent the summary of all the measurements done. In colums 4 and 5, 
+the radii $(R_0,R_c)$ are measured as the average of all subsamples, and the uncertainty as the standard deviation.
+
+In figure (\ref{fig:conic-xi}) we show the theoretical conic curves. Most of the proplyds fit well 
+with a elliptic-like conic shape and moderate to high degree of anisotropy of their wind.
 
 Beneath the error margins, our measurements are consistent with \citet{Robberto:2005} for $R'_0/D$. From figure (\ref{fig:conic-xi}), we also
-note that the LV4 measurements fits better with models where its photoevaporated flow is isotropic. The same is true with \citet{Robberto:2005} data.The rest of the proplyds fit better with more anisotropic winds, which may explain why \citet{Robberto:2005} did not find a match between models
+note that the LV4 measurements fits better with models where its photoevaporated flow is isotropic. The same is true with \citet{Robberto:2005} data.
+The rest of the proplyds fit better with more anisotropic winds, which may explain why \citet{Robberto:2005} did not find a match between models
 and data, since they only showed models where the interacting winds are isotropic.
 
-Using the data from figure \ref{fig:conic-xi}, we estimate for each source the parameters $(\beta,i,\xi)$. With this, is possible to estimate the non projected distances $(R_0,D)$, from which we can estimate the stagnation pressure at the bow shock's position, 
-and compare it with the expected pressure from the stellar wind at the distance $D$. Since we expect equilibrium pressure in the bow shock surface, both pressures should be the same. In figure \ref{fig:pressure} we compare the estimated flux and 
-pressure to balance ionization in the photoevaporated flow and pressure balance, respectively.  For the farthest proplyds, we can see that the estimated pressure is greater than the stellar wind pressure, even with the best fits. This suggests that at large distances, another source rather than the 
+Using the data from figure \ref{fig:conic-xi}, we estimate for each source the parameters $(\beta,i,\xi)$. With this, is possible to estimate the non projected distances $(R_0,D)$, 
+from which we can estimate the stagnation pressure at the bow shock's position, 
+and compare it with the expected pressure from the stellar wind at the distance $D$. Since we expect equilibrium pressure in the bow shock surface, both pressures should be the same. 
+In figure \ref{fig:pressure} we compare the estimated flux and pressure to balance ionization in the photoevaporated flow and pressure balance, respectively. In column 6 of table \ref{tab:arc-fits}
+we selected some subsamples where the measurements of $R_c'$ lead to a better approach to ionization balance and pressure balance. 
+For the farthest proplyds, we can see that the estimated pressure is greater than the stellar wind pressure, even with the best fits. This suggests that at large distances, another source rather than the 
 stellar wind is the reponsible for mantaining the stationary bow shocks. 
 
 \begin{figure*}
@@ -266,7 +273,8 @@ $(\xi=0.2)$.}
 \begin{figure}
 \includegraphics[width=\linewidth]{../../proplyd-wind-figs/plot-wind-fits}
 \label{fig:pressure}
-\caption{Up: In colored lines,  the required ionizing flux to balance the photoevaporated flow for each proplyd. The gray line represents the stellar flux at the distance $D$. Down: In colored lines, estiamted stagnation pressure for each proplyd. 
+\caption{Top: In colored lines,  the required ionizing flux to balance the photoevaporated flow for each proplyd. The gray line represents the stellar flux at the distance $D$. 
+Bottom: In colored lines, estiamted stagnation pressure for each proplyd. 
 The gray solid line represent the stellar wind at the distance $D$. in both cases, the big dots represent the variations which have more agreement with ionization balance and pressure balance, respectively.}
 \end{figure}
 
