@@ -1,0 +1,65 @@
+* Revisiting the radius of curvature for the generalized CRW models
++ [2016-06-11 Sat] We find that the anisotropic models have smaller R_c than our analytic formula
+  + The first calculations of this are in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/papers/Paper1/oblate_analysis.ipynb]]
+  + We calculated radius of curvature directly from finite differences
+  + Another approach would be to fit the first few terms of a Taylor expansion:
+    + \(R(\theta) = R_{0} \left( 1 + \alpha \theta^{2} + \mathcal{O}(\theta^{4}) \right)\)
+  + Then the radius of curvature is
+    + \(A \equiv R_{c}/R_{0} = (1 - 2\alpha)^{-1}\)
+** Find R_c from fitting Taylor series
+
++ We could fit a polynomial in \(\theta^2\) to \(R(\theta)/R_{0}\) 
+  + Where \(\alpha\) is given by the linear (in \(\theta^2\)) term
+  + This is allowing the constant term to be different from 1
++ Or, we can put \(\hat\alpha(\theta) = ((R(\theta)/R_{0}) - 1)/\theta^{2}\) and then fit a polynomial in \(\theta^{2}\) to \(\hat\alpha(\theta)\)
+  + Then \(\alpha\) is given by the constant term in the fit
+  + This has the advantage of pinning radius to \(R_{0}\) on the axis
+*** Test out the mechanism for fixed \beta, \xi
+
++ This seems to work perfectly
+  + So long as we don't try and go to too large a value of theta in the fit
+
+#+BEGIN_SRC python :return table
+import numpy as np
+import equation6
+
+beta = 0.1
+xi = 0.2
+dtheta = 0.01
+N = 10
+NP = 3
+theta = dtheta*np.arange(N)
+thsq = theta**2
+shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
+R = shell.radius(theta)
+R0 = np.sqrt(beta)/(1 + np.sqrt(beta))
+
+ahat = (R/R0 - 1) / thsq
+m = np.isfinite(ahat)
+c = np.polyfit(thsq[m], ahat[m], NP)
+p = np.poly1d(c)
+residfrac = (p(thsq) - ahat)/ahat
+
+table = [ ['theta', 'R/R0', '(R/R0 - 1) / theta^2', 'Fit', 'Resid frac'], None]
+
+
+for row in zip(theta, R/R0, ahat, p(thsq), residfrac):
+    table.append(['{:.10f}'.format(x) for x in row])
+
+
+#+END_SRC
+
+#+RESULTS:
+|        theta |         R/R0 | (R/R0 - 1) / theta^2 |           Fit |    Resid frac |
+|--------------+--------------+----------------------+---------------+---------------|
+| 0.0000000000 | 1.0000000000 |                  nan | -0.1609797442 |           nan |
+| 0.0100000000 | 0.9999839027 |        -0.1609726756 | -0.1609727337 |  0.0000003607 |
+| 0.0200000000 | 0.9999356193 |        -0.1609517499 | -0.1609516958 | -0.0000003360 |
+| 0.0300000000 | 0.9998551750 |        -0.1609166375 | -0.1609166119 | -0.0000001590 |
+| 0.0400000000 | 0.9997426121 |        -0.1608674515 | -0.1608674527 |  0.0000000074 |
+| 0.0500000000 | 0.9995979896 |        -0.1608041639 | -0.1608041807 |  0.0000001051 |
+| 0.0600000000 | 0.9994213837 |        -0.1607267395 | -0.1607267543 |  0.0000000926 |
+| 0.0700000000 | 0.9992128878 |        -0.1606351335 | -0.1606351319 | -0.0000000100 |
+| 0.0800000000 | 0.9989726125 |        -0.1605292943 | -0.1605292779 | -0.0000001023 |
+| 0.0900000000 | 0.9987006858 |        -0.1604091628 | -0.1604091694 |  0.0000000417 |
+
