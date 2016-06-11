@@ -23,11 +23,11 @@
 import numpy as np
 import equation6
 
-beta = 0.1
-xi = 0.2
+beta = 1.0
+xi = 0.1
 dtheta = 0.01
 N = 10
-NP = 3
+NP = 2
 theta = dtheta*np.arange(N)
 thsq = theta**2
 shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
@@ -36,7 +36,7 @@ R0 = np.sqrt(beta)/(1 + np.sqrt(beta))
 
 ahat = (R/R0 - 1) / thsq
 m = np.isfinite(ahat)
-c = np.polyfit(thsq[m], ahat[m], NP)
+c = np.polyfit(thsq[2:], ahat[2:], NP)
 p = np.poly1d(c)
 residfrac = (p(thsq) - ahat)/ahat
 
@@ -46,20 +46,73 @@ table = [ ['theta', 'R/R0', '(R/R0 - 1) / theta^2', 'Fit', 'Resid frac'], None]
 for row in zip(theta, R/R0, ahat, p(thsq), residfrac):
     table.append(['{:.10f}'.format(x) for x in row])
 
+table.append(None)
+table.append(['{:.10f}'.format(x) for x in reversed(c)])
+
 
 #+END_SRC
 
 #+RESULTS:
-|        theta |         R/R0 | (R/R0 - 1) / theta^2 |           Fit |    Resid frac |
-|--------------+--------------+----------------------+---------------+---------------|
-| 0.0000000000 | 1.0000000000 |                  nan | -0.1609797442 |           nan |
-| 0.0100000000 | 0.9999839027 |        -0.1609726756 | -0.1609727337 |  0.0000003607 |
-| 0.0200000000 | 0.9999356193 |        -0.1609517499 | -0.1609516958 | -0.0000003360 |
-| 0.0300000000 | 0.9998551750 |        -0.1609166375 | -0.1609166119 | -0.0000001590 |
-| 0.0400000000 | 0.9997426121 |        -0.1608674515 | -0.1608674527 |  0.0000000074 |
-| 0.0500000000 | 0.9995979896 |        -0.1608041639 | -0.1608041807 |  0.0000001051 |
-| 0.0600000000 | 0.9994213837 |        -0.1607267395 | -0.1607267543 |  0.0000000926 |
-| 0.0700000000 | 0.9992128878 |        -0.1606351335 | -0.1606351319 | -0.0000000100 |
-| 0.0800000000 | 0.9989726125 |        -0.1605292943 | -0.1605292779 | -0.0000001023 |
-| 0.0900000000 | 0.9987006858 |        -0.1604091628 | -0.1604091694 |  0.0000000417 |
+|         theta |          R/R0 | (R/R0 - 1) / theta^2 |           Fit |    Resid frac |
+|---------------+---------------+----------------------+---------------+---------------|
+|  0.0000000000 |  1.0000000000 |                  nan | -0.1750000221 |           nan |
+|  0.0100000000 |  0.9999824995 |        -0.1750050347 | -0.1750050546 |  0.0000001139 |
+|  0.0200000000 |  0.9999299920 |        -0.1750200711 | -0.1750200816 |  0.0000000600 |
+|  0.0300000000 |  0.9998424596 |        -0.1750448911 | -0.1750448912 |  0.0000000008 |
+|  0.0400000000 |  0.9997198734 |        -0.1750791388 | -0.1750791306 | -0.0000000467 |
+|  0.0500000000 |  0.9995621942 |        -0.1751223158 | -0.1751223057 | -0.0000000577 |
+|  0.0600000000 |  0.9993693744 |        -0.1751737852 | -0.1751737812 | -0.0000000227 |
+|  0.0700000000 |  0.9991413594 |        -0.1752327734 | -0.1752327807 |  0.0000000419 |
+|  0.0800000000 |  0.9988780904 |        -0.1752983736 | -0.1752983867 |  0.0000000748 |
+|  0.0900000000 |  0.9985795067 |        -0.1753695491 | -0.1753695403 | -0.0000000503 |
+|---------------+---------------+----------------------+---------------+---------------|
+| -0.1750000221 | -0.0503839209 |         0.5881965600 |               |               |
+
+
+For very small \beta it seems to be better to not use the first two points in the fit 
+*** Find \alpha on a grid of \beta, \xi
+
+
+#+BEGIN_SRC python :eval no :tangle alpha-vs-beta-xi.py
+  import numpy as np
+  import equation6
+  from astropy.table import Table, Column
+
+  def find_alpha(beta, xi, dtheta=0.01, ntheta=10, npoly=2):
+      """Find the coefficient of theta**2 in the Taylor expansion of R(theta)"""
+      theta = dtheta*np.arange(ntheta)
+      thsq = theta**2
+      shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
+      R = shell.radius(theta)
+      R0 = np.sqrt(beta)/(1 + np.sqrt(beta))
+      ahat = (R/R0 - 1) / thsq
+      c = np.polyfit(thsq[2:], ahat[2:], npoly)
+      return c[-1]
+
+
+
+  if __name__ == '__main__':
+
+      xi_range = np.linspace(0.1, 1.0, 10)
+      beta_range = np.linspace(0.001, 1.0, 300)
+
+      tab = Table()
+      tab.add_column(Column(name='beta', data=beta_range, format='{:.6f}'))
+      for xi in xi_range:
+          # print(xi)
+          tab.add_column(Column(name='xi = {:.1f}'.format(xi),
+                                data=[find_alpha(beta, xi) for beta in beta_range],
+                                format='{:.6f}'))
+
+      tabfilename = 'alpha-vs-beta-xi.tab'
+      tab.write(tabfilename, format='ascii.tab')
+      print(tabfilename)
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python alpha-vs-beta-xi.py
+#+END_SRC
+
+#+RESULTS:
+[[file:alpha-vs-beta-xi.tab]]
 
