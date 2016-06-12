@@ -115,4 +115,69 @@ python alpha-vs-beta-xi.py
 
 #+RESULTS:
 [[file:alpha-vs-beta-xi.tab]]
+*** New analytic solution for \alpha
++ According to my new attempt at the small angle expansion we have
+  + \[\alpha = \frac{c}{1 + \beta^{1/2}} + \frac16 (1 + 2\beta^{1/2})\]
+  + \[c = \frac{1}{30} \left(1 - \beta - \frac34 k\right)\]
++ I still suspect this may not be quite right, perhaps the equation for \(c\) since I am pretty sure about the first one now
+  + Empirically, it seems that the coefficient of k should be 9/4, not 3/4
+
+#+BEGIN_SRC python :eval no :tangle alpha_analytic.py
+  import numpy as np
+
+  def alpha_from_c_beta(c, beta):
+      sb = np.sqrt(beta)
+      return c/(1.0 + sb) + (1.0 + 2.0*sb)/6.0
+
+
+  def c_from_beta_k(beta, k):
+      return (1.0 - beta - 3*3.0*k/4.0)/30.0
+
+
+  def k_from_xi(xi):
+      return 2.0/xi - 2.0
+
+
+  def alpha_from_beta_xi(beta, xi):
+      return alpha_from_c_beta(c_from_beta_k(beta, k_from_xi(xi)), beta)
+
+#+END_SRC
+*** Plot \alpha as function of \beta for each \xi
++ This comparees the numerical solution for the radius of curvature (line) with the analytical formula (symbols)
++ To get them to agree, we have had to fiddle the analyic result
+  + Next job is to verify this
+#+BEGIN_SRC python :return plotfile :results file
+  from matplotlib import pyplot as plt
+  from astropy.table import Table
+  import seaborn as sns
+  from alpha_analytic import alpha_from_beta_xi as alpha
+
+  plotfile = 'alpha-vs-beta-xi.pdf'
+  tab = Table.read('alpha-vs-beta-xi.tab', format='ascii.tab')
+  sns.set_palette('magma', 10)
+  fig, ax = plt.subplots(1, 1)
+  xcol = tab.colnames[0]
+  for ycol in tab.colnames[1:]:
+      line, = ax.plot(tab[xcol], tab[ycol], label=r'$\{}$'.format(ycol))
+      xi = float(ycol.split('=')[-1])
+      ax.plot(tab[xcol], alpha(tab[xcol], xi), 'o', markevery=20,
+              color=line.get_color(), label='')
+  ax.legend(ncol=2, fontsize='x-small', loc='lower right')
+  ax.set_xlabel(r'$\beta$')
+  ax.set_ylabel(r'$\alpha$')
+  ax.set_xlim(-0.03, 1.03)
+  fig.set_size_inches(3, 6)
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  fig.savefig(plotfile.replace('.pdf', '.png'), dpi=50)
+#+END_SRC
+
+#+RESULTS:
+[[file:alpha-vs-beta-xi.pdf]]
+
+
+Here is the image inline:
+
+[[file:alpha-vs-beta-xi.png]]
+
 
