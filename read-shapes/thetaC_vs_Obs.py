@@ -22,7 +22,8 @@ def A(b, xi):
     """
     k = 2*(1./xi - 1.)
     sb = np.sqrt(b)
-    alpha = (1 + 2*sb*(1 + 0.1*(1 - sb) - (3./40.)*k/(1  +sb)))/6.
+    c = (1 - b - 9.0*k/4.0)/30.0
+    alpha = (1.0 + 2*sb)/6.0 + c/(1 + sb)
     return 1./(1.0-2*alpha)
 
 def theta_c(beta,xi=1.0):
