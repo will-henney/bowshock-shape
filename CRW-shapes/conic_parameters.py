@@ -1,5 +1,4 @@
-from matplotlib import pyplot as plt
-import seaborn as sns
+import numpy as np
 from alpha_analytic import alpha_from_beta_xi as gamma
 
 def A(beta, xi):
@@ -34,5 +33,5 @@ def theta_c(beta,xi=1.0):
     """
     theta_c defines the excentricity of a given conic
     """
-    arg = 2*Abeta,xi) - B(beta, xi)**2
+    arg = 2*A(beta,xi) - B(beta, xi)**2
     return np.sign(arg)*np.arctan(np.sqrt(np.abs(arg)))

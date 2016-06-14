@@ -176,7 +176,17 @@ class BaseShell(object):
 
         try:
             # case where theta is iterable
-            return np.array([_radius(t) for t in theta])
+            rslt = np.empty_like(theta)
+            for i, t in enumerate(theta):
+                r = _radius(t)
+                if r > 0.0:
+                    rslt[i] = r
+                else:
+                    # assume we have got to th_max
+                    # so fill the remainder with NaNs
+                    rslt[i:] = np.nan
+                    break
+            return rslt
         except TypeError:
             # fall-over case where theta is scalar
             return _radius(theta)

@@ -62,10 +62,11 @@ class Conic(object):
         cosi = np.cos(np.radians(inc))
         tani = np.tan(np.radians(inc))
         if self.parab:
-            out = xtpar(self,inc,i) 
+            out = self.xtpar(self,inc,t) 
         else:
             out =  cosi*(1.0 + self.A*(fac1/self.b_a**2 + fac2*tani**2))
         return out
+    
     def xtpar(self,inc,t):
         """Observer-frame x'-position of parabola tangent line"""
 
@@ -86,7 +87,7 @@ class Conic(object):
         ct = np.cosh(t) if self.hyper else np.cos(t)
         tani = np.tan(np.radians(inc))
         if self.parab:
-            out =  ytpar(self,inc,t) 
+            out =  self.ytpar(self,inc,t) 
         else:
            out = np.sign(t)*(self.A/self.b_a)*np.sqrt(st**2 - (self.b_a*tani*ct)**2)
         return out
@@ -108,7 +109,7 @@ class Conic(object):
         return out
 
     def g(self, inc):
-        """q'/q = (R _0'/D') / (R_0/D) """
+        """q'/q = (R_0'/D') / (R_0/D) """
         return 1.0 + self.sign * self.A * (self.f(inc) - 1.0)/self.b_a**2
 
     def f(self, inc):
