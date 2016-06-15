@@ -1,0 +1,83 @@
+* Making a figure to illustrate the frames of reference
+** Just the body frame
+*** Plotting the surface on cartesian grid
+#+BEGIN_SRC python :return pltfile :results file
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
+import matplotlib.pyplot as plt
+import numpy as np
+
+pltfile = 'body-test.pdf'
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+X = np.arange(-5, 5, 0.5)
+Y = np.arange(-5, 5, 0.5)
+X, Y = np.meshgrid(X, Y)
+Z = X**2 + Y**2
+surf = ax.plot_surface(-Z, Y, X, color='white', rstride=1, cstride=1, #cmap=cm.coolwarm,
+                       linewidth=1, antialiased=True)
+ax.plot([0, 10], [0, 0], [0, 0], lw=4, color='orange')
+#ax.set_xlim(-30, 0)
+
+ax.zaxis.set_major_locator(LinearLocator(10))
+ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
+#fig.colorbar(surf, shrink=0.5, aspect=5)
+
+fig.savefig(pltfile)
+#+END_SRC
+
+#+RESULTS:
+[[file:body-test.pdf]]
+*** Plotting trisurf (unstructured grid)
+#+BEGIN_SRC python :return pltfile :results file
+  from mpl_toolkits.mplot3d import Axes3D
+  from matplotlib import cm
+  import matplotlib.pyplot as plt
+  import numpy as np
+
+  n_angles = 36
+  n_radii = 8
+
+  # An array of radii
+  # Does not include radius r=0, this is to eliminate duplicate points
+  radii = np.linspace(0.125, 1.4, n_radii)
+
+  # An array of angles
+  angles = np.linspace(0, 2*np.pi, n_angles, endpoint=False)
+
+  # Repeat all angles for each radius
+  angles = np.repeat(angles[...,np.newaxis], n_radii, axis=1)
+
+  # Convert polar (radii, angles) coords to cartesian (x, y) coords
+  # (0, 0) is added here. There are no duplicate points in the (x, y) plane
+  x = np.append(0, (radii*np.cos(angles)).flatten())
+  y = np.append(0, (radii*np.sin(angles)).flatten())
+
+  # Pringle surface
+  def zfunc(x, y):
+      return 1.0 - (x**2 + y**2)
+
+  z = zfunc(x, y)
+
+  pltfile = 'body-test-trisurf.pdf'
+  fig = plt.figure()
+  ax = fig.gca(projection='3d')
+
+  ax.plot_trisurf(x, y, z, color='white', linewidth=0.2)
+  ax.view_init(60, -45)
+  ax.set_axis_off()
+  ax.quiver([0, 1, 0], [0, 0, -1], [1, zfunc(1, 0), zfunc(0, 1)],
+            [0, 1, 0], [0, 0, -1], [1, 0, 0],
+            pivot='tail', lw=2, color=(0.8, 0.3, 0.1))
+  ax.autoscale_view(tight=True)
+  fig.set_size_inches(4, 4)
+  fig.tight_layout()
+  fig.savefig(pltfile)
+
+#+END_SRC
+
+#+RESULTS:
+[[file:body-test-trisurf.pdf]]
+

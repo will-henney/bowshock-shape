@@ -1,10 +1,26 @@
-\section{Conic section approximation}
+\section{Quadrics of revolution}
 \label{sec:conic}
 
 \newcommand\Sin{\ensuremath{\mathcal{S}}}
 \newcommand\Cos{\ensuremath{\mathcal{C}}}
 \newcommand\Cot{\ensuremath{\mathcal{T}}}
 
+For an arbitrary surface of revolution, application of
+equations~(\ref{eq:tanphi}, \ref{eq:tangential}) to determine the
+projected shape of the tangent line is not straightforward and in
+general requires numerical techniques.  However, analytical results
+can be found for the important class of surfaces known as
+\textit{quadrics of revolution} \citep{Goldman:1983a, Gfrerrer:2009a},
+which are formed by rotating a conic section plane curve about its
+symmetry axis.  Examples are the sphere, spheroids (oblate and
+prolate), and right circular paraboloids and hyperboloids.\footnote{We
+  consider only the case of a single sheet of a 2-sheet hyperboloid or
+  paraboloid.}  We ignore the degenerate cases of cylinders, cones,
+and pairs of parallel planes.  While mathematically simple, these
+quadrics are sufficiently flexible that they can provide a useful
+approximation to more complex bow shock shapes. 
+
+The 
 In this section we will analyze the case where the resultant shape  of the bow shock is a conic curve (circle, ellipse, parabola or hyperbola).
 These curves are mathematical simple to model and give us a good reference to understand the effects of the projection effects
 described in the last section on other bow shocks. The source of the inner wind is located at the origin, and the center of the conic is located at
@@ -16,8 +32,8 @@ a distance $x_0$ from the source.
 \begin{figure}
 \setlength\tabcolsep{0pt}
 \begin{tabular}{cc}
-\includegraphics[height=0.44\linewidth, trim=30 0 30 0, clip]{ellipse_py_lab} &
-\includegraphics[height=0.44\linewidth, trim=60 0 70 0, clip]{hyperbola_py_lab}
+\includegraphics[height=0.54\linewidth, trim=30 0 30 0, clip]{ellipse_py_lab} &
+\includegraphics[height=0.54\linewidth, trim=60 0 70 0, clip]{hyperbola_py_lab}
 \end{tabular}
 \label{fig:conics}
 \caption{Schematic representation of conic like bowshocks: A) Ellipse and B) Hyperbola The center of the conic is located at a distance $x_0=R_0-a$ from the origin at the $x$ axis. 
@@ -69,7 +85,7 @@ A \equiv \frac{R_c}{R_0}
 \end{align}
 From equations (\ref{eq:a-conic}) we can see that for $R^2_{90} > 2 R_c$, the conic parameter $a$ is negative, so in this case the resulting conic is an hyperbola, and we must take the negative root
 in equation (\ref{eq:thc-conic}). The opposite applies for ellipses.
-\subsection{Plane-of-sky projection of conic sections} 
+\subsection{Plane-of-sky projection of quadric surfaces} 
 \begin{figure*}
 \includegraphics[width=0.9\linewidth]{annotated}
 \caption{Projected Radius of curvature vs projected $R_0$ for $\theta_c=60^\circ,45^\circ,28^\circ, 0^\circ,-15^\circ,-30^\circ$. Each colored points represent
