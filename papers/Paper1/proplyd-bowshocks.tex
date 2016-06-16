@@ -1,14 +1,14 @@
 \RequirePackage{amsmath}
-\documentclass[useAMS,usenatbib]{mn2e}
+\documentclass[useAMS, usenatbib]{mnras}
 
 % The following is needed to fix the margins if using Letter-size paper
 % REMOVE if your LaTeX uses A4 paper by default
-\addtolength\topmargin{-1.8cm}
+%\addtolength\topmargin{-1.8cm}
 
 % Standard LaTeX packages
-\usepackage[varg]{txfonts}
-% \usepackage[varg]{newtxmath}
-% \usepackage{newtxtext}
+% \usepackage[varg]{txfonts}
+\usepackage[varg]{newtxmath}
+\usepackage{newtxtext}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{xcolor}
@@ -20,9 +20,14 @@
 \hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
   urlcolor=blue!50!black}
 
+%% Bold italic
+\newcommand\hmmax{0}            % we don't need heavy fonts
+\newcommand\bmmax{1}            % reduce use of math alphabets for bold
+\usepackage{bm}
+
 %% Bundled custom packages
 \usepackage{aastex-compat}
-\usepackage{astrojournals}
+%\usepackage{astrojournals}
 
 
 \title[Bowshock shapes]{True versus apparent shapes of astrophysical bow shocks}
@@ -49,9 +54,7 @@
 \input{sec-application}
 \input{sec-conclusions}
 
-%% TODO Investigate newer versions of BST file from
-%% https://github.com/timj/mn2e-bst
-\bibliographystyle{mn2e}
+\bibliographystyle{mnras}
 %% All references should be put in the BibTeX file bowshocks-biblio.bib
 \bibliography{bowshocks-biblio}
 

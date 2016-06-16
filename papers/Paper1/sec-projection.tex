@@ -1,9 +1,13 @@
+\newenvironment{Vector}{\left(\begin{array}{c}}{\end{array}\right)}
+\newcommand\uvec[1]{\bm{\hat{#1}}}
+\newcommand\T{_{\mathrm{\scriptscriptstyle T}}}
+
 \section{Projection onto the plane of the sky}
 \label{sec:projection}
 
 In this section we calculate the apparent shape on the plane of the
 sky of the limb brightened border of a shock or shell that is
-idealized as as arbitrary cylindrically symmetric surface.
+idealized as an arbitrary cylindrically symmetric surface.
 
 %Note: I'm aware that some of this material should be moved to an appendix, but I think it will be a future edition.
 \subsection{Frames of reference}
@@ -16,29 +20,32 @@ the symmetry axis, and spherical polar coordinates
 symmetric, it is can be specified as $R = R(\theta)$, so that
 cartesian coordinates on the surface are:
 \begin{equation}
-\left(\begin{array}{c}
-x \\ y \\ z
-\end{array}
-\right) = R(\theta)\left(\begin{array}{c}
-\cos\theta \\
-\sin\theta\cos\phi \\
-\sin\theta\sin\phi
-\end{array}\right).
+  \begin{Vector}
+    x \\ y \\ z
+  \end{Vector} 
+  = R(\theta)
+  \begin{Vector}
+    \cos\theta \\
+    \sin\theta\cos\phi \\
+    \sin\theta\sin\phi
+  \end{Vector}.
+  \label{eq:body-frame}
 \end{equation} 
-Suppose that the viewing direction makes an angle \(i\) with the \(z\)
-axis, so that we can define observer-frame coordinates
-\((x', y', z')\), which are given by the rotating the body-frame
-coordinates:
+Suppose that the viewing direction makes an angle \(i\) with the
+\(z\)~axis, so that we can define observer-frame coordinates
+\((x', y', z')\), which are found by rotating the body-frame
+coordinates about the \(y\)~axis:
 \begin{equation}
-\left(\begin{array}{c}
-x' \\ y' \\ z'
-\end{array}
-\right) = \left(\begin{array}{c}
-x\cos i - z\sin i\\
-y \\
-z\cos i + x\sin i
-\end{array}\right).
-\label{eq:Trans}
+  \begin{Vector}
+    x' \\ y' \\ z'
+  \end{Vector}
+  = 
+  \begin{Vector}
+    x\cos i - z\sin i\\
+    y \\
+    z\cos i + x\sin i
+  \end{Vector}.
+  \label{eq:Trans}
 \end{equation} 
 The relationship between the two frames is illustrated in
 Figure~\ref{fig:projection-pos}.  All quantities in the observer's
@@ -58,84 +65,170 @@ surface is viewed perpendicular to its axis (\textit{side on}) and
   \label{fig:projection-pos}
 \end{figure}
 
+
+\subsection{Unit vectors normal and tangential to the surface}
+\label{sec:unit-vectors-normal}
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/bowshock-unit-vectors}
+  \caption{Normal and tangential unit vectors}
+  \label{fig:unitvec}
+\end{figure}
+We define unit vectors \(\uvec{n}, \uvec{t}\), such that \(\uvec{n}\) is normal to the surface, while \(\uvec{t}\) is tangent to the surface in a plane of constant \(\phi\). For \(\phi = 0\) the surface lies in the \(xy\) plane and it is straightforward to show (Fig.~\ref{fig:unitvec}) that in this case the unit vectors are given by 
+\begin{equation}
+  \label{eq:uvec-phi0}
+  \uvec{t}_0 =
+  \begin{Vector}
+    -\cos\alpha \\ \sin\alpha \\ 0
+  \end{Vector}
+  \quad \mathrm{and} \quad
+  \uvec{n}_0 =
+  \begin{Vector}
+    \sin\alpha \\ \cos\alpha \\ 0
+  \end{Vector}, 
+\end{equation}
+where
+\begin{equation}
+  \label{eq:alpha}
+  \tan\alpha = -\left.\frac{dy}{dx}\right\vert_{R(\theta)} 
+  = \frac{1 + \omega \tan\theta}{\tan\theta - \omega}
+\end{equation}
+and 
+\begin{equation}
+  \label{eq:omega}
+  \omega(\theta) = \frac{1}{R} \frac{dR}{d\theta} . 
+\end{equation}
+For general \(\phi\), \(\uvec{n}\) and \(\uvec{t}\) can be found by rotating equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis, which can then be converted to the observer frame by use of equation~(\ref{eq:Trans}) to give
+\begin{gather}
+  \label{eq:nprime}
+  \begin{split}
+    \uvec{n}' = & \frac{1}{(1+\omega^2)^{1/2}} \\
+    & \times 
+      \begin{Vector}
+        (\cos\theta+\omega\sin\theta)\cos i 
+        - (\sin\theta-\omega\cos\theta) \sin i \sin\phi\\
+        (\sin\theta-\omega\cos\theta)\cos\phi \\
+        (\cos\theta+\omega\sin\theta)\sin i 
+        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
+      \end{Vector}\\
+  \end{split}\\
+  \label{eq:tprime}
+  \begin{split}
+    \uvec{t}' = & \frac{1}{(1+\omega^2)^{1/2}} \\
+    & \times 
+      \begin{Vector}
+        -(\sin\theta-\omega\cos\theta)\cos i
+        - (\cos\theta+\omega\sin\theta)\sin\phi\sin i \\
+        (\cos\theta+\omega\sin\theta)\cos\phi \\
+        -(\cos\theta+\omega\sin\theta)\sin i 
+        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
+      \end{Vector}
+  \end{split}
+  \end{gather}
+
 \subsection{Tangent line}
 
-The normal and tangent vectors to the shell's border in the shell's frame are given by:
-\begin{align}
-\hat{t} = \left(\begin{array}{c}
--\cos\alpha \\
-\sin\alpha\cos\phi\\
-\sin\alpha\sin\phi
-\end{array}\right)\\
-\hat{n} = \left(\begin{array}{c}
-\sin\alpha \\
-\cos\alpha\cos\phi \\
-\cos\alpha\sin\phi
-\end{array}\right)
-\end{align}
-Where:
-\begin{align}
-\tan\alpha = -\left.\frac{dy}{dx}\right|_{R(\theta)} \\
-\label{eq:tanalpha}
-\end{align}
-Then we apply the transformation (\ref{eq:Trans}) to the normal and tangent vectors to obtain:
-\begin{align}
-\hat{n}' &= \left(\begin{array}{c}
-(\cos\theta+\omega\sin\theta)\cos i -(\sin\theta-\omega\cos\theta)\sin i \sin\phi\\
-(\sin\theta-\omega\cos\theta)\cos\phi \\
-(\cos\theta+\omega\sin\theta)\sin i + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
-\end{array}\right)\\
-\hat{t}' &= \left(\begin{array}{c}
--(\sin\theta-\omega\cos\theta)\cos i - (\cos\theta+\omega\sin\theta)\sin\phi\sin i \\
-(\cos\theta+\omega\sin\theta)\cos\phi \\
--(\cos\theta+\omega\sin\theta)\sin i + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
-\end{array}\right)
-\end{align}
-Where $\omega = \frac{1}{R}\frac{dR}{d\theta}$
+% For optically thin emission with isotropic emissivity \(j\), the observed
+% surface brightness for any line of sight that intersects the shell is
+% \(S = \int j \, dz' / 4\pi\). 
+ 
+% If the shell thickness is \(h(\theta)\) and emissivity is
+% \(j(\theta)\), then for optically thin emission the observed
+% surface brightness for any line of sight that intersects the shell is
+% \(S = j s / 4\pi\), where \(s\)
 
-In the thin shell case, the limb brightened border of the shell is such that $\hat{n}'\cdot \hat{z}'$. 
-The values for $\phi$ that satisfy this relation for each inclination $i$ are given by:
+% in the limit \(h \ll R\) and
+% \(\mu\) is
+% the cosine of the angle between the line of sight and the local normal
+% to the shell surface at the point of intersection:
+% \begin{equation}
+%   \label{eq:2}
+%   \mu = \uvec{n} \cdot \uvec{z}'
+% \end{equation}
+
+The boundary on the plane of the sky of the projected surface is the
+locus of those lines of sight that graze the surface tangentially.
+This corresponds to a curved line on the surface itself, which we
+denote the \textit{tangent line}, and which is defined by the
+condition 
 \begin{equation}
-\sin\phi_t = \tan i\tan\alpha = \tan i \frac{1+\omega\tan\theta}{\omega-\tan\theta}
+  \label{eq:tangent-line-condition}
+  \uvec{n}'\cdot \uvec{z}' = 0.
+\end{equation}
+We denote by \(\phi\T\) that value of $\phi$ that satisfies this
+relation for a given inclination, \(i\), and polar angle, \(\theta\):
+\begin{equation}
+\sin\phi\T = \tan i\tan\alpha = \tan i \frac{1+\omega\tan\theta}{\omega-\tan\theta}
 \label{eq:tanphi}
 \end{equation}
-With this, the coordinates of the limb brightened shell are given by:
+From equations~(\ref{eq:body-frame}, \ref{eq:Trans}) it follows that
+the observer-frame coordinates of the tangent line are given by
 \begin{equation}
 \left(\begin{array}{c}
-x'_t \\ y'_t \\ z'_t
+x'\T \\ y'\T \\ z'\T
 \end{array}\right)= R(\theta)\left(\begin{array}{c}
-\cos\theta\cos i - \sin\theta\sin\phi_t \sin i \\
-\sin\theta(1-\sin^2\phi_t)^{1/2} \\
-\cos\theta\sin i +\sin\theta\sin\phi_t\cos i
-\end{array}\right)
+\cos\theta\cos i - \sin\theta\sin\phi\T \sin i \\
+\sin\theta(1-\sin^2\phi\T)^{1/2} \\
+\cos\theta\sin i +\sin\theta\sin\phi\T\cos i
+\end{array}\right).
 \label{eq:tangential}
 \end{equation} 
+Note that, in general, \(z'\T\) is not a linear function of \(x'\T\)
+and \(y'\T\), so that the tangent line is not a plane curve. 
 
-It is important to note that the equation (\ref{eq:tanphi}) does not have a solution for arbitrary values for $\theta$ and $i$, since
-it's required that $|\sin\phi_t|<1$. If $i\neq 0$, then, the  allowed values for $\theta$ are such that $\theta > \theta_\parallel$, where
-$\theta_\parallel$ is given implicitly by:
+The apparent shape \((x'\T, y'\T)\) of the tangent line on the plane
+of the sky can also be described in polar form as \(R'(\theta')\),
+where
+\begin{equation}
+  \label{eq:R-prime-theta-prime}
+  R' = (x'^2\T+ y'^2\T)^{1/2} 
+  \quad \text{and} \quad
+  \tan\theta' = y'\T / x'\T.
+\end{equation}
+It is important to note that equation~(\ref{eq:tanphi}) does not have
+a solution for arbitrary values of $\theta$ and $i$, but only when
+$|\tan i\tan\alpha|<1$. In particular, if $i\neq 0$, then the tangent
+line only exists for \(\theta > \theta_{0}\) where \(\theta_{0}\) is
+given implicitly by
 \begin{align}
-\tan\theta_\parallel = \frac{|\tan i| + \omega(\theta_\parallel)}{1-\omega(\theta_\parallel) |\tan i|}
+\tan\theta_{0} = \frac{|\tan i| + \omega(\theta_{0})}{1-\omega(\theta_{0}) |\tan i|} . 
 \label{eq:thetapar}
 \end{align}
+In addition, if the surface is sufficiently ``open''
+(\(\alpha > \alpha_{\mathrm{min}} > 0\) for all \(\theta\)), then for
+those inclinations with
+\(\vert i\vert > (90^\circ - \alpha_{\mathrm{min}}) \) the tangent
+line does not exist for any value of \(\theta\).  In other words, when
+the viewing angle is sufficiently close to face-on, the projected
+surface has no ``edge'' and will no longer appear to be a bow shock.
 
 \subsection{Parallel and perpendicular projected shell radii}
 
 Considering further applications to bow shocks, we will consider open shells. In order to compare the shell shape given by $R(\theta)$ with observations,
-it is convenient to define the following apparent radii in the observer frame: $R'_\parallel$ and $R'_\perp$. These are projected distances of the shell tangent line
-from the origin. The first is measured in the direction of the symetry axis, and the second in a perpendicular direction. More concretely $R'_\parallel = x'_t(y'_t=0)$
-and $R'_\perp = y'_t(x'_t=0)$. From equations (\ref{eq:tanphi}) and (\ref{eq:tangential}) we find that:
+it is convenient to define the following apparent radii in the observer frame: $R'_{0}$ and $R'_{90}$. These are projected distances of the shell tangent line
+from the origin. The first is measured in the direction of the symetry axis, and the second in a perpendicular direction. More concretely $R'_{0} = x'\T(y'\T=0)$
+and $R'_{90} = y'\T(x'\T=0)$. From equations (\ref{eq:tanphi}) and (\ref{eq:tangential}) we find that:
 \begin{align}
-R'_\parallel = R(\theta_\parallel)\cos(\theta + i) \label{eq:Rpar} 
+R'_{0} = R(\theta_{0})\cos(\theta + i) \label{eq:Rpar} 
 \end{align}
-Where $\theta_\parallel$ is the solution of equation (\ref{eq:thetapar}), and
+Where $\theta_{0}$ is the solution of equation (\ref{eq:thetapar}), and
 \begin{align}
-R'_\perp = R(\theta_\perp)\sin\theta_\perp\left(1-\sin^2(\phi_t(\theta_\perp))\right)^{1/2}
+R'_{90} = R(\theta_{90})\sin\theta_{90}\left(1-\sin^2(\phi\T(\theta_{90}))\right)^{1/2}
 \end{align}
-Where $\theta_\perp$ is the solution of the next implicit equation:
+Where $\theta_{90}$ is the solution of the next implicit equation:
 \begin{align}
-\cot\theta_\perp = \frac{1-\left(1+\omega(\theta_\perp)^2\sin^22i\right)^{1/2}}{2\omega(\theta_\perp\cos^2 i)}
+\cot\theta_{90} = \frac{1-\left(1+\omega(\theta_{90})^2\sin^22i\right)^{1/2}}{2\omega(\theta_{90})\cos^2 i}
 \end{align}
+
+
+  \subsection{Line-of-sight velocities on the tangent line}
+  \label{sec:line-sight-veloc}
+  Motions in a thin shocked shell will be predominantly tangential to the shell surface. In addition, for the particular case of wind-wind bowshocks, the flow in each azimuthal slice can be shown to be independent \citep{Wilkin:2000a}, which implies that the shell velocity is parallel to \(\uvec{t}\). The projected line-of-sight shell velocity is therefore
+  \begin{equation}
+    \label{eq:vlos}
+    v_{\mathrm{los}} = (\uvec{t}' \cdot -\uvec{z}') \, v_{\parallel}(\theta) = \frac{v_{\parallel}(\theta) (1+\omega^2)^{1/2} \sin i }{\sin\theta - \omega\cos\theta} ,
+  \end{equation}
+  where \( v_{\parallel}(\theta)\) is the gas velocity along the shell and the standard sign convention has been adopted such that velocities away from the observer are deemed positive. 
 
 
 %%% Local Variables:
