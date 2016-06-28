@@ -54,19 +54,19 @@ table.append(['{:.10f}'.format(x) for x in reversed(c)])
 
 #+RESULTS:
 |         theta |          R/R0 | (R/R0 - 1) / theta^2 |           Fit |    Resid frac |
-|---------------+---------------+----------------------+---------------+---------------|
-|  0.0000000000 |  1.0000000000 |                  nan | -0.1750000221 |           nan |
-|  0.0100000000 |  0.9999824995 |        -0.1750050347 | -0.1750050546 |  0.0000001139 |
-|  0.0200000000 |  0.9999299920 |        -0.1750200711 | -0.1750200816 |  0.0000000600 |
-|  0.0300000000 |  0.9998424596 |        -0.1750448911 | -0.1750448912 |  0.0000000008 |
-|  0.0400000000 |  0.9997198734 |        -0.1750791388 | -0.1750791306 | -0.0000000467 |
-|  0.0500000000 |  0.9995621942 |        -0.1751223158 | -0.1751223057 | -0.0000000577 |
-|  0.0600000000 |  0.9993693744 |        -0.1751737852 | -0.1751737812 | -0.0000000227 |
-|  0.0700000000 |  0.9991413594 |        -0.1752327734 | -0.1752327807 |  0.0000000419 |
-|  0.0800000000 |  0.9988780904 |        -0.1752983736 | -0.1752983867 |  0.0000000748 |
-|  0.0900000000 |  0.9985795067 |        -0.1753695491 | -0.1753695403 | -0.0000000503 |
-|---------------+---------------+----------------------+---------------+---------------|
-| -0.1750000221 | -0.0503839209 |         0.5881965600 |               |               |
+|---------------+---------------+---------------------+---------------+---------------|
+|  0.0000000000 |  1.0000000000 |                 nan | -0.1750000221 |           nan |
+|  0.0100000000 |  0.9999824995 |       -0.1750050347 | -0.1750050546 |  0.0000001139 |
+|  0.0200000000 |  0.9999299920 |       -0.1750200711 | -0.1750200816 |  0.0000000600 |
+|  0.0300000000 |  0.9998424596 |       -0.1750448911 | -0.1750448912 |  0.0000000008 |
+|  0.0400000000 |  0.9997198734 |       -0.1750791388 | -0.1750791306 | -0.0000000467 |
+|  0.0500000000 |  0.9995621942 |       -0.1751223158 | -0.1751223057 | -0.0000000577 |
+|  0.0600000000 |  0.9993693744 |       -0.1751737852 | -0.1751737812 | -0.0000000227 |
+|  0.0700000000 |  0.9991413594 |       -0.1752327734 | -0.1752327807 |  0.0000000419 |
+|  0.0800000000 |  0.9988780904 |       -0.1752983736 | -0.1752983867 |  0.0000000748 |
+|  0.0900000000 |  0.9985795067 |       -0.1753695491 | -0.1753695403 | -0.0000000503 |
+|---------------+---------------+---------------------+---------------+---------------|
+| -0.1750000221 | -0.0503839209 |        0.5881965600 |               |               |
 
 
 For very small \beta it seems to be better to not use the first two points in the fit 
@@ -183,6 +183,8 @@ Here is the image inline:
 
 #+BEGIN_SRC python :eval no :tangle conic_parameters.py
   import numpy as np
+  from scipy.optimize import fsolve
+  from scipy.special import gamma as gamma_func
   from alpha_analytic import alpha_from_beta_xi as gamma
 
   def A(beta, xi):
@@ -207,20 +209,53 @@ Here is the image inline:
       return numerator/denominator
 
 
-  def B(beta, xi):
-      numerator = np.sqrt(3*xi)*(1+np.sqrt(beta))
-      denominator = (1.-xi*beta)*np.sqrt(1.+0.2*xi*beta)
-      return numerator/denominator
-
-
   def theta_c(beta,xi=1.0):
       """
       theta_c defines the excentricity of a given conic
       """
       arg = 2*A(beta,xi) - B(beta, xi)**2
       return np.sign(arg)*np.arctan(np.sqrt(np.abs(arg)))
+
+
+
+  #
+  # Now, functions for the hyperbola that fits the tail
+  #
+
+  def finf(th, beta, xi):
+      """Function that gives f(theta) = 0 when theta = theta_infty
+  
+      Version for hemispheric flow with anisotropy xi
+      """
+      k = 2./xi-2
+      C = (k+2*(1-beta))/(k+2)
+      I = np.sqrt(np.pi)*gamma_func(0.5*(k+1))/(4*gamma_func(0.5*k+2))
+      D = np.pi + 2*beta*I
+      return th - C*np.tan(th) - D
+
+  def finf_CRW(th, beta):
+      """Function that gives f(theta) = 0 when theta = theta_infty
+  
+      Version for spherically symmetric flow, as in CRW
+      """
+      return th - np.tan(th) - np.pi/(1.0 -beta)
+
+
+  def theta_tail(beta, xi, f=finf, th_init=np.radians(91.0)):
+      """Opening half-angle of tail: th1_infty
+
+      This version only works with scalar args `beta` and `xi`
+      """
+      thinf = fsolve(f, th_init, args=(beta, xi))
+      return np.pi - thinf
 #+END_SRC
 
+
+
+
+* The fit to the tail
++ We have determined the \theta_c = -\theta_{1,\infty} for the tail
++ But this does not uniquely determine the hyperbola
 * Comparing the conic fits with the numerical solutions
 #+BEGIN_SRC python :eval no :tangle crw-conic-compare.py
   import sys
@@ -268,9 +303,25 @@ Here is the image inline:
           x_con = c.x(t)
           y_con = c.y(t)
 
-          # Compare the two curves
+          # Fit to tail
+          th_tail = np.degrees(conic_parameters.theta_tail(beta, xi))
+          c2 = Conic(A=A, th_conic=-th_tail)
+          t2 = c2.make_t_array()
+          x_tail = c2.x(t2)
+          y_tail = c2.y(t2)
+      
+          # Renormalize to give the same B
+          y90_tail = np.abs(y_tail[np.argmin(x_tail**2)])
+          y90_con = np.abs(y_con[np.argmin(x_con**2)])
+          fac = y90_con/y90_tail
+          print('beta = {:.3f}, xi = {:.1f}. Renormalizing by {:.3f}'.format(beta, xi, fac))
+          #x_tail *= fac
+          y_tail *= fac
+
+          # Compare the three curves
           ax.plot(x_crw, y_crw)
           ax.plot(x_con, y_con, '--')
+          ax.plot(x_tail, y_tail, ':')
           ax.plot(0.0, 0.0, 'o', color='k')
           ax.axhline(ls=':')
           ax.axvline(ls=':')
