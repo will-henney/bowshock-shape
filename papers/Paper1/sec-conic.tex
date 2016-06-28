@@ -73,13 +73,13 @@ To determine uniquely a given conic in terms of measurable quantities, we use th
 could be derived from the former. The transformation between the conic parameters and the characteristic radii are given by:
 \begin{align}
 \frac{R_c}{D} &= \frac{b^2}{a} \label{eq:Rc-conic}\\ 
-\frac{R_{90}}{D} &= b\left(1 \mp \frac{(R_0-a)^2}{a^2}\right)
+\frac{R_{90}}{D} &= b\left[\pm\left(1 - \frac{(R_0-a)^2}{a^2}\right)\right]^{1/2}
 \end{align}
 The inverse transformation is given by:
 \begin{align}
-a &= \frac{R_c}{2A-B^2} \label{eq:a-conic}\\
-b &= \left(aR_c\right)^{1/2}\\
-\theta_c &= \left|B^2 - 2A\right|^{1/2} \label{eq:thc-conic} \\
+\frac{a}{R_0} &= \frac{A}{2A-B^2} \label{eq:a-conic}\\
+\frac{|b|}{R_0} &= \frac{A}{\left|2A-B^2\right|}\\
+\tan\theta_c &= \left|B^2 - 2A\right|^{1/2} \label{eq:thc-conic} \\
 \mathrm{where:}& B\equiv \frac{R_{90}}{R_0} \\
 A \equiv \frac{R_c}{R_0}
 \end{align}
@@ -144,8 +144,7 @@ R'_0 = a' - (a-R_0)\cos i \\
 R'_0 = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (a-R_0)\cos i
 \end{align}
 
-With  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ and introducing the
-radius of curvature $R_c\equiv \frac{b^2}{a}$ we find that:
+With  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
 \begin{align}
 \frac{R'_0}{D'}=\frac{R_0}{D}\left(1+A\cot^2\theta_c(f(i;\theta_c)-1) \right)
 \end{align}

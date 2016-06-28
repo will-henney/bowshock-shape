@@ -25,7 +25,10 @@ n(r_{IF},\theta) = n_0 \cos^{k}\theta
 \label{eq:ngen}
 \end{align}
 
-Where $k >0$ implies that the wind's density decays towards wings, when $k<0$ the wind's density incresases towards the wings and $k=0$ implies that the wind is isotropic.
+Where $k >0$ implies that the wind's density decays towards wings, when $k<0$ the wind's density incresases towards the wings and $k=0$
+implies that the wind is isotropic.
+In this generalization we are assuming that the inner wind is hemispheric, i.e. the density of the photoevaporated flow behind the source is zero, since equation
+(\ref{eq:ngen}) leads to non realistic values for density when $\theta > \frac{\pi}{2}$
 
 \subsection{\CRW{} Scenario}
 \label{sec:crw-scenario}
@@ -37,19 +40,34 @@ $\beta\equiv\frac{\dot{M}_wv_w}{\dot{M}_{w1}v_{w1}}$, the winds
 momentum ratio, which the quantities with subindex 1 corresponds to
 the strongest wind, therefore $\beta<=1$.
 
-If we apply the \CRW{} formalism for a more generalized photoevaporated flow with density given by (\ref{eq:ngen}), we find that the solutions for equations (8) - (11) of \CRW{} are the following:
+%If we apply the \CRW{} formalism for a more generalized photoevaporated flow with density given by (\ref{eq:ngen}),
+%we find that the solutions for equations (8) - (11) of \CRW{} are the following:
+
+If we apply the \CRW{} formalism for a generalized photoevaporated flow with density given by equation (\ref{eq:ngen}),
+the shell shape $R(\theta)$ may be calculated from equation (6) of CRW{}:
 
 \begin{align}
-\dot{M}_w &= \frac{\dot{M}_w^0}{2(k+1)}\left(1-\cos^{k+1}\theta\right) \label{eq:dotprop} \\
-\mathrm{where} & M^0_w \equiv 4\pi v_w r^2_{IF} n_0 \bar{m}\\
+  R = \frac{\dot{J}_w + \dot{J}_{w1}}{\left(\dot{\Pi}_{wr}+\dot{\Pi}_{wr1}\right)\cos\theta-\left(\dot{\Pi}_{wz1}+\dot{\Pi}_{wz1}\right)\sin\theta}
+  \label{eq:Rmom}
+\end{align}
+
+Where:
+
+\begin{align}
 \dot{\Pi}_z &= \frac{v_w\dot{M}_w^0}{2(k+2)}\left(1-\cos^{5/2}\theta\right)  \label{eq:pir}\\
-\dot{\Pi}_r &= \frac{1}{2}\dot{M}^0_w V_w I_k (\theta) \label{eq:piz}\\
+\dot{\Pi}_r &= \frac{1}{2}\dot{M}^0_w v_w I_k (\theta) \label{eq:piz}\\
 I_k(\theta) & = \int^\theta_0 \cos^k \theta \sin^2\theta~d\theta \\
-\dot{J}_w = 0 \label{eq:jdot}
+\dot{J}_w = 0 \label{eq:jdot} \\
+\dot{M}_w &= \frac{\dot{M}_w^0}{2(k+1)}\left(1-\cos^{k+1}\theta\right) \label{eq:dotprop} \\
+M^0_w &\equiv 4\pi v_w r^2_{IF} n_0 \bar{m}\\
+\dot{\Pi}_{wz1} & = -\frac{\dot{M}^0_{w1}v_{w1}}{4}\sin^2\theta_1\\
+\dot{\Pi}_{wr1} & = \frac{\dot{M}^0_{w1}v_{w1}}{4}\left(\theta_1-\sin\theta_1\cos\theta_1\right)\\
+\dot{J}_{w1} & = \frac{\dot{M}^0_{w1}v_{w1}}{4}\left(\theta_1-\sin\theta_1\cos\theta_1\right)D \label{eq:jdot1}
 \end{align}  
-Combining equations  (\ref{eq:dotprop}) to (\ref{eq:jdot}) with equation (6) of \CRW{}  we can obtain the bow shock shape $R(\theta)$. Actually, we work with two different scenarios:
-% as illustred in figure (\ref{fig:r-beta}), where we show the resulting bow shock shapes for two scenarios:
-$k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, the ``isotropic case'', following \CRW{}. The comparison betwwen both solutions is shown in figure (\ref{fig:r-beta}).
+Combining equations  (\ref{eq:pir}) to (\ref{eq:jdot1}) we can obtain the bow shock shape $R(\theta)$ from equation (\ref{eq:Rmom}).
+The most notable scenarios, since they have astrophysical relevance are the following:
+$k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, the ``isotropic case'', following \CRW{}. The comparison between both solutions
+is shown in figure (\ref{fig:r-beta}), along with an extreme anisotropy case.
 
 
 % Combining equations (6),(9)-(11) and (19)-(23) from \citep{Canto:1996} and (\ref{eq:nprop}), we can solve numerically for $R(\theta)$, which gives us the shell's shape. Also we can
@@ -82,9 +100,7 @@ $k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, 
 
 \subsection{Characteristic Radii}
 
-In order to find an analytic form of the characteristic radii $(R_0,R_c,R_{90})$, we may combine equations (\ref{eq:dotprop}) to (\ref{eq:jdot}) with (6) and (23) from \CRW{}
-and obtain the following relation:
-
+%Here goes a little introduction
 
 \begin{align}
 \theta_1\cot\theta_1 -1 = 2\beta I_k(\theta) \cot\theta - \frac{2\beta}{k+2}\left(1-\cos^{k+2}\theta\right)
@@ -97,8 +113,8 @@ We can obtain $R_{90}$ by the following process:
 Evaluating equations  (\ref{eq:th1th}) and (23) from \CRW{} at $\theta=\frac{\pi}{2}$ we obtain the following:
 
 \begin{align}
-R_{90} &= D\tan\theta_{1,90} \\
-\theta_{1,90}\cot\theta_{1,90} &= 1-\frac{2\beta}{k+2} \label{eq:th190}
+R_{90} = D\tan\theta_{1,90} \\
+\theta_{1,90}\cot\theta_{1,90} = 1-\frac{2\beta}{k+2} \label{eq:th190}
 \end{align}
 Where $\theta_{1,90}\equiv \theta_1(\frac{\pi}{2})$. Combining both equations and  introducing the parameter 
 $\xi\equiv \frac{2}{k+2}$ we have:
@@ -111,7 +127,7 @@ R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta}
 Solving for $\theta_{1,90}$ from equation (\ref{eq:th190}), using a small angle  approximation, we find that:
 
 \begin{align}
-\theta_{1,90} \simeq \left(\frac{3\xi\beta}{1+\frac{1}{5}\xi\beta}\right)^{1/2} \\
+\theta_{1,90} &\simeq \left(\frac{3\xi\beta}{1+\frac{1}{5}\xi\beta}\right)^{1/2} \\
 \label{eq:th190sol}
 \end{align}
 
@@ -125,15 +141,15 @@ B = \frac{\sqrt(3\xi)\left(1+\beta^{1/2}\right)}{(1-\xi\beta)\left(1+\frac{1}{5}
 Now, to obtaining $R_c$ we expand  (\ref{eq:th1th}) until order 4th order for small $\theta$ values to find that for such values
 
 \begin{align}
-\theta_1^2 &\simeq \beta\theta^2\left[1+ \left(A_k-\frac{\beta}{15}\right)\theta^2\right] \\
-\mathrm{where:~} & A_k = \frac{1}{15}-\frac{k}{20}
+\theta_1^2 &\simeq \beta\theta^2\left[1+ 2C_{k\beta}\theta^2\right] \\
+\mathrm{where:~} & C_{k\beta} \equiv \frac{1}{30}\left(1-\beta-\frac{9}{4}k\right)
 \end{align}
 Expanding equation (23) from \citep{Canto:1996} and substituting $\theta_1$ we found that:
 
 \begin{align}
 R &\simeq R_0 \left(1+\gamma\theta^2\right)
 \label{eq:R_approx} \\
-\mathrm{where:~} & \gamma = \frac{1}{6} + \frac{\beta^{1/2}}{3}\left[1+\frac{1-\beta^{1/2}}{10}-\frac{3}{40}\frac{k}{1+\beta^{1/2}}\right]
+\mathrm{where:~} & \gamma = \frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{6}(1-2\beta^{1/2})
 \end{align}
 
 Which lead us to derive the radius of curvature at the symmetry axis:
