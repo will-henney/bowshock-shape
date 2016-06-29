@@ -233,11 +233,12 @@ Here is the image inline:
       D = np.pi + 2*beta*I
       return th - C*np.tan(th) - D
 
-  def finf_CRW(th, beta):
+  def finf_CRW(th, beta, xi):
       """Function that gives f(theta) = 0 when theta = theta_infty
   
       Version for spherically symmetric flow, as in CRW
       """
+      assert xi is None, 'Parameter xi is meaningless for vanilla CRW'
       return th - np.tan(th) - np.pi/(1.0 -beta)
 
 
@@ -256,6 +257,10 @@ Here is the image inline:
 * The fit to the tail
 + We have determined the \theta_c = -\theta_{1,\infty} for the tail
 + But this does not uniquely determine the hyperbola
++ We can assume tha the center of the hyperbola is the "other" star
+  + So this is at x/r_0 = D/r_0 = (1 + \beta^{1/2}) / \beta^{1/2}
+  + We can draw the asymptote from their to check this
+
 * Comparing the conic fits with the numerical solutions
 #+BEGIN_SRC python :eval no :tangle crw-conic-compare.py
   import sys
@@ -271,8 +276,7 @@ Here is the image inline:
   def R_from_theta(theta, beta, xi):
       shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
       R = shell.radius(theta)
-      R0 = np.sqrt(beta)/(1 + np.sqrt(beta))
-      return R/R0
+      return R/shell.R0
 
 
   xigrid = [1.0, 0.8, 0.4, 0.1]
@@ -303,33 +307,44 @@ Here is the image inline:
           x_con = c.x(t)
           y_con = c.y(t)
 
-          # Fit to tail
+          # Hyperbola fit to tail
           th_tail = np.degrees(conic_parameters.theta_tail(beta, xi))
-          c2 = Conic(A=A, th_conic=-th_tail)
-          t2 = c2.make_t_array()
-          x_tail = c2.x(t2)
-          y_tail = c2.y(t2)
-      
-          # Renormalize to give the same B
-          y90_tail = np.abs(y_tail[np.argmin(x_tail**2)])
-          y90_con = np.abs(y_con[np.argmin(x_con**2)])
-          fac = y90_con/y90_tail
-          print('beta = {:.3f}, xi = {:.1f}. Renormalizing by {:.3f}'.format(beta, xi, fac))
-          #x_tail *= fac
-          y_tail *= fac
+
+          # First draw the asymptote
+          D = (1 + np.sqrt(beta))/np.sqrt(beta)
+          b_a = np.tan(np.radians(th_tail))
+          x_cone = np.linspace(-10*D, 10*D, 3)
+          y_cone = -b_a*(x_cone - 0.5*(1 + np.sqrt(beta))*D)
+          print(th_tail, b_a, x_cone, y_cone)
+
+  
+          # c2 = Conic(A=0.3*A, th_conic=-th_tail)
+          # t2 = c2.make_t_array()
+          # x_tail = c2.x(t2)
+          # y_tail = c2.y(t2)
+
+          # # Renormalize to give the same B
+          # y90_tail = np.abs(y_tail[np.argmin(x_tail**2)])
+          # y90_con = np.abs(y_con[np.argmin(x_con**2)])
+          # fac = y90_con/y90_tail
+          # print('beta = {:.3f}, xi = {:.1f}. Renormalizing by {:.3f}'.format(beta, xi, fac))
+          # x_tail *= fac
+          # y_tail *= fac
 
           # Compare the three curves
           ax.plot(x_crw, y_crw)
           ax.plot(x_con, y_con, '--')
-          ax.plot(x_tail, y_tail, ':')
+          ax.plot(x_cone, y_cone, ':')
           ax.plot(0.0, 0.0, 'o', color='k')
           ax.axhline(ls=':')
           ax.axvline(ls=':')
           ax.text(1.5, 2.5, r'$\beta = {:.3f}$ '.format(beta), ha='right')
           ax.text(1.5, 2.0, r'$\xi = {:.1f}$ '.format(xi), ha='right')
 
-  axes[-1, 0].set_xlim(-1.5, 1.5)
-  axes[-1, 0].set_ylim(-0.1, 3.0)
+  # axes[-1, 0].set_xlim(-1.5, 1.5)
+  # axes[-1, 0].set_ylim(-0.1, 3.0)
+  axes[-1, 0].set_xlim(-3.0, 2.1)
+  axes[-1, 0].set_ylim(-0.1, 5.0)
   axes[-1, 0].set_xlabel(r'$x / r_{0}$')
   axes[-1, 0].set_ylabel(r'$y / r_{0}$')
 
@@ -339,3 +354,143 @@ Here is the image inline:
   print(figfilename)
 
 #+END_SRC
+
+
+#+BEGIN_SRC sh :results verbatim
+python crw-conic-compare.py
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[ 9.90968802] [ 0.17470218] [-326.22776602    0.          326.22776602] [ 59.93245119   2.93974851 -54.05295417]
+[ 21.88379684] [ 0.40166896] [-110.    0.  110.] [ 46.61368288   2.43009721 -41.75348845]
+[ 47.7298386] [ 1.10013608] [-41.6227766   0.         41.6227766] [ 48.80426882   3.01355073 -42.77716736]
+[ 8.4465471] [ 0.14849737] [-326.22776602    0.          326.22776602] [ 50.94275927   2.49879485 -45.94516956]
+[ 18.80143267] [ 0.34045567] [-110.    0.  110.] [ 39.50988066   2.05975681 -35.39036704]
+[ 42.04447569] [ 0.9018106] [-41.6227766   0.         41.6227766] [ 40.00614827   2.47028713 -35.065574  ]
+[ 5.55905005] [ 0.09732933] [-326.22776602    0.          326.22776602] [ 33.38930827   1.63777999 -30.1137483 ]
+[ 12.53169704] [ 0.22227514] [-110.    0.  110.] [ 25.79503017   1.34476461 -23.10550096]
+[ 29.1507029] [ 0.55775251] [-41.6227766   0.         41.6227766] [ 24.74303329   1.52782508 -21.68738312]
+[ 2.67098097] [ 0.04665121] [-326.22776602    0.          326.22776602] [ 16.00392959   0.78500924 -14.4339111 ]
+[ 6.06744139] [ 0.10629446] [-110.    0.  110.] [ 12.33547213   0.64308149 -11.04930916]
+[ 14.45364449] [ 0.2577546] [-41.6227766   0.         41.6227766] [ 11.43451695   0.70605498 -10.022407  ]
+crw-conic-compare.pdf
+#+end_example
+
+
+
+* Problems with the asymptotic cone
++ [2016-06-27 Mon] I am getting inconsistent results
++ The conical angle seems wrong
+  + Don't know if this is problem with numerical or analytic result
++ I need to do some more tests
++ Plot the CRW result versus our hemisphere one for k = 0
++ And check the CRW asymptotic angle
+
+
+#+BEGIN_SRC python :eval no :tangle crw_misc_utils.py
+  """Miscellaneous functions for Canto, Raga, Wilkin (1996) bow shocks
+
+  """
+
+  import numpy as np
+
+
+  def th1_approx(th, beta):
+      """Equation (26) of CRW"""
+      fac = 0.8*beta*(1.0 - th/np.tan(th))
+      return np.sqrt(7.5*(np.sqrt(1.0 + fac) - 1.0))
+    
+
+  def radius(th, th1):
+      """Radius in terms of D from Eq (23) of CRW
+    
+      This applies generally, even for anisotropic cases
+      """
+      return np.sin(th1)/np.sin(th + th1)
+
+
+#+END_SRC
+
+
+#+BEGIN_SRC python :eval no :tangle crw-tail-check.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  import equation6
+  import conic_parameters
+  sys.path.append('../conic-projection')
+  from conproj_utils import Conic
+  import crw_misc_utils
+
+
+  def polar_plot(r, th, ax, **kwargs):
+      ax.plot(r*np.cos(th), r*np.sin(th), **kwargs)
+
+
+  try:
+      beta = float(sys.argv[1])
+  except IndexError:
+      sys.exit('Usage: {} BETA'.format(sys.argv[0]))
+
+
+  ntheta = 200
+
+  xmax = 1.5
+
+  R0 = np.sqrt(beta)/(1 + np.sqrt(beta))
+  shell = equation6.Shell(beta=beta)
+  theta = np.linspace(0.0, shell.th_infty, ntheta)
+  R, th1 = shell.radius(theta, method='brent', full=True)
+  R_approx = crw_misc_utils.radius(theta, crw_misc_utils.th1_approx(theta, beta))
+  m = R_approx > 0.0
+
+  th_tail = conic_parameters.theta_tail(beta, xi=None,
+                                        f=conic_parameters.finf_CRW)
+  print('th1_infty =', np.degrees(shell.th1_infty), np.degrees(th_tail))
+
+  b_a = np.tan(th_tail)
+  x_tail = np.linspace(-xmax, xmax, 3)
+  y_tail = -b_a*(x_tail - 1.0)
+
+
+  shell2 = equation6.Shell(beta=beta, xi=1.0, innertype='anisotropic')
+  theta2 = np.linspace(0.0, shell2.th_infty, ntheta)
+  R2, th12 = shell2.radius(theta2, method='brent', full=True)
+  th_tail2 = conic_parameters.theta_tail(beta, xi=1.0)
+  print('th1_infty_2 =', np.degrees(shell2.th1_infty), np.degrees(th_tail2))
+
+  b_a2 = np.tan(th_tail2)
+  y_tail2 = -b_a2*(x_tail - 1.0)
+
+  figfilename = sys.argv[0].replace('.py', '-{:05d}.pdf').format(int(1e4*beta))
+  fig, (ax, axx) = plt.subplots(2, 1)
+  polar_plot(R, theta, ax)
+  polar_plot(R_approx[m], theta[m], ax, ls='None', marker='.', alpha=0.2)
+  polar_plot(R2, theta2, ax, lw=0.6)
+  ax.plot(x_tail, y_tail, '--')
+  ax.plot(x_tail, y_tail2, '--')
+
+  ax.set_xlim(-xmax, xmax)
+  ax.set_ylim(-0.2*xmax, 1.2*xmax)
+  ax.set_aspect('equal', adjustable='box')
+
+  axx.plot(shell.th_infty - theta, shell.th1_infty - th1)
+  axx.plot(shell2.th_infty - theta2, shell2.th1_infty - th12)
+
+
+  fig.set_size_inches(4.0, 6.0)
+  fig.savefig(figfilename)
+  print(figfilename)
+
+
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+python crw-tail-check.py 0.1  # 1>&2
+#+END_SRC
+
+#+RESULTS:
+

@@ -49,11 +49,12 @@ def finf(th, beta, xi):
     D = np.pi + 2*beta*I
     return th - C*np.tan(th) - D
 
-def finf_CRW(th, beta):
+def finf_CRW(th, beta, xi):
     """Function that gives f(theta) = 0 when theta = theta_infty
 
     Version for spherically symmetric flow, as in CRW
     """
+    assert xi is None, 'Parameter xi is meaningless for vanilla CRW'
     return th - np.tan(th) - np.pi/(1.0 -beta)
 
 
