@@ -379,13 +379,26 @@ crw-conic-compare.pdf
 
 
 
-* Problems with the asymptotic cone
+* DONE Problems with the asymptotic cone
+CLOSED: [2016-06-29 Wed 08:47]
 + [2016-06-27 Mon] I am getting inconsistent results
 + The conical angle seems wrong
   + Don't know if this is problem with numerical or analytic result
-+ I need to do some more tests
-+ Plot the CRW result versus our hemisphere one for k = 0
-+ And check the CRW asymptotic angle
+  + [X] Solved [2016-06-28 Tue] - It was an error in the [[file:equation6.py::def%20anisotropic_momentum(theta):][function]] =equation6.anisotropic_momentum(theta)=.  Fixed now
++ [X] I need to do some more tests
++ [X] Plot the CRW result versus our hemisphere one for k = 0
+  + We now see the slight difference for \theta > \pi/2
++ [X] And check the CRW asymptotic angle
+  + This comes out right
++ [X] Compare with approximate solution
+  + This is done in [[file:crw_misc_utils.py]], tangled from below
++ [X] NOW look at approach to asymptotic angle
+  + Plot (\theta_1 - \theta_{1,\infty}) versus (\theta - \theta_{\infty})
+  + And also (\alpha -\alpha_\infty) versus (\theta - \theta_{\infty})
+    + Where tan \alpha = (1 + \omega tan \theta) / (tan \theta - \omega)
+    + And \omega = (1/R) (d R/d \theta)
+    + Of course \alpha_\infty =  \theta_{1,\infty} = \pi - \theta_{\infty}
+    + \(\alpha_\infty =  \theta_{1,\infty} = \pi - \theta_{\infty}\)
 
 
 #+BEGIN_SRC python :eval no :tangle crw_misc_utils.py
@@ -429,26 +442,43 @@ crw-conic-compare.pdf
       ax.plot(r*np.cos(th), r*np.sin(th), **kwargs)
 
 
+  def omega(R, theta):
+      """(1/R) (d R/d theta) by finite differences"""
+      dR_dtheta = np.pad(np.diff(R)/np.diff(theta), (0, 1), 'edge')
+      return dR_dtheta/R
+
+
+  def alpha(R, theta):
+      """Angle of tangent to curve R(theta)"""
+      t = np.tan(theta)
+      om = omega(R, theta)
+      tana = (1 + om*t)/(t - om)
+      return np.arctan(tana)
+
+
   try:
       beta = float(sys.argv[1])
   except IndexError:
       sys.exit('Usage: {} BETA'.format(sys.argv[0]))
 
 
-  ntheta = 200
+  ntheta = 400
+  nearly = 1.0 # - 1e-5
 
   xmax = 1.5
 
   R0 = np.sqrt(beta)/(1 + np.sqrt(beta))
   shell = equation6.Shell(beta=beta)
-  theta = np.linspace(0.0, shell.th_infty, ntheta)
+  theta = np.linspace(0.0, nearly*shell.th_infty, ntheta)
   R, th1 = shell.radius(theta, method='brent', full=True)
+  alph = alpha(R, theta)
   R_approx = crw_misc_utils.radius(theta, crw_misc_utils.th1_approx(theta, beta))
   m = R_approx > 0.0
 
   th_tail = conic_parameters.theta_tail(beta, xi=None,
                                         f=conic_parameters.finf_CRW)
-  print('th1_infty =', np.degrees(shell.th1_infty), np.degrees(th_tail))
+  print('th1_infty =', np.degrees(shell.th1_infty), np.degrees(th1[-4:]))
+  print('alpha_infty =', np.degrees(alph[-4:]))
 
   b_a = np.tan(th_tail)
   x_tail = np.linspace(-xmax, xmax, 3)
@@ -456,10 +486,12 @@ crw-conic-compare.pdf
 
 
   shell2 = equation6.Shell(beta=beta, xi=1.0, innertype='anisotropic')
-  theta2 = np.linspace(0.0, shell2.th_infty, ntheta)
+  theta2 = np.linspace(0.0, nearly*shell2.th_infty, ntheta)
   R2, th12 = shell2.radius(theta2, method='brent', full=True)
+  alph2 = alpha(R2, theta2)
   th_tail2 = conic_parameters.theta_tail(beta, xi=1.0)
-  print('th1_infty_2 =', np.degrees(shell2.th1_infty), np.degrees(th_tail2))
+  print('th1_infty_2 =', np.degrees(shell2.th1_infty), np.degrees(th12[-4:]))
+  print('alpha_infty_2 =', np.degrees(alph2[-4:]))
 
   b_a2 = np.tan(th_tail2)
   y_tail2 = -b_a2*(x_tail - 1.0)
@@ -476,9 +508,18 @@ crw-conic-compare.pdf
   ax.set_ylim(-0.2*xmax, 1.2*xmax)
   ax.set_aspect('equal', adjustable='box')
 
-  axx.plot(shell.th_infty - theta, shell.th1_infty - th1)
-  axx.plot(shell2.th_infty - theta2, shell2.th1_infty - th12)
+  axx.plot(shell.th_infty - theta, shell.th1_infty - th1,
+           alpha=0.7, label=r'$\theta_1 - \theta_{1,\infty}$ (CRW)')
+  axx.plot(shell.th_infty - theta, alph - shell.th1_infty,
+           alpha=0.7, label=r'$\alpha - \theta_{1,\infty}$ (CRW)')
 
+  axx.plot(shell2.th_infty - theta2, shell2.th1_infty - th12,
+           alpha=0.7, label=r'$\theta_1 - \theta_{1,\infty}$ ($k = 0$)')
+  axx.plot(shell2.th_infty - theta2, alph2 - shell2.th1_infty,
+           alpha=0.7, label=r'$\alpha - \theta_{1,\infty}$ ($k = 0$)')
+  axx.set_ylim(0.0, 1.0)
+  axx.set_xlabel(r'$\theta - \theta_{\infty}$')
+  axx.legend(loc='upper left', fontsize='small')
 
   fig.set_size_inches(4.0, 6.0)
   fig.savefig(figfilename)
@@ -493,4 +534,9 @@ python crw-tail-check.py 0.1  # 1>&2
 #+END_SRC
 
 #+RESULTS:
+: th1_infty = 51.1601363953 [ 50.51058359  50.7257642   50.94227512          nan]
+: alpha_infty = [ 51.4864857   51.48419607          nan          nan]
+: th1_infty_2 = 47.7298385983 [ 47.26845601  47.42126366  47.57505055          nan]
+: alpha_infty_2 = [ 48.06411049  48.06226863          nan          nan]
+: crw-tail-check-01000.pdf
 
