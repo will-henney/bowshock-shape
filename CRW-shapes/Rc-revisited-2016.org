@@ -134,7 +134,10 @@ python alpha-vs-beta-xi.py
 
 
   def k_from_xi(xi):
-      return 2.0/xi - 2.0
+      if xi is None:
+          return 0.0
+      else:
+          return 2.0/xi - 2.0
 
 
   def alpha_from_beta_xi(beta, xi):
@@ -179,13 +182,16 @@ Here is the image inline:
 
 [[file:alpha-vs-beta-xi.png]]
 
-* Utility functions for A, B, and \theta_c
+* TODO Utility functions for A, B, and \theta_c
 
 #+BEGIN_SRC python :eval no :tangle conic_parameters.py
+  import sys
   import numpy as np
   from scipy.optimize import fsolve
   from scipy.special import gamma as gamma_func
   from alpha_analytic import alpha_from_beta_xi as gamma
+  sys.path.append('../conic-projection')
+  from conproj_utils import Conic
 
   def A(beta, xi):
       return 1.0/(1.0 - 2.0*gamma(beta, xi))
@@ -204,8 +210,12 @@ Here is the image inline:
       """
       Returns R_90 normalized with R_0
       """
-      numerator = (1+np.sqrt(beta))*th1_90(beta, xi)
-      denominator = (1.-xi*beta)*np.sqrt(beta)
+      if xi is None:
+          xxi = 1.0
+      else:
+          xxi = xi
+      numerator = (1+np.sqrt(beta))*th1_90(beta, xxi)
+      denominator = (1.-xxi*beta)*np.sqrt(beta)
       return numerator/denominator
 
 
@@ -224,7 +234,7 @@ Here is the image inline:
 
   def finf(th, beta, xi):
       """Function that gives f(theta) = 0 when theta = theta_infty
-  
+
       Version for hemispheric flow with anisotropy xi
       """
       k = 2./xi-2
@@ -235,7 +245,7 @@ Here is the image inline:
 
   def finf_CRW(th, beta, xi):
       """Function that gives f(theta) = 0 when theta = theta_infty
-  
+
       Version for spherically symmetric flow, as in CRW
       """
       assert xi is None, 'Parameter xi is meaningless for vanilla CRW'
@@ -247,8 +257,73 @@ Here is the image inline:
 
       This version only works with scalar args `beta` and `xi`
       """
-      thinf = fsolve(f, th_init, args=(beta, xi))
+      thinf, = fsolve(f, th_init, args=(beta, xi))
       return np.pi - thinf
+
+
+  def phi_ratio_CRW(beta, tht):
+      """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
+      return beta*(np.pi/(tht - np.sin(tht)*np.cos(tht)) - 1.0)
+
+
+  def phi_ratio_anisotropic(beta, xi, tht):
+      """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
+      raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
+
+
+  class HeadTail(object):
+      """Conic fits to the head and tail"""
+      def __init__(self, beta, xi=None):
+          #
+          # Set head parameters
+          #
+          self.A_h = A(beta, xi)
+          self.theta_h = theta_c(beta, xi)
+          self.sig_h = np.sign(self.theta_h)
+          self.tau_h = np.tan(np.abs(self.theta_h))
+          self.a_h = self.A_h/self.tau_h**2
+          self.x0_h = 1.0 - self.sig_h*self.a_h
+          self.head_conic = Conic(A=self.A_h, th_conic=np.degrees(self.theta_h))
+          self.t_h = self.head_conic.make_t_array()
+          #
+          # Set tail parameters
+          #
+          # Distance to other star in units of R0
+          self.D = (1 + np.sqrt(beta)) / np.sqrt(beta)
+          if xi == None:
+              # Opening angle of tail
+              self.theta_t = theta_tail(beta, xi, f=finf_CRW)
+              # Center of tail hyperbola in units of R_0
+              self.phi1_over_phi = phi_ratio_CRW(beta, self.theta_t)
+          else:
+              self.theta_t = theta_tail(beta, xi, f=finf)
+              self.phi1_over_phi = phi_ratio_anisotropic(beta, xi, self.theta_t)
+          self.x0_t =  self.D / (1.0 + self.phi1_over_phi)
+          self.tau_t = np.tan(self.theta_t)
+          self.T = (self.tau_h/self.tau_t)**2
+          # Find the x value where two conics match in y and dy/dx
+          self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
+          # Major and minor axes of tail hyperbola
+          self.a_t = np.sqrt(self.T*self.a_h**2
+                             + self.T*(self.T - 1)*(self.x_m - self.x0_h)**2)
+          self.t_t = np.linspace(0.0, 10.0, 100)
+
+      def x_head(self, t):
+          """Parametric Cartesian x coordinate of head"""
+          return self.head_conic.x(t)
+
+      def y_head(self, t):
+          """Parametric Cartesian y coordinate of tail"""
+          return self.head_conic.y(t)
+
+      def x_tail(self, t):
+          """Parametric Cartesian x coordinate of tail"""
+          return self.x0_t - self.a_t*np.cosh(t)
+
+      def y_tail(self, t):
+          """Parametric Cartesian y coordinate of tail"""
+          return self.tau_t*self.a_t*np.sinh(t)
+        
 #+END_SRC
 
 
@@ -480,6 +555,13 @@ CLOSED: [2016-06-29 Wed 08:47]
   print('th1_infty =', np.degrees(shell.th1_infty), np.degrees(th1[-4:]))
   print('alpha_infty =', np.degrees(alph[-4:]))
 
+  # Gradient: d phi_1 / d phi
+  grad = np.diff(shell.th1_infty - th1) / np.diff(shell.th_infty - theta)
+  # Theoretical estimate:
+  grad0 = beta*(np.pi / (shell.th1_infty
+                         - np.sin(shell.th1_infty)*np.cos(shell.th1_infty)) - 1)
+  print('gradient:', grad0, grad[-4:])
+
   b_a = np.tan(th_tail)
   x_tail = np.linspace(-xmax, xmax, 3)
   y_tail = -b_a*(x_tail - 1.0)
@@ -530,13 +612,105 @@ CLOSED: [2016-06-29 Wed 08:47]
 #+END_SRC
 
 #+BEGIN_SRC sh :results verbatim
-python crw-tail-check.py 0.1  # 1>&2
+python crw-tail-check.py 0.5  # 1>&2
 #+END_SRC
 
 #+RESULTS:
-: th1_infty = 51.1601363953 [ 50.51058359  50.7257642   50.94227512          nan]
-: alpha_infty = [ 51.4864857   51.48419607          nan          nan]
-: th1_infty_2 = 47.7298385983 [ 47.26845601  47.42126366  47.57505055          nan]
-: alpha_infty_2 = [ 48.06411049  48.06226863          nan          nan]
-: crw-tail-check-01000.pdf
+: th1_infty = 77.4533975624 [ 76.77775218  77.00264735  77.22786175          nan]
+: alpha_infty = [ 77.71122642  77.71068084          nan          nan]
+: gradient: 0.878168607082 [ 0.87381418  0.87504776  0.87628982         nan]
+: th1_infty_2 = 76.7601773186 [ 76.21277743  76.39558226  76.57804553          nan]
+: alpha_infty_2 = [ 77.02065833  77.01949975          nan          nan]
+: crw-tail-check-05000.pdf
+
+
+
+
+* Joining the head and tail conics
+#+BEGIN_SRC python :eval no :tangle crw-conic-head-tail.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  import equation6
+  import conic_parameters
+  sys.path.append('../conic-projection')
+  from conproj_utils import Conic
+
+  def R_from_theta_CRW(theta, beta):
+      shell = equation6.Shell(innertype='isotropic', beta=beta)
+      R = shell.radius(theta)
+      return R/shell.R0
+
+  betagrid = [1e-4, 0.001, 0.01, 0.02, 0.03, 0.1, 0.5]
+  nbeta = len(betagrid)
+
+  ntheta = 100
+  theta = np.linspace(0.0, np.pi, ntheta)
+
+  figfilename = sys.argv[0].replace('.py', '.pdf')
+  fig, axes = plt.subplots(1, nbeta, sharex=True, sharey=True)
+
+  ytop = 6.5
+  baseline = 0.7
+  for i, beta in enumerate(betagrid):
+      ax = axes[i]
+
+      # Vanilla CRW solution
+      R_crw = R_from_theta_CRW(theta, beta)
+      x_crw = R_crw*np.cos(theta)
+      y_crw = R_crw*np.sin(theta)
+
+      ht = conic_parameters.HeadTail(beta)
+
+      x_head = ht.x_head(ht.t_h)
+      y_head = ht.y_head(ht.t_h)
+
+      x_tail = ht.x_tail(ht.t_t)
+      y_tail = ht.y_tail(ht.t_t)
+
+      ax.plot(x_crw, y_crw)
+      ax.plot(x_head, y_head, '--')
+      ax.plot(x_tail, y_tail, '--')
+      ax.plot(0.0, 0.0, 'o', color='k')
+      ax.axhline(ls=':')
+      ax.axvline(ls=':')
+      ax.set_aspect('equal', adjustable='box-forced')
+      ax.text(2.0, ytop,
+              r'$\beta = {:.4f}$ '.format(beta), ha='right')
+      ax.text(2.0, ytop - baseline,
+              r'$x_m = {:.2f}$ '.format(ht.x_m), ha='right')
+      ax.text(2.0, ytop - 2*baseline,
+              r'$x_t = {:.2f}$ '.format(ht.x0_t), ha='right')
+      ax.text(2.0, ytop - 3*baseline,
+              r'$x_h = {:.2f}$ '.format(ht.x0_h), ha='right')
+      ax.text(2.0, ytop - 4*baseline,
+              r"$\phi' / \phi = {:.2f}$ ".format(ht.phi1_over_phi), ha='right')
+      ax.text(2.0, ytop - 5*baseline,
+              r"$\theta_h = {:.2f}$ ".format(np.degrees(ht.theta_h)), ha='right')
+      ax.text(2.0, ytop - 6*baseline,
+              r"$\theta_t = {:.2f}$ ".format(np.degrees(ht.theta_t)), ha='right')
+  
+  
+  axes[0].set_xlim(-5.0, 2.1)
+  axes[0].set_ylim(-0.1, 7.0)
+  axes[0].set_xlabel(r'$x / r_{0}$')
+  axes[0].set_ylabel(r'$y / r_{0}$')
+
+  fig.set_size_inches(3*nbeta, 3)
+  fig.tight_layout()
+  fig.savefig(figfilename)
+  print(figfilename)
+ 
+  
+
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python crw-conic-head-tail.py
+#+END_SRC
+
+#+RESULTS:
+[[file:crw-conic-head-tail.pdf]]
 

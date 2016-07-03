@@ -6,11 +6,14 @@ def alpha_from_c_beta(c, beta):
 
 
 def c_from_beta_k(beta, k):
-    return (1.0 - beta - 3*3.0*k/4.0)/30.0
+    return (1.0 - beta - 9.0*k/4.0)/30.0
 
 
 def k_from_xi(xi):
-    return 2.0/xi - 2.0
+    if xi is None:
+        return 0.0
+    else:
+        return 2.0/xi - 2.0
 
 
 def alpha_from_beta_xi(beta, xi):

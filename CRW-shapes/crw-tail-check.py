@@ -51,6 +51,13 @@ th_tail = conic_parameters.theta_tail(beta, xi=None,
 print('th1_infty =', np.degrees(shell.th1_infty), np.degrees(th1[-4:]))
 print('alpha_infty =', np.degrees(alph[-4:]))
 
+# Gradient: d phi_1 / d phi
+grad = np.diff(shell.th1_infty - th1) / np.diff(shell.th_infty - theta)
+# Theoretical estimate:
+grad0 = beta*(np.pi / (shell.th1_infty
+                       - np.sin(shell.th1_infty)*np.cos(shell.th1_infty)) - 1)
+print('gradient:', grad0, grad[-4:])
+
 b_a = np.tan(th_tail)
 x_tail = np.linspace(-xmax, xmax, 3)
 y_tail = -b_a*(x_tail - 1.0)
