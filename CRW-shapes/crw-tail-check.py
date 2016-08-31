@@ -32,6 +32,11 @@ try:
 except IndexError:
     sys.exit('Usage: {} BETA'.format(sys.argv[0]))
 
+try:
+    fix_K = float(sys.argv[2])
+except IndexError:
+    fix_K = None
+
 
 ntheta = 400
 nearly = 1.0 # - 1e-5
@@ -63,6 +68,18 @@ x_tail = np.linspace(-xmax, xmax, 3)
 y_tail = -b_a*(x_tail - 1.0)
 
 
+# 30 Aug 2016 - add in the attempted quadratic fit to phi_1 vs phi
+ht = conic_parameters.HeadTail(beta)
+print('Original tail parameters:')
+print('beta = {:.4f}, tau = {:.2f}, J = {:.2f}, K = {:.2f}'.format(beta, ht.tau_t, ht.J, ht.K))
+# ht.K *= ht.tau_t**2
+if fix_K is not None: 
+    ht.K = fix_K
+    print('Corrected K = {:.2f}'.format(ht.K))
+
+def fquad(phi, J=ht.J, K=ht.K):
+    return J*phi + K*phi**2
+
 shell2 = equation6.Shell(beta=beta, xi=1.0, innertype='anisotropic')
 theta2 = np.linspace(0.0, nearly*shell2.th_infty, ntheta)
 R2, th12 = shell2.radius(theta2, method='brent', full=True)
@@ -75,7 +92,7 @@ b_a2 = np.tan(th_tail2)
 y_tail2 = -b_a2*(x_tail - 1.0)
 
 figfilename = sys.argv[0].replace('.py', '-{:05d}.pdf').format(int(1e4*beta))
-fig, (ax, axx) = plt.subplots(2, 1)
+fig, (ax, axx, axxx) = plt.subplots(3, 1)
 polar_plot(R, theta, ax)
 polar_plot(R_approx[m], theta[m], ax, ls='None', marker='.', alpha=0.2)
 polar_plot(R2, theta2, ax, lw=0.6)
@@ -86,19 +103,33 @@ ax.set_xlim(-xmax, xmax)
 ax.set_ylim(-0.2*xmax, 1.2*xmax)
 ax.set_aspect('equal', adjustable='box')
 
-axx.plot(shell.th_infty - theta, shell.th1_infty - th1,
-         alpha=0.7, label=r'$\theta_1 - \theta_{1,\infty}$ (CRW)')
-axx.plot(shell.th_infty - theta, alph - shell.th1_infty,
-         alpha=0.7, label=r'$\alpha - \theta_{1,\infty}$ (CRW)')
+phi = shell.th_infty - theta
+phi1 = shell.th1_infty - th1
+axx.plot(phi, phi1, alpha=0.7, label=r'$\theta_1 - \theta_{1,\infty}$ (CRW)')
+axx.plot(phi, phi1, alpha=0.7, label=r'$\alpha - \theta_{1,\infty}$ (CRW)')
 
 axx.plot(shell2.th_infty - theta2, shell2.th1_infty - th12,
          alpha=0.7, label=r'$\theta_1 - \theta_{1,\infty}$ ($k = 0$)')
 axx.plot(shell2.th_infty - theta2, alph2 - shell2.th1_infty,
          alpha=0.7, label=r'$\alpha - \theta_{1,\infty}$ ($k = 0$)')
-axx.set_ylim(0.0, 1.0)
+
+# 30 Aug 2016: plot the phi_1 = J phi + K phi^2 approximation
+axx.plot(phi, fquad(phi), lw=0.5, color='k', 
+         label='$J, K = {:.2f}, {:.2f}$'.format(ht.J, ht.K))
+axx.plot(phi, fquad(phi, K=0.0), lw=0.5, ls='--', color='k', label=None)
+
+axx.set_xlim(0.0, 0.8)
+m = np.isfinite(phi1) & (phi < 0.8)
+ymax = phi1[m].max()
+print('ymax =', ymax)
+axx.set_ylim(0.0, ymax)
 axx.set_xlabel(r'$\theta - \theta_{\infty}$')
 axx.legend(loc='upper left', fontsize='small')
 
-fig.set_size_inches(4.0, 6.0)
+axxx.plot(phi, -(phi1 - fquad(phi, K=0.0))/phi**2)
+axxx.set_xlim(0.0, 0.8)
+axxx.set_ylim(0.0, None)
+
+fig.set_size_inches(4.0, 8.0)
 fig.savefig(figfilename)
 print(figfilename)

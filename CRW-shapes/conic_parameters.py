@@ -75,13 +75,40 @@ def theta_tail(beta, xi, f=finf, th_init=np.radians(91.0)):
 
 
 def phi_ratio_CRW(beta, tht):
-    """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
-    return beta*(np.pi/(tht - np.sin(tht)*np.cos(tht)) - 1.0)
+    """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf
+
+    This is now also equal to J in the expansion: 
+
+        phi_1 = J phi + K phi^2
+    """
+    return beta*(np.pi/G(tht) - 1.0)
+
+
+def G(theta):
+    """Auxiliary angle function"""
+    return theta - np.sin(theta)*np.cos(theta)
 
 
 def phi_ratio_anisotropic(beta, xi, tht):
     """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
     raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
+
+
+def K_func_CRW(beta, tht, J):
+    """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
+    rslt = -(1 + J)/(1 - beta)/np.tan(tht)
+    rslt *= 1 - J**2*np.sin(tht)**2
+    return rslt 
+
+
+def K_func_anisotropic(beta, xi, tht, J):
+    """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
+    raise NotImplementedError('TODO: write K function for anisotropic case')
+
+
+def a_over_x(tau, J, K):
+    """Hyperbola scale in terms of coefficients J and K"""
+    return np.sqrt(0.5*((K/(1 + J) - tau*J)*tau/(1 + tau**2) + 4*J))
 
 
 class HeadTail(object):
@@ -106,19 +133,36 @@ class HeadTail(object):
         if xi == None:
             # Opening angle of tail
             self.theta_t = theta_tail(beta, xi, f=finf_CRW)
-            # Center of tail hyperbola in units of R_0
-            self.phi1_over_phi = phi_ratio_CRW(beta, self.theta_t)
+            # This was formerly known as phi1_over_phi
+            self.J = phi_ratio_CRW(beta, self.theta_t)
+            self.K = K_func_CRW(beta, self.theta_t, self.J)
+            # Empirically determined correction factor
+            self.K *= 0.5*self.J*(1.0 + beta)
         else:
             self.theta_t = theta_tail(beta, xi, f=finf)
-            self.phi1_over_phi = phi_ratio_anisotropic(beta, xi, self.theta_t)
-        self.x0_t =  self.D / (1.0 + self.phi1_over_phi)
+            self.J = phi_ratio_anisotropic(beta, xi, self.theta_t)
+            self.K = K_func_anisotropic(beta, xi, self.theta_t, self.J)
+        # Center of tail hyperbola in units of R_0
+        self.x0_t =  self.D / (1.0 + self.J)
+
         self.tau_t = np.tan(self.theta_t)
         self.T = (self.tau_h/self.tau_t)**2
-        # Find the x value where two conics match in y and dy/dx
+
+        # New 30 Aug 2016
+        # Scale of hyperbola now determined from the K coefficient
+        # self.a_t = self.x0_t*a_over_x(self.tau_t, self.J, self.K)
+
+        # Find the x value where two conics match in dy/dx
         self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
+        # if self.x_m < 0.0:
+        #     # 30 Aug 2016: Match at x = 0 if gradients match at a
+        #     # negative value of x
+        #     self.x_m = 0.0
         # Major and minor axes of tail hyperbola
-        self.a_t = np.sqrt(self.T*self.a_h**2
-                           + self.T*(self.T - 1)*(self.x_m - self.x0_h)**2)
+        self.a_t = np.sqrt(
+            (self.x_m - self.x0_t)**2
+            - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
+        )
         self.t_t = np.linspace(0.0, 10.0, 100)
 
     def x_head(self, t):
@@ -130,6 +174,13 @@ class HeadTail(object):
         return self.head_conic.y(t)
 
     def x_tail(self, t):
+        """Parametric Cartesian x coordinate of tail"""
+        return self.x0_t - self.a_t*np.cosh(t)
+
+    def y_tail(self, t):
+        """Parametric Cartesian y coordinate of tail"""
+        return self.tau_t*self.a_t*np.sinh(t)
+
         """Parametric Cartesian x coordinate of tail"""
         return self.x0_t - self.a_t*np.cosh(t)
 
