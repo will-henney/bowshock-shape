@@ -91,8 +91,8 @@ def G(theta):
 
 def phi_ratio_anisotropic(beta, xi, tht):
     """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
-    raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
-
+    # raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
+    return 0.5
 
 def K_func_CRW(beta, tht, J):
     """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
@@ -103,8 +103,8 @@ def K_func_CRW(beta, tht, J):
 
 def K_func_anisotropic(beta, xi, tht, J):
     """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
-    raise NotImplementedError('TODO: write K function for anisotropic case')
-
+    # raise NotImplementedError('TODO: write K function for anisotropic case')
+    return 0.0
 
 def a_over_x(tau, J, K):
     """Hyperbola scale in terms of coefficients J and K"""
@@ -113,7 +113,9 @@ def a_over_x(tau, J, K):
 
 class HeadTail(object):
     """Conic fits to the head and tail"""
-    def __init__(self, beta, xi=None):
+    def __init__(self, beta, xi=None, xmin=None):
+        """`xmin` is minimum x value of natural matching point.  If `x_m` <
+        `xmin`, then the matching point will be forced to be `xmin`"""
         #
         # Set head parameters
         #
@@ -154,16 +156,20 @@ class HeadTail(object):
 
         # Find the x value where two conics match in dy/dx
         self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
-        # if self.x_m < 0.0:
-        #     # 30 Aug 2016: Match at x = 0 if gradients match at a
-        #     # negative value of x
-        #     self.x_m = 0.0
+        if xmin is not None and self.x_m < xmin:
+            # 30 Aug 2016: Match at x = xmin if gradients would naturally
+            # match at a more negative value of x
+            self.x_m = xmin
+            # And throw away the previous value of x0_t so that we can
+            # force y and dy/dx to match at x=0
+            self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
+      
         # Major and minor axes of tail hyperbola
         self.a_t = np.sqrt(
             (self.x_m - self.x0_t)**2
             - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
         )
-        self.t_t = np.linspace(0.0, 10.0, 100)
+        self.t_t = np.linspace(0.0, max(2.0, 10.0/self.a_t), 500)
 
     def x_head(self, t):
         """Parametric Cartesian x coordinate of head"""

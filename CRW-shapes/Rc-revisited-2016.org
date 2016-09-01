@@ -278,8 +278,8 @@ Here is the image inline:
 
   def phi_ratio_anisotropic(beta, xi, tht):
       """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
-      raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
-
+      # raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
+      return 0.5
 
   def K_func_CRW(beta, tht, J):
       """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
@@ -290,8 +290,8 @@ Here is the image inline:
 
   def K_func_anisotropic(beta, xi, tht, J):
       """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
-      raise NotImplementedError('TODO: write K function for anisotropic case')
-
+      # raise NotImplementedError('TODO: write K function for anisotropic case')
+      return 0.0
 
   def a_over_x(tau, J, K):
       """Hyperbola scale in terms of coefficients J and K"""
@@ -300,7 +300,9 @@ Here is the image inline:
 
   class HeadTail(object):
       """Conic fits to the head and tail"""
-      def __init__(self, beta, xi=None):
+      def __init__(self, beta, xi=None, xmin=None):
+          """`xmin` is minimum x value of natural matching point.  If `x_m` <
+          `xmin`, then the matching point will be forced to be `xmin`"""
           #
           # Set head parameters
           #
@@ -341,16 +343,20 @@ Here is the image inline:
 
           # Find the x value where two conics match in dy/dx
           self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
-          # if self.x_m < 0.0:
-          #     # 30 Aug 2016: Match at x = 0 if gradients match at a
-          #     # negative value of x
-          #     self.x_m = 0.0
+          if xmin is not None and self.x_m < xmin:
+              # 30 Aug 2016: Match at x = xmin if gradients would naturally
+              # match at a more negative value of x
+              self.x_m = xmin
+              # And throw away the previous value of x0_t so that we can
+              # force y and dy/dx to match at x=0
+              self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
+        
           # Major and minor axes of tail hyperbola
           self.a_t = np.sqrt(
               (self.x_m - self.x0_t)**2
               - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
           )
-          self.t_t = np.linspace(0.0, 10.0, 100)
+          self.t_t = np.linspace(0.0, max(2.0, 10.0/self.a_t), 500)
 
       def x_head(self, t):
           """Parametric Cartesian x coordinate of head"""
@@ -786,14 +792,23 @@ beta = 0.0100, tau = 0.48, J = 0.55, K = -3.10
 Corrected K = -0.82
 
 
-* TODO [1/4] Joining the head and tail conics
+* TODO [4/5] Joining the head and tail conics
 + Revisiting this after summer break [2016-08-23 Tue]
 + [X] Seems to be working for CRW case, so log as head quadric is hyperbola
-+ [ ] Need to track down error for when head quadric is ellipse
-+ [ ] And need to find \(\phi_{}_{}_{}_{}_{}_{}_{}_{1}/\phi_{}\) for the general-k case
-+ [ ] Finally, we need to look at using alternative join points
++ [X] Need to track down error for when head quadric is ellipse
++ [X] *CANCELLED* And need to find \(\phi_{}_{}_{}_{}_{}_{}_{}_{1}/\phi_{}\) for the general-k case
++ [X] Finally, we need to look at using alternative join points
   + Such as x=0, since derivative there is discontinuous anyway
-  + We could try using max(x_m, 0), since when x_m < 0 (corresponding to approx \beta < 0.1) then the head quadric is not a good approximation anymore at x_m.  But it still seems OK back to x = 0. 
+  + We could try using max(x_m, 0), since when x_m < 0 (corresponding to approx \beta < 0.1) then the head quadric is not a good approximation anymore at x_m.  But it still seems OK back to x = 0.
++ [-] Comments from git commit message [2016-08-31 Wed]
+  + I went on a long wild goose chase with trying to use the asymptotic espansion as theta -> theta_\infty, but that turned out to be a waste of time
+  + I am now back to matching the gradients and values, and that works well for larger beta, but becomes inaccurate at small beta since it is trying to match at a point where the head quadric is no longer a good fit
+  + [X] The next plan is to abandon the use of even the linear term in the phi_1(phi) expansion, which gives us back an extra degree of freedom. We can use that to match both y and dy/dx at a fixed x (instead of letting x float, as we have been doing).  I will try doing it at x=0 for the low beta cases
+  + [ ] We also need to include the variable-k case.  But this should be easy if we are not doing the phi_1(phi) expansion any more
+    + This requires generalising the conic that we plot too
+    + And means that the name =crw-conic-head-tail.p= is now a misnomer
+
+
 
 
 
@@ -807,18 +822,34 @@ Corrected K = -0.82
   sys.path.append('../conic-projection')
   from conproj_utils import Conic
 
+  try:
+      XMIN_PARAMETER = float(sys.argv[1])
+  except IndexError:
+      XMIN_PARAMETER = -1.0
+
+  try:
+      XI_PARAMETER = float(sys.argv[2])
+      suffix = '-xi{:03d}'.format(int(100*XI_PARAMETER))
+  except IndexError:
+      XI_PARAMETER = None
+      suffix = ''
+
+
   def R_from_theta_CRW(theta, beta):
       shell = equation6.Shell(innertype='isotropic', beta=beta)
       R = shell.radius(theta)
       return R/shell.R0
 
-  betagrid = [1e-4, 0.001, 0.003, 0.0112, 0.0113, 0.02, 0.1, 0.5]
+  betagrid = [3e-5, 1e-4, 0.001, 0.003, 0.01, 0.03, 0.1, 0.5]
   nbeta = len(betagrid)
 
   ntheta = 100
   theta = np.linspace(0.0, np.pi, ntheta)
 
-  figfilename = sys.argv[0].replace('.py', '.pdf')
+  figfilename = sys.argv[0].replace('.py', suffix + '.pdf')
+
+  sns.set_style('whitegrid')
+  sns.set_color_codes('dark')
 
   NROWS = 2
   fig, axes = plt.subplots(NROWS, nbeta//NROWS, sharex=True, sharey=True)
@@ -843,7 +874,7 @@ Corrected K = -0.82
       x_crw = R_crw*np.cos(theta)
       y_crw = R_crw*np.sin(theta)
 
-      ht = conic_parameters.HeadTail(beta)
+      ht = conic_parameters.HeadTail(beta, xi=XI_PARAMETER, xmin=XMIN_PARAMETER)
 
       x_head = ht.x_head(ht.t_h)
       y_head = ht.y_head(ht.t_h)
@@ -855,16 +886,16 @@ Corrected K = -0.82
       ya = (ht.x0_t - xa)*np.tan(ht.theta_t)
       ax.plot(xa, ya, lw=0.3, color='orange')
 
-      ax.plot(x_crw, y_crw)
-      ax.plot(x_head, y_head, '--')
-      ax.plot(x_tail, y_tail, '--')
+      ax.plot(x_crw, y_crw, lw=3, color='y', alpha=0.5)
+      ax.plot(x_head, y_head, '--', color='g')
+      ax.plot(x_tail, y_tail, '-', lw=1.0, color='r')
       ax.plot(0.0, 0.0, 'o', color='k')
       ax.plot(ht.x0_t - ht.a_t, 0.0, '.', color='k')
       ax.axhline(ls=':')
       ax.axvline(ls=':')
-      ax.axvline(x=ht.x_m, lw=0.5, color='black', alpha=0.3)
+      ax.axvline(x=ht.x_m, lw=1.0, ls='--', color='black', alpha=0.3)
       ax.set_aspect('equal', adjustable='box-forced')
-      text = r'$\beta = {:.4f}$ '.format(beta)
+      text = r'$\beta = {:.5f}$ '.format(beta)
       text += '\n' + r'$x_m = {:.2f}$ '.format(ht.x_m)
       text += '\n' + r'$x_t = {:.2f}$ '.format(ht.x0_t)
       text += '\n' + r'$x_t - a_t = {:.2f}$ '.format(ht.x0_t - ht.a_t)
@@ -873,13 +904,13 @@ Corrected K = -0.82
       # text += '\n' + r"$K = {:.2f}$ ".format(ht.K)
       text += '\n' + r"$\theta_h = {:.2f}$ ".format(np.degrees(ht.theta_h))
       text += '\n' + r"$\theta_t = {:.2f}$ ".format(np.degrees(ht.theta_t))
-      ax.text(xright, ytop, text, ha='right', va='top', bbox=whitebox)
+      ax.text(xright, ytop, text, ha='right', va='top', bbox=whitebox, fontsize='small')
 
 
-  axes.flat[0].set_xlim(xmin, xmax)
-  axes.flat[0].set_ylim(ymin, ymax)
-  axes.flat[0].set_xlabel(r'$x / r_{0}$')
-  axes.flat[0].set_ylabel(r'$y / r_{0}$')
+  axes[1, 0].set_xlim(xmin, xmax)
+  axes[1, 0].set_ylim(ymin, ymax)
+  axes[1, 0].set_xlabel(r'$x / r_{0}$')
+  axes[1, 0].set_ylabel(r'$y / r_{0}$')
 
   fig.set_size_inches(3*nbeta/NROWS, 3*NROWS)
   fig.tight_layout()
@@ -897,4 +928,12 @@ python crw-conic-head-tail.py
 
 #+RESULTS:
 [[file:crw-conic-head-tail.pdf]]
+
+
+#+BEGIN_SRC sh :results file
+python crw-conic-head-tail.py 0.8
+#+END_SRC
+
+#+RESULTS:
+[[file:crw-conic-head-tail-xi080.pdf]]
 
