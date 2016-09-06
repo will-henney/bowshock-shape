@@ -279,7 +279,7 @@ Here is the image inline:
   def phi_ratio_anisotropic(beta, xi, tht):
       """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
       # raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
-      return 0.5
+      return phi_ratio_CRW(beta, tht)
 
   def K_func_CRW(beta, tht, J):
       """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
@@ -812,7 +812,7 @@ Corrected K = -0.82
 
 
 
-#+BEGIN_SRC python :eval no :tangle crw-conic-head-tail.py
+#+BEGIN_SRC python :eval no :tangle conic-head-tail.py
   import sys
   import numpy as np
   from matplotlib import pyplot as plt
@@ -832,11 +832,14 @@ Corrected K = -0.82
       suffix = '-xi{:03d}'.format(int(100*XI_PARAMETER))
   except IndexError:
       XI_PARAMETER = None
-      suffix = ''
+      suffix = '-crw'
 
 
-  def R_from_theta_CRW(theta, beta):
-      shell = equation6.Shell(innertype='isotropic', beta=beta)
+  def R_from_theta(theta, beta, xi=None):
+      if xi is None:
+          shell = equation6.Shell(innertype='isotropic', beta=beta)
+      else:
+          shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
       R = shell.radius(theta)
       return R/shell.R0
 
@@ -854,14 +857,16 @@ Corrected K = -0.82
   NROWS = 2
   fig, axes = plt.subplots(NROWS, nbeta//NROWS, sharex=True, sharey=True)
 
-  ytop = 10.5
-  xright = 4.0
-  baseline = 0.7
+  xmin, xmax = -5.0, 2.1
+  ymin, ymax = -0.1, 7.0
+  # xmin, xmax = -7.0, 4.1
+  # ymin, ymax = -0.1, 11.0
+
+  ytop = ymin + 0.98*(ymax - ymin)
+  xright = xmin + 0.98*(xmax - xmin)
   whitebox = {'edgecolor': 'none', 'facecolor': 'white',
               'alpha': 0.7, 'boxstyle': 'round,pad=0.1'}
 
-  xmin, xmax = -7.0, 4.1
-  ymin, ymax = -0.1, 11.0
 
   # x-data for tail asymptote
   xa = np.linspace(xmin, xmax, 2)
@@ -869,8 +874,8 @@ Corrected K = -0.82
   for i, beta in enumerate(betagrid):
       ax = axes.flat[i]
 
-      # Vanilla CRW solution
-      R_crw = R_from_theta_CRW(theta, beta)
+      # The exact solution to the bow
+      R_crw = R_from_theta(theta, beta, xi=XI_PARAMETER)
       x_crw = R_crw*np.cos(theta)
       y_crw = R_crw*np.sin(theta)
 
@@ -884,11 +889,11 @@ Corrected K = -0.82
 
       # asymptote to tail
       ya = (ht.x0_t - xa)*np.tan(ht.theta_t)
-      ax.plot(xa, ya, lw=0.3, color='orange')
+      #ax.plot(xa, ya, lw=0.3, color='orange')
 
-      ax.plot(x_crw, y_crw, lw=3, color='y', alpha=0.5)
+      ax.plot(x_crw, y_crw, lw=4, color='y', alpha=0.7)
       ax.plot(x_head, y_head, '--', color='g')
-      ax.plot(x_tail, y_tail, '-', lw=1.0, color='r')
+      ax.plot(x_tail, y_tail, '-', dashes=[8, 4, 2, 4], color='r')
       ax.plot(0.0, 0.0, 'o', color='k')
       ax.plot(ht.x0_t - ht.a_t, 0.0, '.', color='k')
       ax.axhline(ls=':')
@@ -903,7 +908,7 @@ Corrected K = -0.82
       text += '\n' + r"$J = {:.2f}$ ".format(ht.J)
       # text += '\n' + r"$K = {:.2f}$ ".format(ht.K)
       text += '\n' + r"$\theta_h = {:.2f}$ ".format(np.degrees(ht.theta_h))
-      text += '\n' + r"$\theta_t = {:.2f}$ ".format(np.degrees(ht.theta_t))
+      text += '\n' + r"$\theta_t = {:.2f}$ ".format(np.degrees(-ht.theta_t))
       ax.text(xright, ytop, text, ha='right', va='top', bbox=whitebox, fontsize='small')
 
 
@@ -923,17 +928,40 @@ Corrected K = -0.82
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
-python crw-conic-head-tail.py
+python conic-head-tail.py -0.8
 #+END_SRC
 
 #+RESULTS:
-[[file:crw-conic-head-tail.pdf]]
+[[file:conic-head-tail-crw.pdf]]
+
+#+BEGIN_SRC sh :results file
+python conic-head-tail.py -2.5 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:conic-head-tail-xi100.pdf]]
 
 
 #+BEGIN_SRC sh :results file
-python crw-conic-head-tail.py 0.8
+python conic-head-tail.py -0.75 0.8
 #+END_SRC
 
 #+RESULTS:
-[[file:crw-conic-head-tail-xi080.pdf]]
+[[file:conic-head-tail-xi080.pdf]]
 
+#+BEGIN_SRC sh :results file
+python conic-head-tail.py 0.0 0.4
+#+END_SRC
+
+#+RESULTS:
+[[file:conic-head-tail-xi040.pdf]]
+
+#+BEGIN_SRC sh :results file
+python conic-head-tail.py 0.15 0.2
+#+END_SRC
+
+#+RESULTS:
+[[file:conic-head-tail-xi020.pdf]]
+
+
+** 

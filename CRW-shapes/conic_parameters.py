@@ -92,7 +92,7 @@ def G(theta):
 def phi_ratio_anisotropic(beta, xi, tht):
     """Limit of (th_1 - th_1,inf) / (th_inf - th) as th -> th_inf"""
     # raise NotImplementedError('TODO: write phi_ratio for anisotropic case')
-    return 0.5
+    return phi_ratio_CRW(beta, tht)
 
 def K_func_CRW(beta, tht, J):
     """Second order co-efficient in phi_1 = J phi + K phi^2 expansion"""
