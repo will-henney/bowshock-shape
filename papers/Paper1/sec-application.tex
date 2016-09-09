@@ -1,36 +1,4 @@
-\section{Application to proplyd bowshocks}
-\label{sec:application}
-\newcommand\thC{\(\theta^1\)\,Ori~C}
-\defcitealias{Canto:1996}{CRW}
-\newcommand\CRW{\citetalias{Canto:1996}}
-
-Proplyds are comet-like structures observed in HII regions like Orion Nebula Cluster (ONC). 
-These objects are interpreted as a D-type Ionization Front (IF) of a photoevaporated flow 
-originated in the protoplanetary disk of a nearby low mass YSO \citep{Johnstone:1998}.
-The pressure of the surrounding gas is not enough to confine this flow \citep{HA:1998}
-may be formed by the interaction of the photoevaporated wind of the proplyds with the stellar wind of \thC{}, which is highly supersonic $(M \sim 100)$. 
-
-The density distribution of the photoevaporated flow can be determined using the steady state continuity equation and assuming that almost all ionizing photons are absorbed at the IF 
-\citep{HA:1998} and ignoring dust absorption, can be found that
-
-\begin{align}
-N(r_{IF},\theta) = N_0 \cos^{0.5}\theta
-\label{eq:nprop}
-\end{align}
-
-Neverthless, we should not restrict to the 0.5 index in equation (\ref{eq:nprop}). We may generalize this relation as follows:
-
-\begin{align}
-n(r_{IF},\theta) = n_0 \cos^{k}\theta
-\label{eq:ngen}
-\end{align}
-
-Where $k >0$ implies that the wind's density decays towards wings, when $k<0$ the wind's density incresases towards the wings and $k=0$
-implies that the wind is isotropic.
-In this generalization we are assuming that the inner wind is hemispheric, i.e. the density of the photoevaporated flow behind the source is zero, since equation
-(\ref{eq:ngen}) leads to non realistic values for density when $\theta > \frac{\pi}{2}$
-
-\subsection{\CRW{} Scenario}
+\section{\CRW{} Scenario}
 \label{sec:crw-scenario}
 This scenario can be described with the formalism of
 \citet[][hereafter \CRW{}]{Canto:1996}, who proposes an algebraic
@@ -68,35 +36,6 @@ Combining equations  (\ref{eq:pir}) to (\ref{eq:jdot1}) we can obtain the bow sh
 The most notable scenarios, since they have astrophysical relevance are the following:
 $k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, the ``isotropic case'', following \CRW{}. The comparison between both solutions
 is shown in figure (\ref{fig:r-beta}), along with an extreme anisotropy case.
-
-
-% Combining equations (6),(9)-(11) and (19)-(23) from \citep{Canto:1996} and (\ref{eq:nprop}), we can solve numerically for $R(\theta)$, which gives us the shell's shape. Also we can
-%obtain a relation between $\theta$ and $\theta_1$
-
-%\begin{align}
-%\theta_1\cot\theta_1 = 1+ 2\beta I(\theta)\cot\theta - \frac{4}{5}\beta\left(1-\cos^{5/2}\theta\right)
-%\label{eq:th1th}
-%\end{align}
-
-%Where $I(\theta)\equiv \int^\theta_0 \cos^{1/2}\theta\sin^2\theta~d\theta$. The solution of this integral is an incomplete elliptical integral of the second kind:
-
-%\begin{align}
-%\int^\theta_0 \cos^{1/2}\theta\sin^2\theta~d\theta = \frac{4}{5}E\left(\frac{\theta}{2}|2\right) - \frac{1}{5}\sin 2\theta\cos^{1/2}\theta
-%\end{align}
-
-\begin{figure}
-\includegraphics[width=\linewidth]{r-beta}
-\caption{Bow shock shapes for interacting winds in the thin-shell
-  approximation. Coordinates are normalized by $D$, the distance
-  between the two wind sources.  The weaker source is at \((0.0, 0.0)\)
-  and the stronger source is at \((1.0, 0.0)\).  Results are shown for
-  different values of the wind momentum ratio, \(\beta\), and for the
-  case where the weaker wind is isotropic (dashed lines) or an
-  anisotropic photoevaporation flow. The solid lines shows a wind with a
-  moderate degree of anisotropy $(k=0.5)$, which is expected for the proplyds.
-  And the dooted lines show a wind with extreme anisotropy degree $(k=8)$.}
-\label{fig:r-beta}
-\end{figure}
 
 \subsection{Characteristic Radii}
 
@@ -186,6 +125,70 @@ finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the p
 
 With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds 
 momenta and different density distributions. Figure \ref{fig:rad-beta} shows equations ( \ref{eq:B}), (\ref{eq:Rcurv}) and (\ref{eq:thc-CRW}) for different anisotropy indexes. 
+
+
+\section{Application to proplyd bowshocks}
+\label{sec:application}
+\newcommand\thC{\(\theta^1\)\,Ori~C}
+\defcitealias{Canto:1996}{CRW}
+\newcommand\CRW{\citetalias{Canto:1996}}
+
+Proplyds are comet-like structures observed in HII regions like Orion Nebula Cluster (ONC). 
+These objects are interpreted as a D-type Ionization Front (IF) of a photoevaporated flow 
+originated in the protoplanetary disk of a nearby low mass YSO \citep{Johnstone:1998}.
+The pressure of the surrounding gas is not enough to confine this flow \citep{HA:1998}
+may be formed by the interaction of the photoevaporated wind of the proplyds with the stellar wind of \thC{}, which is highly supersonic $(M \sim 100)$. 
+
+The density distribution of the photoevaporated flow can be determined using the steady state continuity equation and assuming that almost all ionizing photons are absorbed at the IF 
+\citep{HA:1998} and ignoring dust absorption, can be found that
+
+\begin{align}
+N(r_{IF},\theta) = N_0 \cos^{0.5}\theta
+\label{eq:nprop}
+\end{align}
+
+Neverthless, we should not restrict to the 0.5 index in equation (\ref{eq:nprop}). We may generalize this relation as follows:
+
+\begin{align}
+n(r_{IF},\theta) = n_0 \cos^{k}\theta
+\label{eq:ngen}
+\end{align}
+
+Where $k >0$ implies that the wind's density decays towards wings, when $k<0$ the wind's density incresases towards the wings and $k=0$
+implies that the wind is isotropic.
+In this generalization we are assuming that the inner wind is hemispheric, i.e. the density of the photoevaporated flow behind the source is zero, since equation
+(\ref{eq:ngen}) leads to non realistic values for density when $\theta > \frac{\pi}{2}$
+
+
+
+% Combining equations (6),(9)-(11) and (19)-(23) from \citep{Canto:1996} and (\ref{eq:nprop}), we can solve numerically for $R(\theta)$, which gives us the shell's shape. Also we can
+%obtain a relation between $\theta$ and $\theta_1$
+
+%\begin{align}
+%\theta_1\cot\theta_1 = 1+ 2\beta I(\theta)\cot\theta - \frac{4}{5}\beta\left(1-\cos^{5/2}\theta\right)
+%\label{eq:th1th}
+%\end{align}
+
+%Where $I(\theta)\equiv \int^\theta_0 \cos^{1/2}\theta\sin^2\theta~d\theta$. The solution of this integral is an incomplete elliptical integral of the second kind:
+
+%\begin{align}
+%\int^\theta_0 \cos^{1/2}\theta\sin^2\theta~d\theta = \frac{4}{5}E\left(\frac{\theta}{2}|2\right) - \frac{1}{5}\sin 2\theta\cos^{1/2}\theta
+%\end{align}
+
+\begin{figure}
+\includegraphics[width=\linewidth]{r-beta}
+\caption{Bow shock shapes for interacting winds in the thin-shell
+  approximation. Coordinates are normalized by $D$, the distance
+  between the two wind sources.  The weaker source is at \((0.0, 0.0)\)
+  and the stronger source is at \((1.0, 0.0)\).  Results are shown for
+  different values of the wind momentum ratio, \(\beta\), and for the
+  case where the weaker wind is isotropic (dashed lines) or an
+  anisotropic photoevaporation flow. The solid lines shows a wind with a
+  moderate degree of anisotropy $(k=0.5)$, which is expected for the proplyds.
+  And the dooted lines show a wind with extreme anisotropy degree $(k=8)$.}
+\label{fig:r-beta}
+\end{figure}
+
 
 
 %Although there is an analytical form for the radius of curvature, for $i\ne 0$ there is not an intuitive form for  $R'_c$. Plus, in practice, we are working with discret arrays, so, when transforming the shell's coordinates to the primed system, we almost certainly will miss the $\theta'=0$ point, which

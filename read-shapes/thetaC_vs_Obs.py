@@ -8,7 +8,8 @@ sys.path.insert(0,"../conic-projection")
 from conproj_utils import Conic
 import glob
 import json
-
+from scipy.optimize import fsolve
+from scipy.special import gamma as gamma_func
 # Contrast  conic curves against observations
 
 
@@ -35,36 +36,72 @@ def theta_c(beta,xi=1.0):
     return np.sign(arg)*np.arctan(np.sqrt(np.abs(arg)))
 
 def q(b):
+    """
+    Returns the radius on axis normalized with D
+    """
     return np.sqrt(b)/(1.+np.sqrt(b))
+
+def theta_infty(beta,xi,CRW=False):
+    """
+    Asymptotic angle of bowshock. If choose CRW as True then use
+    CRW solution for th_infty
+    """
+    def f_infty(th,beta,xi):
+        """
+        Function to be zeroed
+        """
+        k = 2./xi-2
+        C = (k+2*(1-beta))/(k+2)
+        I = np.sqrt(np.pi)*gamma_func(0.5*(k+1))/(4*gamma_func(0.5*k+2))
+        D = np.pi + 2*beta*I
+        return th-C*np.tan(th) - D
+    def f_CRW(th,beta):
+        """
+        CRW implicit equation for th_infty
+        """
+        return th -np.tan(th) - np.pi/(1.0-beta)
+
+    th_init = 91.0
+    if CRW:
+        th_inf, infodict, ier, mesg = fsolve(f_CRW,th_init,args=(beta),full_output=True)
+    else:
+        th_inf, infodict, ier, mesg = fsolve(f_infty,th_init,args=(beta,xi),full_output=True)
+    return th_inf
+
 #Step 1 Define command variables
 
 parser = argparse.ArgumentParser(description="Command line options")
 parser.add_argument("--xi",type=float,default=1.0,help="inner wind parameter")
-
+parser.add_argument("CRW",action="store_true",help="use CRW solution")
 args = parser.parse_args()
 Xi = args.xi
-
+CRW = args.CRW
+if CRW:
+    Xi = 1.0
+    
 #Step 2: Initialize arrays
 
 
 beta = [5e-4, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1]
 sns.set_style("ticks")
 colors = sns.color_palette('Blues', len(beta))
-
 inc = np.linspace(0,75,100)
 #print(inc)
 
 #step 3: Beta loop  for plotting
 for b, c in zip(beta, colors):
+    th_inf = theta_infty(b,Xi,CRW)
+    imax = np.degrees(np.arctan(-1./np.tan(th_inf)))
+    imask = inc <=imax
     conic = Conic(A=A(b, Xi),th_conic=np.degrees(theta_c(b,Xi)))
     print(r"$\beta={}$".format(b))
-    q_prime = q(b)*conic.g(inc)
-    A_prime = conic.Aprime(inc)
+    q_prime = q(b)*conic.g(inc[imask])
+    A_prime = conic.Aprime(inc[imask])
     plt.plot(q_prime,A_prime, linestyle="-", linewidth=2.0, color=c,
 	label=r"$\beta={}${}$\theta_c={:.0f}^\circ$".format(b,"\n",np.degrees(theta_c(b,Xi))))
     every15 = np.zeros(q_prime.shape, dtype=bool)
     for thisinc in 0.0, 15.0, 30.0, 45.0, 60.0, 75.0:
-        iclosest = np.argmin(np.abs(inc - thisinc))
+        iclosest = np.argmin(np.abs(inc[imask] - thisinc))
         every15[iclosest] = True
         plt.plot(q_prime[every15], A_prime[every15], '.', color=c)
 #step 4: Add the observational points
