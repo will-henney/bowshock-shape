@@ -61,7 +61,7 @@ def theta_infty(beta,xi,CRW=False):
         """
         return th -np.tan(th) - np.pi/(1.0-beta)
 
-    th_init = 91.0
+    th_init = np.radians(91.0)
     if CRW:
         th_inf, infodict, ier, mesg = fsolve(f_CRW,th_init,args=(beta),full_output=True)
     else:
@@ -72,7 +72,7 @@ def theta_infty(beta,xi,CRW=False):
 
 parser = argparse.ArgumentParser(description="Command line options")
 parser.add_argument("--xi",type=float,default=1.0,help="inner wind parameter")
-parser.add_argument("CRW",action="store_true",help="use CRW solution")
+parser.add_argument("--CRW",action="store_true",help="use CRW solution")
 args = parser.parse_args()
 Xi = args.xi
 CRW = args.CRW
@@ -81,7 +81,7 @@ if CRW:
     
 #Step 2: Initialize arrays
 
-
+print(CRW)
 beta = [5e-4, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1]
 sns.set_style("ticks")
 colors = sns.color_palette('Blues', len(beta))
@@ -94,7 +94,7 @@ for b, c in zip(beta, colors):
     imax = np.degrees(np.arctan(-1./np.tan(th_inf)))
     imask = inc <=imax
     conic = Conic(A=A(b, Xi),th_conic=np.degrees(theta_c(b,Xi)))
-    print(r"$\beta={}$".format(b))
+    print(r"$\beta={}$".format(b),imax)
     q_prime = q(b)*conic.g(inc[imask])
     A_prime = conic.Aprime(inc[imask])
     plt.plot(q_prime,A_prime, linestyle="-", linewidth=2.0, color=c,
