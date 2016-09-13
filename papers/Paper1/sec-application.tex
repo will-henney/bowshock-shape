@@ -1,4 +1,8 @@
-\section{\CRW{} Scenario}
+\newcommand\thC{\(\theta^1\)\,Ori~C}
+\defcitealias{Canto:1996}{CRW}
+\newcommand\CRW{\citetalias{Canto:1996}}
+
+\section{Hypersonic thin shell approximation}
 \label{sec:crw-scenario}
 This scenario can be described with the formalism of
 \citet[][hereafter \CRW{}]{Canto:1996}, who proposes an algebraic
@@ -129,9 +133,7 @@ momenta and different density distributions. Figure \ref{fig:rad-beta} shows equ
 
 \section{Application to proplyd bowshocks}
 \label{sec:application}
-\newcommand\thC{\(\theta^1\)\,Ori~C}
-\defcitealias{Canto:1996}{CRW}
-\newcommand\CRW{\citetalias{Canto:1996}}
+
 
 Proplyds are comet-like structures observed in HII regions like Orion Nebula Cluster (ONC). 
 These objects are interpreted as a D-type Ionization Front (IF) of a photoevaporated flow 
@@ -210,12 +212,13 @@ and each proplyd's position. The radius of curvature $R_c$ is measured as the ra
 best circle fit of all the data points taken for each proplyd's shell. Finally, we measure $R_0$ as the distance between the proplyd's position and the circle's border in the line which 
 include the center of curvature.
 To estimate the uncertainties of our measurements, we remove a fraction of the shell's marks, and made 10 sets of randomly chosen removed marks, and made the measurements again to 
-see how much these ``variations'' deviates from the original data. Some examples are shown  in figure (\ref{fig:char-radii-obs}).  In the left side, for each source, 
+see how much these subsamples deviates from the original data. Some examples are shown  in figure (\ref{fig:char-radii-obs}).  In the left side, for each source, 
 the fit is done using all the shell points, while in the middle and the right we show two variations removing 2/3 of the points, but always keeping at least four. 
 In the better observed shells such as 177-341 (top row), the circle
 fits are relatively robust to removing points, resulting in little variation between the subsamples. 
-But also there are cases where the variations are more noticeable. Colums 3, 4 and 5 of table (\ref{tab:arc-fits}) represent the summary of all the measurements done. In colums 4 and 5, 
+But also there are cases where the variations between subsamples are more noticeable. Colums 3, 4 and 5 of table (\ref{tab:arc-fits}) represent the summary of all the measurements done. In colums 4 and 5, 
 the radii $(R_0,R_c)$ are measured as the average of all subsamples, and the uncertainty as the standard deviation.
+
 \section{Results}
 \label{sec:results}
 In figure (\ref{fig:conic-xi}) we show the theoretical conic curves. Most of the proplyds fit well 
@@ -226,16 +229,26 @@ note that the LV4 measurements fits better with models where its photoevaporated
 The rest of the proplyds fit better with more anisotropic winds, which may explain why \citet{Robberto:2005} did not find a match between models
 and data, since they only showed models where the interacting winds are isotropic.
 
-Using the data from figure \ref{fig:conic-xi}, we estimate for each source the parameters $(\beta,i,\xi)$ (columns 7, 8 and 9 from table \ref{tab:arc-fits}). With this, is possible to estimate the non projected distances $(R_0,D)$ (columns 10 and 11).
+With the data from figure \ref{fig:conic-xi}, we derived a set of models which assumes a given set of bow shock parameters $(\beta, i,\xi)$ and have agreement with the measurements of each proplyd. A given model predicts the no projected
+distance $D$ for the proplyd and the non projected radius $R_0$. We summarize the results of the models in table \ref{tab:arc-fits}.
 
-Using the data from table \ref{tab:arc-fits} along with the ionization front radius and photoevaporation flow density obtained from \citet{HA:1998} we measured the stagnation pressure at the bow shock's position, 
-and compare it with the expected pressure from the stellar wind at the distance $D$. Since we expect equilibrium pressure in the bow shock surface, both pressures should be the same. The comparison is done in figure \ref{fig:pressure} (bottom).
+From this models also we can estimate the stellar ionizing flux required to have ionization balance with the photoevaporated flow. To do this estimation we used the measured ionization front radius and the photoevaporated flow density for each proplyd
+and incorporated them into the models. The result is shown in figure \ref{fig:pressure} at top. We highlight the models which have agreement with ionization balance.
+Also we can estimate the stagnation pressure of the photoevaporated flow. The result is shown in figure \ref{fig:pressure} at bottom. 
+From this figures we can see that our models predict that for the farthest proplyds (169-338, 177-341 and 180-331) the stellar wind pressure is weaker than the estimated stagnation pressure. Since these bow shocks are stationary, we expect pressure
+balance, so the stellar wind is not enough to guarantee pressure balance far from \thC{}
 
-We also expect the stellar ionizing flux should be the required to balance the photoevaporated flux. We do
-the comparison in figure \ref{fig:pressure} (top). In both cases, the highlighted points represent the variations which have better agree with ionization balance and pressure balance, respctively.
+%Using the data from figure \ref{fig:conic-xi}, we estimate for each source the parameters $(\beta,i,\xi)$ (columns 7, 8 and 9 from table \ref{tab:arc-fits}). With this, is possible to estimate the non projected distances $(R_0,D)$ (columns 10 and 11).
+
+%Using the data from table \ref{tab:arc-fits} along with the ionization front radius and photoevaporation flow density obtained from \citet{HA:1998} we measured the stagnation pressure at the bow shock's position, 
+%and compare it with the expected pressure from the stellar wind at the distance $D$. 
+%Since we expect equilibrium pressure in the bow shock surface, both pressures should be the same. The comparison is done in figure \ref{fig:pressure} (bottom).
+
+%We also expect the stellar ionizing flux should be the required to balance the photoevaporated flux. We do
+%the comparison in figure \ref{fig:pressure} (top). In both cases, the highlighted points represent the variations which have better agree with ionization balance and pressure balance, respctively.
  
-For the farthest proplyds, we can see that the estimated pressure is greater than the stellar wind pressure, even with the best fits. This suggests that at large distances, another source rather than the 
-stellar wind is the reponsible for mantaining the stationary bow shocks. 
+%For the farthest proplyds, we can see that the estimated pressure is greater than the stellar wind pressure, even with the best fits. This suggests that at large distances, another source rather than the 
+%stellar wind is the reponsible for mantaining the stationary bow shocks. 
 
 \begin{figure*}
 \includegraphics[width=\linewidth]{LV-full-field-annotated.png}
@@ -298,9 +311,13 @@ $(\xi=0.2)$.}
 
 \begin{figure}
 \includegraphics[width=\linewidth]{../../proplyd-wind-figs/plot-wind-fits}
-\caption{Top: In colored lines,  the required ionizing flux to balance the photoevaporated flow for each proplyd. The gray line represents the stellar flux at the distance $D$. 
-Bottom: In colored lines, estimated stagnation pressure for each proplyd. 
-The gray solid line represent the stellar wind at the distance $D$. in both cases, the big dots represent the variations which have more agreement with ionization balance and pressure balance, respectively.}
+\caption{Top: In colored lines, we show the ionizing flux required to balance the photoevaporated flow for some models which agree with the observed radii for each proplyd compared against the stellar ionizing 
+flux at the distance D.
+Bottom: The estimated stagnation pressure for the same models as above compared against the stellar wind pressure.
+In both graphs, the big dots represent th models which show agreement with ionization balance.}
+%\caption{Top: In colored lines,  the required ionizing flux to balance the photoevaporated flow for each proplyd. The gray line represents the stellar flux at the distance $D$. 
+%Bottom: In colored lines, estimated stagnation pressure for each proplyd. 
+%The gray solid line represent the stellar wind at the distance $D$. in both cases, the big dots represent the variations which have more agreement with ionization balance and pressure balance, respectively.}
 \label{fig:pressure}
 \end{figure}
 
