@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import argparse
 import json
 from scipy import optimize
-
+import seaborn as sns
 parser = argparse.ArgumentParser(
     description=""" Choose a region file to work and the angle
     to measure radius""")
@@ -216,7 +216,7 @@ R0 = np.sqrt(xr0line**2+yr0line**2)
 plt.plot(x/R0, y/R0, "o", label=r"{}: $D = {:.2f}''$".format(proplyd, D))
 #***************************************************************************
 #Plotting the circle fit
-plt.plot(x_fit2/R0, y_fit2/R0, 'k--', label=method_2, lw=2)
+plt.plot(x_fit2/R0, y_fit2/R0, 'k--', label="Circle fit to data", lw=2)
 plt.plot([xc_2/R0], [yc_2/R0], 'bx')#Drawing R0 and Rc:
 r0x,r0y = np.array([0,xr0line]),np.array([0,yr0line])
 rcx,rcy = np.array([xc_2,xrcline]),np.array([yc_2,yrcline])
@@ -250,8 +250,8 @@ plt.legend(loc="lower left")
 plt.xlabel(r"$z'/R'_0$",fontsize = "large")
 plt.ylabel(r"$r'/R'_0$",fontsize = "large")
 
-plt.grid()
-plt.title("{} fit circle".format(proplyd))
+#plt.grid()
+#plt.title("{} fit circle".format(proplyd))
 
 plt.xlim(-3.0, 3.0)
 plt.ylim(-2.0, 2.0)
