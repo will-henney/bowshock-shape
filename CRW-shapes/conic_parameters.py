@@ -19,16 +19,27 @@ def th1_90_method2(beta, xi):
     return np.sqrt(2.5*(np.sqrt(1.0 + 12*xi*beta/5.0) - 1.0))
 
 
-def B(beta,xi=1.0, th1_90=th1_90_method1):
+def th1_90_method3(beta, xi):
+    return np.sqrt(7.5*(np.sqrt(1.0 + 4.0*xi*beta/5.0) - 1.0))
+
+
+def th1_90_exact(beta, xi):
+    """Numerically find the exact solution"""
+    def _f(theta):
+        return theta - (1.0 - xi*beta)*np.tan(theta)
+    return fsolve(_f, th1_90_method1(beta, xi))
+
+
+def B(beta,xi=1.0, th1_90=th1_90_method3):
     """
     Returns R_90 normalized with R_0
     """
     if xi is None:
-        xxi = 1.0
+        _xi = 1.0
     else:
-        xxi = xi
-    numerator = (1+np.sqrt(beta))*th1_90(beta, xxi)
-    denominator = (1.-xxi*beta)*np.sqrt(beta)
+        _xi = xi
+    numerator = (1 + np.sqrt(beta))*th1_90(beta, _xi)
+    denominator = (1.0 - _xi*beta)*np.sqrt(beta)
     return numerator/denominator
 
 
@@ -45,6 +56,11 @@ def theta_c(beta,xi=1.0):
 # Now, functions for the hyperbola that fits the tail
 #
 
+def I_k(k):
+    """Integral from 0 to pi/2"""
+    return np.sqrt(np.pi)*gamma_func(0.5*(k+1))/(4*gamma_func(0.5*k+2))
+
+
 def finf(th, beta, xi):
     """Function that gives f(theta) = 0 when theta = theta_infty
 
@@ -52,8 +68,7 @@ def finf(th, beta, xi):
     """
     k = 2./xi-2
     C = (k+2*(1-beta))/(k+2)
-    I = np.sqrt(np.pi)*gamma_func(0.5*(k+1))/(4*gamma_func(0.5*k+2))
-    D = np.pi + 2*beta*I
+    D = np.pi + 2*beta*I_k(k)
     return th - C*np.tan(th) - D
 
 def finf_CRW(th, beta, xi):
@@ -87,6 +102,20 @@ def phi_ratio_CRW(beta, tht):
 def G(theta):
     """Auxiliary angle function"""
     return theta - np.sin(theta)*np.cos(theta)
+
+
+def m90(beta, xi, th1_90=th1_90_method2):
+    """
+    Gradient of bowshock -dy/dx at theta = 90
+    """
+    if xi is None:
+        factor = 0.5*np.pi*beta
+        _xi = 1.0
+    else:
+        factor = 2*I_k(2./xi-2)*beta
+        _xi = xi
+    tau90 = np.tan(th1_90(beta, _xi))
+    return tau90 + factor*(1.0 + tau90**2)/(_xi*beta - (1.0 - _xi*beta)*tau90**2)
 
 
 def phi_ratio_anisotropic(beta, xi, tht):
@@ -163,7 +192,7 @@ class HeadTail(object):
             # And throw away the previous value of x0_t so that we can
             # force y and dy/dx to match at x=0
             self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
-      
+  
         # Major and minor axes of tail hyperbola
         self.a_t = np.sqrt(
             (self.x_m - self.x0_t)**2

@@ -206,16 +206,27 @@ Here is the image inline:
       return np.sqrt(2.5*(np.sqrt(1.0 + 12*xi*beta/5.0) - 1.0))
 
 
-  def B(beta,xi=1.0, th1_90=th1_90_method1):
+  def th1_90_method3(beta, xi):
+      return np.sqrt(7.5*(np.sqrt(1.0 + 4.0*xi*beta/5.0) - 1.0))
+
+
+  def th1_90_exact(beta, xi):
+      """Numerically find the exact solution"""
+      def _f(theta):
+          return theta - (1.0 - xi*beta)*np.tan(theta)
+      return fsolve(_f, th1_90_method1(beta, xi))
+
+
+  def B(beta,xi=1.0, th1_90=th1_90_method3):
       """
       Returns R_90 normalized with R_0
       """
       if xi is None:
-          xxi = 1.0
+          _xi = 1.0
       else:
-          xxi = xi
-      numerator = (1+np.sqrt(beta))*th1_90(beta, xxi)
-      denominator = (1.-xxi*beta)*np.sqrt(beta)
+          _xi = xi
+      numerator = (1 + np.sqrt(beta))*th1_90(beta, _xi)
+      denominator = (1.0 - _xi*beta)*np.sqrt(beta)
       return numerator/denominator
 
 
@@ -232,6 +243,11 @@ Here is the image inline:
   # Now, functions for the hyperbola that fits the tail
   #
 
+  def I_k(k):
+      """Integral from 0 to pi/2"""
+      return np.sqrt(np.pi)*gamma_func(0.5*(k+1))/(4*gamma_func(0.5*k+2))
+
+
   def finf(th, beta, xi):
       """Function that gives f(theta) = 0 when theta = theta_infty
 
@@ -239,8 +255,7 @@ Here is the image inline:
       """
       k = 2./xi-2
       C = (k+2*(1-beta))/(k+2)
-      I = np.sqrt(np.pi)*gamma_func(0.5*(k+1))/(4*gamma_func(0.5*k+2))
-      D = np.pi + 2*beta*I
+      D = np.pi + 2*beta*I_k(k)
       return th - C*np.tan(th) - D
 
   def finf_CRW(th, beta, xi):
@@ -274,6 +289,20 @@ Here is the image inline:
   def G(theta):
       """Auxiliary angle function"""
       return theta - np.sin(theta)*np.cos(theta)
+
+
+  def m90(beta, xi, th1_90=th1_90_method2):
+      """
+      Gradient of bowshock -dy/dx at theta = 90
+      """
+      if xi is None:
+          factor = 0.5*np.pi*beta
+          _xi = 1.0
+      else:
+          factor = 2*I_k(2./xi-2)*beta
+          _xi = xi
+      tau90 = np.tan(th1_90(beta, _xi))
+      return tau90 + factor*(1.0 + tau90**2)/(_xi*beta - (1.0 - _xi*beta)*tau90**2)
 
 
   def phi_ratio_anisotropic(beta, xi, tht):
@@ -350,7 +379,7 @@ Here is the image inline:
               # And throw away the previous value of x0_t so that we can
               # force y and dy/dx to match at x=0
               self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
-        
+    
           # Major and minor axes of tail hyperbola
           self.a_t = np.sqrt(
               (self.x_m - self.x0_t)**2
@@ -792,7 +821,7 @@ beta = 0.0100, tau = 0.48, J = 0.55, K = -3.10
 Corrected K = -0.82
 
 
-* TODO [4/5] Joining the head and tail conics
+* TODO [5/5] Joining the head and tail conics
 + Revisiting this after summer break [2016-08-23 Tue]
 + [X] Seems to be working for CRW case, so log as head quadric is hyperbola
 + [X] Need to track down error for when head quadric is ellipse
@@ -800,13 +829,13 @@ Corrected K = -0.82
 + [X] Finally, we need to look at using alternative join points
   + Such as x=0, since derivative there is discontinuous anyway
   + We could try using max(x_m, 0), since when x_m < 0 (corresponding to approx \beta < 0.1) then the head quadric is not a good approximation anymore at x_m.  But it still seems OK back to x = 0.
-+ [-] Comments from git commit message [2016-08-31 Wed]
++ [X] Comments from git commit message [2016-08-31 Wed]
   + I went on a long wild goose chase with trying to use the asymptotic espansion as theta -> theta_\infty, but that turned out to be a waste of time
   + I am now back to matching the gradients and values, and that works well for larger beta, but becomes inaccurate at small beta since it is trying to match at a point where the head quadric is no longer a good fit
   + [X] The next plan is to abandon the use of even the linear term in the phi_1(phi) expansion, which gives us back an extra degree of freedom. We can use that to match both y and dy/dx at a fixed x (instead of letting x float, as we have been doing).  I will try doing it at x=0 for the low beta cases
-  + [ ] We also need to include the variable-k case.  But this should be easy if we are not doing the phi_1(phi) expansion any more
+  + [X] We also need to include the variable-k case.  But this should be easy if we are not doing the phi_1(phi) expansion any more
     + This requires generalising the conic that we plot too
-    + And means that the name =crw-conic-head-tail.p= is now a misnomer
+    + And means that the name =crw-conic-head-tail.py= is now a misnomer
 
 
 
@@ -964,4 +993,46 @@ python conic-head-tail.py 0.15 0.2
 [[file:conic-head-tail-xi020.pdf]]
 
 
-** 
+** Testing different approximations for th1,90
+#+BEGIN_SRC python :return pltfile :results file
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  import conic_parameters
+
+  pltfile = 'r90-approx-comparison.pdf'
+  beta = np.logspace(-3.0, 0.0, 200)
+  xi = 1.0
+
+  methods = [
+  ['ratio', conic_parameters.th1_90_method1, {}],
+  ['quadratic', conic_parameters.th1_90_method2, {}],
+  ['CRW', conic_parameters.th1_90_method3, {}],
+  ['exact', conic_parameters.th1_90_exact, {'lw': 0.5, 'c': 'k'}],
+  ]
+
+  fig, ax = plt.subplots(1, 1)
+  for label, method, plot_styles in methods:
+      ax.plot(beta, conic_parameters.B(beta, xi, th1_90=method),
+              label=label, **plot_styles)
+  ax.legend(loc='upper left')
+  ax.set_xscale('log')
+  ax.set_xlabel(r'$\beta$')
+  ax.set_ylabel(r'$B = R_{90}/R_{0}$')
+  ax.set_ylim(0.0, 5.0)
+  fig.tight_layout()
+  fig.savefig(pltfile)
+
+#+END_SRC
+
+#+RESULTS:
+[[file:r90-approx-comparison.pdf]]
+
+
+*** Conclusions of comparison
++ =th1_90_method3= is extremely accurate!
++ This is based on direct substitution in CRW's eq (26)
++ Which is slightly different from the double quadratic for that we derived
+  + Not sure why
++ So we should use the CRW version going forward
++ This would also potentially give an independent way of calculating m90
