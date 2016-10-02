@@ -64,7 +64,11 @@ for i, beta in enumerate(betagrid):
     x_crw = R_crw*np.cos(theta)
     y_crw = R_crw*np.sin(theta)
 
-    ht = conic_parameters.HeadTail(beta, xi=XI_PARAMETER, xmin=XMIN_PARAMETER)
+    ht = conic_parameters.HeadTail(beta,
+                                   xi=XI_PARAMETER,
+                                   xmin=XMIN_PARAMETER,
+                                   method='match head to tail')
+                                   # method='match R90 and gradient')
 
     x_head = ht.x_head(ht.t_h)
     y_head = ht.y_head(ht.t_h)
@@ -94,6 +98,8 @@ for i, beta in enumerate(betagrid):
     # text += '\n' + r"$K = {:.2f}$ ".format(ht.K)
     text += '\n' + r"$\theta_h = {:.2f}$ ".format(np.degrees(ht.theta_h))
     text += '\n' + r"$\theta_t = {:.2f}$ ".format(np.degrees(-ht.theta_t))
+    text += '\n' + r"$m_{{90}} = {:.2f}$ ".format(ht.m90)
+    text += '\n' + r"$R_{{90}} = {:.2f}$ ".format(ht.R90)
     ax.text(xright, ytop, text, ha='right', va='top', bbox=whitebox, fontsize='small')
 
 

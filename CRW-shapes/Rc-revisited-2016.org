@@ -183,6 +183,9 @@ Here is the image inline:
 [[file:alpha-vs-beta-xi.png]]
 
 * TODO Utility functions for A, B, and \theta_c
+:PROPERTIES:
+:ID:       0483E2CE-E74E-4CFD-89B2-0AE92CCC6217
+:END:
 
 #+BEGIN_SRC python :eval no :tangle conic_parameters.py
   import sys
@@ -291,7 +294,7 @@ Here is the image inline:
       return theta - np.sin(theta)*np.cos(theta)
 
 
-  def m90(beta, xi, th1_90=th1_90_method2):
+  def m90_func(beta, xi, th1_90=th1_90_method3):
       """
       Gradient of bowshock -dy/dx at theta = 90
       """
@@ -329,7 +332,8 @@ Here is the image inline:
 
   class HeadTail(object):
       """Conic fits to the head and tail"""
-      def __init__(self, beta, xi=None, xmin=None):
+      def __init__(self, beta, xi=None, xmin=None,
+                   method='match head to tail'):
           """`xmin` is minimum x value of natural matching point.  If `x_m` <
           `xmin`, then the matching point will be forced to be `xmin`"""
           #
@@ -360,32 +364,48 @@ Here is the image inline:
               self.theta_t = theta_tail(beta, xi, f=finf)
               self.J = phi_ratio_anisotropic(beta, xi, self.theta_t)
               self.K = K_func_anisotropic(beta, xi, self.theta_t, self.J)
-          # Center of tail hyperbola in units of R_0
-          self.x0_t =  self.D / (1.0 + self.J)
 
           self.tau_t = np.tan(self.theta_t)
           self.T = (self.tau_h/self.tau_t)**2
+          self.R90 = B(beta, xi)
+          self.m90 = m90_func(beta, xi)
 
-          # New 30 Aug 2016
-          # Scale of hyperbola now determined from the K coefficient
-          # self.a_t = self.x0_t*a_over_x(self.tau_t, self.J, self.K)
 
-          # Find the x value where two conics match in dy/dx
-          self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
-          if xmin is not None and self.x_m < xmin:
-              # 30 Aug 2016: Match at x = xmin if gradients would naturally
-              # match at a more negative value of x
-              self.x_m = xmin
-              # And throw away the previous value of x0_t so that we can
-              # force y and dy/dx to match at x=0
-              self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
-    
-          # Major and minor axes of tail hyperbola
-          self.a_t = np.sqrt(
-              (self.x_m - self.x0_t)**2
-              - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
-          )
-          self.t_t = np.linspace(0.0, max(2.0, 10.0/self.a_t), 500)
+          if method == 'match R90 and gradient':
+              # New 30 Sep 2016 - fit tail to y, dy/dx @ 90 deg, instead
+              # of to head conic
+              self.x0_t = self.R90*self.m90 / self.tau_t**2
+              self.a_t = np.sqrt(self.x0_t**2 - (self.R90/self.tau_t)**2)
+              self.x_m = 0.0      # for completeness, but we don't use it
+          elif method == 'match head to tail':
+              # Original method, that I am not satisfied with (30 Sep 2016)
+  
+              # Center of tail hyperbola in units of R_0
+              self.x0_t =  self.D / (1.0 + self.J)
+
+              # New 30 Aug 2016
+              # Scale of hyperbola now determined from the K coefficient
+              # self.a_t = self.x0_t*a_over_x(self.tau_t, self.J, self.K)
+
+              # Find the x value where two conics match in dy/dx
+              self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
+              if xmin is not None: # and self.x_m < xmin:
+                  # 30 Aug 2016: Match at x = xmin if gradients would naturally
+                  # match at a more negative value of x
+                  self.x_m = xmin
+                  # And throw away the previous value of x0_t so that we can
+                  # force y and dy/dx to match at x=xmin
+                  self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
+
+              # Major and minor axes of tail hyperbola
+              self.a_t = np.sqrt(
+                  (self.x_m - self.x0_t)**2
+                  - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
+              )
+          else:
+              raise NotImplementedError('Unknown match method: "{}"'.format(method))
+
+          self.t_t = np.linspace(0.0, max(2.0, 10.0/self.a_t),  500)
 
       def x_head(self, t):
           """Parametric Cartesian x coordinate of head"""
@@ -822,6 +842,9 @@ Corrected K = -0.82
 
 
 * TODO [5/5] Joining the head and tail conics
+:PROPERTIES:
+:ID:       CFCCAE1D-FB80-4BB8-B3D9-4D3B12D7531D
+:END:
 + Revisiting this after summer break [2016-08-23 Tue]
 + [X] Seems to be working for CRW case, so log as head quadric is hyperbola
 + [X] Need to track down error for when head quadric is ellipse
@@ -907,8 +930,12 @@ Corrected K = -0.82
       R_crw = R_from_theta(theta, beta, xi=XI_PARAMETER)
       x_crw = R_crw*np.cos(theta)
       y_crw = R_crw*np.sin(theta)
-
-      ht = conic_parameters.HeadTail(beta, xi=XI_PARAMETER, xmin=XMIN_PARAMETER)
+  
+      ht = conic_parameters.HeadTail(beta,
+                                     xi=XI_PARAMETER,
+                                     xmin=XMIN_PARAMETER,
+                                     method='match head to tail')
+                                     # method='match R90 and gradient')
 
       x_head = ht.x_head(ht.t_h)
       y_head = ht.y_head(ht.t_h)
@@ -938,6 +965,8 @@ Corrected K = -0.82
       # text += '\n' + r"$K = {:.2f}$ ".format(ht.K)
       text += '\n' + r"$\theta_h = {:.2f}$ ".format(np.degrees(ht.theta_h))
       text += '\n' + r"$\theta_t = {:.2f}$ ".format(np.degrees(-ht.theta_t))
+      text += '\n' + r"$m_{{90}} = {:.2f}$ ".format(ht.m90)
+      text += '\n' + r"$R_{{90}} = {:.2f}$ ".format(ht.R90)
       ax.text(xright, ytop, text, ha='right', va='top', bbox=whitebox, fontsize='small')
 
 
@@ -957,14 +986,14 @@ Corrected K = -0.82
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
-python conic-head-tail.py -0.8
+python conic-head-tail.py -0.75
 #+END_SRC
 
 #+RESULTS:
 [[file:conic-head-tail-crw.pdf]]
 
 #+BEGIN_SRC sh :results file
-python conic-head-tail.py -2.5 1.0
+python conic-head-tail.py -0.75 1.0
 #+END_SRC
 
 #+RESULTS:
@@ -979,7 +1008,7 @@ python conic-head-tail.py -0.75 0.8
 [[file:conic-head-tail-xi080.pdf]]
 
 #+BEGIN_SRC sh :results file
-python conic-head-tail.py 0.0 0.4
+python conic-head-tail.py 0.1 0.4
 #+END_SRC
 
 #+RESULTS:

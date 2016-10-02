@@ -104,7 +104,7 @@ def G(theta):
     return theta - np.sin(theta)*np.cos(theta)
 
 
-def m90(beta, xi, th1_90=th1_90_method2):
+def m90_func(beta, xi, th1_90=th1_90_method3):
     """
     Gradient of bowshock -dy/dx at theta = 90
     """
@@ -142,7 +142,8 @@ def a_over_x(tau, J, K):
 
 class HeadTail(object):
     """Conic fits to the head and tail"""
-    def __init__(self, beta, xi=None, xmin=None):
+    def __init__(self, beta, xi=None, xmin=None,
+                 method='match head to tail'):
         """`xmin` is minimum x value of natural matching point.  If `x_m` <
         `xmin`, then the matching point will be forced to be `xmin`"""
         #
@@ -173,32 +174,48 @@ class HeadTail(object):
             self.theta_t = theta_tail(beta, xi, f=finf)
             self.J = phi_ratio_anisotropic(beta, xi, self.theta_t)
             self.K = K_func_anisotropic(beta, xi, self.theta_t, self.J)
-        # Center of tail hyperbola in units of R_0
-        self.x0_t =  self.D / (1.0 + self.J)
 
         self.tau_t = np.tan(self.theta_t)
         self.T = (self.tau_h/self.tau_t)**2
+        self.R90 = B(beta, xi)
+        self.m90 = m90_func(beta, xi)
 
-        # New 30 Aug 2016
-        # Scale of hyperbola now determined from the K coefficient
-        # self.a_t = self.x0_t*a_over_x(self.tau_t, self.J, self.K)
 
-        # Find the x value where two conics match in dy/dx
-        self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
-        if xmin is not None and self.x_m < xmin:
-            # 30 Aug 2016: Match at x = xmin if gradients would naturally
-            # match at a more negative value of x
-            self.x_m = xmin
-            # And throw away the previous value of x0_t so that we can
-            # force y and dy/dx to match at x=0
-            self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
-  
-        # Major and minor axes of tail hyperbola
-        self.a_t = np.sqrt(
-            (self.x_m - self.x0_t)**2
-            - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
-        )
-        self.t_t = np.linspace(0.0, max(2.0, 10.0/self.a_t), 500)
+        if method == 'match R90 and gradient':
+            # New 30 Sep 2016 - fit tail to y, dy/dx @ 90 deg, instead
+            # of to head conic
+            self.x0_t = self.R90*self.m90 / self.tau_t**2
+            self.a_t = np.sqrt(self.x0_t**2 - (self.R90/self.tau_t)**2)
+            self.x_m = 0.0      # for completeness, but we don't use it
+        elif method == 'match head to tail':
+            # Original method, that I am not satisfied with (30 Sep 2016)
+
+            # Center of tail hyperbola in units of R_0
+            self.x0_t =  self.D / (1.0 + self.J)
+
+            # New 30 Aug 2016
+            # Scale of hyperbola now determined from the K coefficient
+            # self.a_t = self.x0_t*a_over_x(self.tau_t, self.J, self.K)
+
+            # Find the x value where two conics match in dy/dx
+            self.x_m = (self.x0_t + self.sig_h*self.T*self.x0_h) / (1 + self.sig_h*self.T)
+            if xmin is not None: # and self.x_m < xmin:
+                # 30 Aug 2016: Match at x = xmin if gradients would naturally
+                # match at a more negative value of x
+                self.x_m = xmin
+                # And throw away the previous value of x0_t so that we can
+                # force y and dy/dx to match at x=0
+                self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
+
+            # Major and minor axes of tail hyperbola
+            self.a_t = np.sqrt(
+                (self.x_m - self.x0_t)**2
+                - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
+            )
+        else:
+            raise NotImplementedError('Unknown match method: "{}"'.format(method))
+
+        self.t_t = np.linspace(0.0, max(2.0, 10.0/self.a_t),  500)
 
     def x_head(self, t):
         """Parametric Cartesian x coordinate of head"""
