@@ -67,8 +67,9 @@ for i, beta in enumerate(betagrid):
     ht = conic_parameters.HeadTail(beta,
                                    xi=XI_PARAMETER,
                                    xmin=XMIN_PARAMETER,
-                                   method='match head to tail')
-                                   # method='match R90 and gradient')
+                                   method='match head to tail',
+                                   #method='match R90 and gradient',
+    )
 
     x_head = ht.x_head(ht.t_h)
     y_head = ht.y_head(ht.t_h)

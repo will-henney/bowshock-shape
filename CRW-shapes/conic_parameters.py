@@ -115,7 +115,7 @@ def m90_func(beta, xi, th1_90=th1_90_method3):
         factor = 2*I_k(2./xi-2)*beta
         _xi = xi
     tau90 = np.tan(th1_90(beta, _xi))
-    return tau90 + factor*(1.0 + tau90**2)/(_xi*beta - (1.0 - _xi*beta)*tau90**2)
+    return tau90 + factor*(1.0 + tau90**2)/((1.0 - _xi*beta)*tau90**2 - _xi*beta)
 
 
 def phi_ratio_anisotropic(beta, xi, tht):
@@ -204,7 +204,7 @@ class HeadTail(object):
                 # match at a more negative value of x
                 self.x_m = xmin
                 # And throw away the previous value of x0_t so that we can
-                # force y and dy/dx to match at x=0
+                # force y and dy/dx to match at x=xmin
                 self.x0_t = (1 + self.sig_h*self.T)*xmin - self.sig_h*self.T*self.x0_h
 
             # Major and minor axes of tail hyperbola

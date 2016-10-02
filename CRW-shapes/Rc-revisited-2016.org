@@ -305,7 +305,7 @@ Here is the image inline:
           factor = 2*I_k(2./xi-2)*beta
           _xi = xi
       tau90 = np.tan(th1_90(beta, _xi))
-      return tau90 + factor*(1.0 + tau90**2)/(_xi*beta - (1.0 - _xi*beta)*tau90**2)
+      return tau90 + factor*(1.0 + tau90**2)/((1.0 - _xi*beta)*tau90**2 - _xi*beta)
 
 
   def phi_ratio_anisotropic(beta, xi, tht):
@@ -930,12 +930,13 @@ Corrected K = -0.82
       R_crw = R_from_theta(theta, beta, xi=XI_PARAMETER)
       x_crw = R_crw*np.cos(theta)
       y_crw = R_crw*np.sin(theta)
-  
+
       ht = conic_parameters.HeadTail(beta,
                                      xi=XI_PARAMETER,
                                      xmin=XMIN_PARAMETER,
-                                     method='match head to tail')
-                                     # method='match R90 and gradient')
+                                     method='match head to tail',
+                                     #method='match R90 and gradient',
+      )
 
       x_head = ht.x_head(ht.t_h)
       y_head = ht.y_head(ht.t_h)
@@ -1065,3 +1066,6 @@ python conic-head-tail.py 0.15 0.2
   + Not sure why
 + So we should use the CRW version going forward
 + This would also potentially give an independent way of calculating m90
+
+
+** Testing the gradient calculation for CRW shapes at th=90
