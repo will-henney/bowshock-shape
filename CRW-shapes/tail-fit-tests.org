@@ -1,0 +1,257 @@
+* Config
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+#+END_SRC
+
+#+RESULTS:
+| org-display-inline-images |
+* Set up plotting style
+:PROPERTIES:
+:ID:       29F006B9-1FDD-465B-B1C0-F8C488E21E92
+:END:
+#+BEGIN_SRC ipython :session
+  %matplotlib inline
+  import matplotlib.pyplot as plt
+  import numpy as np
+  import seaborn as sns
+  sns.set(context='notebook',
+          style='darkgrid', 
+          palette='bright',
+          font_scale=1.5,
+          color_codes=True)
+  %config InlineBackend.figure_format = 'svg'
+  black_style ={
+   'text.color': '.85',
+   'axes.edgecolor': '#3f3f3f',
+   'axes.facecolor': '#504040',
+   'axes.labelcolor': '.85',
+   'figure.facecolor': '#3f3f3f',
+   'grid.color': 'gray',
+   'xtick.color': '.85',
+   'ytick.color': '.85',
+   
+  }
+  sns.set_style(rc=black_style)
+#+END_SRC
+
+#+RESULTS:
+* Define the hyperbola model for the ratio \theta_1/\theta
+
+#+BEGIN_SRC ipython :session
+import theta_ratio_fit 
+from astropy.modeling.fitting import LevMarLSQFitter
+#+END_SRC
+
+#+RESULTS:
+
+
++ Run the following each time we edit the code in the =theta_ratio_fit= module.
++ Remember that =reload= needs to come from =importlib= in Python 3
+#+BEGIN_SRC ipython :session
+  from importlib import reload
+  reload(theta_ratio_fit)
+#+END_SRC
+
+#+RESULTS:
+: <module 'theta_ratio_fit' from '/Users/will/Work/Bowshocks/Jorge/bowshock-shape/CRW-shapes/theta_ratio_fit.py'>
+
+
+Since we used the =@custom_model= decorator on =hyperbola_ratio=, we only use the keyword arguments when setting up the model
+#+BEGIN_SRC ipython :session
+  model = theta_ratio_fit.hyperbola_ratio(a=14.5, x0=15.0, tau=0.3, D=30.0)
+  model
+#+END_SRC
+
+#+RESULTS:
+: <hyperbola_ratio(a=14.5, x0=15.0, tau=0.3, D=30.0)>
+
+That results in a callable =model(x)= as a function of the positional arguments (in this case, only =x=)
+
+Find the asymptotic angle 
+#+BEGIN_SRC ipython :session
+th_inf = np.pi - np.arctan(model.tau.value)
+np.degrees(th_inf)
+#+END_SRC
+
+#+RESULTS:
+: 163.30075576600638
+
+* Plot the model for a fixed set of parameters
+#+BEGIN_SRC ipython :session :file figs/fig-ax.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[5, 3])
+  theta = np.linspace(0.0, th_inf, 100)
+  ax.plot(np.degrees(theta), model(theta), c='c')
+  ax.set(
+      xlim=[0.0, 180.0], ylim=[0.0, None],
+      xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
+      title=repr(model),
+  )
+#+END_SRC
+
+#+RESULTS:
+[[file:figs/fig-ax.svg]]
+
+
+* Fit the model to the CRW shape
+The exact solution
+#+BEGIN_SRC ipython :session
+import equation6
+BETA = 0.01
+NTHETA = 100
+shell = equation6.Shell(innertype='isotropic', beta=BETA)
+theta = np.linspace(0.0, shell.th_infty, NTHETA)
+R, theta1 = shell.radius(theta, full=True)
+ratio = theta1/theta
+#+END_SRC
+
+#+RESULTS:
+
+And the bad fit we did before, just to get the head really. 
++ Note that we interpolate onto the same =theta= grid as above
+#+BEGIN_SRC ipython :session
+  from scipy.interpolate import interp1d
+  import conic_parameters
+  ht = conic_parameters.HeadTail(BETA, xi=None, xmin=-0.75,
+                                 method='match head to tail')
+  x_head = ht.x_head(ht.t_h)
+  y_head = ht.y_head(ht.t_h)
+  theta_head = np.arctan2(y_head, x_head)
+  theta1_head = np.arctan2(y_head, ht.D - x_head)
+  ratio_head_func = interp1d(theta_head, theta1_head/theta_head)
+  ratio_head = ratio_head_func(theta)
+#+END_SRC
+
+#+RESULTS:
+
+Look at the star-star separation and the opening angle
+#+BEGIN_SRC ipython :session
+ht.D, shell.th_infty
+#+END_SRC
+
+#+RESULTS:
+| 11.0 | 2.697341127696881 |
+
+And look at the position and scale of tail hyperbola from the matching fit
+#+BEGIN_SRC ipython :session
+  [
+      ['x_0', 'a', 'theta'],
+      None,
+      [ht.x0_t, ht.a_t, np.pi - ht.theta_t],
+  ]
+#+END_SRC
+
+#+RESULTS:
+|               x_0 |                  a |              theta |
+|------------------+--------------------+--------------------|
+| 7.36673808896005 | 6.1133562194272475 | 2.6973411276968755 |
+
+Also may be useful to use the /equation (26)/ approximation for the shape:
+#+BEGIN_SRC ipython :session
+  def eq26(th, beta):
+      """Equation (26) from CRW96 - approximate form for theta_1"""
+      th1 = np.sqrt(7.5*(-1 + np.sqrt(1 + 0.8*beta*(1 - th/np.tan(th)))))
+      return th1
+
+  def ratio_eq26(th, beta):
+      return eq26(th, beta)/th
+
+#+END_SRC
+
+Set up a model using the matching parameters
+#+BEGIN_SRC ipython :session
+  model = theta_ratio_fit.hyperbola_ratio(ht.a_t, x0=ht.x0_t,
+                                          tau=np.tan(ht.theta_t), 
+                                          D=ht.D)
+  model
+#+END_SRC
+
+#+RESULTS:
+: <hyperbola_ratio(a=6.1133562194272475, x0=7.36673808896005, tau=0.47598478502008823, D=11.0)>
+
+
+Compare them before doing the fitting
++ Note that we have had to drop the last point when plotting the model ratio since it goes funny at the asymptote
+#+BEGIN_SRC ipython :session :file figs/fig-prefit.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[5, 3])
+  ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c='c')
+  ax.plot(np.degrees(theta), ratio, c='y')
+  ax.plot(np.degrees(theta), ratio_head, c='w', ls=':')
+  ax.set(
+      xlim=[0.0, 180.0], ylim=[0.0, None],
+      xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
+  )
+#+END_SRC
+
+#+RESULTS:
+[[file:figs/fig-prefit.svg]]
+
+Freeze the =tau= and =D= parameters since they are external constraints
+#+BEGIN_SRC ipython :session
+model.tau.fixed = True
+model.D.fixed = True
+#+END_SRC
+
+#+RESULTS:
+
+
+Now do the actual fitting
+
+#+BEGIN_SRC ipython :session
+fit = LevMarLSQFitter()
+mask = (np.degrees(theta) > 95.0) & (np.degrees(theta) < 140.0)
+best_model = fit(model, theta[mask], ratio[mask])
+best_model
+#+END_SRC
+
+#+RESULTS:
+: <hyperbola_ratio(a=6.4399309065346415, x0=7.639944241792767, tau=0.47598478502008823, D=11.0)>
+
+#+BEGIN_SRC ipython :session :file figs/fig-postfit.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[5, 3])
+  ax.plot(np.degrees(theta[:-1]), best_model(theta[:-1]), c='c')
+  ax.plot(np.degrees(theta), ratio, c='y')
+  ax.plot(np.degrees(theta), ratio_head, c='w', ls=':')
+  ax.set(
+      xlim=[0.0, 180.0], ylim=[None, None],
+      xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
+  )
+#+END_SRC
+
+#+RESULTS:
+[[file:figs/fig-postfit.svg]]
+
+
+Finally, we map it all back to real space, just to see how good the fit is. 
+
+Update the tail hyperbola in the =HeadTail= instance
+#+BEGIN_SRC ipython :session
+ht.a_t = best_model.a.value
+ht.x0_t = best_model.x0.value
+#+END_SRC
+
+#+RESULTS:
+
+And calculate cartesian arrays for the shapes
+#+BEGIN_SRC ipython :session
+x_tail = ht.x_tail(ht.t_t)
+y_tail = ht.y_tail(ht.t_t)
+
+x_shell = R*np.cos(theta)/shell.R0
+y_shell = R*np.sin(theta)/shell.R0
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC ipython :session :file figs/fig-xy.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[5, 3])
+  ax.plot(x_shell, y_shell)
+  ax.plot(x_tail, y_tail, ls='--')
+  ax.plot(x_head, y_head, ls=':')
+  ax.set(
+      xlim=[-5.0, 2.0], ylim=[0.0, 7.0]
+  )
+#+END_SRC
+
+#+RESULTS:
+[[file:figs/fig-xy.svg]]
+

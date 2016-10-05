@@ -15,11 +15,22 @@ except IndexError:
 try:
     XI_PARAMETER = float(sys.argv[2])
     suffix = '-xi{:03d}'.format(int(100*XI_PARAMETER))
-except IndexError:
+except (IndexError, ValueError):
     XI_PARAMETER = None
     suffix = '-crw'
 
 
+try:
+    MATCH_METHOD = sys.argv[3]
+except IndexError:
+    MATCH_METHOD = 'headtail'
+
+methods = {
+    'headtail': 'match head to tail',
+    'gradient': 'match R90 and gradient',
+    'asymptote': 'match R90 and asymptote',
+}
+  
 def R_from_theta(theta, beta, xi=None):
     if xi is None:
         shell = equation6.Shell(innertype='isotropic', beta=beta)
@@ -67,7 +78,7 @@ for i, beta in enumerate(betagrid):
     ht = conic_parameters.HeadTail(beta,
                                    xi=XI_PARAMETER,
                                    xmin=XMIN_PARAMETER,
-                                   method='match head to tail',
+                                   method=methods[MATCH_METHOD],
                                    #method='match R90 and gradient',
     )
 
@@ -91,6 +102,7 @@ for i, beta in enumerate(betagrid):
     ax.axvline(x=ht.x_m, lw=1.0, ls='--', color='black', alpha=0.3)
     ax.set_aspect('equal', adjustable='box-forced')
     text = r'$\beta = {:.5f}$ '.format(beta)
+    text += '\n' + r'$D = {:.2f}$ '.format(ht.D)
     text += '\n' + r'$x_m = {:.2f}$ '.format(ht.x_m)
     text += '\n' + r'$x_t = {:.2f}$ '.format(ht.x0_t)
     text += '\n' + r'$x_t - a_t = {:.2f}$ '.format(ht.x0_t - ht.a_t)

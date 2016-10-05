@@ -212,6 +212,11 @@ class HeadTail(object):
                 (self.x_m - self.x0_t)**2
                 - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
             )
+        elif method == 'match R90 and asymptote':
+            # Hyperbola center depends on asymptote only
+            self.x0_t =  self.D / (1.0 + self.J)
+            self.a_t = np.sqrt(self.x0_t**2 - (self.R90/self.tau_t)**2)
+            self.x_m = 0.0
         else:
             raise NotImplementedError('Unknown match method: "{}"'.format(method))
 
@@ -226,13 +231,6 @@ class HeadTail(object):
         return self.head_conic.y(t)
 
     def x_tail(self, t):
-        """Parametric Cartesian x coordinate of tail"""
-        return self.x0_t - self.a_t*np.cosh(t)
-
-    def y_tail(self, t):
-        """Parametric Cartesian y coordinate of tail"""
-        return self.tau_t*self.a_t*np.sinh(t)
-
         """Parametric Cartesian x coordinate of tail"""
         return self.x0_t - self.a_t*np.cosh(t)
 

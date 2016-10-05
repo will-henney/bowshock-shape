@@ -379,7 +379,7 @@ Here is the image inline:
               self.x_m = 0.0      # for completeness, but we don't use it
           elif method == 'match head to tail':
               # Original method, that I am not satisfied with (30 Sep 2016)
-  
+
               # Center of tail hyperbola in units of R_0
               self.x0_t =  self.D / (1.0 + self.J)
 
@@ -402,6 +402,11 @@ Here is the image inline:
                   (self.x_m - self.x0_t)**2
                   - self.T*np.abs(self.a_h**2 - (self.x_m - self.x0_h)**2)
               )
+          elif method == 'match R90 and asymptote':
+              # Hyperbola center depends on asymptote only
+              self.x0_t =  self.D / (1.0 + self.J)
+              self.a_t = np.sqrt(self.x0_t**2 - (self.R90/self.tau_t)**2)
+              self.x_m = 0.0
           else:
               raise NotImplementedError('Unknown match method: "{}"'.format(method))
 
@@ -422,14 +427,6 @@ Here is the image inline:
       def y_tail(self, t):
           """Parametric Cartesian y coordinate of tail"""
           return self.tau_t*self.a_t*np.sinh(t)
-
-          """Parametric Cartesian x coordinate of tail"""
-          return self.x0_t - self.a_t*np.cosh(t)
-
-      def y_tail(self, t):
-          """Parametric Cartesian y coordinate of tail"""
-          return self.tau_t*self.a_t*np.sinh(t)
-
 #+END_SRC
 
 
@@ -882,11 +879,22 @@ Corrected K = -0.82
   try:
       XI_PARAMETER = float(sys.argv[2])
       suffix = '-xi{:03d}'.format(int(100*XI_PARAMETER))
-  except IndexError:
+  except (IndexError, ValueError):
       XI_PARAMETER = None
       suffix = '-crw'
 
 
+  try:
+      MATCH_METHOD = sys.argv[3]
+  except IndexError:
+      MATCH_METHOD = 'headtail'
+
+  methods = {
+      'headtail': 'match head to tail',
+      'gradient': 'match R90 and gradient',
+      'asymptote': 'match R90 and asymptote',
+  }
+    
   def R_from_theta(theta, beta, xi=None):
       if xi is None:
           shell = equation6.Shell(innertype='isotropic', beta=beta)
@@ -934,7 +942,7 @@ Corrected K = -0.82
       ht = conic_parameters.HeadTail(beta,
                                      xi=XI_PARAMETER,
                                      xmin=XMIN_PARAMETER,
-                                     method='match head to tail',
+                                     method=methods[MATCH_METHOD],
                                      #method='match R90 and gradient',
       )
 
@@ -958,6 +966,7 @@ Corrected K = -0.82
       ax.axvline(x=ht.x_m, lw=1.0, ls='--', color='black', alpha=0.3)
       ax.set_aspect('equal', adjustable='box-forced')
       text = r'$\beta = {:.5f}$ '.format(beta)
+      text += '\n' + r'$D = {:.2f}$ '.format(ht.D)
       text += '\n' + r'$x_m = {:.2f}$ '.format(ht.x_m)
       text += '\n' + r'$x_t = {:.2f}$ '.format(ht.x0_t)
       text += '\n' + r'$x_t - a_t = {:.2f}$ '.format(ht.x0_t - ht.a_t)
@@ -983,18 +992,18 @@ Corrected K = -0.82
  
 
 
-
+  
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
-python conic-head-tail.py -0.75
+python conic-head-tail.py -0.75 crw headtail
 #+END_SRC
 
 #+RESULTS:
 [[file:conic-head-tail-crw.pdf]]
 
 #+BEGIN_SRC sh :results file
-python conic-head-tail.py -0.75 1.0
+python conic-head-tail.py -0.75 1.0 gradient
 #+END_SRC
 
 #+RESULTS:
@@ -1009,7 +1018,7 @@ python conic-head-tail.py -0.75 0.8
 [[file:conic-head-tail-xi080.pdf]]
 
 #+BEGIN_SRC sh :results file
-python conic-head-tail.py 0.1 0.4
+python conic-head-tail.py 0.1 0.4 gradient
 #+END_SRC
 
 #+RESULTS:
@@ -1068,4 +1077,117 @@ python conic-head-tail.py 0.15 0.2
 + This would also potentially give an independent way of calculating m90
 
 
-** Testing the gradient calculation for CRW shapes at th=90
+
+** Fitting a hyperbola to \theta_1/\theta vs \theta
+#+BEGIN_SRC python :tangle theta_ratio_fit.py :eval no
+  import numpy as np
+  from astropy.modeling.models import custom_model
+  from astropy.modeling.fitting import LevMarLSQFitter
+
+  @custom_model
+  def hyperbola_ratio(theta, a=1.0, x0=1.0, tau=1.0, D=2.0):
+      """Ratio th1/th for a hyperbola with center `x0`, scale `a`, and
+      opening angle `tau` = tan theta_infty.  Complementary angle th1 is
+      measured from point D along the x axis
+
+      """
+      # First we find the parametric variable t
+      tau_cot_theta = tau/np.tan(theta)
+      cosht = ((x0 / a)
+               ,* (1 - tau_cot_theta*np.sqrt(1 + (a**2/x0**2)*(tau_cot_theta**2 - 1)))
+               / (1 - tau_cot_theta**2))
+      # Now we can find x, y
+      x = x0 - a*cosht
+      y = a*tau*np.sqrt(cosht**2 - 1.0)
+      # Then the th1 angle
+      theta1 = np.arctan2(y, D - x)
+      # And finally return the ratio
+      return theta1/theta
+
+#+END_SRC
+** Looking at why the asymptote method fails so badly
++ When I try to fit the tails using the J-method, I get very unsatisfactory results
++ To find out why, I am going to try and graph theta_1 versus theta for the CRW curves and for the hyperbola
+
+#+name: th1-th-test
+#+BEGIN_SRC python :return figfile :results file :var BETA=0.01
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  import equation6
+  import conic_parameters
+  sys.path.append('../conic-projection')
+  from conproj_utils import Conic
+
+  figfile = 'th1-th-test{:.4f}.pdf'.format(BETA)
+
+  def _(x):
+      return np.degrees(x)
+
+  def eq26(th, beta):
+      """Equation (26) from CRW96 - approximate form for theta_1"""
+      th1 = np.sqrt(7.5*(-1 + np.sqrt(1 + 0.8*beta*(1 - th/np.tan(th)))))
+      return th1
+
+  def _r(x1, x):
+      #return np.tan(x1)/np.tan(x)
+      return x1 / x
+
+  ntheta = 100
+  shell = equation6.Shell(innertype='isotropic', beta=BETA)
+  theta = np.linspace(0.0, shell.th_infty, ntheta)
+  R, theta1 = shell.radius(theta, full=True)
+
+  methods = [
+      'match R90 and asymptote',
+      'match R90 and gradient',
+      'match head to tail',
+  ]
+  fig, ax = plt.subplots(1, 1, figsize=(6, 4))
+  ax.plot(_(theta), _r(theta1, theta), label='CRW', c='y', lw=3, alpha=0.7)
+  ax.plot(_(theta), _r(eq26(theta, BETA), theta),
+          label='eq (26)', c='k', lw=1, ls='--')
+
+  ht = conic_parameters.HeadTail(BETA, xi=None, xmin=-0.75, method=methods[0])
+  x_head = ht.x_head(ht.t_h)
+  y_head = ht.y_head(ht.t_h)
+  theta_head = np.arctan2(y_head, x_head)
+  theta1_head = np.arctan2(y_head, ht.D - x_head)
+  ax.plot(_(theta_head), _r(theta1_head, theta_head),
+          label='Head', c='m', ls='--', lw=0.5)
+
+  for method in methods:
+      ht = conic_parameters.HeadTail(BETA, xi=None, xmin=-0.75, method=method)
+      x_tail = ht.x_tail(ht.t_t)
+      y_tail = ht.y_tail(ht.t_t)
+      theta_tail = np.arctan2(y_tail, x_tail)
+      theta1_tail = np.arctan2(y_tail, ht.D - x_tail)
+      ax.plot(_(theta_tail), _r(theta1_tail, theta_tail), label=method, lw=0.5)
+  ax.legend(loc='lower left', title=r'$\beta = {:.4f}$'.format(BETA),
+            ncol=2, fontsize='x-small')
+  ax.set(xlabel=r'$\theta$', ylabel=r'$\theta_1 / \theta$',
+         xlim=[0.0, _(np.pi)], ylim=[0.0, None])
+  fig.savefig(figfile)
+  fig.tight_layout()
+#+END_SRC
+
+#+RESULTS: th1-th-test
+[[file:th1-th-test0.0100.pdf]]
+
+#+call: th1-th-test(BETA=0.1) :results file
+
+#+RESULTS:
+[[file:th1-th-test0.1000.pdf]]
+
+
+#+call: th1-th-test(BETA=0.001) :results file
+
+#+RESULTS:
+[[file:th1-th-test0.0010.pdf]]
+
+
+#+call: th1-th-test(BETA=0.0001) :results file
+
+#+RESULTS:
+[[file:th1-th-test0.0001.pdf]]
