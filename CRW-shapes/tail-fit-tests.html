@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-10-06 Thu 10:56 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="William Henney" />
+<style type="text/css">
+<!--/*--><![CDATA[/*><!--*/
+/* 18 Jan 2016: Modified from the stylesheet by Zhitao Gong on
+https://github.com/gongzhitaao/orgcss/
+ */
+
+body {
+    max-width: 100%;
+    margin: 1% 1%;
+    font: normal normal normal 16px/1.6em 'Open Sans', sans-serif;
+    color: #aaa;
+    background-color: #3f3f3f;
+}
+
+@media all and (min-width: 95ex) {
+    body {
+        max-width: 95ex;
+        margin: 1% auto;
+    }
+
+    .creator {
+        float: right;
+    }
+}
+
+@media not all and (min-width: 110ex) {
+
+    .creator {
+        float: left;
+    }
+
+    p img {
+        width: 95%;
+    }
+}
+
+.title {
+    padding: .5em 0;
+    text-align: center;
+    color: white;
+}
+
+.subtitle {
+    font-size: medium;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: center;
+}
+
+.abstract {
+    width: 80%;
+    margin: auto;
+    font-style: italic;
+}
+
+.abstract p:last-of-type:before {
+    content: "    ";
+    white-space: pre;
+}
+
+.status {
+    font-size: 90%;
+    margin: 2em auto;
+}
+
+[class^="section-number-"] {
+    margin-right: .5em;
+}
+
+#footnotes {
+    font-size: 90%;
+}
+
+.footpara {
+    display: inline;
+    margin: .2em auto;
+}
+
+.footdef {
+    margin-bottom: 1em;
+}
+
+.footdef sup {
+    padding-right: .5em;
+}
+
+a {
+    color: #527d9a;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffbbaa;
+    border-bottom: 1px dotted;
+}
+
+p img {
+    vertical-align: middle;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: #D5674E;
+    line-height: 1.6em;
+    font-family: 'Droid Serif', serif;
+}
+
+h4,h5,h6 {
+    font-size: 1em;
+}
+
+table {
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: 2px solid;
+}
+
+table td + td, table th + th {
+    border-left: 1px solid gray;
+}
+
+table tr {
+    border-top: 1px solid lightgray;
+}
+
+td,th {
+    padding: 5px 10px;
+    vertical-align: middle;
+}
+
+code {
+    padding: 2px 5px;
+    margin: auto 1px;
+    border: 1px solid #444;
+    border-radius: 3px;
+    background-clip: padding-box;
+    color: #a98;
+    font-size: 90%;
+}
+
+blockquote {
+    margin: 1em 2em;
+    padding-left: 1em;
+    border-left: 3px solid #ccc;
+}
+
+kbd {
+    background-color: #f7f7f7;
+    font-size: 14px;
+    margin: 0 .1em;
+    padding: .1em .6em;
+}
+
+.figure {
+    padding: 1em;
+}
+
+.figure p {
+    text-align: center;
+}
+
+.todo {
+    color: red;
+    font-family: monospace;
+}
+
+.done {
+    color: green;
+    font-family: monospace;
+}
+
+.priority {
+    color: orange;
+    font-family: monospace;
+}
+
+.tag {
+    background-color: #666;
+    font-family: monospace;
+    font-size: 80%;
+    font-weight: normal;
+    padding: 2px;
+}
+
+.timestamp {
+    color: #bebebe;
+}
+
+.timestamp-kwd {
+    color: #5f9ea0;
+}
+
+.org-right {
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+
+.org-left {
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+
+.org-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+#postamble p, #preamble p {
+    font-size: 90%;
+    margin: .2em;
+}
+
+p.verse {
+    margin-left: 3%;
+}
+
+pre {
+    border: 1px solid #333;
+    box-shadow: 3px 3px 3px #222;
+    font-family: monospace;
+    margin: 1.2em;
+    padding: 8pt;
+}
+
+pre.src {
+    overflow: auto;
+    padding-top: 1.2em;
+    position: relative;
+    font-size: 90%;
+    background-color: #2f2f2f;
+    color: #dcdccc; 
+}
+
+pre.src:before {
+    background-color: gray;
+    border: 1px solid white;
+    display: none;
+    padding: 3px;
+    position: absolute;
+    right: 10px;
+    /* top: -10px; */
+}
+
+pre.src:hover:before {
+    display: inline;
+}
+
+pre.src-sh:before {
+    content: 'sh';
+}
+pre.src-bash:before {
+    content: 'bash';
+}
+pre.src-emacs-lisp:before {
+    content: 'Emacs Lisp';
+}
+pre.src-R:before {
+    content: 'R';
+}
+pre.src-python:before {
+    content: 'Python';
+}
+pre.src-ipython:before {
+    content: 'Python';
+}
+pre.src-org:before {
+    content: 'Org';
+}
+pre.src-c++:before {
+    content: 'C++';
+}
+pre.src-c:before {
+    content: 'C';
+}
+pre.src-html:before {
+    content: 'HTML'
+}
+
+caption.t-above {
+    caption-side: top;
+}
+
+caption.t-bottom {
+    caption-side: bottom;
+}
+
+th.org-right {
+    text-align: center;
+}
+
+th.org-left {
+    text-align: center;
+}
+
+th.org-center {
+    text-align: center;
+}
+
+td.org-right {
+    text-align: right;
+}
+
+td.org-left {
+    text-align: left;
+}
+
+td.org-center {
+    text-align: center;
+}
+
+dt {
+    font-weight: bold;
+}
+
+.inlinetask {
+    background: #000022;
+    border: 2px solid gray;
+    margin: 10px;
+    padding: 10px;
+}
+
+#org-div-home-and-up {
+    font-size: 70%;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.linenr {
+    font-size: smaller;
+}
+
+.code-highlighted {
+    background-color: #334400;
+}
+
+#bibliography {
+    font-size: 90%;
+}
+
+#bibliography table {
+    width: 100%;
+}
+
+/* .org-info-js_info-navigation { */
+/*     border-style: none; */
+/* } */
+/* #org-info-js_console-label { */
+/*     font-size: 10px; */
+/*     font-weight: bold; */
+/*     white-space: nowrap; */
+/* } */
+/* .org-info-js_search-highlight { */
+/*     background-color: #ffff00; */
+/*     color: #000000; */
+/*     font-weight: bold; */
+/* } */
+/*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Config</a></li>
+<li><a href="#orgheadline2">2. Set up plotting style</a></li>
+<li><a href="#orgheadline3">3. Define the hyperbola model for the ratio &theta;<sub>1</sub>/&theta;</a></li>
+<li><a href="#orgheadline4">4. Plot the model for a fixed set of parameters</a></li>
+<li><a href="#orgheadline5">5. Fit the model to the CRW shape</a></li>
+<li><a href="#orgheadline7">6. Now try the anisotropic case</a>
+<ul>
+<li><a href="#orgheadline6">6.1. Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Config</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><a id="ID-29F006B9-1FDD-465B-B1C0-F8C488E21E92"></a><span class="section-number-2">2</span> Set up plotting style</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+
+<pre class="src src-ipython">%matplotlib inline
+<span style="color: #b9d3ee;">import</span> matplotlib.pyplot <span style="color: #b9d3ee;">as</span> plt
+<span style="color: #b9d3ee;">import</span> numpy <span style="color: #b9d3ee;">as</span> np
+<span style="color: #b9d3ee;">import</span> seaborn <span style="color: #b9d3ee;">as</span> sns
+sns.<span style="color: #DCDCCC; font-weight: bold;">set</span>(context=<span style="color: #eee8aa; font-style: italic;">'notebook'</span>,
+        style=<span style="color: #eee8aa; font-style: italic;">'darkgrid'</span>, 
+        palette=<span style="color: #eee8aa; font-style: italic;">'bright'</span>,
+        font_scale=1.5,
+        color_codes=<span style="color: #cFfBcF;">True</span>)
+%config <span style="color: #dfaf8f;">InlineBackend.figure_format</span> = <span style="color: #eee8aa; font-style: italic;">'svg'</span>
+<span style="color: #dfaf8f;">black_style</span> ={
+ <span style="color: #eee8aa; font-style: italic;">'text.color'</span>: <span style="color: #eee8aa; font-style: italic;">'.85'</span>,
+ <span style="color: #eee8aa; font-style: italic;">'axes.edgecolor'</span>: <span style="color: #eee8aa; font-style: italic;">'#3f3f3f'</span>,
+ <span style="color: #eee8aa; font-style: italic;">'axes.facecolor'</span>: <span style="color: #eee8aa; font-style: italic;">'#504040'</span>,
+ <span style="color: #eee8aa; font-style: italic;">'axes.labelcolor'</span>: <span style="color: #eee8aa; font-style: italic;">'.85'</span>,
+ <span style="color: #eee8aa; font-style: italic;">'figure.facecolor'</span>: <span style="color: #eee8aa; font-style: italic;">'#3f3f3f'</span>,
+ <span style="color: #eee8aa; font-style: italic;">'grid.color'</span>: <span style="color: #eee8aa; font-style: italic;">'gray'</span>,
+ <span style="color: #eee8aa; font-style: italic;">'xtick.color'</span>: <span style="color: #eee8aa; font-style: italic;">'.85'</span>,
+ <span style="color: #eee8aa; font-style: italic;">'ytick.color'</span>: <span style="color: #eee8aa; font-style: italic;">'.85'</span>,
+
+}
+sns.set_style(rc=black_style)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> Define the hyperbola model for the ratio &theta;<sub>1</sub>/&theta;</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #b9d3ee;">import</span> theta_ratio_fit 
+<span style="color: #b9d3ee;">from</span> astropy.modeling.fitting <span style="color: #b9d3ee;">import</span> LevMarLSQFitter
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li>Run the following each time we edit the code in the <code>theta_ratio_fit</code> module.</li>
+<li>Remember that <code>reload</code> needs to come from <code>importlib</code> in Python 3</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #b9d3ee;">from</span> importlib <span style="color: #b9d3ee;">import</span> <span style="color: #DCDCCC; font-weight: bold;">reload</span>
+<span style="color: #DCDCCC; font-weight: bold;">reload</span>(theta_ratio_fit)
+</pre>
+</div>
+
+
+<p>
+Since we used the <code>@custom_model</code> decorator on <code>hyperbola_ratio</code>, we only use the keyword arguments when setting up the model
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">model</span> = theta_ratio_fit.hyperbola_ratio(a=14.5, x0=15.0, tau=0.3, D=30.0)
+model
+</pre>
+</div>
+
+<pre class="example">
+&lt;hyperbola_ratio(a=14.5, x0=15.0, tau=0.3, D=30.0)&gt;
+</pre>
+
+<p>
+That results in a callable <code>model(x)</code> as a function of the positional arguments (in this case, only <code>x</code>)
+</p>
+
+<p>
+Find the asymptotic angle 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">th_inf</span> = np.pi - np.arctan(model.tau.value)
+np.degrees(th_inf)
+</pre>
+</div>
+
+<pre class="example">
+163.30075576600638
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">4</span> Plot the model for a fixed set of parameters</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">fig</span>, <span style="color: #dfaf8f;">ax</span> = plt.subplots(1, 1, figsize=[5, 3])
+<span style="color: #dfaf8f;">theta</span> = np.linspace(0.0, th_inf, 100)
+ax.plot(np.degrees(theta), model(theta), c=<span style="color: #eee8aa; font-style: italic;">'c'</span>)
+ax.<span style="color: #DCDCCC; font-weight: bold;">set</span>(
+    xlim=[0.0, 180.0], ylim=[0.0, <span style="color: #cFfBcF;">None</span>],
+    xlabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta$'</span>, ylabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta_1/\theta$'</span>, 
+    title=<span style="color: #DCDCCC; font-weight: bold;">repr</span>(model),
+)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="figs/fig-ax.svg" >
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">5</span> Fit the model to the CRW shape</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+The exact solution
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #b9d3ee;">import</span> equation6
+<span style="color: #dfaf8f;">BETA</span> = 0.01
+<span style="color: #dfaf8f;">NTHETA</span> = 100
+<span style="color: #dfaf8f;">shell</span> = equation6.Shell(innertype=<span style="color: #eee8aa; font-style: italic;">'isotropic'</span>, beta=BETA)
+<span style="color: #dfaf8f;">theta</span> = np.linspace(0.0, shell.th_infty, NTHETA)
+<span style="color: #dfaf8f;">R</span>, <span style="color: #dfaf8f;">theta1</span> = shell.radius(theta, full=<span style="color: #cFfBcF;">True</span>)
+<span style="color: #dfaf8f;">ratio</span> = theta1/theta
+</pre>
+</div>
+
+<p>
+And the bad fit we did before, just to get the head really. 
+</p>
+<ul class="org-ul">
+<li>Note that we interpolate onto the same <code>theta</code> grid as above</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #b9d3ee;">from</span> scipy.interpolate <span style="color: #b9d3ee;">import</span> interp1d
+<span style="color: #b9d3ee;">import</span> conic_parameters
+<span style="color: #dfaf8f;">ht</span> = conic_parameters.HeadTail(BETA, xi=<span style="color: #cFfBcF;">None</span>, xmin=-0.75,
+                               method=<span style="color: #eee8aa; font-style: italic;">'match head to tail'</span>)
+<span style="color: #dfaf8f;">x_head</span> = ht.x_head(ht.t_h)
+<span style="color: #dfaf8f;">y_head</span> = ht.y_head(ht.t_h)
+<span style="color: #dfaf8f;">theta_head</span> = np.arctan2(y_head, x_head)
+<span style="color: #dfaf8f;">theta1_head</span> = np.arctan2(y_head, ht.D - x_head)
+<span style="color: #dfaf8f;">ratio_head_func</span> = interp1d(theta_head, theta1_head/theta_head)
+<span style="color: #dfaf8f;">ratio_head</span> = ratio_head_func(theta)
+</pre>
+</div>
+
+<p>
+Look at the star-star separation and the opening angle
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython">ht.D, shell.th_infty
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">11.0</td>
+<td class="org-right">2.697341127696881</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+And look at the position and scale of tail hyperbola from the matching fit
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython">[
+    [<span style="color: #eee8aa; font-style: italic;">'x_0'</span>, <span style="color: #eee8aa; font-style: italic;">'a'</span>, <span style="color: #eee8aa; font-style: italic;">'theta'</span>],
+    <span style="color: #cFfBcF;">None</span>,
+    [ht.x0_t, ht.a_t, np.pi - ht.theta_t],
+]
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">x<sub>0</sub></th>
+<th scope="col" class="org-right">a</th>
+<th scope="col" class="org-right">theta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">7.36673808896005</td>
+<td class="org-right">6.1133562194272475</td>
+<td class="org-right">2.6973411276968755</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Also may be useful to use the <i>equation (26)</i> approximation for the shape:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #b9d3ee;">def</span> <span style="color: #cccccc;">eq26</span>(th, beta):
+    <span style="color: #9FC59F;">"""Equation (26) from CRW96 - approximate form for theta_1"""</span>
+    <span style="color: #dfaf8f;">th1</span> = np.sqrt(7.5*(-1 + np.sqrt(1 + 0.8*beta*(1 - th/np.tan(th)))))
+    <span style="color: #b9d3ee;">return</span> th1
+
+<span style="color: #b9d3ee;">def</span> <span style="color: #cccccc;">ratio_eq26</span>(th, beta):
+    <span style="color: #b9d3ee;">return</span> eq26(th, beta)/th
+</pre>
+</div>
+
+<p>
+Set up a model using the matching parameters
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">model</span> = theta_ratio_fit.hyperbola_ratio(ht.a_t, x0=ht.x0_t,
+                                        tau=np.tan(ht.theta_t), 
+                                        D=ht.D)
+model
+</pre>
+</div>
+
+<pre class="example">
+&lt;hyperbola_ratio(a=6.1133562194272475, x0=7.36673808896005, tau=0.47598478502008823, D=11.0)&gt;
+</pre>
+
+
+<p>
+Compare them before doing the fitting
+</p>
+<ul class="org-ul">
+<li>Note that we have had to drop the last point when plotting the model ratio since it goes funny at the asymptote</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">fig</span>, <span style="color: #dfaf8f;">ax</span> = plt.subplots(1, 1, figsize=[5, 3])
+ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c=<span style="color: #eee8aa; font-style: italic;">'c'</span>)
+ax.plot(np.degrees(theta), ratio, c=<span style="color: #eee8aa; font-style: italic;">'y'</span>)
+ax.plot(np.degrees(theta), ratio_head, c=<span style="color: #eee8aa; font-style: italic;">'w'</span>, ls=<span style="color: #eee8aa; font-style: italic;">':'</span>)
+ax.<span style="color: #DCDCCC; font-weight: bold;">set</span>(
+    xlim=[0.0, 180.0], ylim=[0.0, <span style="color: #cFfBcF;">None</span>],
+    xlabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta$'</span>, ylabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta_1/\theta$'</span>, 
+)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="figs/fig-prefit.svg" >
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+Freeze the <code>tau</code> and <code>D</code> parameters since they are external constraints
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">model.tau.fixed</span> = <span style="color: #cFfBcF;">True</span>
+<span style="color: #dfaf8f;">model.D.fixed</span> = <span style="color: #cFfBcF;">True</span>
+</pre>
+</div>
+
+
+<p>
+Now do the actual fitting
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">fit</span> = LevMarLSQFitter()
+<span style="color: #dfaf8f;">mask</span> = (np.degrees(theta) &gt; 100.0) &amp; (np.degrees(theta) &lt; 150.0)
+<span style="color: #dfaf8f;">best_model</span> = fit(model, theta[mask], ratio[mask])
+best_model
+</pre>
+</div>
+
+<pre class="example">
+&lt;hyperbola_ratio(a=6.2041857650722125, x0=7.479756410088091, tau=0.47598478502008823, D=11.0)&gt;
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">fig</span>, <span style="color: #dfaf8f;">ax</span> = plt.subplots(1, 1, figsize=[5, 3])
+ax.plot(np.degrees(theta[:-1]), best_model(theta[:-1]), c=<span style="color: #eee8aa; font-style: italic;">'c'</span>)
+ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c=<span style="color: #eee8aa; font-style: italic;">'g'</span>, lw=1.0, ls=<span style="color: #eee8aa; font-style: italic;">'--'</span>)
+ax.plot(np.degrees(theta), ratio, c=<span style="color: #eee8aa; font-style: italic;">'y'</span>)
+ax.plot(np.degrees(theta), ratio_head, c=<span style="color: #eee8aa; font-style: italic;">'w'</span>, ls=<span style="color: #eee8aa; font-style: italic;">':'</span>)
+ax.<span style="color: #DCDCCC; font-weight: bold;">set</span>(
+    xlim=[0.0, 180.0], ylim=[<span style="color: #cFfBcF;">None</span>, <span style="color: #cFfBcF;">None</span>],
+    xlabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta$'</span>, ylabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta_1/\theta$'</span>, 
+)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="figs/fig-postfit.svg" >
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<p>
+Finally, we map it all back to real space, just to see how good the fit is. 
+</p>
+
+<p>
+Update the tail hyperbola in the <code>HeadTail</code> instance
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">ht.a_t</span> = best_model.a.value
+<span style="color: #dfaf8f;">ht.x0_t</span> = best_model.x0.value
+</pre>
+</div>
+
+<p>
+And calculate cartesian arrays for the shapes
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">x_tail</span> = ht.x_tail(ht.t_t)
+<span style="color: #dfaf8f;">y_tail</span> = ht.y_tail(ht.t_t)
+
+<span style="color: #dfaf8f;">x_shell</span> = R*np.cos(theta)/shell.R0
+<span style="color: #dfaf8f;">y_shell</span> = R*np.sin(theta)/shell.R0
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">fig</span>, <span style="color: #dfaf8f;">ax</span> = plt.subplots(1, 1, figsize=[4, 4])
+ax.plot(x_shell, y_shell, c=<span style="color: #eee8aa; font-style: italic;">'y'</span>, lw=2)
+ax.plot(x_tail, y_tail, ls=<span style="color: #eee8aa; font-style: italic;">'--'</span>, c=<span style="color: #eee8aa; font-style: italic;">'c'</span>)
+ax.plot(x_head, y_head, ls=<span style="color: #eee8aa; font-style: italic;">':'</span>, c=<span style="color: #eee8aa; font-style: italic;">'w'</span>)
+ax.<span style="color: #DCDCCC; font-weight: bold;">set</span>(
+    xlim=[-5.0, 2.0], ylim=[0.0, 7.0], aspect=<span style="color: #eee8aa; font-style: italic;">'equal'</span>,
+    xlabel=r<span style="color: #eee8aa; font-style: italic;">'$x/r_{0}$'</span>, ylabel=r<span style="color: #eee8aa; font-style: italic;">'$y/r_{0}$'</span>,
+)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="figs/fig-xy.svg" >
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">6</span> Now try the anisotropic case</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+The most difficult one was with k=0, so let's try that first
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">BETA</span> = 0.01
+<span style="color: #dfaf8f;">XI</span> = 0.4
+<span style="color: #dfaf8f;">shell</span> = equation6.Shell(innertype=<span style="color: #eee8aa; font-style: italic;">'anisotropic'</span>, beta=BETA, xi=XI)
+<span style="color: #dfaf8f;">theta</span> = np.linspace(0.0, shell.th_infty, NTHETA)
+<span style="color: #dfaf8f;">R</span>, <span style="color: #dfaf8f;">theta1</span> = shell.radius(theta, full=<span style="color: #cFfBcF;">True</span>)
+<span style="color: #dfaf8f;">ratio</span> = theta1/theta
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">ht</span> = conic_parameters.HeadTail(BETA, xi=XI, xmin=0.0,
+                               method=<span style="color: #eee8aa; font-style: italic;">'match head to tail'</span>)
+<span style="color: #dfaf8f;">x_head</span> = ht.x_head(ht.t_h)
+<span style="color: #dfaf8f;">y_head</span> = ht.y_head(ht.t_h)
+<span style="color: #dfaf8f;">theta_head</span> = np.arctan2(y_head, x_head)
+<span style="color: #dfaf8f;">theta1_head</span> = np.arctan2(y_head, ht.D - x_head)
+<span style="color: #dfaf8f;">ratio_head_func</span> = interp1d(theta_head, theta1_head/theta_head)
+<span style="color: #dfaf8f;">ratio_head</span> = ratio_head_func(theta)
+
+ht.D, shell.th_infty
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">11.0</td>
+<td class="org-right">2.9228732793162906</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Set up the model again
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">model</span> = theta_ratio_fit.hyperbola_ratio(ht.a_t, x0=ht.x0_t,
+                                        tau=np.tan(ht.theta_t), 
+                                        D=ht.D)
+model
+</pre>
+</div>
+
+<pre class="example">
+&lt;hyperbola_ratio(a=6.235970666805381, x0=8.275820137542054, tau=0.22227514150619532, D=11.0)&gt;
+</pre>
+
+
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">fig</span>, <span style="color: #dfaf8f;">ax</span> = plt.subplots(1, 1, figsize=[5, 3])
+ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c=<span style="color: #eee8aa; font-style: italic;">'c'</span>)
+ax.plot(np.degrees(theta), ratio, c=<span style="color: #eee8aa; font-style: italic;">'y'</span>)
+ax.plot(np.degrees(theta), ratio_head, c=<span style="color: #eee8aa; font-style: italic;">'w'</span>, ls=<span style="color: #eee8aa; font-style: italic;">':'</span>)
+<span style="color: #dfaf8f;">params_string</span> = r<span style="color: #eee8aa; font-style: italic;">'$\xi = {:.1f}$; $\beta = {:.4f}$'</span>.<span style="color: #DCDCCC; font-weight: bold;">format</span>(XI, BETA)
+ax.<span style="color: #DCDCCC; font-weight: bold;">set</span>(
+    xlim=[0.0, 180.0], ylim=[0.0, <span style="color: #cFfBcF;">None</span>],
+    xlabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta$'</span>, ylabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta_1/\theta$'</span>, 
+    title=r<span style="color: #eee8aa; font-style: italic;">'Before fit: '</span> + params_string,
+)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="figs/fig-prefit-xi1.0.svg" >
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+And do the fitting again
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">model.tau.fixed</span> = <span style="color: #cFfBcF;">True</span>
+<span style="color: #dfaf8f;">model.D.fixed</span> = <span style="color: #cFfBcF;">True</span>
+<span style="color: #dfaf8f;">mask</span> = (np.degrees(theta) &gt; 110.0) &amp; (np.degrees(theta) &lt; 160.0)
+<span style="color: #dfaf8f;">best_model</span> = fit(model, theta[mask], ratio[mask])
+best_model
+</pre>
+</div>
+
+<pre class="example">
+&lt;hyperbola_ratio(a=6.4401717647972765, x0=8.579065082667702, tau=0.22227514150619532, D=11.0)&gt;
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">fig</span>, <span style="color: #dfaf8f;">ax</span> = plt.subplots(1, 1, figsize=[5, 3])
+ax.plot(np.degrees(theta[:-1]), best_model(theta[:-1]), c=<span style="color: #eee8aa; font-style: italic;">'c'</span>)
+ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c=<span style="color: #eee8aa; font-style: italic;">'g'</span>, lw=1.0, ls=<span style="color: #eee8aa; font-style: italic;">'--'</span>)
+ax.plot(np.degrees(theta), ratio, c=<span style="color: #eee8aa; font-style: italic;">'y'</span>)
+ax.plot(np.degrees(theta), ratio_head, c=<span style="color: #eee8aa; font-style: italic;">'w'</span>, ls=<span style="color: #eee8aa; font-style: italic;">':'</span>)
+ax.<span style="color: #DCDCCC; font-weight: bold;">set</span>(
+    xlim=[0.0, 180.0], ylim=[<span style="color: #cFfBcF;">None</span>, <span style="color: #cFfBcF;">None</span>],
+    xlabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta$'</span>, ylabel=r<span style="color: #eee8aa; font-style: italic;">'$\theta_1/\theta$'</span>, 
+    title=r<span style="color: #eee8aa; font-style: italic;">'After fit: '</span> + params_string,
+)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="figs/fig-postfit-xi1.0.svg" >
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<p>
+And in physical space
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ipython"><span style="color: #dfaf8f;">ht.a_t</span> = best_model.a.value
+<span style="color: #dfaf8f;">ht.x0_t</span> = best_model.x0.value
+<span style="color: #dfaf8f;">x_tail</span> = ht.x_tail(ht.t_t)
+<span style="color: #dfaf8f;">y_tail</span> = ht.y_tail(ht.t_t)
+<span style="color: #dfaf8f;">x_shell</span> = R*np.cos(theta)/shell.R0
+<span style="color: #dfaf8f;">y_shell</span> = R*np.sin(theta)/shell.R0
+
+<span style="color: #dfaf8f;">fig</span>, <span style="color: #dfaf8f;">ax</span> = plt.subplots(1, 1, figsize=[4, 4])
+ax.plot(x_shell, y_shell, c=<span style="color: #eee8aa; font-style: italic;">'y'</span>, lw=2)
+ax.plot(x_tail, y_tail, ls=<span style="color: #eee8aa; font-style: italic;">'--'</span>, c=<span style="color: #eee8aa; font-style: italic;">'c'</span>)
+ax.plot(x_head, y_head, ls=<span style="color: #eee8aa; font-style: italic;">':'</span>, c=<span style="color: #eee8aa; font-style: italic;">'w'</span>)
+ax.<span style="color: #DCDCCC; font-weight: bold;">set</span>(
+    xlim=[-5.0, 2.0], ylim=[0.0, 7.0], aspect=<span style="color: #eee8aa; font-style: italic;">'equal'</span>,
+    xlabel=r<span style="color: #eee8aa; font-style: italic;">'$x/r_{0}$'</span>, ylabel=r<span style="color: #eee8aa; font-style: italic;">'$y/r_{0}$'</span>,
+    title=params_string,
+)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="figs/fig-xy-xi1.0.svg" >
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">6.1</span> Conclusion</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+The fits work pretty well, so long as we are careful about the theta range that we use. 
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: William Henney</p>
+<p class="date">Created: 2016-10-06 Thu 10:56</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

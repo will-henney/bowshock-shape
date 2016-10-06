@@ -9,7 +9,7 @@
 :PROPERTIES:
 :ID:       29F006B9-1FDD-465B-B1C0-F8C488E21E92
 :END:
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
   %matplotlib inline
   import matplotlib.pyplot as plt
   import numpy as np
@@ -37,7 +37,7 @@
 #+RESULTS:
 * Define the hyperbola model for the ratio \theta_1/\theta
 
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
 import theta_ratio_fit 
 from astropy.modeling.fitting import LevMarLSQFitter
 #+END_SRC
@@ -47,7 +47,7 @@ from astropy.modeling.fitting import LevMarLSQFitter
 
 + Run the following each time we edit the code in the =theta_ratio_fit= module.
 + Remember that =reload= needs to come from =importlib= in Python 3
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
   from importlib import reload
   reload(theta_ratio_fit)
 #+END_SRC
@@ -57,7 +57,7 @@ from astropy.modeling.fitting import LevMarLSQFitter
 
 
 Since we used the =@custom_model= decorator on =hyperbola_ratio=, we only use the keyword arguments when setting up the model
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio :exports both
   model = theta_ratio_fit.hyperbola_ratio(a=14.5, x0=15.0, tau=0.3, D=30.0)
   model
 #+END_SRC
@@ -68,7 +68,7 @@ Since we used the =@custom_model= decorator on =hyperbola_ratio=, we only use th
 That results in a callable =model(x)= as a function of the positional arguments (in this case, only =x=)
 
 Find the asymptotic angle 
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio :exports both
 th_inf = np.pi - np.arctan(model.tau.value)
 np.degrees(th_inf)
 #+END_SRC
@@ -77,7 +77,7 @@ np.degrees(th_inf)
 : 163.30075576600638
 
 * Plot the model for a fixed set of parameters
-#+BEGIN_SRC ipython :session :file figs/fig-ax.svg :exports both
+#+BEGIN_SRC ipython :session ratio :file figs/fig-ax.svg :exports both
   fig, ax = plt.subplots(1, 1, figsize=[5, 3])
   theta = np.linspace(0.0, th_inf, 100)
   ax.plot(np.degrees(theta), model(theta), c='c')
@@ -94,7 +94,7 @@ np.degrees(th_inf)
 
 * Fit the model to the CRW shape
 The exact solution
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
 import equation6
 BETA = 0.01
 NTHETA = 100
@@ -108,7 +108,7 @@ ratio = theta1/theta
 
 And the bad fit we did before, just to get the head really. 
 + Note that we interpolate onto the same =theta= grid as above
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
   from scipy.interpolate import interp1d
   import conic_parameters
   ht = conic_parameters.HeadTail(BETA, xi=None, xmin=-0.75,
@@ -124,7 +124,7 @@ And the bad fit we did before, just to get the head really.
 #+RESULTS:
 
 Look at the star-star separation and the opening angle
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio :exports both
 ht.D, shell.th_infty
 #+END_SRC
 
@@ -132,7 +132,7 @@ ht.D, shell.th_infty
 | 11.0 | 2.697341127696881 |
 
 And look at the position and scale of tail hyperbola from the matching fit
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio :exports both
   [
       ['x_0', 'a', 'theta'],
       None,
@@ -146,7 +146,7 @@ And look at the position and scale of tail hyperbola from the matching fit
 | 7.36673808896005 | 6.1133562194272475 | 2.6973411276968755 |
 
 Also may be useful to use the /equation (26)/ approximation for the shape:
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
   def eq26(th, beta):
       """Equation (26) from CRW96 - approximate form for theta_1"""
       th1 = np.sqrt(7.5*(-1 + np.sqrt(1 + 0.8*beta*(1 - th/np.tan(th)))))
@@ -157,8 +157,10 @@ Also may be useful to use the /equation (26)/ approximation for the shape:
 
 #+END_SRC
 
+#+RESULTS:
+
 Set up a model using the matching parameters
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio :exports both
   model = theta_ratio_fit.hyperbola_ratio(ht.a_t, x0=ht.x0_t,
                                           tau=np.tan(ht.theta_t), 
                                           D=ht.D)
@@ -171,7 +173,7 @@ Set up a model using the matching parameters
 
 Compare them before doing the fitting
 + Note that we have had to drop the last point when plotting the model ratio since it goes funny at the asymptote
-#+BEGIN_SRC ipython :session :file figs/fig-prefit.svg :exports both
+#+BEGIN_SRC ipython :session ratio :file figs/fig-prefit.svg :exports both
   fig, ax = plt.subplots(1, 1, figsize=[5, 3])
   ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c='c')
   ax.plot(np.degrees(theta), ratio, c='y')
@@ -186,7 +188,7 @@ Compare them before doing the fitting
 [[file:figs/fig-prefit.svg]]
 
 Freeze the =tau= and =D= parameters since they are external constraints
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
 model.tau.fixed = True
 model.D.fixed = True
 #+END_SRC
@@ -196,19 +198,20 @@ model.D.fixed = True
 
 Now do the actual fitting
 
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio :exports both
 fit = LevMarLSQFitter()
-mask = (np.degrees(theta) > 95.0) & (np.degrees(theta) < 140.0)
+mask = (np.degrees(theta) > 100.0) & (np.degrees(theta) < 150.0)
 best_model = fit(model, theta[mask], ratio[mask])
 best_model
 #+END_SRC
 
 #+RESULTS:
-: <hyperbola_ratio(a=6.4399309065346415, x0=7.639944241792767, tau=0.47598478502008823, D=11.0)>
+: <hyperbola_ratio(a=6.2041857650722125, x0=7.479756410088091, tau=0.47598478502008823, D=11.0)>
 
-#+BEGIN_SRC ipython :session :file figs/fig-postfit.svg :exports both
+#+BEGIN_SRC ipython :session ratio :file figs/fig-postfit.svg :exports both
   fig, ax = plt.subplots(1, 1, figsize=[5, 3])
   ax.plot(np.degrees(theta[:-1]), best_model(theta[:-1]), c='c')
+  ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c='g', lw=1.0, ls='--')
   ax.plot(np.degrees(theta), ratio, c='y')
   ax.plot(np.degrees(theta), ratio_head, c='w', ls=':')
   ax.set(
@@ -224,7 +227,7 @@ best_model
 Finally, we map it all back to real space, just to see how good the fit is. 
 
 Update the tail hyperbola in the =HeadTail= instance
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
 ht.a_t = best_model.a.value
 ht.x0_t = best_model.x0.value
 #+END_SRC
@@ -232,7 +235,7 @@ ht.x0_t = best_model.x0.value
 #+RESULTS:
 
 And calculate cartesian arrays for the shapes
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session ratio
 x_tail = ht.x_tail(ht.t_t)
 y_tail = ht.y_tail(ht.t_t)
 
@@ -242,16 +245,127 @@ y_shell = R*np.sin(theta)/shell.R0
 
 #+RESULTS:
 
-#+BEGIN_SRC ipython :session :file figs/fig-xy.svg :exports both
-  fig, ax = plt.subplots(1, 1, figsize=[5, 3])
-  ax.plot(x_shell, y_shell)
-  ax.plot(x_tail, y_tail, ls='--')
-  ax.plot(x_head, y_head, ls=':')
+#+BEGIN_SRC ipython :session ratio :file figs/fig-xy.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[4, 4])
+  ax.plot(x_shell, y_shell, c='y', lw=2)
+  ax.plot(x_tail, y_tail, ls='--', c='c')
+  ax.plot(x_head, y_head, ls=':', c='w')
   ax.set(
-      xlim=[-5.0, 2.0], ylim=[0.0, 7.0]
+      xlim=[-5.0, 2.0], ylim=[0.0, 7.0], aspect='equal',
+      xlabel=r'$x/r_{0}$', ylabel=r'$y/r_{0}$',
   )
 #+END_SRC
 
 #+RESULTS:
 [[file:figs/fig-xy.svg]]
 
+* Now try the anisotropic case
+The most difficult one was with k=0, so let's try that first
+
+#+BEGIN_SRC ipython :session ratio :results silent
+BETA = 0.01
+XI = 0.4
+shell = equation6.Shell(innertype='anisotropic', beta=BETA, xi=XI)
+theta = np.linspace(0.0, shell.th_infty, NTHETA)
+R, theta1 = shell.radius(theta, full=True)
+ratio = theta1/theta
+#+END_SRC
+
+#+BEGIN_SRC ipython :session ratio :exports both
+  ht = conic_parameters.HeadTail(BETA, xi=XI, xmin=0.0,
+                                 method='match head to tail')
+  x_head = ht.x_head(ht.t_h)
+  y_head = ht.y_head(ht.t_h)
+  theta_head = np.arctan2(y_head, x_head)
+  theta1_head = np.arctan2(y_head, ht.D - x_head)
+  ratio_head_func = interp1d(theta_head, theta1_head/theta_head)
+  ratio_head = ratio_head_func(theta)
+
+  ht.D, shell.th_infty
+#+END_SRC
+
+#+RESULTS:
+| 11.0 | 2.9228732793162906 |
+
+Set up the model again
+#+BEGIN_SRC ipython :session ratio :exports both
+  model = theta_ratio_fit.hyperbola_ratio(ht.a_t, x0=ht.x0_t,
+                                          tau=np.tan(ht.theta_t), 
+                                          D=ht.D)
+  model
+#+END_SRC
+
+#+RESULTS:
+: <hyperbola_ratio(a=6.235970666805381, x0=8.275820137542054, tau=0.22227514150619532, D=11.0)>
+
+
+#+BEGIN_SRC ipython :session ratio :file figs/fig-prefit-xi1.0.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[5, 3])
+  ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c='c')
+  ax.plot(np.degrees(theta), ratio, c='y')
+  ax.plot(np.degrees(theta), ratio_head, c='w', ls=':')
+  params_string = r'$\xi = {:.1f}$; $\beta = {:.4f}$'.format(XI, BETA)
+  ax.set(
+      xlim=[0.0, 180.0], ylim=[0.0, None],
+      xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
+      title=r'Before fit: ' + params_string,
+  )
+#+END_SRC
+
+#+RESULTS:
+[[file:figs/fig-prefit-xi1.0.svg]]
+
+And do the fitting again
+#+BEGIN_SRC ipython :session ratio :exports both
+model.tau.fixed = True
+model.D.fixed = True
+mask = (np.degrees(theta) > 110.0) & (np.degrees(theta) < 160.0)
+best_model = fit(model, theta[mask], ratio[mask])
+best_model
+#+END_SRC
+
+#+RESULTS:
+: <hyperbola_ratio(a=6.4401717647972765, x0=8.579065082667702, tau=0.22227514150619532, D=11.0)>
+
+#+BEGIN_SRC ipython :session ratio :file figs/fig-postfit-xi1.0.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[5, 3])
+  ax.plot(np.degrees(theta[:-1]), best_model(theta[:-1]), c='c')
+  ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c='g', lw=1.0, ls='--')
+  ax.plot(np.degrees(theta), ratio, c='y')
+  ax.plot(np.degrees(theta), ratio_head, c='w', ls=':')
+  ax.set(
+      xlim=[0.0, 180.0], ylim=[None, None],
+      xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
+      title=r'After fit: ' + params_string,
+  )
+#+END_SRC
+
+#+RESULTS:
+[[file:figs/fig-postfit-xi1.0.svg]]
+
+
+And in physical space
+#+BEGIN_SRC ipython :session ratio :file figs/fig-xy-xi1.0.svg :exports both
+  ht.a_t = best_model.a.value
+  ht.x0_t = best_model.x0.value
+  x_tail = ht.x_tail(ht.t_t)
+  y_tail = ht.y_tail(ht.t_t)
+  x_shell = R*np.cos(theta)/shell.R0
+  y_shell = R*np.sin(theta)/shell.R0
+
+  fig, ax = plt.subplots(1, 1, figsize=[4, 4])
+  ax.plot(x_shell, y_shell, c='y', lw=2)
+  ax.plot(x_tail, y_tail, ls='--', c='c')
+  ax.plot(x_head, y_head, ls=':', c='w')
+  ax.set(
+      xlim=[-5.0, 2.0], ylim=[0.0, 7.0], aspect='equal',
+      xlabel=r'$x/r_{0}$', ylabel=r'$y/r_{0}$',
+      title=params_string,
+  )
+#+END_SRC
+
+#+RESULTS:
+[[file:figs/fig-xy-xi1.0.svg]]
+
+** Conclusion
+The fits work pretty well, so long as we are careful about the theta range that we use. 
