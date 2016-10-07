@@ -1,3 +1,4 @@
+
 * Config
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
@@ -111,7 +112,7 @@ And the bad fit we did before, just to get the head really.
 #+BEGIN_SRC ipython :session ratio
   from scipy.interpolate import interp1d
   import conic_parameters
-  ht = conic_parameters.HeadTail(BETA, xi=None, xmin=-0.75,
+  ht = conic_parameters.HeadTail(BETA, xi=None, xmin=0.0,
                                  method='match head to tail')
   x_head = ht.x_head(ht.t_h)
   y_head = ht.y_head(ht.t_h)
@@ -141,9 +142,9 @@ And look at the position and scale of tail hyperbola from the matching fit
 #+END_SRC
 
 #+RESULTS:
-|               x_0 |                  a |              theta |
-|------------------+--------------------+--------------------|
-| 7.36673808896005 | 6.1133562194272475 | 2.6973411276968755 |
+|                x_0 |                a |              theta |
+|-------------------+------------------+--------------------|
+| 8.141161671279598 | 7.06849525987864 | 2.6973411276968755 |
 
 Also may be useful to use the /equation (26)/ approximation for the shape:
 #+BEGIN_SRC ipython :session ratio
@@ -168,7 +169,7 @@ Set up a model using the matching parameters
 #+END_SRC
 
 #+RESULTS:
-: <hyperbola_ratio(a=6.1133562194272475, x0=7.36673808896005, tau=0.47598478502008823, D=11.0)>
+: <hyperbola_ratio(a=7.06849525987864, x0=8.141161671279598, tau=0.47598478502008823, D=11.0)>
 
 
 Compare them before doing the fitting
@@ -178,9 +179,11 @@ Compare them before doing the fitting
   ax.plot(np.degrees(theta[:-1]), model(theta[:-1]), c='c')
   ax.plot(np.degrees(theta), ratio, c='y')
   ax.plot(np.degrees(theta), ratio_head, c='w', ls=':')
+  params_string = r'CRW, $\beta = {:.4f}$'.format(XI, BETA)
   ax.set(
       xlim=[0.0, 180.0], ylim=[0.0, None],
       xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
+      title=r'Before fit: ' + params_string,
   )
 #+END_SRC
 
@@ -206,7 +209,7 @@ best_model
 #+END_SRC
 
 #+RESULTS:
-: <hyperbola_ratio(a=6.2041857650722125, x0=7.479756410088091, tau=0.47598478502008823, D=11.0)>
+: <hyperbola_ratio(a=6.2041861893325505, x0=7.4797566889624285, tau=0.47598478502008823, D=11.0)>
 
 #+BEGIN_SRC ipython :session ratio :file figs/fig-postfit.svg :exports both
   fig, ax = plt.subplots(1, 1, figsize=[5, 3])
@@ -217,6 +220,7 @@ best_model
   ax.set(
       xlim=[0.0, 180.0], ylim=[None, None],
       xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
+      title=r'After fit: ' + params_string,
   )
 #+END_SRC
 
@@ -368,4 +372,7 @@ And in physical space
 [[file:figs/fig-xy-xi1.0.svg]]
 
 ** Conclusion
+:PROPERTIES:
+:ID:       7629AD2E-734D-45AC-8860-24A434DA603F
+:END:
 The fits work pretty well, so long as we are careful about the theta range that we use. 
