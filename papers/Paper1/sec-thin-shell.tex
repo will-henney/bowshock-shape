@@ -10,14 +10,21 @@ solution for the two winds interaction problem in the thin shell
 approximation, in terms of a free parameter
 $\beta\equiv\frac{\dot{M}_wv_w}{\dot{M}_{w1}v_{w1}}$, the winds
 momentum ratio, which the quantities with subindex 1 corresponds to
-the strongest wind, therefore $\beta<=1$.
+the strongest wind, therefore $\beta<=1$. In this work the weakest wind is modeled as an anisotropic hemispherical radial wind
+with the following density distribution:
 
+\begin{align}
+  n(\theta) = n_0\cos^k\theta
+\end{align}  
+The index $k$ gives the anisotropy degree. We are interested in winds where $k \geq 0$ for further applications. By the other side, we keep the strongest
+wind as isotropic.
+
+The shape of the resultant bow shock is given by:
 %If we apply the \CRW{} formalism for a more generalized photoevaporated flow with density given by (\ref{eq:ngen}),
 %we find that the solutions for equations (8) - (11) of \CRW{} are the following:
 
-If we apply the \CRW{} formalism for a generalized photoevaporated flow with density given by equation (\ref{eq:ngen}),
-the shell shape $R(\theta)$ may be calculated from equation (6) of CRW{}:
-
+%If we apply the \CRW{} formalism for a generalized photoevaporated flow with density given by equation (\ref{eq:ngen}),
+%the shell shape $R(\theta)$ may be calculated from equation (6) of CRW{}:
 \begin{align}
   R = \frac{\dot{J}_w + \dot{J}_{w1}}{\left(\dot{\Pi}_{wr}+\dot{\Pi}_{wr1}\right)\cos\theta-\left(\dot{\Pi}_{wz1}+\dot{\Pi}_{wz1}\right)\sin\theta}
   \label{eq:Rmom}
@@ -26,7 +33,7 @@ the shell shape $R(\theta)$ may be calculated from equation (6) of CRW{}:
 Where:
 
 \begin{align}
-\dot{\Pi}_z &= \frac{v_w\dot{M}_w^0}{2(k+2)}\left(1-\cos^{5/2}\theta\right)  \label{eq:pir}\\
+\dot{\Pi}_z &= \frac{v_w\dot{M}_w^0}{2(k+2)}\left(1-\cos^{k+2}\theta\right)  \label{eq:pir}\\
 \dot{\Pi}_r &= \frac{1}{2}\dot{M}^0_w v_w I_k (\theta) \label{eq:piz}\\
 I_k(\theta) & = \int^\theta_0 \cos^k \theta \sin^2\theta~d\theta \\
 \dot{J}_w = 0 \label{eq:jdot} \\
@@ -35,11 +42,13 @@ M^0_w &\equiv 4\pi v_w r^2_{IF} n_0 \bar{m}\\
 \dot{\Pi}_{wz1} & = -\frac{\dot{M}^0_{w1}v_{w1}}{4}\sin^2\theta_1\\
 \dot{\Pi}_{wr1} & = \frac{\dot{M}^0_{w1}v_{w1}}{4}\left(\theta_1-\sin\theta_1\cos\theta_1\right)\\
 \dot{J}_{w1} & = \frac{\dot{M}^0_{w1}v_{w1}}{4}\left(\theta_1-\sin\theta_1\cos\theta_1\right)D \label{eq:jdot1}
-\end{align}  
-Combining equations  (\ref{eq:pir}) to (\ref{eq:jdot1}) we can obtain the bow shock shape $R(\theta)$ from equation (\ref{eq:Rmom}).
-The most notable scenarios, since they have astrophysical relevance are the following:
-$k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, the ``isotropic case'', following \CRW{}. The comparison between both solutions
-is shown in figure (\ref{fig:r-beta}), along with an extreme anisotropy case.
+\end{align}
+
+Combining equations  (\ref{eq:pir}) to (\ref{eq:jdot1}) we can obtain numerically the bow shock shape $R(\theta)$ from equation (\ref{eq:Rmom}).
+To find the projected shape in the plane of sky, we fit $R(\theta)$ into a quadric curve which has the same characteristic radii $(R_0,R_c,R_{90})$. 
+%The most notable scenarios, since they have astrophysical relevance are the following:
+%$k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, the ``isotropic case'', following \CRW{}. The comparison between both solutions
+%is shown in figure (\ref{fig:r-beta}), along with an extreme anisotropy case. 
 
 \begin{figure}
 \includegraphics[width=\linewidth]{r-beta}
@@ -57,16 +66,17 @@ is shown in figure (\ref{fig:r-beta}), along with an extreme anisotropy case.
 
 
 \subsection{Characteristic Radii}
-
+$R_0$ is obtained directly from equation (27) of \CRW{} as the distance from the inner source where the RAM pressure of the interacting winds is in equilibrium.
 %Here goes a little introduction
+For the rest of the radii we need a relation between $\theta$ and $\theta_1$ as follows:
+
 
 \begin{align}
 \theta_1\cot\theta_1 -1 = 2\beta I_k(\theta) \cot\theta - \frac{2\beta}{k+2}\left(1-\cos^{k+2}\theta\right)
 \label{eq:th1th}
 \end{align}
 
-$R_0$ is obtained directly from equation (27) of \CRW{} as the distance from the inner source where the RAM pressure of the interacting winds is in equilibrium.
-
+Equation (\ref{eq:th1th}) is reduced to equation (24) of \CRW{} when $k=0$.
 We can obtain $R_{90}$ by the following process:
 Evaluating equations  (\ref{eq:th1th}) and (23) from \CRW{} at $\theta=\frac{\pi}{2}$ we obtain the following:
 
