@@ -4,12 +4,12 @@ import sys
 sys.path.insert(0,"../..")
 from equation6 import Shell
 import argparse
-
+import seaborn as sns
 ###################################
 """                              
 The objective of this program is 
 #to make a figure that illustrates
-how the shaell shape changes with
+how the shell shape changes with
 $\beta$ and if possible compare it
 with the result of other authors
 """
@@ -45,8 +45,8 @@ if flag:
                      label=label)
 
     plt.legend(fontsize="small")
-    plt.xlabel(r"z/D")
-    plt.ylabel(r"r/D")
+    plt.xlabel(r"$z/D$")
+    plt.ylabel(r"$r/D$")
     plt.gca().set_aspect("equal",adjustable="box")
     plt.xlim(-0.4,1)
     plt.ylim(0,1)
