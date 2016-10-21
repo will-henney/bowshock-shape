@@ -77,8 +77,9 @@ surface is viewed perpendicular to its axis (\textit{side on}) and
 
 
 
-\subsection{Unit vectors normal and tangential to the surface}
-\label{sec:unit-vectors-normal}
+
+\subsection{Tangent line}
+
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/bowshock-unit-vectors}
@@ -87,59 +88,6 @@ surface is viewed perpendicular to its axis (\textit{side on}) and
     azimuth, \(\phi\).}
   \label{fig:unitvec}
 \end{figure}
-We define unit vectors \(\uvec{n}, \uvec{t}\), such that \(\uvec{n}\) is normal to the surface, while \(\uvec{t}\) is tangent to the surface in a plane of constant \(\phi\). For \(\phi = 0\) the surface lies in the \(xy\) plane and it is straightforward to show (Fig.~\ref{fig:unitvec}) that in this case the unit vectors are given by 
-\begin{equation}
-  \label{eq:uvec-phi0}
-  \uvec{t}_0 =
-  \begin{Vector}
-    -\cos\alpha \\ \sin\alpha \\ 0
-  \end{Vector}
-  \quad \mathrm{and} \quad
-  \uvec{n}_0 =
-  \begin{Vector}
-    \sin\alpha \\ \cos\alpha \\ 0
-  \end{Vector}, 
-\end{equation}
-where
-\begin{equation}
-  \label{eq:alpha}
-  \tan\alpha = -\left.\frac{dy}{dx}\right\vert_{R(\theta)} 
-  = \frac{1 + \omega \tan\theta}{\tan\theta - \omega}
-\end{equation}
-and 
-\begin{equation}
-  \label{eq:omega}
-  \omega(\theta) = \frac{1}{R} \frac{dR}{d\theta} . 
-\end{equation}
-For general \(\phi\), \(\uvec{n}\) and \(\uvec{t}\) can be found by rotating equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis, which can then be converted to the observer frame by use of equation~(\ref{eq:Trans}) to give
-\begin{gather}
-  \label{eq:nprime}
-  \begin{split}
-    \uvec{n}' = & \frac{1}{(1+\omega^2)^{1/2}} \\
-    & \times 
-      \begin{Vector}
-        (\cos\theta+\omega\sin\theta)\cos i 
-        - (\sin\theta-\omega\cos\theta) \sin i \sin\phi\\
-        (\sin\theta-\omega\cos\theta)\cos\phi \\
-        (\cos\theta+\omega\sin\theta)\sin i 
-        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
-      \end{Vector}\\
-  \end{split}\\
-  \label{eq:tprime}
-  \begin{split}
-    \uvec{t}' = & \frac{1}{(1+\omega^2)^{1/2}} \\
-    & \times 
-      \begin{Vector}
-        -(\sin\theta-\omega\cos\theta)\cos i
-        - (\cos\theta+\omega\sin\theta)\sin\phi\sin i \\
-        (\cos\theta+\omega\sin\theta)\cos\phi \\
-        -(\cos\theta+\omega\sin\theta)\sin i 
-        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
-      \end{Vector}
-  \end{split}
-  \end{gather}
-
-\subsection{Tangent line}
 
 % For optically thin emission with isotropic emissivity \(j\), the observed
 % surface brightness for any line of sight that intersects the shell is
@@ -163,11 +111,13 @@ The boundary on the plane of the sky of the projected surface is the
 locus of those lines of sight that graze the surface tangentially.
 This corresponds to a curved line on the surface itself, which we
 denote the \textit{tangent line}, and which is defined by the
-condition 
+condition  
 \begin{equation}
   \label{eq:tangent-line-condition}
   \uvec{n}'\cdot \uvec{z}' = 0.
 \end{equation}
+See appendix \ref{app:unit-vectors-normal} for more information.
+
 We denote by \(\phi\T\) that value of $\phi$ that satisfies this
 relation for a given inclination, \(i\), and polar angle, \(\theta\):
 \begin{equation}

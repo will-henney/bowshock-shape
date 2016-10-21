@@ -52,21 +52,21 @@ The radius of curvature at the axis is $R_c$, and $R_{90}$ is t he radius of the
 
 Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
 \begin{align}
-x = a\Cos(t)-x_0 \label{eq:par-x}\\ 
-y = b\Sin(t) \label{eq:par-y}
+x &= a\Cos(t)-x_0 \label{eq:par-x}\\ 
+y &= b\Sin(t) \label{eq:par-y}
 \end{align}
 where:
 \begin{align}
-\Cos(t) = \left\lbrace \begin{array}{c}
+\Cos(t) &= \left\lbrace \begin{array}{c}
 \cos t ~\mathrm{if~ellipse} \\
 \cosh t ~\mathrm{if~hyperbola}
 \end{array}\right.\\
-\Sin(t) = \left\lbrace \begin{array}{c}
+\Sin(t) &= \left\lbrace \begin{array}{c}
 \sin t ~\mathrm{if~ellipse} \\
 \sinh t ~\mathrm{if~hyperbola}
 \end{array}\right. \\
 -\pi < t < \pi \\
-R_0 = a - x_0 \\
+R_0 &= a - x_0 \\
 a<0 ~ \mathrm{for~hyperbola}
 \end{align}
 We have set a whole family of curves with a singular parameter denoted as $\tan\theta_c \equiv \frac{b}{a}$. Positive values of this parameter describe closed curves
@@ -84,8 +84,8 @@ and (\ref{eq:r90-conic}) is given by:
 \frac{a}{R_0} &= \frac{A}{2A-B^2} \label{eq:a-conic}\\
 \frac{|b|}{R_0} &= \frac{A}{\left|2A-B^2\right|^{1/2}}\\
 \tan\theta_c &= \frac{2A-B^2}{\left|B^2 - 2A\right|^{1/2}} \label{eq:thc-conic} \\
-\mathrm{where:~}& B\equiv \frac{R_{90}}{R_0} \\
-A \equiv \frac{R_c}{R_0}
+\mathrm{where:~} B &\equiv \frac{R_{90}}{R_0} \\
+A &\equiv \frac{R_c}{R_0}
 \end{align}
 
 \subsection{Plane-of-sky projection of quadric surfaces} 
@@ -101,9 +101,9 @@ Once the parametrization is done, we can find the apparent shape of
 the shell in the observer's frame, following the procedure explained
 in section \ref{sec:projection}.  First of all, the intrinsic 3D shape of the shell is given by:
 \begin{align}
-x = a\Cos(t)-x_0 \\ 
-y = b\Sin(t)\cos\phi \\
-z =  b\Sin(t)\sin\phi
+x &= a\Cos(t)-x_0 \\ 
+y &= b\Sin(t)\cos\phi \\
+z &=  b\Sin(t)\sin\phi
 \end{align}
 The azimutal angle where the line of sight is tangent to the shell is given by equation (\ref{eq:tanphi}) and (\ref{eq:alpha}), then:
 \begin{align}
@@ -120,8 +120,8 @@ where:
 We could work in another frame where the origin is located at the conic's center: $(X,Y)$, where $X=x-X_0$ and $Y=y$.
 In this frame,  we use the transformations (\ref{eq:Trans})  to obtain the apparent shape of the shell:
 \begin{align}
-X' = \frac{\Cos(t)}{a\cos i}\left(a^2\cos^2 i \pm b^2\sin^2 i\right)  \label{eq:conic-projected-x}\\
-Y'= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot^2(t)\right)^{1/2}
+X' &= \frac{\Cos(t)}{a\cos i}\left(a^2\cos^2 i \pm b^2\sin^2 i\right)  \label{eq:conic-projected-x}\\
+Y' &= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot^2(t)\right)^{1/2}
 \label{eq:conic-projected-y}
 \end{align}
 
@@ -129,22 +129,22 @@ Y'= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot^2(t)\right)^{1/2}
 We must show that the apparent shape of the shell in the observer's frame is still the same conic. To do that, we can write equations
 (\ref{eq:conic-projected-x}) and (\ref{eq:conic-projected-y}) as follows:
 \begin{align}
-X' = a'\Cos t' \label{eq:conic-projected-x-2} \\
-Y' = b'\Sin t' \label{eq:conic-projected-y-2} . 
+X' &= a'\Cos t' \label{eq:conic-projected-x-2} \\
+Y' &= b'\Sin t' \label{eq:conic-projected-y-2} . 
 \end{align}
 
 Comparing, (\ref{eq:conic-projected-x}), (\ref{eq:conic-projected-x-2}), (\ref{eq:conic-projected-y}) and (\ref{eq:conic-projected-y-2}) we find that
 \begin{align}
-a' = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} \\
-\Cos(t') = \frac{a'\Cos(t)}{a\cos i} \\
-b' = b
+a' &= \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} \\
+\Cos(t') &= \frac{a'\Cos(t)}{a\cos i} \\
+b' &= b
 \end{align} 
 Which proves that effectively the projection of a given conic is the same conic. With this knowledge, we can obtain the characteristic radii in
 the observer's frame.
 \begin{align}
-D' = D\cos i \\
-R'_0 = a' - (a-R_0)\cos i \\
-R'_0 = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (a-R_0)\cos i
+D' &= D\cos i \\
+R'_0 &= a' - (a-R_0)\cos i \\
+R'_0 &= \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (a-R_0)\cos i
 \end{align}
 
 With  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
