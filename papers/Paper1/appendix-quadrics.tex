@@ -1,0 +1,57 @@
+\appendix
+\appendixpage
+\addappheadtotoc
+\section{Unit vectors normal and tangential to the surface}
+\label{app:unit-vectors-normal}
+
+We define unit vectors \(\uvec{n}, \uvec{t}\), such that \(\uvec{n}\) is normal to the surface, while \(\uvec{t}\) is tangent to the surface in a plane of constant \(\phi\). For \(\phi = 0\) the surface lies in the \(xy\) plane and it is straightforward to show (Fig.~\ref{fig:unitvec}) that in this case the unit vectors are given by 
+\begin{equation}
+  \label{eq:uvec-phi0}
+  \uvec{t}_0 =
+  \begin{Vector}
+    -\cos\alpha \\ \sin\alpha \\ 0
+  \end{Vector}
+  \quad \mathrm{and} \quad
+  \uvec{n}_0 =
+  \begin{Vector}
+    \sin\alpha \\ \cos\alpha \\ 0
+  \end{Vector}, 
+\end{equation}
+where
+\begin{equation}
+  \label{eq:alpha}
+  \tan\alpha = -\left.\frac{dy}{dx}\right\vert_{R(\theta)} 
+  = \frac{1 + \omega \tan\theta}{\tan\theta - \omega}
+\end{equation}
+and 
+\begin{equation}
+  \label{eq:omega}
+  \omega(\theta) = \frac{1}{R} \frac{dR}{d\theta} . 
+\end{equation}
+For general \(\phi\), \(\uvec{n}\) and \(\uvec{t}\) can be found by rotating equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis, which can then be converted to the observer frame by use of equation~(\ref{eq:Trans}) to give
+\begin{gather}
+  \label{eq:nprime}
+  \begin{split}
+    \uvec{n}' = & \frac{1}{(1+\omega^2)^{1/2}} \\
+    & \times 
+      \begin{Vector}
+        (\cos\theta+\omega\sin\theta)\cos i 
+        - (\sin\theta-\omega\cos\theta) \sin i \sin\phi\\
+        (\sin\theta-\omega\cos\theta)\cos\phi \\
+        (\cos\theta+\omega\sin\theta)\sin i 
+        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
+      \end{Vector}\\
+  \end{split}\\
+  \label{eq:tprime}
+  \begin{split}
+    \uvec{t}' = & \frac{1}{(1+\omega^2)^{1/2}} \\
+    & \times 
+      \begin{Vector}
+        -(\sin\theta-\omega\cos\theta)\cos i
+        - (\cos\theta+\omega\sin\theta)\sin\phi\sin i \\
+        (\cos\theta+\omega\sin\theta)\cos\phi \\
+        -(\cos\theta+\omega\sin\theta)\sin i 
+        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
+      \end{Vector}
+  \end{split}
+  \end{gather}
