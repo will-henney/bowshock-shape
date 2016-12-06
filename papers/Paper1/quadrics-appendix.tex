@@ -1,0 +1,40 @@
+\appendix
+\appendixpage
+\addappheadtotoc
+\section{Parabola of Revolution}
+\label{app:parabola}
+
+For the sake of completness, in this section we develop the particular case of the parabola.
+The parametrization is given by:
+
+\begin{align}
+x &= - \frac{1}{2}R_ct^2 + R_0 \\
+y &= R_c t
+\end{align}
+Where $R_c$ is the radius of curvature and $R_0$ is the distance of the parabola nose to the
+origin.
+The respective tridimensional shape is given by:
+\begin{align}
+x &= -\frac{1}{2}R_ct^2 + R_0 \label{eq:x-par-a}\\
+y &= R_c t \cos\phi  \label{eq:y-par-a}\\
+z &= R_c t \sin\phi  \label{eq:z-par-a}
+\end{align}
+The azimutal angle where the surface is tangent to the line of sight in this case is given by:
+\begin{align}
+\sin\phi_t = -\frac{\tan i}{t} \label{eq:sin-tan-a} 
+\end{align}
+
+Subtituting (\ref{eq:sin-tan-a}) into (\ref{eq:x-par-a}), (\ref{eq:y-par-a}) and (\ref{eq:z-par-a}) we find that:
+
+\begin{align}
+x' &= -\frac{R_c(\frac{1}{2}t^2 \cos^2 i -\sin^2 i)}{\cos i}+R_0\cos i \\
+y' &= R_c\left(t^2-\tan^2 i\right)^{1/2} 
+\end{align}
+
+The projected radius $R'_0$ can be computed as $x'(y'=0)$. The value of $t$ which fullfill this condition is $t_\parallel$, so:
+
+\begin{align}
+t_\parallel &= \tan i \\
+\frac{R'_0}{D'} &= \frac{R_0}{D}\left(1-\frac{1}{2}A\tan^2 i\right)  
+\end{align}
+
