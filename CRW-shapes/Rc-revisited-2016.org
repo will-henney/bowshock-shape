@@ -1200,10 +1200,11 @@ python conic-head-tail.py 0.15 0.2
   + HTML version in [[file:tail-fit-tests.html]]
 + [ ] Next job is to do it for a grid of beta and xi
 + We actually want two things:
-  1. [ ] A figure that has
+  1. [X] A figure that has
      + Rows of \xi = [None, 1.0, 0.8, 0.4]
      + Columns of \beta = [0.0001, 0.001, 0.01, 0.1]
-  2. [ ] A finer grid so that we can fit functionsto a(\xi, \beta) and x_0(\xi, \beta)
+     + Actually decided to ditch \beta=0.001 and \xi=0.4 so the figure will more comfortably fit on a page.
+  2. [ ] A finer grid so that we can fit functions to a(\xi, \beta) and x_0(\xi, \beta)
 
 
 #+BEGIN_SRC python :eval no :tangle conic-head-tail-fit.py
@@ -1347,4 +1348,5 @@ python conic-head-tail-fit.py
 
 #+RESULTS:
 [[file:conic-head-tail-fit.pdf]]
+
 
