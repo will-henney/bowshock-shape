@@ -36,8 +36,10 @@ approximation to more complex bow shock shapes.
 \includegraphics[height=0.54\linewidth, trim=60 0 70 0, clip]{hyperbola_py}
 \end{tabular}
 \label{fig:conics}
-\caption{Schematic representation of conic like bowshocks: A) Ellipse and B) Hyperbola The center of the conic is located at a distance $x_0=R_0-a$ from the origin at the $x$ axis. 
-The radius of curvature at the axis is $R_c$, and $R_{90}$ is t he radius of the conic in the perpendicular direction to $R_0$.
+\caption{Schematic representation of conic like bowshocks: A) Ellipse and B) Hyperbola.
+  The center of the conic is located at a distance $x_0=R_0-a$ from the origin at the $x$ axis 
+  The radius of curvature at the axis is $R_c$, and $R_{90}$ is t he radius of the conic in the
+  perpendicular direction to $R_0$.
 }
 \end{figure}
 \begin{figure}
@@ -50,10 +52,13 @@ The radius of curvature at the axis is $R_c$, and $R_{90}$ is t he radius of the
 \label{fig:conics-family}
 \end{figure}
 
-Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization:
+Due to the similarities between the parametrization of the ellipse and the hyperbola, we can
+do the following parametrization\footnote{The wholee formalism descripted in this section does
+  not apply for paraboloids ($\theta_c=0$ case). This case is developed in appendix
+  \ref{app:parabola}}:
 \begin{align}
-x = a\Cos(t)-x_0 \label{eq:par-x}\\ 
-y = b\Sin(t) \label{eq:par-y}
+x &= a\Cos(t)-x_0 \label{eq:par-x}\\ 
+y &= b\Sin(t) \label{eq:par-y}
 \end{align}
 where:
 \begin{align}
@@ -112,13 +117,13 @@ The azimutal angle where the line of sight is tangent to the shell is given by e
 where:
 \begin{align}
 \Cot(t) = \left\lbrace \begin{array}{c}
-\cot t ~\mathrm{if~ellipse} \\
--\coth t ~\mathrm{if~hyperbola}
+-\cot t ~\mathrm{if~ellipse} \\
+\coth t ~\mathrm{if~hyperbola}
 \end{array}\right.
 \end{align}
 
 We could work in another frame where the origin is located at the conic's center: $(X,Y)$, where $X=x-X_0$ and $Y=y$.
-In this frame,  we use the transformations (\ref{eq:Trans})  to obtain the apparent shape of the shell:
+In this frame, we use the transformations (\ref{eq:Trans})  to obtain the apparent shape of the shell:
 \begin{align}
 X' = \frac{\Cos(t)}{a\cos i}\left(a^2\cos^2 i \pm b^2\sin^2 i\right)  \label{eq:conic-projected-x}\\
 Y'= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot^2(t)\right)^{1/2}
@@ -126,11 +131,11 @@ Y'= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot^2(t)\right)^{1/2}
 \end{align}
 
 
-We must show that the apparent shape of the shell in the observer's frame is still the same conic. To do that, we can write equations
-(\ref{eq:conic-projected-x}) and (\ref{eq:conic-projected-y}) as follows:
+If the apparent shape of the shell in the observer's frame is still the same conic, then, we
+can write equations(\ref{eq:conic-projected-x}) and (\ref{eq:conic-projected-y}) as follows:
 \begin{align}
-X' = a'\Cos t' \label{eq:conic-projected-x-2} \\
-Y' = b'\Sin t' \label{eq:conic-projected-y-2} . 
+X' = a'\Cos( t') \label{eq:conic-projected-x-2} \\
+Y' = b'\Sin (t') \label{eq:conic-projected-y-2} . 
 \end{align}
 
 Comparing, (\ref{eq:conic-projected-x}), (\ref{eq:conic-projected-x-2}), (\ref{eq:conic-projected-y}) and (\ref{eq:conic-projected-y-2}) we find that
@@ -139,8 +144,7 @@ a' = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} \\
 \Cos(t') = \frac{a'\Cos(t)}{a\cos i} \\
 b' = b
 \end{align} 
-Which proves that effectively the projection of a given conic is the same conic. With this knowledge, we can obtain the characteristic radii in
-the observer's frame.
+
 \begin{align}
 D' = D\cos i \\
 R'_0 = a' - (a-R_0)\cos i \\
@@ -149,7 +153,7 @@ R'_0 = \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (a-R_0)\cos i
 
 With  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
 \begin{align}
-\frac{R'_0}{D'}=\frac{R_0}{D}\left(1+A\cot^2\theta_c(f(i;\theta_c)-1) \right)
+\frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm A\cot^2\theta_c(f(i;\theta_c)-1) \right)
 \end{align}
 %Where $A\equiv \frac{R_c}{R_0}$
 
