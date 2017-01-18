@@ -1204,7 +1204,11 @@ python conic-head-tail.py 0.15 0.2
      + Rows of \xi = [None, 1.0, 0.8, 0.4]
      + Columns of \beta = [0.0001, 0.001, 0.01, 0.1]
      + Actually decided to ditch \beta=0.001 and \xi=0.4 so the figure will more comfortably fit on a page.
-  2. [ ] A finer grid so that we can fit functions to a(\xi, \beta) and x_0(\xi, \beta)
+  2. [-] A finer grid so that we can fit functions to a(\xi, \beta) and x_0(\xi, \beta)
+     + [X] Make a table and graph of a(\xi, \beta) and x_0(\xi, \beta)
+     + [ ] [2017-01-18 Wed] Jorge is doing fits to these
+  3. [ ] Consider the error in \theta_1(\theta) for the head/tail fits, and use this to choose the angle \theta where we need to change between the head and tail approximations
+     - [ ] Make graphs of the error - also serve to illustrate how good the fits are
 
 
 #+BEGIN_SRC python :eval no :tangle conic-head-tail-fit.py
