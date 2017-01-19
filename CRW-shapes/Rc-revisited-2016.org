@@ -195,6 +195,7 @@ Here is the image inline:
   from alpha_analytic import alpha_from_beta_xi as gamma
   sys.path.append('../conic-projection')
   from conproj_utils import Conic
+  import tail_analytic_mod
 
   def A(beta, xi):
       return 1.0/(1.0 - 2.0*gamma(beta, xi))
@@ -371,7 +372,11 @@ Here is the image inline:
           self.m90 = m90_func(beta, xi)
 
 
-          if method == 'match R90 and gradient':
+          if method == 'analytic fit':
+              self.x0_t = tail_analytic_mod.x0_fit(beta, xi)
+              self.a_t = self.x0_t - tail_analytic_mod.x0_minus_a_fit(beta, xi)
+              self.x_m = 0.0
+          elif method == 'match R90 and gradient':
               # New 30 Sep 2016 - fit tail to y, dy/dx @ 90 deg, instead
               # of to head conic
               self.x0_t = self.R90*self.m90 / self.tau_t**2
@@ -1204,13 +1209,51 @@ python conic-head-tail.py 0.15 0.2
      + Rows of \xi = [None, 1.0, 0.8, 0.4]
      + Columns of \beta = [0.0001, 0.001, 0.01, 0.1]
      + Actually decided to ditch \beta=0.001 and \xi=0.4 so the figure will more comfortably fit on a page.
-  2. [-] A finer grid so that we can fit functions to a(\xi, \beta) and x_0(\xi, \beta)
+  2. [X] A finer grid so that we can fit functions to a(\xi, \beta) and x_0(\xi, \beta)
      + [X] Make a table and graph of a(\xi, \beta) and x_0(\xi, \beta)
-     + [ ] [2017-01-18 Wed] Jorge is doing fits to these
+     + [X] [2017-01-18 Wed] Jorge is doing fits to these
   3. [ ] Consider the error in \theta_1(\theta) for the head/tail fits, and use this to choose the angle \theta where we need to change between the head and tail approximations
      - [ ] Make graphs of the error - also serve to illustrate how good the fits are
 
 
+
+
+*** Analytic approximations to tail fits
+#+BEGIN_SRC python :tangle tail_analytic_mod.py
+  import numpy as np
+
+  def x0_fit(beta, xi):
+      """Analytic fit to x0 parameter for tail hyperbola"""
+      if xi is None:
+          C1 = 0.0824
+          C2 = 0.4256
+          C3 = 1.4298
+      else:
+          C1 = 0.1491 - 0.0525*xi
+          C2 = 0.7779 - 0.2942*xi
+          C3 = 1.9970 - 0.4385*xi
+
+      trend = 0.7*beta**-0.55
+
+      x = np.log10(beta)
+      return trend*(C1*x**2 + C2*x + C3)
+
+
+  def x0_minus_a_fit(beta, xi):
+      """Analytic fit to (x0 - a) parameter for tail hyperbola"""
+      if xi is None:
+          C1 = -0.1225
+          C2 = 1.0570
+      else:
+          C1 = 0.0625*xi - 0.4996
+          C2 = 1.1432 - 0.3691*xi
+      x = np.log10(beta)
+      return C1*x + C2
+
+#+END_SRC
+
+
+*** Original fits to the tails
 #+BEGIN_SRC python :eval no :tangle conic-head-tail-fit.py
   import sys
   import numpy as np
@@ -1354,6 +1397,127 @@ python conic-head-tail-fit.py
 [[file:conic-head-tail-fit.pdf]]
 
 
+
+*** Repeat the head-tail fits using the analytic fits to tail parameters
+
+#+BEGIN_SRC python :eval no :tangle conic-head-tail-analytic.py
+  import sys
+  import numpy as np
+  import astropy.modeling.fitting
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  import equation6
+  import conic_parameters
+  import theta_ratio_fit 
+  sys.path.append('../conic-projection')
+  from conproj_utils import Conic
+
+  XI_LIST = [None, 1.0, 0.8, 0.4]
+  BETA_LIST = [0.1, 0.01, 0.0001]
+  nxi, nbeta = len(XI_LIST), len(BETA_LIST)
+
+  methods = {
+      'headtail': 'match head to tail',
+      'gradient': 'match R90 and gradient',
+      'asymptote': 'match R90 and asymptote',
+  }
+  # Method used to get initial guess at tail parameters It isn't
+  # critical how good this is since the fitting will sort things out
+  # independently of the starting point
+  approx_method = methods['headtail']
+
+  ntheta = 100
+  theta = np.linspace(0.0, np.pi, ntheta)
+
+  figfilename = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('whitegrid')
+  sns.set_color_codes('dark')
+
+  NROWS = 2
+  fig, axes = plt.subplots(nxi, nbeta, sharex=True, sharey=True)
+
+  xmin, xmax = -5.0, 2.1
+  ymin, ymax = -0.1, 7.0
+  # xmin, xmax = -7.0, 4.1
+  # ymin, ymax = -0.1, 11.0
+
+  ytop = ymin + 0.98*(ymax - ymin)
+  xright = xmin + 0.98*(xmax - xmin)
+  whitebox = {'edgecolor': 'none', 'facecolor': 'white',
+              'alpha': 0.7, 'boxstyle': 'round,pad=0.1'}
+
+
+  # x-data for tail asymptote
+  xa = np.linspace(xmin, xmax, 2)
+
+  # Set up fitter for fitting the tail
+  fit = astropy.modeling.fitting.LevMarLSQFitter()
+
+  for j, xi in enumerate(XI_LIST):
+      for i, beta in enumerate(BETA_LIST[::-1]):
+          ax = axes[j, i]
+
+          # The exact solution to the shell
+          if xi is None:
+              shell = equation6.Shell(innertype='isotropic', beta=beta)
+          else:
+              shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
+          R, theta1 = shell.radius(theta, full=True)
+          ratio = theta1/theta
+          R_crw = R/shell.R0
+          x_crw = R_crw*np.cos(theta)
+          y_crw = R_crw*np.sin(theta)
+
+          # Fit to head and analytic fit to fit to tail
+          ht = conic_parameters.HeadTail(beta, xi=xi, xmin=0.0, method='analytic fit')
+
+          # And calculate Cartesian arrays for the shapes
+          x_head = ht.x_head(ht.t_h)
+          y_head = ht.y_head(ht.t_h)
+
+          x_tail = ht.x_tail(ht.t_t)
+          y_tail = ht.y_tail(ht.t_t)
+
+          # asymptote to tail
+          ya = (ht.x0_t - xa)*np.tan(ht.theta_t)
+          ax.plot(xa, ya, lw=0.3, color='orange')
+
+          ax.plot(x_crw, y_crw, lw=4, color='y', alpha=0.7)
+          ax.plot(x_head, y_head, '--', color='g')
+          ax.plot(x_tail, y_tail, '-', dashes=[8, 4, 2, 4], color='r')
+          ax.plot(0.0, 0.0, 'o', color='k')
+          ax.plot(ht.x0_t - ht.a_t, 0.0, '.', color='k')
+          ax.axhline(ls=':')
+          ax.axvline(ls=':')
+          ax.set_aspect('equal', adjustable='box-forced')
+
+          if xi is None:
+              text = r'Isotropic'
+          else:
+              text = r'Anisotropic, $\xi = {:.1f}$'.format(xi)
+          text += '\n' + r'$\beta = {:.4f}$'.format(beta)
+          text += ', ' + r'$D = {:.1f}$'.format(ht.D)
+          text += '\n' + r'$x_t = {:.1f}$'.format(ht.x0_t)
+          text += ', ' + r'$x_t - a_t = {:.1f}$'.format(ht.x0_t - ht.a_t)
+          text += ', ' + r"$\theta_t = {:.1f}$".format(np.degrees(-ht.theta_t))
+          text += '\n' + r'$x_h = {:.1f}$'.format(ht.x0_h)
+          text += ', ' + r"$\theta_h = {:.1f}$".format(np.degrees(ht.theta_h))
+          ax.text(xright, ytop, text,
+                  ha='right', va='top', bbox=whitebox, fontsize='small')
+
+  # Put axis labels on lower left panel only
+  axes[-1, 0].set(
+      xlim=[xmin, xmax], ylim=[ymin, ymax],
+      xlabel=r'$x / r_{0}$', ylabel=r'$y / r_{0}$',
+  )
+
+  fig.set_size_inches(3*nbeta, 3*nxi)
+  fig.tight_layout()
+  fig.savefig(figfilename)
+  print(figfilename)
+
+#+END_SRC
 *** Repeat the head-tail fits for a finer grid
 + This is exactly the same as conic-head-tail-fit.py, but for finer grid
 + We still do graphs of each point, just to make sure it is working

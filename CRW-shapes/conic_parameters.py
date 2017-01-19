@@ -5,6 +5,7 @@ from scipy.special import gamma as gamma_func
 from alpha_analytic import alpha_from_beta_xi as gamma
 sys.path.append('../conic-projection')
 from conproj_utils import Conic
+import tail_analytic_mod
 
 def A(beta, xi):
     return 1.0/(1.0 - 2.0*gamma(beta, xi))
@@ -181,7 +182,11 @@ class HeadTail(object):
         self.m90 = m90_func(beta, xi)
 
 
-        if method == 'match R90 and gradient':
+        if method == 'analytic fit':
+            self.x0_t = tail_analytic_mod.x0_fit(beta, xi)
+            self.a_t = self.x0_t - tail_analytic_mod.x0_minus_a_fit(beta, xi)
+            self.x_m = 0.0
+        elif method == 'match R90 and gradient':
             # New 30 Sep 2016 - fit tail to y, dy/dx @ 90 deg, instead
             # of to head conic
             self.x0_t = self.R90*self.m90 / self.tau_t**2

@@ -23,7 +23,7 @@ m1 = tab["beta"] > 5e-4
 b = tab["beta"][m1]
 y = tab["x0"][m1]/x0_trend(b)
 z = tab["x0"][m1]-tab["a"][m1]
-logb = np.log(b)
+logb = np.log10(b)
 
 # ---------> Till here, everything looks fine
 
@@ -81,34 +81,34 @@ Fa_C1_fit = Fa_C1[0]*xi_an_to_fl + Fa_C1[-1]
 Fa_C2_fit = Fa_C2[0]*xi_an_to_fl + Fa_C2[-1]
 # ****** Plot the parameters and the respective fits********
 
-ax1.plot(xi_an_to_fl,C1_x0,c="r",label=r"$C_1$",alpha=0.5)
-ax1.plot(xi_an_to_fl,C2_x0,c="g",label=r"$C_2$",alpha=0.5)
-ax1.plot(xi_an_to_fl,C3_x0,c="b",label=r"$C_3$",alpha=0.5)
+ax1.plot(xi_an_to_fl,C1_x0,c="r",label=None,alpha=0.5)
+ax1.plot(xi_an_to_fl,C2_x0,c="g",label=None,alpha=0.5)
+ax1.plot(xi_an_to_fl,C3_x0,c="b",label=None,alpha=0.5)
 
-ax1.plot(1.0,p0_iso[0],"ro",label=r"Isotropic Fit: $C_1 = {:.2f}$".format(p0_iso[0]))
-ax1.plot(1.0,p0_iso[1],"go",label=r"Isotropic Fit: $C_2 = {:.2f}$".format(p0_iso[1]))
-ax1.plot(1.0,p0_iso[-1],"bo",label=r"Isotropic Fit: $C_3 = {:.2f}$".format(p0_iso[-1]))
+ax1.plot(1.0,p0_iso[0],"ro",label=r"Isotropic Fit: $C_1 = {:.4f}$".format(p0_iso[0]))
+ax1.plot(1.0,p0_iso[1],"go",label=r"Isotropic Fit: $C_2 = {:.4f}$".format(p0_iso[1]))
+ax1.plot(1.0,p0_iso[-1],"bo",label=r"Isotropic Fit: $C_3 = {:.4f}$".format(p0_iso[-1]))
 
 ax1.plot(xi_an_to_fl,F0_C1_fit,"r--",
-         label=r"Fit: $C_1 = {:.2f}\xi + {:.2f}$".format(F0_C1[0],F0_C1[-1]))
+         label=r"Fit: $C_1 = {:.4f}\xi + {:.4f}$".format(F0_C1[0],F0_C1[-1]))
 ax1.plot(xi_an_to_fl,F0_C2_fit,"g--",
-         label=r"Fit: $C_2 = {:.2f}\xi + {:.2f}$".format(F0_C2[0],F0_C2[-1]))
+         label=r"Fit: $C_2 = {:.4f}\xi + {:.4f}$".format(F0_C2[0],F0_C2[-1]))
 ax1.plot(xi_an_to_fl,F0_C3_fit,"b--",
-         label=r"Fit: $C_3 = {:.2f}\xi + {:.2f}$".format(F0_C3[0],F0_C3[-1]))
+         label=r"Fit: $C_3 = {:.4f}\xi + {:.4f}$".format(F0_C3[0],F0_C3[-1]))
 
 ax1.set(xscale="linear",xlim=[0.2,1.05],yscale="linear",ylim=[None,None])
-ax1.legend(loc="best",title=r"$\frac{x_0}{0.7\beta^{-0.55}}=C_1\log\beta^2+C_2\beta+C_3$",
+ax1.legend(loc="best",title=r"$\frac{x_0}{0.7\beta^{-0.55}}=C_1\log_{10}\beta^2+C_2\log_{10}\beta+C_3$",
            fontsize="xx-small",ncol=2)
 
-ax2.plot(xi_an_to_fl,C1_a,c="b",label="$C_1$",alpha=0.5)
-ax2.plot(xi_an_to_fl,C2_a,c="r",label="$C_2$",alpha=0.5)
-ax2.plot(1.0,pa_iso[0],"bo",label=r"Isotropic Fit: $C_1 = {:.2f}$".format(pa_iso[0]))
-ax2.plot(1.0,pa_iso[-1],"ro",label=r"Isotropic Fit: $C_2 = {:.2f}$".format(pa_iso[-1]))
+ax2.plot(xi_an_to_fl,C1_a,c="b",label=None,alpha=0.5)
+ax2.plot(xi_an_to_fl,C2_a,c="r",label=None,alpha=0.5)
+ax2.plot(1.0,pa_iso[0],"bo",label=r"Isotropic Fit: $C_1 = {:.4f}$".format(pa_iso[0]))
+ax2.plot(1.0,pa_iso[-1],"ro",label=r"Isotropic Fit: $C_2 = {:.4f}$".format(pa_iso[-1]))
 
 ax2.plot(xi_an_to_fl,Fa_C1_fit,"b--",
-         label=r"Fit: $C_1 = {:.2f}\xi + {:.2f}$".format(Fa_C1[0],Fa_C1[-1]))
+         label=r"Fit: $C_1 = {:.4f}\xi + {:.4f}$".format(Fa_C1[0],Fa_C1[-1]))
 ax2.plot(xi_an_to_fl,Fa_C2_fit,"r--",
-         label=r"Fit: $C_2 = {:.2f}\xi + {:.2f}$".format(Fa_C2[0],F0_C2[-1]))
+         label=r"Fit: $C_2 = {:.4f}\xi + {:.4f}$".format(Fa_C2[0],Fa_C2[-1]))
 
 
 ax2.set(xscale="linear",xlim=[0.2,1.1],yscale="linear",ylim=[None,None],xlabel=r"$\xi$")
