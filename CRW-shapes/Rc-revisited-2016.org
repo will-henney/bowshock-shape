@@ -1691,9 +1691,9 @@ python conic-head-tail-fit.py
   fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
   nxi = len(xis)
   colors = sns.color_palette("Blues_d", n_colors=nxi)
-  bmin, bmax = 3e-4, 0.2
+  bmin, bmax = 3e-5, 0.2
   for xi, c in zip(sorted(xis), colors):
-      m = (tab['xi'] == xi) & (tab['beta'] > 5e-4)
+      m = (tab['xi'] == xi) & (tab['beta'] > 5e-5)
       try:
           label = '{:.2f}'.format(float(xi))
       except:
