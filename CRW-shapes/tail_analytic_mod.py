@@ -1,29 +1,32 @@
 import numpy as np
+from astropy.table import Table
+
+xitab = Table.read('params-tab.tab', format='ascii.tab')
+isotab = Table.read('params-iso-tab.tab', format='ascii.tab')
 
 def x0_fit(beta, xi):
     """Analytic fit to x0 parameter for tail hyperbola"""
     if xi is None:
-        C1 = 0.0824
-        C2 = 0.4256
-        C3 = 1.4298
+        pb = np.poly1d(isotab['x0_coef'])
     else:
-        C1 = 0.1491 - 0.0525*xi
-        C2 = 0.7779 - 0.2942*xi
-        C3 = 1.9970 - 0.4385*xi
-
+        C3 = np.poly1d(xitab['3_ord_x0'])(xi)
+        C2 = np.poly1d(xitab['2_ord_x0'])(xi)
+        C1 = np.poly1d(xitab['1_ord_x0'])(xi)
+        C0 = np.poly1d(xitab['0_ord_x0'])(xi)
+        pb = np.poly1d([C3, C2, C1, C0])
     trend = 0.7*beta**-0.55
-
     x = np.log10(beta)
-    return trend*(C1*x**2 + C2*x + C3)
+    return trend*pb(x)
 
 
 def x0_minus_a_fit(beta, xi):
     """Analytic fit to (x0 - a) parameter for tail hyperbola"""
     if xi is None:
-        C1 = -0.1225
-        C2 = 1.0570
+        pb = np.poly1d(isotab['x0Ma_coef'])
     else:
-        C1 = 0.0625*xi - 0.4996
-        C2 = 1.1432 - 0.3691*xi
+        C2 = np.poly1d(xitab['2_ord_x0Ma'])(xi)
+        C1 = np.poly1d(xitab['1_ord_xoMa'])(xi)
+        C0 = np.poly1d(xitab['0_ord_x0Ma'])(xi)
+        pb = np.poly1d([C2, C1, C0])
     x = np.log10(beta)
-    return C1*x + C2
+    return pb(x)
