@@ -2,15 +2,34 @@
 \defcitealias{Canto:1996}{CRW}
 \newcommand\CRW{\citetalias{Canto:1996}}
 
-\section{Hypersonic thin shell model}
+\section{Application to the hypersonic thin shell solution}
 \label{sec:crw-scenario}
-This scenario can be described with the formalism of
-\citet[][hereafter \CRW{}]{Canto:1996}, who proposes an algebraic
-solution for the two winds interaction problem in the thin shell
-approximation, in terms of a free parameter
-$\beta\equiv\frac{\dot{M}_wv_w}{\dot{M}_{w1}v_{w1}}$, the winds
-momentum ratio, which the quantities with subindex 1 corresponds to
-the strongest wind, therefore $\beta<=1$. In this work the weakest wind is modeled as an anisotropic hemispherical radial wind
+As an example application of the ideas of this paper, we consider a
+generalization of the thin-shell solution presented in
+\citet[][hereafter \CRW{}]{Canto:1996}, for the interaction of two
+hypersonic, constant velocity stellar winds.  It is assumed that the
+two shocks are highly radiative and that the post-shock flows are
+perfectly mixed to form a single shell of negligible thickness.  In
+this approximation, the shape of the shell was found algebraically by
+\CRW{} from considering conservation of linear and angular momentum,
+following an approach first outlined in \citet{Wilkin:1996a}.  The
+shape of the bow shock shell is uniquely determined by the parameter
+\(\beta\), defined as the momentum-loss ratio of the two winds:
+\begin{equation}
+  \label{eq:beta-definition}
+  \beta \equiv \frac{\dot{M}_w V_w}{\dot{M}_{w1} V_{w1}} . 
+\end{equation}
+In this definition we use the terminology of \CRW{}, in which
+\(\dot{M}_w\) and \(V_w\) are the mass-loss rate and velocity,
+respectively, of the wind with source at the origin, while
+\(\dot{M}_{w1}\) and \(V_{w1}\) are the mass-loss rate and velocity of
+the second wind, located at a distance \(D\) along their \(z\) axis.
+Note that \CRW{}'s \(z\) and \(r\) correspond to \(x\) and \(y\) in
+sections~\ref{sec:generic-model} to \ref{sec:conic} of the current
+paper.  By always placing the weaker of the two winds at the origin,
+it is only necessary to consider \(\beta \le 1\).
+ 
+In this work the weakest wind is modeled as an anisotropic hemispherical radial wind
 with the following density distribution:
 
 \begin{align}
