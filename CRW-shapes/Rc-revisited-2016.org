@@ -1254,6 +1254,36 @@ python conic-head-tail.py 0.15 0.2
       return pb(x)
 #+END_SRC
 
+**** Write LaTeX version of the tail analytic fit for paper
+#+BEGIN_SRC latex
+  \begin{align}
+    \label{eq:tail-analytic}
+    x_0 & = 0.7 \beta^{-0.55} \left[
+          C_3 (\log_{10}\beta)^3 + C_2 (\log_{10}\beta)^2 + C_1 \log_{10}\beta + C_0
+          \right] \\
+    (x_0 - a) & = D_2 (\log_{10}\beta)^2 + D_1 \log_{10}\beta + D_0
+  \end{align}
+  where
+  \begin{align}
+    \label{eq:tail-analytic-coeffs}
+    C_k = c_{2,k} \xi^2 + c_{1,k} \xi + c_{0,k} \quad \text{for} \quad k = \{0, 1, 2, 3\} \\
+    D_k = d_{2,k} \xi^2 + d_{1,k} \xi + d_{0,k} \quad \text{for} \quad k = \{0, 1, 2\} \\
+  \end{align}
+#+END_SRC
+
+Table of coefficients
+#+BEGIN_SRC latex
+  \newcommand\iso{\ensuremath{^{\mathrm{iso}}}}
+  \begin{alignat}{4}
+    C\iso_0 & = {0.123}  & c_{0,0} & = {0.123} & c_{1,0} & = {0.123} & c_{2,0} & = {0.123} \\
+    C\iso_1 & = {0.123}  & c_{0,1} & = {0.123} & c_{1,1} & = {0.123} & c_{2,1} & = {0.123} \\
+    C\iso_2 & = {0.123}  & c_{0,2} & = {0.123} & c_{1,2} & = {0.123} & c_{2,2} & = {0.123} \\
+    C\iso_3 & = {0.123}  & c_{0,3} & = {0.123} & c_{1,3} & = {0.123} & c_{2,3} & = {0.123} \\
+    D\iso_0 & = {0.123}  & d_{0,0} & = {0.123} & d_{1,0} & = {0.123} & d_{2,0} & = {0.123} \\
+    D\iso_1 & = {0.123}  & d_{0,1} & = {0.123} & d_{1,1} & = {0.123} & d_{2,1} & = {0.123} \\
+    D\iso_2 & = {0.123}  & d_{0,2} & = {0.123} & d_{1,2} & = {0.123} & d_{2,2} & = {0.123} \\
+  \end{alignat}
+#+END_SRC
 
 *** Original fits to the tails
 #+BEGIN_SRC python :eval no :tangle conic-head-tail-fit.py

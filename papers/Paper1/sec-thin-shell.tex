@@ -175,6 +175,47 @@ With this we can use the results of section \ref{sec:conic} to estimate the proj
 momenta and different density distributions. Figure \ref{fig:rad-beta} shows equations ( \ref{eq:B}), (\ref{eq:Rcurv}) and (\ref{eq:thc-CRW}) for different anisotropy indexes. 
 
 
+\subsection{Fits to the tail}
+\label{sec:fits-tail}
+
+
+For the hyperbola ``center''
+\begin{multline}
+  \label{eq:tail-analytic-x0}
+  x_{0,\mathrm{t}} = 0.7 \beta^{-0.55} \biggl[
+    C_3 \bigl(\log_{10}\beta\bigr)^3 + C_2 \bigl(\log_{10}\beta\bigr)^2 
+  \\ + C_1 \log_{10}\beta + C_0
+  \biggr]
+\end{multline}
+\begin{equation}
+  \label{eq:tail-analytic-x0-minus-a}
+  (x_{0,\mathrm{t}} - a_{\mathrm{t}}) = D_2 (\log_{10}\beta)^2 + D_1 \log_{10}\beta + D_0
+\end{equation}
+where
+\begin{alignat}{2}
+  C_k &= c_{2,k} \xi^2 + c_{1,k} \xi + c_{0,k} &\quad \text{for\ } k &= \{0, 1, 2, 3\} \\
+  D_k &= d_{2,k} \xi^2 + d_{1,k} \xi + d_{0,k} &\quad \text{for\ } k &= \{0, 1, 2\} \\
+  \label{eq:tail-analytic-coeffs}
+\end{alignat}
+
+
+\newcommand\iso{\ensuremath{^{\mathrm{iso}}}}
+
+\begin{table}
+  \caption{Coefficients for hyperbola fit to bowshock tails}
+  \label{tab:tail-fit-coeffs}
+  \begin{align*}
+  C\iso_0 & = {0.123}  & c_{0,0} & = {0.123} & c_{1,0} & = {0.123} & c_{2,0} & = {0.123} \\
+  C\iso_1 & = {0.123}  & c_{0,1} & = {0.123} & c_{1,1} & = {0.123} & c_{2,1} & = {0.123} \\
+  C\iso_2 & = {0.123}  & c_{0,2} & = {0.123} & c_{1,2} & = {0.123} & c_{2,2} & = {0.123} \\
+  C\iso_3 & = {0.123}  & c_{0,3} & = {0.123} & c_{1,3} & = {0.123} & c_{2,3} & = {0.123} \\
+  D\iso_0 & = {0.123}  & d_{0,0} & = {0.123} & d_{1,0} & = {0.123} & d_{2,0} & = {0.123} \\
+  D\iso_1 & = {0.123}  & d_{0,1} & = {0.123} & d_{1,1} & = {0.123} & d_{2,1} & = {0.123} \\
+  D\iso_2 & = {0.123}  & d_{0,2} & = {0.123} & d_{1,2} & = {0.123} & d_{2,2} & = {0.123} \\
+  \end{align*}
+\end{table}
+
+
 
 
 \begin{figure*}
