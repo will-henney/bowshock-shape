@@ -40,8 +40,8 @@ Taking the limit of equations (\ref{eq:qprime}) and (\ref{eq:Aprime}) when $\the
 \left(A'\right)_{parabola} &= \frac{A}{\cos^2 i + \frac{A}{2}\sin^2 i}
 \end{align}
 
-\section{Analytic derivation of the raius of curvature in the Thin Shell model}
-\label{app:rc-r90-analytic}
+\section{Analytic derivation of the radius of curvature in the Thin Shell model}
+\label{app:rc-analytic}
 
 For small $\theta$ we may do a polynomial expansion for the shell shape such as:
 
@@ -85,7 +85,63 @@ the left side of (\ref{eq:th1th-app}):
 \begin{align}
 \theta_1^2 &= \beta\theta^2\left[1+\frac{1}{60}(4-9k)\theta^2\right]
 \left(1-\frac{\beta}{15}\theta^2\right) \\
-\implies \theta_1^2 &= \beta\theta^2\left[1+ \left(A_k-\frac{\beta}{15}\right)\theta^2\right]\\
-\mathrm{where:~} A_k &\equiv \frac{1}{15}-\frac{3k}{20}
+\implies \theta_1^2 &= \beta\theta^2\left[1+ 2c_k\theta^2\right] \label{eq:th1th-small}\\
+\mathrm{where:~} c_k &\equiv \frac{1}{2}\left(A_k-\frac{\beta}{15}\right) \\
+A_k &\equiv \frac{1}{15}-\frac{3k}{20}
 \end{align}
 
+Now, using equation (23) from \CRW{} we may estimate $R$ at low angles. To do this, we need to
+expand each term as follows (neglecting terms of order four or higher):
+
+\begin{align}
+\theta_1 = &= \beta^{1/2}\theta\left[1+ 2c_k\theta^2\right]^{1/2} \\
+\theta + \theta_1 &= \theta\left[1+\beta^{1/2}\left(1+2c_k\theta^2\right)\right]\\
+\sin\theta_1 &= \theta_1\left[1-\frac{\theta_1^2}{6}\right] \\
+ &= \beta^{1/2}\theta\left[1+\left(c_k-\frac{1}{6}\beta\right)\theta^2\right] \\
+ \sin(\theta+\theta_1) &= \left[\theta+\theta_1\right]\left[1-\frac{\left(\theta+\theta_1
+ \right)^2}{6}\right] \\
+ &= \theta\left(1+\beta^{1/2}\right)\left\lbrace 1+\left[\frac{c_k\beta^{1/2}}{1+\beta^{1/2}}
+ -\frac{1}{6}\left(1+\beta^{1/2}\right)^2\right]\theta^2\right\rbrace
+\end{align}
+
+
+So, combining these terms with equation (23) from \CRW{} we found the final expression for $R$:
+
+\begin{align}
+\frac{R}{D}\equiv \frac{\sin\theta_1}{\sin(\theta+\theta_1)} = \frac{\beta^1/2}{1+\beta^{1/2}}
+\left\lbrace 1 + \theta^2\left[\frac{c_k}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}
+\right)\right] \right\rbrace \label{eq:r-small-theta}
+\end{align}
+
+Returning to equation (\ref{eq:R-exp}) we see the following:
+
+\begin{align}
+R_0 &= \frac{\beta^{1/2}}{1+\beta^{1/2}} \\
+\gamma &= \frac{c_k}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}\right) \label{eq:app-gamma}
+\end{align}
+
+We recover equation (27) of \CRW{} for $R_0$ and equation (\ref{eq:app-gamma}) is the
+needed term to calculate the radius of curvature at the axis.
+
+\section{Analytic derivation of $R_{90}$ in the Thin Shell model}
+\label{app:r90-analytic}
+
+To derive $R_{90}$ we need to evaluate equations (23) from \CRW{} and (\ref{eq:th1th})
+at $\theta=\frac{\pi}{2}$:
+
+\begin{align}
+R_{90} = D\tan\theta_{1,90} \\
+\theta_{1,90}\cot\theta_{1,90} -1 = -\frac{2\beta}{k+2} \label{eq:th190}
+\end{align}
+Where $\theta_{1,90}\equiv \theta_1(\frac{\pi}{2})$. Combining both equations and  introducing
+the parameter $\xi\equiv \frac{2}{k+2}$ we have:
+\begin{align}
+R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta} 
+\end{align}
+
+Expanding the left side of (\ref{eq:th190}) until fourth order, equation (\ref{eq:th190})
+becomes:
+
+\begin{align}
+\theta_{1,90}^2\left(1+\frac{\theta_{1,90}^2}{15}\right) \simeq 3\xi\beta
+\end{align}
