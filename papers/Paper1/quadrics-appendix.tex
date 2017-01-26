@@ -49,7 +49,11 @@ For small $\theta$ we may do a polynomial expansion for the shell shape such as:
 R \simeq R_0\left(1+\gamma\theta^2 + \Gamma\theta^4\right) \label{eq:R-exp}
 \end{align}
 
-With this, the radius of curvature at the axis for $R$ is given by equation (\ref{eq:Rcurv}).
+The radius of curvature at the axis for $R$ is given by:
+
+\begin{align}
+R_c = R_0\left(1-2\gamma\right)^{-1}
+\end{align}
 
 The coefficient gamma may be derived by an expansion at small angles of equation
 (\ref{eq:th1th}), as follows:
@@ -85,8 +89,9 @@ the left side of (\ref{eq:th1th-app}):
 \begin{align}
 \theta_1^2 &= \beta\theta^2\left[1+\frac{1}{60}(4-9k)\theta^2\right]
 \left(1-\frac{\beta}{15}\theta^2\right) \\
-\implies \theta_1^2 &= \beta\theta^2\left[1+ 2c_k\theta^2\right] \label{eq:th1th-small}\\
-\mathrm{where:~} c_k &\equiv \frac{1}{2}\left(A_k-\frac{\beta}{15}\right) \\
+\implies \theta_1^2 &= \beta\theta^2\left[1+ 2C_{k\beta}\theta^2\right]
+\label{eq:th1th-small}\\
+\mathrm{where:~} C_{k\beta} &\equiv \frac{1}{2}\left(A_k-\frac{\beta}{15}\right) \\
 A_k &\equiv \frac{1}{15}-\frac{3k}{20}
 \end{align}
 
@@ -94,14 +99,14 @@ Now, using equation (23) from \CRW{} we may estimate $R$ at low angles. To do th
 expand each term as follows (neglecting terms of order four or higher):
 
 \begin{align}
-\theta_1 = &= \beta^{1/2}\theta\left[1+ 2c_k\theta^2\right]^{1/2} \\
-\theta + \theta_1 &= \theta\left[1+\beta^{1/2}\left(1+2c_k\theta^2\right)\right]\\
+\theta_1 = &= \beta^{1/2}\theta\left[1+ 2C_{k\beta}\theta^2\right]^{1/2} \\
+\theta + \theta_1 &= \theta\left[1+\beta^{1/2}\left(1+2C_{k\beta}\theta^2\right)\right]\\
 \sin\theta_1 &= \theta_1\left[1-\frac{\theta_1^2}{6}\right] \\
- &= \beta^{1/2}\theta\left[1+\left(c_k-\frac{1}{6}\beta\right)\theta^2\right] \\
+ &= \beta^{1/2}\theta\left[1+\left(C_{k\beta}-\frac{1}{6}\beta\right)\theta^2\right] \\
  \sin(\theta+\theta_1) &= \left[\theta+\theta_1\right]\left[1-\frac{\left(\theta+\theta_1
  \right)^2}{6}\right] \\
- &= \theta\left(1+\beta^{1/2}\right)\left\lbrace 1+\left[\frac{c_k\beta^{1/2}}{1+\beta^{1/2}}
- -\frac{1}{6}\left(1+\beta^{1/2}\right)^2\right]\theta^2\right\rbrace
+ &= \theta\left(1+\beta^{1/2}\right)\left\lbrace 1+\left[\frac{C_{k\beta}\beta^{1/2}}
+ {1+\beta^{1/2}}-\frac{1}{6}\left(1+\beta^{1/2}\right)^2\right]\theta^2\right\rbrace
 \end{align}
 
 
@@ -109,7 +114,7 @@ So, combining these terms with equation (23) from \CRW{} we found the final expr
 
 \begin{align}
 \frac{R}{D}\equiv \frac{\sin\theta_1}{\sin(\theta+\theta_1)} = \frac{\beta^1/2}{1+\beta^{1/2}}
-\left\lbrace 1 + \theta^2\left[\frac{c_k}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}
+\left\lbrace 1 + \theta^2\left[\frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}
 \right)\right] \right\rbrace \label{eq:r-small-theta}
 \end{align}
 
@@ -117,7 +122,8 @@ Returning to equation (\ref{eq:R-exp}) we see the following:
 
 \begin{align}
 R_0 &= \frac{\beta^{1/2}}{1+\beta^{1/2}} \\
-\gamma &= \frac{c_k}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}\right) \label{eq:app-gamma}
+\gamma &= \frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}\right)
+\label{eq:app-gamma}
 \end{align}
 
 We recover equation (27) of \CRW{} for $R_0$ and equation (\ref{eq:app-gamma}) is the
@@ -136,7 +142,7 @@ R_{90} = D\tan\theta_{1,90} \\
 Where $\theta_{1,90}\equiv \theta_1(\frac{\pi}{2})$. Combining both equations and  introducing
 the parameter $\xi\equiv \frac{2}{k+2}$ we have:
 \begin{align}
-R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta} 
+R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta} \label{eq:r90-incomplete}
 \end{align}
 
 Expanding the left side of (\ref{eq:th190}) until fourth order, equation (\ref{eq:th190})
@@ -144,4 +150,20 @@ becomes:
 
 \begin{align}
 \theta_{1,90}^2\left(1+\frac{\theta_{1,90}^2}{15}\right) \simeq 3\xi\beta
+\end{align}
+
+Applying the approximation $\theta_1^2 \approx 3\xi\beta$ we found a solution
+for $\theta_{1,90}$:
+
+\begin{align}
+\theta_{1,90} = \left(\frac{3\xi\beta}{1+\frac{1}{5}\xi\beta}\right)^{1/2}
+\end{align}
+
+And substituting into (\ref{eq:r90-incomplete}) we find the solution for $R_{90}$:
+
+\begin{align}
+R_{90} &= \frac{\left(3\xi\beta\right)^{1/2}}{\left(1+\frac{1}{5}\xi\beta\right)^{1/2}
+\left(1-\xi\beta\right)} \\
+\implies B &\equiv \frac{R_{90}}{R_0} = \frac{\sqrt{3\xi}\left(1+\beta^{1/2}\right)}
+{\left(1+\frac{1}{5}\xi\beta\right)^{1/2}\left(1-\xi\beta\right)}
 \end{align}

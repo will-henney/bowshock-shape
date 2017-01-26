@@ -77,57 +77,24 @@ For the rest of the radii we need a relation between $\theta$ and $\theta_1$ as 
 \end{align}
 
 Equation (\ref{eq:th1th}) is reduced to equation (24) of \CRW{} when $k=0$.
-We can obtain $R_{90}$ by the following process:
-Evaluating equations  (\ref{eq:th1th}) and (23) from \CRW{} at $\theta=\frac{\pi}{2}$ we obtain the following:
-
-\begin{align}
-R_{90} = D\tan\theta_{1,90} \\
-\theta_{1,90}\cot\theta_{1,90} = 1-\frac{2\beta}{k+2} \label{eq:th190}
-\end{align}
-Where $\theta_{1,90}\equiv \theta_1(\frac{\pi}{2})$. Combining both equations and  introducing the parameter 
-$\xi\equiv \frac{2}{k+2}$ we have:
-
-\begin{align}
-R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta} 
-\end{align}
-
-
-Solving for $\theta_{1,90}$ from equation (\ref{eq:th190}), using a small angle  approximation, we find that:
-
-\begin{align}
-\theta_{1,90} &\simeq \left(\frac{3\xi\beta}{1+\frac{1}{5}\xi\beta}\right)^{1/2} \\
-\label{eq:th190sol}
-\end{align}
-
-With this, we have a solution for $B \equiv \frac{R_{90}}{R_0}$:
+We can obtain $R_{90}$ by following the process shown in appendix \ref{app:r90-analytic},
+which lead us to a solution for $B \equiv \frac{R_{90}}{R_0}$:
 
 \begin{align}
 B = \frac{\sqrt(3\xi)\left(1+\beta^{1/2}\right)}{(1-\xi\beta)\left(1+\frac{1}{5}\xi\beta\right)^{1/2}}
 \label{eq:B}
 \end{align}
 
-Now, to obtaining $R_c$ we expand  (\ref{eq:th1th}) until order 4th order for small $\theta$ values to find that for such values
+Now, the solution for $R_c$ is explained in appendix \ref{app:rc-analytic},
+which lead us to derive the radius of curvature at the symmetry axis:
 
 \begin{align}
-\theta_1^2 &\simeq \beta\theta^2\left[1+ 2C_{k\beta}\theta^2\right] \\
-\mathrm{where:~} & C_{k\beta} \equiv \frac{1}{30}\left(1-\beta-\frac{9}{4}k\right)
-\end{align}
-Expanding equation (23) from \citep{Canto:1996} and substituting $\theta_1$ we found that:
-
-\begin{align}
-R &\simeq R_0 \left(1+\gamma\theta^2\right)
-\label{eq:R_approx} \\
+R_c &= R_0\left(1-2\gamma\right)^{-1} \label{eq:Rcurv} \\
 \mathrm{where:~} & \gamma = \frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{6}(1-2\beta^{1/2})
 \end{align}
 
-Which lead us to derive the radius of curvature at the symmetry axis:
-
-\begin{equation}
-R_c = R_0\left(1-2\gamma\right)^{-1}
-\label{eq:Rcurv}
-\end{equation}
-
-finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (\ref{eq:thc-conic})
+Finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of
+conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (\ref{eq:thc-conic})
 
 \begin{align}
 \tan^2\theta_c &= \left| \frac{3\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{2}{\left(1-2\gamma\right)}\right| 
