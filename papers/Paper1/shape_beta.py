@@ -31,6 +31,7 @@ line_dict = {"isotropic":"--","proplyd":"-"}
 line_list = ["--","-",":",]
 color_list = ["r","g","b","m","c","k"]
 #label = {"isotropic":None,"proplyd":r"$\beta={}$".format(b)}
+sns.set_style("whitegrid")
 if flag:
     for xi,line in zip(xi_list,line_list):
         for b,col in zip(beta,color_list):
@@ -43,10 +44,12 @@ if flag:
                 label = None
             plt.plot(R*np.cos(theta),R*np.sin(theta),color=col,linestyle=line,
                      label=label)
-
+    fontsize = 15
+    ticksize = 14
     plt.legend(fontsize="small")
-    plt.xlabel(r"$z/D$")
-    plt.ylabel(r"$r/D$")
+    plt.xlabel(r"$z/D$",fontsize=fontsize)
+    plt.ylabel(r"$r/D$",fontsize=fontsize)
+    plt.tick_params(axis='both', which='major', labelsize=ticksize)
     plt.gca().set_aspect("equal",adjustable="box")
     plt.xlim(-0.4,1)
     plt.ylim(0,1)
