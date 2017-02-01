@@ -1,6 +1,6 @@
-
-\RequirePackage{amsmath}
+%\RequirePackage{amsmath}
 \documentclass[useAMS, usenatbib]{mnras}
+\pdfsuppresswarningpagegroup=1
 
 % The following is needed to fix the margins if using Letter-size paper
 % REMOVE if your LaTeX uses A4 paper by default
@@ -15,12 +15,14 @@
 \usepackage{xcolor}
 \usepackage{fixltx2e}
 \usepackage{booktabs}
-\usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage{color}
-\usepackage{appendix}
+
+\usepackage{hyperref}
+
 \hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
   urlcolor=blue!50!black}
+
 
 %% Bold italic
 \newcommand\hmmax{0}            % we don't need heavy fonts
@@ -29,7 +31,7 @@
 
 %% Bundled custom packages
 \usepackage{aastex-compat}
-%\usepackage{astrojournals}
+
 
 
 \title[Bowshock shapes]{True versus apparent shapes of astrophysical bow shocks}

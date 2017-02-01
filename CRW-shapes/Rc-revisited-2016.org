@@ -1285,6 +1285,73 @@ Table of coefficients
   \end{alignat}
 #+END_SRC
 
+#+BEGIN_SRC python :return TEMPLATE :results latex
+  from tail_analytic_mod import xitab, isotab
+
+  TEMPLATE = fr"    "
+  TEMPLATE += fr"      \( C\iso_0 = {isotab['x0_coef'][-1]:+.4f}     \)    " + '\n' 
+  TEMPLATE += fr"    & \( c_{{0,0}} = {xitab['0_ord_x0'][-1]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{1,0}} = {xitab['0_ord_x0'][-2]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{2,0}} = {xitab['0_ord_x0'][-3]:+.4f}   \)\\" + '\n' 
+  TEMPLATE += fr"      \( C\iso_1 = {isotab['x0_coef'][-2]:+.4f}     \)    " + '\n' 
+  TEMPLATE += fr"    & \( c_{{0,1}} = {xitab['1_ord_x0'][-1]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{1,1}} = {xitab['1_ord_x0'][-2]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{2,1}} = {xitab['1_ord_x0'][-3]:+.4f}   \)\\" + '\n' 
+  TEMPLATE += fr"      \( C\iso_2 = {isotab['x0_coef'][-3]:+.4f}     \)    " + '\n' 
+  TEMPLATE += fr"    & \( c_{{0,2}} = {xitab['2_ord_x0'][-1]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{1,2}} = {xitab['2_ord_x0'][-2]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{2,2}} = {xitab['2_ord_x0'][-3]:+.4f}   \)\\" + '\n' 
+  TEMPLATE += fr"      \( C\iso_3 = {isotab['x0_coef'][-4]:+.4f}     \)    " + '\n' 
+  TEMPLATE += fr"    & \( c_{{0,3}} = {xitab['3_ord_x0'][-1]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{1,3}} = {xitab['3_ord_x0'][-2]:+.4f}   \)  " + '\n' 
+  TEMPLATE += fr"    & \( c_{{2,3}} = {xitab['3_ord_x0'][-3]:+.4f}   \)\\" + '\n' 
+  TEMPLATE += fr"      \( D\iso_0 = {isotab['x0Ma_coef'][-1]:+.4f}   \)    " + '\n' 
+  TEMPLATE += fr"    & \( d_{{0,0}} = {xitab['0_ord_x0Ma'][-1]:+.4f} \)  " + '\n' 
+  TEMPLATE += fr"    & \( d_{{1,0}} = {xitab['0_ord_x0Ma'][-2]:+.4f} \)  " + '\n' 
+  TEMPLATE += fr"    & \( d_{{2,0}} = {xitab['0_ord_x0Ma'][-3]:+.4f} \)\\" + '\n' 
+  TEMPLATE += fr"      \( D\iso_1 = {isotab['x0Ma_coef'][-2]:+.4f}   \)    " + '\n' 
+  TEMPLATE += fr"    & \( d_{{0,1}} = {xitab['1_ord_xoMa'][-1]:+.4f} \)  " + '\n' 
+  TEMPLATE += fr"    & \( d_{{1,1}} = {xitab['1_ord_xoMa'][-2]:+.4f} \)  " + '\n' 
+  TEMPLATE += fr"    & \( d_{{2,1}} = {xitab['1_ord_xoMa'][-3]:+.4f} \)\\" + '\n' 
+  TEMPLATE += fr"      \( D\iso_2 = {isotab['x0Ma_coef'][-3]:+.4f}   \)    " + '\n' 
+  TEMPLATE += fr"    & \( d_{{0,2}} = {xitab['2_ord_x0Ma'][-1]:+.4f} \)  " + '\n' 
+  TEMPLATE += fr"    & \( d_{{1,2}} = {xitab['2_ord_x0Ma'][-2]:+.4f} \)  " + '\n' 
+  TEMPLATE += fr"    & \( d_{{2,2}} = {xitab['2_ord_x0Ma'][-3]:+.4f} \)\\" + '\n' 
+
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_EXPORT latex
+\( C\iso_0 = +1.3195     \)    
+    & \( c_{0,0} = +2.0758   \)  
+    & \( c_{1,0} = -0.2309   \)  
+    & \( c_{2,0} = -0.2532   \)\\
+      \( C\iso_1 = +0.4229     \)    
+    & \( c_{0,1} = +0.9571   \)  
+    & \( c_{1,1} = -0.1530   \)  
+    & \( c_{2,1} = -0.2487   \)\\
+      \( C\iso_2 = +0.1092     \)    
+    & \( c_{0,2} = +0.2528   \)  
+    & \( c_{1,2} = -0.0360   \)  
+    & \( c_{2,2} = -0.0794   \)\\
+      \( C\iso_3 = +0.0051     \)    
+    & \( c_{0,3} = +0.0171   \)  
+    & \( c_{1,3} = -0.0010   \)  
+    & \( c_{2,3} = -0.0095   \)\\
+      \( D\iso_0 = +0.7962   \)    
+    & \( d_{0,0} = +0.8516 \)  
+    & \( d_{1,0} = -0.0907 \)  
+    & \( d_{2,0} = -0.2002 \)\\
+      \( D\iso_1 = -0.2363   \)    
+    & \( d_{0,1} = -0.7620 \)  
+    & \( d_{1,1} = +0.1411 \)  
+    & \( d_{2,1} = -0.0295 \)\\
+      \( D\iso_2 = -0.0126   \)    
+    & \( d_{0,2} = -0.0683 \)  
+    & \( d_{1,2} = +0.0390 \)  
+    & \( d_{2,2} = -0.0236 \)\\
+#+END_EXPORT
+
 *** Original fits to the tails
 #+BEGIN_SRC python :eval no :tangle conic-head-tail-fit.py
   import sys
