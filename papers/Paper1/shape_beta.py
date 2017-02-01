@@ -51,9 +51,12 @@ if flag:
     plt.ylabel(r"$r/D$",fontsize=fontsize)
     plt.tick_params(axis='both', which='major', labelsize=ticksize)
     plt.gca().set_aspect("equal",adjustable="box")
+    fig = plt.gcf()
+    fig.set_size_inches(7, 4.5)
     plt.xlim(-0.4,1)
     plt.ylim(0,1)
-    plt.savefig("r-beta.pdf")
+    plt.tight_layout()
+    fig.savefig("figs/r-beta.pdf")
 
 ####### Figure 2 #################
 
