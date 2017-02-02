@@ -94,22 +94,23 @@ for j, xi in enumerate(XI_LIST):
         else:
             text = r'Anisotropic, $\xi = {:.1f}$'.format(xi)
         text += '\n' + r'$\beta = {:.4f}$'.format(beta)
-        text += ', ' + r'$D = {:.1f}$'.format(ht.D)
-        text += '\n' + r'$x_t = {:.1f}$'.format(ht.x0_t)
-        text += ', ' + r'$x_t - a_t = {:.1f}$'.format(ht.x0_t - ht.a_t)
-        text += ', ' + r"$\theta_t = {:.1f}$".format(np.degrees(-ht.theta_t))
-        text += '\n' + r'$x_h = {:.1f}$'.format(ht.x0_h)
-        text += ', ' + r"$\theta_h = {:.1f}$".format(np.degrees(ht.theta_h))
+        # text += ', ' + r'$D = {:.1f}$'.format(ht.D)
+        # text += '\n' + r'$x_t = {:.1f}$'.format(ht.x0_t)
+        # text += ', ' + r'$x_t - a_t = {:.1f}$'.format(ht.x0_t - ht.a_t)
+        # text += ', ' + r"$\theta_t = {:.1f}$".format(np.degrees(-ht.theta_t))
+        # text += '\n' + r'$x_h = {:.1f}$'.format(ht.x0_h)
+        # text += ', ' + r"$\theta_h = {:.1f}$".format(np.degrees(ht.theta_h))
         ax.text(xright, ytop, text,
                 ha='right', va='top', bbox=whitebox, fontsize='small')
 
 # Put axis labels on lower left panel only
 axes[-1, 0].set(
     xlim=[xmin, xmax], ylim=[ymin, ymax],
+    xticks=[-4, -2, 0],
     xlabel=r'$x / r_{0}$', ylabel=r'$y / r_{0}$',
 )
 
-fig.set_size_inches(3*nbeta, 3*nxi)
+fig.set_size_inches(2*nbeta, 2*nxi)
 fig.tight_layout()
 fig.savefig(figfilename)
-print(figfilename)
+print(figfilename, end='')

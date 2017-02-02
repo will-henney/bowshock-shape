@@ -297,7 +297,7 @@ y_shell = R*np.sin(theta)/shell.R0
 
 #+BEGIN_SRC ipython :session ratio :results silent
 XI = 0.1
-BETA = 0.000001
+BETA = 0.0001
 shell = equation6.Shell(innertype='anisotropic', beta=BETA, xi=XI)
 theta = np.linspace(0.0, shell.th_infty, NTHETA)
 R, theta1 = shell.radius(theta, full=True)
@@ -318,7 +318,7 @@ ratio = theta1/theta
 #+END_SRC
 
 #+RESULTS:
-| 1000.9999999999999 | 3.1371322878438166 |
+| 101.0 | 3.1205098308389796 |
 
 Set up the model again
 #+BEGIN_SRC ipython :session ratio :exports both
@@ -329,7 +329,7 @@ Set up the model again
 #+END_SRC
 
 #+RESULTS:
-: <hyperbola_ratio(a=61.33389469140493, x0=-137.3720940659826, tau=0.004460395337086435, D=1000.9999999999999)>
+: <hyperbola_ratio(a=nan, x0=-0.06896331929207974, tau=0.02108594697498954, D=101.0)>
 
 
 #+BEGIN_SRC ipython :session ratio :file figs/fig-prefit-xi1.0.svg :exports both
@@ -360,7 +360,7 @@ And do the fitting again
 #+END_SRC
 
 #+RESULTS:
-: <hyperbola_ratio(a=2949.4151590766623, x0=-2952.0732559661255, tau=0.004460395337086435, D=1000.9999999999999)>
+: <hyperbola_ratio(a=nan, x0=-0.06896331929207974, tau=0.02108594697498954, D=101.0)>
 
 #+BEGIN_SRC ipython :session ratio :file figs/fig-postfit-xi1.0.svg :exports both
   fig, ax = plt.subplots(1, 1, figsize=[5, 3])
@@ -369,7 +369,7 @@ And do the fitting again
   ax.plot(np.degrees(theta), ratio, c='y')
   ax.plot(np.degrees(theta), ratio_head, c='w', ls=':')
   ax.set(
-      xlim=[0.0, 180.0], ylim=[None, 0.003],
+      xlim=[0.0, 180.0], ylim=[None, None],
       xlabel=r'$\theta$', ylabel=r'$\theta_1/\theta$', 
       title=r'After fit: ' + params_string,
   )
@@ -490,6 +490,20 @@ And in physical space
   + If we fit the range all the way up to \theta_\infty then the physical space fit looks bad for \theta around 90 \to 150, so it is best to keep things as they are
   + For anyone really interested in the far field, just knowing \theta_\infty should be good enough
 
+
+
+** Test of quiver for showing anisotropic wind
+#+BEGIN_SRC ipython :session ratio :file figs/fig-quiver.svg :exports both
+  fig, ax = plt.subplots(1, 1, figsize=[4, 4])
+  th = np.arange(12)*np.pi/6
+  x = np.zeros_like(th)
+  y = np.zeros_like(th)
+  vel = np.cos(th)
+  u = vel*np.cos(th)
+  v = vel*np.sin(th)
+  ax.quiver()
+  ax.set(xlim=[-5, 2], ylim=[0, 7])
+#+END_SRC
 ** Conclusion
 :PROPERTIES:
 :ID:       7629AD2E-734D-45AC-8860-24A434DA603F
