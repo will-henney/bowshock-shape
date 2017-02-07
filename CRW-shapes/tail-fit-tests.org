@@ -427,6 +427,9 @@ And in physical space
 [[file:figs/fig-xy-xi1.0.svg]]
 
 ** Use the multi-level analytic fits
+:PROPERTIES:
+:ID:       3224967A-ED4B-415D-813F-99EE202C252C
+:END:
 #+BEGIN_SRC ipython :session ratio :exports both
   import tail_analytic_mod
 
