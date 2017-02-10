@@ -57,7 +57,8 @@ approximation to more complex bow shock shapes.
 \label{fig:conics-family}
 \end{figure}
 
-Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization
+Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization, using the convention
+that if a dual sign appears, the upper sign correspond to the elliptical quadrics, and the lower sign to the hyperbolic quadrics
 \footnote{Equations (\ref{eq:par-x}) to (\ref{eq:b-prime}) does not apply for paraboloids. Instead, the parametrization and the
   projected shape are developed in appendix \ref{app:parabola}}:
 \begin{align}
@@ -75,7 +76,7 @@ where:
 \sinh t ~\mathrm{if~hyperbola}
 \end{array}\right. \\
 -\pi &< t < \pi \\
-R_0 &= a - x_0 \\
+x_0 &= \pm a - R_0 \label{eq:x0}\\
 \end{align}
 Where $a$ and $b$ are real, positive numbers.
 
@@ -93,11 +94,10 @@ parameters $(a,b,\theta_c)$ could be derived from the former. Either way, the ra
 R_c = \frac{b^2}{a} \label{eq:Rc-conic}
 \end{align}
 
-For the rest of the parameters, the equation for ellipses and hyperbolas are very similar, except for a sign in some terms. In all cases, the upper sign will
-correspond to ellipses and the lower sign for hyperbolas:
+For the rest of the parameters, the equation for ellipses and hyperbolas are very similar:
 
 \begin{align}
-R_{90} = b\left[\pm \left(1-\left(a\mp R_0\right)^2\right)\right]^{1/2}\label{eq:conic-R90}
+R_{90} = b\left[\pm \left(1-\frac{x_0^2}{a^2}\right)\right]^{1/2}\label{eq:conic-R90}
 \end{align}
 
 
@@ -157,7 +157,7 @@ The azimutal angle where the line of sight is tangent to the shell is given by e
 where:
 \begin{align}
 \Cot(t) = \left\lbrace \begin{array}{c}
--\cot t ~\mathrm{if~ellipse} \\
+\cot t ~\mathrm{if~ellipse} \\
 \coth t ~\mathrm{if~hyperbola}
 \end{array}\right.
 \end{align}
@@ -185,22 +185,22 @@ a' &= \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} \\
 b' &= b \label{eq:b-prime}
 \end{align} 
 
+Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
+
 \begin{align}
-D' &= D\cos i \\
-R'_0 &= a' - (a-R_0)\cos i \\
-R'_0 &= \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (a-R_0)\cos i
+R'_0 &= \pm a' - x_0\cos i \\
+R'_0 &= \pm\left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (\pm a-R_0)\cos i
 \end{align}
 
-With  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
+Defining  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
 \begin{align}
 \frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm A\cot^2\theta_c(f(i;\theta_c)-1) \right)
 \label{eq:qprime}
 \end{align}
 %Where $A\equiv \frac{R_c}{R_0}$
-
 The Radius of curvature in the observer's frame is given by $R'_c=\frac{b'^2}{a'}$. Then:
 \begin{align}
-  \frac{R'_c}{R'_0} = \frac{A}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
+A'\equiv  \frac{R'_c}{R'_0} = \frac{A}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
   \label{eq:Aprime}
 \end{align}
 where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$. 
