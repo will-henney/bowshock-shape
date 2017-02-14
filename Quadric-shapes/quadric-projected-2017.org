@@ -1,0 +1,29 @@
+* Projection of Quadrics
+
++ Define a conic parameter: T_c = sgn(\theta_c) tan^2 \theta_c
+  + Sphere: T_c = 1
+  + Parabola: T_c = 0
+  + Right hyperbola: T_c = -1
++ Relationship to characteristic radii:
+  + T_c = 2 ~R_c' - ~R_{90}'^2
+  + \(T_{c} = 2\, \widetilde{R}_{c} - \widetilde{R}_{90}{}^{2}\)
+  + We could call this the *"conic discriminant"*
+  + Note that this is related to the "second discriminant" of conic
+    sections
+    + https://en.wikipedia.org/wiki/Discriminant#Conic_sections
+    + That is, writing
+      + \(A x^2 + B x y + C y^2 + D x + E y + F = 0\)
+      + Discriminant is \(B^{2} - 4 A C\)
+      + In our case \(B = 0\), \(A = 1 / a^2 \), and \( C = \pm 1 / b^2\), so the normal discriminant is \(\mp 4 / a^{2} b^{2}\)
+      + So it is not exactly proportional to ours, which is \(\pm b^{2}/a^{2}\)
++ Projection with inclination:
+  + \(\displaystyle T_{c}' = T_{c} \frac{1 + \tan^{2} i} {1 + T_{c} \tan^{2} i}\)
+  + Sphere: T_c = 1 =>  T_c' = 1 for all i
+  + Parabola: T_c = 0 => T_c' = 0 for all i
+  + Prolate: 0 < T_c < 1 => T_c' > T_c for |i| > 0
+    + => \(T_c \to 1\) as \(i \to \pi/2\)
+  + Oblate: T_c > 1 => T_c' < T_c for |i| > 0
+    + => also \(T_c \to 1\) as \(i \to \pi/2\)
+  + Hyperbola: T_c < 0 => |T_c'| > |T_c| for |i| > 0
+    + \(T_c' \to \infty\) as \(i \to \pi/2 - \theta_{c}\)
+
