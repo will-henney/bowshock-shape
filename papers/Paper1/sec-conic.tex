@@ -97,26 +97,28 @@ R_c = \frac{b^2}{a} \label{eq:Rc-conic}
 For the rest of the parameters, the equation for ellipses and hyperbolas are very similar:
 
 \begin{align}
-R_{90} = b\left[\pm \left(1-\frac{x_0^2}{a^2}\right)\right]^{1/2}\label{eq:conic-R90}
+R_{90} = \tan\theta_c\left[2aR_0\mp R_0^2\right]^{1/2}\label{eq:conic-R90}
 \end{align}
 
 
 Now, we can invert equations (\ref{eq:Rc-conic}) and (\ref{eq:conic-R90}) to estimate the parameters $a$ and $b$.
-But first is useful to define the quantities $A \equiv \frac{R_c}{R_0}$ and $B\equiv \frac{R_{90}}{R_0}$ for simplification purposes.
+%But first is useful to define the quantities $\tilde{R}_c \equiv \frac{R_c}{R_0}$ and $\equiv \frac{\tilde{R}_{90}}{R_0}$ for simplification purposes.
+Hereafter is useful to denote with a tilde quantities which are normalized with $R_0$:
+
 
 \begin{align}
-  \frac{a}{R_0} &= \frac{A}{\pm\left(2A-B^2\right)} \label{eq:a-con}\\
-  \frac{b}{R_0} &= \frac{A}{\left|2A-B^2\right|^{1/2}} \label{eq:b-con}
+  \tilde{a}\equiv \frac{a}{R_0} &= \pm\frac{\tilde{R}_c}{\left(2\tilde{R}_c-\tilde{R}_{90}^2\right)} \label{eq:a-con}\\
+  \tilde{b}\equiv \frac{b}{R_0} &= \frac{\tilde{R}_c}{\left|2\tilde{R}_c-\tilde{R}_{90}^2\right|^{1/2}} \label{eq:b-con}
 \end{align}
 
 
 Dividing equations (\ref{eq:a-con}) and (\ref{eq:b-con}) and substituting into equation (\ref{eq:Thc}) we get:
 
 \begin{align}
-\tan\theta_c = \frac{2A-B^2}{\left|2A-B^2\right|^{1/2}} \label{eq:th_c}
+\tan\theta_c = \pm \left|2\tilde{R}_c-\tilde{R}_{90}^2\right|^{1/2} \label{eq:th_c}
 \end{align}
 
-Note that the term $2A-B^2$ acts as a discriminant which determine the quadric we are working with.
+Note that the term $2\tilde{R}_c-\tilde{R}_{90}^2$ acts as a discriminant which determine the quadric we are working with.
 
 %The transformation between the conic parameters and the characteristic radii are given by:
 %\begin{align}
@@ -194,16 +196,20 @@ R'_0 &= \pm\left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2}  - (\pm a-R_0)\cos i
 
 Defining  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
 \begin{align}
-\frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm A\cot^2\theta_c(f(i;\theta_c)-1) \right)
+\frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm \tilde{R}_c\cot^2\theta_c(f(i;\theta_c)-1) \right)
 \label{eq:qprime}
 \end{align}
 %Where $A\equiv \frac{R_c}{R_0}$
 The Radius of curvature in the observer's frame is given by $R'_c=\frac{b'^2}{a'}$. Then:
 \begin{align}
-A'\equiv  \frac{R'_c}{R'_0} = \frac{A}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
-  \label{eq:Aprime}
+  \tilde{R}_c'\equiv  \frac{R'_c}{R'_0} &= \frac{\tilde{R}_c}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
+  \label{eq:Aprime}\\
+  \tan\theta_c & = \frac{\tan\theta_c}{\cos i f(i;\theta_c)} \\
+  \tilde{R}'_{90} &= \frac{\left[2\tilde{R}_cf(i;\theta_c) \mp \tan^2\theta_c\frac{q'}{q})\right]^{1/2}}{\cos i f(i;\theta_c)\frac{q'}{q}}
 \end{align}
-where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$. 
+where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$.
+
+
 % \begin{figure*}
 % \includegraphics[width=0.8\linewidth]{conic2}
 % \label{fig:conic2}
