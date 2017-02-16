@@ -5,7 +5,7 @@
   + Parabola: T_c = 0
   + Right hyperbola: T_c = -1
 + Relationship to characteristic radii:
-  + T_c = 2 ~R_c' - ~R_{90}'^2
+  + T_c = 2 ~R_c - ~R_{90}^2
   + \(T_{c} = 2\, \widetilde{R}_{c} - \widetilde{R}_{90}{}^{2}\)
   + We could call this the *"conic discriminant"*
   + Note that this is related to the "second discriminant" of conic
@@ -26,4 +26,154 @@
     + => also \(T_c \to 1\) as \(i \to \pi/2\)
   + Hyperbola: T_c < 0 => |T_c'| > |T_c| for |i| > 0
     + \(T_c' \to \infty\) as \(i \to \pi/2 - \theta_{c}\)
+* New graphs for section 4.1
+** Split apart the current Fig 7
+- Make separate graphs of the x and y axes as functions of inclination
+*** The R_0/D graph
++ This shows little variation with T_c, but quite a lot of variation with R_c/R_0
++ We have \(f = \left(1 + T_{c} \tan^{2} i\right)^{1/2}\) and also define \(q \equiv R_{0} / D\)
+  + Small angles: \( f - 1 \approx 0.5 \, T_{c}\, i^{2}\)
++ Then we get \(q' / q = 1 + \widetilde{R}_{c} (f - 1) / T_{c} \)
+  + Note that that is the intrinsic \(\widetilde{R}_{c}\) there.
+  + Small angles: \(q'/q \approx 1 + 0.5 \widetilde{R}_{c} \, i^{2}\)
+#+BEGIN_SRC python :eval no :tangle projected-R0-vs-i.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
 
+  plotfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('white')
+  fig, ax = plt.subplots(figsize=(5, 5))
+
+  inc = np.linspace(0.0, 0.5*np.pi, 5000)
+  inc_deg = np.degrees(inc)
+
+  Rcs = [1.0, 2.0, 4.0, 8.0]
+  Tcs = [-2.0, -1.0, -0.5, 1e-3, 0.5, 1.0]
+
+  n_Rc = len(Rcs)
+  n_Tc = len(Tcs)
+
+  lws = np.linspace(1.0, 2.0, n_Rc)
+  alphas = np.linspace(1.0, 0.2, n_Rc)
+  cols = sns.color_palette('magma', n_colors=n_Tc)
+  lss = ['-', '--', ':', '-.']
+
+
+  def qratio(inc, Tc, Rc):
+      f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
+      return 1.0 + Rc*(f - 1.0) / Tc
+
+  for Rc, lw, alpha, ls in list(zip(Rcs, lws, alphas, lss))[::-1]:
+      for Tc, col in list(zip(Tcs, cols))[::-1]:
+          if Rc == 1.0:
+              label = fr'$T_c = {Tc:.1f}$'
+          else:
+              label = None
+          ax.plot(inc_deg, qratio(inc, Tc, Rc),
+                  c=col, ls=ls, label=label)
+
+  i25, i50, i75 = [90.0 - np.degrees(np.arccos(_)) for _ in [0.25, 0.5, 0.75]]
+
+  ax.fill_betweenx([0.0, 100.0], [0.0]*2, [i25]*2, alpha=0.2, color='g')
+  ax.fill_betweenx([0.0, 100.0], [i50]*2, [i75]*2, alpha=0.2, color='g')
+
+  ax.legend(ncol=1, fontsize='xx-small', frameon=True)
+  ax.set(
+      yscale='linear',
+      xlim=[0.0, 90.0],
+      ylim=[0.0, 7.0],
+      xlabel=r'Inclination, degrees',
+      ylabel=r"Projected boost in apex ratio: $(R_{0}' / D') / (R_{0} / D)$",
+      xticks=[15, 30, 45, 60, 75, 90],
+  )        
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python projected-R0-vs-i.py
+#+END_SRC
+
+#+RESULTS:
+[[file:projected-R0-vs-i.pdf]]
+
+*** The R_c/R_0 graph
++ \(\widetilde{R}_{c}' = \widetilde{R}_{c} ( 1 + \tan^{2} i) / f (1 + \widetilde{R}_{c} (f - 1) / T_{c})\)
+
+#+BEGIN_SRC python :eval no :tangle projected-Rc-vs-i.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker
+  import seaborn as sns
+
+  plotfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('white')
+  fig, ax = plt.subplots(figsize=(5, 5))
+
+  inc = np.linspace(0.0, 0.5*np.pi, 500)
+  inc_deg = np.degrees(inc)
+
+  Rcs = [1.0, 2.0, 4.0, 8.0]
+  Tcs = [-2.0, -1.0, -0.5, 1e-3, 0.5, 1.0, 2.0]
+
+  n_Rc = len(Rcs)
+  n_Tc = len(Tcs)
+
+  lws = np.linspace(1.0, 2.0, n_Rc)
+  lss = ['-', '--', ':', '-.']
+  alphas = np.linspace(1.0, 0.2, n_Rc)
+  cols = sns.color_palette('magma', n_colors=n_Tc)
+
+
+  def Rc_dash(inc, Tc, Rc):
+      f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
+      return Rc * (1 + np.tan(inc)**2) / f / (1.0 + Rc*(f - 1.0) / Tc)
+
+  for Rc, lw, alpha, ls in list(zip(Rcs, lws, alphas, lss))[::-1]:
+      for Tc, col in list(zip(Tcs, cols))[::-1]:
+          if Rc == 1.0:
+              label = fr'$T_c = {Tc:.1f}$'
+          else:
+              label = None
+          ax.plot(inc_deg, Rc_dash(inc, Tc, Rc),
+                  c=col, ls=ls, label=label)
+
+  i25, i50, i75 = [90.0 - np.degrees(np.arccos(_)) for _ in [0.25, 0.5, 0.75]]
+
+  ax.fill_betweenx([0.0, 100.0], [0.0]*2, [i25]*2, alpha=0.2, color='g')
+  ax.fill_betweenx([0.0, 100.0], [i50]*2, [i75]*2, alpha=0.2, color='g')
+  ax.legend(ncol=1, fontsize='xx-small', frameon=True)
+  ax.set(
+      yscale='linear',
+      xlim=[0.0, 90.0],
+      ylim=[0.0, 10.0],
+      # yticks=[1.0, 2.0, 5.0, 10.0],
+      # yticklabels=['1', '2', '5', '10'],
+      xlabel=r'Inclination, degrees',
+      ylabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+      xticks=[15, 30, 45, 60, 75, 90],
+  )        
+  yaxis = ax.get_yaxis()
+
+  # yaxis.set_major_locator(matplotlib.ticker.LogLocator(base=2.0))
+  # yaxis.set_major_formatter(matplotlib.ticker.LogFormatter())
+
+  yaxis.set_major_locator(matplotlib.ticker.FixedLocator([1.0, 2.0, 4.0, 8.0]))
+
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python projected-Rc-vs-i.py
+#+END_SRC
+
+#+RESULTS:
+[[file:projected-Rc-vs-i.pdf]]
