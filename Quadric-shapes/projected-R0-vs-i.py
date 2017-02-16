@@ -12,7 +12,7 @@ inc = np.linspace(0.0, 0.5*np.pi, 5000)
 inc_deg = np.degrees(inc)
 
 Rcs = [1.0, 2.0, 4.0, 8.0]
-Tcs = [-2.0, -1.0, -0.5, 1e-3, 0.5, 1.0]
+Tcs = [-2.0, -1.0, -0.5, 1e-3, 0.5, 1.0, 2.0]
 
 n_Rc = len(Rcs)
 n_Tc = len(Tcs)

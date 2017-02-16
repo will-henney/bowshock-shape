@@ -51,7 +51,7 @@
   inc_deg = np.degrees(inc)
 
   Rcs = [1.0, 2.0, 4.0, 8.0]
-  Tcs = [-2.0, -1.0, -0.5, 1e-3, 0.5, 1.0]
+  Tcs = [-2.0, -1.0, -0.5, 1e-3, 0.5, 1.0, 2.0]
 
   n_Rc = len(Rcs)
   n_Tc = len(Tcs)
@@ -178,7 +178,10 @@ python projected-Rc-vs-i.py
 #+RESULTS:
 [[file:projected-Rc-vs-i.pdf]]
 
-*** Copying figs to paper dir
+
+** Projected T_c versus R_c
++ [ ] It is a bit of a problem that we are using "subscript c" to mean both "curvature" and "conic".  /Can we change one of them?/
+* Copying figs to paper dir
 #+BEGIN_SRC sh :results verbatim
 date
 cp -v projected-*-vs-i.pdf ../papers/Paper1/figs
