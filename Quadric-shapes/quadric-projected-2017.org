@@ -177,3 +177,14 @@ python projected-Rc-vs-i.py
 
 #+RESULTS:
 [[file:projected-Rc-vs-i.pdf]]
+
+*** Copying figs to paper dir
+#+BEGIN_SRC sh :results verbatim
+date
+cp -v projected-*-vs-i.pdf ../papers/Paper1/figs
+#+END_SRC
+
+#+RESULTS:
+: Wed Feb 15 22:26:56 CST 2017
+: projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
+: projected-Rc-vs-i.pdf -> ../papers/Paper1/figs/projected-Rc-vs-i.pdf
