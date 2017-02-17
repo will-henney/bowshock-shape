@@ -259,7 +259,8 @@ python projected-Tc-vs-Rc.py
 [[file:projected-Tc-vs-Rc.pdf]]
 
 
-*** TODO Show snapshots for different angles
+*** DONE Show snapshots for different angles
+CLOSED: [2017-02-16 Thu 23:36]
 
 #+BEGIN_SRC python :eval no :tangle projected-Tc-Rc-snapshots.py
   import sys
@@ -268,7 +269,7 @@ python projected-Tc-vs-Rc.py
   import matplotlib.ticker
   import seaborn as sns
 
-  plotfile = sys.argv[0].replace('.py', '.pdf')
+  plotfile = sys.argv[0].replace('.py', '.png')
 
   sns.set_style('white')
   fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
@@ -316,7 +317,7 @@ python projected-Tc-vs-Rc.py
   )        
 
   fig.tight_layout()
-  fig.savefig(plotfile)
+  fig.savefig(plotfile, dpi=300)
   print(plotfile, end='')
 
 #+END_SRC
@@ -326,15 +327,18 @@ python projected-Tc-Rc-snapshots.py
 #+END_SRC
 
 #+RESULTS:
-[[file:projected-Tc-Rc-snapshots.pdf]]
+[[file:projected-Tc-Rc-snapshots.png]]
 
 * Copying figs to paper dir
 #+BEGIN_SRC sh :results verbatim
 date
-cp -v projected-*-vs-i.pdf ../papers/Paper1/figs
+cp -v projected-*.{pdf,png} ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Wed Feb 15 22:26:56 CST 2017
+: Thu Feb 16 23:46:01 CST 2017
 : projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
 : projected-Rc-vs-i.pdf -> ../papers/Paper1/figs/projected-Rc-vs-i.pdf
+: projected-Tc-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.pdf
+: projected-Tc-vs-Rc.pdf -> ../papers/Paper1/figs/projected-Tc-vs-Rc.pdf
+: projected-Tc-Rc-snapshots.png -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.png

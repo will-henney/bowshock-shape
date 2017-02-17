@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import matplotlib.ticker
 import seaborn as sns
 
-plotfile = sys.argv[0].replace('.py', '.pdf')
+plotfile = sys.argv[0].replace('.py', '.png')
 
 sns.set_style('white')
 fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
@@ -52,5 +52,5 @@ axes[-1, 0].set(
 )        
 
 fig.tight_layout()
-fig.savefig(plotfile)
+fig.savefig(plotfile, dpi=300)
 print(plotfile, end='')
