@@ -58,9 +58,10 @@ ax.annotate("Variation in projected\nseparation " + r"$D'/D$",
 
 ax.legend(ncol=1, fontsize='xx-small', frameon=True)
 ax.set(
-    yscale='linear',
+    yscale='log',
     xlim=[0.0, 90.0],
-    ylim=[0.0, 5.5],
+    # ylim=[0.0, 5.5],
+    ylim=[0.05, 50],
     xlabel=r'Inclination, degrees',
     ylabel=r"Variation in projected stand-off distance: $R_{0}' / R_{0}$",
     xticks=[15, 30, 45, 60, 75, 90],
