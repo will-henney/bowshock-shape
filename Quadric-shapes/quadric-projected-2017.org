@@ -36,6 +36,8 @@
 + Then we get \(q' / q = 1 + \widetilde{R}_{c} (f - 1) / T_{c} \)
   + Note that that is the intrinsic \(\widetilde{R}_{c}\) there.
   + Small angles: \(q'/q \approx 1 + 0.5 \widetilde{R}_{c} \, i^{2}\)
++ *New* [2017-02-20 Mon] I now plot the actual value of R_0'/R_0, which has an extra factor of cos i
+  + And I also plot the variation in D'/D seperately
 #+BEGIN_SRC python :eval no :tangle projected-R0-vs-i.py
   import sys
   import numpy as np
@@ -50,7 +52,7 @@
   inc = np.linspace(0.0, 0.5*np.pi, 5000)
   inc_deg = np.degrees(inc)
 
-  Rcs = [1.0, 2.0, 4.0, 8.0]
+  Rcs = [0.5, 1.0, 2.0, 4.0, 8.0]
   Tcs = [-2.0, -1.0, -0.5, 1e-3, 0.5, 1.0, 2.0]
 
   n_Rc = len(Rcs)
@@ -59,34 +61,49 @@
   lws = np.linspace(1.0, 2.0, n_Rc)
   alphas = np.linspace(1.0, 0.2, n_Rc)
   cols = sns.color_palette('magma', n_colors=n_Tc)
-  lss = ['-', '--', ':', '-.']
+  lss = ['-.', '-', '--', ':', '-.']
 
+  dash_solid = []
+  dash_dashed = [3, 2]
+  dash_dotted = [1, 2]
+  dash_dot_dashed = [1, 2, 4, 2]
+  dash_triple_dot_dashed = [1, 2, 1, 2, 1, 2, 4, 2]
+  dashes = [dash_triple_dot_dashed, dash_solid,
+            dash_dashed, dash_dotted, dash_dot_dashed]
 
   def qratio(inc, Tc, Rc):
       f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
-      return 1.0 + Rc*(f - 1.0) / Tc
+      return (1.0 + Rc*(f - 1.0) / Tc)*np.cos(inc)
 
-  for Rc, lw, alpha, ls in list(zip(Rcs, lws, alphas, lss))[::-1]:
+  for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
       for Tc, col in list(zip(Tcs, cols))[::-1]:
           if Rc == 1.0:
               label = fr'$T_c = {Tc:.1f}$'
           else:
               label = None
           ax.plot(inc_deg, qratio(inc, Tc, Rc),
-                  c=col, ls=ls, label=label)
+                  c=col, dashes=dash, label=label)
 
   i25, i50, i75 = [90.0 - np.degrees(np.arccos(_)) for _ in [0.25, 0.5, 0.75]]
 
   ax.fill_betweenx([0.0, 100.0], [0.0]*2, [i25]*2, alpha=0.2, color='g')
   ax.fill_betweenx([0.0, 100.0], [i50]*2, [i75]*2, alpha=0.2, color='g')
 
+  ax.plot(inc_deg, np.cos(inc), c='b')
+  ax.annotate("Variation in projected\nseparation " + r"$D'/D$",
+              xy=(50.0, np.cos(np.radians(50.0))), xycoords='data',
+              xytext=(-20, -10), textcoords='offset points',
+              ha='right', va='top',
+              arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"),
+              fontsize='x-small',)
+
   ax.legend(ncol=1, fontsize='xx-small', frameon=True)
   ax.set(
       yscale='linear',
       xlim=[0.0, 90.0],
-      ylim=[0.0, 7.0],
+      ylim=[0.0, 5.5],
       xlabel=r'Inclination, degrees',
-      ylabel=r"Projected boost in apex ratio: $(R_{0}' / D') / (R_{0} / D)$",
+      ylabel=r"Variation in projected stand-off distance: $R_{0}' / R_{0}$",
       xticks=[15, 30, 45, 60, 75, 90],
   )        
   fig.tight_layout()
@@ -119,30 +136,37 @@ python projected-R0-vs-i.py
   inc = np.linspace(0.0, 0.5*np.pi, 500)
   inc_deg = np.degrees(inc)
 
-  Rcs = [1.0, 2.0, 4.0, 8.0]
+  Rcs = [0.5, 1.0, 2.0, 4.0, 8.0]
   Tcs = [-2.0, -1.0, -0.5, 1e-6, 0.5, 1.0, 2.0]
 
   n_Rc = len(Rcs)
   n_Tc = len(Tcs)
 
   lws = np.linspace(1.0, 2.0, n_Rc)
-  lss = ['-', '--', ':', '-.']
   alphas = np.linspace(1.0, 0.2, n_Rc)
   cols = sns.color_palette('magma', n_colors=n_Tc)
+  lss = ['-.', '-', '--', ':', '-.']
 
+  dash_solid = []
+  dash_dashed = [3, 2]
+  dash_dotted = [1, 2]
+  dash_dot_dashed = [1, 2, 4, 2]
+  dash_triple_dot_dashed = [1, 2, 1, 2, 1, 2, 4, 2]
+  dashes = [dash_triple_dot_dashed, dash_solid,
+            dash_dashed, dash_dotted, dash_dot_dashed]
 
   def Rc_dash(inc, Tc, Rc):
       f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
       return Rc * (1 + np.tan(inc)**2) / f / (1.0 + Rc*(f - 1.0) / Tc)
 
-  for Rc, lw, alpha, ls in list(zip(Rcs, lws, alphas, lss))[::-1]:
+  for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
       for Tc, col in list(zip(Tcs, cols))[::-1]:
           if Rc == 1.0:
               label = fr'$T_c = {Tc:.1f}$'
           else:
               label = None
           ax.plot(inc_deg, Rc_dash(inc, Tc, Rc),
-                  c=col, ls=ls, label=label)
+                  c=col, dashes=dash, label=label)
 
   i25, i50, i75 = [90.0 - np.degrees(np.arccos(_)) for _ in [0.25, 0.5, 0.75]]
 
@@ -329,6 +353,14 @@ python projected-Tc-Rc-snapshots.py
 #+RESULTS:
 [[file:projected-Tc-Rc-snapshots.png]]
 
+
+
+** TODO theta_90 versus inclination
+
+
+* Diagnostic diagram for the two-quadric fits to CRW
++ In this case the 
+** 
 * Copying figs to paper dir
 #+BEGIN_SRC sh :results verbatim
 date
@@ -336,9 +368,45 @@ cp -v projected-*.{pdf,png} ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Thu Feb 16 23:46:01 CST 2017
+: Mon Feb 20 12:48:18 CST 2017
 : projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
 : projected-Rc-vs-i.pdf -> ../papers/Paper1/figs/projected-Rc-vs-i.pdf
 : projected-Tc-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.pdf
 : projected-Tc-vs-Rc.pdf -> ../papers/Paper1/figs/projected-Tc-vs-Rc.pdf
 : projected-Tc-Rc-snapshots.png -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.png
+
+
+
+
+
+* Measurements of the observed LL arcs
+
+** List of promising objects
++ NW group
+  + 073-227
+  + 109-246
++ SW group
+  + 000-400
+  + 005-514
+  + 012-407
+  + 042-628
+  + LL1
+  + 069-601
++ W group
+  + 4285-458
+  + LL3
+  + LL2
+  + LL4
+  + 4468-605
++ S group
+  + 116-3101
+  + 266-558
+  + 308-3036
+  + LL5
+  + LL6
+  + LL7
+** Where files are
++ Measured shapes are in
+  + ~/LuisBowshocks/j8oc*_wcs/*-arcdata.json
+
+** 

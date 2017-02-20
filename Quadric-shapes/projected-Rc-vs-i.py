@@ -12,30 +12,37 @@ fig, ax = plt.subplots(figsize=(5, 5))
 inc = np.linspace(0.0, 0.5*np.pi, 500)
 inc_deg = np.degrees(inc)
 
-Rcs = [1.0, 2.0, 4.0, 8.0]
+Rcs = [0.5, 1.0, 2.0, 4.0, 8.0]
 Tcs = [-2.0, -1.0, -0.5, 1e-6, 0.5, 1.0, 2.0]
 
 n_Rc = len(Rcs)
 n_Tc = len(Tcs)
 
 lws = np.linspace(1.0, 2.0, n_Rc)
-lss = ['-', '--', ':', '-.']
 alphas = np.linspace(1.0, 0.2, n_Rc)
 cols = sns.color_palette('magma', n_colors=n_Tc)
+lss = ['-.', '-', '--', ':', '-.']
 
+dash_solid = []
+dash_dashed = [3, 2]
+dash_dotted = [1, 2]
+dash_dot_dashed = [1, 2, 4, 2]
+dash_triple_dot_dashed = [1, 2, 1, 2, 1, 2, 4, 2]
+dashes = [dash_triple_dot_dashed, dash_solid,
+          dash_dashed, dash_dotted, dash_dot_dashed]
 
 def Rc_dash(inc, Tc, Rc):
     f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
     return Rc * (1 + np.tan(inc)**2) / f / (1.0 + Rc*(f - 1.0) / Tc)
 
-for Rc, lw, alpha, ls in list(zip(Rcs, lws, alphas, lss))[::-1]:
+for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
     for Tc, col in list(zip(Tcs, cols))[::-1]:
         if Rc == 1.0:
             label = fr'$T_c = {Tc:.1f}$'
         else:
             label = None
         ax.plot(inc_deg, Rc_dash(inc, Tc, Rc),
-                c=col, ls=ls, label=label)
+                c=col, dashes=dash, label=label)
 
 i25, i50, i75 = [90.0 - np.degrees(np.arccos(_)) for _ in [0.25, 0.5, 0.75]]
 
