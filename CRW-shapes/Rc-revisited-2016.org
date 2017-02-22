@@ -843,7 +843,8 @@ beta = 0.0100, tau = 0.48, J = 0.55, K = -3.10
 Corrected K = -0.82
 
 
-* TODO [0/1] Joining the head and tail conics
+* DONE [1/1] Joining the head and tail conics
+CLOSED: [2017-02-21 Tue 08:24]
 :PROPERTIES:
 :ID:       CFCCAE1D-FB80-4BB8-B3D9-4D3B12D7531D
 :END:
@@ -1199,11 +1200,12 @@ python conic-head-tail.py 0.15 0.2
 [[file:th1-th-test0.0001.pdf]]
 
 
-** TODO Putting it all together with the new fits to the tails
+** DONE Putting it all together with the new fits to the tails
+CLOSED: [2017-02-21 Tue 08:24]
 + By directly fitting a hyperbola to the \theta > 90 portion of the extended CRW solution, I have been able to find satisfactory fits for all parameters
   + This is documented in [[file:tail-fit-tests.org]]
   + HTML version in [[file:tail-fit-tests.html]]
-+ [ ] Next job is to do it for a grid of beta and xi
++ [X] Next job is to do it for a grid of beta and xi
 + We actually want two things:
   1. [X] A figure that has
      + Rows of \xi = [None, 1.0, 0.8, 0.4]
@@ -1212,8 +1214,8 @@ python conic-head-tail.py 0.15 0.2
   2. [X] A finer grid so that we can fit functions to a(\xi, \beta) and x_0(\xi, \beta)
      + [X] Make a table and graph of a(\xi, \beta) and x_0(\xi, \beta)
      + [X] [2017-01-18 Wed] Jorge is doing fits to these
-  3. [ ] Consider the error in \theta_1(\theta) for the head/tail fits, and use this to choose the angle \theta where we need to change between the head and tail approximations
-     - [ ] Make graphs of the error - also serve to illustrate how good the fits are
+  3. [X] Consider the error in \theta_1(\theta) for the head/tail fits, and use this to choose the angle \theta where we need to change between the head and tail approximations
+     - [X] Make graphs of the error - also serve to illustrate how good the fits are
 
 
 
