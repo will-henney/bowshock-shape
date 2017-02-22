@@ -666,6 +666,11 @@ cp -v projected-*.{pdf,png} ../papers/Paper1/figs
   + 308-3036
   + LL6
   + LL7 (requires wider field to measure R90')
+** Methodology
++ Programs are in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/]]
+  + fit-circle-shell.py does the fitting
+  + [ ] We need to change the mask on theta in the routine =update_arc_data= so that it only uses theta < 45 deg
+
 ** Where data files are
 + Original measured shapes are in
   + ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-arcdata.json
