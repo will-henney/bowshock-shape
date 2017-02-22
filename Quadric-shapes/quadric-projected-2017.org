@@ -649,24 +649,108 @@ cp -v projected-*.{pdf,png} ../papers/Paper1/figs
   + 000-400
   + 005-514
   + 012-407
+  + 030-524 (asymmetric)
   + 042-628
   + LL1
+  + 065-502 (weak)
   + 069-601
 + W group
   + 4285-458
   + LL3
-  + LL2
+  + LL2 (uncertain which arc to use)
   + LL4
-  + 4468-605
+  + 4468-605 (asymmetric)
 + S group
   + 116-3101
   + 266-558
   + 308-3036
-  + LL5
   + LL6
-  + LL7
-** Where files are
-+ Measured shapes are in
-  + ~/LuisBowshocks/j8oc*_wcs/*-arcdata.json
+  + LL7 (requires wider field to measure R90')
+** Where data files are
++ Original measured shapes are in
+  + ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-arcdata.json
++ Now copied to [[file:~/Work/Bowshocks/Jorge/bowshock-shape/LL-shapes-2017/]]
 
-** 
+*** Copy data files to this project
+#+BEGIN_SRC sh :results verbatim
+date
+cp -av ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-arcdata.json ../LL-shapes-2017
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Wed Feb 22 13:31:06 CST 2017
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/065-502-arcdata.json -> ../LL-shapes-2017/065-502-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/074-229-arcdata.json -> ../LL-shapes-2017/074-229-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/083-435-arcdata.json -> ../LL-shapes-2017/083-435-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/101-233-arcdata.json -> ../LL-shapes-2017/101-233-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/102-157-arcdata.json -> ../LL-shapes-2017/102-157-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/106-245-arcdata.json -> ../LL-shapes-2017/106-245-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/109-246-arcdata.json -> ../LL-shapes-2017/109-246-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/117-421-arcdata.json -> ../LL-shapes-2017/117-421-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/121-434-arcdata.json -> ../LL-shapes-2017/121-434-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/142-301-arcdata.json -> ../LL-shapes-2017/142-301-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/154-225-arcdata.json -> ../LL-shapes-2017/154-225-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/154-240-arcdata.json -> ../LL-shapes-2017/154-240-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/158-323-arcdata.json -> ../LL-shapes-2017/158-323-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/159-221-arcdata.json -> ../LL-shapes-2017/159-221-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/161-324-arcdata.json -> ../LL-shapes-2017/161-324-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/163-222-arcdata.json -> ../LL-shapes-2017/163-222-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/163-317-arcdata.json -> ../LL-shapes-2017/163-317-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/165-235-arcdata.json -> ../LL-shapes-2017/165-235-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/166-316-arcdata.json -> ../LL-shapes-2017/166-316-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/167-317-arcdata.json -> ../LL-shapes-2017/167-317-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-326-arcdata.json -> ../LL-shapes-2017/168-326-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-326N-arcdata.json -> ../LL-shapes-2017/168-326N-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-328-arcdata.json -> ../LL-shapes-2017/168-328-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/169-338-arcdata.json -> ../LL-shapes-2017/169-338-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/170-249-arcdata.json -> ../LL-shapes-2017/170-249-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/173-236-arcdata.json -> ../LL-shapes-2017/173-236-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/173-342-arcdata.json -> ../LL-shapes-2017/173-342-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/175-321-arcdata.json -> ../LL-shapes-2017/175-321-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/177-341-arcdata.json -> ../LL-shapes-2017/177-341-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/178-258-arcdata.json -> ../LL-shapes-2017/178-258-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/180-331-arcdata.json -> ../LL-shapes-2017/180-331-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/189-329-arcdata.json -> ../LL-shapes-2017/189-329-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/LL1-arcdata.json -> ../LL-shapes-2017/LL1-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w005-514-arcdata.json -> ../LL-shapes-2017/w005-514-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w012-407-arcdata.json -> ../LL-shapes-2017/w012-407-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w014-414-arcdata.json -> ../LL-shapes-2017/w014-414-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w030-524-arcdata.json -> ../LL-shapes-2017/w030-524-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w044-527-arcdata.json -> ../LL-shapes-2017/w044-527-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w069-601-arcdata.json -> ../LL-shapes-2017/w069-601-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w073-227-arcdata.json -> ../LL-shapes-2017/w073-227-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/131-046-arcdata.json -> ../LL-shapes-2017/131-046-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/132-053-arcdata.json -> ../LL-shapes-2017/132-053-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/206-043-arcdata.json -> ../LL-shapes-2017/206-043-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/204-330-arcdata.json -> ../LL-shapes-2017/204-330-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/212-400-arcdata.json -> ../LL-shapes-2017/212-400-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/w266-558-arcdata.json -> ../LL-shapes-2017/w266-558-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/261-3018-arcdata.json -> ../LL-shapes-2017/261-3018-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/305-811-arcdata.json -> ../LL-shapes-2017/305-811-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/LL5-arcdata.json -> ../LL-shapes-2017/LL5-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/308-3036-arcdata.json -> ../LL-shapes-2017/308-3036-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/344-3020-arcdata.json -> ../LL-shapes-2017/344-3020-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/362-3137-arcdata.json -> ../LL-shapes-2017/362-3137-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/LL6-arcdata.json -> ../LL-shapes-2017/LL6-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/049-143-arcdata.json -> ../LL-shapes-2017/049-143-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/051-024-arcdata.json -> ../LL-shapes-2017/051-024-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/072-134-arcdata.json -> ../LL-shapes-2017/072-134-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/4578-251-arcdata.json -> ../LL-shapes-2017/4578-251-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/w000-400-arcdata.json -> ../LL-shapes-2017/w000-400-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/066-3251-arcdata.json -> ../LL-shapes-2017/066-3251-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/116-3101-arcdata.json -> ../LL-shapes-2017/116-3101-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/119-3155-arcdata.json -> ../LL-shapes-2017/119-3155-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/136-3057-arcdata.json -> ../LL-shapes-2017/136-3057-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/138-3024-arcdata.json -> ../LL-shapes-2017/138-3024-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/203-3039-arcdata.json -> ../LL-shapes-2017/203-3039-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/022-635-arcdata.json -> ../LL-shapes-2017/022-635-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/041-637-arcdata.json -> ../LL-shapes-2017/041-637-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/042-628-arcdata.json -> ../LL-shapes-2017/042-628-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/4582-635-arcdata.json -> ../LL-shapes-2017/4582-635-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/w005-514-arcdata.json -> ../LL-shapes-2017/w005-514-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc17010_wcs/4468-605-arcdata.json -> ../LL-shapes-2017/4468-605-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc17010_wcs/LL3-arcdata.json -> ../LL-shapes-2017/LL3-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc18010_wcs/LL2-arcdata.json -> ../LL-shapes-2017/LL2-arcdata.json
+/Users/will/Dropbox/LuisBowshocks/j8oc24010_wcs/LL4-arcdata.json -> ../LL-shapes-2017/LL4-arcdata.json
+#+end_example
