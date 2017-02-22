@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import matplotlib.ticker
 import seaborn as sns
 
-plotfile = sys.argv[0].replace('.py', '.png')
+plotfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('white')
 fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
@@ -38,7 +38,12 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
     R90_T0_grid = np.sqrt(2*Rc_grid2)
     R90_T1_grid = np.sqrt(2*Rc_grid2 - 1.0)
     R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
-    ax.fill_between(Rc_grid2, R90_T1_grid, R90_T0_grid, alpha=0.2)
+    ax.fill_between(Rc_grid2, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+    ax.fill_between(Rc_grid2, R90_T0_grid, color='k', alpha=0.1)
+    ax.plot(Rc_grid2, R90_T0_grid, c='k', lw=0.5)
+    ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+    ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+    ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
     inc = np.radians(inc_deg)
     Rcp = Rc_prime(inc, Tc_grid, Rc_grid).ravel()
