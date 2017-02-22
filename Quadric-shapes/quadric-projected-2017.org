@@ -27,6 +27,9 @@
   + Hyperbola: T_c < 0 => |T_c'| > |T_c| for |i| > 0
     + \(T_c' \to \infty\) as \(i \to \pi/2 - \theta_{c}\)
 * New graphs for section 4.1
+:PROPERTIES:
+:ID:       2D6B6135-5090-4504-A31C-E1B9D717FAF0
+:END:
 ** Split apart the current Fig 7
 - Make separate graphs of the x and y axes as functions of inclination
 *** The R_0/D graph
