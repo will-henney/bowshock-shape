@@ -31,6 +31,7 @@ dashes_styles = [dashes_solid, dashes_dashed, dashes_dotted,
 
 cols = sns.color_palette('magma', n_colors=nxi)
 
+ax.axhspan(100.0, 110.0, facecolor='k', alpha=0.1)
 
 for beta, dashes in list(zip(BETA_LIST, dashes_styles))[::-1]:
     for xi, col in list(zip(XI_LIST, cols))[::-1]:

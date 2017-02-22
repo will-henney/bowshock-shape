@@ -530,7 +530,8 @@ python projected-R90-Rc-snapshots.py
 
 
 
-** TODO theta_90 versus inclination
+** DONE theta_90 versus inclination
+CLOSED: [2017-02-22 Wed 11:50]
 
 
 #+BEGIN_SRC python :eval no :tangle projected-th90-vs-i.py

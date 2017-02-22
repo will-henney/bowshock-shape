@@ -13,7 +13,8 @@ fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
 incs_deg = 10.0*np.arange(9)
 
 nbeta = 30
-betas = np.logspace(-5.0, -0.5, nbeta)
+#betas = np.logspace(-5.0, -0.5, nbeta)
+betas = np.linspace(0.003, 0.5, nbeta)**2
 XI_LIST = [None, 1.0, 0.8, 0.4]
 nxi = len(XI_LIST)
 
@@ -21,12 +22,16 @@ Rc_grid = np.linspace(0.0, 10.0, 2000)
 R90_T0_grid = np.sqrt(2*Rc_grid)
 R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
 R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
-ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, alpha=0.2)
-ax.plot([0.0, 10.0], [0.0, 10.0], ':', c='k')
 
 
 cols = sns.color_palette('magma', n_colors=nxi)
 for ax, inc_deg in zip(axes.flat, incs_deg):
+    ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+    ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+    ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+    ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+    ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+    ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
     for xi, col in list(zip(XI_LIST, cols))[::-1]:
         for beta in betas:
             # Fit to head and analytic fit to fit to tail
@@ -45,6 +50,8 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
             R90_t = R0_t * np.sqrt(2*tilde_Rc_t - T_t)
             T_combine = 2*tilde_Rc_h - (R90_t / R0_h)**2
 
+            inc = np.radians(inc_deg)
+
             # Projected head quantities as functions of inc
             f_h = np.sqrt(1.0 + T_h * np.tan(inc)**2)
             tilde_Rc_h_prime = tilde_Rc_h / (
@@ -58,7 +65,6 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
             )
             R90_h_prime = R0_h_prime * np.sqrt(2*tilde_Rc_h_prime - T_h_prime)
 
-            inc = np.radians(inc_deg)
 
             # Projected tail quantities as functions of inc
             f_t = np.sqrt(1.0 + T_t * np.tan(inc)**2)
@@ -80,45 +86,27 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
             # Finally, the combined discriminant (equation F from notes)
             T_combine_prime = 2*tilde_Rc_h_prime - (R90_t_prime / R0_h_prime)**2
 
-            # if Rc == 1.0:
-            #     label = fr'$\xi = {xi:.1f}$'
-            # else:
-            #     label = None
-            if beta == BETA_LIST[0]:
-                label = 'CRW' if xi is None else fr'$\xi = {xi:.1f}$'
+            if inc_deg < 30.0:
+                # Plot the head for low inclinations
+                y = R90_h_prime/R0_h_prime
             else:
-                label = None
+                # Plot the tail for high inclinations
+                y = R90_t_prime/R0_h_prime
+            ax.scatter([tilde_Rc_h_prime], [y],
+		       c=col, edgecolors='none',
+		       marker='o', s=25, alpha=0.4)
 
-            # Find minimum difference between head and tail values of R90
-            dR = np.abs(R90_h_prime - R90_t_prime)
-            mm = np.isfinite(dR)
-            i0 = np.argmin(dR[mm])
+            ax.text(3.0, 0.5, rf'$i = {inc_deg:.0f}^\circ$',
+                    bbox={'facecolor': 'w', 'alpha': 0.8, 'edgecolor': 'none'})
 
 
-            # Masks for high and low inclinations (overlapping range)
-            mlo = inc_deg <= inc_deg[i0]
-            mhi = inc_deg >= inc_deg[i0]
-            # Ensure that LOS is not inside the tail cone
-            mhi = mhi & (inc < 0.5*np.pi - ht.theta_t)
-            # Plot the head discriminant for low inclinations
-            ax.plot(tilde_Rc_h_prime[mlo], R90_h_prime[mlo]/R0_h_prime[mlo],
-                    c=col, label=None, lw=2, alpha=0.4)
-            # Put a dot at the i=0 case
-            ax.plot([tilde_Rc_h], [R90_h/R0_h], 'o', c=col, alpha=0.6)
-            # Plot the combined discriminant for high inclinations
-            ax.plot(tilde_Rc_h_prime[mhi], R90_t_prime[mhi]/R0_h_prime[mhi],
-                    c=col, label=label, lw=0.8, alpha=1.0)
-            #ax.plot([tilde_Rc_h], [T_combine], '.', c=col)
-
-ax.legend(ncol=1, fontsize='xx-small', frameon=True)
-ax.set(
+axes[-1, 0].set(
     yscale='linear',
     xscale='linear',
     xlim=[0.0, 5.1],
     ylim=[0.0, 5.1],
-#    ylim=[-3.0, 1.1],
-    xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
-    ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+    xlabel=r"$\widetilde{R}_{c}{}'$",
+    ylabel=r"$\widetilde{R}_{90}{}'$",
 )        
 
 
