@@ -693,6 +693,7 @@ cp -v projected-*.pdf ../papers/Paper1/figs
 + Now copied to [[file:~/Work/Bowshocks/Jorge/bowshock-shape/LL-shapes-2017/]]
 
 *** Copy data files to this project
+
 #+BEGIN_SRC sh :results verbatim
 date
 cp -av ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-arcdata.json ../LL-shapes-2017
@@ -774,4 +775,90 @@ Wed Feb 22 13:31:06 CST 2017
 /Users/will/Dropbox/LuisBowshocks/j8oc17010_wcs/LL3-arcdata.json -> ../LL-shapes-2017/LL3-arcdata.json
 /Users/will/Dropbox/LuisBowshocks/j8oc18010_wcs/LL2-arcdata.json -> ../LL-shapes-2017/LL2-arcdata.json
 /Users/will/Dropbox/LuisBowshocks/j8oc24010_wcs/LL4-arcdata.json -> ../LL-shapes-2017/LL4-arcdata.json
+#+end_example
+
+*** Copy FITS images
+
+#+BEGIN_SRC sh :results verbatim
+date
+cp -av ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-Bally_??-extract.fits ../LL-shapes-2017
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Wed Feb 22 21:58:19 CST 2017
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/065-502-Bally_01-extract.fits -> ../LL-shapes-2017/065-502-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/074-229-Bally_01-extract.fits -> ../LL-shapes-2017/074-229-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/083-435-Bally_01-extract.fits -> ../LL-shapes-2017/083-435-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/101-233-Bally_01-extract.fits -> ../LL-shapes-2017/101-233-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/102-157-Bally_01-extract.fits -> ../LL-shapes-2017/102-157-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/106-245-Bally_01-extract.fits -> ../LL-shapes-2017/106-245-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/109-246-Bally_01-extract.fits -> ../LL-shapes-2017/109-246-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/117-421-Bally_01-extract.fits -> ../LL-shapes-2017/117-421-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/121-434-Bally_01-extract.fits -> ../LL-shapes-2017/121-434-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/142-301-Bally_01-extract.fits -> ../LL-shapes-2017/142-301-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/154-225-Bally_01-extract.fits -> ../LL-shapes-2017/154-225-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/154-240-Bally_01-extract.fits -> ../LL-shapes-2017/154-240-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/158-323-Bally_01-extract.fits -> ../LL-shapes-2017/158-323-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/159-221-Bally_01-extract.fits -> ../LL-shapes-2017/159-221-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/161-324-Bally_01-extract.fits -> ../LL-shapes-2017/161-324-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/163-222-Bally_01-extract.fits -> ../LL-shapes-2017/163-222-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/163-317-Bally_01-extract.fits -> ../LL-shapes-2017/163-317-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/165-235-Bally_01-extract.fits -> ../LL-shapes-2017/165-235-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/166-316-Bally_01-extract.fits -> ../LL-shapes-2017/166-316-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/167-317-Bally_01-extract.fits -> ../LL-shapes-2017/167-317-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-326-Bally_01-extract.fits -> ../LL-shapes-2017/168-326-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-326N-Bally_01-extract.fits -> ../LL-shapes-2017/168-326N-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-328-Bally_01-extract.fits -> ../LL-shapes-2017/168-328-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/169-338-Bally_01-extract.fits -> ../LL-shapes-2017/169-338-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/170-249-Bally_01-extract.fits -> ../LL-shapes-2017/170-249-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/173-236-Bally_01-extract.fits -> ../LL-shapes-2017/173-236-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/173-342-Bally_01-extract.fits -> ../LL-shapes-2017/173-342-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/175-321-Bally_01-extract.fits -> ../LL-shapes-2017/175-321-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/177-341-Bally_01-extract.fits -> ../LL-shapes-2017/177-341-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/178-258-Bally_01-extract.fits -> ../LL-shapes-2017/178-258-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/180-331-Bally_01-extract.fits -> ../LL-shapes-2017/180-331-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/189-329-Bally_01-extract.fits -> ../LL-shapes-2017/189-329-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/LL1-Bally_01-extract.fits -> ../LL-shapes-2017/LL1-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w005-514-Bally_01-extract.fits -> ../LL-shapes-2017/w005-514-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w012-407-Bally_01-extract.fits -> ../LL-shapes-2017/w012-407-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w014-414-Bally_01-extract.fits -> ../LL-shapes-2017/w014-414-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w030-524-Bally_01-extract.fits -> ../LL-shapes-2017/w030-524-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w044-527-Bally_01-extract.fits -> ../LL-shapes-2017/w044-527-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w069-601-Bally_01-extract.fits -> ../LL-shapes-2017/w069-601-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w073-227-Bally_01-extract.fits -> ../LL-shapes-2017/w073-227-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/131-046-Bally_02-extract.fits -> ../LL-shapes-2017/131-046-Bally_02-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/132-053-Bally_02-extract.fits -> ../LL-shapes-2017/132-053-Bally_02-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/206-043-Bally_02-extract.fits -> ../LL-shapes-2017/206-043-Bally_02-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/204-330-Bally_06-extract.fits -> ../LL-shapes-2017/204-330-Bally_06-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/212-400-Bally_06-extract.fits -> ../LL-shapes-2017/212-400-Bally_06-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/w266-558-Bally_06-extract.fits -> ../LL-shapes-2017/w266-558-Bally_06-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/261-3018-Bally_07-extract.fits -> ../LL-shapes-2017/261-3018-Bally_07-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/305-811-Bally_07-extract.fits -> ../LL-shapes-2017/305-811-Bally_07-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/LL5-Bally_07-extract.fits -> ../LL-shapes-2017/LL5-Bally_07-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/308-3036-Bally_08-extract.fits -> ../LL-shapes-2017/308-3036-Bally_08-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/344-3020-Bally_08-extract.fits -> ../LL-shapes-2017/344-3020-Bally_08-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/362-3137-Bally_08-extract.fits -> ../LL-shapes-2017/362-3137-Bally_08-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/LL6-Bally_08-extract.fits -> ../LL-shapes-2017/LL6-Bally_08-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/049-143-Bally_09-extract.fits -> ../LL-shapes-2017/049-143-Bally_09-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/051-024-Bally_09-extract.fits -> ../LL-shapes-2017/051-024-Bally_09-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/072-134-Bally_09-extract.fits -> ../LL-shapes-2017/072-134-Bally_09-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/4578-251-Bally_09-extract.fits -> ../LL-shapes-2017/4578-251-Bally_09-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/w000-400-Bally_09-extract.fits -> ../LL-shapes-2017/w000-400-Bally_09-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/066-3251-Bally_14-extract.fits -> ../LL-shapes-2017/066-3251-Bally_14-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/116-3101-Bally_14-extract.fits -> ../LL-shapes-2017/116-3101-Bally_14-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/119-3155-Bally_14-extract.fits -> ../LL-shapes-2017/119-3155-Bally_14-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/136-3057-Bally_14-extract.fits -> ../LL-shapes-2017/136-3057-Bally_14-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/138-3024-Bally_14-extract.fits -> ../LL-shapes-2017/138-3024-Bally_14-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/203-3039-Bally_14-extract.fits -> ../LL-shapes-2017/203-3039-Bally_14-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/022-635-Bally_16-extract.fits -> ../LL-shapes-2017/022-635-Bally_16-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/041-637-Bally_16-extract.fits -> ../LL-shapes-2017/041-637-Bally_16-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/042-628-Bally_16-extract.fits -> ../LL-shapes-2017/042-628-Bally_16-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/4582-635-Bally_16-extract.fits -> ../LL-shapes-2017/4582-635-Bally_16-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/w005-514-Bally_16-extract.fits -> ../LL-shapes-2017/w005-514-Bally_16-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc17010_wcs/4468-605-Bally_17-extract.fits -> ../LL-shapes-2017/4468-605-Bally_17-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc17010_wcs/LL3-Bally_17-extract.fits -> ../LL-shapes-2017/LL3-Bally_17-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc18010_wcs/LL2-Bally_18-extract.fits -> ../LL-shapes-2017/LL2-Bally_18-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc24010_wcs/LL4-Bally_01-extract.fits -> ../LL-shapes-2017/LL4-Bally_01-extract.fits
+/Users/will/Dropbox/LuisBowshocks/j8oc24010_wcs/LL4-Bally_24-extract.fits -> ../LL-shapes-2017/LL4-Bally_24-extract.fits
 #+end_example
