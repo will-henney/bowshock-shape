@@ -16,8 +16,13 @@ Rc_grid = np.linspace(0.0, 10.0, 2000)
 R90_T0_grid = np.sqrt(2*Rc_grid)
 R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
 R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
-ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, alpha=0.2)
-ax.plot([0.0, 10.0], [0.0, 10.0], ':', c='k')
+
+ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
 inc = np.linspace(0.0, 0.5*np.pi, 500, endpoint=False)
 inc_deg = np.degrees(inc)

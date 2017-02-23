@@ -187,8 +187,13 @@ open two-quadric-R90-vs-i.pdf
   R90_T0_grid = np.sqrt(2*Rc_grid)
   R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
   R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
-  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, alpha=0.2)
-  ax.plot([0.0, 10.0], [0.0, 10.0], ':', c='k')
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   inc = np.linspace(0.0, 0.5*np.pi, 500, endpoint=False)
   inc_deg = np.degrees(inc)
@@ -463,7 +468,8 @@ python two-quadric-th90-vs-i.py
   + But i = 40 is better for low beta
   + So we will try both
 
-** TODO Snapshots of R90-Rc plane for projected generalized CRW at different inclinations
+** DONE Snapshots of R90-Rc plane for projected generalized CRW at different inclinations
+CLOSED: [2017-02-22 Wed 18:58]
 
 + To get this to work, we need a better way of deciding whether to use the head or the tail fit
 + [X] So we need to sort out the theta_90 calculation first
@@ -604,7 +610,7 @@ cp -av two-quadric-*.pdf ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Wed Feb 22 18:34:48 CST 2017
+: Wed Feb 22 18:59:47 CST 2017
 : two-quadric-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/two-quadric-R90-Rc-snapshots.pdf
 : two-quadric-R90-vs-Rc.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-Rc.pdf
 : two-quadric-R90-vs-i.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-i.pdf
