@@ -505,7 +505,7 @@ python two-quadric-th90-vs-i.py
       ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
       ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
       ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
-      for xi, col in list(zip(XI_LIST, cols))[::-1]:
+      for xi, col in list(zip(XI_LIST, cols)):
           for beta in betas:
               # Fit to head and analytic fit to fit to tail
               ht = conic_parameters.HeadTail(beta, xi=xi, xmin=0.0, method='analytic fit')
@@ -581,7 +581,7 @@ python two-quadric-th90-vs-i.py
       xlabel=r"$\widetilde{R}_{c}{}'$",
       ylabel=r"$\widetilde{R}_{90}{}'$",
   )        
-
+  
 
   fig.tight_layout()
   fig.savefig(plotfile)
@@ -596,3 +596,17 @@ python two-quadric-R90-Rc-snapshots.py
 #+RESULTS:
 [[file:two-quadric-R90-Rc-snapshots.pdf]]
 
+
+* Copying figs to paper dir
+#+BEGIN_SRC sh :results verbatim
+date
+cp -av two-quadric-*.pdf ../papers/Paper1/figs
+#+END_SRC
+
+#+RESULTS:
+: Wed Feb 22 18:34:48 CST 2017
+: two-quadric-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/two-quadric-R90-Rc-snapshots.pdf
+: two-quadric-R90-vs-Rc.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-Rc.pdf
+: two-quadric-R90-vs-i.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-i.pdf
+: two-quadric-Tc-vs-Rc.pdf -> ../papers/Paper1/figs/two-quadric-Tc-vs-Rc.pdf
+: two-quadric-th90-vs-i.pdf -> ../papers/Paper1/figs/two-quadric-th90-vs-i.pdf

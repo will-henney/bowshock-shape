@@ -32,7 +32,7 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
     ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
     ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
     ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
-    for xi, col in list(zip(XI_LIST, cols))[::-1]:
+    for xi, col in list(zip(XI_LIST, cols)):
         for beta in betas:
             # Fit to head and analytic fit to fit to tail
             ht = conic_parameters.HeadTail(beta, xi=xi, xmin=0.0, method='analytic fit')

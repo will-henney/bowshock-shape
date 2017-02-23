@@ -303,7 +303,14 @@ python projected-Tc-vs-Rc.py
   R90_T0_grid = np.sqrt(2*Rc_grid)
   R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
   R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
-  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, alpha=0.2)
+
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   inc = np.linspace(0.0, 0.5*np.pi, 500, endpoint=False)
   inc_deg = np.degrees(inc)
@@ -530,7 +537,7 @@ python projected-R90-Rc-snapshots.py
 
 
 
-** DONE theta_90 versus inclination
+** DONE \theta_90 versus inclination
 CLOSED: [2017-02-22 Wed 11:50]
 
 
@@ -618,22 +625,22 @@ python projected-th90-vs-i.py
 #+RESULTS:
 [[file:projected-th90-vs-i.pdf]]
 
-* Diagnostic diagram for the two-quadric fits to CRW
-+ In this case the 
-** 
+
 * Copying figs to paper dir
 #+BEGIN_SRC sh :results verbatim
 date
-cp -v projected-*.{pdf,png} ../papers/Paper1/figs
+cp -v projected-*.pdf ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Mon Feb 20 13:10:12 CST 2017
+: Wed Feb 22 18:49:59 CST 2017
 : projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
+: projected-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-R90-Rc-snapshots.pdf
+: projected-R90-vs-Rc.pdf -> ../papers/Paper1/figs/projected-R90-vs-Rc.pdf
 : projected-Rc-vs-i.pdf -> ../papers/Paper1/figs/projected-Rc-vs-i.pdf
 : projected-Tc-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.pdf
 : projected-Tc-vs-Rc.pdf -> ../papers/Paper1/figs/projected-Tc-vs-Rc.pdf
-: projected-Tc-Rc-snapshots.png -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.png
+: projected-th90-vs-i.pdf -> ../papers/Paper1/figs/projected-th90-vs-i.pdf
 
 
 
@@ -668,12 +675,21 @@ cp -v projected-*.{pdf,png} ../papers/Paper1/figs
   + LL7 (requires wider field to measure R90')
 ** Methodology
 + Programs are in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/]]
-  + fit-circle-shell.py does the fitting
-  + [ ] We need to change the mask on theta in the routine =update_arc_data= so that it only uses theta < 45 deg
+*** TODO Determining Rc
++ fit-circle-shell.py does the fitting
++ [ ] We need to change the mask on theta in the routine =update_arc_data= so that it only uses theta < 45 deg
+  + This should be fine for arcs with Rc/R0 < 3 or so
+  + But for broader arcs, there may be insufficient points within \pm45\deg
++ [ ] How should we estimate the errors?
+  + We could use the point removal method that we used with the proplyds
+
+*** TODO Determining R90
++ We can plot R(\theta) and just interpolate to \theta = 90\deg
++ 
 
 ** Where data files are
 + Original measured shapes are in
-  + ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-arcdata.json
+  + =~/Dropbox/LuisBowshocks/j8oc*_wcs/*-arcdata.json=
 + Now copied to [[file:~/Work/Bowshocks/Jorge/bowshock-shape/LL-shapes-2017/]]
 
 *** Copy data files to this project
