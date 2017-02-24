@@ -90,7 +90,8 @@ if "beta" in infile:
             break
 else:
     for arc in "inner", "outer":
-        update_arc_data(db[arc])
+        if arc in db:
+            update_arc_data(db[arc])
 
 db["info"]["history"].append("Conic fits added by " + run_info())
 

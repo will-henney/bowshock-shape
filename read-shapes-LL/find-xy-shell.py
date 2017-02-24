@@ -17,6 +17,9 @@ parser.add_argument("source", type=str,
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info about each line in region file")
 
+parser.add_argument("--pa0", type=float, default=None,
+                    help="Optionally over-ride guess at PA of bow shock axis")
+
 cmd_args = parser.parse_args()
 regionfile = cmd_args.source + "-forma.reg"
 
@@ -141,7 +144,10 @@ def find_th_order(th):
     luck) in the range [0, 2 pi]
 
     """
-    pa_ref = pa_binary if is_binary else pa_star
+    if cmd_args.pa0 is None:
+        pa_ref = pa_binary if is_binary else pa_star
+    else:
+        pa_ref = cmd_args.pa0
     th1 = (canonicalize(th - pa_ref) + np.pi) % (2*np.pi)
     if cmd_args.debug: 
         print("Finding theta order:") 

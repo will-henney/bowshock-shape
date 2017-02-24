@@ -12,7 +12,7 @@ Material copied from [[id:8C43BCD8-5AC5-4C80-AB7C-73A7D8DB3B42][=luis-angel-ll.o
    + Reads arcs from =SOURCE-forma.reg=
    + Writes data to =SOURCE-arcdata.json=
 ** fit-circle-shell.py
-=fit-circle-shell.py SOURCE=
+=fit-circle-shell.py SOURCE= 
    + Reads arc data from =SOURCE-arcdata.json=
    + Fits circles to inner and outer arcs
    + Saves plot: =SOURCE-arcfits.pdf=

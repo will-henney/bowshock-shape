@@ -16,7 +16,7 @@ CONVENTIONS USED IN THIS FILE
 Note that different conventions are used elsewhere
 
 """
-
+from __future__ import print_function
 import numpy as np
 import lmfit
 import matplotlib.pyplot as plt
@@ -146,7 +146,7 @@ def fit_conic(xx, yy, Rh, thh, PAh, xxh, yyh,
     lmfit.report_errors(params)
 
     # Unpack parameters again for results to return
-    results = [params[k].value for k in "R", "th", "PA", "xx", "yy"]
+    results = [params[k].value for k in ["R", "th", "PA", "xx", "yy"]]
     if full:
         return tuple(results + [model_minus_data(params, xx, yy, True)])
     else:
@@ -182,7 +182,7 @@ import glob
 import os
 
 if __name__ == "__main__":
-    print "Testing hyperbola functions ..."
+    print("Testing hyperbola functions ...")
 
     datadir = os.path.expanduser("~/Dropbox/JorgeBowshocks/")
     datafiles = glob.glob(datadir + "*/*/*-arcdata.json")
@@ -190,9 +190,9 @@ if __name__ == "__main__":
     lws = [1.0]*5 + [1.0] + [0.5]*5 + [2.0]
     colors = "ymcrgbgrcmyk"
     for datafile in datafiles:
-        print "*"*80
-        print "Processing ", datafile
-        print "*"*80
+        print ("*"*80)
+        print ("Processing", datafile)
+        print ("*"*80)
         db = json.load(open(datafile))
         testdata = db["outer"]
 

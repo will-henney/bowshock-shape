@@ -7,7 +7,9 @@ import numpy as np
 import json
 import argparse
 import lmfit
-from region_utils import region_hdr_lines, region_circle_to_string, region_point_to_string
+from region_utils import (region_hdr_lines,
+                          region_circle_to_string,
+                          region_point_to_string)
 from astropy import coordinates as coord
 from astropy import units as u
 import matplotlib.pyplot as plt
@@ -22,7 +24,8 @@ def create_arc_regions(arcdata):
         print("Star coords: ", c0)
         print("Arc center coords: ", c1)
         print("Separation star->center in arcsec: ", sep.arcsec)
-        print("sqrt(xc**2 + yc**2) = ", np.sqrt (arcdata[arc]["xc"]**2 + arcdata[arc]["yc"]**2))
+        print("sqrt(xc**2 + yc**2) = ",
+              np.sqrt (arcdata[arc]["xc"]**2 + arcdata[arc]["yc"]**2))
               
     regions = []
     ra0 = coord.Longitude(arcdata["star"]["RA"], unit=u.hour)
@@ -35,9 +38,11 @@ def create_arc_regions(arcdata):
         radius = arcdata[arc]["Rc"]
         if cmd_args.debug:
             check_coordinates()
-        regions.append(region_circle_to_string(ra.to_string(sep=":"), dec.to_string(sep=":"),
+        regions.append(region_circle_to_string(ra.to_string(sep=":"),
+                                               dec.to_string(sep=":"),
                                                radius, text="", color=c))
-        regions.append(region_point_to_string(ra.to_string(sep=":"), dec.to_string(sep=":"),
+        regions.append(region_point_to_string(ra.to_string(sep=":"),
+                                              dec.to_string(sep=":"),
                                               "diamond", text=arc, color=c))
     return region_hdr_lines + regions
 
@@ -70,22 +75,24 @@ def fit_circle(x, y, xc=0.0, yc=0.0):
     params = lmfit.Parameters()
     params.add("xc", value=xc)
     params.add("yc", value=yc)
-    lmfit.minimize(model_minus_data, params, args=(x, y))
-    lmfit.report_errors(params)
-    xc = params["xc"].value
-    yc = params["yc"].value
+    out = lmfit.minimize(model_minus_data, params, args=(x, y))
+    lmfit.report_fit(out)
+    xc = out.params["xc"].value
+    yc = out.params["yc"].value
     Rc = Rc_from_data(x, y, xc, yc)
     return Rc, xc, yc
 
 
-def update_arc_data(data):
+def update_arc_data(data, thmax=90.0):
     """
     Update the data dictionary for an arc with the circle fit parameters
     """
     x, y, theta = np.array(data["x"]), np.array(data["y"]), np.array(data["theta"])
-    m = np.abs(theta) < 45.0
+    m = np.abs(theta) < thmax
     if m.sum() < 3:
-        print("Warning: only {} points within 90 deg of axis. Using all points instead".format(m.sum()))
+        print("Warning: only", m.sum(),
+              "points within {:.0f} deg of axis.".format(thmax),
+              "Using all points instead")
         m = np.ones_like(theta, dtype=bool)
     xc0 = data["R0"]*np.sin(np.radians(data["PA0"]+180))
     yc0 = data["R0"]*np.cos(np.radians(data["PA0"]+180))
@@ -120,6 +127,8 @@ parser.add_argument("--savefig", action="store_true",
                     help="Save a figure showing the fit")
 parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
+parser.add_argument("--thmax", type=float, default=90.0,
+                    help="Maximum angle from axis for points to include in circle fit")
 
 cmd_args = parser.parse_args()
 dbfile = cmd_args.source + "-arcdata.json"
@@ -128,7 +137,7 @@ db = json.load(open(dbfile))
 
 for arc in "inner", "outer":
     if arc in db:
-        update_arc_data(db[arc])
+        update_arc_data(db[arc], cmd_args.thmax)
 
 db["info"]["history"].append("Circle fits added by " + run_info())
 
