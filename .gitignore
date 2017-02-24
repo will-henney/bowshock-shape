@@ -4,6 +4,7 @@ doc/ltxpng
 *.py[co]
 read-shapes-LL/test-asymmetric
 
+OriginalData
 *.aux
 *.dvi
 *.out
