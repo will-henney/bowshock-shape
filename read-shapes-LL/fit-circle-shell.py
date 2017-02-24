@@ -83,7 +83,7 @@ def update_arc_data(data):
     Update the data dictionary for an arc with the circle fit parameters
     """
     x, y, theta = np.array(data["x"]), np.array(data["y"]), np.array(data["theta"])
-    m = np.abs(theta) < 90.0
+    m = np.abs(theta) < 45.0
     if m.sum() < 3:
         print("Warning: only {} points within 90 deg of axis. Using all points instead".format(m.sum()))
         m = np.ones_like(theta, dtype=bool)
