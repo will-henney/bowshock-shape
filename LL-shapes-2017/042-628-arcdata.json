@@ -17,7 +17,8 @@
             "Shell data for WFC_mosaic_f502 added/modified by arc_brightness.py: <angel@crya> 2014-07-31 17:08",
             "Shell data for WFC_mosaic_f547 added/modified by arc_brightness.py: <angel@crya> 2014-07-31 17:08",
             "Shell data for Bally_16 added/modified by arc_brightness.py: <angel@crya> 2014-07-31 17:08",
-            "Circle fits added by fit-circle-shell.py: <lxndrs@linux> 2017-02-23 11:55"
+            "Circle fits added by fit-circle-shell.py: <lxndrs@linux> 2017-02-23 11:55",
+            "Image Bally_01 added by extract-image.py: <will@mac> 2017-02-24 22:45"
         ]
     },
     "outer": {
@@ -681,5 +682,12 @@
             "delta": 0.08317559957504272
         },
         "date": "2004-01-24"
+    },
+    "Bally_01": {
+        "original FITS file": "$LARGE_FITS_DIR/Bally-ACS/j8oc01010_wcs.fits",
+        "extracted FITS file": "042-628-Bally_01-extract.fits",
+        "filter": "F658N",
+        "camera": "ACS",
+        "date": "2004-01-14"
     }
 }

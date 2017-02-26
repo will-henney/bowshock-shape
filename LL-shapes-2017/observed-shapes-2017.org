@@ -1,0 +1,222 @@
+* Characteristic radii for LL arcs (and other bow shocks)
+** Make a table of the characteristic radii
+#+BEGIN_SRC python :return table
+  import json
+
+  # Plot the observational data
+  arc_data_ll = '../read-shapes-LL/radii-set.json'
+  data = json.load(open(arc_data_ll))['outer']
+
+  sources = list(data['R0'].keys())
+
+  header = [['Source', 'R0', 'Rc / R0', 'R90 / R0', 'Rm90 / R0'], None]
+
+  body = []
+  for source in sources:
+      row = [source[1:] if source.startswith('w') else source,
+             f"{data['R0'][source]:.2f}",
+             f"{data['Rc'][source] /  data['R0'][source]:.2f}"]
+      if data['R90'][source]:
+          row.append(f"{data['R90'][source] / data['R0'][source]:.2f}")
+      else:
+          row.append( '--' )
+      if data['Rm90'][source]:
+          row.append(f"{data['Rm90'][source] / data['R0'][source]:.2f}")
+      else:
+          row.append( '--' )
+      body.append(row)
+
+  body.sort(key=lambda x: x[0])
+
+  table = header + body
+
+#+END_SRC
+
+#+RESULTS:
+|   Source |   R0 | Rc / R0 | R90 / R0 | Rm90 / R0 |
+|----------+------+---------+----------+-----------|
+|  000-400 | 1.46 |    2.01 | 2.25     |      2.59 |
+|  005-514 | 1.67 |    2.02 | --       |      1.26 |
+|  012-407 | 2.29 |    1.99 | 1.92     |        -- |
+|  030-524 | 0.63 |    2.67 | 3.50     |      2.13 |
+|  042-628 | 3.07 |    2.03 | --       |      1.51 |
+|  065-502 | 1.42 |    2.94 | 4.26     |        -- |
+|  069-601 | 0.85 |    2.02 | --       |      1.69 |
+|  073-227 | 1.63 |    2.00 | 3.39     |        -- |
+|  109-246 | 1.95 |    2.09 | 2.91     |        -- |
+| 116-3101 | 1.45 |    1.98 | --       |      1.46 |
+|  266-558 | 1.88 |    2.05 | --       |      2.15 |
+| 308-3036 | 2.56 |    1.93 | --       |      1.53 |
+| 4285-458 | 1.91 |    2.03 | --       |      1.72 |
+| 4468-605 | 2.47 |    2.02 | --       |        -- |
+|      LL1 | 3.06 |    2.01 | 2.28     |      2.14 |
+|      LL2 | 4.03 |    3.39 | --       |      3.29 |
+|      LL3 | 3.12 |    2.01 | --       |      1.54 |
+|      LL4 | 2.41 |    2.06 | 3.20     |      2.75 |
+|      LL6 | 3.63 |    3.58 | 3.37     |        -- |
+
+
+
+** Placement on the R90-Rc diagram
+#+BEGIN_SRC python :eval no :tangle observed-R90-vs-Rc.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker
+  import seaborn as sns
+  import json
+
+  plotfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('white')
+
+  fig, ax = plt.subplots(figsize=(5, 5))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  # Plot the observational data
+  arc_data_ll = '../read-shapes-LL/radii-set.json'
+  data = json.load(open(arc_data_ll))['outer']
+  sources = list(data['R0'].keys())
+  x, y = [], []
+  for source in sources:
+      try:
+          y.append(0.5*(data['R90'][source] + data['Rm90'][source])
+                   / data['R0'][source])
+      except:
+          try:
+              y.append(data['R90'][source] / data['R0'][source])
+          except:
+              try:
+                  y.append(data['Rm90'][source] / data['R0'][source])
+              except:
+                  continue
+      x.append(data['Rc'][source] / data['R0'][source])
+            
+  ax.scatter(x, y)
+
+  ax.set(
+      yscale='linear',
+      xscale='linear',
+      xlim=[0.0, 5.1],
+      ylim=[0.0, 5.1],
+  #    ylim=[-3.0, 1.1],
+      xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+  )        
+
+
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python observed-R90-vs-Rc.py
+#+END_SRC
+
+#+RESULTS:
+[[file:observed-R90-vs-Rc.pdf]]
+
+
+
+*** TODO Making images of the LL object fits
+Copy region files because we will need them
+#+BEGIN_SRC sh :results verbatim
+cp -v ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-forma.reg .
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/065-502-forma.reg -> ./065-502-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/074-229-forma.reg -> ./074-229-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/083-435-forma.reg -> ./083-435-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/101-233-forma.reg -> ./101-233-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/102-157-forma.reg -> ./102-157-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/106-245-forma.reg -> ./106-245-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/109-246-forma.reg -> ./109-246-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/117-421-forma.reg -> ./117-421-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/121-434-forma.reg -> ./121-434-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/142-301-forma.reg -> ./142-301-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/154-225-forma.reg -> ./154-225-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/154-240-forma.reg -> ./154-240-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/158-323-forma.reg -> ./158-323-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/159-221-forma.reg -> ./159-221-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/161-324-forma.reg -> ./161-324-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/163-222-forma.reg -> ./163-222-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/163-317-forma.reg -> ./163-317-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/165-235-forma.reg -> ./165-235-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/166-316-forma.reg -> ./166-316-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/167-317-forma.reg -> ./167-317-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-326-forma.reg -> ./168-326-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-326N-forma.reg -> ./168-326N-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/168-328-forma.reg -> ./168-328-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/169-338-forma.reg -> ./169-338-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/170-249-forma.reg -> ./170-249-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/173-236-forma.reg -> ./173-236-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/173-342-forma.reg -> ./173-342-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/175-321-forma.reg -> ./175-321-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/177-341-forma.reg -> ./177-341-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/178-258-forma.reg -> ./178-258-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/180-331-forma.reg -> ./180-331-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/189-329-forma.reg -> ./189-329-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/LL1-forma.reg -> ./LL1-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w005-514-forma.reg -> ./w005-514-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w012-407-forma.reg -> ./w012-407-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w014-414-forma.reg -> ./w014-414-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w030-524-forma.reg -> ./w030-524-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w044-527-forma.reg -> ./w044-527-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w069-601-forma.reg -> ./w069-601-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc01010_wcs/w073-227-forma.reg -> ./w073-227-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/131-046-forma.reg -> ./131-046-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/132-053-forma.reg -> ./132-053-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc02010_wcs/206-043-forma.reg -> ./206-043-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/204-330-forma.reg -> ./204-330-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/212-400-forma.reg -> ./212-400-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc06010_wcs/w266-558-forma.reg -> ./w266-558-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/261-3018-forma.reg -> ./261-3018-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/305-811-forma.reg -> ./305-811-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc07010_wcs/LL5-forma.reg -> ./LL5-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/308-3036-forma.reg -> ./308-3036-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/344-3020-forma.reg -> ./344-3020-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/362-3137-forma.reg -> ./362-3137-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc08010_wcs/LL6-forma.reg -> ./LL6-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/049-143-forma.reg -> ./049-143-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/051-024-forma.reg -> ./051-024-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/072-134-forma.reg -> ./072-134-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/4578-251-forma.reg -> ./4578-251-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc09010_wcs/w000-400-forma.reg -> ./w000-400-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/066-3251-forma.reg -> ./066-3251-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/116-3101-forma.reg -> ./116-3101-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/119-3155-forma.reg -> ./119-3155-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/136-3057-forma.reg -> ./136-3057-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/138-3024-forma.reg -> ./138-3024-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc14010_wcs/203-3039-forma.reg -> ./203-3039-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/022-635-forma.reg -> ./022-635-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/041-637-forma.reg -> ./041-637-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/042-628-forma.reg -> ./042-628-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/4582-635-forma.reg -> ./4582-635-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc16010_wcs/w005-514-forma.reg -> ./w005-514-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc17010_wcs/4468-605-forma.reg -> ./4468-605-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc17010_wcs/LL3-forma.reg -> ./LL3-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc18010_wcs/LL2-forma.reg -> ./LL2-forma.reg
+/Users/will/Dropbox/LuisBowshocks/j8oc24010_wcs/LL4-forma.reg -> ./LL4-forma.reg
+#+end_example
+
+This requires various steps.  At the moment, I am missing the =*-arcfits.reg= files, so I will postpone it for now
+
+#+BEGIN_SRC sh :results verbatim :eval no
+python ../read-shapes-LL/extract-image.py 042-628
+python ../read-shapes-LL/arc_brightness.py 042-628
+python ../read-shapes-LL/plot-image.py 042-628 --image Bally_16
+#+END_SRC

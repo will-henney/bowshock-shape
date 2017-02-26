@@ -25,7 +25,8 @@ def get_image_hdu(hdulist, debug=False, fix=True):
 
     # Fix up potential problems with the header
     if fix:
-        if "EQUINOX" in hdu.header
+        if "EQUINOX" in hdu.header:
+            pass
     return hdu
 
 
