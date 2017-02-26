@@ -1,0 +1,17 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:34:42.719,-5:28:37.20) # point=circle
+point(5:34:42.976,-5:28:38.94) # point=x
+point(5:34:42.943,-5:28:38.20) # point=x
+point(5:34:42.912,-5:28:36.87) # point=x
+point(5:34:42.859,-5:28:35.90) # point=x
+point(5:34:42.801,-5:28:34.99) # point=x
+point(5:34:42.746,-5:28:34.27) # point=x
+point(5:34:42.650,-5:28:33.65) # point=x
+point(5:34:42.878,-5:28:38.40) # point=cross
+point(5:34:42.863,-5:28:37.77) # point=cross
+point(5:34:42.841,-5:28:37.03) # point=cross
+point(5:34:42.798,-5:28:36.34) # point=cross
+point(5:34:42.651,-5:28:34.98) # point=cross
+point(5:34:42.726,-5:28:35.50) # point=cross

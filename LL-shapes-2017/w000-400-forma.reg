@@ -1,0 +1,42 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:34:59.56575,-5:24:00.14500) # point=circle
+point(5:34:59.45175,-5:23:57.70500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.50175,-5:23:58.00500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.54975,-5:23:58.61500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.58775,-5:23:59.07500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.61375,-5:23:59.77500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.61375,-5:24:01.55500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.11475,-5:24:12.96500) # point=x color=red tag={000-400 outer}
+point(5:34:59.32175,-5:24:10.31500) # point=x color=red tag={000-400 outer}
+point(5:34:59.36975,-5:24:09.27500) # point=x color=red tag={000-400 outer}
+point(5:34:59.41775,-5:24:08.29500) # point=x color=red tag={000-400 outer}
+point(5:34:59.47975,-5:24:07.15500) # point=x color=red tag={000-400 outer}
+point(5:34:59.52375,-5:24:06.17500) # point=x color=red tag={000-400 outer}
+point(5:34:59.59375,-5:24:04.85500) # point=x color=red tag={000-400 outer}
+point(5:34:59.63075,-5:24:03.37500) # point=x color=red tag={000-400 outer}
+point(5:34:59.65675,-5:24:01.95500) # point=x color=red tag={000-400 outer}
+point(5:34:59.66975,-5:24:00.74500) # point=x color=red tag={000-400 outer}
+point(5:34:59.65375,-5:23:59.47500) # point=x color=red tag={000-400 outer}
+point(5:34:59.62175,-5:23:58.66500) # point=x color=red tag={000-400 outer}
+point(5:34:59.58975,-5:23:58.02500) # point=x color=red tag={000-400 outer}
+point(5:34:59.53075,-5:23:57.18500) # point=x color=red tag={000-400 outer}
+point(5:34:58.99275,-5:23:52.16500) # point=x color=red tag={000-400 outer}
+point(5:34:59.24175,-5:23:54.08500) # point=x color=red tag={000-400 outer}
+point(5:34:58.70375,-5:23:50.78500) # point=x color=red tag={000-400 outer}
+point(5:34:59.35775,-5:23:54.98500) # point=x color=red tag={000-400 outer}
+point(5:34:59.12075,-5:23:53.00500) # point=x color=red tag={000-400 outer}
+point(5:34:58.85975,-5:23:51.38500) # point=x color=red tag={000-400 outer}
+point(5:34:58.52675,-5:23:50.30500) # point=x color=red tag={000-400 outer}
+point(5:34:59.48275,-5:23:56.48500) # point=x color=red tag={000-400 outer}
+point(5:34:58.32575,-5:23:50.48500) # point=x color=red tag={000-400 outer}
+point(5:34:59.00275,-5:24:14.16500) # point=x color=red tag={000-400 outer}
+point(5:34:58.88975,-5:24:15.30500) # point=x color=red tag={000-400 outer}
+point(5:34:58.79775,-5:24:16.26500) # point=x color=red tag={000-400 outer}
+point(5:34:59.19175,-5:24:12.06500) # point=x color=red tag={000-400 outer}
+point(5:34:59.25575,-5:24:11.22500) # point=x color=red tag={000-400 outer}
+point(5:34:58.67675,-5:24:17.16500) # point=x color=red tag={000-400 outer}
+point(5:34:59.62475,-5:24:01.14500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.62475,-5:24:00.55500) # point=cross color=red tag={000-400 inner}
+point(5:34:59.59275,-5:24:02.09500) # point=cross color=red tag={000-400 inner}

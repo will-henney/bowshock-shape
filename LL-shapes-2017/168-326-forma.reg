@@ -1,0 +1,37 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:35:16.839,-5:23:26.32) # point=circle
+point(5:35:16.736,-5:23:27.16) # point=x
+point(5:35:16.737,-5:23:26.94) # point=x
+point(5:35:16.738,-5:23:26.70) # point=x
+point(5:35:16.742,-5:23:26.50) # point=x
+point(5:35:16.748,-5:23:26.36) # point=x
+point(5:35:16.753,-5:23:26.25) # point=x
+point(5:35:16.760,-5:23:26.16) # point=x
+point(5:35:16.770,-5:23:25.99) # point=x
+point(5:35:16.779,-5:23:25.84) # point=x
+point(5:35:16.790,-5:23:25.71) # point=x
+point(5:35:16.800,-5:23:25.55) # point=x
+point(5:35:16.811,-5:23:25.44) # point=x
+point(5:35:16.825,-5:23:25.34) # point=x
+point(5:35:16.834,-5:23:25.26) # point=x
+point(5:35:16.843,-5:23:25.18) # point=x
+point(5:35:16.855,-5:23:25.08) # point=x
+point(5:35:16.870,-5:23:24.89) # point=x
+point(5:35:16.749,-5:23:27.20) # point=cross
+point(5:35:16.748,-5:23:27.05) # point=cross
+point(5:35:16.749,-5:23:26.86) # point=cross
+point(5:35:16.751,-5:23:26.68) # point=cross
+point(5:35:16.753,-5:23:26.49) # point=cross
+point(5:35:16.761,-5:23:26.31) # point=cross
+point(5:35:16.770,-5:23:26.20) # point=cross
+point(5:35:16.784,-5:23:26.01) # point=cross
+point(5:35:16.794,-5:23:25.87) # point=cross
+point(5:35:16.820,-5:23:25.63) # point=cross
+point(5:35:16.831,-5:23:25.54) # point=cross
+point(5:35:16.843,-5:23:25.42) # point=cross
+point(5:35:16.853,-5:23:25.33) # point=cross
+point(5:35:16.867,-5:23:25.21) # point=cross
+point(5:35:16.878,-5:23:25.10) # point=cross
+point(5:35:16.805,-5:23:25.77) # point=cross

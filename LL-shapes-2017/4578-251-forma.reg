@@ -1,0 +1,35 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:34:57.793,-5:22:51.10) # point=circle
+point(5:34:57.852,-5:22:51.90) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.870,-5:22:51.51) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.880,-5:22:51.03) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.815,-5:22:52.53) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.655,-5:22:56.21) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.736,-5:22:55.38) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.801,-5:22:54.72) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.882,-5:22:53.56) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.917,-5:22:52.15) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.915,-5:22:50.79) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.889,-5:22:49.51) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.828,-5:22:48.78) # point=x color=red width=2 tag={4578-251 outer}
+circle(5:34:57.791,-5:22:51.06,0.961909") # color=white text={Diffraction Ring?} dash=1
+# projection(5:34:57.630,-5:22:47.58,5:34:57.630,-5:22:47.58,0")
+point(5:34:57.875,-5:22:50.49) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.793,-5:22:51.10) # point=circle
+point(5:34:57.852,-5:22:51.90) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.870,-5:22:51.51) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.880,-5:22:51.03) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.815,-5:22:52.53) # point=cross color=red width=2 tag={4578-251 inner}
+point(5:34:57.655,-5:22:56.21) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.736,-5:22:55.38) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.801,-5:22:54.72) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.882,-5:22:53.56) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.917,-5:22:52.15) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.915,-5:22:50.79) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.889,-5:22:49.51) # point=x color=red width=2 tag={4578-251 outer}
+point(5:34:57.828,-5:22:48.78) # point=x color=red width=2 tag={4578-251 outer}
+circle(5:34:57.791,-5:22:51.06,0.961909") # color=white text={Diffraction Ring?} dash=1
+# projection(5:34:57.630,-5:22:47.58,5:34:57.630,-5:22:47.58,0")
+point(5:34:57.875,-5:22:50.49) # point=cross color=red width=2 tag={4578-251 inner}
