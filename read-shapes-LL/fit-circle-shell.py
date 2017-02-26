@@ -93,7 +93,8 @@ def update_arc_data(data, thmax=90.0):
     """
     Update the data dictionary for an arc with the circle fit parameters
     """
-    x, y, theta = np.array(data["x"]), np.array(data["y"]), np.array(data["theta"])
+    x, y = np.array(data["x"]), np.array(data["y"])
+    theta, R = np.array(data["theta"]),  np.array(data["R"])
     m = np.abs(theta) < thmax
     if m.sum() < 3:
         print("Warning: only", m.sum(),
@@ -103,7 +104,9 @@ def update_arc_data(data, thmax=90.0):
     xc0 = data["R0"]*np.sin(np.radians(data["PA0"]+180))
     yc0 = data["R0"]*np.cos(np.radians(data["PA0"]+180))
     Rc, xc, yc = fit_circle(x[m], y[m], xc=xc0, yc=yc0)
-    data.update(Rc=Rc, xc=xc, yc=yc, PAc=PA_circle(xc, yc))
+    # Find the perpendicular radii by interpolation
+    R90 = np.interp([-90.0, 90.0], theta, R, left=-999.0, right=-999.0)
+    data.update(Rc=Rc, xc=xc, yc=yc, PAc=PA_circle(xc, yc), R90=R90)
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
         print(arc, ":", xc, yc, Rc)
