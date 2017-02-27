@@ -130,7 +130,25 @@ python observed-R90-vs-Rc.py
 
 
 
-*** TODO Making images of the LL object fits
+** Re-doing the arc tracing and fits
++ In lots of cases, the points are too sparse around the head of the bowshock to get a good estimate of the radius of curvature with \pm 45\deg
++ So I am re-doing them all:
++ Workflow:
+  1. Add more points on the fits file regions
+     - guided by using lots of finely spaced contour levels
+     - experiment with different levels of smoothing (usually more smoothing required in fainter parts of the arc)
+     - In most cases, trace the region with highest density of contours (which is like edge detection)
+  2. Run =find-xy-shell.py=
+  3. Run =fit-circle-shell.py= with options =--savefig  --thmax 45=
+     - In some cases, it seemed necessary to use a larger thmax, but in nearly all cases this was solved by adding more points near the apex
+  4. Look at the results in SOURCE-arcfits.pdf to make sure it is OK
+  5. And check the numbers in SOURCE-arcdata.json too
+     - Iterate if necessary
++ We are mainly using the outer boundary of the arcs, but we have also measured the inner edge in some cases
+
+
+
+** TODO Making images of the LL object fits
 Copy region files because we will need them
 #+BEGIN_SRC sh :results verbatim
 cp -v ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-forma.reg .
