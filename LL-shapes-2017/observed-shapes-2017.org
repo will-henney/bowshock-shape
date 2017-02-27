@@ -141,6 +141,8 @@ python observed-R90-vs-Rc.py
   2. Run =find-xy-shell.py=
   3. Run =fit-circle-shell.py= with options =--savefig  --thmax 45=
      - In some cases, it seemed necessary to use a larger thmax, but in nearly all cases this was solved by adding more points near the apex
+     - Sources that still needed a different thmax:
+       - LL5 :: 60
   4. Look at the results in SOURCE-arcfits.pdf to make sure it is OK
   5. And check the numbers in SOURCE-arcdata.json too
      - Iterate if necessary
