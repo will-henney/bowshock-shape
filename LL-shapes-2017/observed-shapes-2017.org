@@ -110,7 +110,7 @@
   ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
   ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
-  ax.scatter(table['Rc out'], table['R90'])
+  ax.scatter(table['Rc out'], table['R90'], s=40*table['R0 out'])
   ax.errorbar(table['Rc out'], table['R90'], yerr=table['dR90'], fmt='none', alpha=0.3)
 
   ax.set(
@@ -380,3 +380,8 @@ python ../read-shapes-LL/extract-image.py 042-628
 python ../read-shapes-LL/arc_brightness.py 042-628
 python ../read-shapes-LL/plot-image.py 042-628 --image Bally_16
 #+END_SRC
+
+
+* The red supergiants
+
+* The runaway OB stars
