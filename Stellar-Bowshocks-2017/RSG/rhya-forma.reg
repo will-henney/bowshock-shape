@@ -1,0 +1,48 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(13:29:44.856,-23:19:24.70) # point=x
+point(13:29:44.068,-23:19:23.03) # point=x
+point(13:29:43.402,-23:19:19.69) # point=x
+point(13:29:42.796,-23:19:17.19) # point=x
+point(13:29:42.009,-23:19:13.85) # point=x
+point(13:29:41.342,-23:19:12.18) # point=x
+point(13:29:40.797,-23:19:05.50) # point=x
+point(13:29:40.191,-23:18:59.66) # point=x
+point(13:29:39.646,-23:18:52.99) # point=x
+point(13:29:39.162,-23:18:47.15) # point=x
+point(13:29:38.495,-23:18:38.80) # point=x
+point(13:29:37.890,-23:18:29.62) # point=x
+point(13:29:37.224,-23:18:20.44) # point=x
+point(13:29:36.678,-23:18:11.26) # point=x
+point(13:29:36.194,-23:17:58.74) # point=x
+point(13:29:35.710,-23:17:43.72) # point=x
+point(13:29:35.407,-23:17:32.87) # point=x
+point(13:29:35.104,-23:17:19.52) # point=x
+point(13:29:35.044,-23:17:09.51) # point=x
+point(13:29:34.863,-23:16:55.32) # point=x
+point(13:29:34.984,-23:16:43.64) # point=x
+point(13:29:34.984,-23:16:33.62) # point=x
+point(13:29:35.226,-23:16:23.61) # point=x
+point(13:29:35.529,-23:16:10.26) # point=x
+point(13:29:36.196,-23:15:55.24) # point=x
+point(13:29:36.801,-23:15:41.89) # point=x
+point(13:29:37.346,-23:15:29.38) # point=x
+point(13:29:37.710,-23:15:17.70) # point=x
+point(13:29:38.255,-23:15:11.02) # point=x
+point(13:29:39.042,-23:15:01.01) # point=x
+point(13:29:39.708,-23:14:53.50) # point=x
+point(13:29:40.435,-23:14:47.66) # point=x
+point(13:29:41.343,-23:14:37.65) # point=x
+point(13:29:42.312,-23:14:14.28) # point=x
+point(13:29:42.917,-23:14:04.27) # point=x
+point(13:29:44.067,-23:13:57.59) # point=x
+point(13:29:45.217,-23:13:50.08) # point=x
+point(13:29:46.549,-23:13:48.41) # point=x
+point(13:29:47.821,-23:13:47.57) # point=x
+point(13:29:49.758,-23:13:46.73) # point=x
+point(13:29:51.756,-23:13:50.90) # point=x
+point(13:29:46.068,-23:19:28.87) # point=x
+point(13:29:47.279,-23:19:31.37) # point=x
+point(13:29:48.430,-23:19:35.54) # point=x
+point(13:29:42.699,-23:16:51.99) # point=circle text={R Hya}

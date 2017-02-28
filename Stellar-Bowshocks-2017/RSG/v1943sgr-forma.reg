@@ -1,0 +1,25 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(20:06:59.474,-27:14:08.52) # point=x
+point(20:07:00.137,-27:13:58.27) # point=x
+point(20:07:00.591,-27:13:38.71) # point=x
+point(20:07:00.696,-27:13:20.08) # point=x
+point(20:07:00.696,-27:13:04.71) # point=x
+point(20:07:00.451,-27:12:47.94) # point=x
+point(20:07:00.171,-27:12:31.64) # point=x
+point(20:06:59.752,-27:12:17.21) # point=x
+point(20:06:59.193,-27:11:57.18) # point=x
+point(20:06:57.867,-27:11:48.80) # point=x
+point(20:06:56.204,-27:11:36.42) # point=x
+point(20:06:58.558,-27:14:18.19) # point=x
+point(20:06:57.532,-27:14:28.66) # point=x
+point(20:06:56.144,-27:14:37.51) # point=x
+point(20:06:54.998,-27:14:39.12) # point=x
+point(20:06:53.549,-27:14:36.71) # point=x
+point(20:06:52.402,-27:14:36.71) # point=x
+point(20:06:50.954,-27:14:30.26) # point=x
+point(20:06:49.506,-27:14:22.21) # point=x
+point(20:06:48.239,-27:14:19.79) # point=x
+point(20:06:47.334,-27:14:08.52) # point=x
+point(20:06:55.267,-27:13:31.40) # point=circle text={V1943 Sgr}
