@@ -147,7 +147,7 @@ def find_th_order(th):
     if cmd_args.pa0 is None:
         pa_ref = pa_binary if is_binary else pa_star
     else:
-        pa_ref = cmd_args.pa0
+        pa_ref = np.radians(cmd_args.pa0)
     th1 = (canonicalize(th - pa_ref) + np.pi) % (2*np.pi)
     if cmd_args.debug: 
         print("Finding theta order:") 

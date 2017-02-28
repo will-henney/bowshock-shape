@@ -9,7 +9,45 @@
   + Use the most processed version: https://www.cosmos.esa.int/web/herschel/user-provided-data-products
   + [[file:RSG/AlphaOri-160_10_AFGL190.mod.fits]]
 + Put crosses on to trace the outer arc
-  + [[file:RSG/Betelgeuse_Herschel-arcs.reg]]
+  + file:RSG/Betelgeuse_Herschel-arcs.reg
++ Fit circle to the arc
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+python ../../read-shapes-LL/find-xy-shell.py alphaori --pa0 45
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+python ../../read-shapes-LL/fit-circle-shell.py alphaori --debug --thmax 75
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 115
+    # variables        = 2
+    chi-square         = 4833.978
+    reduced chi-square = 42.779
+    Akaike info crit   = 433.927
+    Bayesian info crit = 439.417
+[[Variables]]
+    xc:  -136.600747 +/- 4.042615 (2.96%) (init=-328.3531)
+    yc:  -68.7003769 +/- 2.189979 (3.19%) (init=-161.0606)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.788 
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 88.79302917,  7.40696111)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 88.75476522,  7.38787767)>
+Separation star->center in arcsec:  152.90622356827168
+sqrt(xc**2 + yc**2) =  152.903583849
+#+end_example
+
 
 
 
@@ -20,3 +58,62 @@ python ~/Work/Image2FITS/image2fits.py RSG/Betelgeuse_Herschel_large.jpg
 #+END_SRC
 
 #+RESULTS:
+
+
+* DONE Testing the angle functions in =find-xy-shell.py=
+CLOSED: [2017-02-28 Tue 10:28]
++ There was a problem with the order of angles in \alpha Ori
+  + Turns out it was simply due to failing to convert input degrees to radians for internal use
+  + *Fixed* [2017-02-28 Tue]
++ This is the function that is used for sorting the angles:
+#+name: find-th-order
+#+BEGIN_SRC python
+import numpy as np
+def canonicalize(th, unit="radians"):
+    """Fold an angle theta into the canonical range [-pi:pi]"""
+    if unit == "radians":
+        return ((th + np.pi) % (2*np.pi)) - np.pi
+    elif unit == "degrees":
+        return ((th + 180.0) % (360.0)) - 180.0
+    else:
+        raise NotImplementedError
+
+def find_th_order(th, pa_ref, debug=True): 
+    """Returns a sort order for a collection of angles theta
+    
+    Takes care to account for the wrap-around of angles by shifting
+    the star-th1C vector to be at pi, so that all points are (with
+    luck) in the range [0, 2 pi]
+
+    """
+    th1 = (canonicalize(th - pa_ref) + np.pi) % (2*np.pi)
+    if debug: 
+        print("Finding theta order:") 
+        print("    th =", np.degrees(th)) 
+        print("    pa_ref =", np.degrees(pa_ref)) 
+        print("    th1 =", np.degrees(th1)) 
+        print("    order =", th1.argsort()) 
+    return th1.argsort()
+#+END_SRC
+
+
+#+BEGIN_SRC python :noweb yes :results output verbatim
+<<find-th-order>>
+th0 = np.radians(45.0)
+th = np.radians([180, 45, 15, 90, 120, 310])
+order = find_th_order(th, pa_ref=th0)
+
+print(np.degrees(th[order]))
+print(np.degrees(canonicalize(th[order] - th0)))
+
+#+END_SRC
+
+#+RESULTS:
+: Finding theta order:
+:     th = [ 180.   45.   15.   90.  120.  310.]
+:     pa_ref = 45.0
+:     th1 = [ 315.  180.  150.  225.  255.   85.]
+:     order = [5 2 1 3 4 0]
+: [ 310.   15.   45.   90.  120.  180.]
+: [ -95.  -30.    0.   45.   75.  135.]
+
