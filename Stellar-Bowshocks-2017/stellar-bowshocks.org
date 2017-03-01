@@ -7,6 +7,9 @@
 ** Tracing the shapes
 *** OB stars
 *** RSG stars (and AGB)
+:PROPERTIES:
+:ID:       94EECFDB-B61E-4242-89C2-09BD3B36D587
+:END:
 **** \alpha Orionis (Betelgeuse)
 + Press release image
   + [[file:RSG/Betelgeuse_Herschel_large.jpg]]
@@ -64,7 +67,7 @@ sqrt(xc**2 + yc**2) =  152.903583849
 | UU Aur    | 06331+3829 |  70 |   170.4 |     200 |
 | R Leo     | 09448+1139 |  70 |   112.3 |     117 |
 | R Hya     | 13269-2301 |  70 |   313.7 |     284 |
-| V1943 Sgr | 20038-2722 |  160 |     155 |     135 |
+| V1943 Sgr | 20038-2722 | 160 |     155 |     135 |
 | X Pav     | 20075-6005 |  70 |    84.9 |      88 |
 | \mu Cep     | 21419+5832 |  70 |   216.3 |      85 |
 + Position angles:
@@ -74,6 +77,192 @@ sqrt(xc**2 + yc**2) =  152.903583849
 + Arc tracing
   + Done at 70 micron in most of them, since higher resolution and arc is generally more prominent
   + Exception is V1943 Sgr, which was better at 160 micron because the arc is incomplete (and smaller radius) in 70 micron
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py uuaur --pa0 200
+python $D/find-xy-shell.py rleo --pa0 120
+python $D/find-xy-shell.py rhya --pa0 280
+python $D/find-xy-shell.py v1943sgr --pa0 135
+python $D/find-xy-shell.py xpav --pa0 90
+python $D/find-xy-shell.py mucep --pa0 90
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/fit-circle-shell.py uuaur --debug --thmax 75 --savefig
+python $D/fit-circle-shell.py rleo --debug --thmax 75 --savefig
+python $D/fit-circle-shell.py rhya --debug --thmax 75 --savefig
+python $D/fit-circle-shell.py v1943sgr --debug --thmax 75 --savefig
+python $D/fit-circle-shell.py xpav --debug --thmax 75 --savefig
+python $D/fit-circle-shell.py mucep --debug --thmax 75 --savefig
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 32
+    # variables        = 2
+    chi-square         = 42.236
+    reduced chi-square = 1.408
+    Akaike info crit   = 12.881
+    Bayesian info crit = 15.813
+[[Variables]]
+    xc:   15.0610640 +/- 1.100570 (7.31%) (init= 63.51735)
+    yc:   25.5300293 +/- 0.918767 (3.60%) (init= 52.16668)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.851 
+outer : 15.0610640641 25.5300293379 111.870661618
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 99.13680833,  38.44531944)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 99.14215003,  38.45241112)>
+Separation star->center in arcsec:  29.641116012318466
+sqrt(xc**2 + yc**2) =  29.6414920126
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 27
+    # variables        = 2
+    chi-square         = 104.474
+    reduced chi-square = 4.179
+    Akaike info crit   = 40.534
+    Bayesian info crit = 43.125
+[[Variables]]
+    xc:  -33.3846142 +/- 2.578846 (7.72%) (init=-86.3434)
+    yc:   9.37818363 +/- 1.079356 (11.51%) (init= 26.9824)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.698 
+outer : -33.3846142656 9.37818363087 126.756157072
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 146.88944583,  11.42896667)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 146.87998473,  11.43157172)>
+Separation star->center in arcsec:  34.67668601017268
+sqrt(xc**2 + yc**2) =  34.6768337349
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 24
+    # variables        = 2
+    chi-square         = 609.197
+    reduced chi-square = 27.691
+    Akaike info crit   = 81.618
+    Bayesian info crit = 83.974
+[[Variables]]
+    xc:   110.175601 +/- 10.67015 (9.68%) (init= 90.24736)
+    yc:  -23.0858829 +/- 6.627401 (28.71%) (init=-55.71501)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.895 
+outer : 110.175601373 -23.0858829412 213.540750481
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 202.4279125, -23.28110833)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 202.46122962, -23.28752108)>
+Separation star->center in arcsec:  112.56569836972328
+sqrt(xc**2 + yc**2) =  112.568295399
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 11
+    # variables        = 2
+    chi-square         = 17.864
+    reduced chi-square = 1.985
+    Akaike info crit   = 9.334
+    Bayesian info crit = 10.129
+[[Variables]]
+    xc:  -9.68883170 +/- 1.643640 (16.96%) (init=-38.86762)
+    yc:   14.9640406 +/- 1.958355 (13.09%) (init= 50.65795)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.827 
+outer : -9.68883170818 14.9640406645 83.2641253433
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 301.73027917, -27.22538889)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 301.72725251, -27.22123221)>
+Separation star->center in arcsec:  17.826931215089093
+sqrt(xc**2 + yc**2) =  17.8268329459
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 23
+    # variables        = 2
+    chi-square         = 11.868
+    reduced chi-square = 0.565
+    Akaike info crit   = -11.218
+    Bayesian info crit = -8.947
+[[Variables]]
+    xc:  -22.2929159 +/- 1.108003 (4.97%) (init=-54.10835)
+    yc:  -4.27263268 +/- 0.341913 (8.00%) (init=-10.72157)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.477 
+outer : -22.2929159036 -4.27263268094 78.6385241074
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 302.94182917, -59.9371)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 302.92946771, -59.93828684)>
+Separation star->center in arcsec:  22.698275321362722
+sqrt(xc**2 + yc**2) =  22.6986671307
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 23
+    # variables        = 2
+    chi-square         = 143.971
+    reduced chi-square = 6.856
+    Akaike info crit   = 46.185
+    Bayesian info crit = 48.456
+[[Variables]]
+    xc:  -29.4220193 +/- 3.508065 (11.92%) (init=-69.01557)
+    yc:   8.35037470 +/- 1.062646 (12.73%) (init=-12.28705)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.392 
+outer : -29.4220192961 8.35037470152 102.964786609
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 325.8768,  58.78037778)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 325.86103216,  58.78269733)>
+Separation star->center in arcsec:  30.583102380367688
+sqrt(xc**2 + yc**2) =  30.5840477556
+#+end_example
+
+R Hya looks like it would be better with --thmax 45
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/fit-circle-shell.py rhya --debug --thmax 45 --savefig
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 14
+    # variables        = 2
+    chi-square         = 26.774
+    reduced chi-square = 2.231
+    Akaike info crit   = 13.077
+    Bayesian info crit = 14.355
+[[Variables]]
+    xc:   58.4657628 +/- 8.404392 (14.37%) (init= 90.24736)
+    yc:  -15.0097612 +/- 4.656127 (31.02%) (init=-55.71501)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.950 
+outer : 58.4657628622 -15.0097612186 166.101863129
+#### Checking offset of outer arc center ####
+Star coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 202.4279125, -23.28110833)>
+Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
+    ( 202.44559256, -23.28527771)>
+Separation star->center in arcsec:  60.36084260447921
+sqrt(xc**2 + yc**2) =  60.361729257
+#+end_example
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs

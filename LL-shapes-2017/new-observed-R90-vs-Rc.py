@@ -1,4 +1,5 @@
 T=[["073-227", "147.26", "0.65", "6.47", "-999.00", "3.12", "1.09", "3.20", "-999.00", "5.22"], ["109-246", "89.67", "1.34", "27.23", "1.83", "-999.00", "2.11", "6.22", "2.65", "-999.00"], ["000-400", "254.03", "0.31", "3.37", "2.46", "2.34", "0.58", "2.21", "2.59", "2.25"], ["005-514", "262.64", "0.44", "2.76", "-999.00", "-999.00", "0.61", "1.71", "1.50", "-999.00"], ["012-407", "231.47", "-999.00", "-999.00", "-999.00", "-999.00", "0.99", "1.86", "-999.00", "1.92"], ["030-524", "234.09", "0.16", "1.99", "2.33", "2.91", "0.27", "3.84", "2.17", "3.10"], ["042-628", "259.60", "0.69", "2.77", "1.67", "-999.00", "1.19", "1.87", "1.58", "2.32"], ["LL1", "198.63", "0.96", "2.61", "3.05", "2.05", "1.54", "2.46", "2.14", "2.28"], ["069-601", "212.20", "0.21", "2.90", "2.42", "3.39", "0.42", "2.05", "2.13", "2.09"], ["4285-458", "721.18", "-999.00", "-999.00", "-999.00", "-999.00", "0.27", "2.56", "1.68", "2.44"], ["LL3", "566.33", "0.26", "2.35", "-999.00", "-999.00", "0.55", "1.94", "1.54", "2.41"], ["LL4", "593.14", "0.24", "5.81", "4.67", "3.35", "0.43", "2.35", "2.69", "2.93"], ["4468-605", "471.31", "0.28", "2.47", "1.35", "1.52", "0.53", "1.80", "2.58", "1.58"], ["116-3101", "463.92", "0.22", "1.41", "1.72", "1.74", "0.31", "1.42", "1.52", "1.84"], ["266-558", "218.16", "0.51", "1.79", "-999.00", "1.25", "0.94", "1.92", "1.98", "2.94"], ["308-3036", "484.14", "0.29", "1.35", "-999.00", "1.05", "0.52", "1.50", "1.49", "2.08"], ["LL5", "369.55", "0.40", "2.63", "1.59", "2.69", "0.78", "3.03", "2.22", "4.40"], ["LL6", "485.83", "0.33", "6.01", "3.77", "4.31", "0.77", "5.57", "-999.00", "2.75"]]
+TRSG=[["alphaori", "3.66", "1.45", "1.40", "1.44"], ["uuaur", "0.82", "1.36", "1.14", "-999.00"], ["rleo", "0.90", "1.40", "1.31", "1.39"], ["rhya", "1.06", "1.57", "1.13", "2.03"], ["v1943sgr", "0.64", "1.30", "1.34", "1.39"], ["xpav", "0.55", "1.43", "1.43", "1.37"], ["mucep", "0.70", "1.47", "1.57", "1.32"]]
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
@@ -10,19 +11,27 @@ cols = ['Source', 'D',
         'R0 in', 'Rc in', 'R90 in', 'Rm90 in',
         'R0 out', 'Rc out', 'R90 out', 'Rm90 out',
 ]
+cols2 = ['Source',
+        'R0 out', 'Rc out', 'R90 out', 'Rm90 out',
+]
 dtype = [str] + [float]*9
-table = Table(rows=T, names=cols, dtype=dtype)
+dtype2 = [str] + [float]*4
+table_LL = Table(rows=T, names=cols, dtype=dtype)
+table_RSG = Table(rows=TRSG, names=cols2, dtype=dtype2)
 
 Rcols = [_ for _ in cols if _.startswith('R')]
-for col in Rcols:
-    m = table[col] < 0.0
-    table[col][m] = np.nan
 
-# Take average +/- std of the +ve and -ve R90
-R90stack = np.stack([table['R90 out'], table['Rm90 out']])
-table['R90'] = np.nanmean(R90stack, axis=0)
-table['dR90'] = np.nanstd(R90stack, axis=0)
-table.remove_columns(['R90 out', 'Rm90 out'])
+for table in table_LL, table_RSG:
+    for col in Rcols:
+        if col in table:
+            m = table[col] < 0.0
+            table[col][m] = np.nan
+
+    # Take average +/- std of the +ve and -ve R90
+    R90stack = np.stack([table['R90 out'], table['Rm90 out']])
+    table['R90'] = np.nanmean(R90stack, axis=0)
+    table['dR90'] = np.nanstd(R90stack, axis=0)
+    table.remove_columns(['R90 out', 'Rm90 out'])
 
 plotfile = sys.argv[0].replace('.py', '.pdf')
 
@@ -41,8 +50,11 @@ ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
-ax.scatter(table['Rc out'], table['R90'], s=40*table['R0 out'])
-ax.errorbar(table['Rc out'], table['R90'], yerr=table['dR90'], fmt='none', alpha=0.3)
+ax.scatter(table_LL['Rc out'], table_LL['R90'], s=40*table_LL['R0 out'])
+ax.errorbar(table_LL['Rc out'], table_LL['R90'], yerr=table_LL['dR90'], fmt='none', alpha=0.3)
+
+ax.scatter(table_RSG['Rc out'], table_RSG['R90'], s=10, c='r', alpha=0.8)
+ax.errorbar(table_RSG['Rc out'], table_RSG['R90'], yerr=table_RSG['dR90'], fmt='none', alpha=0.3)
 
 ax.set(
     yscale='linear',
