@@ -1,0 +1,142 @@
+J/ApJS/227/18  Candidate stellar bowshock nebulae from MIR  (Kobulnicky+, 2016)
+================================================================================
+A comprehensive search for stellar bowshock nebulae in the Milky Way: a catalog
+of 709 mid-infrared selected candidates.
+    Kobulnicky H.A., Chick W.T., Schurhammer D.P., Andrews J.E., Povich M.S.,
+    Munari S.A., Olivier G.M., Sorber R.L., Wernke H.N., Dale D.A., Dixon D.M.
+    <Astrophys. J. Suppl. Ser. 227, 18 (2016)>
+    =2016ApJS..227...18K        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Photometry, infrared ; Extinction ; Stars, early-type ;
+              Galactic plane
+Keywords: dust, extinction; H II regions; stars: early-type;
+          stars: kinematics and dynamics; Stars: massive; surveys
+
+Abstract:
+    We identify 709 arc-shaped mid-infrared nebula in 24um Spitzer Space
+    Telescope or 22um Wide Field Infrared Explorer surveys of the Galactic
+    Plane as probable dusty interstellar bowshocks powered by early-type
+    stars. About 20% are visible at 8um or at shorter mid-infrared
+    wavelengths. The vast majority (660) have no previous identification
+    in the literature. These extended infrared sources are strongly
+    concentrated near the Galactic mid-plane, with an angular scale height
+    of ~0.6{deg}. All host a symmetrically placed star implicated as the
+    source of a stellar wind sweeping up interstellar material. These are
+    candidate "runaway" stars potentially having high velocities in the
+    reference frame of the local medium. Among the 286 objects with
+    measured proper motions, we find an unambiguous excess with velocity
+    vectors aligned with the infrared morphology-kinematic evidence that
+    many of these are "runaway" stars with large peculiar motions
+    responsible for the bowshock signature. We discuss a population of "in
+    situ" bowshocks (~103 objects) that face giant HII regions where the
+    relative motions between the star and ISM may be caused by bulk
+    outflows from an overpressured bubble. We also identify ~58 objects
+    that face 8um bright-rimmed clouds and apparently constitute a
+    sub-class of in situ bowshocks where the stellar wind interacts with a
+    photoevaporative flow (PEF) from an eroding molecular cloud interface
+    (i.e., "PEF bowshocks"). Orientations of the acurate nebulae exhibit a
+    correlation over small angular scales, indicating that external
+    influences such as HII regions are responsible for producing some
+    bowshock nebulae. However, the vast majority of the nebulae in this
+    sample appear to be isolated (499 objects) from obvious external
+    influence
+
+Description:
+    Our team conducted a visual examination of mid-infrared images from
+    SST and the WISE to locate bowshock nebula candidates. The SST data
+    included several wide-area surveys conducted using the Infrared Array
+    Camera (IRAC) in its 3.6, 4.5, 5.8, and 8.0um bandpasses, along with
+    24um data from the Multiband Imaging Photometer for Spitzer (MIPS).
+    The SST beam size at these bands is 1.66, 1.72, 1.88, 1.98, and 6"
+    FWHM, respectively.
+    The WISE data include images at the 3.4, 4.6, 12, and 22um bandpasses,
+    which have beam sizes of 6.1, 6.4, 6.5, and 12" FWHM, respectively.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat       106      709   Central stars of bowshock nebula candidates
+--------------------------------------------------------------------------------
+
+See also:
+   II/246 : 2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)
+   J/A+A/578/A45       : E-BOSS. II. Catalogue second release (Peri+, 2015)
+   J/other/Sci/337.444 : RV curves of Galactic massive O stars (Sana+, 2012)
+   J/MNRAS/410/190     : Young runaway stars within 3kpc (Tetzlaff+, 2011)
+   J/ApJ/649/759       : Bubbles in the galactic disk (Churchwell+, 2006)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  3  I3    ---     Seq     Running sequence number
+   5- 21  A17   ---     Name    Name (GLLL.llll+BB.bbbb)
+  23- 24  I2    h       RAh     Hour of Right Ascension (J2000)
+  26- 27  I2    min     RAm     Minute of Right Ascension (J2000)
+  29- 33  F5.2  s       RAs     Second of Right Ascension (J2000)
+      35  A1    ---     DE-     Sign of the Declination (J2000)
+  36- 37  I2    deg     DEd     Degree of Declination (J2000)
+  39- 40  I2    arcmin  DEm     Arcminute of Declination (J2000)
+  42- 45  F4.1  arcsec  DEs     Arcsecond of Declination (J2000) (1)
+  47- 52  A6    ---     Ref     Citation for original discovery (2)
+  54- 69  A16   ---     Alias   Alternative name of stellar source
+  70- 71  A2    ---     8um     Counterpart found in IRAC 8.0 micron images? (3)
+      73  A1    ---     Unc     Uncertain central stellar source? (4)
+  75- 80  F6.2  arcsec  R0      [1/517] Angular separation between
+                                 central source and bowshock (5)
+  82- 84  I3    deg     PA      Position angle (5)
+  86- 90  F5.2  mag     Hmag    [1.9/16.6]? 2MASS H band magnitude
+  92- 96  F5.2  mag     4.5mag  [-0.8/14]? GLIMPSE/WISE IRAC 4.5um/WISE 4.6um
+                                 band magnitude
+  98-103  F6.2  mag     Ak      [/5.4]?=-99 K-band extinction (6)
+ 105-106  A2    ---     Env     Environment of Shock (7)
+--------------------------------------------------------------------------------
+Note (1): 06 34 23.56 +02 32 92.9 for G208.7297-02.6311 is a misprint for
+          06 34 23.56 +02 32 02.9; corrected by CDS.
+Note (2): Reference as follows:
+    Pe15 = Peri et al. (2015, J/A+A/578/A45);
+    Pe12 = Peri et al. (2012A&A...538A.108P);
+     G11 = Gvaramadze et al. (2011A&A...535A..29G);
+     K10 = Kobulnicky et al. (2010ApJ...710..549K; <[KGK2010] NN> in Simbad);
+     P08 = Povich et al. (2008ApJ...689..242P; <[PBW2008] M17-SN> or
+           <[PBW2008] RCW 49-SN> in Simbad);
+    CP07 = Comeron & Pasquali (2007A&A...467L..23C);
+     N97 = Noriega-Crespo et al. (1997AJ....113..780N);
+     V88 = van Buren & McCray (1988ApJ...329L..93V);
+    GB08 = Gvaramadze & Bomans (2008A&A...490.1071G);
+     S15 = Sexton et al. (2015MNRAS.446.1047S; <[SPS2015] NN> in Simbad);
+       T = This work (661 instances).
+Note (3): Single character designating whether the nebular object has an SST
+          IRAC 8.0 counterpart with a similar morphology ("Y"; 130 sources),
+          has no detection above background levels at this waveband (N), or
+          has no data from IRAC (-).
+Note (4):
+    C = the probable central stellar source is uncertain owing to faintness or
+        to the presence of multiple stars of similar magnitude near the nebular
+        axis (115 sources).
+        In such cases we adopt the brightest point source nearest to the axis
+        of symmetry as the most probable star, but we urge caution with regard
+        to the certainty of this identification.
+Note (5): The distance R_0_ from the putative central star to the apsis of the
+          candidate bowshock and the position angle (in degrees from N toward E)
+          of this vector in equatorial coordinates. These values were measured
+          by eye and carry typical uncertainties of 1.5" and 5{deg},
+          respectively.
+Note (6): Estimation of the K-band extinction to each source, inferred using the
+          H-4.5 color and the Rayleigh-Jean Color Excess formulation of
+          Majewski et al. (2011ApJ...739...25M).
+Note (7): Environment code as described in Section 2.2 as follows:
+     I = Isolated (499 instances);
+    FH = Directly facing large HII region within 10 arcminutes (103 instances);
+    FB = Directly facing bright rimmed cloud at 8.0 microns within
+         several arcminutes (58 instances);
+     H = Situated within a large HII region (49 instances).
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                  Prepared by [AAS], Emmanuelle Perret [CDS]    09-Jan-2017

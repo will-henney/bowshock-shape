@@ -1,9 +1,108 @@
 * Bowshocks around moving OB and RSG stars
+** Nature of arcs around O stars
++ There is some question whether they are really bow shocks, or are instead dust waves.
+  + Example of the latter is 
 ** Previous work on theory of projected shapes
 *** Cox et al 2012
 + Have a reasonably sane discussion of the projection of the /Wilkinoid/ shape
 + Consider R_0 and R_90
 + 
+** Observations of O star bow shocks 
++ Use Kubulnicky (2016), who have 709 objects!
++ Best observations are 24 micron Spitzer MIPSGAL images
+*** Catalog of Kobulnicky bow shocks 
++ [[file:OB/Kobulnicky2016/table1.dat]]
+*** How to get the images of OB bow shocks
++ Loop through the table and do searches on the coordinates
+  + Follow the API described at http://irsa.ipac.caltech.edu/applications/Atlas/AtlasProgramInterface.html
+  + The example given for MIPSGAL is
+    + http://irsa.ipac.caltech.edu/cgi-bin/Atlas/nph-atlas?mission=MIPSGAL&locstr=NGC+6631&regSize=12.5&covers=on&mode=PI
+    + But we would be best off using coordinates
+    + As in =&locstr=17h18m57s+60d21m12s=
+  + We could probably use the =requests= python library for that
+    + It looks very easy to use
+    + Relevant example code from the [[http://docs.python-requests.org/en/master/user/quickstart/][documentation]]
+      #+BEGIN_SRC python
+        payload = {'key1': 'value1', 'key2': 'value2'}
+        r = requests.get('http://httpbin.org/get', params=payload)
+      #+END_SRC
+  + This gives an XML file that will contain a line like this
+    #+BEGIN_SRC xml
+      <result status="ok">
+      <description>
+      <collection>MIPSGAL</collection>
+      <ra>276.813000</ra>
+      <dec>-12.020000</dec>
+      <regSize>12.500000</regSize>
+      <radius>6.250000</radius>
+      <radunits>degrees</radunits>
+      </description>
+      <coverageMap>
+      <resultHtml>
+      http://irsa.ipac.caltech.edu:443/workspace/TMP_KlWKfI_2014/Atlas/NGC__6631_3307.v0001/index.html
+      </resultHtml>
+      <resultMap>
+      http://irsa.ipac.caltech.edu:443/workspace/TMP_KlWKfI_2014/Atlas/NGC__6631_3307.v0001/region.jpg
+      </resultMap>
+      <resultFits>
+      http://irsa.ipac.caltech.edu:443/workspace/TMP_KlWKfI_2014/Atlas/NGC__6631_3307.v0001/background_IRAS_ISSA_12micron.fits
+      </resultFits>
+      </coverageMap>
+      <summary>
+      <counts>
+      <imagesN>12</imagesN>
+      <sourcesN>0</sourcesN>
+      <spectraN>0</spectraN>
+      </counts>
+      <downloadScript>
+      http://irsa.ipac.caltech.edu:443/workspace/TMP_KlWKfI_2014/Atlas/NGC__6631_3307.v0001/wget_data.bat
+      </downloadScript>
+      <dataTag>ADS/IRSA.Atlas#2017/0303/205546_3307</dataTag>
+      </summary>
+      <images>
+      <counts>12</counts>
+      <metadata>
+      http://irsa.ipac.caltech.edu:443/workspace/TMP_KlWKfI_2014/Atlas/NGC__6631_3307.v0001/images.tbl
+      </metadata>
+      <metadataVOtable>
+      http://irsa.ipac.caltech.edu:443/workspace/TMP_KlWKfI_2014/Atlas/NGC__6631_3307.v0001/images.xml
+      </metadataVOtable>
+      </images>
+      </result>
+    #+END_SRC
+  + Then you can grab for example the =wwget_data.bat= file
+    + Although the url is bad, since it should be https instead of http
+  + And that will give you something like this
+    #+BEGIN_SRC sh 
+      #!/bin/sh
+      #
+      # To run as an executable on a unix platform, do the following:
+      # chmod 775 wget_data.bat
+      # ./wget_data.bat
+      #
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/compcubes/MG0200n005_024_compcube.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/compcubes/MG0190n005_024_compcube.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/residual/residual_MG0190n005_024_all.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/residual/residual_MG0200n005_024_all.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0200n005_maskcube_024.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0190n005_maskcube_024.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0190n005_std_024.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0200n005_std_024.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0200n005_024.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0190n005_024.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0190n005_covg_024.fits"
+      wget -x "https://irsa.ipac.caltech.edu:443/data/SPITZER/MIPSGAL/images/mosaics24/MG0200n005_covg_024.fits"
+
+    #+END_SRC
+  + Alternatively, the images.xml table has the list of FITS images and associated metadata as a VOTable
+  + Or the images.tbl has it as a simple table
+  + Either should be readable with astropy
+*** How to trace the shapes of the OB bow shocks
+
+*** Where the figures are suposed to be (but they aren't)
+http://iopscience.iop.org/0067-0049/227/2/18/suppdata/
+http://iopscience.iop.org/0067-0049/227/2/18/media
+
 ** Tracing the shapes
 *** OB stars
 *** RSG stars (and AGB)
