@@ -121,7 +121,7 @@ R_c &= R_0\left(1-2\gamma\right)^{-1} \label{eq:Rcurv} \\
 \end{align}
 
 Finally, using equations (\ref{eq:Rcurv}) and (\ref{eq:B}) we can estimate the parameter of
-conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (\ref{eq:thc-conic})
+conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (\ref{eq:Thc})
 
 \begin{align}
 \tan^2\theta_c &= \left| \frac{3\xi\left(1+\beta^{1/2}\right)^2}{\left(1-\xi\beta\right)^2\left(1+\frac{1}{5}\xi\beta\right)}-\frac{2}{\left(1-2\gamma\right)}\right| 
@@ -143,12 +143,31 @@ conic curves $\theta_c$ as a function of $(\beta,\xi)$ using equation (\ref{eq:t
 \end{figure}
 
 
-%Observationally, we can measure the projected radii. In order to estimate the model parameters is neccesary to measure at least two of the mentioned radii, being $R_0$ the
+% Observationally, we can measure the projected radii. In order to estimate the model parameters is neccesary to measure at least two of the mentioned radii,
+%being $R_0$ the
 %easiest to measure. Therefore, we may compare both $R_c$ and $R_{90}$ against $R_0$ as shown in figure (\ref{fig:prop-shell-rad}). 
 
 With this we can use the results of section \ref{sec:conic} to estimate the projected conic shapes for bow shocks with different winds 
 momenta and different density distributions. Figure \ref{fig:rad-beta} shows equations ( \ref{eq:B}), (\ref{eq:Rcurv}) and (\ref{eq:thc-CRW}) for different anisotropy indexes. 
 
+\subsection{Special Case: Isotropic Wind/Parallel Flow Interaction Problem}
+
+This problem has already been solved in \citet{Wilkin:1996a} and \CRW{}, which have an explicit form for the shell shape, given by:
+
+\begin{align}
+  R(\theta) = R_0\csc\theta\left[3(1-\theta\cot\theta)\right]^{1/2} \label{eq:R-Wilkin}
+\end{align}
+Where:
+\begin{align}
+  R_0 = \left(\frac{\dot{M}⁰_wv_w}{4\pi\rho_a v_a^2}\right)^{1/2}
+\end{align}
+And $\rho_a$ and $v_a$ being the density and the velocity of the Parallel wind, respectively.
+The characteristic radii are given by:
+\begin{align}
+  \tilde{R}_{90} &= \sqrt{3} \\
+  \tilde{R}_c &= \frac{5}{3}
+\end{align}
+The derivation of these values is developed in appendix \ref{app:ch-rad-Wilkin}
 
 \subsection{Fits to the tail}
 \label{sec:fits-tail}
