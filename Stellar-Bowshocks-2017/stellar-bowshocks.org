@@ -203,6 +203,81 @@ mkdir -pv OB/MipsGal
           imwin.writeto(imfn, overwrite=True)
 #+END_SRC
 *** How to trace the shapes of the OB bow shocks
++ Strategy is to start at the nominal PA of the bowshock axis and take radial slices
+  + Maybe fit a Gaussian brightness as function of radius for each \theta
+  + calculate \theta and R for each pixel
+  + use \theta \pm d\theta/2 to construct a mask over all the pixels
+  + where d\theta is the interval between radii
+    + say, d\theta = 5\deg perhaps
++ We can stop when we have got to \pm45\deg or maybe \pm60\deg and then calculate the radius of curvature and a better estimate for the symmetry axis
+  + Then we do it again, but with radii drawn from the center of curvature that we have just determined
+  + We can call this angle \theta_c
+  + The idea is that we are best off taking slices that are close to normal to the bowshock, so that we can get out to \theta = \pm 90\deg if we are lucky
+
+#+BEGIN_SRC python :eval no :tangle mipsgal-trace-arc.py
+  import glob
+  import os
+  import numpy as np
+  from astropy.table import Table
+  from astropy.io import fits
+  from astropy.wcs import WCS
+  import astropy.units as u
+  import astropy.coordinates as coord
+
+  SOURCE_DIR = 'OB/Kobulnicky2016'
+  source_table = Table.read(
+      os.path.join(SOURCE_DIR, 'table1.dat'),
+      format='ascii.cds',
+      readme=os.path.join(SOURCE_DIR, 'ReadMe')
+  )
+
+  OUTPUT_IMAGE_DIR = 'OB/MipsGal'
+
+  def skycoord_from_table_row(data):
+      ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
+      dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
+      return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
+
+  for source_data in source_table[0:1]:
+      # Coordinates of source central star
+      c = skycoord_from_table_row(source_data)
+      # Find all the images for this source
+      provisional_list = glob.glob(
+          f"{OUTPUT_IMAGE_DIR}/*-{source_data['Name']}-*.fits")
+      # Look for an image that is good
+      good_image_list = []
+      for image_name in provisional_list:
+          hdu, = fits.open(image_name)
+          looks_good = hdu.header['NAXIS1'] == hdu.header['NAXIS2']
+          if looks_good:
+              good_image_list.append(image_name)
+
+      if good_image_list:
+          # Use the first one in the list - because: why not? 
+          hdu, = fits.open(good_image_list[0])
+      else:
+          # If there were no good images, then never mind
+          continue
+      w = WCS(hdu)
+    
+      # Find celestial coordinates for each pixel
+      ny, nx = hdu.data.shape
+      xpix = np.arange(nx)[None, :]
+      ypix = np.arange(ny)[:, None]
+      cpix = coord.SkyCoord.from_pixel(xpix, ypix, w)
+
+      # Now find radius and position angle from source
+      rpix = c.separation(cpix).to(u.arcsec)
+      papix = c.position_angle(cpix).to(u.degree)
+      # Nominal PA from table
+      pa0 = coord.Angle(source_data['PA'], unit=u.degree)
+      # theta is angle from nominal axis, set to range [-180:180]
+      theta = coord.Longitude(papix - pa0, wrap_angle=180*u.degree)
+    
+    
+
+#+END_SRC
+
 
 *** Where the figures are suposed to be (but they aren't)
 http://iopscience.iop.org/0067-0049/227/2/18/suppdata/
