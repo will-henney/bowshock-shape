@@ -1,4 +1,5 @@
 import os
+import sys
 import requests
 import xmltodict
 import numpy as np
@@ -32,16 +33,29 @@ def skycoord_from_table_row(data):
     dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
     return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
 
+try:
+    k1 = int(sys.argv[1])
+except:
+    k1 = None
+try:
+    k2 = int(sys.argv[2])
+except:
+    k2 = None
+
 # Loop over all sources in the table
-for source_data in source_table:
+for source_data in source_table[k1:k2]:
     # Make a SkyCoord object
     c = skycoord_from_table_row(source_data)
     # Perform a search around the specified coordinates
     r = requests.get(SST_URL,
                      params={**mipsgal_params, 'locstr': c.to_string()})
 
-    # Extract the URL of the table of images
-    img_tbl_url = xmltodict.parse(r.content)['result']['images']['metadata']
+    # Extract the URL of the table of images (if present)
+    try:
+        img_tbl_url = xmltodict.parse(r.content)['result']['images']['metadata']
+    except KeyError:
+        # Probably a source without Spitzer observations
+        continue
     # Need to switch to https and grab the file
     r2 = requests.get(img_tbl_url.replace('http:', 'https:'))
     # We need to remove the first line from the table so that it can be parsed

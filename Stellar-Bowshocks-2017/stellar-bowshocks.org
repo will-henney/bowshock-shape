@@ -105,6 +105,7 @@ mkdir -pv OB/MipsGal
 
 #+BEGIN_SRC python :eval no :tangle mipsgal-image-stamps.py
   import os
+  import sys
   import requests
   import xmltodict
   import numpy as np
@@ -138,8 +139,17 @@ mkdir -pv OB/MipsGal
       dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
       return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
 
+  try:
+      k1 = int(sys.argv[1])
+  except:
+      k1 = None
+  try:
+      k2 = int(sys.argv[2])
+  except:
+      k2 = None
+
   # Loop over all sources in the table
-  for source_data in source_table:
+  for source_data in source_table[k1:k2]:
       # Make a SkyCoord object
       c = skycoord_from_table_row(source_data)
       # Perform a search around the specified coordinates
