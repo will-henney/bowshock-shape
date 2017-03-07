@@ -243,7 +243,7 @@ mkdir -pv OB/MipsGal
       dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
       return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
 
-  for source_data in source_table[0:10]:
+  for source_data in source_table[0:50]:
       # Coordinates of source central star
       c = skycoord_from_table_row(source_data)
       # Find all the images for this source
@@ -358,6 +358,20 @@ mkdir -pv OB/MipsGal
       bmax_grid = np.array(bmax_grid)
       bmean_grid = np.array(bmean_grid)
 
+      # Get the arc coordinates in RA, Dec
+      #
+      # Use the offset frame centered on the source and aligned with PA
+      # axis.  The order of components is (lon, lat) where lon is
+      # perpendicular and lat parallel to the bowshock axis
+      rmean_coords = coord.SkyCoord(
+          rmean_grid*np.sin(theta_grid),
+          rmean_grid*np.cos(theta_grid),
+          frame=offset_frame).transform_to('icrs')
+      rpeak_coords = coord.SkyCoord(
+          rpeak_grid*np.sin(theta_grid),
+          rpeak_grid*np.cos(theta_grid),
+          frame=offset_frame).transform_to('icrs')
+
       # Save a figure for each source
       fig = plt.figure(figsize=(10, 8))
       # Make a plot of the radii and brightnesses versus theta
@@ -379,8 +393,14 @@ mkdir -pv OB/MipsGal
       # And also plot the image
       ax_i.imshow(hdu.data,
                   vmin=bright_min, vmax=bmean_grid.max(), origin='lower')
+      # Add a marker for the source
+      wtran = ax_i.get_transform('world')
+      ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
+                   s=100, edgecolor='k', facecolor='orange')
+      # And markers for the traced bow shock
+      ax_i.scatter(rpeak_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
+                   marker='+', c='r', s=30, alpha=0.5)
 
-    
       fig.tight_layout()
       fig.savefig(image_name.replace('.fits', '-multiplot.png'))
 
