@@ -238,12 +238,30 @@ mkdir -pv OB/MipsGal
 
   IMAGE_DIR = 'OB/MipsGal'
 
+  ENVIRONMENTS = {
+      'I': 'Isolated',
+      'H': 'H II region',
+      'FH': 'Facing H II region',
+      'FB': 'Facing bright-rimmed cloud',
+  }
+
+
+  def description_from_table_row(data):
+      desc = data['Name'] + '\n'
+      if data['Alias']:
+          desc += data['Alias'] + '\n'
+      desc += f"R0 = {data['R0']:.1f} arcsec, PA = {data['PA']} deg" + '\n'
+      desc += f"Environment: {ENVIRONMENTS[data['Env']]}"
+      return desc
+
+
   def skycoord_from_table_row(data):
       ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
       dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
       return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
 
-  for source_data in source_table[0:50]:
+
+  for source_data in source_table:
       # Coordinates of source central star
       c = skycoord_from_table_row(source_data)
       # Find all the images for this source
@@ -341,8 +359,12 @@ mkdir -pv OB/MipsGal
               bright_floor = bright_median if bright_max > bright_median else bright_min
               mb = (hdu.data - bright_floor) > 0.5*(bright_max - bright_floor)
               weights = (hdu.data[m & mb] - bright_floor)/rpix[m & mb]
-              rmean = np.average(rpix[m & mb], weights=weights)*u.arcsec
-              bmean = np.average(hdu.data[m & mb], weights=weights)
+              try: 
+                  rmean = np.average(rpix[m & mb], weights=weights)*u.arcsec
+                  bmean = np.average(hdu.data[m & mb], weights=weights)
+              except ZeroDivisionError:
+                  rmean = np.nan*u.deg
+                  bmean = np.nan
 
           # Fit Gaussian to profile - TODO?
 
@@ -373,11 +395,12 @@ mkdir -pv OB/MipsGal
           frame=offset_frame).transform_to('icrs')
 
       # Save a figure for each source
-      fig = plt.figure(figsize=(10, 8))
+      fig = plt.figure(figsize=(12, 8))
+
       # Make a plot of the radii and brightnesses versus theta
-      ax_r = plt.subplot(2, 2, 1)
-      ax_i = plt.subplot(2, 2, 2, projection=w)
-      ax_b = plt.subplot(2, 2, 3)
+      ax_r = fig.add_axes((0.08, 0.55, 0.35, 0.4))
+      ax_b = fig.add_axes((0.08, 0.08, 0.35, 0.4))
+      ax_i = fig.add_axes((0.5, 0.1, 0.45, 0.45), projection=w)
       ax_r.plot(theta_grid, rmean_grid, label='mean')
       ax_r.plot(theta_grid, rpeak_grid, label='peak')
       ax_r.axhline(R0.value)
@@ -393,16 +416,34 @@ mkdir -pv OB/MipsGal
       # And also plot the image
       ax_i.imshow(hdu.data,
                   vmin=bright_min, vmax=bmean_grid.max(), origin='lower')
+      ax_i.contour(hdu.data,
+                   levels=np.linspace(bright_median, bmax_grid.max(), 10),
+                   alpha=0.5)
       # Add a marker for the source
       wtran = ax_i.get_transform('world')
       ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
                    s=100, edgecolor='k', facecolor='orange')
-      # And markers for the traced bow shock
+                   # And markers for the traced bow shock
       ax_i.scatter(rpeak_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
                    marker='+', c='r', s=30, alpha=0.5)
 
-      fig.tight_layout()
+      # Add coordinate grids
+      ax_i.coords.grid(color='m', linestyle='solid', alpha=0.2)
+      ax_i.coords['ra'].set_axislabel('Right Ascension')
+      ax_i.coords['dec'].set_axislabel('Declination')
+      overlay = ax_i.get_coords_overlay('galactic')
+      overlay.grid(color='c', linestyle='solid', alpha=0.2)
+      overlay['l'].set_axislabel('Galactic Longitude')
+      overlay['b'].set_axislabel('Galactic Latitude')
+
+      # Add title
+      ax_i.text(0.5, 1.5, description_from_table_row(source_data),
+		transform=ax_i.transAxes, ha='center', va='bottom'
+      )
+
       fig.savefig(image_name.replace('.fits', '-multiplot.png'))
+      # Important to close figure explicitly so as not to leak resources
+      plt.close(fig)
 
 #+END_SRC
 
