@@ -308,6 +308,7 @@ mkdir -pv OB/MipsGal
 
       # Nominal arc radius from source table
       R0 = source_data['R0']*u.arcsec
+
       # Only look in a restricted range of radius around R0
       rad_mask = (rpix > 0.1*R0) & (rpix < 3.0*R0)
 
@@ -318,26 +319,39 @@ mkdir -pv OB/MipsGal
       # Next, a two step process to trace the arc.  First step is just
       # to find center and radius of curvature
 
+      # 08 Mar 2017 - Try a different tack - take radii from a center
+      # that is "stepped back" by one R0 away from the source
+      c_sb = coord.SkyCoord(0.0*u.deg, -R0, frame=offset_frame).transform_to('icrs')
+      # Repeat all the above to find rmadius, angle from this new point
+      # Now find radius and position angle from source
+      r_sb_pix = c_sb.separation(cpix).to(u.arcsec)
+      pa_sb_pix = c_sb.position_angle(cpix).to(u.degree)
+      # theta is angle from nominal axis, set to range [-180:180]
+      th_sb_pix = coord.Longitude(pa_sb_pix - pa0, wrap_angle=180*u.degree)
+      # And a frame relative to the "step back" center too
+      sb_offset_frame = c_sb.skyoffset_frame(rotation=pa0)
+
+
       # Loop over a grid of angles between +/- 60 degrees
-      ntheta = 25
-      theta_grid, dtheta = np.linspace(-120.0, 120.0, ntheta, retstep=True)
+      ntheta = 31
+      theta_grid, dtheta = np.linspace(-75.0, 75.0, ntheta, retstep=True)
       # Make everything be a longitude in range [-180:180]
-      theta_grid = coord.Longitude(theta_grid, unit=u.degree, wrap_angle=180*u.degree)
+      th_sb_grid = coord.Longitude(theta_grid, unit=u.degree, wrap_angle=180*u.degree)
       dtheta = coord.Longitude(dtheta, unit=u.degree, wrap_angle=180*u.degree)
-      rpeak_grid = []
-      rmean_grid = []
+      r_sb_peak_grid = []
+      r_sb_mean_grid = []
       bmax_grid = []
       bmean_grid = []
-      for theta in theta_grid:
+      for th_sb in th_sb_grid:
           # Select only pixels in the wedge within +/- dtheta/2 of this theta
-          theta_mask = np.abs(theta_pix - theta) < 0.5*dtheta
+          theta_mask = np.abs(th_sb_pix - th_sb) < 0.5*dtheta
           # Combine with the radius mask
           m = theta_mask & rad_mask
 
           if np.alltrue(~m):
               # If mask is empty, fill in this theta with NaNs
-              rpeak = np.nan*u.deg
-              rmean = np.nan*u.deg
+              r_sb_peak = np.nan*u.deg
+              r_sb_mean = np.nan*u.deg
               bright_max = np.nan
               bmean = np.nan
           else:            
@@ -346,7 +360,7 @@ mkdir -pv OB/MipsGal
 
               # Peak brightness
               ipeak = hdu.data[m].argmax()
-              rpeak = rpix[m][ipeak]
+              r_sb_peak = r_sb_pix[m][ipeak]
 
               # Mean brightness-weighted radius. We divide weights by
               # radius to compensate for density of pixels. Also, we
@@ -358,27 +372,30 @@ mkdir -pv OB/MipsGal
               bright_max = hdu.data[m].max()
               bright_floor = bright_median if bright_max > bright_median else bright_min
               mb = (hdu.data - bright_floor) > 0.5*(bright_max - bright_floor)
-              weights = (hdu.data[m & mb] - bright_floor)/rpix[m & mb]
+              weights = (hdu.data[m & mb] - bright_floor)/r_sb_pix[m & mb]
               try: 
-                  rmean = np.average(rpix[m & mb], weights=weights)*u.arcsec
+                  r_sb_mean = np.average(r_sb_pix[m & mb], weights=weights)*u.arcsec
                   bmean = np.average(hdu.data[m & mb], weights=weights)
               except ZeroDivisionError:
-                  rmean = np.nan*u.deg
+                  r_sb_mean = np.nan*u.deg
                   bmean = np.nan
 
           # Fit Gaussian to profile - TODO?
 
           # Save all quantities into grid lists
-          rmean_grid.append(rmean)
-          rpeak_grid.append(rpeak)
+          r_sb_mean_grid.append(r_sb_mean)
+          r_sb_peak_grid.append(r_sb_peak)
           bmax_grid.append(bright_max)
           bmean_grid.append(bmean)
 
       # convert to single array of each quantity
-      rmean_grid = coord.Angle(rmean_grid)
-      rpeak_grid = coord.Angle(rpeak_grid)
+      r_sb_mean_grid = coord.Angle(r_sb_mean_grid)
+      r_sb_peak_grid = coord.Angle(r_sb_peak_grid)
       bmax_grid = np.array(bmax_grid)
       bmean_grid = np.array(bmean_grid)
+
+
+      # Now switch back to the frame centered on the source
 
       # Get the arc coordinates in RA, Dec
       #
@@ -386,13 +403,23 @@ mkdir -pv OB/MipsGal
       # axis.  The order of components is (lon, lat) where lon is
       # perpendicular and lat parallel to the bowshock axis
       rmean_coords = coord.SkyCoord(
-          rmean_grid*np.sin(theta_grid),
-          rmean_grid*np.cos(theta_grid),
-          frame=offset_frame).transform_to('icrs')
+          r_sb_mean_grid*np.sin(th_sb_grid),
+          r_sb_mean_grid*np.cos(th_sb_grid),
+          frame=sb_offset_frame).transform_to('icrs')
       rpeak_coords = coord.SkyCoord(
-          rpeak_grid*np.sin(theta_grid),
-          rpeak_grid*np.cos(theta_grid),
-          frame=offset_frame).transform_to('icrs')
+          r_sb_peak_grid*np.sin(th_sb_grid),
+          r_sb_peak_grid*np.cos(th_sb_grid),
+          frame=sb_offset_frame).transform_to('icrs')
+
+      # Switch back to frame centered n surce
+      rmean_grid = c.separation(rmean_coords).to(u.arcsec)
+      theta_mean_grid = coord.Longitude(
+          c.position_angle(rmean_coords).to(u.degree) - pa0,
+          wrap_angle=180*u.degree)
+      rpeak_grid = c.separation(rpeak_coords).to(u.arcsec)
+      theta_peak_grid = coord.Longitude(
+          c.position_angle(rpeak_coords).to(u.degree) - pa0,
+          wrap_angle=180*u.degree)
 
       # Save a figure for each source
       fig = plt.figure(figsize=(12, 8))
@@ -401,13 +428,13 @@ mkdir -pv OB/MipsGal
       ax_r = fig.add_axes((0.08, 0.55, 0.35, 0.4))
       ax_b = fig.add_axes((0.08, 0.08, 0.35, 0.4))
       ax_i = fig.add_axes((0.5, 0.1, 0.45, 0.45), projection=w)
-      ax_r.plot(theta_grid, rmean_grid, label='mean')
-      ax_r.plot(theta_grid, rpeak_grid, label='peak')
+      ax_r.plot(theta_mean_grid, rmean_grid, label='mean')
+      ax_r.plot(theta_peak_grid, rpeak_grid, label='peak')
       ax_r.axhline(R0.value)
       ax_r.legend()
       ax_r.set(ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
-      ax_b.plot(theta_grid, bmean_grid - bright_median, label='mean')
-      ax_b.plot(theta_grid, bmax_grid - bright_median, label='peak')
+      ax_b.plot(theta_mean_grid, bmean_grid - bright_median, label='mean')
+      ax_b.plot(theta_peak_grid, bmax_grid - bright_median, label='peak')
       ax_b.legend()
       ax_b.set(ylim=[0.0, None], ylabel='Bow shock brightness',
                xlabel='Angle from nominal axis, degree'
