@@ -213,7 +213,27 @@ mkdir -pv OB/MipsGal
   + Then we do it again, but with radii drawn from the center of curvature that we have just determined
   + We can call this angle \theta_c
   + The idea is that we are best off taking slices that are close to normal to the bowshock, so that we can get out to \theta = \pm 90\deg if we are lucky
-+ [ ] Note that at some point I might want to use "sky offset" frames - see documentation for =astropy.coordinates=
++ [X] Note that at some point I might want to use "sky offset" frames - see documentation for =astropy.coordinates=
++ [ ] Improvements to make [2017-03-09 Thu]
+  + Add a vector to image to show nominal axis PA
+  + Indicate which cases have doubt about the central star
+  + Use the =OVERRIDE= dict for sources with bad data
+  + Try taking a longer step-back distance (maybe twice R0)
+  + Add the \pm90 vertical lines to the graphs
+  + (/maybe/) Mask out the stars
+    + Either detect point sources
+    + Or, download the 8 micron images
+  + Do the Rc and R90 fits
+  + Deal with cases where the object dows not fit in the box:
+    + 534, 542
++ List of the nicest sources
+  + 595 - nice pointy wings
+  + 509 - big flat thing
+  + 530 - smaller pointy one
+  + 634 - big cometary shape
+  + 635 - flatter and big
+  + 667 - nice curvy one
+  + 677, 678 - these two overlap
 #+BEGIN_SRC python :eval no :tangle mipsgal-trace-arc.py
   import glob
   import os
@@ -245,6 +265,13 @@ mkdir -pv OB/MipsGal
       'FB': 'Facing bright-rimmed cloud',
   }
 
+
+  # Some data in the the Kobulnicky2016 table is just wrong
+  OVERRIDE = {
+      228: {'R0': 18.0},
+      648: {'R0': 40},
+      650: {'R0': 50},
+  }
 
   def description_from_table_row(data):
       desc = data['Name'] + '\n'
@@ -428,13 +455,13 @@ mkdir -pv OB/MipsGal
       ax_r = fig.add_axes((0.08, 0.55, 0.35, 0.4))
       ax_b = fig.add_axes((0.08, 0.08, 0.35, 0.4))
       ax_i = fig.add_axes((0.5, 0.1, 0.45, 0.45), projection=w)
-      ax_r.plot(theta_mean_grid, rmean_grid, label='mean')
-      ax_r.plot(theta_peak_grid, rpeak_grid, label='peak')
+      ax_r.plot(theta_mean_grid, rmean_grid, c='c', label='mean')
+      ax_r.plot(theta_peak_grid, rpeak_grid, c='r', label='peak')
       ax_r.axhline(R0.value)
       ax_r.legend()
       ax_r.set(ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
-      ax_b.plot(theta_mean_grid, bmean_grid - bright_median, label='mean')
-      ax_b.plot(theta_peak_grid, bmax_grid - bright_median, label='peak')
+      ax_b.plot(theta_mean_grid, bmean_grid - bright_median, c='c', label='mean')
+      ax_b.plot(theta_peak_grid, bmax_grid - bright_median, c='r', label='peak')
       ax_b.legend()
       ax_b.set(ylim=[0.0, None], ylabel='Bow shock brightness',
                xlabel='Angle from nominal axis, degree'
@@ -443,16 +470,23 @@ mkdir -pv OB/MipsGal
       # And also plot the image
       ax_i.imshow(hdu.data,
                   vmin=bright_min, vmax=bmean_grid.max(), origin='lower')
-      ax_i.contour(hdu.data,
-                   levels=np.linspace(bright_median, bmax_grid.max(), 10),
-                   alpha=0.5)
+
+      # And contours
+      if bmax_grid.max() > bright_median:
+          clevels = np.linspace(bright_median, bmax_grid.max(), 10)
+      else:
+          clevels = np.linspace(bright_median, hdu.data.max(), 10)
+      ax_i.contour(hdu.data, levels=clevels, alpha=0.5)
+
       # Add a marker for the source
       wtran = ax_i.get_transform('world')
       ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
                    s=100, edgecolor='k', facecolor='orange')
                    # And markers for the traced bow shock
-      ax_i.scatter(rpeak_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
-                   marker='+', c='r', s=30, alpha=0.5)
+      ax_i.scatter(rmean_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
+                   marker='.', c='c', s=30, alpha=0.5)
+      ax_i.scatter(rpeak_coords.ra.deg, rpeak_coords.dec.deg, transform=wtran,
+                   marker='.', c='r', s=30, alpha=0.5)
 
       # Add coordinate grids
       ax_i.coords.grid(color='m', linestyle='solid', alpha=0.2)

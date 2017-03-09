@@ -29,6 +29,13 @@ ENVIRONMENTS = {
 }
 
 
+# Some data in the the Kobulnicky2016 table is just wrong
+OVERRIDE = {
+    228: {'R0': 18.0},
+    648: {'R0': 40},
+    650: {'R0': 50},
+}
+
 def description_from_table_row(data):
     desc = data['Name'] + '\n'
     if data['Alias']:
@@ -211,13 +218,13 @@ for source_data in source_table:
     ax_r = fig.add_axes((0.08, 0.55, 0.35, 0.4))
     ax_b = fig.add_axes((0.08, 0.08, 0.35, 0.4))
     ax_i = fig.add_axes((0.5, 0.1, 0.45, 0.45), projection=w)
-    ax_r.plot(theta_mean_grid, rmean_grid, label='mean')
-    ax_r.plot(theta_peak_grid, rpeak_grid, label='peak')
+    ax_r.plot(theta_mean_grid, rmean_grid, c='c', label='mean')
+    ax_r.plot(theta_peak_grid, rpeak_grid, c='r', label='peak')
     ax_r.axhline(R0.value)
     ax_r.legend()
     ax_r.set(ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
-    ax_b.plot(theta_mean_grid, bmean_grid - bright_median, label='mean')
-    ax_b.plot(theta_peak_grid, bmax_grid - bright_median, label='peak')
+    ax_b.plot(theta_mean_grid, bmean_grid - bright_median, c='c', label='mean')
+    ax_b.plot(theta_peak_grid, bmax_grid - bright_median, c='r', label='peak')
     ax_b.legend()
     ax_b.set(ylim=[0.0, None], ylabel='Bow shock brightness',
              xlabel='Angle from nominal axis, degree'
@@ -226,16 +233,23 @@ for source_data in source_table:
     # And also plot the image
     ax_i.imshow(hdu.data,
                 vmin=bright_min, vmax=bmean_grid.max(), origin='lower')
-    ax_i.contour(hdu.data,
-                 levels=np.linspace(bright_median, bmax_grid.max(), 10),
-                 alpha=0.5)
+
+    # And contours
+    if bmax_grid.max() > bright_median:
+        clevels = np.linspace(bright_median, bmax_grid.max(), 10)
+    else:
+        clevels = np.linspace(bright_median, hdu.data.max(), 10)
+    ax_i.contour(hdu.data, levels=clevels, alpha=0.5)
+
     # Add a marker for the source
     wtran = ax_i.get_transform('world')
     ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
                  s=100, edgecolor='k', facecolor='orange')
                  # And markers for the traced bow shock
-    ax_i.scatter(rpeak_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
-                 marker='+', c='r', s=30, alpha=0.5)
+    ax_i.scatter(rmean_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
+                 marker='.', c='c', s=30, alpha=0.5)
+    ax_i.scatter(rpeak_coords.ra.deg, rpeak_coords.dec.deg, transform=wtran,
+                 marker='.', c='r', s=30, alpha=0.5)
 
     # Add coordinate grids
     ax_i.coords.grid(color='m', linestyle='solid', alpha=0.2)
