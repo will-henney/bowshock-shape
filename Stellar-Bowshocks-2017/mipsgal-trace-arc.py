@@ -6,8 +6,10 @@ from astropy.io import fits
 from astropy.wcs import WCS
 import astropy.units as u
 import astropy.coordinates as coord
+from astropy.visualization.wcsaxes import SphericalCircle
 from matplotlib import pyplot as plt
 import seaborn as sns
+import circle_fit_utils
 
 sns.set_style('white')
 
@@ -31,16 +33,22 @@ ENVIRONMENTS = {
 
 # Some data in the the Kobulnicky2016 table is just wrong
 OVERRIDE = {
+    8: {'R0': 5.0},
+    10: {'R0': 16.0},
     228: {'R0': 18.0},
     648: {'R0': 40},
     650: {'R0': 50},
 }
+STEP_BACK_FACTOR = 2.0
+CIRCLE_THETA = 45.0*u.deg
 
 def description_from_table_row(data):
     desc = data['Name'] + '\n'
     if data['Alias']:
         desc += data['Alias'] + '\n'
     desc += f"R0 = {data['R0']:.1f} arcsec, PA = {data['PA']} deg" + '\n'
+    csource = 'Multiple candidates' if data['Unc'] == 'C' else 'Single candidate'
+    desc += f'{csource} for central source' + '\n'
     desc += f"Environment: {ENVIRONMENTS[data['Env']]}"
     return desc
 
@@ -51,7 +59,13 @@ def skycoord_from_table_row(data):
     return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
 
 
-for source_data in source_table:
+for source_data in source_table[:100]:
+
+    # Override data from table where necessary
+    if source_data['Seq'] in OVERRIDE:
+        for k, v in OVERRIDE[source_data['Seq']].items():
+            source_data[k] = v
+
     # Coordinates of source central star
     c = skycoord_from_table_row(source_data)
     # Find all the images for this source
@@ -100,7 +114,7 @@ for source_data in source_table:
     R0 = source_data['R0']*u.arcsec
 
     # Only look in a restricted range of radius around R0
-    rad_mask = (rpix > 0.1*R0) & (rpix < 3.0*R0)
+    rad_mask = (rpix > 0.5*R0) & (rpix < 3.0*R0)
 
     # Minimum and median brightness, which we might need later
     bright_min = np.nanmin(hdu.data)
@@ -110,8 +124,10 @@ for source_data in source_table:
     # to find center and radius of curvature
 
     # 08 Mar 2017 - Try a different tack - take radii from a center
-    # that is "stepped back" by one R0 away from the source
-    c_sb = coord.SkyCoord(0.0*u.deg, -R0, frame=offset_frame).transform_to('icrs')
+    # that is "stepped back" by STEP_BACK_FACTOR times R0 away from
+    # the source
+    c_sb = coord.SkyCoord(0.0*u.deg, -STEP_BACK_FACTOR*R0,
+                          frame=offset_frame).transform_to('icrs')
     # Repeat all the above to find rmadius, angle from this new point
     # Now find radius and position angle from source
     r_sb_pix = c_sb.separation(cpix).to(u.arcsec)
@@ -123,8 +139,8 @@ for source_data in source_table:
 
 
     # Loop over a grid of angles between +/- 60 degrees
-    ntheta = 31
-    theta_grid, dtheta = np.linspace(-75.0, 75.0, ntheta, retstep=True)
+    ntheta = 51
+    theta_grid, dtheta = np.linspace(-60.0, 60.0, ntheta, retstep=True)
     # Make everything be a longitude in range [-180:180]
     th_sb_grid = coord.Longitude(theta_grid, unit=u.degree, wrap_angle=180*u.degree)
     dtheta = coord.Longitude(dtheta, unit=u.degree, wrap_angle=180*u.degree)
@@ -211,6 +227,13 @@ for source_data in source_table:
         c.position_angle(rpeak_coords).to(u.degree) - pa0,
         wrap_angle=180*u.degree)
 
+    # Fit circle to peak points within CIRCLE_THETA of axis
+    cmask = np.abs(theta_peak_grid) <= CIRCLE_THETA
+    # Initial guess for center would make Rc/R0 = 2
+    center0 = coord.SkyCoord(0.0*u.deg, -R0,
+                             frame=offset_frame).transform_to('icrs')
+    Rc, center = circle_fit_utils.fit_circle(rpeak_coords[cmask], center0)
+
     # Save a figure for each source
     fig = plt.figure(figsize=(12, 8))
 
@@ -218,13 +241,15 @@ for source_data in source_table:
     ax_r = fig.add_axes((0.08, 0.55, 0.35, 0.4))
     ax_b = fig.add_axes((0.08, 0.08, 0.35, 0.4))
     ax_i = fig.add_axes((0.5, 0.1, 0.45, 0.45), projection=w)
-    ax_r.plot(theta_mean_grid, rmean_grid, c='c', label='mean')
-    ax_r.plot(theta_peak_grid, rpeak_grid, c='r', label='peak')
+    ax_r.plot(theta_mean_grid, rmean_grid, 'o', c='c', label='mean')
+    ax_r.plot(theta_peak_grid, rpeak_grid, 'o', c='r', label='peak')
     ax_r.axhline(R0.value)
+    ax_r.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
+    ax_r.axvline(0.0, c='k', ls='--')
     ax_r.legend()
     ax_r.set(ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
-    ax_b.plot(theta_mean_grid, bmean_grid - bright_median, c='c', label='mean')
-    ax_b.plot(theta_peak_grid, bmax_grid - bright_median, c='r', label='peak')
+    ax_b.plot(theta_mean_grid, bmean_grid - bright_median, 'o', c='c', label='mean')
+    ax_b.plot(theta_peak_grid, bmax_grid - bright_median, 'o', c='r', label='peak')
     ax_b.legend()
     ax_b.set(ylim=[0.0, None], ylabel='Bow shock brightness',
              xlabel='Angle from nominal axis, degree'
@@ -245,11 +270,22 @@ for source_data in source_table:
     wtran = ax_i.get_transform('world')
     ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
                  s=100, edgecolor='k', facecolor='orange')
-                 # And markers for the traced bow shock
+    # And markers for the traced bow shock
     ax_i.scatter(rmean_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
                  marker='.', c='c', s=30, alpha=0.5)
     ax_i.scatter(rpeak_coords.ra.deg, rpeak_coords.dec.deg, transform=wtran,
                  marker='.', c='r', s=30, alpha=0.5)
+
+    # Add a line for the PA orientation
+    PA_coords = coord.SkyCoord(
+        [0.0*u.deg, 0.0*u.deg], [-2*R0, 2*R0],
+        frame=offset_frame).transform_to('icrs')
+    ax_i.plot(PA_coords.ra.deg, PA_coords.dec.deg, transform=wtran, c='y', lw=2, alpha=0.6)
+    # And plot the fitted circle
+    circ = SphericalCircle((center.ra, center.dec), Rc,
+                           edgecolor='m', lw=2, alpha=0.5, facecolor='none',
+                           transform=wtran)
+    ax_i.add_patch(circ)
 
     # Add coordinate grids
     ax_i.coords.grid(color='m', linestyle='solid', alpha=0.2)

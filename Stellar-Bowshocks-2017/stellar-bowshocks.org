@@ -214,17 +214,17 @@ mkdir -pv OB/MipsGal
   + We can call this angle \theta_c
   + The idea is that we are best off taking slices that are close to normal to the bowshock, so that we can get out to \theta = \pm 90\deg if we are lucky
 + [X] Note that at some point I might want to use "sky offset" frames - see documentation for =astropy.coordinates=
-+ [ ] Improvements to make [2017-03-09 Thu]
-  + Add a vector to image to show nominal axis PA
-  + Indicate which cases have doubt about the central star
-  + Use the =OVERRIDE= dict for sources with bad data
-  + Try taking a longer step-back distance (maybe twice R0)
-  + Add the \pm90 vertical lines to the graphs
-  + (/maybe/) Mask out the stars
++ [-] Improvements to make [2017-03-09 Thu]
+  + [X] Add a vector to image to show nominal axis PA
+  + [X] Indicate which cases have doubt about the central star
+  + [X] Use the =OVERRIDE= dict for sources with bad data
+  + [X] Try taking a longer step-back distance (maybe twice R0)
+  + [X] Add the \pm90 vertical lines to the graphs
+  + [ ] (/maybe/) Mask out the stars
     + Either detect point sources
     + Or, download the 8 micron images
-  + Do the Rc and R90 fits
-  + Deal with cases where the object dows not fit in the box:
+  + [ ] Do the Rc and R90 fits
+  + [ ] Deal with cases where the object dows not fit in the box:
     + 534, 542
 + List of the nicest sources
   + 595 - nice pointy wings
@@ -243,8 +243,10 @@ mkdir -pv OB/MipsGal
   from astropy.wcs import WCS
   import astropy.units as u
   import astropy.coordinates as coord
+  from astropy.visualization.wcsaxes import SphericalCircle
   from matplotlib import pyplot as plt
   import seaborn as sns
+  import circle_fit_utils
 
   sns.set_style('white')
 
@@ -268,16 +270,23 @@ mkdir -pv OB/MipsGal
 
   # Some data in the the Kobulnicky2016 table is just wrong
   OVERRIDE = {
+      8: {'R0': 5.0},
+      10: {'R0': 16.0},
+      85: {'R0': 20.0},
       228: {'R0': 18.0},
       648: {'R0': 40},
       650: {'R0': 50},
   }
+  STEP_BACK_FACTOR = 2.0
+  CIRCLE_THETA = 45.0*u.deg
 
   def description_from_table_row(data):
       desc = data['Name'] + '\n'
       if data['Alias']:
           desc += data['Alias'] + '\n'
       desc += f"R0 = {data['R0']:.1f} arcsec, PA = {data['PA']} deg" + '\n'
+      csource = 'Multiple candidates' if data['Unc'] == 'C' else 'Single candidate'
+      desc += f'{csource} for central source' + '\n'
       desc += f"Environment: {ENVIRONMENTS[data['Env']]}"
       return desc
 
@@ -288,7 +297,13 @@ mkdir -pv OB/MipsGal
       return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
 
 
-  for source_data in source_table:
+  for source_data in source_table[:100]:
+
+      # Override data from table where necessary
+      if source_data['Seq'] in OVERRIDE:
+          for k, v in OVERRIDE[source_data['Seq']].items():
+              source_data[k] = v
+
       # Coordinates of source central star
       c = skycoord_from_table_row(source_data)
       # Find all the images for this source
@@ -337,7 +352,7 @@ mkdir -pv OB/MipsGal
       R0 = source_data['R0']*u.arcsec
 
       # Only look in a restricted range of radius around R0
-      rad_mask = (rpix > 0.1*R0) & (rpix < 3.0*R0)
+      rad_mask = (rpix > 0.5*R0) & (rpix < 3.0*R0)
 
       # Minimum and median brightness, which we might need later
       bright_min = np.nanmin(hdu.data)
@@ -347,8 +362,10 @@ mkdir -pv OB/MipsGal
       # to find center and radius of curvature
 
       # 08 Mar 2017 - Try a different tack - take radii from a center
-      # that is "stepped back" by one R0 away from the source
-      c_sb = coord.SkyCoord(0.0*u.deg, -R0, frame=offset_frame).transform_to('icrs')
+      # that is "stepped back" by STEP_BACK_FACTOR times R0 away from
+      # the source
+      c_sb = coord.SkyCoord(0.0*u.deg, -STEP_BACK_FACTOR*R0,
+                            frame=offset_frame).transform_to('icrs')
       # Repeat all the above to find rmadius, angle from this new point
       # Now find radius and position angle from source
       r_sb_pix = c_sb.separation(cpix).to(u.arcsec)
@@ -360,8 +377,8 @@ mkdir -pv OB/MipsGal
 
 
       # Loop over a grid of angles between +/- 60 degrees
-      ntheta = 31
-      theta_grid, dtheta = np.linspace(-75.0, 75.0, ntheta, retstep=True)
+      ntheta = 51
+      theta_grid, dtheta = np.linspace(-60.0, 60.0, ntheta, retstep=True)
       # Make everything be a longitude in range [-180:180]
       th_sb_grid = coord.Longitude(theta_grid, unit=u.degree, wrap_angle=180*u.degree)
       dtheta = coord.Longitude(dtheta, unit=u.degree, wrap_angle=180*u.degree)
@@ -448,6 +465,20 @@ mkdir -pv OB/MipsGal
           c.position_angle(rpeak_coords).to(u.degree) - pa0,
           wrap_angle=180*u.degree)
 
+      # Fit circle to peak points within CIRCLE_THETA of axis
+      cmask_peak = np.abs(theta_peak_grid) <= CIRCLE_THETA
+      cmask_mean = np.abs(theta_mean_grid) <= CIRCLE_THETA
+      points2fit = np.concatenate((rpeak_coords[cmask_peak],  rmean_coords[cmask_mean]))                                         
+      # Initial guess for center would make Rc/R0 = 2
+      center0 = coord.SkyCoord(0.0*u.deg, -R0,
+                               frame=offset_frame).transform_to('icrs')
+      Rc, center = circle_fit_utils.fit_circle(points2fit, center0)
+
+      # Find PA of circle fit
+      circ_offset_frame = center.skyoffset_frame(rotation=pa0)
+
+      PA_circ = center.position_angle(c)
+
       # Save a figure for each source
       fig = plt.figure(figsize=(12, 8))
 
@@ -455,13 +486,15 @@ mkdir -pv OB/MipsGal
       ax_r = fig.add_axes((0.08, 0.55, 0.35, 0.4))
       ax_b = fig.add_axes((0.08, 0.08, 0.35, 0.4))
       ax_i = fig.add_axes((0.5, 0.1, 0.45, 0.45), projection=w)
-      ax_r.plot(theta_mean_grid, rmean_grid, c='c', label='mean')
-      ax_r.plot(theta_peak_grid, rpeak_grid, c='r', label='peak')
+      ax_r.plot(theta_mean_grid, rmean_grid, 'o', c='c', label='mean')
+      ax_r.plot(theta_peak_grid, rpeak_grid, 'o', c='r', label='peak')
       ax_r.axhline(R0.value)
+      ax_r.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
+      ax_r.axvline(0.0, c='k', ls='--')
       ax_r.legend()
       ax_r.set(ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
-      ax_b.plot(theta_mean_grid, bmean_grid - bright_median, c='c', label='mean')
-      ax_b.plot(theta_peak_grid, bmax_grid - bright_median, c='r', label='peak')
+      ax_b.plot(theta_mean_grid, bmean_grid - bright_median, 'o', c='c', label='mean')
+      ax_b.plot(theta_peak_grid, bmax_grid - bright_median, 'o', c='r', label='peak')
       ax_b.legend()
       ax_b.set(ylim=[0.0, None], ylabel='Bow shock brightness',
                xlabel='Angle from nominal axis, degree'
@@ -482,11 +515,22 @@ mkdir -pv OB/MipsGal
       wtran = ax_i.get_transform('world')
       ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
                    s=100, edgecolor='k', facecolor='orange')
-                   # And markers for the traced bow shock
+      # And markers for the traced bow shock
       ax_i.scatter(rmean_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
                    marker='.', c='c', s=30, alpha=0.5)
       ax_i.scatter(rpeak_coords.ra.deg, rpeak_coords.dec.deg, transform=wtran,
                    marker='.', c='r', s=30, alpha=0.5)
+
+      # Add a line for the PA orientation
+      PA_coords = coord.SkyCoord(
+          [0.0*u.deg, 0.0*u.deg], [-2*R0, 2*R0],
+          frame=offset_frame).transform_to('icrs')
+      ax_i.plot(PA_coords.ra.deg, PA_coords.dec.deg, transform=wtran, c='y', lw=2, alpha=0.6)
+      # And plot the fitted circle
+      circ = SphericalCircle((center.ra, center.dec), Rc,
+                             edgecolor='m', lw=2, alpha=0.5, facecolor='none',
+                             transform=wtran)
+      ax_i.add_patch(circ)
 
       # Add coordinate grids
       ax_i.coords.grid(color='m', linestyle='solid', alpha=0.2)
@@ -505,6 +549,39 @@ mkdir -pv OB/MipsGal
       fig.savefig(image_name.replace('.fits', '-multiplot.png'))
       # Important to close figure explicitly so as not to leak resources
       plt.close(fig)
+
+#+END_SRC
+**** Updated routines for circle fitting
++ Updated version of [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/fit-circle-shell.py]]
++ Main difference is that we work in sky coordinates
+  + =astropy.coords.SkyCoord=
+#+BEGIN_SRC python :eval no :tangle circle_fit_utils.py
+  import numpy as np
+  import astropy.coordinates as coord
+  import astropy.units as u
+  import lmfit
+
+  def Rc_from_data(points, center):
+      return np.mean(center.separation(points))
+
+  def deviation_from_circle(points, center):
+      return center.separation(points) - Rc_from_data(points, center)
+
+  def model_minus_data(params, points):
+      center = coord.SkyCoord(params["ra"].value*u.deg, params["dec"].value*u.deg)
+      return deviation_from_circle(points, center).arcsec
+
+  def fit_circle(points, center0):
+      """Fit a circle to `points` with initial guess that center is at
+  `center0`.  Returns radius of curvature and center of curvature"""
+      params = lmfit.Parameters()
+      params.add("ra", value=center0.ra.deg)
+      params.add("dec", value=center0.dec.deg)
+      out = lmfit.minimize(model_minus_data, params, args=(points,))
+      lmfit.report_fit(out)
+      center = coord.SkyCoord(out.params["ra"].value*u.deg, out.params["dec"].value*u.deg)
+      Rc = Rc_from_data(points, center)
+      return Rc, center
 
 #+END_SRC
 
