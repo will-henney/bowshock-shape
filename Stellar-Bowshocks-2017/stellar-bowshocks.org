@@ -237,8 +237,9 @@ mkdir -pv OB/MipsGal
 #+BEGIN_SRC python :eval no :tangle mipsgal-trace-arc.py
   import glob
   import os
+  from collections import OrderedDict
   import numpy as np
-  from astropy.table import Table
+  from astropy.table import Table, QTable
   from astropy.io import fits
   from astropy.wcs import WCS
   import astropy.units as u
@@ -304,7 +305,7 @@ mkdir -pv OB/MipsGal
       return coord.SkyCoord(np.concatenate(array_tuple, **kwds))
 
 
-  for source_data in source_table[:10]:
+  for source_data in source_table[300:]:
 
       # Override data from table where necessary
       if source_data['Seq'] in OVERRIDE:
@@ -475,11 +476,22 @@ mkdir -pv OB/MipsGal
       cmask_peak = np.abs(theta_peak_grid) <= CIRCLE_THETA
       cmask_mean = np.abs(theta_mean_grid) <= CIRCLE_THETA
       # Use the mean and peak points
-      points2fit = coord_concat((rpeak_coords[cmask_peak],  rmean_coords[cmask_mean]))
-      # Initial guess for center would make Rc/R0 = 2
-      center0 = coord.SkyCoord(0.0*u.deg, -R0,
-                               frame=offset_frame).transform_to('icrs')
-      Rc, center = circle_fit_utils.fit_circle(points2fit, center0)
+      try: 
+          points2fit = coord_concat((rpeak_coords[cmask_peak],
+                                     rmean_coords[cmask_mean]))
+          # Initial guess for center would make Rc/R0 = 2
+          center0 = coord.SkyCoord(0.0*u.deg, -R0,
+                                   frame=offset_frame).transform_to('icrs')
+          Rc, center = circle_fit_utils.fit_circle(points2fit, center0)
+          Rc = Rc.to(u.arcsec)
+      except:
+          print('ABORT - Problem with points2fit or circle_fit_utils.fit_circle')
+          continue
+
+
+      if Rc > 100*R0:
+          print('ABORT due to ridiculous radius of curvature: Rc =', Rc)
+          continue
 
       # Find standard deviation of points from circle
       Rc_sigma = np.std(
@@ -495,7 +507,7 @@ mkdir -pv OB/MipsGal
           # Check for Case where center of curvature is "in front of" the source
           pa_circ = c.position_angle(center).to(u.deg)
           delta_pa = coord.Longitude(pa_circ - pa0, wrap_angle=180*u.deg)
-        
+
       # Find our estimate of R0
       #
       # Make some masks selecting points within 10 deg of pa_circ
@@ -549,6 +561,27 @@ mkdir -pv OB/MipsGal
       fit_msg += f'R90- = {R90n.arcsec:.1f} +/- {R90n_sigma.arcsec:.1f} arcsec' + '\n'
 
 
+      # Save the fit data for each source
+      table_file_name = image_name.replace('.fits', '-arcfit.tab')
+      save_vars = [
+          ['Seq', source_data['Seq']], 
+          ['R0_fit', R0_fit.arcsec], 
+          ['R0_sigma', R0_sigma.arcsec],
+          ['pa_circ', pa_circ.deg],
+          ['delta_pa', delta_pa.deg],
+          ['Rc', Rc.arcsec],
+          ['Rc_sigma', Rc_sigma.arcsec],
+          ['R90p', R90p.arcsec],
+          ['R90p_sigma', R90p_sigma.arcsec],
+          ['R90n', R90n.arcsec],
+          ['R90n_sigma', R90n_sigma.arcsec],
+      ]
+      colnames, colvals = zip(*save_vars)
+      Table(rows=[list(colvals)],
+            names=list(colnames)).write(table_file_name,
+					format='ascii.tab',
+					overwrite=True)
+
       # Save a figure for each source
       fig = plt.figure(figsize=(12, 8))
 
@@ -588,11 +621,9 @@ mkdir -pv OB/MipsGal
           clevels = np.linspace(bright_median, hdu.data.max(), 10)
       ax_i.contour(hdu.data, levels=clevels, alpha=0.5)
 
-      # Add a marker for the source
       wtran = ax_i.get_transform('world')
-      ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
-                   s=100, edgecolor='k', facecolor='orange')
-      # And markers for the traced bow shock
+
+      # Add markers for the traced bow shock
       ax_i.scatter(rmean_coords.ra.deg, rmean_coords.dec.deg, transform=wtran,
                    marker='.', c='c', s=30, alpha=0.5)
       ax_i.scatter(rpeak_coords.ra.deg, rpeak_coords.dec.deg, transform=wtran,
@@ -602,12 +633,27 @@ mkdir -pv OB/MipsGal
       PA_coords = coord.SkyCoord(
           [0.0*u.deg, 0.0*u.deg], [-2*R0, 2*R0],
           frame=offset_frame).transform_to('icrs')
-      ax_i.plot(PA_coords.ra.deg, PA_coords.dec.deg, transform=wtran, c='y', lw=2, alpha=0.6)
+      ax_i.plot(PA_coords.ra.deg, PA_coords.dec.deg,
+		transform=wtran, c='orange', lw=2, alpha=0.8)
+
       # And plot the fitted circle
       circ = SphericalCircle((center.ra, center.dec), Rc,
                              edgecolor='m', lw=2, alpha=0.5, facecolor='none',
                              transform=wtran)
       ax_i.add_patch(circ)
+      # And a line for the fitted PA axis
+      PA_fit_coords = coord.SkyCoord(
+          [0.0*u.deg, 0.0*u.deg], [-1.2*Rc, 1.2*Rc],
+          frame=circ_offset_frame).transform_to('icrs')
+      ax_i.plot(PA_fit_coords.ra.deg, PA_fit_coords.dec.deg,
+		transform=wtran, c='m', lw=1.5, alpha=0.6)
+      # And the center of curvature
+      ax_i.scatter(center.ra.deg, center.dec.deg, transform=wtran,
+                   marker='o', s=30, edgecolor='k', facecolor='m')
+      # Add a marker for the source
+      ax_i.scatter(c.ra.deg, c.dec.deg, transform=wtran,
+                   s=150, marker='*', edgecolor='k', facecolor='orange')
+
 
       # Add coordinate grids
       ax_i.coords.grid(color='m', linestyle='solid', alpha=0.2)
