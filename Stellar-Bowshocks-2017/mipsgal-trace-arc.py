@@ -41,7 +41,7 @@ OVERRIDE = {
     650: {'R0': 50},
 }
 STEP_BACK_FACTOR = 2.0
-CIRCLE_THETA = 60.0*u.deg
+CIRCLE_THETA = 45.0*u.deg
 
 THMIN, THMAX = coord.Angle([-160.0*u.deg, 160.0*u.deg])
 
@@ -67,7 +67,7 @@ def coord_concat(array_tuple, **kwds):
     return coord.SkyCoord(np.concatenate(array_tuple, **kwds))
 
 
-for source_data in source_table[:100]:
+for source_data in source_table[:10]:
 
     # Override data from table where necessary
     if source_data['Seq'] in OVERRIDE:
@@ -244,13 +244,33 @@ for source_data in source_table[:100]:
                              frame=offset_frame).transform_to('icrs')
     Rc, center = circle_fit_utils.fit_circle(points2fit, center0)
 
+    # Find standard deviation of points from circle
+    Rc_sigma = np.std(
+        circle_fit_utils.deviation_from_circle(points2fit, center)
+    ).to(u.arcsec)
+
     # Find PA of circle fit
-    if Rc > R0:
-        # Case where center of curvature is "behind" the source
-        pa_circ = center.position_angle(c).to(u.deg)
-    else:
-        # Case where center of curvature is "in front of" the source
+    # First assume case where center of curvature is "behind" the source
+    pa_circ = center.position_angle(c).to(u.deg)
+    # Find difference between fitted and nominal position angle
+    delta_pa = coord.Longitude(pa_circ - pa0, wrap_angle=180*u.deg)
+    if np.abs(delta_pa) > 90*u.deg:
+        # Check for Case where center of curvature is "in front of" the source
         pa_circ = c.position_angle(center).to(u.deg)
+        delta_pa = coord.Longitude(pa_circ - pa0, wrap_angle=180*u.deg)
+
+    # Find our estimate of R0
+    #
+    # Make some masks selecting points within 10 deg of pa_circ
+    m0_peak = np.abs(theta_peak_grid - delta_pa) <= 10.0*u.deg
+    m0_mean = np.abs(theta_mean_grid - delta_pa) <= 10.0*u.deg
+    # Then concatenate all the R values that meet this condition
+    R0_grid = coord.Angle(
+        np.concatenate((rpeak_grid.value[m0_peak],
+                        rmean_grid.value[m0_mean])),
+        unit=u.arcsec)
+    R0_fit, R0_sigma = R0_grid.mean(), R0_grid.std()
+    fit_msg = f'Fitted R0 = {R0_fit.arcsec:.1f} +/- {R0_sigma.arcsec:.1f} arcsec' + '\n'
 
     # Make an offset frame centered on the center of curvature
     circ_offset_frame = center.skyoffset_frame(rotation=pa_circ)
@@ -262,11 +282,35 @@ for source_data in source_table[:100]:
     circ_theta = coord.Longitude(
         c.position_angle(circ_points).to(u.deg) - pa0,
         wrap_angle=180*u.degree)
-    mcirc = (circ_theta >= -100.0*u.deg) & (circ_theta <= 100.0*u.deg)
     circ_radius = c.separation(circ_points).to(u.arcsec)
+    # Eliminate points that are not within +/- 100 deg of nominal axis
+    mcirc = (circ_theta >= -100.0*u.deg) & (circ_theta <= 100.0*u.deg)
     circ_radius[~mcirc] *= np.nan
-    print('PA_circ =', pa_circ.deg, 'PA_0 =', pa0.deg)
-    print('Rc =', Rc.arcsec, 'R0 =', R0)
+    fit_msg += f'PA_circ = {pa_circ.deg:.1f}, delta PA = {delta_pa.deg:.1f}' + '\n'
+    fit_msg += f'Rc = {Rc.arcsec:.1f} +/- {Rc_sigma.arcsec:.1f} arcsec' + '\n'
+
+    # Find R90
+    #
+    # Make some masks selecting points within 10 deg of +90 and -90
+    m90p_peak = np.abs(theta_peak_grid - 90.0*u.deg) <= 10.0*u.deg
+    m90n_peak = np.abs(theta_peak_grid + 90.0*u.deg) <= 10.0*u.deg
+    m90p_mean = np.abs(theta_mean_grid - 90.0*u.deg) <= 10.0*u.deg
+    m90n_mean = np.abs(theta_mean_grid + 90.0*u.deg) <= 10.0*u.deg
+    # Then concatenate all the R values for the two cases
+    R90p_grid = coord.Angle(
+        np.concatenate((rpeak_grid.value[m90p_peak],
+                        rmean_grid.value[m90p_mean])),
+        unit=u.arcsec)
+    R90n_grid = coord.Angle(
+        np.concatenate((rpeak_grid.value[m90n_peak],
+                        rmean_grid.value[m90n_mean])),
+        unit=u.arcsec)
+    # And calculate mean and standard deviation
+    R90p, R90p_sigma = R90p_grid.mean(), R90p_grid.std()
+    R90n, R90n_sigma = R90n_grid.mean(), R90n_grid.std()
+    fit_msg += f'R90+ = {R90p.arcsec:.1f} +/- {R90p_sigma.arcsec:.1f} arcsec' + '\n'
+    fit_msg += f'R90- = {R90n.arcsec:.1f} +/- {R90n_sigma.arcsec:.1f} arcsec' + '\n'
+
 
     # Save a figure for each source
     fig = plt.figure(figsize=(12, 8))
@@ -281,12 +325,16 @@ for source_data in source_table[:100]:
 	      '--', c='m', label='circle fit')
     ax_r.axhline(R0.value)
     ax_r.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
+    ax_r.axvspan(-CIRCLE_THETA.value, CIRCLE_THETA.value, facecolor='k', alpha=0.05)
     ax_r.axvline(0.0, c='k', ls='--')
     ax_r.legend()
     ax_r.set(xlim=[THMIN.deg, THMAX.deg],
              ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
     ax_b.plot(theta_mean_grid, bmean_grid - bright_median, 'o', c='c', label='mean')
     ax_b.plot(theta_peak_grid, bmax_grid - bright_median, 'o', c='r', label='peak')
+    ax_b.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
+    ax_b.axvspan(-CIRCLE_THETA.value, CIRCLE_THETA.value, facecolor='k', alpha=0.05)
+    ax_b.axvline(0.0, c='k', ls='--')
     ax_b.legend()
     ax_b.set(xlim=[THMIN.deg, THMAX.deg], xlabel='Angle from nominal axis, degree',
              ylim=[0.0, None], ylabel='Bow shock brightness',
@@ -334,8 +382,11 @@ for source_data in source_table[:100]:
     overlay['b'].set_axislabel('Galactic Latitude')
 
     # Add title
-    ax_i.text(0.5, 1.5, description_from_table_row(source_data),
+    ax_i.text(0.5, 1.7, description_from_table_row(source_data),
 	      transform=ax_i.transAxes, ha='center', va='bottom'
+    )
+    ax_i.text(0.5, 1.6, fit_msg,
+	      transform=ax_i.transAxes, ha='center', va='top'
     )
 
     fig.savefig(image_name.replace('.fits', '-multiplot.png'))
