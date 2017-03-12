@@ -35,12 +35,15 @@ ENVIRONMENTS = {
 OVERRIDE = {
     8: {'R0': 5.0},
     10: {'R0': 16.0},
+    85: {'R0': 20.0},
     228: {'R0': 18.0},
     648: {'R0': 40},
     650: {'R0': 50},
 }
 STEP_BACK_FACTOR = 2.0
-CIRCLE_THETA = 45.0*u.deg
+CIRCLE_THETA = 60.0*u.deg
+
+THMIN, THMAX = coord.Angle([-160.0*u.deg, 160.0*u.deg])
 
 def description_from_table_row(data):
     desc = data['Name'] + '\n'
@@ -57,6 +60,11 @@ def skycoord_from_table_row(data):
     ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
     dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
     return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
+
+
+def coord_concat(array_tuple, **kwds):
+    """Like numpy.concatenate but ensures result is of coordinate type"""
+    return coord.SkyCoord(np.concatenate(array_tuple, **kwds))
 
 
 for source_data in source_table[:100]:
@@ -120,15 +128,14 @@ for source_data in source_table[:100]:
     bright_min = np.nanmin(hdu.data)
     bright_median = np.nanmedian(hdu.data)
 
-    # Next, a two step process to trace the arc.  First step is just
-    # to find center and radius of curvature
+    # Next, we trace the arc
 
     # 08 Mar 2017 - Try a different tack - take radii from a center
     # that is "stepped back" by STEP_BACK_FACTOR times R0 away from
     # the source
     c_sb = coord.SkyCoord(0.0*u.deg, -STEP_BACK_FACTOR*R0,
                           frame=offset_frame).transform_to('icrs')
-    # Repeat all the above to find rmadius, angle from this new point
+    # Repeat all the above to find radius, angle from this new point
     # Now find radius and position angle from source
     r_sb_pix = c_sb.separation(cpix).to(u.arcsec)
     pa_sb_pix = c_sb.position_angle(cpix).to(u.degree)
@@ -228,11 +235,38 @@ for source_data in source_table[:100]:
         wrap_angle=180*u.degree)
 
     # Fit circle to peak points within CIRCLE_THETA of axis
-    cmask = np.abs(theta_peak_grid) <= CIRCLE_THETA
+    cmask_peak = np.abs(theta_peak_grid) <= CIRCLE_THETA
+    cmask_mean = np.abs(theta_mean_grid) <= CIRCLE_THETA
+    # Use the mean and peak points
+    points2fit = coord_concat((rpeak_coords[cmask_peak],  rmean_coords[cmask_mean]))
     # Initial guess for center would make Rc/R0 = 2
     center0 = coord.SkyCoord(0.0*u.deg, -R0,
                              frame=offset_frame).transform_to('icrs')
-    Rc, center = circle_fit_utils.fit_circle(rpeak_coords[cmask], center0)
+    Rc, center = circle_fit_utils.fit_circle(points2fit, center0)
+
+    # Find PA of circle fit
+    if Rc > R0:
+        # Case where center of curvature is "behind" the source
+        pa_circ = center.position_angle(c).to(u.deg)
+    else:
+        # Case where center of curvature is "in front of" the source
+        pa_circ = c.position_angle(center).to(u.deg)
+
+    # Make an offset frame centered on the center of curvature
+    circ_offset_frame = center.skyoffset_frame(rotation=pa_circ)
+    # Find R(theta) for the fitted circle
+    thdash = np.linspace(-180.0, 180.0, 501)*u.deg
+    circ_points = coord.SkyCoord(
+        Rc*np.sin(thdash), Rc*np.cos(thdash),
+        frame=circ_offset_frame).transform_to('icrs')
+    circ_theta = coord.Longitude(
+        c.position_angle(circ_points).to(u.deg) - pa0,
+        wrap_angle=180*u.degree)
+    mcirc = (circ_theta >= -100.0*u.deg) & (circ_theta <= 100.0*u.deg)
+    circ_radius = c.separation(circ_points).to(u.arcsec)
+    circ_radius[~mcirc] *= np.nan
+    print('PA_circ =', pa_circ.deg, 'PA_0 =', pa0.deg)
+    print('Rc =', Rc.arcsec, 'R0 =', R0)
 
     # Save a figure for each source
     fig = plt.figure(figsize=(12, 8))
@@ -243,16 +277,19 @@ for source_data in source_table[:100]:
     ax_i = fig.add_axes((0.5, 0.1, 0.45, 0.45), projection=w)
     ax_r.plot(theta_mean_grid, rmean_grid, 'o', c='c', label='mean')
     ax_r.plot(theta_peak_grid, rpeak_grid, 'o', c='r', label='peak')
+    ax_r.plot(circ_theta, circ_radius,
+	      '--', c='m', label='circle fit')
     ax_r.axhline(R0.value)
     ax_r.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
     ax_r.axvline(0.0, c='k', ls='--')
     ax_r.legend()
-    ax_r.set(ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
+    ax_r.set(xlim=[THMIN.deg, THMAX.deg],
+             ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
     ax_b.plot(theta_mean_grid, bmean_grid - bright_median, 'o', c='c', label='mean')
     ax_b.plot(theta_peak_grid, bmax_grid - bright_median, 'o', c='r', label='peak')
     ax_b.legend()
-    ax_b.set(ylim=[0.0, None], ylabel='Bow shock brightness',
-             xlabel='Angle from nominal axis, degree'
+    ax_b.set(xlim=[THMIN.deg, THMAX.deg], xlabel='Angle from nominal axis, degree',
+             ylim=[0.0, None], ylabel='Bow shock brightness',
     )
 
     # And also plot the image
