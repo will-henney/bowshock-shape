@@ -68,8 +68,9 @@ def coord_concat(array_tuple, **kwds):
     return coord.SkyCoord(np.concatenate(array_tuple, **kwds))
 
 
-for source_data in source_table[300:]:
+for source_data in source_table:
 
+    print(source_data)
     # Override data from table where necessary
     if source_data['Seq'] in OVERRIDE:
         for k, v in OVERRIDE[source_data['Seq']].items():
@@ -225,7 +226,7 @@ for source_data in source_table[300:]:
         r_sb_peak_grid*np.cos(th_sb_grid),
         frame=sb_offset_frame).transform_to('icrs')
 
-    # Switch back to frame centered n surce
+    # Switch back to frame centered on source
     rmean_grid = c.separation(rmean_coords).to(u.arcsec)
     theta_mean_grid = coord.Longitude(
         c.position_angle(rmean_coords).to(u.degree) - pa0,
@@ -242,6 +243,15 @@ for source_data in source_table[300:]:
     try: 
         points2fit = coord_concat((rpeak_coords[cmask_peak],
                                    rmean_coords[cmask_mean]))
+        # Winnow out the points with radii too far from median
+        r2fit = c.separation(points2fit).to(u.arcsec)
+        rmed = np.median(r2fit)
+        print('Median radius for circle fit:', rmed)
+        mfit = (r2fit >= 0.5*rmed) & (r2fit <= 2.0*rmed)
+        n_drop = (~mfit).sum()
+        if n_drop > 0:
+            print(n_drop, 'points dropped for circle fit')
+        points2fit = points2fit[mfit]
         # Initial guess for center would make Rc/R0 = 2
         center0 = coord.SkyCoord(0.0*u.deg, -R0,
                                  frame=offset_frame).transform_to('icrs')
