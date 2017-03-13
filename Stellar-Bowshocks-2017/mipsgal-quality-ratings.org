@@ -1,0 +1,285 @@
+* Rating for bow shocks
++ 5 :: Best
++ 4 :: Good
++ 3 :: OK
++ 2 :: Problematic
++ 1 :: Not good
++ 0 :: Just no (missing)
+| Source | Rating | Comment                |
+|--------+--------+------------------------|
+|      1 |      4 |                        |
+|      2 |      3 |                        |
+|      3 |      3 |                        |
+|      4 |      3 |                        |
+|      5 |      3 |                        |
+|      6 |      1 |                        |
+|      7 |      4 |                        |
+|      8 |      1 |                        |
+|      9 |      2 |                        |
+|     10 |      3 |                        |
+|     11 |      3 |                        |
+|     12 |      3 |                        |
+|     13 |      0 |                        |
+|     14 |      4 |                        |
+|     15 |      1 |                        |
+|     16 |      5 |                        |
+|     17 |      2 |                        |
+|     18 |      5 |                        |
+|     19 |      3 |                        |
+|     20 |      3 |                        |
+|     21 |      4 |                        |
+|     22 |      1 |                        |
+|     23 |      2 |                        |
+|     24 |      1 |                        |
+|     25 |      2 |                        |
+|     26 |      3 |                        |
+|     27 |      2 |                        |
+|     28 |      5 |                        |
+|     29 |      3 |                        |
+|     30 |      1 |                        |
+|     31 |      2 |                        |
+|     32 |      0 |                        |
+|     33 |      4 |                        |
+|     34 |      2 |                        |
+|     35 |      3 |                        |
+|     36 |      4 |                        |
+|     37 |      3 |                        |
+|     38 |      2 |                        |
+|     39 |      0 |                        |
+|     40 |      2 | Rc too big             |
+|     41 |      1 |                        |
+|     42 |      1 |                        |
+|     43 |      2 |                        |
+|     44 |      4 | But doesn't reach 90   |
+|     45 |      1 |                        |
+|     46 |      4 |                        |
+|     47 |      3 |                        |
+|     48 |      4 |                        |
+|     49 |      3 |                        |
+|     50 |      1 | Rc too small           |
+|     51 |      1 | Rc too large           |
+|     52 |      0 | Bad image              |
+|     53 |      0 | Bad image              |
+|     54 |      0 | Missing                |
+|     55 |      4 |                        |
+|     56 |      4 |                        |
+|     57 |      1 | Rc too small           |
+|     58 |      3 |                        |
+|     59 |      0 | Center wrong side      |
+|     60 |      4 | Corner at apex         |
+|     61 |      5 |                        |
+|     62 |      1 | Rc too small           |
+|     63 |      1 | Rc too small           |
+|     64 |      0 | Missing                |
+|     65 |      1 | Rc too small           |
+|     66 |      0 | Missing                |
+|     67 |      3 |                        |
+|     68 |      0 | Missing                |
+|     69 |      1 | Rc too big             |
+|     70 |      1 | Rc too small           |
+|     71 |      2 | Tiny but OK            |
+|     72 |      0 | NaNs in image          |
+|     73 |      2 | Irregular              |
+|     74 |      1 | Rc too big             |
+|     75 |      1 | Rc too small           |
+|     76 |      5 |                        |
+|     77 |      1 | Rc too big             |
+|     78 |      1 | Rc too big             |
+|     79 |      2 |                        |
+|     80 |      2 |                        |
+|     81 |      1 | Rc too small           |
+|     82 |      1 | Rc too small           |
+|     83 |      2 |                        |
+|     84 |      1 | Rc too small           |
+|     85 |      1 | Rc too large           |
+|     86 |      2 | Tiny                   |
+|     87 |      5 |                        |
+|     88 |      2 |                        |
+|     89 |      2 |                        |
+|     90 |      2 | PA wrong               |
+|     91 |      2 | Mean affected by stars |
+|     92 |      2 |                        |
+|     93 |      2 |                        |
+|     94 |      3 |                        |
+|     95 |      2 |                        |
+|     96 |      3 |                        |
+|     97 |      1 | Rc too large           |
+|     98 |      1 | Rc too large           |
+|     99 |      4 |                        |
+|    100 |      2 |                        |
+|    101 |      3 |                        |
+|    102 |      2 | Irregular              |
+|    103 |      1 | Rc too small           |
+|    104 |      0 | Fit failed (fixable?)  |
+|    105 |      1 | Rc too small           |
+|    106 |      1 | Rc too small           |
+|    107 |      1 | Rc too small           |
+|    108 |      1 | PA0 wrong (fixable?)   |
+|    109 |      4 |                        |
+|    110 |      4 |                        |
+|    111 |      4 |                        |
+|    112 |      3 |                        |
+|    113 |      4 |                        |
+|    114 |      4 |                        |
+|    115 |      1 | Rc too big             |
+|    116 |      3 |                        |
+|    117 |      1 | Rc too small           |
+|    118 |      0 | Fit failed (fixable?)  |
+|    119 |      1 | Irregular              |
+|    120 |      2 | Irregular and small    |
+|    121 |      1 | Rc too small           |
+|    122 |      2 | Fails to trace wings   |
+|    123 |      5 |                        |
+|    124 |      0 | Fit Failed             |
+|    125 |      4 |                        |
+|    126 |      1 | Rc too small           |
+|    127 |      5 |                        |
+|    128 |      1 | Rc too small           |
+|    129 |      2 | PA is off              |
+|    130 |      1 | Mess                   |
+|    131 |      2 | Irregular              |
+|    132 |      3 | Wing on + side lost    |
+|    133 |      4 |                        |
+|    134 |      1 | Rc too small           |
+|    135 |      0 | Fit failed             |
+|    136 |      0 | Fit failed             |
+|    137 |      3 |                        |
+|    138 |      0 | Fit failed             |
+|    139 |      1 | Rc too small           |
+|    140 |      1 | Rc too small           |
+|    141 |      2 | PA0 was wrong          |
+|    142 |      1 | Rc too small           |
+|    143 |      0 | Fit failed             |
+|    144 |      2 | Star off axis          |
+|    145 |      2 | Star off axis          |
+|    146 |      2 | R0 problem (fixable)   |
+|    147 |      1 | Rc too small           |
+|    148 |      2 | Circle fit problem     |
+|    149 |      0 | Fit failed             |
+|    150 |      3 |                        |
+|    151 |      0 | Fit failed             |
+|    152 |      0 | Rc too small           |
+|    153 |      0 | Rc too small           |
+|    154 |      0 | Missing                |
+|    155 |      0 | Rc too small           |
+|    156 |      0 | Missing                |
+|    157 |      0 | Fit failed             |
+|    158 |      4 |                        |
+|    159 |      3 |                        |
+|    160 |      3 |                        |
+|    161 |      1 | Rc too small           |
+|    162 |      2 | Tiny                   |
+|    163 |      2 | Star off axis          |
+|    164 |      2 | Rc a bit too big       |
+|    165 |      4 |                        |
+|    166 |      0 | Fit failed             |
+|    167 |      3 |                        |
+|    168 |      2 | Rc a bit too small     |
+|    169 |      2 | Irregular              |
+|    170 |      3 |                        |
+|    171 |      2 | Rc a bit too large     |
+|    172 |      1 | Rc too small           |
+|    173 |      2 | Rc a bit too large     |
+|    174 |      2 | Irregular              |
+|    175 |      3 |                        |
+|    176 |      2 | Rc a bit too small     |
+|    177 |      0 | Fit failed (fixable?)  |
+|    178 |      0 | Fit failed             |
+|    179 |      1 | Rc too small           |
+|    180 |      2 | Rc a bit too small     |
+|    181 |      1 | Rc too small           |
+|    182 |      2 | Star off axis          |
+|    183 |      4 |                        |
+|    184 |      3 |                        |
+|    185 |      0 | Fit failed             |
+|    186 |      4 |                        |
+|    187 |      3 |                        |
+|    188 |      1 | Rc too small           |
+|    189 |      0 | Fit failed             |
+|    190 |      1 | Rc too small           |
+|    191 |      1 | Rc too small           |
+|    192 |      4 |                        |
+|    193 |      3 |                        |
+|    194 |      2 | Rc a bit too small     |
+|    195 |      1 | Rc too small           |
+|    196 |      2 | Rc too small           |
+|    197 |      4 |                        |
+|    198 |      3 |                        |
+|    199 |      4 |                        |
+|    200 |      0 | Fit failed             |
+|    201 |        |                        |
+|    202 |        |                        |
+|    203 |        |                        |
+|    204 |        |                        |
+|    205 |        |                        |
+|    206 |        |                        |
+|    207 |        |                        |
+|    208 |        |                        |
+|    209 |        |                        |
+|    210 |        |                        |
+|    211 |        |                        |
+|    212 |        |                        |
+|    213 |        |                        |
+|    214 |        |                        |
+|    215 |        |                        |
+|    216 |        |                        |
+|    217 |        |                        |
+|    218 |        |                        |
+|    219 |        |                        |
+|    220 |        |                        |
+|    221 |        |                        |
+|    222 |        |                        |
+|    223 |        |                        |
+|    224 |        |                        |
+|    225 |        |                        |
+|    226 |        |                        |
+|    227 |        |                        |
+|    228 |        |                        |
+|    229 |        |                        |
+|    230 |        |                        |
+|    231 |        |                        |
+|    232 |        |                        |
+|    233 |        |                        |
+|    234 |        |                        |
+|    235 |        |                        |
+|    236 |        |                        |
+|    237 |        |                        |
+|    238 |        |                        |
+|    239 |        |                        |
+|    240 |        |                        |
+|    241 |        |                        |
+|    242 |        |                        |
+|    243 |        |                        |
+|    244 |        |                        |
+|    245 |        |                        |
+|    246 |        |                        |
+|    247 |        |                        |
+|    248 |        |                        |
+|    249 |        |                        |
+|    250 |        |                        |
+|    251 |        |                        |
+|    252 |        |                        |
+|    253 |        |                        |
+|    254 |        |                        |
+|    255 |        |                        |
+|    256 |        |                        |
+|    257 |        |                        |
+|    258 |        |                        |
+|    259 |        |                        |
+|    260 |        |                        |
+|    261 |        |                        |
+|    262 |        |                        |
+|    263 |        |                        |
+|    264 |        |                        |
+|    265 |        |                        |
+|    266 |        |                        |
+|    267 |        |                        |
+|    268 |        |                        |
+|    269 |        |                        |
+|    270 |        |                        |
+|    271 |        |                        |
+|    272 |        |                        |
+|    273 |        |                        |
+|    274 |        |                        |
+|    275 |        |                        |
+
