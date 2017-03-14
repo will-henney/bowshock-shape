@@ -888,6 +888,7 @@ Zoom in on the best data
   import seaborn as sns
 
   sns.set_style('white')
+  sns.set_color_codes('dark')
 
   figfile = 'mipsgal-Rc-R90-zoom.pdf'
 
@@ -899,8 +900,8 @@ Zoom in on the best data
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
 
-  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2)
-                              + 0.5*(tab['R90p'] - tab['R90n'])**2)
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
 
   tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
   tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
@@ -928,24 +929,30 @@ Zoom in on the best data
 
   masks = m3, m4, m5
   alphas = 0.2, 0.4, 0.8
-  labels = '3-star', '4-star', '5-star'
-  colors = 'm', 'c', 'b'
+  stars = '3', '4', '5'
+  colors = 'c', 'r', 'b'
+  sizes = 5, 7, 10
 
-  for m, alpha, label, c in zip(masks, alphas, labels, colors):
-      ax.errorbar('Rcp', 'R90p', xerr='Rc_sigma', yerr='R90p_sigma', data=tab[m],
-                  fmt='o', lw=1, alpha=alpha, c=c, label=label)
-      ax.errorbar('Rcn', 'R90n', xerr='Rc_sigma', yerr='R90n_sigma', data=tab[m],
-                  fmt='s', lw=1, alpha=alpha, c=c, label=None)
+  for m, alpha, star, c, ms in zip(masks, alphas, stars, colors, sizes):
+      label = f'{star}-star ($N = {m.sum()}$)'
+      ax.errorbar('Rc', 'R90', xerr='Rc_sigma', yerr='R90_sigma', data=tab[m],
+                  fmt='o', ms=ms, lw=1, alpha=alpha, c=c, label=label)
+      ax.errorbar('Rc', 'R90', yerr='R90_asym', data=tab[m],
+                  fmt='none', elinewidth=0.5, alpha=alpha, ecolor=c, label=None)
+      # ax.errorbar('Rcp', 'R90p', xerr='Rc_sigma', yerr='R90p_sigma', data=tab[m],
+      #             fmt='o', lw=1, alpha=alpha, c=c, label=label)
+      # ax.errorbar('Rcn', 'R90n', xerr='Rc_sigma', yerr='R90n_sigma', data=tab[m],
+      #             fmt='s', lw=1, alpha=alpha, c=c, label=None)
 
   for source in tab[m5]:
       ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
-              fontsize=6, color='orange', ha='center', va='center')
+              fontsize=5, color='orange', ha='center', va='center')
 
   ax.legend(frameon=True, loc='upper right')
   ax.set(
       xlim=[0.0, 5.0], ylim=[0.0, 5.0],
-      xlabel='Radius of curvature ratio: Rc/R0',
-      ylabel='Perpendicular radius ratio: R90/R0',
+      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
       xscale='linear', yscale='linear')
 
   fig.savefig(figfile)
@@ -956,7 +963,299 @@ Zoom in on the best data
 #+RESULTS:
 [[file:mipsgal-Rc-R90-zoom.pdf]]
 
+Plot KDE of the distribution
 
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-kde.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = m3, (m4 | m5)
+  shades = True, False
+  alphas = 0.8, 0.8
+  cmaps = 'Blues', 'Reds_d'
+  gammas = 0.5, 0.5
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma in zip(masks, alphas, cmaps, shades, gammas):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.4, 1.6],
+                  bw=(0.18, 0.12),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+
+
+  #ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
+      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-kde.pdf]]
+
+***** AB testing of various sub-sets
+
+****** H II region versus isolated
++ So this show the various 'Env' types:
+  + I :: /Isolated/ in purple filled contours
+  + FB,FH :: /Facing bright rim/ or /Facing H II region/ as solid orange contours
+  + H :: Inside /H II region/ as dashed green contours
++ Result is that there is very little difference
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-environment.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  misolated = tab['Env'] == 'I'
+  mfacing = (tab['Env'] == 'FH') | (tab['Env'] == 'FB')
+  mhii = tab['Env'] == 'H'
+
+  masks = misolated & mgood, mfacing & mgood, mhii & mgood
+  shades = True, False, False
+  alphas = 0.8, 0.8, 0.8
+  cmaps = 'Purples', 'Oranges_d', 'Greens_d'
+  gammas = 0.5, 0.5, 0.5
+  lss = None, 'solid', 'dashed'
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma, ls in zip(
+          masks, alphas, cmaps, shades, gammas, lss):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.4, 1.6],
+                  bw=(0.25, 0.15),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+
+  masks = misolated & m5, mfacing & m5, mhii & m5
+  colors = 'purple', 'orange', 'g'
+  alphas = 0.8, 0.8, 0.8
+  labels = 'Isolated', 'Facing', 'H II region'
+
+  for m, alpha, c, label in zip(masks, alphas, colors, labels):
+      ax.plot(tab['Rc'][m], tab['R90'][m], 
+              'o', ms=7, alpha=alpha, c=c, label=label)
+
+  ax.legend(frameon=True, loc='upper right', title='Bow shock\nEnvironment')
+  ax.set(
+      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
+      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-environment.pdf]]
+
+
+****** Single vesus multiple candidates for central source
++ This is the "Unc" column in the table
++ The idea is the ones with "C" have an aditional uncertainty in R_0, which could move points along diagonal lines through the origin
+  + Actually not quite that, since R90 would be affected too
++ *Results:* There is no difference between the two samples at all
+  + This implies that errors in R_0 due to uncertainty in identifying the stellar source are not important.  
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-candidates.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  mmultiple = tab['Unc'] == 'C'
+  msingle = ~mmultiple
+
+  masks = mmultiple & mgood, msingle & mgood
+  shades = True, False
+  alphas = 0.8, 0.8
+  cmaps = 'Greens', 'Oranges_d'
+  gammas = 0.5, 0.5
+  lss = None, 'solid'
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma, ls in zip(
+          masks, alphas, cmaps, shades, gammas, lss):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.4, 1.6],
+                  bw=(0.18, 0.12),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+  masks = mmultiple & m5, msingle & m5
+  colors = 'g', 'orange'
+  alphas = 0.8, 0.8
+  labels = 'Multiple', 'Single'
+
+  for m, alpha, c, label in zip(masks, alphas, colors, labels):
+      ax.plot(tab['Rc'][m], tab['R90'][m], 
+              'o', ms=7, alpha=alpha, c=c, label=label)
+
+  ax.legend(frameon=True, loc='upper right', title='Source\nCandidates')
+
+
+  #ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
+      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-candidates.pdf]]
 
 *** Where the figures are suposed to be (but they aren't)
 http://iopscience.iop.org/0067-0049/227/2/18/suppdata/
