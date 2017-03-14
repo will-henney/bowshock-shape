@@ -1,0 +1,612 @@
+Seq	Rating	Comment
+1	4	
+2	3	
+3	3	
+4	3	
+5	3	
+6	1	
+7	4	
+8	1	
+9	2	
+10	3	
+11	3	
+12	3	
+13	0	
+14	4	
+15	1	
+16	5	
+17	2	
+18	5	
+19	3	
+20	3	
+21	4	
+22	1	
+23	2	
+24	1	
+25	2	
+26	3	
+27	2	
+28	5	
+29	3	
+30	1	
+31	2	
+32	0	
+33	4	
+34	2	
+35	3	
+36	4	
+37	3	
+38	2	
+39	0	
+40	2	Rc too big
+41	1	
+42	1	
+43	2	
+44	4	But doesn't reach 90
+45	1	
+46	4	
+47	3	
+48	4	
+49	3	
+50	1	Rc too small
+51	1	Rc too large
+52	0	Bad image
+53	0	Bad image
+54	0	Missing
+55	4	
+56	4	
+57	1	Rc too small
+58	3	
+59	0	Center wrong side
+60	4	Corner at apex
+61	5	
+62	1	Rc too small
+63	1	Rc too small
+64	0	Missing
+65	1	Rc too small
+66	0	Missing
+67	3	
+68	0	Missing
+69	1	Rc too big
+70	1	Rc too small
+71	2	Tiny but OK
+72	0	NaNs in image
+73	2	Irregular
+74	1	Rc too big
+75	1	Rc too small
+76	5	
+77	1	Rc too big
+78	1	Rc too big
+79	2	
+80	2	
+81	1	Rc too small
+82	1	Rc too small
+83	2	
+84	1	Rc too small
+85	1	Rc too large
+86	2	Tiny
+87	5	
+88	2	
+89	2	
+90	2	PA wrong
+91	2	Mean affected by stars
+92	2	
+93	2	
+94	3	
+95	2	
+96	3	
+97	1	Rc too large
+98	1	Rc too large
+99	4	
+100	2	
+101	3	
+102	2	Irregular
+103	1	Rc too small
+104	0	Fit failed (fixable?)
+105	1	Rc too small
+106	1	Rc too small
+107	1	Rc too small
+108	1	PA0 wrong (fixable?)
+109	4	
+110	4	
+111	4	
+112	3	
+113	4	
+114	4	
+115	1	Rc too big
+116	3	
+117	1	Rc too small
+118	0	Fit failed (fixable?)
+119	1	Irregular
+120	2	Irregular and small
+121	1	Rc too small
+122	2	Fails to trace wings
+123	5	
+124	0	Fit Failed
+125	4	
+126	1	Rc too small
+127	5	
+128	1	Rc too small
+129	2	PA is off
+130	1	Mess
+131	2	Irregular
+132	3	Wing on + side lost
+133	4	
+134	1	Rc too small
+135	0	Fit failed
+136	0	Fit failed
+137	3	
+138	0	Fit failed
+139	1	Rc too small
+140	1	Rc too small
+141	2	PA0 was wrong
+142	1	Rc too small
+143	0	Fit failed
+144	2	Star off axis
+145	2	Star off axis
+146	2	R0 problem (fixable)
+147	1	Rc too small
+148	2	Circle fit problem
+149	0	Fit failed
+150	3	
+151	0	Fit failed
+152	0	Rc too small
+153	0	Rc too small
+154	0	Missing
+155	0	Rc too small
+156	0	Missing
+157	0	Fit failed
+158	4	
+159	3	
+160	3	
+161	1	Rc too small
+162	2	Tiny
+163	2	Star off axis
+164	2	Rc a bit too big
+165	4	
+166	0	Fit failed
+167	3	
+168	2	Rc a bit too small
+169	2	Irregular
+170	3	
+171	2	Rc a bit too large
+172	1	Rc too small
+173	2	Rc a bit too large
+174	2	Irregular
+175	3	
+176	2	Rc a bit too small
+177	0	Fit failed (fixable?)
+178	0	Fit failed
+179	1	Rc too small
+180	2	Rc a bit too small
+181	1	Rc too small
+182	2	Star off axis
+183	4	
+184	3	
+185	0	Fit failed
+186	4	
+187	3	
+188	1	Rc too small
+189	0	Fit failed
+190	1	Rc too small
+191	1	Rc too small
+192	4	
+193	3	
+194	2	Rc a bit too small
+195	1	Rc too small
+196	2	Rc too small
+197	4	
+198	3	
+199	4	
+200	0	Fit failed
+201	3	
+202	5	
+203	1	Rc too small
+204	1	Rc too small
+205	0	Fit failed
+206	1	Rc too small
+207	1	Rc too small
+208	0	Fit failed
+209	3	Corner at apex
+210	0	Fit failed
+211	0	Missing
+212	0	Missing
+213	1	Rc too small
+214	3	Some NaNs in image
+215	4	
+216	3	
+217	2	Rc a bit too small
+218	3	
+219	0	Fit failed
+220	1	Rc too small
+221	3	Asymmetric
+222	0	Fit failed
+223	4	
+224	0	Missing
+225	3	
+226	2	Rc bit too small
+227	0	Missing
+228	3	But R90+ is wrong
+229	1	Rc too large
+230	3	
+231	0	Fit failed
+232	2	Irregular
+233	2	Rc bit too small
+234	1	Rc too small
+235	0	Fit failed
+236	3	
+237	0	Fit failed
+238	3	
+239	0	Fit failed
+240	0	Missing
+241	1	Rc too small
+242	1	Rc too small
+243	3	
+244	3	
+245	3	
+246	1	Center wrong side
+247	4	
+248	3	Maybe double
+249	0	Fit failed
+250	0	Fit failed
+251	3	
+252	0	Fit failed
+253	4	
+254	1	Rc too small
+255	1	Rc too small
+256	0	Fit failed
+257	3	
+258	1	Rc too small
+259	3	
+260	3	
+261	0	Fit failed
+262	0	Fit failed
+263	5	
+264	4	
+265	2	Rc a bit too small
+266	1	Rc too small
+267	2	Rc a bit too large
+268	1	Rc too small
+269	3	
+270	2	Asymmetric
+271	0	Fit failed
+272	0	Missing
+273	2	Star in wrong place?
+274	4	
+275	1	Rc too small
+276	1	Rc too small
+277	2	Star off axis
+278	1	Rc too small
+279	0	Fit failed
+280	0	Fit failed
+281	0	Fit failed
+282	4	
+283	1	Rc too small
+284	2	Asymmetric
+285	5	
+286	0	Fit failed
+287	1	Rc too small
+288	3	
+289	2	Rc bit too big + asym
+290	0	Fit failed
+291	2	Star off axis
+292	5	Asymmetric
+293	0	Fit failed
+294	0	Fit failed
+295	0	Fit failed
+296	0	Fit failed
+297	4	
+298	0	Missing
+299	1	Star interferes
+300	3	Fat shell
+301	3	
+302	1	Rc too small
+303	3	
+304	0	Fit failed
+305	0	Fit failed
+306	2	Rc a bit too small
+307	0	Fit failed
+308	0	Fit failed
+309	0	Fit failed
+310	0	Missing
+311	0	Fit failed
+312	3	
+313	0	Missing
+314	0	Fit failed
+315	0	Missing
+316	0	Fit failed
+415	2	
+416	0	Fit failed
+417	0	Fit failed
+418	0	Fit failed
+419	0	Fit failed
+420	0	Fit failed
+421	3	Wings uncertain
+422	1	Rc too small
+423	0	Fit failed
+424	3	
+425	2	Tiny
+426	3	
+427	0	Fit failed
+428	0	Fit failed
+429	1	Rc too small
+430	3	
+431	0	Missing
+432	0	Missing
+433	3	
+434	4	
+435	0	Fit failed
+436	4	
+437	3	
+438	0	Missing
+439	0	Fit failed
+440	3	
+441	2	A mess
+442	5	
+443	1	Rc too small
+444	1	Rc too small
+445	1	Rc too small
+446	4	
+447	5	
+448	3	
+449	3	
+450	1	Rc too small
+451	1	Rc too small
+452	4	asymmetric
+453	3	
+454	1	Rc too small
+455	0	Fit failed
+456	0	Fit failed
+457	2	Rc a bit too big
+458	1	Rc too big
+459	0	Fit failed
+460	2	Rc a bit too small
+461	2	Rc a bit too small
+462	3	
+463	3	
+464	2	Bit of a mess
+465	1	Rc too small
+466	3	
+467	3	
+468	2	Rc a bit too small
+469	1	Rc too small
+470	2	Rc a bit too small
+471	2	Rc a bit too small
+472	3	
+473	3	
+474	0	Fit failed
+475	1	Rc too small
+476	1	Rc too small
+477	2	R0 too big (fixable?)
+478	1	Rc too small
+479	3	
+480	0	Fit failed
+481	1	Rc too small
+482	1	Rc too small
+483	3	
+484	4	
+485	4	
+486	1	Rc to big
+487	2	Rc a bit too big
+488	2	Rc a bit too small
+489	5	
+490	2	Rc a bit too small
+491	5	
+492	4	
+493	4	
+494	0	Fit failed
+495	3	
+496	4	
+497	0	Fit failed
+498	1	Rc too small
+499	2	Rc a bit too small
+500	2	Rc a bit too big
+501	0	Fit failed
+502	1	Rc too smalled
+503	3	
+504	3	
+505	4	
+506	4	
+507	2	
+508	1	Rc too small
+509	3	
+510	3	
+511	3	
+512	0	Fit failed
+513	0	Fit failed
+514	0	Fit failed
+515	2	R0 too big (fixable?)
+516	0	Fit failed
+517	5	
+518	1	Rc too small
+519	1	Rc too small
+520	3	Asymmetric
+521	4	
+522	0	Fit failed
+523	0	Fit failed
+524	0	Fit failed
+525	1	Rc too small
+526	2	Very small
+527	5	
+528	3	
+529	3	
+530	5	
+531	1	Rc too small
+532	4	
+533	3	
+534	2	Bow shock too big!
+535	0	Fit failed
+536	3	
+537	1	Rc too small
+538	1	Rc too small
+539	3	
+540	3	
+541	1	Rc too small
+542	2	Bow shock too big!
+543	2	Rc a bit too small
+544	5	
+545	2	Rc a bit too small
+546	1	Rc too small
+547	1	Rc too small
+548	4	
+549	0	Fit failed
+550	0	Fit failed
+551	1	Rc too small
+552	1	Rc too small
+553	1	Rc too small
+554	3	
+555	1	Rc too small
+556	2	Double source
+557	3	
+558	3	Asymmetric
+559	3	
+560	3	
+561	0	Fit failed
+562	4	
+563	4	
+564	0	Fit failed
+565	4	
+566	4	
+567	2	Too small
+568	3	
+569	4	
+570	0	Fit failed
+571	3	
+572	5	
+573	2	
+574	2	
+575	0	Missing
+576	2	Rc a bit too small
+577	2	Rc a bit too small
+578	3	
+579	0	Fit failed
+580	3	
+581	0	Missing
+582	2	Rc a bit too big
+583	2	Rc a bit too big
+584	3	
+585	1	Rc too small
+586	4	
+587	2	Rc a bit too small
+588	1	Rc too small
+589	4	
+590	1	Rc too small
+591	3	
+592	1	Rc too small
+593	3	
+594	2	Rc a bit too large
+595	5	
+596	4	
+597	3	
+598	5	
+599	2	Rc a bit too small
+600	0	Fit failed
+601	1	Rc too small
+602	2	Tiny
+603	4	
+604	2	Mean radius messes up
+605	3	
+606	3	
+607	2	Rc a bit too big
+608	1	Rc too small
+609	1	Rc too small
+610	3	Very large Rc/R0
+611	3	
+612	2	Double arc?
+613	4	
+614	2	Rc a bit too small
+615	2	Rc a bit too small
+616	3	
+617	2	Rc a bit too big
+618	3	
+619	0	Fit failed
+620	3	
+621	3	
+622	1	Rc too big
+623	2	Rc a bit too big
+624	4	
+625	2	Rc a bit too small
+626	4	
+627	1	Rc too big
+628	0	Missing
+629	2	Tiny
+630	3	
+631	2	Rc a bit too small
+632	1	Rc too big
+633	3	
+634	4	
+635	5	
+636	3	
+637	3	Very big Rc
+638	0	Fit failed
+639	1	Rc too small
+640	2	Rc a bit too small
+641	0	Fit failed
+642	4	
+643	3	
+644	3	
+645	0	Fit failed
+646	1	Rc too small
+647	3	
+648	3	
+649	0	Fit failed
+650	0	Fit failed (shame!)
+651	0	Fit failed
+652	1	Rc too small
+653	0	Fit failed
+654	0	Fit failed
+655	0	Fit failed
+656	2	Rc a bit too small
+657	3	
+658	2	Rc a bit too small
+659	4	
+660	0	Fit failed
+661	1	Rc too small
+662	0	Missing
+663	0	Fit failed
+664	0	Fit failed
+665	1	Rc too small
+666	1	Rc too small
+667	4	
+668	2	Rc a bit too small
+669	0	Fit failed
+670	0	Fit failed
+671	0	Fit failed
+672	3	
+673	2	Rc too big
+674	1	Rc too small
+675	5	
+676	2	Rc a bit too small
+677	3	Double shell
+678	0	Fit failed
+679	0	Missing
+680	3	
+681	0	Missing
+682	0	Missing
+683	2	Rc a bit too big
+684	3	
+685	3	
+686	3	
+687	2	Rc a bit too big
+688	5	
+689	3	
+690	1	Mess
+691	1	Mess
+692	5	
+693	0	Fit failed
+694	2	Rc too big
+695	2	Rc a bit too small
+696	4	
+697	3	R90+ unreliable
+698	3	
+699	3	
+700	1	Mess
+701	0	Fit failed
+702	1	Rc too small
+703	3	
+704	2	Rc a bit too small
+705	5	Asymmetric
+706	3	
+707	0	Fit failed
+708	2	Rc a bit too small
+709	3	

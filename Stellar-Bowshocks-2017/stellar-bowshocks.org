@@ -760,11 +760,15 @@ mkdir -pv OB/MipsGal
       list_of_rows.append(t[0])
 
   fit_table = Table(rows=list_of_rows, names=t.colnames)
+  star_table = Table.read('star-ratings.tab', format='ascii.tab')
 
-  combo_table = join(source_table, fit_table, join_type='outer')
+  combo_table = join(
+      join(source_table, fit_table, join_type='outer'),
+      star_table, join_type='outer')
+
 
   combo_file = 'mipsgal-arcfit.tab'
-  combo_table.write(combo_file, format='ascii.tab')
+  combo_table.write(combo_file, format='ascii.tab', overwrite=True)
 #+END_SRC
 
 #+RESULTS:
@@ -789,22 +793,25 @@ First, radius versus radius
   Q = tab['R0_fit']/tab['R0_sigma']
 
   # Make quality classes
-  m1 = Q > 50.0
-  m2 = (Q > 20.0) & ~m1
-  m3 = (Q > 5.0)  & ~(m1 | m2)
-  m4 = ~(m1 | m2 | m3)
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
 
-  masks = m4, m3, m2, m1
-  alphas = 0.1, 0.2, 0.4, 0.8
-  labels = 'Q <= 5', 'Q > 5', 'Q > 20', 'Q > 50'
+  masks = m3, m4, m5
+  alphas = 0.2, 0.4, 0.8
+  labels = r'3-star', '4-star', '5-star'
+  colors = 'm', 'c', 'b'
 
 
-  for m, alpha, label in zip(masks, alphas, labels):
+  for m, alpha, c, label in zip(masks, alphas, colors, labels):
       ax.errorbar('R0', 'R0_fit', yerr='R0_sigma', data=tab[m],
-                  fmt='.', lw=1, alpha=alpha, label=label)
+                  fmt='o', lw=1, c=c, alpha=alpha, label=label)
   ax.plot([1.0, 200.0], [1.0, 200.0])
   ax.legend()
   ax.set(
+      xlim=[3, 90], ylim=[3, 90],
       xlabel='Catalog R0, arcsec',
       ylabel='Fitted R0, arcsec',
       xscale='log', yscale='log')
@@ -913,16 +920,16 @@ Zoom in on the best data
 
   Q = tab['R0_fit']/tab['R0_sigma']
 
-  # Make quality classes
-  m1 = Q > 50.0
-  m2 = (Q > 20.0) & ~m1
-  m3 = (Q > 5.0)  & ~(m1 | m2)
-  m4 = ~(m1 | m2 | m3)
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
 
-  masks = m4, m3, m2, m1
-  alphas = 0.05, 0.1, 0.2, 0.8
-  labels = 'Q <= 5', 'Q > 5', 'Q > 20', 'Q > 50'
-  colors = 'orange', 'm', 'c', 'b'
+  masks = m3, m4, m5
+  alphas = 0.2, 0.4, 0.8
+  labels = '3-star', '4-star', '5-star'
+  colors = 'm', 'c', 'b'
 
   for m, alpha, label, c in zip(masks, alphas, labels, colors):
       ax.errorbar('Rcp', 'R90p', xerr='Rc_sigma', yerr='R90p_sigma', data=tab[m],
@@ -930,9 +937,9 @@ Zoom in on the best data
       ax.errorbar('Rcn', 'R90n', xerr='Rc_sigma', yerr='R90n_sigma', data=tab[m],
                   fmt='s', lw=1, alpha=alpha, c=c, label=None)
 
-  for source in tab[m1]:
+  for source in tab[m5]:
       ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
-              fontsize=6, color='r', ha='center', va='center')
+              fontsize=6, color='orange', ha='center', va='center')
 
   ax.legend(frameon=True, loc='upper right')
   ax.set(
