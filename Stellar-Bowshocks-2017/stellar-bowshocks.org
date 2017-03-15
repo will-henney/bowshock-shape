@@ -947,6 +947,9 @@ Zoom in on the best data
   for source in tab[m5]:
       ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
               fontsize=5, color='orange', ha='center', va='center')
+  for source in tab[m4 & (tab['Rc'] < 1.0)]:
+      ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
 
   ax.legend(frameon=True, loc='upper right')
   ax.set(
@@ -1045,6 +1048,9 @@ Plot KDE of the distribution
 
 #+RESULTS:
 [[file:mipsgal-Rc-R90-kde.pdf]]
+
++ This figure is modified using Graphic.app to add tumbnail images of selected bow shocks
++ The result is exported in [[file:mipgsgal-Rc-R90-thumbnails.pdf]]
 
 ***** AB testing of various sub-sets
 
