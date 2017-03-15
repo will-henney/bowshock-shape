@@ -1097,8 +1097,8 @@ Plot KDE of the distribution
   ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
   ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
   ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.6, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 3.0], [0.0, 3.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -1134,12 +1134,12 @@ Plot KDE of the distribution
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
 
-  masks = misolated & m5, mfacing & m5, mhii & m5
+  masks5 = misolated & m5, mfacing & m5, mhii & m5
   colors = 'purple', 'orange', 'g'
   alphas = 0.8, 0.8, 0.8
   labels = 'Isolated', 'Facing', 'H II region'
 
-  for m, alpha, c, label in zip(masks, alphas, colors, labels):
+  for m, alpha, c, label in zip(masks5, alphas, colors, labels):
       ax.plot(tab['Rc'][m], tab['R90'][m], 
               'o', ms=7, alpha=alpha, c=c, label=label)
 
@@ -1149,6 +1149,59 @@ Plot KDE of the distribution
       xlabel=r'Radius of curvature ratio: $R_c/R_0$',
       ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
       xscale='linear', yscale='linear')
+
+
+  ## Histograms of marginal distributions
+  subwin_w = 0.2
+  subwin_h = 0.06
+  subwin_x0 = 0.2
+  subwin_y0 = 0.65
+  subwin_xmargin = 0.06
+  subwin_ymargin = 0.02
+
+
+  with sns.plotting_context(
+          rc={'axes.labelsize': 9,
+              'xtick.labelsize': 9,
+              'ytick.labelsize': 9,}):
+
+      ax_i_Rc = fig.add_axes((subwin_x0,
+                              subwin_y0 + 2*(subwin_h + subwin_ymargin),
+                              subwin_w, subwin_h))
+      ax_f_Rc = fig.add_axes((subwin_x0, subwin_y0 + subwin_h + subwin_ymargin,
+                              subwin_w, subwin_h))
+      ax_h_Rc = fig.add_axes((subwin_x0, subwin_y0,
+                              subwin_w, subwin_h))
+      ax_i_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + 2*(subwin_h + subwin_ymargin),
+                               subwin_w, subwin_h))
+      ax_f_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + subwin_h + subwin_ymargin,
+                               subwin_w, subwin_h))
+      ax_h_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0,
+                               subwin_w, subwin_h))
+
+      for m, c, axx in zip(masks, colors, [ax_i_Rc, ax_f_Rc, ax_h_Rc]):
+          sns.distplot(tab['Rc'][m], bins=10, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      ax_h_Rc.set(xlabel=r'$R_c/R_0$')
+      for axx in ax_i_Rc, ax_f_Rc:
+          axx.set(xlabel='')
+          axx.tick_params(labelbottom='off') 
+
+      for m, c, axx in zip(masks, colors, [ax_i_R90, ax_f_R90, ax_h_R90]):
+          sns.distplot(tab['R90'][m], bins=10, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      ax_h_R90.set(xlabel=r'$R_{90}/R_0$')
+      for axx in ax_i_R90, ax_f_R90:
+          axx.set(xlabel='')
+          axx.tick_params(labelbottom='off') 
+
 
   fig.savefig(figfile)
 
@@ -1164,7 +1217,8 @@ Plot KDE of the distribution
 + The idea is the ones with "C" have an aditional uncertainty in R_0, which could move points along diagonal lines through the origin
   + Actually not quite that, since R90 would be affected too
 + *Results:* There is no difference between the two samples at all
-  + This implies that errors in R_0 due to uncertainty in identifying the stellar source are not important.  
+  + This implies that errors in R_0 due to uncertainty in identifying the stellar source are not important.
++ [X] Add marginal distribution histograms
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
   from astropy.table import Table
@@ -1201,8 +1255,8 @@ Plot KDE of the distribution
   ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
   ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
   ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.6, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 3.0], [0.0, 3.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -1236,12 +1290,12 @@ Plot KDE of the distribution
                   bw=(0.18, 0.12),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
-  masks = mmultiple & m5, msingle & m5
+  masks5 = mmultiple & m5, msingle & m5
   colors = 'g', 'orange'
   alphas = 0.8, 0.8
   labels = 'Multiple', 'Single'
 
-  for m, alpha, c, label in zip(masks, alphas, colors, labels):
+  for m, alpha, c, label in zip(masks5, alphas, colors, labels):
       ax.plot(tab['Rc'][m], tab['R90'][m], 
               'o', ms=7, alpha=alpha, c=c, label=label)
 
@@ -1254,6 +1308,52 @@ Plot KDE of the distribution
       xlabel=r'Radius of curvature ratio: $R_c/R_0$',
       ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
       xscale='linear', yscale='linear')
+
+
+  ## Histograms of marginal distributions
+  subwin_w = 0.2
+  subwin_h = 0.1
+  subwin_x0 = 0.2
+  subwin_y0 = 0.65
+  subwin_xmargin = 0.06
+  subwin_ymargin = 0.01
+
+
+  with sns.plotting_context(
+          rc={'axes.labelsize': 9,
+              'xtick.labelsize': 9,
+              'ytick.labelsize': 9,}):
+
+      ax_m_Rc = fig.add_axes((subwin_x0, subwin_y0 + subwin_h + subwin_ymargin,
+                              subwin_w, subwin_h))
+      ax_s_Rc = fig.add_axes((subwin_x0, subwin_y0,
+                              subwin_w, subwin_h))
+      ax_m_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + subwin_h + subwin_ymargin,
+                               subwin_w, subwin_h))
+      ax_s_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0,
+                               subwin_w, subwin_h))
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      for m, c, axx in zip(masks, colors, [ax_m_Rc, ax_s_Rc]):
+          sns.distplot(tab['Rc'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      ax_s_Rc.set(xlabel=r'$R_c/R_0$')
+      ax_m_Rc.set(xlabel=None)
+      ax_m_Rc.tick_params(labelbottom='off') 
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      for m, c, axx in zip(masks, colors, [ax_m_R90, ax_s_R90]):
+          sns.distplot(tab['R90'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      ax_s_R90.set(xlabel=r'$R_{90}/R_0$')
+      ax_m_R90.set(xlabel=None)
+      ax_m_R90.tick_params(labelbottom='off') 
 
   fig.savefig(figfile)
 
