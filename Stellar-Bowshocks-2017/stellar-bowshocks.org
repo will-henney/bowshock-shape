@@ -1063,7 +1063,7 @@ Plot KDE of the distribution
 
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
-  from scipy.stats import ks_2samp
+  from scipy.stats import ks_2samp, anderson_ksamp
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -1197,10 +1197,14 @@ Plot KDE of the distribution
                        xytext=(0.0, 7), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
-          # Calculate K-S statistic
+          # Calculate K-S and A-D statistics
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
-              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]], midrank=False)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
@@ -1226,7 +1230,11 @@ Plot KDE of the distribution
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
-              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]], midrank=False)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
@@ -1255,7 +1263,7 @@ Plot KDE of the distribution
 + [X] Add marginal distribution histograms
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
-  from scipy.stats import ks_2samp
+  from scipy.stats import ks_2samp, anderson_ksamp
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -1388,9 +1396,13 @@ Plot KDE of the distribution
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
-              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]], midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
           sns.despine(ax=axx, trim=True, offset=None)
       ax_s_Rc.set(xlabel=r'$R_c/R_0$')
@@ -1413,9 +1425,13 @@ Plot KDE of the distribution
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
-              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]], midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
           sns.despine(ax=axx, trim=True, offset=None)
       ax_s_R90.set(xlabel=r'$R_{90}/R_0$')
@@ -1580,7 +1596,7 @@ Plot KDE of the distribution
   + The distribution of R_c is slightly broader for the low-extinction sub-sample
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
-  from scipy.stats import ks_2samp
+  from scipy.stats import ks_2samp, anderson_ksamp
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -1715,9 +1731,14 @@ Plot KDE of the distribution
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
-              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
           sns.despine(ax=axx, trim=True, offset=None)
       #
@@ -1742,9 +1763,14 @@ Plot KDE of the distribution
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
-              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
           sns.despine(ax=axx, trim=True, offset=None)
       ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
@@ -1758,6 +1784,553 @@ Plot KDE of the distribution
 
 #+RESULTS:
 [[file:mipsgal-Rc-R90-extinction.pdf]]
+
+
+****** Correlation with R_0
++ Finally, a highly significant correlation!
++ Larger sources tend to have a higher Rc/R0 (with p=0.005) and (especially) a higher R90/R0 (with p=0.0001)
++ We need to bear in mind that this might possibly be an observational artifact
+  + Since the smaller arcs tend to have lower star ratings
+  + But I don't think this is the (whole) answer
++ More convincing is the fact that both R0 and Rc/R0 and R90/R0 tend to increase with inclination
+  + At least this is true for hyperbolic-type shapes
++ Also worht noting that the observed effect is opposite to what would be expected due to errors in determining R_0
+  + In that case you would have larger R_0 producing smaller ratios (and vixe versa)
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-R0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.6, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 3.0], [0.0, 3.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  R0_median = np.nanmedian(tab['R0_fit'][mgood])
+
+  myes = tab['R0'] >= R0_median
+  mno = tab['R0'] < R0_median
+
+  masks = myes & mgood, mno & mgood
+  shades = True, False
+  alphas = 0.8, 0.8
+  cmaps = 'Blues', 'Reds_d'
+  gammas = 0.5, 0.5
+  lss = None, 'solid'
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma, ls in zip(
+          masks, alphas, cmaps, shades, gammas, lss):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.3],
+                  bw=(0.18, 0.12),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+  masks5 = myes & m5, mno & m5
+  colors = 'c', 'r'
+  alphas = 0.8, 0.8
+  labels = fr"$R_0 > {R0_median:.1f}''$", fr"$R_0 < {R0_median:.1f}''$"
+
+  for m, alpha, c, label in zip(masks5, alphas, colors, labels):
+      ax.plot(tab['Rc'][m], tab['R90'][m], 
+              'o', ms=7, alpha=alpha, c=c, label=label)
+
+  ax.legend(frameon=True, loc='upper right', title='Separation')
+
+
+  #ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
+      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+
+
+  ## Histograms of marginal distributions
+  subwin_w = 0.2
+  subwin_h = 0.09
+  subwin_x0 = 0.2
+  subwin_y0 = 0.65
+  subwin_xmargin = 0.06
+  subwin_ymargin = 0.02
+
+
+  with sns.plotting_context(
+          rc={'axes.labelsize': 9,
+              'xtick.labelsize': 9,
+              'ytick.labelsize': 9,}):
+
+      ax_y_Rc = fig.add_axes((subwin_x0, subwin_y0 + subwin_h + subwin_ymargin,
+                              subwin_w, subwin_h))
+      ax_n_Rc = fig.add_axes((subwin_x0, subwin_y0,
+                              subwin_w, subwin_h))
+      ax_y_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + subwin_h + subwin_ymargin,
+                               subwin_w, subwin_h))
+      ax_n_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0,
+                               subwin_w, subwin_h))
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      yq0, dyq = 0.1, 0.05
+      for m, c, axx in zip(masks, colors, [ax_y_Rc, ax_n_Rc]):
+          sns.distplot(tab['Rc'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(tab['Rc'][m],
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
+              AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      #
+      ax_n_Rc.set(xlabel=r'$R_c/R_0$')
+      ax_y_Rc.set(xlabel='')
+      ax_y_Rc.tick_params(labelbottom='off') 
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      for m, c, axx in zip(masks, colors, [ax_y_R90, ax_n_R90]):
+          sns.distplot(tab['R90'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
+              AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
+      ax_y_R90.set(xlabel='')
+      ax_y_R90.tick_params(labelbottom='off') 
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-R0.pdf]]
+
+******* Look directly at joint distributions of R_0 and the radial ratios
++ These tuen out not to be very illuminating
++ The previous graphs are much better
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-R90-ratio-versus-R0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  cmap = 'Reds'
+  gamma = 0.5
+  sns.kdeplot(np.log10(tab['R0_fit'][mgood].data), tab['R90'][mgood].data,
+              cmap=cmap, n_levels=30,
+              shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+
+  masks = m3, m4, m5
+  alphas = 0.2, 0.4, 0.8
+  stars = '3', '4', '5'
+  colors = 'c', 'r', 'b'
+  sizes = 5, 7, 8
+
+  for m, alpha, star, c, ms in zip(masks, alphas, stars, colors, sizes):
+      label = f'{star}-star ($N = {m.sum()}$)'
+      ax.plot(np.log10(tab['R0_fit'][m].data), tab['R90'][m].data,  'o',
+              ms=ms, lw=1, alpha=alpha, c=c, label=label)
+  ax.axvline(np.log10(np.nanmedian(tab['R0_fit'][mgood])), color='k')
+
+  ax.set(
+      xlim=[0.5, 2.0], ylim=[0.5, 3.5],
+      xlabel=r'Axial radius: $\log_{10} R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+
+
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-R90-ratio-versus-R0.pdf]]
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-ratio-versus-R0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  cmap = 'Greens'
+  gamma = 0.5
+  sns.kdeplot(np.log10(tab['R0_fit'][mgood].data), tab['Rc'][mgood].data,
+              cmap=cmap, n_levels=30,
+              shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+
+  masks = m3, m4, m5
+  alphas = 0.2, 0.4, 0.8
+  stars = '3', '4', '5'
+  colors = 'c', 'r', 'b'
+  sizes = 5, 7, 8
+
+  for m, alpha, star, c, ms in zip(masks, alphas, stars, colors, sizes):
+      label = f'{star}-star ($N = {m.sum()}$)'
+      ax.plot(np.log10(tab['R0_fit'][m].data), tab['Rc'][m].data,  'o',
+              ms=ms, lw=1, alpha=alpha, c=c, label=label)
+
+  ax.axvline(np.log10(np.nanmedian(tab['R0_fit'][mgood])), color='k')
+
+  ax.set(
+      xlim=[0.5, 2.0], ylim=[0., 5.0],
+      xlabel=r'Axial radius: $\log_{10} R_0$',
+      ylabel=r'Radius of cuvature ratio: $R_{c}/R_0$',
+      xscale='linear', yscale='linear')
+
+
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-ratio-versus-R0.pdf]]
+
+****** Stellar magnitude
++ Another marginal correlation:
+  + Brighter sources tend to have larger Rc and R90
+  + But we only have p=0.1 or so, so doesn't meet the formal significance requirement 
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-Mag.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.6, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 3.0], [0.0, 3.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  M45_median = np.nanmedian(tab['4.5mag'][mgood])
+
+  myes = tab['4.5mag'] <= M45_median
+  mno = tab['4.5mag'] > M45_median
+
+  masks = myes & mgood, mno & mgood
+  shades = True, False
+  alphas = 0.8, 0.8
+  cmaps = 'Oranges', 'Greens_d'
+  gammas = 0.5, 0.5
+  lss = None, 'solid'
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma, ls in zip(
+          masks, alphas, cmaps, shades, gammas, lss):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.3],
+                  bw=(0.18, 0.12),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+  masks5 = myes & m5, mno & m5
+  colors = 'r', 'g'
+  alphas = 0.8, 0.8
+  labels = (fr"$M_{{4.5\mu\mathrm{{m}}}} < {M45_median:.1f}$",
+            fr"$M_{{4.5\mu\mathrm{{m}}}} > {M45_median:.1f}$")
+
+  for m, alpha, c, label in zip(masks5, alphas, colors, labels):
+      ax.plot(tab['Rc'][m], tab['R90'][m], 
+              'o', ms=7, alpha=alpha, c=c, label=label)
+
+  ax.legend(frameon=True, loc='upper right', title='Source\nMagnitude')
+
+
+  #ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
+      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+
+
+  ## Histograms of marginal distributions
+  subwin_w = 0.2
+  subwin_h = 0.09
+  subwin_x0 = 0.2
+  subwin_y0 = 0.65
+  subwin_xmargin = 0.06
+  subwin_ymargin = 0.02
+
+
+  with sns.plotting_context(
+          rc={'axes.labelsize': 9,
+              'xtick.labelsize': 9,
+              'ytick.labelsize': 9,}):
+
+      ax_y_Rc = fig.add_axes((subwin_x0, subwin_y0 + subwin_h + subwin_ymargin,
+                              subwin_w, subwin_h))
+      ax_n_Rc = fig.add_axes((subwin_x0, subwin_y0,
+                              subwin_w, subwin_h))
+      ax_y_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + subwin_h + subwin_ymargin,
+                               subwin_w, subwin_h))
+      ax_n_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0,
+                               subwin_w, subwin_h))
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      yq0, dyq = 0.1, 0.05
+      for m, c, axx in zip(masks, colors, [ax_y_Rc, ax_n_Rc]):
+          sns.distplot(tab['Rc'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(tab['Rc'][m],
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
+              AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      #
+      ax_n_Rc.set(xlabel=r'$R_c/R_0$')
+      ax_y_Rc.set(xlabel='')
+      ax_y_Rc.tick_params(labelbottom='off') 
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      for m, c, axx in zip(masks, colors, [ax_y_R90, ax_n_R90]):
+          sns.distplot(tab['R90'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
+              AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
+          sns.despine(ax=axx, trim=True, offset=None)
+      ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
+      ax_y_R90.set(xlabel='')
+      ax_y_R90.tick_params(labelbottom='off') 
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-Mag.pdf]]
 
 *** Where the figures are suposed to be (but they aren't)
 http://iopscience.iop.org/0067-0049/227/2/18/suppdata/
