@@ -1,0 +1,110 @@
+FIT QUADRICS TO WILKIN SHELL SHAPE
+
+* DONE Fit to the head
+
+In equation (18) of Canto et al. 1996 we have the explicit form 
+of the Bow shock shape
+
+$$R(\theta) = R_0\csc\theta\sqrt{3(1-\theta\cot\theta)}$$
+
+Already have proved that:
+
+\begin{align}
+\tilde{R}_{90} &= \sqrt{3} \\
+\tilde{R}_c &= \frac{5}{3} \\
+T_c &= \frac{1}{3}
+\end{align} 
+
+So, the fit to the head must be an ellipsoid
+
+* TODO Fit to the tail
+
+Since R(¦È) exists for  -¦Ð < ¦È < ¦Ð,  R has not an hyperbolic behavior in the wings, so we must try
+the parabolic behavior. The methods I've thought about are the following:
+
+** TODO "Two points" method
+
+The idea is that if we have at least 3 points which belong to the Wilkin bowshock we may obtain the
+parameters of a parabola, whose parametric equations are the following:
+
+
+\begin{align}
+x &= -\frac{1}{2}\tilde{R}_c t^2 + x_0 \\
+y &= \tilde{R}_c t
+\end{align}
+
+This equations have the constriction that the maximum of the parabola should be at the x axis, so the 
+needed points to know are reduced to 2.
+
+\begin{align}
+x_1 &= -\frac{1}{2}\tilde{R}_c t_1^2 + x_0 \\
+y_1 &= \tilde{R}_c t_1
+\end{align}
+
+\begin{align}
+x_2 &= -\frac{1}{2}\tilde{R}_c t_2^2 + x_0 \\
+y_2 &= \tilde{R}_c t_2
+\end{align}
+
+Where:
+
+\begin{align}
+x_1 = R_1\cos\theta_1 \\
+x_2 = R_2\cos\theta_2 \\
+y_1 = R_1\sin\theta_1 \\
+y_2 = R_2\sin\theta_2 
+\end{align}
+
+$\theta_1$ and \theta_2 are particular angles which belong to the tail, and $R_1 = R(\theta_1)$, $R_2 = R(\theta_2)$
+
+Substracting $x_2$ from $x_1$ we get the following:
+
+\begin{align}
+x_1 - x_2 &= - \frac{1}{2\tilde{R_c}}\left(y_1^2 - y_2^2\right) \\
+\implies \tilde{R}_c &=  -\frac{1}{2} \frac{y_1^2 - y_2^2}{x_1-x_2}
+\end{align}
+
+In the same way, doing the sum we get the following:
+
+\begin{align}
+x_0 = \frac{x_1 + x_2}{2} + \frac{1}{4\tilde{R}_c}\left(y_1^2 + y_2^2\right)
+\end{align}
+
+
+** TODO  "Gradient method"
+
+** TODO Test the "Two points" method
+#+NAME: Wilkin-Parabola-Fit-2points
+#+BEGIN_SRC :eval no :tangle ./2-points-parabola-fit.py
+import numpy as np
+import matplotlib.pyplot as plt
+
+def wilkin_tail_params(t1,t2):
+    def pointR(t):
+        return np.sqrt(3*(1-t/np.tan(t))/np.sin(t)**2)
+    x1 = pointR(t1)*np.cos(t1)
+    x2 = pointR(t2)*np.cos(t2)
+    y1 = pointR(t1)*np.sin(t1)
+    y2 = pointR(t2)*np.sin(t2)
+    Rc = -0.5*(y1**2-y2**2)/(x1-x2)
+    x0 = 0.5*(x1+x2) + 0.25*(y1**2+y2**2)/Rc
+    return Rc,x0
+theta1 = np.radians(150)
+theta2 = np.radians(170)
+Rcp,x0p = wilkin_tail_params(theta1,theta2)
+theta = np.linspace(0,np.pi,300,endpoint=False)
+R = np.sqrt(3*(1-theta/np.tan(theta))/np.sin(theta)**2)
+x = R*np.cos(theta)
+y = R*np.sin(theta)
+t = np.linspace(0,200,200)
+xp = -0.5*Rcp*t**2 + x0p
+yp = Rcp*t
+plt.plot(x,y,"k-",lw=2,alpha=0.5)
+plt.plot(xp,yp)
+plt.xlim(-20,1)
+plt.ylim(0,21)
+plt.savefig("Wilkin_tail_test.pdf")
+#+END_SRC
+** TODO Test the "Gradient method"
+
+
