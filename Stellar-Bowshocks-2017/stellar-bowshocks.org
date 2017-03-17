@@ -774,7 +774,7 @@ mkdir -pv OB/MipsGal
 #+RESULTS:
 [[file:mipsgal-arcfit.tab]]
 
-**** Plot the radius ratio diagnostics for the OB bowshocks
+*** Plot the radius ratio diagnostics for the OB bowshocks
 First, radius versus radius
 #+BEGIN_SRC python :return figfile :results file
   from astropy.table import Table
@@ -1052,9 +1052,9 @@ Plot KDE of the distribution
 + This figure is modified using Graphic.app to add tumbnail images of selected bow shocks
 + The result is exported in [[file:mipgsgal-Rc-R90-thumbnails.pdf]]
 
-***** AB testing of various sub-sets
+*** AB testing of various sub-sets
 
-****** H II region versus isolated
+**** H II region versus isolated
 + So this show the various 'Env' types:
   + I :: /Isolated/ in purple filled contours
   + FB,FH :: /Facing bright rim/ or /Facing H II region/ as solid orange contours
@@ -1254,7 +1254,7 @@ Plot KDE of the distribution
 [[file:mipsgal-Rc-R90-environment.pdf]]
 
 
-****** Single vesus multiple candidates for central source
+**** Single vesus multiple candidates for central source
 + This is the "Unc" column in the table
 + The idea is the ones with "C" have an aditional uncertainty in R_0, which could move points along diagonal lines through the origin
   + Actually not quite that, since R90 would be affected too
@@ -1446,7 +1446,7 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-R90-candidates.pdf]]
 
-****** With or without 8 micron emission
+**** With or without 8 micron emission
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
   from astropy.table import Table
@@ -1591,7 +1591,7 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-R90-8micron.pdf]]
 
-****** Correlation with extinction
+**** Correlation with extinction
 + This seems to be the only case, where there might be something there
   + The distribution of R_c is slightly broader for the low-extinction sub-sample
 #+BEGIN_SRC python :return figfile :results file
@@ -1786,7 +1786,7 @@ Plot KDE of the distribution
 [[file:mipsgal-Rc-R90-extinction.pdf]]
 
 
-****** Correlation with R_0
+**** Correlation with R_0
 + Finally, a highly significant correlation!
 + Larger sources tend to have a higher Rc/R0 (with p=0.005) and (especially) a higher R90/R0 (with p=0.0001)
 + We need to bear in mind that this might possibly be an observational artifact
@@ -1987,7 +1987,7 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-R90-R0.pdf]]
 
-******* Look directly at joint distributions of R_0 and the radial ratios
+***** Look directly at joint distributions of R_0 and the radial ratios
 + These tuen out not to be very illuminating
 + The previous graphs are much better
 
@@ -2136,7 +2136,7 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-ratio-versus-R0.pdf]]
 
-****** Stellar magnitude
+**** Stellar magnitude
 + Another marginal correlation:
   + Brighter sources tend to have larger Rc and R90
   + But we only have p=0.1 or so, so doesn't meet the formal significance requirement 
@@ -2332,6 +2332,83 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-R90-Mag.pdf]]
 
+**** TODO Galactic longitude and latitude
++ Use |b| for distance of sight line from plane
++ And cos(l) for distance of sight line from Galactic Center
+
+**** TODO Multifactor pair plot of the non-shape parameters
++ Use =seaborn.pairplot(kind='reg')= to make a grid of regression plots
++ Or =seaborn.PairGrid()= for finer control
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.table import Table
+  import astropy.units as u
+  import astropy.coordinates as coord
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  def ra_dec_string_from_table_row(data):
+      ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
+      dec = f"{int(data['DE-']*data['DEd'])} {data['DEm']} {data['DEs']}"
+      return f'{ra} {dec}'
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-pairplot.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+  ra_dec_strings = [ra_dec_string_from_table_row(row) for row in tab]
+  c =  coord.SkyCoord(ra_dec_strings, unit=(u.hourangle, u.deg)).transform_to('galactic')
+
+  tab['log10 |b|'] = np.log10(np.abs(c.b.deg))
+  tab['cos(l)'] = np.cos(c.l)
+
+  tab['R0_fit'][tab['R0_fit'] == 0.0] = np.nan
+
+  tab['log10 R0'] = np.log10(tab['R0_fit'])
+
+  tab['Ak'][tab['Ak'] < 0.0] = np.nan
+
+  plotvars = ['log10 R0', 'log10 |b|', 'cos(l)', 'Hmag', '4.5mag', 'Ak']
+
+  bad_rows = np.zeros((len(tab),), dtype=bool)
+  clip_values = {
+      'Hmag': [3.0, 20.0],
+      '4.5mag': [3.0, 20.0],
+      'log10 R0': [0.3, 1.8],
+      'log10 |b|': [-2.0, 1.3],
+  }
+  for pvar in plotvars:
+      bad_rows = bad_rows | ~np.isfinite(np.array(tab[pvar]))
+      if pvar in clip_values:
+          vmin, vmax = clip_values[pvar]
+          bad_rows = bad_rows | (np.array(tab[pvar]) <= vmin) | (np.array(tab[pvar]) >= vmax) 
+  bad_row_indices, = np.nonzero(bad_rows)
+  tab.remove_rows(bad_row_indices)
+  df = tab.to_pandas().fillna(0)
+
+  g = sns.PairGrid(df, vars=plotvars, size=1.5)
+  g = g.map_upper(plt.scatter, marker='.', alpha=0.2, color='r')
+  g = g.map_lower(sns.kdeplot, cmap="Blues_d", n_levels=10)
+  g = g.map_diag(plt.hist)
+
+
+  g.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-pairplot.pdf]]
+
+*** Comparison with the Orion Nebula bow shocks
+#+BEGIN_SRC python
+
+#+END_SRC
 *** Where the figures are suposed to be (but they aren't)
 http://iopscience.iop.org/0067-0049/227/2/18/suppdata/
 http://iopscience.iop.org/0067-0049/227/2/18/media
