@@ -2372,9 +2372,9 @@ Plot KDE of the distribution
   + Perhaps the difference is due to them using K_s instead of K
   + And (H - [4.5])_0 varies between about -0.2 for the earliest O stars, up to about -0.05 for the B stars.  By definition, it is 0.0 for A0 stars
   + So, taking -0.1 would be more realistic than +0.08, which will shift the zero point slightly
-+ [ ] So I can recalculate A_K using the formula:
++ [X] So I can recalculate A_K using the formula:
   + A_K = (0.893 \pm 0.090) (H - [4.5] + 0.1)
-+ [ ] And then find the corrected stellar magnitude as:
++ [X] And then find the corrected stellar magnitude as:
   + H_0 = H - (1.55 \pm 0.08) A_K
 
 **** TODO Multifactor pair plot of the non-shape parameters
@@ -2389,43 +2389,117 @@ Plot KDE of the distribution
     + Main uncertainty is due to variations in the IR extinction curve, which give approx 10% uncertainty in A_K
 + /Things that we find:/
   1. Clearest correlation is between size and H_0, which is probably due to distance of the source
-     + H band magnitudes of Trapezium, etc
-       | Star | Sp Type |    H |  A_V |    M_H |
-       |------+---------+------+-----+-------|
-       | \theta^1 C | O7 V    | 4.63 |   1 | -3.58 |
-       | \theta^1 B | B3 V    |  6.3 |   1 | -1.91 |
-       | \theta^1 A | B0 V    |  5.8 |   1 | -2.41 |
-       | \theta^1 D | B1.5 V  | 5.89 |   1 | -2.32 |
-       | \theta^2 A | O9.5 IV | 4.97 | 0.2 | -3.08 |
-       | \theta^2 B | B2-B5 V | 6.27 | 0.2 | -1.78 |
-#+TBLFM: $5=$3 - 0.2 $4 - 8.01
-    + Absolute magnitudes are calculated assuming A_H = 0.2 A_V and D = 400 pc
-      + Distance modulus: 5 log10(D) - 5 = 8.01
-    + So it seems -4 (early O) to -1.5 (mid-B) is a reasonable spread for the H-band absolute magnitude
-      + So that is exactly a factor of 10 in luminosity, which seems reasonable
-      + Say -2 on average (around B2)
-    + The peak in the H_0 histogram is around 9
-      + So this implies distance modulus of 11, or D = 10**((11 + 5)/5) = 1.6 kpc, which is totally reasonable
-    + The faintest sources have H_0 \approx 12, or distance modulus of 14
-      + Implying D = D = 10**((14 + 5)/5) = 6.3 kpc
-      + Note that there is a little clump at H_0 \approx 12 at cos(l) = 1, which may correspond to the Galactic center population!
-        + Those sources may be slightly brighter than B2 stars
-        + If we used -2.5 instead (B0), then we would get 8 kpc
-    + Brightest sources have H_0 \approx 5, or distance modulus of 8
-      + Implying D = 100 pc, which again is reasonable
-    + Total spread due to luminosity spectral type can only be 2.5 mag or so
-      + Say from 10,000 to 100,000 times Lsun
-      + Total spread in distance can be 30 or so, which gives spread of 1000 in observed flux, or 7.5 in apparent magnitude
-      + So conclusion is that the majority of the variation in H_0 should be due to variation in distance
-    + Now consider effect on angular size
-      + If all bow shocks have same physical size, then an increase by a factor of 10 in R_0 is a decrease by a factor of 10 in distance, which is a decrease of 5 in magnitude
-      + This is exactly what is seen!
-    + But we get the same from variations in intrinsic luminosity
-      + Because R_0 \propto \beta{}^{1/2}
-      + And \beta ~ L
+     - This has r = -0.43
+       + Implying that about 20% of the variance in in size is "explained" by variation in H_0
+     - H band magnitudes of Trapezium, etc
+       | Star     | Sp Type |     H |  A_V |    D |    M_H |
+       |----------+---------+-------+-----+------+-------|
+       | \theta^1 C     | O7 V    |  4.63 |   1 |  400 | -3.58 |
+       | \theta^1 B     | B3 V    |   6.3 |   1 |  400 | -1.91 |
+       | \theta^1 A     | B0 V    |   5.8 |   1 |  400 | -2.41 |
+       | \theta^1 D     | B1.5 V  |  5.89 |   1 |  400 | -2.32 |
+       | \theta^2 A     | O9.5 IV |  4.97 | 0.2 |  400 | -3.08 |
+       | \theta^2 B     | B2-B5 V |  6.27 | 0.2 |  400 | -1.78 |
+       |----------+---------+-------+-----+------+-------|
+       | HD 93129 | O2 I    |  6.14 |   1 | 2300 | -5.87 |
+       | \zeta Pup    | O4 I    |   2.9 |   0 |  330 | -4.69 |
+       | \lambda Cep    | O6.5 I  | 4.618 |   0 |  600 | -4.27 |
+       | UW CMa   | O7 I    |  5.19 |   0 |  580 | -3.63 |
+       | 19 Cep   | O9 Ib   |  4.92 |   0 | 1200 | -5.48 |
+       | \alpha Cam    | O9 Ia   |  4.38 |   0 | 1900 | -7.01 |
+       | \zeta Ori    | O9.7 I  |  2.35 |   0 |  225 | -4.41 |
+       | Rigel    | B8 I    |  0.20 |   0 |  260 | -6.87 |
+       #+TBLFM: $6=$3 - 0.2 $4 - (5 log10($5) - 5) ;f2
+     - Absolute magnitudes are calculated assuming A_H = 0.2 A_V and D = 400 pc
+       + Distance modulus: 5 log10(D) - 5 = 8.01
+     - So it seems -4 (early O) to -1.5 (mid-B) is a reasonable spread for the H-band absolute magnitude for MS stars
+       + So that is exactly a factor of 10 in H-band luminosity, which seems reasonable
+         + We show below that F_H \sim F_bol^0.5, so this is a factor of 100 in total luminosity
+       + Say -2 on average (around B2)
+     - Supergiants like \zeta Pup are brighter, reaching -4.69, or -6.87 for Rigel
+       - In general, supergiants will have higher L_H at lower T_eff, since the bolometric luminosities are roughly constant
+       - But the winds will either be roughly constant, or 
+     - The peak in the H_0 histogram is around 9
+       + So this implies distance modulus of 11, or D = 10**((11 + 5)/5) = 1.6 kpc, which is totally reasonable
+     - The faintest sources have H_0 \approx 12, or distance modulus of 14
+       + Implying D = D = 10**((14 + 5)/5) = 6.3 kpc
+       + Note that there is a little clump at H_0 \approx 12 at cos(l) = 1, which may correspond to the Galactic center population!
+         + Those sources may be slightly brighter than B2 stars
+         + If we used -2.5 instead (B0), then we would get 8 kpc
+     - Brightest sources have H_0 \approx 5, or distance modulus of 8
+       + Implying D = 100 pc, which again is reasonable
+     - Total spread due to luminosity spectral type can only be 2.5 mag or so
+       + Say from 10,000 to 100,000 times Lsun
+       + Total spread in distance can be 30 or so, which gives spread of 1000 in observed flux, or 7.5 in apparent magnitude
+       + So conclusion is that the majority of the variation in H_0 should be due to variation in distance
+     - Now consider effect on angular size
+       + If all bow shocks have same physical size, then an increase by a factor of 10 in R_0 is a decrease by a factor of 10 in distance, which is a decrease of 5 in magnitude
+       + This is exactly what is seen!
+     - But we get the same from variations in intrinsic luminosity
+       + Because R_0 \propto \beta{}^{1/2}
+       + And \beta ~ L
+         + Assuming that
+           1. Environment Momentum flux is constant on average
+           2. Stellar wind momentum flux is constant fraction of radiative luminosity
+     - But it seems that a better estimate is that "modified wind momentum" (Mdot V R^{1/2}) is proportional to L^1.88 approx (although this is only really valid above 200,000 Lsun - see Puls 1996)
+       + So we need the R(L) relationship
+       + Use Eker et al (2015)
+         + L \sim M^2.726 for 7 < M < 32 in solar units
+         + R \sim M^0.5 (Fig 7a) => R ~ L^0.18
+           + Giving Mdot V ~ L^1.8
+         + => T ~ M^a where a = (2.726 - 2 0.5) / 4  = 0.4315
+           + Which is consistent with Fig 7b
+           + And which means T \sim L^0.158
+     - So if we take \beta ~ L^1.88 from above
+       + Then bow shock R_0 ~ L^0.94
+       + But how does M_H depend on L?
+         + We are approx in the RJ tail, so L_\lambda ~ T R^2 whereas L_bol ~ T^4 R^2
+         + Therefore F_H ~ L / T_eff^3
+         + Taking T \sim L^0.158 from above
+         + => F_H ~ L^0.526 or L ~ F_H^1.90
+         + This explains why there is only a one order of magnitude in H-band luminosity over the OB stars (although for supergiants, this would no longer hold)
+     - We plot the lines for a B2 star at a range of distances from 300 to 8000 pc
+       + And that reproduces the linear trend very well
+     - We also plot the line for a variety of stars at 2 kpc
+       + This overpredicts the variation in R_0, possibly because in reality brighter stars are interacting with higher-momentum environments, which would stop R_0 from increasing so much
+       + And it cannot explain all the variation in H_0, since for MS stars L_H ~ L^0.5
+         + Although supergiants are not included, and they would go to bigger L_H values
+         + From the above table, they have M_H in range -4 to -7, so up to 100 times brighter than the B2V stars
+         + But they are very rare, so probably don't contribute greatly
+     - [X] Maybe calculate R_0 assuming radiation pressure on dust grain
+       - Calculate distance of closest approach for impact parameter b=0
+       - Equation of motion:
+         1. m a = \sigma (L/c) / (4 \pi r^2) = m v dv / dr
+         2. \int_v0^0 v dv = A \int_\infty^r0 r^-2 dr
+            - where A = \sigma L / 4\pi m c
+         3. -v^2/2  = -A (1/r_0 - 0)
+         4. r_0 = 2 A / v^2 = 2 \sigma L / 4\pi m v^2 c
+       - Also we can write for grains of size a and density \rho_s:
+         - m = 4\pi/3 \rho_s a^3
+         - \sigma = Q \pi a^2
+         - => \sigma/m = 3/4 Q / \rho_s a
+       - E.g., with
+         - \rho_s = 3 g/cm^3
+         - a = 0.1 \micro{}m
+         - L = 1e4 Lsun
+         - v = 50 km/s
+         - Q = 1
+       - We get r_0 = 0.066 pc (L_4 / a_0.1 v_50^2)
+         - This is remarkably close to the 0.1 pc that we had assumed
+         - And note that the dependence on L is almost identical to the stellar wind case (which was also roughly linear)
+         - But, the ambient density does not enter in this case
+       - All this is assuming that the dust is uncoupled from the gas
+         - If they are coupled, then each grain has to drag around 100 times its own mass in gas
+         - Which will reduce the stagnation radius by a factor of 100
+         - So it probably wouldn't be competitive with the hydrodynamic stagnaton radius
+
+  2. Next highest correlation is A_K versus |b|, which is unsurprising: higher extinction closer to the Galactic plane
+  3. Finally, there is a weak correlation of A_K with H_0, due to larger extinction at greater distances.  But the fact that it is so weak implies that the variation between different lines of sight is more important for determining A_K
+
+
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
-  from scipy.stats import ks_2samp, anderson_ksamp
+  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
   from astropy.table import Table
   import astropy.units as u
   import astropy.coordinates as coord
@@ -2499,13 +2573,44 @@ Plot KDE of the distribution
   R0 = (R_phys/Dgrid)*u.rad.to(u.arcsec)
 
   # Against apparent magnitude of an M_H = -2.0 star at the same distances
-  MH = -2.0
-  H = MH + (5*np.log10(Dgrid/u.pc) - 5)
+  MH0 = -2.0
+  H = MH0 + (5*np.log10(Dgrid/u.pc) - 5)
 
   ax = g.axes[0, 3]
   ax.plot(H, np.log10(R0.value), ls='--', c='k', lw=2, alpha=0.8)
   axx = g.axes[3, 0]
   axx.plot(np.log10(R0.value), H, ls='--', c='k', lw=2, alpha=0.8)
+
+  # Now do a varying H magnitude at a fixed distance of 2 kpc
+  D0 = 2000*u.pc
+  MHgrid = np.linspace(-3.6, -1.5)
+  Hb = MHgrid + (5*np.log10(D0/u.pc) - 5)
+
+  # H-band luminosity with respect to M_H = -2.0 star
+  LH = 10**(0.4*(MH0 - MHgrid))
+  # Bolometric luminosities for MS stars
+  L = LH**1.90
+  # Wind momentum relative to fiducial star with fixed environment momentum
+  beta = L**1.80
+  # Bow shock stand-off distance with physical radius ~ sqrt(beta)
+  R0b = (R_phys*np.sqrt(beta)/D0)*u.rad.to(u.arcsec)
+
+  # Plot as yellow dotted
+  ax.plot(Hb, np.log10(R0b.value), ls=':', c='k', lw=2, alpha=0.8)
+  axx.plot(np.log10(R0b.value), Hb, ls=':', c='k', lw=2, alpha=0.8)
+
+  # Calculate Pearson correlations
+  ytext = [None, 0.05, 0.05, 0.05, 0.7]
+  for j, vy in enumerate(pretty_vars):
+      for i, vx in enumerate(pretty_vars[:j]):
+          r, p = pearsonr(df[vx], df[vy])
+          s = f'$r = {r:.2f}$'
+          rax = g.axes[j, i]
+          rax.text(0.95, ytext[j], s,
+                   fontsize='x-small',
+                   ha='right', va='bottom', transform=rax.transAxes)
+
+
 
   g.savefig(figfile)
 
