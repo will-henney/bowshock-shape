@@ -782,6 +782,7 @@ First, radius versus radius
   import seaborn as sns
 
   sns.set_style('white')
+  sns.set_color_codes('dark')
 
   figfile = 'mipsgal-r0-r0.pdf'
 
@@ -802,18 +803,19 @@ First, radius versus radius
   masks = m3, m4, m5
   alphas = 0.2, 0.4, 0.8
   labels = r'3-star', '4-star', '5-star'
-  colors = 'm', 'c', 'b'
+  colors = 'c', 'r', 'b'
+  sizes = 5, 7, 10
 
 
-  for m, alpha, c, label in zip(masks, alphas, colors, labels):
+  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
       ax.errorbar('R0', 'R0_fit', yerr='R0_sigma', data=tab[m],
-                  fmt='o', lw=1, c=c, alpha=alpha, label=label)
+                  fmt='o', lw=1, c=c, ms=ms, alpha=alpha, label=label)
   ax.plot([1.0, 200.0], [1.0, 200.0])
   ax.legend()
   ax.set(
-      xlim=[3, 90], ylim=[3, 90],
-      xlabel='Catalog R0, arcsec',
-      ylabel='Fitted R0, arcsec',
+      xlim=[2, 110], ylim=[2, 110],
+      xlabel='Catalog $R_0$, arcsec',
+      ylabel='Fitted $R_0$, arcsec',
       xscale='log', yscale='log')
 
   fig.savefig(figfile)
@@ -1049,8 +1051,8 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-R90-kde.pdf]]
 
-+ This figure is modified using Graphic.app to add tumbnail images of selected bow shocks
-+ The result is exported in [[file:mipgsgal-Rc-R90-thumbnails.pdf]]
++ This figure is modified using Graphic.app to add thumbnail images of selected bow shocks
++ The result is exported in [[file:mipsgal-Rc-R90-thumbnails.pdf]]
 
 *** AB testing of various sub-sets
 
@@ -1879,7 +1881,7 @@ Plot KDE of the distribution
       ax.plot(tab['Rc'][m], tab['R90'][m], 
               'o', ms=7, alpha=alpha, c=c, label=label)
 
-  ax.legend(frameon=True, loc='upper right', title='Separation')
+  ax.legend(frameon=True, loc='upper right', title='Bow shock\nangular size')
 
 
   #ax.legend(frameon=True, loc='upper right')
@@ -1988,7 +1990,7 @@ Plot KDE of the distribution
 [[file:mipsgal-Rc-R90-R0.pdf]]
 
 ***** Look directly at joint distributions of R_0 and the radial ratios
-+ These tuen out not to be very illuminating
++ These turn out not to be very illuminating
 + The previous graphs are much better
 
 #+BEGIN_SRC python :return figfile :results file
@@ -2136,10 +2138,19 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-ratio-versus-R0.pdf]]
 
-**** Stellar magnitude
+**** DONE Stellar magnitude
+CLOSED: [2017-03-20 Mon 11:31]
 + Another marginal correlation:
   + Brighter sources tend to have larger Rc and R90
   + But we only have p=0.1 or so, so doesn't meet the formal significance requirement 
++ [X] Need to re-do this to use the extinction-corrected distances
+  + It will be interesting to see if the correlation is better or worse that the one with R_0
+  + If it is worse, then it is indirect evidence that it is the non-distance component of the R_0 variation that is responsible for the correlation with shape
++ So it turns out that the correlation is now significant for R_90 although only marginally so for R_c
+  + This would perhaps be consistent with it being intrinsic source luminosity that is influencing the shape
+    + More luminous sources have more open wings
+  + Alternatively, it could be a distance effect
+  + It would argue against it being inclination that is causing the R_0-shape correlation
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp
@@ -2155,6 +2166,13 @@ Plot KDE of the distribution
 
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
+
+  # Recalculate extinction
+  tab['Ak'] = 0.893*(tab['Hmag'] - tab['4.5mag'] + 0.1)
+  tab['Ak'][tab['Ak'] < 0.0] = np.nan
+
+  # Correct H magnitude for extinction
+  tab['Hmag'] -= 1.55*tab['Ak']
 
   for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
       tab[col] /= tab['R0_fit']
@@ -2188,10 +2206,10 @@ Plot KDE of the distribution
 
   mgood = m5 | m4 | m3
 
-  M45_median = np.nanmedian(tab['4.5mag'][mgood])
+  MH_median = np.nanmedian(tab['Hmag'][mgood])
 
-  myes = tab['4.5mag'] <= M45_median
-  mno = tab['4.5mag'] > M45_median
+  myes = tab['Hmag'] <= MH_median
+  mno = tab['Hmag'] > MH_median
 
   masks = myes & mgood, mno & mgood
   shades = True, False
@@ -2217,8 +2235,8 @@ Plot KDE of the distribution
   masks5 = myes & m5, mno & m5
   colors = 'r', 'g'
   alphas = 0.8, 0.8
-  labels = (fr"$M_{{4.5\mu\mathrm{{m}}}} < {M45_median:.1f}$",
-            fr"$M_{{4.5\mu\mathrm{{m}}}} > {M45_median:.1f}$")
+  labels = (fr"$H < {MH_median:.1f}$",
+            fr"$H > {MH_median:.1f}$")
 
   for m, alpha, c, label in zip(masks5, alphas, colors, labels):
       ax.plot(tab['Rc'][m], tab['R90'][m], 
@@ -2377,7 +2395,8 @@ Plot KDE of the distribution
 + [X] And then find the corrected stellar magnitude as:
   + H_0 = H - (1.55 \pm 0.08) A_K
 
-**** TODO Multifactor pair plot of the non-shape parameters
+**** DONE Multifactor pair plot of the non-shape parameters
+CLOSED: [2017-03-20 Mon 10:48]
 + Use =seaborn.pairplot()= to make a grid of regression plots
 + Or =seaborn.PairGrid()= for finer control
 + Note that the sample is only our fitted bow shocks, so doesn't include the non-Spitzer sources
@@ -2534,7 +2553,7 @@ Plot KDE of the distribution
   tab['Ak'] = 0.893*(tab['Hmag'] - tab['4.5mag'] + 0.1)
   tab['Ak'][tab['Ak'] < 0.0] = np.nan
 
-  # Corregt H magnitude for extinction
+  # Correct H magnitude for extinction
   tab['Hmag'] -= 1.55*tab['Ak']
 
   plotvars = ['log10 R0', 'log10 |b|', 'cos(l)', 'Hmag', 'Ak']
@@ -2619,6 +2638,32 @@ Plot KDE of the distribution
 
 #+RESULTS:
 [[file:mipsgal-pairplot.pdf]]
+
+
+
+*** Copy mipsgal figure files to paper folder
+#+BEGIN_SRC sh :results output
+  FIGFILES='mipsgal-r0-r0.pdf mipsgal-Rc-R90-zoom.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf'
+  date
+  pwd
+  for f in $FIGFILES; do
+      cp -av $f ../papers/Paper1/figs 
+  done
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Mon Mar 20 12:19:20 CST 2017
+/Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
+mipsgal-r0-r0.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0.pdf
+mipsgal-Rc-R90-zoom.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom.pdf
+mipsgal-Rc-R90-thumbnails.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-thumbnails.pdf
+mipsgal-pairplot.pdf -> ../papers/Paper1/figs/mipsgal-pairplot.pdf
+mipsgal-Rc-R90-Mag.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-Mag.pdf
+mipsgal-Rc-R90-R0.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-R0.pdf
+mipsgal-Rc-R90-candidates.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-candidates.pdf
+mipsgal-Rc-R90-environment.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-environment.pdf
+#+end_example
 
 *** Comparison with the Orion Nebula bow shocks
 #+BEGIN_SRC python
