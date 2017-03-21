@@ -185,7 +185,28 @@ Expanding the terms of $R(\theta)$ we find the following:
 
 From equation (\ref{eq:Rcurv}) for the radius of curvature we finally get the numerical value for $\tilde{R_c} = \frac{5}{3}$
 
+\section{Distribution of p-values for all correlations tested}
+\label{sec:distr-p-values}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/p-value-histogram}
+  \caption{Histogram of \(p\)-values for all Anderson--Darling
+    non-parametric 2-sample tests performed during the analysis of
+    section~\ref{sec:comp-with-observ}.  The vertical dashed line
+    shows the traditional threshold value for significance:
+    \(p = 0.05\). The red solid line shows the expected distribution
+    of \(p\)-values that would be obtained if no significant
+    correlations existed.}
+  \label{fig:histo-p-values}
+\end{figure}
+
+All astronomical data analysis is \emph{post hoc} analysis, since the universe was not set up to test a particular hypothesis (as far as we know).  It is therefore important to guard against the ``multiple comparisons problem'', whereby seemingly significant correlations are found where none really exist, simply by virtue of the large number of tests that were carried out.
+
+Under the more conservative Holm--Bonferroni method, only comparisons with \(p < 0.001\) would be significant. 
+
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: quadrics-bowshock
+%%% TeX-master: "quadrics-bowshock.tex"
 %%% End:
