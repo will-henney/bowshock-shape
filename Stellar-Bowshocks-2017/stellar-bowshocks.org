@@ -1054,6 +1054,57 @@ Plot KDE of the distribution
 + This figure is modified using Graphic.app to add thumbnail images of selected bow shocks
 + The result is exported in [[file:mipsgal-Rc-R90-thumbnails.pdf]]
 
+
+*** Histograms of differences in PA
++ This is not that informative 
++ [ ] Maybe include it as an inset to the R_0-R_0 graph
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-delta-PA.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  fig, axes = plt.subplots(3, 1, figsize=(5, 6), sharex=True)
+
+  masks = m3, m4, m5
+  colors = 'c', 'r', 'b'
+  labels = '3-star', '4-star', '5-star'
+
+  x1, x2 = -120.0, 120.0
+  for ax, m, c, label in zip(axes, masks, colors, labels):
+      sns.distplot(tab['delta_pa'][m], kde=False,
+                   bins=15, hist_kws={'range': [x1, x2]},
+                   ax=ax, color=c, label=label)
+      ax.axvline(0.0, c='k', ls='--', alpha=0.4)
+      ax.legend()
+      ax.set(xlabel='', xlim=[x1, x2])
+
+  axes[-1].set(
+      xlabel='PA difference: (fitted $-$ nominal), degrees'
+  )
+  fig.tight_layout()
+  fig.savefig(figfile)
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-delta-PA.pdf]]
+
 *** AB testing of various sub-sets
 
 **** H II region versus isolated
@@ -3251,7 +3302,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0.pdf mipsgal-Rc-R90-zoom.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf'
+  FIGFILES='mipsgal-r0-r0.pdf mipsgal-Rc-R90-zoom.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -3261,7 +3312,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Mon Mar 20 12:19:20 CST 2017
+Mon Mar 20 23:16:15 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0.pdf
 mipsgal-Rc-R90-zoom.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom.pdf
@@ -3271,6 +3322,7 @@ mipsgal-Rc-R90-Mag.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-Mag.pdf
 mipsgal-Rc-R90-R0.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-R0.pdf
 mipsgal-Rc-R90-candidates.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-candidates.pdf
 mipsgal-Rc-R90-environment.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-environment.pdf
+mipsgal-Rc-R90-vs-Orion.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Orion.pdf
 #+end_example
 
 Also, example objects for each star rating
@@ -3324,9 +3376,207 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
 
 *** Comparison with the Orion Nebula bow shocks
-#+BEGIN_SRC python
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-vs-Orion.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  otab = Table.read('../LL-shapes-2017/ll-arcs-radii.tab', format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 5.5], [0.0, 5.5], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  R0_median = np.nanmedian(tab['R0_fit'][mgood])
+
+  myes = tab['R0'] >= R0_median
+  mno = tab['R0'] < R0_median
+
+  masks = mgood, 
+  shades = True, 
+  alphas = 0.8, 
+  cmaps = 'Purples', 
+  gammas = 0.5, 
+  lss = None, 
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma, ls in zip(
+          masks, alphas, cmaps, shades, gammas, lss):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.3],
+                  bw=(0.18, 0.12),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+  # masks5 = m5, 
+  # colors = 'purple', 
+  # alphas = 0.8, 
+  # labels = 'MIPSGAL',
+
+  ax.plot(tab['Rc'][m5], tab['R90'][m5], 
+          'o', ms=4, alpha=0.8, c='purple', label='MIPSGAL arcs')
+  ax.plot(otab['Rc out'], otab['R90'], 
+          'o', ms=7, alpha=0.8, c='c', label='M42 arcs')
+
+  ax.legend(frameon=True, loc='lower right', title='')
+
+  Rmax = 9.0
+
+  #ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=[0.0, Rmax], ylim=[0.0, Rmax],
+      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+
+
+  ## Histograms of marginal distributions
+  subwin_w = 0.2
+  subwin_h = 0.09
+  subwin_x0 = 0.4
+  subwin_y0 = 0.65
+  subwin_xmargin = 0.06
+  subwin_ymargin = 0.02
+
+
+  colors = 'purple', 'c'
+  alphas = 0.8, 0.8
+  labels = 'MIPSGAL', 'M42'
+
+  with sns.plotting_context(
+          rc={'axes.labelsize': 9,
+              'xtick.labelsize': 9,
+              'ytick.labelsize': 9,}):
+
+      ax_y_Rc = fig.add_axes((subwin_x0, subwin_y0 + subwin_h + subwin_ymargin,
+                              subwin_w, subwin_h))
+      ax_n_Rc = fig.add_axes((subwin_x0, subwin_y0,
+                              subwin_w, subwin_h))
+      ax_y_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + subwin_h + subwin_ymargin,
+                               subwin_w, subwin_h))
+      ax_n_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0,
+                               subwin_w, subwin_h))
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      yq0, dyq = 0.1, 0.05
+      datasets = tab['Rc'][m], otab['Rc out']
+      for data, c, axx in zip(datasets, colors, [ax_y_Rc, ax_n_Rc]):
+          sns.distplot(data, bins=8, hist_kws={'range': [0.0, Rmax]},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(data,
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(data, datasets[0])
+              AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.5f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+          axx.set(xlim=[0.0, Rmax], xticks=[0, 2, 4, 6, 8])
+          sns.despine(ax=axx, trim=True, offset=None)
+      #
+      ax_n_Rc.set(xlabel=r'$R_c/R_0$')
+      ax_y_Rc.set(xlabel='')
+      ax_y_Rc.tick_params(labelbottom='off') 
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      datasets = tab['R90'][m], otab['R90']
+      for data, c, axx in zip(datasets, colors, [ax_y_R90, ax_n_R90]):
+          sns.distplot(data, bins=8, hist_kws={'range': [0.0, Rmax]},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(data,
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(data, datasets[0])
+              AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
+						 midrank=False)
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.5f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+          axx.set(xlim=[0.0, Rmax], xticks=[0, 2, 4, 6, 8])
+          sns.despine(ax=axx, trim=True, offset=None)
+      ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
+      ax_y_R90.set(xlabel='')
+      ax_y_R90.tick_params(labelbottom='off') 
+
+  fig.savefig(figfile)
+
 
 #+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-vs-Orion.pdf]]
+
 *** Where the figures are suposed to be (but they aren't)
 http://iopscience.iop.org/0067-0049/227/2/18/suppdata/
 http://iopscience.iop.org/0067-0049/227/2/18/media

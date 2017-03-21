@@ -23,7 +23,7 @@ Rcols = [_ for _ in cols if _.startswith('R')]
 
 for table in table_LL, table_RSG:
     for col in Rcols:
-        if col in table:
+        if col in table.colnames:
             m = table[col] < 0.0
             table[col][m] = np.nan
 
@@ -32,6 +32,9 @@ for table in table_LL, table_RSG:
     table['R90'] = np.nanmean(R90stack, axis=0)
     table['dR90'] = np.nanstd(R90stack, axis=0)
     table.remove_columns(['R90 out', 'Rm90 out'])
+
+table_LL.write('ll-arcs-radii.tab', overwrite=True, format='ascii.tab')
+table_RSG.write('rsg-arcs-radii.tab', overwrite=True, format='ascii.tab')
 
 plotfile = sys.argv[0].replace('.py', '.pdf')
 
