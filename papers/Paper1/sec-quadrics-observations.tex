@@ -1,3 +1,5 @@
+\newcommand\hii{\ion{H}{ii}}
+
 
 \section{Comparison with observations}
 \label{sec:comp-with-observ}
@@ -13,25 +15,66 @@ Placing various classes of objects on the \(R_{90}\)--\(R_c\) plane:
 \subsection{Mid-infrared arcs around early-type stars}
 \label{sec:mid-infrared-arcs}
 
-\begin{figure}
-  (a)\\
-  \includegraphics[width=\linewidth]{figs/0510-3-star}
-  (b)\\
-  \includegraphics[width=\linewidth]{figs/0506-4-star}
-  (c)\\
-  \includegraphics[width=\linewidth]{figs/0517-5-star}
-  \caption[]{Examples of fits to the bow shock shapes of MIPSGAL sources.}
+The most extensive sample of stellar bow shock nebulae to date is a
+catalog of 709 arcs \citep{Kobulnicky:2016a} detected in mid-infrared
+surveys of the Galactic Plane by the \textit{Spitzer Space Telescope}
+(\textit{SST}, \citealp{Werner:2004a}) and \textit{Wide-field Infrared
+  Survey Explorer} (\textit{WISE}, \citealp{Wright:2010a}).  These
+sources are believed to be powered by the winds of early-type stars,
+which are either moving supersonically through the interstellar medium
+(runaway stars), or are interacting with a local bulk flow, such as
+the champagne flow from a nearby \hii{} region.
+
+
+\begin{figure*}
+  \setlength\tabcolsep{0pt}
+  \begin{tabular}{ll}
+    (a)
+    & (b) \\
+    \includegraphics
+    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0510-3-star}
+    & \includegraphics
+      [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0506-4-star} \\
+    (c)
+    & (d) \\
+    \includegraphics
+    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0517-5-star}
+    & \multicolumn{1}{c}
+      {\includegraphics[width=0.35\linewidth, trim=20 20 60 60]
+      {figs/mipsgal-r0-r0-plus-dPA-edited}}
+  \end{tabular}
+  \caption[]{Examples of typical fits to the bow shock shapes of
+    MIPSGAL sources with different star ratings: (a) K510, 3-star
+    rating; (b) K506, 4-star rating; (c) K517, 5-star rating.  Right
+    panels of parts (a)--(c) show a 4\('\) square \SI{24}{\um} image,
+    centered on each source.  Contours are ten linearly spaced levels
+    between the median brightness of the entire image and the maximum
+    brightness of the bow shock arc. Grids of galactic coordinates
+    (light blue lines, parallel to the box sides) and equatorial
+    coordinates (tilted magenta lines) are shown.  The stellar source
+    and the bow shock axis, as determined by \citet{Kobulnicky:2016a}
+    are indicated by an orange star and an orange line, respectively,
+    where the line extends from \(-2 R_0\) to \(+2 R_0\).  The
+    automatically traced arc shapes using the ``mean'' and ``peak''
+    methods (see text) are shown by blue and red dots, respectively.
+    The magenta circle shows the fit to the arc points within
+    \(\pm 45^\circ\) of the nominal bowshock axis, with the magenta dot
+    showing the center of curvature and the magenta line showing the
+    fitted bow shock axis, which is the line passing through the
+    source and the center of curvature.  Left panels of parts (a)--(c)
+    show the radius measured from the source (upper panel) and
+    brightness (lower panel) of the arc points, plotted as a function
+    of angle \(\theta\) from the nominal bow shock axis, and with the same
+    color coding as used on the image. Angular ranges of
+    \(\theta = \pm 45\degr\) and \(\pm 90\degr\) are shown by gray shaded
+    boxes In the upper panel, the \(R_0\) value tabulated by
+    \citet{Kobulnicky:2016a} is shown by a horizontal blue line. (d)
+    Comparison of the bow shock sizes (scatter plot) and position
+    angles (inset histograms) determined from our fits with those
+    tabulated by \citet{Kobulnicky:2016a} for the MIPSGAL sources.}
   \label{fig:mipsgal-examples}
-\end{figure}
+\end{figure*}
 
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/mipsgal-r0-r0}
-  \caption[]{Comparison of the bow shock sizes determined from our fits
-    with those given by Kobulnicky for the MIPSGAL sources.}
-  \label{fig:mipsgal-sizes}
-\end{figure}
 
 
 \begin{figure*}
@@ -62,9 +105,11 @@ Placing various classes of objects on the \(R_{90}\)--\(R_c\) plane:
     \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-R0} &
     \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-Mag} 
   \end{tabular}
-  \caption[]{Significant correlation of bow shock shape with (a) bow
-    shock angular size, and (b) extinction-corrected magnitude of
-    stellar source.}
+  \caption[]{Comparison between the distribution of bowshock shapes
+    when the sources are divided into two sub-samples according to the
+    value of another parameter. (a)~Bow shock angular size, \(R_0\).
+    (b)~Extinction-corrected \(H\)-band magnitude of the stellar
+    source.}
   \label{fig:mipsgal-correlated}
 \end{figure*}
 
