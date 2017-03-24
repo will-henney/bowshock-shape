@@ -25,6 +25,55 @@ which are either moving supersonically through the interstellar medium
 (runaway stars), or are interacting with a local bulk flow, such as
 the champagne flow from a nearby \hii{} region.
 
+In order to study the shapes of these bow shocks, we downloaded data
+from the NASA/IPAC Infrared Science Archive archive\footnote{
+  \url{http://irsa.ipac.caltech.edu/docs/program_interface/api_images.html}}
+and extracted 4\arcmin{} square images in the \SI{24}{\um} bandpass of
+the Multiband Imaging Photometer for \textit{Spitzer} (MIPS) centered
+on each of the 471 \citet{Kobulnicky:2016a} sources that are covered
+by the MIPSGAL \citep{Carey:2009a} survey, which includes most of the
+sources with Galactic longitude within \(\pm 60\degr\) of the Galactic
+center.
+
+We developed a methodology for automatically tracing the arcs as follows:
+\begin{enumerate}[1.]
+\item Calculate arrays of celestial coordinates, \(C\), for each pixel
+  of the image.
+\item Using the central source coordinates, \(C_0\) and nominal
+  bowshock radius, \(R_0\) from \citet{Kobulnicky:2016a}, construct a
+  pixel mask that includes only those pixels with separations
+  \(|C - C_0|\) from the source that lie between \(0.5 R_0\) and
+  \(3 R_0\).  This mask will be used for all subsequent operations,
+  which serves to help avoid confusion from the star itself and other
+  bright sources in the field of view.
+\item Define a ``step-back'' point, \(C_1\), which is located at a
+  separation \(2 R_0\) from the source, but in the opposite direction
+  from the apex of the bow shock. That is, along a position angle
+  180\degr{} from the nominal position angle, \(\text{PA}_0\), of
+  the bow shock axis.
+\item Looping over a grid of 50 position angles, \(\text{PA}_k\), within
+  \(\pm 60\degr\) of \(\text{PA}_0\), estimate the location of the
+  arc along each PA from the step-back point via two different methods:
+  \begin{enumerate}[(a)]
+  \item The pixel with the maximum brightness, with coordinates
+    \(C_{k,\text{peak}}\) (red dots in
+    Fig.~\ref{fig:mipsgal-examples}).
+  \item The mean brightness-weighted separation from \(C_1\), with
+    coordinates \(C_{k,\text{mean}}\) (light blue dots in
+    Fig.~\ref{fig:mipsgal-examples}).
+  \end{enumerate}
+  For each \(\text{PA}_k\) in the grid, the calculation is performed
+  over only those pixels that satisfy
+  \(|\text{PA}(C, C_1) - \text{PA}_k| < \frac12 \delta\theta\), where
+  \(\delta\theta = 120/50 = 2.4\degr\), which defines a thin radial wedge from
+  \(C_1\).
+\item For each of the points \(C_{k,\text{peak}}\) and \(C_{k,\text{mean}}\), determine the separation from the central source, \(R_k = |C_k - C_0|\) and the angle from the bow shock axis about the central source \(\theta_k = \text{PA}(C_k, C_0) - \text{PA}_0\) 
+
+\end{enumerate}
+
+
+
+
 
 \begin{figure*}
   \setlength\tabcolsep{0pt}
