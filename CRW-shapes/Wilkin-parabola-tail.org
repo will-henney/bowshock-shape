@@ -1,3 +1,5 @@
+#+OPTIONS: ^:{}
+
 FIT QUADRICS TO WILKIN SHELL SHAPE
 
 * DONE Fit to the head
@@ -73,7 +75,7 @@ x_0 = \frac{x_1 + x_2}{2} + \frac{1}{4\tilde{R}_c}\left(y_1^2 + y_2^2\right)
 ** TODO  "Gradient method"
 ** DONE Test the "Two points" method
 #+NAME: Wilkin-Parabola-Fit-2points
-#+BEGIN_SRC :eval no :tangle ./2-points-parabola-fit.py
+#+BEGIN_SRC python :eval no :tangle ./2-points-parabola-fit.py
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -155,6 +157,12 @@ The parabola fit is only good in the region \theta_l < \theta < \theta_h,
 where \theta_l is the point with lower \theta and \theta_h the point with 
 higher \theta. And becomes less accurate if \theta_l and \theta_h are very
 separated.
+
+#+BEGIN_SRC sh :results verbatim
+python 2-points-parabola-fit.py
+#+END_SRC
+
+#+RESULTS:
 
 ** TODO Test the "Gradient method"
 
