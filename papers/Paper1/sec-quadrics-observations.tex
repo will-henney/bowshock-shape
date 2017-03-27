@@ -14,15 +14,16 @@ Placing various classes of objects on the \(R_{90}\)--\(R_c\) plane:
 \subsection{Mid-infrared arcs around early-type stars}
 \label{sec:mid-infrared-arcs}
 
-The most extensive sample of stellar bow shock nebulae to date is a
-catalog of 709 arcs \citep{Kobulnicky:2016a} detected in mid-infrared
-surveys of the Galactic Plane by the \textit{Spitzer Space Telescope}
-(\textit{SST}, \citealp{Werner:2004a}) and \textit{Wide-field Infrared
-  Survey Explorer} (\textit{WISE}, \citealp{Wright:2010a}).  These
-sources are believed to be powered by the winds of early-type stars,
-which are either moving supersonically through the interstellar medium
-(runaway stars), or are interacting with a local bulk flow, such as
-the champagne flow from a nearby \hii{} region.
+The most extensive observational sample of stellar bow shock nebulae
+to date is a catalog of 709 arcs \citep{Kobulnicky:2016a} detected in
+mid-infrared surveys of the Galactic Plane by the \textit{Spitzer
+  Space Telescope} (\textit{SST}, \citealp{Werner:2004a}) and
+\textit{Wide-field Infrared Survey Explorer} (\textit{WISE},
+\citealp{Wright:2010a}).  These sources are believed to be powered by
+the winds of early-type stars, which are either moving supersonically
+through the interstellar medium (runaway stars), or are interacting
+with a local bulk flow, such as the champagne flow from a nearby
+\hii{} region.
 
 In order to study the shapes of these bow shocks, we downloaded data
 from the NASA/IPAC Infrared Science Archive archive\footnote{
@@ -40,11 +41,11 @@ We developed a methodology for automatically tracing the arcs as follows:
   of the image.
 \item Using the central source coordinates, \(C_0\) and nominal
   bowshock radius, \(R_0\) from \citet{Kobulnicky:2016a}, construct a
-  pixel mask that includes only those pixels with separations
-  \(|C - C_0|\) from the source that lie between \(0.5 R_0\) and
-  \(3 R_0\).  This mask will be used for all subsequent operations,
-  which serves to help avoid confusion from the star itself and other
-  bright sources in the field of view.
+  pixel mask that includes only those pixels with separations from the
+  source that satisfy \(\frac12 R_0 \le |C - C_0| \le 3 R_0\).  This mask
+  will be used for all subsequent operations, which serves to help
+  avoid confusion from the star itself and other bright sources in the
+  field of view.
 \item Define a ``step-back'' point, \(C_1\), which is located at a
   separation \(2 R_0\) from the source, but in the opposite direction
   from the apex of the bow shock. That is, along a position angle
@@ -65,12 +66,73 @@ We developed a methodology for automatically tracing the arcs as follows:
   over only those pixels that satisfy
   \(|\text{PA}(C, C_1) - \text{PA}_k| < \frac12 \delta\theta\), where
   \(\delta\theta = 120/50 = 2.4\degr\), which defines a thin radial wedge from
-  \(C_1\).
-\item For each of the points \(C_{k,\text{peak}}\) and \(C_{k,\text{mean}}\), determine the radial separation from the central source, \(R_k = |C_k - C_0|\) and the angle from the bow shock axis about the central source \(\theta_k = \text{PA}(C_k, C_0) - \text{PA}_0\).  These are plotted in the upper left panels of  Figure~\ref{fig:mipsgal-examples}. 
-
+  \(C_1\).  The results are shown as red and blue dots superimposed
+  on the images in Figure~\ref{fig:mipsgal-examples}. Each of the two
+  methods, ``peak'' and ``mean'', works better in some objects and
+  worse in others (according to the subjective judgment of
+  ``correctly'' tracing the bow shock shape).  We therefore take the
+  average by amalgamating all the \(C_{k,\text{peak}}\) and
+  \(C_{k,\text{mean}}\) points into a single set, \(C_{k}\), for
+  subsequent analysis.
+\item For each of the points \(C_{k}\), determine the radial
+  separation from the central source, \(R_k = |C_k - C_0|\) and the
+  angle from the bow shock axis about the central source
+  \(\theta_k = \text{PA}(C_k, C_0) - \text{PA}_0\).  These are plotted in
+  the upper left panels of Figure~\ref{fig:mipsgal-examples}.
+\item Make our own estimate of the axial size, \(R_0\), of the bow
+  shock by calculating the mean and standard deviation of \(R_k\) over
+  all points \(C_k\) with \(|\theta_k| \le 10\degr\).  Note that this is
+  distinct from the nominal value of \(R_0\) given in the
+  \citet{Kobulnicky:2016a} catalog, which was ``measured by eye''.
+\item Estimate the radius of curvature, \(R_c\), by fitting a circle
+  to all those points within \(\pm 45\degr\) of the nominal axis
+  (\(|\theta_k| < 45\degr\)), but after excluding any point with
+  \(R_k < \frac12 R_m\) or \(R_k > 2 R_m\), where \(R_m\) is the median
+  \(R_k\) for \(|\theta_k| < 45\degr\).
+\item Determine two separate estimates, \(R_{90+}\) and \(R_{90-}\),
+  of the perpendicular radius, \(R_{90}\), by taking the mean and
+  standard deviation of \(R_k\) over all points \(C_k\) with
+  \(|\theta_k - 90\degr| \le 10\degr\) for \(R_{90+}\), and with
+  \(|\theta_k + 90\degr| \le 10\degr\) for \(R_{90-}\).
 \end{enumerate}
 
+After these automatic steps, we subjectively evaluate the results by giving a star rating to each source:
 
+\paragraph*{0 stars} The fitting algorithm failed for some reason. 
+
+\paragraph*{1 star} The fit was formally successful, but the results
+for \(R_c\) or \(R_{90}\) are far removed from what a human would
+predict by looking at the image.  For example, in the smallest
+bowshocks, which are only marginally resolved by Spitzer's 6\arcsec{}
+beam, the dispersion in \(R_k\) can be a significant fraction of
+\(R_0\), in which case our algorithm tends to erroneously favor
+\(R_c < R_0\).
+
+\paragraph*{2 stars} The fit results are not totally outlandish, but
+nonetheless some problem is apparent that casts doubt on the
+reliability of the results.  For example, a double-shell structure to
+the bow shock that leads to large differences between the ``peak'' and
+``mean'' methods, or point sources near to the bow shock that
+interfere with the tracing procedure.
+  
+\paragraph*{3 stars} A good fit, but where the dispersion in \(R_k\)
+and/or the asymmetry in the bow shock reduces the precision in the
+determination of \(R_c\) and \(R_{90}\), giving subjectively estimated
+uncertainties around the 20\% level.  An example of a 3-star fit is
+shown in Figure~\ref{fig:mipsgal-examples}a.
+
+\paragraph*{4 stars} A high quality fit, with subjectively estimated
+uncertainties in \(R_c\) and \(R_{90}\) around the 10\% level. An
+example of a 4-star fit is shown in
+Figure~\ref{fig:mipsgal-examples}b.
+
+\paragraph*{5 stars} The highest-quality fit, usually corresponding to
+large, sharply defined bow shocks, whose shape is determined with high
+precision. An example of a 5-star fit is shown in
+Figure~\ref{fig:mipsgal-examples}c.
+
+\bigskip
+Only sources with a 3-star or higher rating are used in the following analysis, which amount to approximately half (227 out of 471) of all the MIPSGAL arc sources. 
 
 
 

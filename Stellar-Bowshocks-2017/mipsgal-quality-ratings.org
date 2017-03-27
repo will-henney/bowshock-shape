@@ -534,7 +534,7 @@
 | 619 |      0 | Fit failed             |
 | 620 |      3 |                        |
 | 621 |      3 |                        |
-| 622 |      1 | Rc too big             |
+| 622 |      1 | Rc too small           |
 | 623 |      2 | Rc a bit too big       |
 | 624 |      4 |                        |
 | 625 |      2 | Rc a bit too small     |
