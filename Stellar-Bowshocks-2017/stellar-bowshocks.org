@@ -812,7 +812,7 @@ First, radius versus radius
                   fmt='o', lw=1, c=c, ms=ms, alpha=alpha,
                   label=f'{label} ($N = {m.sum()}$)')
   ax.plot([1.0, 200.0], [1.0, 200.0])
-  ax.axhline(6.0, 0.0, 0.55, ls=':', lw=1, color='k')
+  ax.axhline(5.5, 0.0, 0.55, ls=':', lw=1, color='k')
   ax.legend()
   ax.set(
       xlim=[2, 110], ylim=[2, 110],
@@ -1093,9 +1093,10 @@ Plot KDE of the distribution
       sigma = np.nanstd(tab['delta_pa'][m])
       sns.distplot(tab['delta_pa'][m], kde=False,
                    bins=15, hist_kws={'range': [x1, x2]},
-                   ax=ax, color=c, label=label)
+                   ax=ax, color=c,
+                   label=fr'{label}' + '\n' + fr'$\sigma = {sigma:.0f}^\circ$')
       ax.axvline(0.0, c='k', ls='--', alpha=0.4)
-      ax.legend()
+      ax.legend(fontsize='x-small')
       ax.set(xlabel='', xlim=[x1, x2])
       sns.despine(ax=ax, trim=True)
 
@@ -3361,7 +3362,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Mon Mar 27 21:52:44 CST 2017
+Tue Mar 28 11:12:51 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom.pdf
