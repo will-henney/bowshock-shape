@@ -800,17 +800,19 @@ First, radius versus radius
   m2 = tab['Rating'] ==  2
   m1 = tab['Rating'] ==  1
 
-  masks = m3, m4, m5
-  alphas = 0.2, 0.4, 0.8
-  labels = r'3-star', '4-star', '5-star'
-  colors = 'c', 'r', 'b'
-  sizes = 5, 7, 10
+  masks = (m1 | m2), m3, m4, m5
+  alphas = 0.05, 0.3, 0.5, 0.8
+  labels = '1- or 2-star', '3-star', '4-star', '5-star'
+  colors = 'k', 'c', 'r', 'b'
+  sizes = 3, 5, 7, 10
 
 
   for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
       ax.errorbar('R0', 'R0_fit', yerr='R0_sigma', data=tab[m],
-                  fmt='o', lw=1, c=c, ms=ms, alpha=alpha, label=label)
+                  fmt='o', lw=1, c=c, ms=ms, alpha=alpha,
+                  label=f'{label} ($N = {m.sum()}$)')
   ax.plot([1.0, 200.0], [1.0, 200.0])
+  ax.axhline(6.0, 0.0, 0.55, ls=':', lw=1, color='k')
   ax.legend()
   ax.set(
       xlim=[2, 110], ylim=[2, 110],
