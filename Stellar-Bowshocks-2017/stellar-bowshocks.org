@@ -202,7 +202,8 @@ mkdir -pv OB/MipsGal
           imfn = os.path.join(OUTPUT_IMAGE_DIR, f'{imid}.fits')
           imwin.writeto(imfn, overwrite=True)
 #+END_SRC
-*** How to trace the shapes of the OB bow shocks
+*** DONE How to trace the shapes of the OB bow shocks
+CLOSED: [2017-03-28 Tue 13:24]
 + Strategy is to start at the nominal PA of the bowshock axis and take radial slices
   + Maybe fit a Gaussian brightness as function of radius for each \theta
   + calculate \theta and R for each pixel
@@ -214,17 +215,17 @@ mkdir -pv OB/MipsGal
   + We can call this angle \theta_c
   + The idea is that we are best off taking slices that are close to normal to the bowshock, so that we can get out to \theta = \pm 90\deg if we are lucky
 + [X] Note that at some point I might want to use "sky offset" frames - see documentation for =astropy.coordinates=
-+ [-] Improvements to make [2017-03-09 Thu]
++ [X] Improvements to make [2017-03-09 Thu]
   + [X] Add a vector to image to show nominal axis PA
   + [X] Indicate which cases have doubt about the central star
   + [X] Use the =OVERRIDE= dict for sources with bad data
   + [X] Try taking a longer step-back distance (maybe twice R0)
   + [X] Add the \pm90 vertical lines to the graphs
-  + [ ] (/maybe/) Mask out the stars
+  + [X] (/ABANDONED/) Mask out the stars
     + Either detect point sources
     + Or, download the 8 micron images
   + [X] Do the Rc and R90 fits
-  + [ ] Deal with cases where the object dows not fit in the box:
+  + [X] (/ABANDONED/) Deal with cases where the object dows not fit in the box:
     + 534, 542
 + List of the nicest sources
   + 001 - Rc/R0 = 0.8, R90/R0 = 1.4 (misidentified source)
@@ -3352,7 +3353,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf'
+  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -3362,10 +3363,10 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Tue Mar 28 11:12:51 CST 2017
+Tue Mar 28 14:34:37 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
-mipsgal-Rc-R90-zoom.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom.pdf
+mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
 mipsgal-Rc-R90-thumbnails.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-thumbnails.pdf
 mipsgal-pairplot.pdf -> ../papers/Paper1/figs/mipsgal-pairplot.pdf
 mipsgal-Rc-R90-Mag.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-Mag.pdf
