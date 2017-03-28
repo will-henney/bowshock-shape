@@ -1,0 +1,45 @@
+import numpy as np
+from astropy.table import Table
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+sns.set_style('white')
+sns.set_color_codes('dark')
+
+figfile = 'mipsgal-delta-PA.pdf'
+
+combo_file = 'mipsgal-arcfit.tab'
+tab = Table.read(combo_file, format='ascii.tab')
+
+m5 = tab['Rating'] ==  5
+m4 = tab['Rating'] ==  4
+m3 = tab['Rating'] ==  3
+m2 = tab['Rating'] ==  2
+m1 = tab['Rating'] ==  1
+
+mgood = m5 | m4 | m3
+
+fig, axes = plt.subplots(3, 1, figsize=(3.5, 4), sharex=True)
+
+masks = m3, m4, m5
+colors = 'c', 'r', 'b'
+labels = '3-star', '4-star', '5-star'
+
+x1, x2 = -105.0, 105.0
+for ax, m, c, label in zip(axes, masks, colors, labels):
+    sigma = np.nanstd(tab['delta_pa'][m])
+    sns.distplot(tab['delta_pa'][m], kde=False,
+                 bins=15, hist_kws={'range': [x1, x2]},
+                 ax=ax, color=c,
+                 label=f'{label} ($$)')
+    ax.axvline(0.0, c='k', ls='--', alpha=0.4)
+    ax.legend()
+    ax.set(xlabel='', xlim=[x1, x2])
+    sns.despine(ax=ax, trim=True)
+
+axes[-1].set(
+    xlabel='PA difference: (fitted $-$ catalog), degrees',
+    ylabel='Number of sources',
+)
+fig.tight_layout()
+fig.savefig(figfile)

@@ -14,6 +14,56 @@ Placing various classes of objects on the \(R_{90}\)--\(R_c\) plane:
 \subsection{Mid-infrared arcs around early-type stars}
 \label{sec:mid-infrared-arcs}
 
+\begin{figure*}
+  \setlength\tabcolsep{0pt}
+  \begin{tabular}{ll}
+    (a)
+    & (b) \\
+    \includegraphics
+    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0510-3-star}
+    & \includegraphics
+      [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0506-4-star} \\
+    (c)
+    & (d) \\
+    \includegraphics
+    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0517-5-star}
+    & \multicolumn{1}{c}
+      {\includegraphics[width=0.35\linewidth, trim=20 20 20 20]
+      {figs/mipsgal-r0-r0-plus-dPA-edited}}
+  \end{tabular}
+  \caption[]{Examples of typical fits to the bow shock shapes of
+    MIPSGAL sources with different star ratings: (a) K510, 3-star
+    rating; (b) K506, 4-star rating; (c) K517, 5-star rating.  Right
+    panels of parts (a)--(c) show a 4\('\) square \SI{24}{\um} image,
+    centered on each source.  Contours are ten linearly spaced levels
+    between the median brightness of the entire image and the maximum
+    brightness of the bow shock arc. Grids of galactic coordinates
+    (light blue lines, parallel to the box sides) and equatorial
+    coordinates (tilted magenta lines) are shown.  The stellar source
+    and the bow shock axis, as determined by \citet{Kobulnicky:2016a}
+    are indicated by an orange star and an orange line, respectively,
+    where the line extends from \(-2 R_0\) to \(+2 R_0\).  The
+    automatically traced arc shapes using the ``mean'' and ``peak''
+    methods (see text) are shown by blue and red dots, respectively.
+    The magenta circle shows the fit to the arc points within
+    \(\pm 45^\circ\) of the nominal bowshock axis, with the magenta dot
+    showing the center of curvature and the magenta line showing the
+    fitted bow shock axis, which is the line passing through the
+    source and the center of curvature.  Left panels of parts (a)--(c)
+    show the radius measured from the source (upper panel) and
+    brightness (lower panel) of the arc points, plotted as a function
+    of angle \(\theta\) from the nominal bow shock axis, and with the same
+    color coding as used on the image. Angular ranges of
+    \(\theta = \pm 45\degr\) and \(\pm 90\degr\) are shown by gray shaded
+    boxes In the upper panel, the \(R_0\) value tabulated by
+    \citet{Kobulnicky:2016a} is shown by a horizontal blue line. (d)
+    Comparison of the bow shock sizes (scatter plot) and position
+    angles (inset histograms) determined from our fits with those
+    tabulated by \citet{Kobulnicky:2016a} for the MIPSGAL sources.}
+  \label{fig:mipsgal-examples}
+\end{figure*}
+
+
 The most extensive observational sample of stellar bow shock nebulae
 to date is a catalog of 709 arcs \citep{Kobulnicky:2016a} detected in
 mid-infrared surveys of the Galactic Plane by the \textit{Spitzer
@@ -50,13 +100,16 @@ We developed a methodology for automatically tracing the arcs as follows:
 \item Define a ``step-back'' point, \(C_1\), which is located at a
   separation \(2 R_0\) from the source, but in the opposite direction
   from the apex of the bow shock. That is, along a position angle
-  180\degr{} from the nominal position angle, \(\text{PA}_0\), of
-  the bow shock axis.
-\item Looping over a grid of 50 position angles, \(\text{PA}_k\), within
-  \(\pm 60\degr\) of \(\text{PA}_0\), estimate the location of the
-  arc along each PA from the step-back point via two different methods:
+  180\degr{} from the nominal position angle, \(\text{PA}_0\), of the
+  bow shock axis.  This point is at one end of the orange line shown
+  superimposed on the bow shock images in
+  Figure~\ref{fig:mipsgal-examples}.
+\item Looping over a grid of 50 position angles, \(\text{PA}_k\),
+  within \(\pm 60\degr\) of \(\text{PA}_0\), estimate the location of
+  the arc along rays cast from the step-back point, using two
+  different methods:
   \begin{enumerate}[(a)]
-  \item The pixel with the maximum brightness, with coordinates
+  \item The pixel with the peak brightness, with coordinates
     \(C_{k,\text{peak}}\) (red dots in
     Fig.~\ref{fig:mipsgal-examples}).
   \item The mean brightness-weighted separation from \(C_1\), with
@@ -74,12 +127,17 @@ We developed a methodology for automatically tracing the arcs as follows:
   ``correctly'' tracing the bow shock shape).  We therefore take the
   average by amalgamating all the \(C_{k,\text{peak}}\) and
   \(C_{k,\text{mean}}\) points into a single set, \(C_{k}\), for
-  subsequent analysis.
+  the following steps.
 \item For each of the points \(C_{k}\), determine the radial
   separation from the central source, \(R_k = |C_k - C_0|\) and the
   angle from the bow shock axis about the central source
   \(\theta_k = \text{PA}(C_k, C_0) - \text{PA}_0\).  These are plotted in
-  the upper left panels of Figure~\ref{fig:mipsgal-examples}.
+  the upper left panels of Figure~\ref{fig:mipsgal-examples}.  Note
+  that, even though the rays are cast from the step-back point \(C_1\)
+  within \(\pm 60\degr\) of \(\text{PA}_0\), the angles \(\theta_k\) are
+  measured from the source, \(C_0\), which is closer to the bow shock
+  than \(C_1\) and therefore \(|\theta_k|\) can be much larger than
+  \(60\degr\).
 \item Make our own estimate of the axial size, \(R_0\), of the bow
   shock by calculating the mean and standard deviation of \(R_k\) over
   all points \(C_k\) with \(|\theta_k| \le 10\degr\).  Note that this is
@@ -133,8 +191,7 @@ precision. An example of a 5-star fit is shown in
 Figure~\ref{fig:mipsgal-examples}c.
 
 \bigskip
-Only sources with a 3-star or higher rating are used in the following analysis, which comprise approximately half (227 out of 471) of all the MIPSGAL arc sources.  In some cases of poor and failed fits, there is nothing apparently ``wrong'' with the source itself, and it is likely that minor tweaks to the methodology would improve matters.  But we have elected not to do so, in order to maintain a uniform methodology across all sources.  
-
+%
 Figure~\ref{fig:mipsgal-examples}d compares the bow shock size,
 \(R_0\), determined by our fits (vertical axis) with the corresponding
 value given in the \citet{Kobulnicky:2016a} catalog (horizontal axis).
@@ -142,57 +199,22 @@ For most sources with 3-star or higher rating, the two estimates agree
 to within \(\pm 20\%\), but there are a small number of sources with a
 discrepancy of more than a factor of two.  In all cases that we
 checked, we believe that our estimates of \(R_0\) are more accurate
-than those in the catalog.
+than those in the catalog.  It is apparent that the star ratings are
+correlated with the bow shock size, with larger bow shocks tending to
+receive higher ratings, although there is considerable overlap.  In
+particular, most of the 1- and 2-star sources are close to the
+resolution limit of the MIPSGAL \SI{24}{\um} images (\(6\arcsec\),
+indicated by the dotted horizontal line in te figure).
 
+In the following analysis, only those sources with a 3-star or higher
+rating are used.  These comprise approximately half (227 out of 471)
+of all the MIPSGAL arc sources.  In some cases of poor and failed
+fits, there is nothing apparently ``wrong'' with the source itself,
+and it is likely that minor tweaks to the methodology would improve
+matters, but we have elected not to do so, in order to maintain a
+uniform methodology across all sources.
 
-\begin{figure*}
-  \setlength\tabcolsep{0pt}
-  \begin{tabular}{ll}
-    (a)
-    & (b) \\
-    \includegraphics
-    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0510-3-star}
-    & \includegraphics
-      [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0506-4-star} \\
-    (c)
-    & (d) \\
-    \includegraphics
-    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0517-5-star}
-    & \multicolumn{1}{c}
-      {\includegraphics[width=0.35\linewidth, trim=20 20 60 60]
-      {figs/mipsgal-r0-r0-plus-dPA-edited}}
-  \end{tabular}
-  \caption[]{Examples of typical fits to the bow shock shapes of
-    MIPSGAL sources with different star ratings: (a) K510, 3-star
-    rating; (b) K506, 4-star rating; (c) K517, 5-star rating.  Right
-    panels of parts (a)--(c) show a 4\('\) square \SI{24}{\um} image,
-    centered on each source.  Contours are ten linearly spaced levels
-    between the median brightness of the entire image and the maximum
-    brightness of the bow shock arc. Grids of galactic coordinates
-    (light blue lines, parallel to the box sides) and equatorial
-    coordinates (tilted magenta lines) are shown.  The stellar source
-    and the bow shock axis, as determined by \citet{Kobulnicky:2016a}
-    are indicated by an orange star and an orange line, respectively,
-    where the line extends from \(-2 R_0\) to \(+2 R_0\).  The
-    automatically traced arc shapes using the ``mean'' and ``peak''
-    methods (see text) are shown by blue and red dots, respectively.
-    The magenta circle shows the fit to the arc points within
-    \(\pm 45^\circ\) of the nominal bowshock axis, with the magenta dot
-    showing the center of curvature and the magenta line showing the
-    fitted bow shock axis, which is the line passing through the
-    source and the center of curvature.  Left panels of parts (a)--(c)
-    show the radius measured from the source (upper panel) and
-    brightness (lower panel) of the arc points, plotted as a function
-    of angle \(\theta\) from the nominal bow shock axis, and with the same
-    color coding as used on the image. Angular ranges of
-    \(\theta = \pm 45\degr\) and \(\pm 90\degr\) are shown by gray shaded
-    boxes In the upper panel, the \(R_0\) value tabulated by
-    \citet{Kobulnicky:2016a} is shown by a horizontal blue line. (d)
-    Comparison of the bow shock sizes (scatter plot) and position
-    angles (inset histograms) determined from our fits with those
-    tabulated by \citet{Kobulnicky:2016a} for the MIPSGAL sources.}
-  \label{fig:mipsgal-examples}
-\end{figure*}
+The inset of Figure~\ref{fig:mipsgal-examples}d shows histograms of the difference between the position angle determined by our fits and that listed in \citet{Kobulnicky:2016a}.  
 
 
 
