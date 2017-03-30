@@ -214,8 +214,10 @@ indicated by the dotted horizontal line in te figure).
   \centering
   \begin{tabular}{ll}
     (a) & (b) \\
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-zoom-annotated} &
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-thumbnails} 
+    \includegraphics[width=0.45\textwidth, trim=0 0 30 0]
+    {figs/mipsgal-Rc-R90-zoom-annotated}
+        & \includegraphics[width=0.45\textwidth, trim=0 0 30 0]
+          {figs/mipsgal-Rc-R90-thumbnails} 
   \end{tabular}
   \caption[]{MIPSGAL sources on the bow shock shape diagnostic diagram
     of dimensionless radius of curvature versus perpendicular radius.
@@ -297,17 +299,33 @@ of the sources are concentrated around the paraboloid line, with
 \(1 < R_c/R_0 < 2.5\), and \(1.2 < R_{90}/R_0 < 2\).  But significant
 minorities are found in three other regions: (1)~a clump with
 \(R_c/R_0 \la 1\); (2)~a vertical spur towards higher \(R_{90}\) at
-\(R_c/R_0 \approx 2\); (3)~a broad horizontal tail towards higher
+\(R_c/R_0 \approx 2\); and (3)~a broad horizontal tail towards higher
 \(R_c\) at \(R_{90}/R_0 \la 2\).
-
-
 
 \begin{figure*}
   \centering
-  \includegraphics[width=\textwidth]{figs/mipsgal-pairplot}
-  \caption[]{Correlations between non-shape parameters of MIPSGAL sources.}
+  \includegraphics[width=0.8\textwidth]{figs/mipsgal-pairplot}
+  \caption[]{Matrix of pair plots that illustrate distributions of and
+    correlations between the non-shape parameters of all MIPSGAL bow
+    shock sources from \citet{Kobulnicky:2016a}.  Plots on the leading
+    diagonal show histograms of the following parameters: bow shock
+    angular size, \(\log_{10} R_0\); Galactic latitude,
+    \(\log_{10}|b|\); Galactic longitude, \(\cos \ell\);
+    extinction-corrected \(H\)-band magnitud of the stellar source,
+    \(H_0\); \(K\)-band extinction, \(A_K\).  Scatter plots in the
+    upper triangle show the joint distribution of each pair of
+    parameters.  These are repeated in the lower triangle but showing
+    the KDEs of the joint distributions, which are annotated with the
+    Pearson linear correlation coefficient, \(r\), for each pair. The
+    straight lines shown superimposed on the plots of stellar magnitud
+    versus bowshock size correspond to model results for the same star
+    at a sequence of distances (dashed lines) and a sequence of
+    stellar luminosities at a fixed distance (dotted lines).  See text
+    for details. }
   \label{fig:mipsgal-pairplot}
 \end{figure*}
+
+
 
 \begin{figure*}
   \centering
