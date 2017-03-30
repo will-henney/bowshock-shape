@@ -210,6 +210,40 @@ particular, most of the 1- and 2-star sources are close to the
 resolution limit of the MIPSGAL \SI{24}{\um} images (\(6\arcsec\),
 indicated by the dotted horizontal line in te figure).
 
+\begin{figure*}
+  \centering
+  \begin{tabular}{ll}
+    (a) & (b) \\
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-zoom-annotated} &
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-thumbnails} 
+  \end{tabular}
+  \caption[]{MIPSGAL sources on the bow shock shape diagnostic diagram
+    of dimensionless radius of curvature versus perpendicular radius.
+    The regions corresponding to different classes of cuadrics are
+    shown by shading (see \S~\ref{sec:conic}): oblate spheroids (light
+    gray background); prolate spheroids (darker gray background);
+    paraboloids (curved black line); hyperboloids (white background).
+    (a) Individual sources with bow shock fit quality rating of 3-star
+    or above.  All 5-star sources plus those 4-star sources with
+    \(R_c/R_0 < 1\) are labelled with their \cite{Kobulnicky:2016a}
+    catalog number.  Horizontal error bars do not directly reflect the
+    uncertainty in \(R_c/R_0\) but are instead simply the standard
+    deviation from the circle fit of bowshock points \(R_k\) within
+    \(\pm 45\degr\) of the axis.  Values on the vertical axis
+    represent the average of \(R_{90+}\) and \(R_{90-}\), with thin
+    vertical error bars showing the difference between \(R_{90+}\) and
+    \(R_{90-}\), and thick vertical error bars showing the rms
+    dispersion of \(R_k\) about these values for bow shock points
+    within \(\pm 10\degr\) of the \(+90\degr\) and \(-90\degr\)
+    directions.  (b) Kernel density estimator (KDE) of the
+    distribution for 3-star sources (blue, filled contours) and 4-
+    plus 5-star sources (orange/brown, unfilled contours).  The KDE
+    uses an anisotropic gaussian kernel with bandwidths of
+    \(0.18 \times 0.12\). Images of representative 4- and 5-star sources at
+    different points on the \(R_c\)--\(R_{90}\) plane are also shown.}
+  \label{fig:mipsgal-shapes}
+\end{figure*}
+
 In the following analysis, only those sources with a 3-star or higher
 rating are used.  These comprise approximately half (227 out of 471)
 of all the MIPSGAL arc sources.  In some cases of poor and failed
@@ -234,36 +268,38 @@ the fitted values of \(\text{PA}_0\) are better correlated with the
 position of the bow shock's brightness peak, as is apparent in the
 lower left panels of Figure~\ref{fig:mipsgal-examples}a and c.
 
+The derived bowshock shapes of all the 3-, 4-, and 5-star sources are
+shown in Figure~\ref{fig:mipsgal-shapes} on the plane of \(R_c/R_0\)
+versus \(R_{90} / R_0\).  Panel a shows the individual points
+superimposed on the theoretical results for quadrics of revolution
+(see figure caption and \S~\ref{sec:conic}), while panel b shows
+contours of the kernel density estimator (KDE, see
+\citealp{Leiva-Murillo:2012a, Scott:2015a}) of the two-dimensional
+distribution of points on the \(R_c\)--\(R_{90}\) plane.  The
+horizontal axis corresponds to the shape of the head of the bow shock
+near its apex, ranging from sharper, pointier shapes with
+\(R_c/R_0 < 1\) to flatter, snubber shapes with \(R_c/R_0 \gg 1\), where
+it must be understood that all judgments of sharpness/flatness are
+with respect to the axial separation, \(R_0\), between the source and
+the bow shock apex.  The vertical axis corresponds to the shape of the
+bow shock wings, ranging from closed ``C'' shapes for smaller values
+of \(R_{90} / R_0\) to open ``V'' shapes for larger values of
+\(R_{90} / R_0\).  The boundary between closed and open corresponds to
+the paraboloids, and is shown by the solid curved line that divides
+the shaded from the unshaded regions of the graph.
 
+The KDE contours in Figure~\ref{fig:mipsgal-shapes}b show that the
+distribution of 3-star sources is very similar to that of 4- and
+5-star sources, although the higher-rated sources are shifted slightly
+to the upper right.  This is probably due to higher-rated sources
+being on average bigger, as will be discussed further below.  The bulk
+of the sources are concentrated around the paraboloid line, with
+\(1 < R_c/R_0 < 2.5\), and \(1.2 < R_{90}/R_0 < 2\).  But significant
+minorities are found in three other regions: (1)~a clump with
+\(R_c/R_0 \la 1\); (2)~a vertical spur towards higher \(R_{90}\) at
+\(R_c/R_0 \approx 2\); (3)~a broad horizontal tail towards higher
+\(R_c\) at \(R_{90}/R_0 \la 2\).
 
-\begin{figure*}
-  \centering
-  \begin{tabular}{ll}
-    (a) & (b) \\
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-zoom-annotated} &
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-thumbnails} 
-  \end{tabular}
-  \caption[]{MIPSGAL sources on the bow shock shape diagnostic diagram
-    of dimensionless radius of curvature versus perpendicular radius.
-    (a) Individual sources with bow shock fit quality rating of 3-star
-    or above.  All 5-star sources plus those 4-star sources with
-    \(R_c/R_0 < 1\) are labelled with their \cite{Kobulnicky:2016a}
-    catalog number.  Horizontal error bars do not directly reflect the
-    uncertainty in \(R_c/R_0\) but are instead simply the standard
-    deviation from the circle fit of bowshock points \(R_k\) within
-    \(\pm 45\degr\) of the axis.  Values on the vertical axis
-    represent the average of \(R_{90+}\) and \(R_{90-}\), with thin
-    vertical error bars showing the difference between \(R_{90+}\) and
-    \(R_{90-}\), and thick vertical error bars showing the rms
-    dispersion of \(R_k\) about these values for bow shock points
-    within \(\pm 10\degr\) of the \(+90\degr\) and \(-90\degr\)
-    directions.  (b) Kernel density estimate of the distribution for
-    3-star sources (blue, filled contours) and 4- plus 5-star sources
-    (orange/brown, unfilled contours).  Images of representative 4-
-    and 5-star sources at different points on the \(R_c\)--\(R_{90}\)
-    plane are also shown.}
-  \label{fig:mipsgal-shapes}
-\end{figure*}
 
 
 \begin{figure*}
