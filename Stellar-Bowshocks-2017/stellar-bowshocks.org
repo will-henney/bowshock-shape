@@ -3074,7 +3074,7 @@ CLOSED: [2017-03-20 Mon 14:22]
 + It is very simple because most stars are in the Rayleigh--Jeans limit by the H-band, so that there is little spread in the intrinsic (H - [4.5])_0 color
 + In Majewski, they assume (H - [4.5])_0 = 0.08 for all stars
   + But we could maybe improve on that by using a value more tailored for OB stars
-+ And use the Inbetouw (2005) reddening law
++ And use the Indebetouw (2005) reddening law
   + There you can see why (H - [4.5]) is the best color to use
     + Blueward of H (e.g., J), the intrinsic color variation of the stars is a lot greater
     + Redward of 4.5 microns, you start to run into variations between different dust models (and scatter between different lines of sight too), and then the silicate absorption feature at 10 microns comes in as well
