@@ -80,6 +80,11 @@ through the interstellar medium (runaway stars,
 flow, such as the champagne flow from a nearby \hii{} region (weather
 vanes, \citealp{Povich:2008a}).
 
+
+\subsubsection{Automatic tracing and fitting of bow shocks}
+\label{sec:autom-trac-fitt}
+
+
 In order to study the shapes of these bow shocks, we downloaded data
 from the NASA/IPAC Infrared Science Archive archive\footnote{
   \url{http://irsa.ipac.caltech.edu/docs/program_interface/api_images.html}}
@@ -158,6 +163,11 @@ We developed a methodology for automatically tracing the arcs as follows:
   \(|\theta_k - 90\degr| \le 10\degr\) for \(R_{90+}\), and with
   \(|\theta_k + 90\degr| \le 10\degr\) for \(R_{90-}\).
 \end{enumerate}
+
+
+\subsubsection{Subjective evaluation of the fit quality}
+\label{sec:subj-eval-fit}
+
 
 After these automatic steps, we subjectively evaluate the results by giving a star rating to each source:
 
@@ -270,6 +280,9 @@ the fitted values of \(\text{PA}_0\) are better correlated with the
 position of the bow shock's brightness peak, as is apparent in the
 lower left panels of Figure~\ref{fig:mipsgal-examples}a and c.
 
+\subsubsection{OB bow shock shapes on the diagnostic plane}
+\label{sec:ob-shapes}
+
 The derived bowshock shapes of all the 3-, 4-, and 5-star sources are
 shown in Figure~\ref{fig:mipsgal-shapes} on the plane of \(R_c/R_0\)
 versus \(R_{90} / R_0\).  Panel a shows the individual points
@@ -311,7 +324,7 @@ minorities are found in three other regions: (1)~a clump with
     diagonal show histograms of the following parameters: bow shock
     angular size, \(\log_{10} R_0\); Galactic latitude,
     \(\log_{10}|b|\); Galactic longitude, \(\cos \ell\);
-    extinction-corrected \(H\)-band magnitud of the stellar source,
+    extinction-corrected \(H\)-band magnitude of the stellar source,
     \(H_0\); \(K\)-band extinction, \(A_K\).  Scatter plots in the
     upper triangle show the joint distribution of each pair of
     parameters.  These are repeated in the lower triangle but showing
@@ -324,6 +337,9 @@ minorities are found in three other regions: (1)~a clump with
     for details. }
   \label{fig:mipsgal-pairplot}
 \end{figure*}
+
+\subsubsection{Correlation between bow shock size and other parameters}
+\label{sec:corr-size}
 
 In Figure~\ref{fig:mipsgal-pairplot} we show the distributions over
 all MIPSGAL bow shock sources of the bow shock size, Galactic
@@ -345,8 +361,53 @@ red if the sources are assumed to be OB stars.  We therefore re-derive
 of early type stars.  This does not make very much difference (compare
 the top-right plot of our Fig.~\ref{fig:mipsgal-pairplot} with
 \citeauthor{Kobulnicky:2016a}'s Fig.~9), but it does eliminate some of
-the apparent negative extinctions that are found in the catalog.
+the apparent negative extinctions that are found in the catalog.  The
+same reddening law gives \(A_H = 1.55 A_K\), and this is used to
+derive extinction-corrected \(H\)-band apparent magnitudes, \(H_0\).
 
+The most significant linear correlation between any pair of parameters
+in Figure~\ref{fig:mipsgal-pairplot} is that between bow shock size
+and stellar source brightness: \(H_0\) versus \(\log_{10} R_0\), with
+correlation coefficient \(r = -0.43\).  The distribution of \(H_0\)
+depends on the absolute magnitude, \(M_H\), and the distance, \(d\),
+to the source.  It is likely that variation in \(d\) is the more
+important of the two because \(M_H\) changes relatively little for
+main-sequence OB stars, ranging from \(M_H \approx -4\) (early-O) to
+\(M_H \approx -1.5\) (mid-B).  This is because part of the increase in
+bolometric luminosity, \(L\), is offset by an increase in the
+effective temperature, \(T_{\text{eff}}\), which shifts the peak of
+the stellar spectrum farther away from the \(H\)~band, resulting in
+\(L_H \propto L / T_{\text{eff}}^3 \sim L^{0.53}\), where the last step uses
+the upper main-sequence mass--luminosity and mass--radius scalings from
+\citet{Eker:2015a}. It is true that evolved OB supergiants can be much
+brighter, reaching \(M_H \approx -7\), but such stars are expected to be
+rare.  Assuming a B2V star (\(M_H = -2\)), then the observed range
+\(H_0 = 5\)--\(12\) corresponds to distances
+\(d = 100\)--\SI{6300}{pc}, and the histogram peak at
+\(H_0 \approx 9.5\) corresponds to \(d \approx \SI{2000}{pc}\), which is all
+perfectly reasonable.
+
+Turning now to the distribution of bow shock angular size, \(R_0\),
+this may be affected by various factors:
+\begin{enumerate}[1.]
+\item Distance, \(d\), since for a constant physical size the angular
+  size will vary as \(R_0 \propto d\).
+\item Momentum-loss ratio, \(\beta\), between the two flows that form the
+  bow shock.  All other things being equal, we have
+  \(R_0 \propto \beta^{1/2}\).  If the environment flow is constant and the OB
+  star wind has mass-loss rate \(\dot{M}\) and terminal velocity
+  \(V_\infty\), then \(\beta \propto \dot{M}{V_\infty}\).  Empirical and theoretical
+  studies of hot star winds (e.g., \citealp{Puls:1996a}) imply
+  \(\dot{M}{V_\infty} \sim L^{1.88} R^{-1/2} \sim L^{1.80}\), where the final
+  step applies only to main-sequence stars and again uses the
+  relations of \citet{Eker:2015a}.  
+\end{enumerate}
+
+
+
+
+\subsubsection{Correlation between bow shock shape and other parameters}
+\label{sec:corr-shape}
 
 
 \begin{figure*}
@@ -408,6 +469,7 @@ the apparent negative extinctions that are found in the catalog.
 \end{figure}
 
 
+Mention future JWST observations with \(0.85\arcsec\) resolution at \SI{22}{\um}. 
 
 
 %%% Local Variables:

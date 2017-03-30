@@ -3148,8 +3148,8 @@ CLOSED: [2017-03-20 Mon 10:48]
      - Supergiants like \zeta Pup are brighter, reaching -4.69, or -6.87 for Rigel
        - In general, supergiants will have higher L_H at lower T_eff, since the bolometric luminosities are roughly constant
        - But the winds will either be roughly constant, or 
-     - The peak in the H_0 histogram is around 9
-       + So this implies distance modulus of 11, or D = 10**((11 + 5)/5) = 1.6 kpc, which is totally reasonable
+     - The peak in the H_0 histogram is around 9.5
+       + So this implies distance modulus of 11.5, or D = 10**((11.5 + 5)/5) = 2 kpc, which is totally reasonable
      - The faintest sources have H_0 \approx 12, or distance modulus of 14
        + Implying D = D = 10**((14 + 5)/5) = 6.3 kpc
        + Note that there is a little clump at H_0 \approx 12 at cos(l) = 1, which may correspond to the Galactic center population!
