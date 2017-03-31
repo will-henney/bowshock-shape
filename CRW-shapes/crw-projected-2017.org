@@ -475,6 +475,9 @@ CLOSED: [2017-02-22 Wed 18:58]
 + [X] So we need to sort out the theta_90 calculation first
   + Done above - suggests cross-over at i = 30-40
 + Plan is to show the head in solid dots and tail in hollow dots
++ [2017-03-31 Fri] Tweak graph
+  + As we did [[id:FA0B6F2B-DC73-4350-893D-A6710B41424E][here]] for the quadric case, we are going to use symbol size to illustrate R_0'/R_0
+  + [X] Run modified program and copy over fig file
 
 #+BEGIN_SRC python :eval no :tangle two-quadric-R90-Rc-snapshots.py
   import sys
@@ -573,7 +576,7 @@ CLOSED: [2017-02-22 Wed 18:58]
                   y = R90_t_prime/R0_h_prime
               ax.scatter([tilde_Rc_h_prime], [y],
 			 c=col, edgecolors='none',
-			 marker='o', s=25, alpha=0.4)
+			 marker='o', s=25*R0_h_prime/R0_h, alpha=0.4)
 
               ax.text(3.0, 0.5, rf'$i = {inc_deg:.0f}^\circ$',
                       bbox={'facecolor': 'w', 'alpha': 0.8, 'edgecolor': 'none'})
@@ -610,7 +613,7 @@ cp -av two-quadric-*.pdf ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Wed Feb 22 18:59:47 CST 2017
+: Fri Mar 31 13:08:12 CST 2017
 : two-quadric-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/two-quadric-R90-Rc-snapshots.pdf
 : two-quadric-R90-vs-Rc.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-Rc.pdf
 : two-quadric-R90-vs-i.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-i.pdf
