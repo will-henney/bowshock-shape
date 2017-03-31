@@ -452,6 +452,14 @@ python projected-Tc-Rc-snapshots.py
 
 Do the same but for R90 vs Rc
 
++ [2017-03-31 Fri] New experiment
+  + [X] Indicate the increase in R_0'/R_0 by the size of the circles
+  + [X] Remember to do the [[id:71BA6CCD-0AD0-46FA-AA2F-CCD6C3272A68][Copying figs to paper dir]]
+  + This is for comparison with the OB bowshocks
+  + This worked well, but the sizes really don't change an awful lot
+    + It is a factor of 2 or 3 by i = 40, but mainly for the arcs in the hyperbola zone, but below the diagonal
+      + And that is a zone that hardly has any sources in the observations
+
 #+BEGIN_SRC python :eval no :tangle projected-R90-Rc-snapshots.py
   import sys
   import numpy as np
@@ -487,6 +495,11 @@ Do the same but for R90 vs Rc
   def R90_prime(inc, Tc, Rc):
       return np.sqrt(2*Rc_prime(inc, Tc, Rc) - Tc_prime(inc, Tc))
 
+  def qratio(inc, Tc, Rc):
+      f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
+      return (1.0 + Rc*(f - 1.0) / Tc)*np.cos(inc)
+
+
   for ax, inc_deg in zip(axes.flat, incs_deg):
 
       Rc_grid2 = np.linspace(0.0, 10.0, 2000)
@@ -503,10 +516,12 @@ Do the same but for R90 vs Rc
       inc = np.radians(inc_deg)
       Rcp = Rc_prime(inc, Tc_grid, Rc_grid).ravel()
       R90p = R90_prime(inc, Tc_grid, Rc_grid).ravel()
-      ax.scatter(Rcp, R90p, c=Tc_grid.ravel(),
+      R0p = qratio(inc, Tc_grid, Rc_grid).ravel()
+    
+      ax.scatter(Rcp, R90p, c=Tc_grid.ravel(), s=15*R0p,
 		 vmin=Tc_grid.min(), vmax=Tc_grid.max(),
 		 edgecolors='none',
-		 cmap='magma', marker='.', s=15, alpha=0.8)
+		 cmap='magma', marker='.', alpha=0.8)
       # ax.axhspan(0.0, 10.0, alpha=0.1, facecolor='k', zorder=-1)
       # ax.axhline(1.0, ls='--', lw=0.5, c='k', zorder=0)
       # ax.axvline(1.0, ls='--', lw=0.5, c='k', zorder=0)
@@ -627,13 +642,16 @@ python projected-th90-vs-i.py
 
 
 * Copying figs to paper dir
+:PROPERTIES:
+:ID:       71BA6CCD-0AD0-46FA-AA2F-CCD6C3272A68
+:END:
 #+BEGIN_SRC sh :results verbatim
 date
 cp -v projected-*.pdf ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Wed Feb 22 18:49:59 CST 2017
+: Fri Mar 31 10:42:11 CST 2017
 : projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
 : projected-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-R90-Rc-snapshots.pdf
 : projected-R90-vs-Rc.pdf -> ../papers/Paper1/figs/projected-R90-vs-Rc.pdf

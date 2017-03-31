@@ -32,6 +32,11 @@ def Tc_prime(inc, Tc):
 def R90_prime(inc, Tc, Rc):
     return np.sqrt(2*Rc_prime(inc, Tc, Rc) - Tc_prime(inc, Tc))
 
+def qratio(inc, Tc, Rc):
+    f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
+    return (1.0 + Rc*(f - 1.0) / Tc)*np.cos(inc)
+
+
 for ax, inc_deg in zip(axes.flat, incs_deg):
 
     Rc_grid2 = np.linspace(0.0, 10.0, 2000)
@@ -48,10 +53,12 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
     inc = np.radians(inc_deg)
     Rcp = Rc_prime(inc, Tc_grid, Rc_grid).ravel()
     R90p = R90_prime(inc, Tc_grid, Rc_grid).ravel()
-    ax.scatter(Rcp, R90p, c=Tc_grid.ravel(),
+    R0p = qratio(inc, Tc_grid, Rc_grid).ravel()
+
+    ax.scatter(Rcp, R90p, c=Tc_grid.ravel(), s=15*R0p,
 	       vmin=Tc_grid.min(), vmax=Tc_grid.max(),
 	       edgecolors='none',
-	       cmap='magma', marker='.', s=15, alpha=0.8)
+	       cmap='magma', marker='.', alpha=0.8)
     # ax.axhspan(0.0, 10.0, alpha=0.1, facecolor='k', zorder=-1)
     # ax.axhline(1.0, ls='--', lw=0.5, c='k', zorder=0)
     # ax.axvline(1.0, ls='--', lw=0.5, c='k', zorder=0)
