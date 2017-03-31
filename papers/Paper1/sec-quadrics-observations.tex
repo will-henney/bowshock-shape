@@ -315,6 +315,10 @@ minorities are found in three other regions: (1)~a clump with
 \(R_c/R_0 \approx 2\); and (3)~a broad horizontal tail towards higher
 \(R_c\) at \(R_{90}/R_0 \la 2\).
 
+
+\subsubsection{Correlation between bow shock size and other parameters}
+\label{sec:corr-size}
+
 \begin{figure*}
   \centering
   \includegraphics[width=0.8\textwidth]{figs/mipsgal-pairplot}
@@ -330,16 +334,13 @@ minorities are found in three other regions: (1)~a clump with
     parameters.  These are repeated in the lower triangle but showing
     the KDEs of the joint distributions, which are annotated with the
     Pearson linear correlation coefficient, \(r\), for each pair. The
-    straight lines shown superimposed on the plots of stellar magnitud
-    versus bowshock size correspond to model results for the same star
+    straight lines shown superimposed on the plots of stellar magnitude
+    versus bowshock size correspond to toy model results for the same star
     at a sequence of distances (dashed lines) and a sequence of
     stellar luminosities at a fixed distance (dotted lines).  See text
     for details. }
   \label{fig:mipsgal-pairplot}
 \end{figure*}
-
-\subsubsection{Correlation between bow shock size and other parameters}
-\label{sec:corr-size}
 
 In Figure~\ref{fig:mipsgal-pairplot} we show the distributions over
 all MIPSGAL bow shock sources of the bow shock size, Galactic
@@ -374,9 +375,10 @@ to the source.  It is likely that variation in \(d\) is the more
 important of the two because \(M_H\) changes relatively little for
 main-sequence OB stars, ranging from \(M_H \approx -4\) (early-O) to
 \(M_H \approx -1.5\) (mid-B).  This is because part of the increase in
-bolometric luminosity, \(L\), is offset by an increase in the
-effective temperature, \(T_{\text{eff}}\), which shifts the peak of
-the stellar spectrum farther away from the \(H\)~band, resulting in
+bolometric luminosity, \(L\), as one ascends the main sequence is
+offset by an increase in the effective temperature,
+\(T_{\text{eff}}\), which shifts the peak of the stellar spectrum
+farther away from the \(H\)~band, resulting in
 \(L_H \propto L / T_{\text{eff}}^3 \sim L^{0.53}\), where the last step uses
 the upper main-sequence mass--luminosity and mass--radius scalings from
 \citet{Eker:2015a}. It is true that evolved OB supergiants can be much
@@ -388,21 +390,58 @@ rare.  Assuming a B2V star (\(M_H = -2\)), then the observed range
 perfectly reasonable.
 
 Turning now to the distribution of bow shock angular size, \(R_0\),
-this may be affected by various factors:
-\begin{enumerate}[1.]
-\item Distance, \(d\), since for a constant physical size the angular
-  size will vary as \(R_0 \propto d\).
-\item Momentum-loss ratio, \(\beta\), between the two flows that form the
-  bow shock.  All other things being equal, we have
-  \(R_0 \propto \beta^{1/2}\).  If the environment flow is constant and the OB
-  star wind has mass-loss rate \(\dot{M}\) and terminal velocity
-  \(V_\infty\), then \(\beta \propto \dot{M}{V_\infty}\).  Empirical and theoretical
-  studies of hot star winds (e.g., \citealp{Puls:1996a}) imply
-  \(\dot{M}{V_\infty} \sim L^{1.88} R^{-1/2} \sim L^{1.80}\), where the final
-  step applies only to main-sequence stars and again uses the
-  relations of \citet{Eker:2015a}.  
-\end{enumerate}
+this will also be affected by distance to at least some degree, since
+for a constant physical size the angular size will vary as
+\(R_0 \propto d^{-1}\).  For instance, if we assume that the physical size
+of all bow shocks is \SI{0.1}{pc} and the absolute magnitude of all
+stars is \(M_H = -2\), as above, then we find the relation
+\(H_0 = 14.57 - 5 \log_{10} R_0\) if \(R_0\) is measured in
+arcseconds. This is shown as a dashed line on the relevant panels of
+Figure~\ref{fig:mipsgal-pairplot} for values of \(R_0\) that
+correspond to \(d = \SI{300}{pc}\) to \SI{8000}{pc}.  It can be seen
+that this relation is in excellent agreement with the linear trend in
+the data. On the other hand, the correlation coefficient of
+\(r = -0.43\) means in broad terms that only a fraction
+\(r^2 \approx 20\%\) of the total variance in \(H_0\) is ``explained'' by
+changes in \(R_0\), and vice~versa, implying that one or both of
+\(H_0\) and \(R_0\) is only a very imperfect proxy for \(d\).  We have
+already seen that the spread in \(H_0\) probably \emph{is} mostly due
+to a spread in distance, rather than a spread in \(H\)-band stellar
+luminosity.  If this is true, it follows that it is \(R_0\) that
+depends only weakly on \(d\) and is more influenced by other factors.
+  
+One such factor is the stellar/environmental momentum-loss ratio,
+\(\beta\), between the two supersonic flows that form the bow shock.  All
+other things being equal, we have \(R_0 \propto \beta^{1/2}\) for
+\(\beta \ll 1\), as is typically the case.  If the environment flow is
+constant and the OB star wind has mass-loss rate \(\dot{M}\) and
+terminal velocity \(V_\infty\), then
+\(\beta \propto \dot{M}{V_\infty}\).  Empirical and theoretical studies of hot star
+winds (e.g., \citealp{Puls:1996a}) imply
+\(\dot{M}{V_\infty} \sim L^{1.88} R^{-1/2} \sim L^{1.80} \sim L_H^{3.40}\), where
+the final two steps apply only to main-sequence stars and again use
+the relations of \citet{Eker:2015a}.  If we assume as above that a B2V
+star with \(M_H = -2\) has a bow shock physical size of \SI{0.1}{pc},
+and consider a sequence of stars with varying \(H\)-band luminosities
+but all at a fixed distance of \(d = \SI{2000}{pc}\), then we find the
+relation \(H_0 = 8.02 - 1.49 \log_{10} R_0\).  This is shown as a
+dotted line in the relevant panels of
+Figure~\ref{fig:mipsgal-pairplot} for the absolute magnitude range
+\(M_H = -3.6\) (O6V) to \(M_H = -1.5\) (B5V).  It can be seen that
+this relation does not match the linear trend in the data, and
+predicts a much larger spread in \(R_0\) over a narrow range in
+\(H_0\) than is observed.  This could mean one of two things: first,
+it may be that the range of stellar luminosities is significantly
+narrower than we have supposed, implying that B stars vastly outnumber
+O stars among the sources.  Alternatively, there may be a positive
+correlation between the stellar luminosity and the momentum of the
+environmental flow, with the result that \(\beta\) varies less steeply
+with \(L_H\) than we have supposed.  This would arise if more luminous
+stars were preferentially found in denser environments, or, in the
+case of runaways, if more luminous stars tended to be faster moving.
 
+A third factor that may influence \(R_0\) is the inclination, \(i\),
+of the bow shock axis with respect to the plane of the sky.
 
 
 

@@ -3121,23 +3121,23 @@ CLOSED: [2017-03-20 Mon 10:48]
      - This has r = -0.43
        + Implying that about 20% of the variance in in size is "explained" by variation in H_0
      - H band magnitudes of Trapezium, etc
-       | Star     | Sp Type |     H |  A_V |    D |    M_H |
-       |----------+---------+-------+-----+------+-------|
-       | \theta^1 C     | O7 V    |  4.63 |   1 |  400 | -3.58 |
-       | \theta^1 B     | B3 V    |   6.3 |   1 |  400 | -1.91 |
-       | \theta^1 A     | B0 V    |   5.8 |   1 |  400 | -2.41 |
-       | \theta^1 D     | B1.5 V  |  5.89 |   1 |  400 | -2.32 |
-       | \theta^2 A     | O9.5 IV |  4.97 | 0.2 |  400 | -3.08 |
-       | \theta^2 B     | B2-B5 V |  6.27 | 0.2 |  400 | -1.78 |
-       |----------+---------+-------+-----+------+-------|
-       | HD 93129 | O2 I    |  6.14 |   1 | 2300 | -5.87 |
-       | \zeta Pup    | O4 I    |   2.9 |   0 |  330 | -4.69 |
-       | \lambda Cep    | O6.5 I  | 4.618 |   0 |  600 | -4.27 |
-       | UW CMa   | O7 I    |  5.19 |   0 |  580 | -3.63 |
-       | 19 Cep   | O9 Ib   |  4.92 |   0 | 1200 | -5.48 |
-       | \alpha Cam    | O9 Ia   |  4.38 |   0 | 1900 | -7.01 |
-       | \zeta Ori    | O9.7 I  |  2.35 |   0 |  225 | -4.41 |
-       | Rigel    | B8 I    |  0.20 |   0 |  260 | -6.87 |
+       | Star        | Sp Type |     H | A_V |    D |   M_H |
+       |-------------+---------+-------+-----+------+-------|
+       | \theta^1 C  | O7 V    |  4.63 |   1 |  400 | -3.58 |
+       | \theta^1 B  | B3 V    |   6.3 |   1 |  400 | -1.91 |
+       | \theta^1 A  | B0 V    |   5.8 |   1 |  400 | -2.41 |
+       | \theta^1 D  | B1.5 V  |  5.89 |   1 |  400 | -2.32 |
+       | \theta^2 A  | O9.5 IV |  4.97 | 0.2 |  400 | -3.08 |
+       | \theta^2 B  | B2-B5 V |  6.27 | 0.2 |  400 | -1.78 |
+       |-------------+---------+-------+-----+------+-------|
+       | HD 93129    | O2 I    |  6.14 |   1 | 2300 | -5.87 |
+       | \zeta Pup   | O4 I    |   2.9 |   0 |  330 | -4.69 |
+       | \lambda Cep | O6.5 I  | 4.618 |   0 |  600 | -4.27 |
+       | UW CMa      | O7 I    |  5.19 |   0 |  580 | -3.63 |
+       | 19 Cep      | O9 Ib   |  4.92 |   0 | 1200 | -5.48 |
+       | \alpha Cam  | O9 Ia   |  4.38 |   0 | 1900 | -7.01 |
+       | \zeta Ori   | O9.7 I  |  2.35 |   0 |  225 | -4.41 |
+       | Rigel       | B8 I    |  0.20 |   0 |  260 | -6.87 |
        #+TBLFM: $6=$3 - 0.2 $4 - (5 log10($5) - 5) ;f2
      - Absolute magnitudes are calculated assuming A_H = 0.2 A_V and D = 400 pc
        + Distance modulus: 5 log10(D) - 5 = 8.01
@@ -3164,6 +3164,12 @@ CLOSED: [2017-03-20 Mon 10:48]
      - Now consider effect on angular size
        + If all bow shocks have same physical size, then an increase by a factor of 10 in R_0 is a decrease by a factor of 10 in distance, which is a decrease of 5 in magnitude
        + This is exactly what is seen!
+       + Do this with the constants, assume physical size of 0.1pc
+         + R0 = (0.1/D) 206265
+           + => D = 20626.5 / R0
+         + H0 = MH0 + 5 log10(D) - 5
+           + = (MH0 - 5) - 5 log10(R0) + 5 log10(20626.5)
+           + = 16.57 + MH0 - 5 log10(R0)
      - But we get the same from variations in intrinsic luminosity
        + Because R_0 \propto \beta{}^{1/2}
        + And \beta ~ L
@@ -3191,6 +3197,16 @@ CLOSED: [2017-03-20 Mon 10:48]
        + And that reproduces the linear trend very well
      - We also plot the line for a variety of stars at 2 kpc
        + This overpredicts the variation in R_0, possibly because in reality brighter stars are interacting with higher-momentum environments, which would stop R_0 from increasing so much
+       + Explicitly calculate the slope of the line:
+         + R_0 = (0.1 / 2000) 206265 (L_H / L_0 )^{3.4/2} = 10.31 (L_H / L_0 )^{1.7}
+         + => log10(R_0) = 1.01 + 1.7 log10 (L_H / L_0)
+         + => log10 (L_H / L_0) = 0.59 log10(R_0) - 0.59
+         + M_H - M_0 = -2.5 log10 (L_H / L_0)
+         + H_0 = M_H + (5 log10(2000) - 5) = M_H + 11.51
+         + H_0 = M_0 + 11.51 - 2.5 log10 (L_H / L_0)
+         + H_0 = 11.51 + M_0  - 1.49 log10(R_0) - 1.49
+         + M_0 = -2, so
+         + H_0 = 8.02 - 1.49 log10(R_0)
        + And it cannot explain all the variation in H_0, since for MS stars L_H ~ L^0.5
          + Although supergiants are not included, and they would go to bigger L_H values
          + From the above table, they have M_H in range -4 to -7, so up to 100 times brighter than the B2V stars
