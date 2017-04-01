@@ -94,7 +94,7 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
                 y = R90_t_prime/R0_h_prime
             ax.scatter([tilde_Rc_h_prime], [y],
 		       c=col, edgecolors='none',
-		       marker='o', s=25, alpha=0.4)
+		       marker='o', s=25*R0_h_prime/R0_h, alpha=0.4)
 
             ax.text(3.0, 0.5, rf'$i = {inc_deg:.0f}^\circ$',
                     bbox={'facecolor': 'w', 'alpha': 0.8, 'edgecolor': 'none'})

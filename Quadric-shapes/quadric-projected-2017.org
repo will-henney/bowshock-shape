@@ -381,6 +381,9 @@ python projected-R90-vs-Rc.py
 [[file:projected-R90-vs-Rc.pdf]]
 
 *** Show snapshots for different angles
+:PROPERTIES:
+:ID:       FA0B6F2B-DC73-4350-893D-A6710B41424E
+:END:
 
 #+BEGIN_SRC python :eval no :tangle projected-Tc-Rc-snapshots.py
   import sys
