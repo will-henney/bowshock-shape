@@ -477,9 +477,9 @@ Do the same but for R90 vs Rc
 
   incs_deg = 10.0*np.arange(9)
 
-  ny, nx = 35, 35
-  Rcs = np.linspace(0.5, 5.0, nx)
-  R90s = np.linspace(0.5, 5.0, ny)[::-1]
+  ny, nx = 55, 55
+  Rcs = np.linspace(0.5, 7.0, nx)
+  R90s = np.linspace(0.5, 7.0, ny)[::-1]
   Rc_grid = Rcs[None, :]*np.ones_like(R90s[:, None])
   R90_grid = R90s[:, None]*np.ones_like(Rcs[None, :])
   Tc_grid = 2*Rc_grid - R90_grid**2
@@ -654,7 +654,7 @@ cp -v projected-*.pdf ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Fri Mar 31 10:42:11 CST 2017
+: Sat Apr  1 18:36:21 CST 2017
 : projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
 : projected-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-R90-Rc-snapshots.pdf
 : projected-R90-vs-Rc.pdf -> ../papers/Paper1/figs/projected-R90-vs-Rc.pdf

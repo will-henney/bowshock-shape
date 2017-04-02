@@ -11,9 +11,9 @@ fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
 
 incs_deg = 10.0*np.arange(9)
 
-ny, nx = 35, 35
-Rcs = np.linspace(0.5, 5.0, nx)
-R90s = np.linspace(0.5, 5.0, ny)[::-1]
+ny, nx = 55, 55
+Rcs = np.linspace(0.5, 7.0, nx)
+R90s = np.linspace(0.5, 7.0, ny)[::-1]
 Rc_grid = Rcs[None, :]*np.ones_like(R90s[:, None])
 R90_grid = R90s[:, None]*np.ones_like(Rcs[None, :])
 Tc_grid = 2*Rc_grid - R90_grid**2
