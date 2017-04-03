@@ -3699,6 +3699,26 @@ This is the one I am tending towards - close together on the sky, clearly showin
 #+TBLFM: $2=1 - $1**0.1;f2::$4=1 - $1**0.5;f2::$6=1 - $1;f2::
 
 
+
+**** Problems with the median split
++ Cautionary quote from \cite{Ruscio:2008a}
+  #+BEGIN_QUOTE
+  The methodological literature consistently cautions against artificially dichotomizing continuous variables, and the consequences of this practice on measures of effect size will not be considered further.
+  #+END_QUOTE
++ See also \cite{MacCallum:2002a}
+  #+BEGIN_QUOTE
+  The authors examine the practice of dichotomization of quantitative measures, wherein relationships among variables are examined after 1 or more variables have been converted to dichotomous variables by splitting the sample at some point on the scale(s) of measurement. A common form of dichotomization is the median split, where the independent variable is split at the median to form high and low groups, which are then compared with respect to their means on the dependent variable. The consequences of dichotomization for measurement and statistical analyses are illustrated and discussed. The use of dichotomization in practice is described, and justifications that are offered for such usage are examined. The authors present the case that dichotomization is rarely defensible and often will yield misleading results.
+  #+END_QUOTE
++ And finally \cite{Streiner:2002a}
+  #+BEGIN_QUOTE
+  So. in conclusion, the one word of advice about turning continuous variables into dichotomies is—don't!
+  #+END_QUOTE
++ *CONCLUSION*
+  + We really ought to do the Pearson r for all the continuous variables, to check that the p-values from those are comparable to the Anderson-Darling ones
+  + The main problem with the median split is that we are throwing away information. 
+
+**** TODO Statistical power, Type II errors (\beta), and effect size
++ [ ] Get the McGrath & Meyer (2006) paper
 *** Comparison with the Orion Nebula bow shocks
 
 #+BEGIN_SRC python :return figfile :results file

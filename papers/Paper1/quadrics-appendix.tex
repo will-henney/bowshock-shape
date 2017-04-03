@@ -188,7 +188,6 @@ From equation (\ref{eq:Rcurv}) for the radius of curvature we finally get the nu
 \section{Distribution of p-values for all correlations tested}
 \label{sec:distr-p-values}
 
-
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/p-value-histogram}
@@ -202,26 +201,6 @@ From equation (\ref{eq:Rcurv}) for the radius of curvature we finally get the nu
     significant correlations existed.}
   \label{fig:histo-p-values}
 \end{figure}
-
-The \(p\)-values are the probability of finding a difference between
-two populations as large as (or larger than) what is observed,
-\emph{given} that there is no difference in the underlying
-distribution from which the two populations are drawn (that is, given
-that the null hypothesis is true).  However, what we really want to
-know is something else: the probability that the null hypothesis is
-true, \emph{given} the observations.  That is, the probability,
-\(\alpha\), of a \textit{false positive}, also known as the \textit{Type I
-  error rate}.  The common mistake of conflating these two definitions
-is known as the ``\(p\)-value fallacy'' \citep{Goodman:1999a}, or``the
-error of the transposed conditional'', as discussed in detail by
-\citet{Colquhoun:2014a}.  It is possible to derive \(\alpha\) from
-\(p\) using Bayes' theorem (e.g., \citealp{Goodman:1999b}), but that
-requires an estimate of the prior probability of the null hypothesis,
-independent of the observations.  Alternatively, it is also possible to find a lower bound on \(\alpha\) from a frequentist approach \citep{Sellke:2001a}:
-\begin{equation}
-  \label{eq:type-I}
-  \alpha(p) \ge \bigg[ 1 - \big(e p \ln p\big)^{-1} \bigg]^{-1}
-\end{equation}
 
 
 \begin{table}
@@ -261,6 +240,71 @@ independent of the observations.  Alternatively, it is also possible to find a l
     \bottomrule
   \end{tabular}
 \end{table}
+
+
+The \(p\)-values are the probability of finding a difference between
+two populations as large as (or larger than) what is observed,
+\emph{given} that there is no difference in the underlying
+distribution from which the two populations are drawn (that is, given
+that the null hypothesis is true).  However, what we really want to
+know is something else: the probability that the null hypothesis is
+true, \emph{given} the observations.  That is, the probability,
+\(\alpha\), of a \textit{false positive}, also known as the \textit{Type I
+  error rate}.  The common mistake of conflating these two definitions
+is known as the ``\(p\)-value fallacy'' \citep{Goodman:1999a}, or``the
+error of the transposed conditional'', as discussed in detail by
+\citet{Colquhoun:2014a}.  It is possible to derive \(\alpha\) from
+\(p\) using Bayes' theorem (e.g., \citealp{Goodman:1999b}), but that
+requires an estimate of the prior probability of the null hypothesis,
+independent of the observations.  Alternatively, it is also possible
+to find a lower bound on \(\alpha\) from a frequentist approach
+\citep{Sellke:2001a}:
+\begin{equation}
+  \label{eq:type-I}
+  \alpha(p) \ge \bigg[ 1 - \big(e\, p \ln p\big)^{-1} \bigg]^{-1}
+  \quad \text{valid for } p < 1/e.
+\end{equation}
+This is the approach we adopt here, which also numerically coincides
+with the Bayesian approach for the case where the prior probability of
+the null hypothesis is 0.5.  The reason that this is only a lower
+limit for \(\alpha\) is that if we have overwhelming a priori evidence that
+the null hypothesis is true (for instance, from previous empirical
+studies, or because it follows from a well-supported theory), then a
+Bayesian calculation would give a much higher value of \(\alpha\) than
+\eqref{eq:type-I} does.  In our case, however, we have no strong
+reasons for favoring any of the null hypotheses, so it is reasonable
+to assume \(\alpha\) is close to the lower limit of \eqref{eq:type-I}.
+
+In order to choose a threshold \(p\)-value that counts as a
+``significant'' result, one then needs to balance the risks of false
+positives against the risks of \textit{false negatives}.  The false
+negative probability, \(\beta\), also known as \textit{Type II error
+  rate}, is the probability of failing to reject an untrue null
+hypothesis.  That is, in the context of this paper, it is the
+probability of failing to detect a real difference between two
+sub-samples, or a real correlation between two variables.  The
+complementary probability, \(1 - \beta\), is known as the
+\textit{statistical power} or sensitivity of the test.  The value of
+\(\beta\) depends on three factors:
+\begin{enumerate}[1.]
+\item The \textit{effect size}, which is a measure of the magnitude of
+  the difference in a dependent variable between two sub-samples, or
+  the degree of correlation between two continuous variables.  For the
+  two sub-sample case, it is common to use a standardised mean
+  difference, such as Cohen's \(d\) statistic \citep{Cohen:1988a}:
+  \(d = (\bar{X}_A - \bar{X}_B) / s\), where \(\bar{X}_A\),
+  \(\bar{X}_B\) are the means of the dependent variable \(X\) for
+  samples A and B, while \(s\) is the pooled standard deviation of
+  \(X\).  For the case of two continuous variables, the Pearson linear
+  correlation coefficient, \(r\), can be used.  In both cases, rules
+  of thumb have been developed \citep{Ruscio:2008a} for classifying an
+  effect as ``large'' (\(d > 0.8\), \(r > 0.4\)) or ``small''
+  (\(d < 0.2\), \(r < 0.1\)).  Alternatively, non-parametric
+  statistics can be used, such as the \(A\) measure of stochastic
+  superiority \citep{Delaney:2002a}.
+\end{enumerate}
+
+Obviously, this depends on the \textit{effect size}, which is the 
 
 
 All astronomical data analysis is \emph{post hoc} analysis, since the universe was not set up to test a particular hypothesis (as far as we know).  It is therefore important to guard against the ``multiple comparisons problem'', whereby seemingly significant correlations are found where none really exist, simply by virtue of the large number of tests that were carried out.
