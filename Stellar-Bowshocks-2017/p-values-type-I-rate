@@ -1,0 +1,26 @@
+\begin{tabular}{lrrl}
+Correlation & p & \(\alpha\) & \\
+\hline
+Rc vs R0 & 0.0054 & 0.0712 & .\\
+R90 vs R0 & 0.0001 & 0.0025 & *\\
+Rc vs H & 0.1229 & 0.4119 & \\
+R90 vs H & 0.0215 & 0.1833 & .\\
+Rc vs Facing & 0.71 & 1 & \\
+Rc vs H II & 0.50 & 1 & \\
+R90 vs Facing & 0.60 & 1 & \\
+R90 vs H II & 0.52 & 1 & \\
+Rc vs Confuse & 1.00 & 1 & \\
+R90 vs Confuse & 0.34 & 0.4993 & \\
+Rc vs Herschel & 0.074 & 0.3437 & \\
+R90 vs Herschel & 0.00052 & 0.0106 & *\\
+Rc vs M42 & 0.00048 & 0.0099 & *\\
+R90 vs M42 & 0.0000105 & 0.0003 & *\\
+Rc vs 8 mic & 0.82 & 1 & \\
+R90 vs 8 mic & 0.6 & 1 & \\
+Rc vs AK & 0.19 & 0.4617 & \\
+R90 vs AK & 0.63 & 1 & \\
+Rc vs b & 0.19 & 0.4617 & \\
+R90 vs b & 0.31 & 0.4967 & \\
+Rc vs cos(l) & 1.00 & 1 & \\
+R90 vs cos(l) & 0.36 & 0.4999 & \\
+\end{tabular}

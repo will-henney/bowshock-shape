@@ -506,12 +506,20 @@ correlated with any other parameters via the following methodology:
   \ref{fig:mipsgal-uncorrelated}) to check for any obvious
   differences.
 \item We test if there is any statistically significant difference
-  between the shape distributions of the sub-samples by applying the
-  2-sample Anderson--Darling test \citep{Anderson:1952a, Scholz:1987a} to the
-  \(R_c/R_0\) and \(R_{90}/R_0\) distributions separately.  This is a
+  between the bow shock shapes of the sub-samples by applying the
+  2-sample Anderson--Darling test \citep{Anderson:1952a, Scholz:1987a}
+  to \(R_c/R_0\) and \(R_{90}/R_0\) separately.  This is a
   non-parametric test of the \textit{null hypothesis} that the two
-  sub-samples are drawn from the same distribution. 
-
+  sub-samples are drawn from the same distribution.  It returns a
+  \(p\)-value, which is the estimated probability that the observed
+  difference between the two sub-samples would be as large as it is
+  purely by chance if they were all were drawn from the same
+  distribution.  We adopt a threshold of \(p < 0.001\) in order to
+  confidently reject the null hypothesis and declare a ``significant''
+  difference between the two sub-samples, but we also consider the
+  less strict threshold of \(p < 0.05\) as an indicator of
+  ``probable'' difference (see Appendix~\ref{sec:distr-p-values} for
+  details).
 \end{enumerate}
 
 \subsection{Far-infrared arcs around late-type stars}

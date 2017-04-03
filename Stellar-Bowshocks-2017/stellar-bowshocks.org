@@ -3379,7 +3379,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Tue Mar 28 14:34:37 CST 2017
+Sun Apr  2 18:32:44 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -3490,21 +3490,34 @@ This is the one I am tending towards - close together on the sky, clearly showin
   fig, ax = plt.subplots(figsize=(6,3))
   x1, x2 = -5.0, 0.0
   sns.distplot(np.log10(pvalues), kde=False, rug=True,
-               rug_kws={'height': 1.0/9.0},
-               hist_kws={'range': [x1, x2]}, bins=20, ax=ax)
+               rug_kws={'height': 0.4/9.0},
+               hist_kws={'range': [x1, x2]}, bins=18, ax=ax)
   x = np.linspace(x1, x2, 200)
   ax.plot(x, 9.0*10**x, c='r')
-  ax.axvspan(np.log10(0.05), x2, color='k', alpha=0.05)
-  ax.axvline(np.log10(0.05), lw=2, ls='--', alpha=0.7, c='k')
-  ax.set(xlim=[x1, x2], ylim=[0.0, 9.0],
+  xu = -0.6
+  ax.annotate('uniform', (xu, 9.0*10**xu), color='r',
+              xytext=(-5, 20), textcoords='offset points',
+              ha='right', va='bottom', bbox={'fc': 'w', 'alpha': 0.7, 'ec': 'none'},
+              arrowprops={'arrowstyle': '-|>', 'color': 'r'})
+
+  for p0 in 0.001, 0.05:
+      ax.axvspan(np.log10(p0), x2+0.05, color='k', alpha=0.05)
+      ax.axvline(np.log10(p0), lw=2, ls='--', alpha=0.7, c='k')
+  ax.set(xlim=[x1-0.1, x2+0.05], ylim=[-0.7, 9.0],
 	 xlabel='$\log_{10}(p)$', ylabel='Number of correlations tested',
   )
+  ax.text(np.log10(0.001), 6, '$p = 0.001$', ha='center', va='bottom',
+          bbox={'fc': 'w'})
   ax.text(np.log10(0.05), 6, '$p = 0.05$', ha='center', va='bottom',
           bbox={'fc': 'w'})
-  ax.annotate('significant', (np.log10(0.05), 7.5),
+  xa, xb = np.log10(0.001), np.log10(0.05)
+  ax.annotate('significant', (xa, 7.5),
               xytext=(-10, 0), textcoords='offset points',
               ha='right', va='bottom')
-  ax.annotate('non-significant', (np.log10(0.05), 7.5),
+  ax.annotate('marginally\nsignificant', (0.5*(xa+xb), 7.5),
+              xytext=(0, 0), textcoords='offset points',
+              ha='center', va='center')
+  ax.annotate('non-significant', (xb, 7.5),
               xytext=(10, 0), textcoords='offset points',
               ha='left', va='bottom')
   sns.despine(ax=ax, trim=True)
@@ -3607,6 +3620,10 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
 
 **** Dealing with "the error of the transposed conditional"
+:PROPERTIES:
+:TABLE_EXPORT_FILE: p-values-type-I-rate
+:END:
+
 + The p-value gives 
   #+BEGIN_QUOTE
   The probability of finding a difference between two populations as large (or larger) than observed *if* there is no difference in the underlying distribution from which the two populations are drawn (the null hypothesis).
@@ -3639,7 +3656,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   + Although, when I look at this in detail, it is more specific and less relevant than I initially thought
 
 #+name: error-rates
-| Correlation     |         p |      \alpha |   |
+| Correlation     |         p | \alpha |   |
 |-----------------+-----------+--------+---|
 | Rc vs R0        |    0.0054 | 0.0712 | . |
 | R90 vs R0       |    0.0001 | 0.0025 | * |

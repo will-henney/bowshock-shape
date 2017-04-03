@@ -282,6 +282,14 @@ f.savefig("gradient-par-test.pdf")
 #+END_SRC
 Diagnostic: This method seem to have similar results as the Two points method.
 Need a direct comparison to check if both methods are equivalent.
+
+#+BEGIN_SRC sh
+python gradient-parabola-fit.py
+#+END_SRC
+
+#+RESULTS:
+
+[[file:gradient-par-test.pdf]]
 ** TODO Compare both parabolic methods
 #+NAME: Compare-parabolic-fits
 #+BEGIN_SRC python :eval no :tangle ./compare-parabolic-fits.py
