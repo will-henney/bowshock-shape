@@ -3285,7 +3285,7 @@ CLOSED: [2017-03-20 Mon 10:48]
   plotvars = ['log10 R0', 'log10 |b|', 'cos(l)', 'Hmag', 'Ak']
   bad_rows = np.zeros((len(tab),), dtype=bool)
   clip_values = {
-      'Hmag': [5.0, 12.0],
+      'Hmag': [4.5, 12.0],
       'Ak': [0.0, 5.0],
       'log10 R0': [0.3, 1.8],
       'log10 |b|': [-2.0, 1.3],
@@ -3345,14 +3345,20 @@ CLOSED: [2017-03-20 Mon 10:48]
   axx.plot(np.log10(R0b.value), Hb, ls=':', c='k', lw=2, alpha=0.8)
 
   # Calculate Pearson correlations
-  ytext = [None, 0.05, 0.05, 0.05, 0.7]
+  ytext = [None, 0.02, 0.02, 0.02, 0.7]
   for j, vy in enumerate(pretty_vars):
       for i, vx in enumerate(pretty_vars[:j]):
           r, p = pearsonr(df[vx], df[vy])
           s = f'$r = {r:.2f}$'
+          if p > 0.001:
+              s += '\n' + f'$p = {p:.4f}$'
+          else:
+              pexp = np.floor(np.log10(p))
+              s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
           rax = g.axes[j, i]
           rax.text(0.95, ytext[j], s,
-                   fontsize='x-small',
+                   fontsize='xx-small',
+                   bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
                    ha='right', va='bottom', transform=rax.transAxes)
 
 
@@ -3379,7 +3385,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Sun Apr  2 18:32:44 CDT 2017
+Mon Apr  3 22:50:11 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -3719,6 +3725,16 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
 **** TODO Statistical power, Type II errors (\beta), and effect size
 + [ ] Get the McGrath & Meyer (2006) paper
++ [ ] Calculate effect sizes for all our tests
+  + Cohen's d for the dichotomous tests
+    + Note that pooled std dev requires care to calculate
+    + https://en.wikipedia.org/wiki/Pooled_variance
+  + Pearson r for the continuous-continuous (but we already have this)
++ [X] Find p value for Pearson r tests (such as in the pair plot)
++ [ ] Do Pearson r for all the continuous variables against Rc and R90, and compare the p-values with those from A-D
+
+
+
 *** Comparison with the Orion Nebula bow shocks
 
 #+BEGIN_SRC python :return figfile :results file
