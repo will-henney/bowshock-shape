@@ -1916,8 +1916,10 @@ Plot KDE of the distribution
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
 
+  R0var = 'R0_fit'
+
   for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
-      tab[col] /= tab['R0_fit']
+      tab[col] /= tab[R0var]
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
 
@@ -1948,10 +1950,10 @@ Plot KDE of the distribution
 
   mgood = m5 | m4 | m3
 
-  R0_median = np.nanmedian(tab['R0_fit'][mgood])
+  R0_median = np.nanmedian(tab[R0var][mgood])
 
-  myes = tab['R0'] >= R0_median
-  mno = tab['R0'] < R0_median
+  myes = tab[R0var] >= R0_median
+  mno = tab[R0var] < R0_median
 
   masks = myes & mgood, mno & mgood
   shades = True, False
@@ -2066,6 +2068,9 @@ Plot KDE of the distribution
                        xytext=(0.0, 8), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
+          axx.text(1.0, 0.5, fr'$N = {np.sum(m)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
@@ -2294,7 +2299,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
-  from scipy.stats import ks_2samp, anderson_ksamp
+  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -2308,8 +2313,10 @@ CLOSED: [2017-03-20 Mon 14:01]
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
 
+  R0var = 'R0_fit'
+
   for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
-      tab[col] /= tab['R0_fit']
+      tab[col] /= tab[R0var]
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
 
@@ -2331,9 +2338,58 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   cmap = 'Reds'
   gamma = 0.5
-  sns.kdeplot(np.log10(tab['R0_fit'][mgood].data), tab['R90'][mgood].data,
+  sns.kdeplot(np.log10(tab[R0var][mgood].data), tab['R90'][mgood].data,
               cmap=cmap, n_levels=30,
               shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  r, p = pearsonr(np.log10(tab[R0var][mgood].data), tab['R90'][mgood].data)
+  s = f'$r = {r:.2f}$'
+  if p > 0.001:
+      s += '\n' + f'$p = {p:.4f}$'
+  else:
+      pexp = np.floor(np.log10(p))
+      s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+  ax.text(0.1, 0.1, s,
+      fontsize='x-small',
+      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+      ha='left', va='bottom', transform=ax.transAxes)
+
+  R0_median = np.nanmedian(tab[R0var][mgood])
+  mbig = tab[R0var] > R0_median
+  msmall = ~mbig
+
+  AD, levelsAD, pAD = anderson_ksamp(
+      [tab['R90'][mgood & msmall], tab['R90'][mgood & mbig]],
+      midrank=False)
+  ax.text(0.5, 0.9, fr'A-D $p = {pAD:.4f}$',
+      fontsize='x-small',
+      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+      ha='center', va='top', transform=ax.transAxes)
+
+  q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][mgood & msmall],
+                                             [10, 25, 50, 75, 90])
+  s = f'R0 < {R0_median:.2f}'
+  s += '\n' + f'# of sources: {(mgood & msmall).sum()}'
+  s += '\n' + f'Median: {q50:.2f}'
+  s += '\n' + f'Quartiles: {q25:.2f}, {q75:.2f}'
+  s += '\n' + f'Deciles: {q10:.2f}, {q90:.2f}'
+  ax.text(0.1, 0.9, s,
+      fontsize='x-small',
+      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+      ha='left', va='top', transform=ax.transAxes)
+
+  q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][mgood & mbig],
+                                             [10, 25, 50, 75, 90])
+  s = f'R0 > {R0_median:.2f}'
+  s += '\n' + f'# of sources: {(mgood & mbig).sum()}'
+  s += '\n' + f'Median: {q50:.2f}'
+  s += '\n' + f'Quartiles: {q25:.2f}, {q75:.2f}'
+  s += '\n' + f'Deciles: {q10:.2f}, {q90:.2f}'
+  ax.text(0.9, 0.9, s,
+      fontsize='x-small',
+      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+      ha='right', va='top', transform=ax.transAxes)
+
 
 
   masks = m3, m4, m5
@@ -2344,9 +2400,12 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   for m, alpha, star, c, ms in zip(masks, alphas, stars, colors, sizes):
       label = f'{star}-star ($N = {m.sum()}$)'
-      ax.plot(np.log10(tab['R0_fit'][m].data), tab['R90'][m].data,  'o',
+      ax.plot(np.log10(tab[R0var][m].data), tab['R90'][m].data,  'o',
               ms=ms, lw=1, alpha=alpha, c=c, label=label)
-  ax.axvline(np.log10(np.nanmedian(tab['R0_fit'][mgood])), color='k')
+  ax.axvline(np.log10(np.nanmedian(tab[R0var][mgood])), color='k')
+
+
+
 
   ax.set(
       xlim=[0.5, 2.0], ylim=[0.5, 3.5],
@@ -2407,7 +2466,7 @@ CLOSED: [2017-03-20 Mon 14:01]
               cmap=cmap, n_levels=30,
               shade=True, shade_lowest=False, ax=ax, alpha=0.8)
 
-
+              
   masks = m3, m4, m5
   alphas = 0.2, 0.4, 0.8
   stars = '3', '4', '5'
@@ -2436,6 +2495,163 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 #+RESULTS:
 [[file:mipsgal-Rc-ratio-versus-R0.pdf]]
+
+
+Try a finer discretization of the R_0 axis into 8 bins
+
+#+BEGIN_SRC python :results file :return figfile
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-boxplot-Rc-R90-versus-R0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  R0var = 'R0_fit'
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab[R0var]
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(3.5, 6))
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  # Make some box plots by discretizing the R_0 axis
+  logR0 = np.log10(tab[R0var][mgood].data)
+  n = len(logR0)
+  # Sort R0 into ascending bins with 30 sources per bin
+  sort_order = np.argsort(logR0)
+  R0_rank = np.empty_like(logR0)
+  R0_rank[sort_order] = np.arange(n)
+  # R0_rank = np.searchsorted(np.sort(logR0), logR0)
+  R0_bins = R0_rank//46
+  R0_label = np.zeros_like(R0_bins).astype('U3')
+  for ibin in set(R0_bins):
+      mbin = R0_bins == ibin
+      R0_label[mbin] = int(10**np.nanmedian(logR0[mbin]))
+
+  #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
+  R0_order = sorted(set(R0_label), key=float)
+
+  for ax, Rshape in zip(axes, ['R90', 'Rc', R0var]):
+      m = mgood & np.isfinite(tab[Rshape])
+      sns.boxplot(x=R0_label, y=tab[Rshape][m], order=R0_order, ax=ax)
+  axes[0].set(ylabel=r'$R_{90} / R_{0}$')
+  axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[None, 5.0])
+  axes[2].set(ylabel=r'$R_0$', yscale='log', ylim=[None, 100.0])
+  for iR0, R0_median in enumerate(R0_order):
+      x = (iR0 + 0.5) / len(R0_order)
+      axes[-1].text(x, 0.96, f'$N = {np.sum(R0_label == R0_median)}$',
+                    ha='center', va='top', transform=ax.transAxes,
+                    fontsize='x-small'
+      )
+  axes[-1].set(xlabel=r"Sub-sample median $R_0$, $''$", )
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-boxplot-Rc-R90-versus-R0.pdf]]
+
+Try the same with H_0
+
+#+BEGIN_SRC python :results file :return figfile
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-boxplot-Rc-R90-versus-H0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  R0var = 'R0_fit'
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab[R0var]
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  # Recalculate extinction
+  tab['Ak'] = 0.893*(tab['Hmag'] - tab['4.5mag'] + 0.1)
+  tab['Ak'][tab['Ak'] < 0.0] = np.nan
+
+  # Correct H magnitude for extinction
+  tab['Hmag'] -= 1.55*tab['Ak']
+
+  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(4, 6))
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  # Make some box plots by discretizing the R_0 axis
+  H0 = tab['Hmag'][mgood].data
+  n = len(H0)
+  # Sort R0 into ascending bins with 30 sources per bin
+  sort_order = np.argsort(H0)
+  H0_rank = np.empty_like(H0)
+  H0_rank[sort_order] = np.arange(n)
+  # R0_rank = np.searchsorted(np.sort(logR0), logR0)
+  H0_bins = H0_rank//46
+  H0_label = np.zeros_like(H0_bins).astype('U4')
+  for ibin in set(H0_bins):
+      mbin = H0_bins == ibin
+      H0_label[mbin] = np.nanmedian(H0[mbin])
+
+  #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
+  H0_order = sorted(set(H0_label), key=float)
+
+  for ax, Rshape in zip(axes, ['R90', 'Rc', 'Hmag']):
+      m = mgood & np.isfinite(tab[Rshape])
+      sns.boxplot(x=H0_label, y=tab[Rshape][m], order=H0_order, ax=ax)
+  axes[0].set(ylabel=r'$R_{90}$')
+  axes[1].set(ylabel=r'$R_{c}$', ylim=[None, 5.0])
+  axes[2].set(ylabel=r'$H_0$')
+  for iH0, H0_median in enumerate(H0_order):
+      x = (iH0 + 0.5) / len(H0_order)
+      axes[-1].text(x, 0.96, f'$N = {np.sum(H0_label == H0_median)}$',
+                    ha='center', va='top', transform=ax.transAxes,
+                    fontsize='x-small'
+      )
+  axes[-1].set(xlabel=r"Sub-sample median $H_0$", )
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+#+END_SRC
+
+#+RESULTS:
+[[file:]]
+
+
+
+
 
 **** DONE Stellar magnitude
 CLOSED: [2017-03-20 Mon 11:31]
@@ -3079,15 +3295,15 @@ CLOSED: [2017-03-20 Mon 14:22]
     + Blueward of H (e.g., J), the intrinsic color variation of the stars is a lot greater
     + Redward of 4.5 microns, you start to run into variations between different dust models (and scatter between different lines of sight too), and then the silicate absorption feature at 10 microns comes in as well
   + So Inbetouw give results in terms of A_{[\lambda]} /A_K (averages over 3 regions)
-    | Band  |     \lambda | A_{[\lambda]} /A_K    |
-    |-------+-------+-------------|
-    | J     | 1.240 | 2.50 \pm 0.15 |
-    | H     | 1.664 | 1.55 \pm 0.08 |
-    | K     | 2.164 | 1.00        |
-    | [3.6] | 3.545 | 0.56 \pm 0.06 |
-    | [4.5] | 4.442 | 0.43 \pm 0.08 |
-    | [5.8] | 5.675 | 0.43 \pm 0.10 |
-    | [8.0] | 7.760 | 0.43 \pm 0.10 |
+    | Band  | \lambda | A_{[\lambda]} /A_K |
+    |-------+---------+----------------|
+    | J     |   1.240 | 2.50 \pm 0.15  |
+    | H     |   1.664 | 1.55 \pm 0.08  |
+    | K     |   2.164 | 1.00           |
+    | [3.6] |   3.545 | 0.56 \pm 0.06  |
+    | [4.5] |   4.442 | 0.43 \pm 0.08  |
+    | [5.8] |   5.675 | 0.43 \pm 0.10  |
+    | [8.0] |   7.760 | 0.43 \pm 0.10  |
   + And they don't determine A_V/A_K themselves, but that varies from 8.8 (R_V = 3.3) to 7.5 (R_v = 5)
 + This leads Majewski to the formula:
   + A_K = 0.918 (H - [4.5] - 0.08)
@@ -3244,6 +3460,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
+  import json
   from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
   from astropy.table import Table
   import astropy.units as u
@@ -3346,9 +3563,11 @@ CLOSED: [2017-03-20 Mon 10:48]
 
   # Calculate Pearson correlations
   ytext = [None, 0.02, 0.02, 0.02, 0.7]
+  savedict = {}
   for j, vy in enumerate(pretty_vars):
       for i, vx in enumerate(pretty_vars[:j]):
           r, p = pearsonr(df[vx], df[vy])
+          savedict[f'{vx} vs. {vy}'] = {'r': r, 'p': p}
           s = f'$r = {r:.2f}$'
           if p > 0.001:
               s += '\n' + f'$p = {p:.4f}$'
@@ -3361,9 +3580,10 @@ CLOSED: [2017-03-20 Mon 10:48]
                    bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
                    ha='right', va='bottom', transform=rax.transAxes)
 
-
-
   g.savefig(figfile)
+
+  with open(figfile.replace('.pdf', '.json'), 'w') as f:
+      json.dump(savedict, f, indent=4)
 
 
 #+END_SRC
@@ -3371,11 +3591,12 @@ CLOSED: [2017-03-20 Mon 10:48]
 #+RESULTS:
 [[file:mipsgal-pairplot.pdf]]
 
++ JSON file with the stats results: [[file:mipsgal-pairplot.json]]
 
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf'
+  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -3385,7 +3606,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Mon Apr  3 22:50:11 CDT 2017
+Tue Apr  4 22:43:17 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -3398,6 +3619,7 @@ mipsgal-Rc-R90-environment.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-environme
 mipsgal-Rc-R90-vs-Orion.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Orion.pdf
 mipsgal-Rc-R90-vs-Herschel.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Herschel.pdf
 p-value-histogram.pdf -> ../papers/Paper1/figs/p-value-histogram.pdf
+mipsgal-boxplot-Rc-R90-versus-R0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf
 #+end_example
 
 Also, example objects for each star rating
@@ -3729,6 +3951,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   + Cohen's d for the dichotomous tests
     + Note that pooled std dev requires care to calculate
     + https://en.wikipedia.org/wiki/Pooled_variance
+    + And [[http://stats.stackexchange.com/questions/43159/how-to-calculate-pooled-variance-of-two-groups-given-known-group-variances-mean][this]] stack exchange answer
   + Pearson r for the continuous-continuous (but we already have this)
 + [X] Find p value for Pearson r tests (such as in the pair plot)
 + [ ] Do Pearson r for all the continuous variables against Rc and R90, and compare the p-values with those from A-D

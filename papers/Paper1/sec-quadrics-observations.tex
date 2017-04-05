@@ -389,21 +389,6 @@ rare.  Assuming a B2V star (\(M_H = -2\)), then the observed range
 \(H_0 \approx 9.5\) corresponds to \(d \approx \SI{2000}{pc}\), which is all
 perfectly reasonable.
 
-\begin{figure*}
-  \centering
-  \begin{tabular}{ll}
-    (a) & (b) \\
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-R0} &
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-Mag} 
-  \end{tabular}
-  \caption[]{Comparison between the distribution of bowshock shapes
-    when the sources are divided into two sub-samples according to the
-    value of another parameter. (a)~Bow shock angular size, \(R_0\).
-    (b)~Extinction-corrected \(H\)-band magnitude of the stellar
-    source.}
-  \label{fig:mipsgal-correlated}
-\end{figure*}
-
 Turning now to the distribution of bow shock angular size, \(R_0\),
 this will also be affected by distance to at least some degree, since
 for a constant physical size the angular size will vary as
@@ -424,7 +409,20 @@ already seen that the spread in \(H_0\) probably \emph{is} mostly due
 to a spread in distance, rather than a spread in \(H\)-band stellar
 luminosity.  If this is true, it follows that it is \(R_0\) that
 depends only weakly on \(d\) and is more influenced by other factors.
-  
+
+\begin{figure*}
+  \centering
+  \begin{tabular}{ll}
+    (a) & (b) \\
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-environment} &
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-candidates} 
+  \end{tabular}
+  \caption[]{Lack of significant correlation of bow shock shape with
+    (a) environment, and (b) uncertainty in stellar source
+    identification.}
+  \label{fig:mipsgal-uncorrelated}
+\end{figure*}
+
 One such factor is the stellar/environmental momentum-loss ratio,
 \(\beta\), between the two supersonic flows that form the bow shock.  All
 other things being equal, we have \(R_0 \propto \beta^{1/2}\) for
@@ -475,19 +473,39 @@ extreme inclinations.
 
 \subsubsection{Correlation between bow shock shape and other parameters}
 \label{sec:corr-shape}
-
 \begin{figure*}
   \centering
   \begin{tabular}{ll}
     (a) & (b) \\
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-environment} &
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-candidates} 
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-R0} &
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-Mag} 
   \end{tabular}
-  \caption[]{Lack of significant correlation of bow shock shape with
-    (a) environment, and (b) uncertainty in stellar source
-    identification.}
-  \label{fig:mipsgal-uncorrelated}
+  \caption[]{Comparison between the distribution of bowshock shapes
+    when the sources are divided into two sub-samples according to the
+    value of another parameter. (a)~Bow shock angular size, \(R_0\).
+    (b)~Extinction-corrected \(H\)-band magnitude of the stellar
+    source.}
+  \label{fig:mipsgal-correlated}
 \end{figure*}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-R0}
+  \caption{Box plots of the distributions of bow shock shape
+    parameters, \(R_c/R_0\) and \(R_{90} / R_0\), as a function of bow
+    shock size, \(R_0\).  All 3-, 4-, and 5-star sources are sorted
+    according to \(R_0\) and divided into 5 non-overlapping
+    sub-samples of roughly equal size, each labelled by their median
+    value of \(R_0\) in arcseconds, as illustrated in the lower panel.
+    The colored boxes show the interquartile range, with the median
+    indicated by a horizontal line, the 1st-to-9th interdecile range
+    by error bars, and outliers by diamonds.  It is apparent that the
+    dispersion in \(R_{90} / R_0\) (upper panel) increases
+    systematically with \(R_0\), although the central value is roughly
+    constant.  No clear systematic changes are apparent in
+    \(R_c / R_{90}\) (middle panel).}
+  \label{fig:mipsgal-boxplot}
+\end{figure}
 
 We now investigate if the bow shock shapes of the MIPSGAL sources are
 correlated with any other parameters via the following methodology:
@@ -507,19 +525,19 @@ correlated with any other parameters via the following methodology:
   differences.
 \item We test if there is any statistically significant difference
   between the bow shock shapes of the sub-samples by applying the
-  2-sample Anderson--Darling test \citep{Anderson:1952a, Scholz:1987a}
-  to \(R_c/R_0\) and \(R_{90}/R_0\) separately.  This is a
-  non-parametric test of the \textit{null hypothesis} that the two
-  sub-samples are drawn from the same distribution.  It returns a
-  \(p\)-value, which is the estimated probability that the observed
-  difference between the two sub-samples would be as large as it is
-  purely by chance if they were all were drawn from the same
-  distribution.  We adopt a threshold of \(p < 0.001\) in order to
-  confidently reject the null hypothesis and declare a ``significant''
-  difference between the two sub-samples, but we also consider the
-  less strict threshold of \(p < 0.05\) as an indicator of
-  ``probable'' difference (see Appendix~\ref{sec:distr-p-values} for
-  details).
+  two-sample Anderson--Darling test \citep{Anderson:1952a,
+    Scholz:1987a, Makarov:2017a} to \(R_c/R_0\) and \(R_{90}/R_0\)
+  separately.  This is a non-parametric test of the \textit{null
+    hypothesis} that the two sub-samples are drawn from the same
+  distribution.  It returns a \(p\)-value, which is the estimated
+  probability that the observed difference between the two sub-samples
+  would be as large as it is purely by chance if they were all were
+  drawn from the same distribution.  We adopt a threshold of
+  \(p < 0.001\) in order to confidently reject the null hypothesis and
+  declare a ``significant'' difference between the two sub-samples,
+  but we also consider the less strict threshold of \(p < 0.05\) as an
+  indicator of ``probable'' difference (see
+  Appendix~\ref{sec:distr-p-values} for details).
 \end{enumerate}
 
 \subsection{Far-infrared arcs around late-type stars}
