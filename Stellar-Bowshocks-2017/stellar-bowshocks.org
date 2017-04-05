@@ -2521,7 +2521,7 @@ Try a finer discretization of the R_0 axis into 8 bins
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
 
-  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(3.5, 6))
+  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(3, 5))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2553,12 +2553,12 @@ Try a finer discretization of the R_0 axis into 8 bins
       sns.boxplot(x=R0_label, y=tab[Rshape][m], order=R0_order, ax=ax)
   axes[0].set(ylabel=r'$R_{90} / R_{0}$')
   axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[None, 5.0])
-  axes[2].set(ylabel=r'$R_0$', yscale='log', ylim=[None, 100.0])
+  axes[2].set(ylabel=r"$R_0$, $''$", yscale='log', ylim=[None, 100.0])
   for iR0, R0_median in enumerate(R0_order):
       x = (iR0 + 0.5) / len(R0_order)
       axes[-1].text(x, 0.96, f'$N = {np.sum(R0_label == R0_median)}$',
                     ha='center', va='top', transform=ax.transAxes,
-                    fontsize='x-small'
+                    fontsize='xx-small'
       )
   axes[-1].set(xlabel=r"Sub-sample median $R_0$, $''$", )
   sns.despine()
@@ -2601,7 +2601,7 @@ Try the same with H_0
   # Correct H magnitude for extinction
   tab['Hmag'] -= 1.55*tab['Ak']
 
-  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(4, 6))
+  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(3, 5))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2619,35 +2619,35 @@ Try the same with H_0
   H0_rank = np.empty_like(H0)
   H0_rank[sort_order] = np.arange(n)
   # R0_rank = np.searchsorted(np.sort(logR0), logR0)
-  H0_bins = H0_rank//46
+  H0_bins = (n - 1 - H0_rank)//46
   H0_label = np.zeros_like(H0_bins).astype('U4')
   for ibin in set(H0_bins):
       mbin = H0_bins == ibin
       H0_label[mbin] = np.nanmedian(H0[mbin])
 
   #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
-  H0_order = sorted(set(H0_label), key=float)
+  H0_order = sorted(set(H0_label), key=float)[::-1]
 
   for ax, Rshape in zip(axes, ['R90', 'Rc', 'Hmag']):
       m = mgood & np.isfinite(tab[Rshape])
-      sns.boxplot(x=H0_label, y=tab[Rshape][m], order=H0_order, ax=ax)
-  axes[0].set(ylabel=r'$R_{90}$')
-  axes[1].set(ylabel=r'$R_{c}$', ylim=[None, 5.0])
-  axes[2].set(ylabel=r'$H_0$')
+      sns.boxplot(x=H0_label, y=tab[Rshape][mgood], order=H0_order, ax=ax)
+  axes[0].set(ylabel=r'$R_{90} / R_{0}$')
+  axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[None, 5.0])
+  axes[2].set(ylabel=r'$H_0$, mag', ylim=[4.5, 13.9])
   for iH0, H0_median in enumerate(H0_order):
       x = (iH0 + 0.5) / len(H0_order)
       axes[-1].text(x, 0.96, f'$N = {np.sum(H0_label == H0_median)}$',
                     ha='center', va='top', transform=ax.transAxes,
-                    fontsize='x-small'
+                    fontsize='xx-small'
       )
-  axes[-1].set(xlabel=r"Sub-sample median $H_0$", )
+  axes[-1].set(xlabel=r"Sub-sample median $H_0$, mag", )
   sns.despine()
   fig.tight_layout()
   fig.savefig(figfile)
 #+END_SRC
 
 #+RESULTS:
-[[file:]]
+[[file:mipsgal-boxplot-Rc-R90-versus-H0.pdf]]
 
 
 
@@ -3596,7 +3596,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf'
+  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -3606,7 +3606,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Tue Apr  4 22:43:17 CDT 2017
+Wed Apr  5 08:43:24 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -3620,6 +3620,7 @@ mipsgal-Rc-R90-vs-Orion.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Orion.pdf
 mipsgal-Rc-R90-vs-Herschel.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Herschel.pdf
 p-value-histogram.pdf -> ../papers/Paper1/figs/p-value-histogram.pdf
 mipsgal-boxplot-Rc-R90-versus-R0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf
+mipsgal-boxplot-Rc-R90-versus-H0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf
 #+end_example
 
 Also, example objects for each star rating

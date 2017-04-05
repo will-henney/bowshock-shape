@@ -490,11 +490,15 @@ extreme inclinations.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-R0}
-  \caption{Box plots of the distributions of bow shock shape
-    parameters, \(R_c/R_0\) and \(R_{90} / R_0\), as a function of bow
-    shock size, \(R_0\).  All 3-, 4-, and 5-star sources are sorted
-    according to \(R_0\) and divided into 5 non-overlapping
+  \begin{tabular}{@{}ll@{}}
+    (a) & (b) \\
+    \includegraphics[height=0.8\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-R0}
+    & \includegraphics[height=0.8\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-H0}
+  \end{tabular}
+  \caption{(a) Box plots of the distributions of bow shock shape
+    parameters, \(R_c/R_0\) and \(R_{90} / R_0\), after partitioning
+    on the bow shock size, \(R_0\).  All 3-, 4-, and 5-star sources
+    are sorted according to \(R_0\) and divided into 5 non-overlapping
     sub-samples of roughly equal size, each labelled by their median
     value of \(R_0\) in arcseconds, as illustrated in the lower panel.
     The colored boxes show the interquartile range, with the median
@@ -503,7 +507,12 @@ extreme inclinations.
     dispersion in \(R_{90} / R_0\) (upper panel) increases
     systematically with \(R_0\), although the central value is roughly
     constant.  No clear systematic changes are apparent in
-    \(R_c / R_{90}\) (middle panel).}
+    \(R_c / R_{90}\) (middle panel).  (b)~As (a), but partitioning on
+    the extinction-corrected \(H\)-band magnitude, \(H_0\).  Note that
+    sub-samples are plotted in order of \textit{decreasing} magnitude
+    to allow comparison between (a) and (b), given the negative
+    correlation between \(H_0\) and \(R_0\) (see
+    Fig.~\ref{fig:mipsgal-pairplot}).}
   \label{fig:mipsgal-boxplot}
 \end{figure}
 
