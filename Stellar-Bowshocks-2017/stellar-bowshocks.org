@@ -2299,7 +2299,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
-  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
+  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr, linregress
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -2326,7 +2326,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
   tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
 
-  fig, ax = plt.subplots(figsize=(6, 6))
+  fig, (ax, axr) = plt.subplots(2, 1, sharex=True, figsize=(6, 9))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2342,53 +2342,92 @@ CLOSED: [2017-03-20 Mon 14:01]
               cmap=cmap, n_levels=30,
               shade=True, shade_lowest=False, ax=ax, alpha=0.8)
 
-  r, p = pearsonr(np.log10(tab[R0var][mgood].data), tab['R90'][mgood].data)
-  s = f'$r = {r:.2f}$'
+  R0_median = np.nanmedian(tab[R0var][mgood])
+  mbig = tab[R0var] > R0_median
+  msmall = ~mbig
+
+  # Linear regression: y = a x + b
+  # This does the Pearson r at the same time
+  a, b, r, p, da = linregress(np.log10(tab[R0var][mgood].data), tab['R90'][mgood].data)
+  s = 'Linear regression: $y = m x + c$'
+  s += '\n' + f'$m = {a:.2f} \pm {da:.2f}$, $c = {b:.2f}$'
+  s += '\n' + f'Correlation coefficient: $r = {r:.2f}$'
   if p > 0.001:
       s += '\n' + f'$p = {p:.4f}$'
   else:
       pexp = np.floor(np.log10(p))
       s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
-  ax.text(0.1, 0.1, s,
+  ax.text(0.95, 0.05, s,
       fontsize='x-small',
       bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
-      ha='left', va='bottom', transform=ax.transAxes)
+      ha='right', va='bottom', transform=ax.transAxes)
+  xgrid = np.linspace(0.0, 5.0)
+  # x0 = np.log10(R0_median)
+  x0 = np.nanmean(np.log10(tab[R0var][mgood].data))
+  ax.fill_between(xgrid,
+                  a*x0 + (a+da)*(xgrid - x0) + b,
+                  a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.4)
+  ax.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':')
 
-  R0_median = np.nanmedian(tab[R0var][mgood])
-  mbig = tab[R0var] > R0_median
-  msmall = ~mbig
+  # Do residuals
+  residuals = tab['R90'].data - a*np.log10(tab[R0var].data) - b
+  yvar = np.abs(residuals)
+  sns.kdeplot(np.log10(tab[R0var][mgood].data), yvar[mgood],
+              cmap=cmap, n_levels=10, bw=0.04,
+              shade=True, shade_lowest=False, ax=axr, alpha=0.8)
 
-  AD, levelsAD, pAD = anderson_ksamp(
-      [tab['R90'][mgood & msmall], tab['R90'][mgood & mbig]],
-      midrank=False)
-  ax.text(0.5, 0.9, fr'A-D $p = {pAD:.4f}$',
-      fontsize='x-small',
-      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
-      ha='center', va='top', transform=ax.transAxes)
+  # Linear regression on the residuals: y = a x + b
+  # This does the Pearson r at the same time
+  a, b, r, p, da = linregress(np.log10(tab[R0var][mgood].data), yvar[mgood])
+  s = 'Linear regression: $y = m x + c$'
+  s += '\n' + f'$m = {a:.2f} \pm {da:.2f}$, $c = {b:.2f}$'
+  s += '\n' + f'Correlation coefficient: $r = {r:.2f}$'
+  if p > 0.001:
+      s += '\n' + f'$p = {p:.4f}$'
+  else:
+      pexp = np.floor(np.log10(p))
+      s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+  axr.text(0.05, 0.95, s,
+           fontsize='x-small',
+           bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+           ha='left', va='top', transform=axr.transAxes)
+  axr.fill_between(xgrid,
+                   a*x0 + (a+da)*(xgrid - x0) + b,
+                   a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.4)
+  axr.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':')
 
-  q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][mgood & msmall],
-                                             [10, 25, 50, 75, 90])
-  s = f'R0 < {R0_median:.2f}'
-  s += '\n' + f'# of sources: {(mgood & msmall).sum()}'
-  s += '\n' + f'Median: {q50:.2f}'
-  s += '\n' + f'Quartiles: {q25:.2f}, {q75:.2f}'
-  s += '\n' + f'Deciles: {q10:.2f}, {q90:.2f}'
-  ax.text(0.1, 0.9, s,
-      fontsize='x-small',
-      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
-      ha='left', va='top', transform=ax.transAxes)
 
-  q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][mgood & mbig],
-                                             [10, 25, 50, 75, 90])
-  s = f'R0 > {R0_median:.2f}'
-  s += '\n' + f'# of sources: {(mgood & mbig).sum()}'
-  s += '\n' + f'Median: {q50:.2f}'
-  s += '\n' + f'Quartiles: {q25:.2f}, {q75:.2f}'
-  s += '\n' + f'Deciles: {q10:.2f}, {q90:.2f}'
-  ax.text(0.9, 0.9, s,
-      fontsize='x-small',
-      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
-      ha='right', va='top', transform=ax.transAxes)
+  # AD, levelsAD, pAD = anderson_ksamp(
+  #     [tab['R90'][mgood & msmall], tab['R90'][mgood & mbig]],
+  #     midrank=False)
+  # ax.text(0.5, 0.9, fr'A-D $p = {pAD:.4f}$',
+  #     fontsize='x-small',
+  #     bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+  #     ha='center', va='top', transform=ax.transAxes)
+
+  # q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][mgood & msmall],
+  #                                            [10, 25, 50, 75, 90])
+  # s = f'R0 < {R0_median:.2f}'
+  # s += '\n' + f'# of sources: {(mgood & msmall).sum()}'
+  # s += '\n' + f'Median: {q50:.2f}'
+  # s += '\n' + f'Quartiles: {q25:.2f}, {q75:.2f}'
+  # s += '\n' + f'Deciles: {q10:.2f}, {q90:.2f}'
+  # ax.text(0.1, 0.9, s,
+  #     fontsize='x-small',
+  #     bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+  #     ha='left', va='top', transform=ax.transAxes)
+
+  # q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][mgood & mbig],
+  #                                            [10, 25, 50, 75, 90])
+  # s = f'R0 > {R0_median:.2f}'
+  # s += '\n' + f'# of sources: {(mgood & mbig).sum()}'
+  # s += '\n' + f'Median: {q50:.2f}'
+  # s += '\n' + f'Quartiles: {q25:.2f}, {q75:.2f}'
+  # s += '\n' + f'Deciles: {q10:.2f}, {q90:.2f}'
+  # ax.text(0.9, 0.9, s,
+  #     fontsize='x-small',
+  #     bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+  #     ha='right', va='top', transform=ax.transAxes)
 
 
 
@@ -2402,19 +2441,27 @@ CLOSED: [2017-03-20 Mon 14:01]
       label = f'{star}-star ($N = {m.sum()}$)'
       ax.plot(np.log10(tab[R0var][m].data), tab['R90'][m].data,  'o',
               ms=ms, lw=1, alpha=alpha, c=c, label=label)
-  ax.axvline(np.log10(np.nanmedian(tab[R0var][mgood])), color='k')
+      axr.plot(np.log10(tab[R0var][m].data), yvar[m],  'o',
+               ms=ms, lw=1, alpha=alpha, c=c, label=label)
+  # ax.axvline(np.log10(np.nanmedian(tab[R0var][mgood])), color='k')
 
 
 
 
   ax.set(
       xlim=[0.5, 2.0], ylim=[0.5, 3.5],
-      xlabel=r'Axial radius: $\log_{10} R_0$',
       ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
+      xscale='linear', yscale='linear')
+  axr.set(
+      ylim=[-0.05, 0.8],
+      xlabel=r'Axial radius: $\log_{10} R_0$',
+      ylabel=r'$|\mathsf{residual}|$',
       xscale='linear', yscale='linear')
 
 
-
+  sns.despine()
+  sns.despine(ax=ax, bottom=True)
+  fig.tight_layout()
   fig.savefig(figfile)
 
 
@@ -2499,7 +2546,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 ***** Try a finer 5-bin quantization of R_0 and H_0
 
-+ [ ] Also, calculate the 5-sample A-D statistic
++ [X] Also, calculate the 5-sample A-D statistic
 + [X] And add in the wing asymmetry factor |R_{90+} - R_{90-}| / R_90
   + This is about 0.2
 + [ ] Try tests of heteroscedasticity
