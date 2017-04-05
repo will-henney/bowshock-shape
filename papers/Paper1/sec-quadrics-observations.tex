@@ -490,29 +490,33 @@ extreme inclinations.
 
 \begin{figure}
   \centering
-  \begin{tabular}{@{}ll@{}}
+  \setlength\tabcolsep{0pt}
+  \begin{tabular}{ll}
     (a) & (b) \\
-    \includegraphics[height=0.8\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-R0}
-    & \includegraphics[height=0.8\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-H0}
+    \includegraphics[height=1.167\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-R0}
+    & \includegraphics[height=1.167\linewidth]{figs/mipsgal-boxplot-Rc-R90-versus-H0}
   \end{tabular}
   \caption{(a) Box plots of the distributions of bow shock shape
-    parameters, \(R_c/R_0\) and \(R_{90} / R_0\), after partitioning
-    on the bow shock size, \(R_0\).  All 3-, 4-, and 5-star sources
-    are sorted according to \(R_0\) and divided into 5 non-overlapping
-    sub-samples of roughly equal size, each labelled by their median
-    value of \(R_0\) in arcseconds, as illustrated in the lower panel.
-    The colored boxes show the interquartile range, with the median
-    indicated by a horizontal line, the 1st-to-9th interdecile range
-    by error bars, and outliers by diamonds.  It is apparent that the
-    dispersion in \(R_{90} / R_0\) (upper panel) increases
-    systematically with \(R_0\), although the central value is roughly
-    constant.  No clear systematic changes are apparent in
-    \(R_c / R_{90}\) (middle panel).  (b)~As (a), but partitioning on
-    the extinction-corrected \(H\)-band magnitude, \(H_0\).  Note that
-    sub-samples are plotted in order of \textit{decreasing} magnitude
-    to allow comparison between (a) and (b), given the negative
-    correlation between \(H_0\) and \(R_0\) (see
-    Fig.~\ref{fig:mipsgal-pairplot}).}
+    parameters, \(R_c/R_0\) and \(R_{90} / R_0\), together with a
+    measure of the tail asymmetry, \(|R_{90+} - R_{90-}| / R_{90}\),
+    after partitioning on the bow shock size, \(R_0\).  All 3-, 4-,
+    and 5-star sources are sorted according to \(R_0\) and divided
+    into 5 non-overlapping sub-samples of roughly equal size, each
+    labelled by their median value of \(R_0\) in arcseconds, as
+    illustrated in the lower panel.  The colored boxes show the
+    interquartile range, with the median indicated by a horizontal
+    line, the 1st-to-9th interdecile range by error bars, and outliers
+    by diamonds.  A 5-sample Anderson--Darling test is performed for
+    each dependent variable, with resultant \(p\)-value given at the
+    bottom of each panel.  It is apparent that the dispersion in
+    \(R_{90} / R_0\) (upper panel) increases systematically with
+    \(R_0\), although the central value is roughly constant.  No clear
+    systematic changes are apparent in \(R_c / R_{90}\) (middle
+    panel).  (b)~As (a), but partitioning on the extinction-corrected
+    \(H\)-band magnitude, \(H_0\).  Note that sub-samples are plotted
+    in order of \textit{decreasing} magnitude to allow comparison
+    between (a) and (b), given the negative correlation between
+    \(H_0\) and \(R_0\) (see Fig.~\ref{fig:mipsgal-pairplot}).}
   \label{fig:mipsgal-boxplot}
 \end{figure}
 

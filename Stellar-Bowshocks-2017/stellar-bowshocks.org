@@ -2459,7 +2459,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   m1 = tab['Rating'] ==  1
 
   mgood = m5 | m4 | m3
-
+  
   cmap = 'Greens'
   gamma = 0.5
   sns.kdeplot(np.log10(tab['R0_fit'][mgood].data), tab['Rc'][mgood].data,
@@ -2497,7 +2497,14 @@ CLOSED: [2017-03-20 Mon 14:01]
 [[file:mipsgal-Rc-ratio-versus-R0.pdf]]
 
 
-Try a finer discretization of the R_0 axis into 8 bins
+***** Try a finer 5-bin quantization of R_0 and H_0
+
++ [ ] Also, calculate the 5-sample A-D statistic
++ [X] And add in the wing asymmetry factor |R_{90+} - R_{90-}| / R_90
+  + This is about 0.2
++ [ ] Try tests of heteroscedasticity
+  + White's Lagrange Multiplier Test =statsmodels.stats.diagnostic.het_white()=
+  + Or just do a Pearson-r on the absolute deviations
 
 #+BEGIN_SRC python :results file :return figfile
   import numpy as np
@@ -2520,8 +2527,9 @@ Try a finer discretization of the R_0 axis into 8 bins
       tab[col] /= tab[R0var]
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+  tab['dR90'] = np.abs(tab['R90p'] - tab['R90n'])/tab['R90']
 
-  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(3, 5))
+  fig, axes = plt.subplots(4, 1, sharex=True, figsize=(3, 7))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2548,20 +2556,33 @@ Try a finer discretization of the R_0 axis into 8 bins
   #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
   R0_order = sorted(set(R0_label), key=float)
 
-  for ax, Rshape in zip(axes, ['R90', 'Rc', R0var]):
-      m = mgood & np.isfinite(tab[Rshape])
-      sns.boxplot(x=R0_label, y=tab[Rshape][m], order=R0_order, ax=ax)
-  axes[0].set(ylabel=r'$R_{90} / R_{0}$')
-  axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[None, 5.0])
-  axes[2].set(ylabel=r"$R_0$, $''$", yscale='log', ylim=[None, 100.0])
+  for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', R0var]):
+      sns.boxplot(x=R0_label, y=tab[Rshape][mgood], order=R0_order, ax=ax)
+      if Rshape != R0var:
+          # Anderson-Darling k-sample test over the 5 sub-samples
+          AD, levelsAD, pAD = anderson_ksamp(
+              [tab[Rshape][mgood][R0_label == _] for _ in R0_order],
+              midrank=False)
+          ax.text(0.1, -0.04, f'A-D $p = {pAD:.3f}$',
+                  ha='left', va='top', transform=ax.transAxes,
+                  fontsize='x-small'
+          )
+
+
+  axes[0].set(ylabel=r'$R_{90} / R_{0}$', ylim=[0.0, None])
+  axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[0.0, 5.0])
+  axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$', ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
+  axes[3].set(ylabel=r"$R_0$, $''$", yscale='log', ylim=[None, 200.0])
   for iR0, R0_median in enumerate(R0_order):
       x = (iR0 + 0.5) / len(R0_order)
-      axes[-1].text(x, 0.96, f'$N = {np.sum(R0_label == R0_median)}$',
+      axes[-1].text(x, 1.0, f'$N = {np.sum(R0_label == R0_median)}$',
                     ha='center', va='top', transform=ax.transAxes,
                     fontsize='xx-small'
       )
   axes[-1].set(xlabel=r"Sub-sample median $R_0$, $''$", )
-  sns.despine()
+  sns.despine(trim=True)
+  for ax in axes[:-1]:
+      sns.despine(ax=ax, bottom=True)
   fig.tight_layout()
   fig.savefig(figfile)
 #+END_SRC
@@ -2593,6 +2614,7 @@ Try the same with H_0
       tab[col] /= tab[R0var]
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+  tab['dR90'] = np.abs(tab['R90p'] - tab['R90n'])/tab['R90']
 
   # Recalculate extinction
   tab['Ak'] = 0.893*(tab['Hmag'] - tab['4.5mag'] + 0.1)
@@ -2601,7 +2623,7 @@ Try the same with H_0
   # Correct H magnitude for extinction
   tab['Hmag'] -= 1.55*tab['Ak']
 
-  fig, axes = plt.subplots(3, 1, sharex=True, figsize=(3, 5))
+  fig, axes = plt.subplots(4, 1, sharex=True, figsize=(3, 7))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2628,20 +2650,31 @@ Try the same with H_0
   #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
   H0_order = sorted(set(H0_label), key=float)[::-1]
 
-  for ax, Rshape in zip(axes, ['R90', 'Rc', 'Hmag']):
-      m = mgood & np.isfinite(tab[Rshape])
+  for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'Hmag']):
       sns.boxplot(x=H0_label, y=tab[Rshape][mgood], order=H0_order, ax=ax)
-  axes[0].set(ylabel=r'$R_{90} / R_{0}$')
-  axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[None, 5.0])
-  axes[2].set(ylabel=r'$H_0$, mag', ylim=[4.5, 13.9])
+      if Rshape != 'Hmag':
+          # Anderson-Darling k-sample test over the 5 sub-samples
+          AD, levelsAD, pAD = anderson_ksamp(
+              [tab[Rshape][mgood][H0_label == _] for _ in H0_order],
+              midrank=False)
+          ax.text(0.1, -0.04, f'A-D $p = {pAD:.3f}$',
+                  ha='left', va='top', transform=ax.transAxes,
+                  fontsize='x-small'
+          )
+  axes[0].set(ylabel=r'$R_{90} / R_{0}$', ylim=[0.0, None])
+  axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[0.0, 5.0])
+  axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$', ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
+  axes[3].set(ylabel=r'$H_0$, mag', ylim=[4.5, 13.9], yticks=[6, 9, 12])
   for iH0, H0_median in enumerate(H0_order):
       x = (iH0 + 0.5) / len(H0_order)
-      axes[-1].text(x, 0.96, f'$N = {np.sum(H0_label == H0_median)}$',
+      axes[-1].text(x, 1.0, f'$N = {np.sum(H0_label == H0_median)}$',
                     ha='center', va='top', transform=ax.transAxes,
                     fontsize='xx-small'
       )
   axes[-1].set(xlabel=r"Sub-sample median $H_0$, mag", )
-  sns.despine()
+  sns.despine(trim=True)
+  for ax in axes[:-1]:
+      sns.despine(ax=ax, bottom=True)
   fig.tight_layout()
   fig.savefig(figfile)
 #+END_SRC
@@ -3606,7 +3639,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Wed Apr  5 08:43:24 CDT 2017
+Wed Apr  5 12:18:14 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
