@@ -2308,7 +2308,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   sns.set_style('white')
   sns.set_color_codes('dark')
 
-  figfile = 'mipsgal-R90-ratio-versus-R0.pdf'
+  figfile = 'mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf'
 
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
@@ -2326,7 +2326,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
   tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
 
-  fig, (ax, axr) = plt.subplots(2, 1, sharex=True, figsize=(6, 9))
+  fig, (ax, axr) = plt.subplots(2, 1, sharex=True, figsize=(6, 6))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2338,9 +2338,9 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   cmap = 'Reds'
   gamma = 0.5
-  sns.kdeplot(np.log10(tab[R0var][mgood].data), tab['R90'][mgood].data,
-              cmap=cmap, n_levels=30,
-              shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+  # sns.kdeplot(np.log10(tab[R0var][mgood].data), tab['R90'][mgood].data,
+  #             cmap=cmap, n_levels=10, #bw=0.04,
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
 
   R0_median = np.nanmedian(tab[R0var][mgood])
   mbig = tab[R0var] > R0_median
@@ -2368,13 +2368,19 @@ CLOSED: [2017-03-20 Mon 14:01]
                   a*x0 + (a+da)*(xgrid - x0) + b,
                   a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.4)
   ax.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':')
+  xvar = np.array(np.log10(tab[R0var].data))
+  yvar = np.array(tab['R90'].data)
+  #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, lowess=True, ax=ax)
+  #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, truncate=True, robust=True,n_boot=100, color='m', ax=ax)
+
+
 
   # Do residuals
   residuals = tab['R90'].data - a*np.log10(tab[R0var].data) - b
-  yvar = np.abs(residuals)
-  sns.kdeplot(np.log10(tab[R0var][mgood].data), yvar[mgood],
-              cmap=cmap, n_levels=10, bw=0.04,
-              shade=True, shade_lowest=False, ax=axr, alpha=0.8)
+  yvar = np.array(np.abs(residuals))
+  # sns.kdeplot(np.log10(tab[R0var][mgood].data), yvar[mgood],
+  #             cmap=cmap, n_levels=10, #bw=0.04,
+  #             shade=True, shade_lowest=False, ax=axr, alpha=0.8)
 
   # Linear regression on the residuals: y = a x + b
   # This does the Pearson r at the same time
@@ -2396,6 +2402,9 @@ CLOSED: [2017-03-20 Mon 14:01]
                    a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.4)
   axr.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':')
 
+  xvar = np.array(np.log10(tab[R0var].data))
+  #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, lowess=True, ax=axr)
+  #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, truncate=True, robust=True, n_boot=100, color='m', ax=axr)
 
   # AD, levelsAD, pAD = anderson_ksamp(
   #     [tab['R90'][mgood & msmall], tab['R90'][mgood & mbig]],
@@ -2432,9 +2441,9 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 
   masks = m3, m4, m5
-  alphas = 0.2, 0.4, 0.8
+  alphas = 0.3, 0.4, 0.5
   stars = '3', '4', '5'
-  colors = 'c', 'r', 'b'
+  colors = 'c', 'c', 'c'
   sizes = 5, 7, 8
 
   for m, alpha, star, c, ms in zip(masks, alphas, stars, colors, sizes):
@@ -2442,24 +2451,25 @@ CLOSED: [2017-03-20 Mon 14:01]
       ax.plot(np.log10(tab[R0var][m].data), tab['R90'][m].data,  'o',
               ms=ms, lw=1, alpha=alpha, c=c, label=label)
       axr.plot(np.log10(tab[R0var][m].data), yvar[m],  'o',
-               ms=ms, lw=1, alpha=alpha, c=c, label=label)
+               ms=ms, lw=1, alpha=alpha, c='m', label=label)
   # ax.axvline(np.log10(np.nanmedian(tab[R0var][mgood])), color='k')
 
 
 
 
   ax.set(
-      xlim=[0.5, 2.0], ylim=[0.5, 3.5],
+      xlim=[0.65, 1.85], ylim=[0.55, 2.9],
       ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
       xscale='linear', yscale='linear')
   axr.set(
-      ylim=[-0.05, 0.8],
+      ylim=[-0.08, 0.78],
+      #ylim=[-1.5, 0.0],
       xlabel=r'Axial radius: $\log_{10} R_0$',
       ylabel=r'$|\mathsf{residual}|$',
       xscale='linear', yscale='linear')
 
 
-  sns.despine()
+  sns.despine(trim=True)
   sns.despine(ax=ax, bottom=True)
   fig.tight_layout()
   fig.savefig(figfile)
@@ -2468,7 +2478,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 #+END_SRC
 
 #+RESULTS:
-[[file:mipsgal-R90-ratio-versus-R0.pdf]]
+[[file:mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf]]
 
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
@@ -2528,7 +2538,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   ax.axvline(np.log10(np.nanmedian(tab['R0_fit'][mgood])), color='k')
 
   ax.set(
-      xlim=[0.5, 2.0], ylim=[0., 5.0],
+      xlim=[0.7, 1.7], ylim=[0., 5.0],
       xlabel=r'Axial radius: $\log_{10} R_0$',
       ylabel=r'Radius of cuvature ratio: $R_{c}/R_0$',
       xscale='linear', yscale='linear')
@@ -3375,15 +3385,15 @@ CLOSED: [2017-03-20 Mon 14:22]
     + Blueward of H (e.g., J), the intrinsic color variation of the stars is a lot greater
     + Redward of 4.5 microns, you start to run into variations between different dust models (and scatter between different lines of sight too), and then the silicate absorption feature at 10 microns comes in as well
   + So Inbetouw give results in terms of A_{[\lambda]} /A_K (averages over 3 regions)
-    | Band  | \lambda | A_{[\lambda]} /A_K |
-    |-------+---------+----------------|
-    | J     |   1.240 | 2.50 \pm 0.15  |
-    | H     |   1.664 | 1.55 \pm 0.08  |
-    | K     |   2.164 | 1.00           |
-    | [3.6] |   3.545 | 0.56 \pm 0.06  |
-    | [4.5] |   4.442 | 0.43 \pm 0.08  |
-    | [5.8] |   5.675 | 0.43 \pm 0.10  |
-    | [8.0] |   7.760 | 0.43 \pm 0.10  |
+    | Band  |     \lambda | A_{[\lambda]} /A_K    |
+    |-------+-------+-------------|
+    | J     | 1.240 | 2.50 \pm 0.15 |
+    | H     | 1.664 | 1.55 \pm 0.08 |
+    | K     | 2.164 | 1.00        |
+    | [3.6] | 3.545 | 0.56 \pm 0.06 |
+    | [4.5] | 4.442 | 0.43 \pm 0.08 |
+    | [5.8] | 5.675 | 0.43 \pm 0.10 |
+    | [8.0] | 7.760 | 0.43 \pm 0.10 |
   + And they don't determine A_V/A_K themselves, but that varies from 8.8 (R_V = 3.3) to 7.5 (R_v = 5)
 + This leads Majewski to the formula:
   + A_K = 0.918 (H - [4.5] - 0.08)
@@ -3417,23 +3427,23 @@ CLOSED: [2017-03-20 Mon 10:48]
      - This has r = -0.43
        + Implying that about 20% of the variance in in size is "explained" by variation in H_0
      - H band magnitudes of Trapezium, etc
-       | Star        | Sp Type |     H | A_V |    D |   M_H |
-       |-------------+---------+-------+-----+------+-------|
-       | \theta^1 C  | O7 V    |  4.63 |   1 |  400 | -3.58 |
-       | \theta^1 B  | B3 V    |   6.3 |   1 |  400 | -1.91 |
-       | \theta^1 A  | B0 V    |   5.8 |   1 |  400 | -2.41 |
-       | \theta^1 D  | B1.5 V  |  5.89 |   1 |  400 | -2.32 |
-       | \theta^2 A  | O9.5 IV |  4.97 | 0.2 |  400 | -3.08 |
-       | \theta^2 B  | B2-B5 V |  6.27 | 0.2 |  400 | -1.78 |
-       |-------------+---------+-------+-----+------+-------|
-       | HD 93129    | O2 I    |  6.14 |   1 | 2300 | -5.87 |
-       | \zeta Pup   | O4 I    |   2.9 |   0 |  330 | -4.69 |
-       | \lambda Cep | O6.5 I  | 4.618 |   0 |  600 | -4.27 |
-       | UW CMa      | O7 I    |  5.19 |   0 |  580 | -3.63 |
-       | 19 Cep      | O9 Ib   |  4.92 |   0 | 1200 | -5.48 |
-       | \alpha Cam  | O9 Ia   |  4.38 |   0 | 1900 | -7.01 |
-       | \zeta Ori   | O9.7 I  |  2.35 |   0 |  225 | -4.41 |
-       | Rigel       | B8 I    |  0.20 |   0 |  260 | -6.87 |
+       | Star     | Sp Type |     H |  A_V |    D |    M_H |
+       |----------+---------+-------+-----+------+-------|
+       | \theta^1 C     | O7 V    |  4.63 |   1 |  400 | -3.58 |
+       | \theta^1 B     | B3 V    |   6.3 |   1 |  400 | -1.91 |
+       | \theta^1 A     | B0 V    |   5.8 |   1 |  400 | -2.41 |
+       | \theta^1 D     | B1.5 V  |  5.89 |   1 |  400 | -2.32 |
+       | \theta^2 A     | O9.5 IV |  4.97 | 0.2 |  400 | -3.08 |
+       | \theta^2 B     | B2-B5 V |  6.27 | 0.2 |  400 | -1.78 |
+       |----------+---------+-------+-----+------+-------|
+       | HD 93129 | O2 I    |  6.14 |   1 | 2300 | -5.87 |
+       | \zeta Pup    | O4 I    |   2.9 |   0 |  330 | -4.69 |
+       | \lambda Cep    | O6.5 I  | 4.618 |   0 |  600 | -4.27 |
+       | UW CMa   | O7 I    |  5.19 |   0 |  580 | -3.63 |
+       | 19 Cep   | O9 Ib   |  4.92 |   0 | 1200 | -5.48 |
+       | \alpha Cam    | O9 Ia   |  4.38 |   0 | 1900 | -7.01 |
+       | \zeta Ori    | O9.7 I  |  2.35 |   0 |  225 | -4.41 |
+       | Rigel    | B8 I    |  0.20 |   0 |  260 | -6.87 |
        #+TBLFM: $6=$3 - 0.2 $4 - (5 log10($5) - 5) ;f2
      - Absolute magnitudes are calculated assuming A_H = 0.2 A_V and D = 400 pc
        + Distance modulus: 5 log10(D) - 5 = 8.01
@@ -3676,7 +3686,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf'
+  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -3686,7 +3696,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Wed Apr  5 12:18:14 CDT 2017
+Wed Apr  5 22:39:55 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -3701,6 +3711,7 @@ mipsgal-Rc-R90-vs-Herschel.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Hersch
 p-value-histogram.pdf -> ../papers/Paper1/figs/p-value-histogram.pdf
 mipsgal-boxplot-Rc-R90-versus-R0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf
 mipsgal-boxplot-Rc-R90-versus-H0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf
+mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf -> ../papers/Paper1/figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf
 #+end_example
 
 Also, example objects for each star rating
@@ -3965,7 +3976,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   + Although, when I look at this in detail, it is more specific and less relevant than I initially thought
 
 #+name: error-rates
-| Correlation     |         p | \alpha |   |
+| Correlation     |         p |      \alpha |   |
 |-----------------+-----------+--------+---|
 | Rc vs R0        |    0.0054 | 0.0712 | . |
 | R90 vs R0       |    0.0001 | 0.0025 | * |
