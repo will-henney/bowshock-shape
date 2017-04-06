@@ -2296,6 +2296,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 ***** Look directly at joint distributions of R_0 and the radial ratios
 + These turn out not to be very illuminating
 + The previous graphs are much better
++ [2017-04-06 Thu] But now repurposed to show the change in dispersion of R90 with R0 
 
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
@@ -2304,6 +2305,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
   import seaborn as sns
+  import statsmodels.api as sm
 
   sns.set_style('white')
   sns.set_color_codes('dark')
@@ -2322,11 +2324,12 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
   tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+  tab['dR90'] = np.abs(tab['R90p'] - tab['R90n'])/tab['R90']
 
   tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
   tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
 
-  fig, (ax, axr) = plt.subplots(2, 1, sharex=True, figsize=(6, 6))
+  fig, (ax, axr, axa) = plt.subplots(3, 1, sharex=True, figsize=(6, 9))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2346,6 +2349,9 @@ CLOSED: [2017-03-20 Mon 14:01]
   mbig = tab[R0var] > R0_median
   msmall = ~mbig
 
+  xvar = np.array(np.log10(tab[R0var].data))
+  yvar = np.array(tab['R90'].data)
+
   # Linear regression: y = a x + b
   # This does the Pearson r at the same time
   a, b, r, p, da = linregress(np.log10(tab[R0var][mgood].data), tab['R90'][mgood].data)
@@ -2357,19 +2363,23 @@ CLOSED: [2017-03-20 Mon 14:01]
   else:
       pexp = np.floor(np.log10(p))
       s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
-  ax.text(0.95, 0.05, s,
-      fontsize='x-small',
-      bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
-      ha='right', va='bottom', transform=ax.transAxes)
-  xgrid = np.linspace(0.0, 5.0)
-  # x0 = np.log10(R0_median)
+  # ax.text(0.95, -0.05, s,
+  #         fontsize='x-small', color='b',
+  #     bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+  #     ha='right', va='bottom', transform=ax.transAxes)
+  xgrid = np.linspace(np.nanmin(xvar[mgood]), np.nanmax(xvar[mgood]))
   x0 = np.nanmean(np.log10(tab[R0var][mgood].data))
+  ax.annotate(s=s, 
+              xy=(xgrid[-10], a*xgrid[-10] + b),
+              xytext=(0.95, -0.05), textcoords='axes fraction',
+              arrowprops={'arrowstyle': '-|>', 'color': 'b'},
+              fontsize='x-small', color='b',
+              bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+              ha='right', va='bottom')
   ax.fill_between(xgrid,
                   a*x0 + (a+da)*(xgrid - x0) + b,
                   a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.4)
   ax.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':')
-  xvar = np.array(np.log10(tab[R0var].data))
-  yvar = np.array(tab['R90'].data)
   #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, lowess=True, ax=ax)
   #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, truncate=True, robust=True,n_boot=100, color='m', ax=ax)
 
@@ -2384,7 +2394,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   # Linear regression on the residuals: y = a x + b
   # This does the Pearson r at the same time
-  a, b, r, p, da = linregress(np.log10(tab[R0var][mgood].data), yvar[mgood])
+  a, b, r, p, da = linregress(xvar[mgood], yvar[mgood])
   s = 'Linear regression: $y = m x + c$'
   s += '\n' + f'$m = {a:.2f} \pm {da:.2f}$, $c = {b:.2f}$'
   s += '\n' + f'Correlation coefficient: $r = {r:.2f}$'
@@ -2393,18 +2403,98 @@ CLOSED: [2017-03-20 Mon 14:01]
   else:
       pexp = np.floor(np.log10(p))
       s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
-  axr.text(0.05, 0.95, s,
-           fontsize='x-small',
+  # axr.text(0.02, 1.05, s,
+  #          fontsize='x-small', color='b',
+  #          bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+  #          ha='left', va='top', transform=axr.transAxes)
+  xgrid = np.linspace(np.nanmin(xvar[mgood]), np.nanmax(xvar[mgood]))
+  x0 = np.nanmean(np.log10(tab[R0var][mgood].data))
+  axr.annotate(s=s, 
+           xy=(xgrid[7], a*xgrid[7] + b),
+           xytext=(0.02, 1.05), textcoords='axes fraction',
+           arrowprops={'arrowstyle': '-|>', 'color': 'b'},
+           fontsize='x-small', color='b',
            bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
-           ha='left', va='top', transform=axr.transAxes)
+           ha='left', va='top')
   axr.fill_between(xgrid,
                    a*x0 + (a+da)*(xgrid - x0) + b,
                    a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.4)
   axr.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':')
 
-  xvar = np.array(np.log10(tab[R0var].data))
-  #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, lowess=True, ax=axr)
+  lowess = sm.nonparametric.lowess(yvar[mgood], xvar[mgood], frac=0.8)
+  axr.plot(lowess[:, 0], lowess[:, 1], lw=4, ls='--', alpha=0.7, color='g')
+  s = 'LOWESS regression'
+  axr.annotate(
+      s=s, xy=(lowess[223,0], lowess[223,1]),
+      xycoords='data', color='g',
+      xytext=(1.6, -0.1), textcoords='data', fontsize='x-small',
+      arrowprops={'arrowstyle': '-|>', 'color': 'g'},
+      ha='center', va='center')
+
+  # Based on the LOWESS result, redo the linear regression for log10(R0) < 1.4
+  mfit = mgood & (xvar <= 1.4)
+  a, b, r, p, da = linregress(xvar[mfit], yvar[mfit])
+  s = 'Linear regression: $y = m x + c$'
+  s += '\n' + f'$m = {a:.2f} \pm {da:.2f}$, $c = {b:.2f}$'
+  s += '\n' + f'Correlation coefficient: $r = {r:.2f}$'
+  if p > 0.001:
+      s += '\n' + f'$p = {p:.4f}$'
+  else:
+      pexp = np.floor(np.log10(p))
+      s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+  xgrid = np.linspace(np.nanmin(xvar[mgood]), 1.4)
+  x0 = np.nanmean(np.log10(tab[R0var][mfit].data))
+  axr.annotate(s=s, 
+           xy=(xgrid[4], a*xgrid[4] + b),
+           xytext=(0.05, 0.05), textcoords='axes fraction',
+           arrowprops={'arrowstyle': '-|>', 'color': 'r'},
+           fontsize='x-small', color='r',
+           bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+           ha='left', va='top')
+  axr.fill_between(xgrid,
+                   a*x0 + (a+da)*(xgrid - x0) + b,
+                   a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.2, color='r')
+  axr.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':', color='r')
+
+
+
+  # sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False,
+  #             line_kws=dict(color='orange', alpha=0.5, ls='--', lw=4),
+  #             lowess=True, ax=axr)
   #sns.regplot(x=xvar[mgood], y=yvar[mgood], scatter=False, truncate=True, robust=True, n_boot=100, color='m', ax=axr)
+
+  # Do the asymmetry in R90
+  yvar2 = np.array(tab['dR90'].data)
+  # Linear regression on the residuals: y = a x + b
+  # This does the Pearson r at the same time
+  a, b, r, p, da = linregress(xvar[mgood], yvar2[mgood])
+  s = 'Linear regression: $y = m x + c$'
+  s += '\n' + f'$m = {a:.2f} \pm {da:.2f}$, $c = {b:.2f}$'
+  s += '\n' + f'Correlation coefficient: $r = {r:.2f}$'
+  if p > 0.001:
+      s += '\n' + f'$p = {p:.4f}$'
+  else:
+      pexp = np.floor(np.log10(p))
+      s += '\n' + rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+  xgrid = np.linspace(np.nanmin(xvar[mgood]), np.nanmax(xvar[mgood]))
+  x0 = np.nanmean(np.log10(tab[R0var][mgood].data))
+  axa.annotate(s=s, 
+           xy=(xgrid[4], a*xgrid[4] + b),
+           xytext=(0.05, 0.95), textcoords='axes fraction',
+           arrowprops={'arrowstyle': '-|>', 'color': 'b'},
+           fontsize='x-small', color='b',
+           bbox={'fc': 'white', 'ec': 'none', 'alpha': 0.85, 'pad': 1},
+           ha='left', va='top')
+  axa.fill_between(xgrid,
+                   a*x0 + (a+da)*(xgrid - x0) + b,
+                   a*x0 + (a-da)*(xgrid - x0) + b, alpha=0.4)
+  axa.plot(xgrid, a*x0 + a*(xgrid - x0) + b, lw=2, ls=':')
+
+  # sns.regplot(x=xvar[mgood], y=yvar2[mgood], scatter=False,
+  #             line_kws=dict(color='g', alpha=0.5, ls='--', lw=2),
+  #             lowess=True, ax=axa)
+
+
 
   # AD, levelsAD, pAD = anderson_ksamp(
   #     [tab['R90'][mgood & msmall], tab['R90'][mgood & mbig]],
@@ -2452,6 +2542,8 @@ CLOSED: [2017-03-20 Mon 14:01]
               ms=ms, lw=1, alpha=alpha, c=c, label=label)
       axr.plot(np.log10(tab[R0var][m].data), yvar[m],  'o',
                ms=ms, lw=1, alpha=alpha, c='m', label=label)
+      axa.plot(np.log10(tab[R0var][m].data), yvar2[m],  'o',
+               ms=ms, lw=1, alpha=alpha, c='r', label=label)
   # ax.axvline(np.log10(np.nanmedian(tab[R0var][mgood])), color='k')
 
 
@@ -2459,18 +2551,19 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   ax.set(
       xlim=[0.65, 1.85], ylim=[0.55, 2.9],
-      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
-      xscale='linear', yscale='linear')
+      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$')
   axr.set(
       ylim=[-0.08, 0.78],
-      #ylim=[-1.5, 0.0],
-      xlabel=r'Axial radius: $\log_{10} R_0$',
-      ylabel=r'$|\mathsf{residual}|$',
-      xscale='linear', yscale='linear')
+      ylabel=r'Absolute residual from $R_{90}/R_0$ regression')
+  axa.set(
+      # ylim=[-0.08, 0.78],
+      xlabel=r'Axial radius: $\log_{10}\, R_0$',
+      ylabel=r'$|R_{90+} - R_{90-}| / R_{90}$')
 
 
   sns.despine(trim=True)
   sns.despine(ax=ax, bottom=True)
+  sns.despine(ax=axr, bottom=True)
   fig.tight_layout()
   fig.savefig(figfile)
 
@@ -3696,7 +3789,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Wed Apr  5 22:39:55 CDT 2017
+Thu Apr  6 13:20:49 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
