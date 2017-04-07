@@ -4143,12 +4143,16 @@ This is the one I am tending towards - close together on the sky, clearly showin
   + The main problem with the median split is that we are throwing away information. 
 
 **** TODO Statistical power, Type II errors (\beta), and effect size
-+ [ ] Get the McGrath & Meyer (2006) paper
++ [X] Get the McGrath & Meyer (2006) paper
+  + Discusses differences between r and d as measures of effect size for two-sample tests
+  + But only interested in changes in the mean
 + [ ] Calculate effect sizes for all our tests
   + Cohen's d for the dichotomous tests
     + Note that pooled std dev requires care to calculate
     + https://en.wikipedia.org/wiki/Pooled_variance
     + And [[http://stats.stackexchange.com/questions/43159/how-to-calculate-pooled-variance-of-two-groups-given-known-group-variances-mean][this]] stack exchange answer
+  + [ ] Or we can use the rank biserial correlation coefficient that we calculated from the Mann-Whitney U statistic
+  + And we can use sigma ratio to give heteroscedastic effect size 
   + Pearson r for the continuous-continuous (but we already have this)
   + Also https://www.psychometrica.de/effect_size.html has lots of javascript calculators for transorming between different sorts of effect sizes
 + [X] Find p value for Pearson r tests (such as in the pair plot)
@@ -4161,7 +4165,29 @@ This is the one I am tending towards - close together on the sky, clearly showin
   #+BEGIN_QUOTE
   square rank test for dispersion
   #+END_QUOTE
-  which looks worht investigating
+  which looks worth investigating
++ There are more tests discussed in "Rank Tests of Dispersion" by Moses (1963)
+  + He finds that most go wrong when the means or medians are not equal
++ Further analysis is done by Fligner & Killeen (1976) "Distribution-Free Two-Sample Tests for Scale"
+  + They assume equal medians
+  + They have modified versions of three previous tests
+    1. Ansari-Bradley
+    2. Mood
+    3. Klotz
+  + They spend most time on the Mood analog
+  + For an effect size, they use \sigma/\tau, which is the ratio of the dispersions of the underlying distribution functions for the two samples
++ Now I have discovered more tests for equality of dispersion
+  + [[https://en.wikipedia.org/wiki/F-test_of_equality_of_variances][F-test_of_equality_of_variances]] is for Gaussian distributions, and it is supposedly very sensitive to the normality assumption so needs to be used with care
+    + The test statistic is just the ratio of variances between the two groups
+      + It's distribution should follow the central F-distribution if the population variances are in fact equal.  For large N, this just looks like a slightly skew gaussian, centered on 1
+      + If they are not equal, then the distribution of the test statistic is a non-central F-distribution, that will center on the the true ratio
+    + A version of this for the k-sample case is Hartley's test, which simply looks at the ratio of group variances between the largest and smallest
+  + There are other, more robust tests, of which the best seems to be the [[https://en.wikipedia.org/wiki/Brown%E2%80%93Forsythe_test][Brown–Forsythe_test]]
+    + Brown & Forsyth (1974)
+  + But the only one I can find a python routine for is [[https://en.wikipedia.org/wiki/Levene%2527s_test][Levene's test]]
+    + See also this [[http://www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm][NIST page]]
+    + Implemented in =scipy.stats.levene=
+    + Has the advantage that there are three different variants, which use different measures of the "location" (median, mean, or trimmed mean), which are better suited to different sorts of distributions
 
 *** Comparison with the Orion Nebula bow shocks
 
