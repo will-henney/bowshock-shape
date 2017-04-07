@@ -1902,11 +1902,16 @@ Plot KDE of the distribution
   + In that case you would have larger R_0 producing smaller ratios (and vixe versa)
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
-  from scipy.stats import ks_2samp, anderson_ksamp
+  from scipy.stats import ks_2samp, anderson_ksamp, mannwhitneyu
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
   import seaborn as sns
+
+  def rank_biserial(a, b):
+      U = mannwhitneyu(a, b, alternative='two-sided')
+      rb = 1.0 - 2*U.statistic/(len(a)*len(b))
+      return rb, U.pvalue
 
   sns.set_style('white')
   sns.set_color_codes('dark')
@@ -2041,9 +2046,13 @@ Plot KDE of the distribution
               KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
 						 midrank=False)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+              s = fr'A-D $p = {pAD:.4f}$'
+              rb, pMW = rank_biserial(tab['Rc'][m], tab['Rc'][masks[0]])
+              s += '\n' + fr'$r_b = {rb:.2f}$'
+              axx.text(1.0, 0.9, s,
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
+            
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
@@ -2068,7 +2077,7 @@ Plot KDE of the distribution
                        xytext=(0.0, 8), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
-          axx.text(1.0, 0.5, fr'$N = {np.sum(m)}$',
+          axx.text(1.0, 0.4, fr'$N = {np.sum(m)}$',
                    fontsize=8, ha='right', va='top',
                    transform=axx.transAxes)
           # Calculate K-S statistic
@@ -2076,7 +2085,10 @@ Plot KDE of the distribution
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
 						 midrank=False)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+              s = fr'A-D $p = {pAD:.4f}$'
+              rb, pMW = rank_biserial(tab['R90'][m], tab['R90'][masks[0]])
+              s += '\n' + fr'$r_b = {rb:.2f}$'
+              axx.text(1.0, 0.9, s,
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
@@ -4138,10 +4150,18 @@ This is the one I am tending towards - close together on the sky, clearly showin
     + https://en.wikipedia.org/wiki/Pooled_variance
     + And [[http://stats.stackexchange.com/questions/43159/how-to-calculate-pooled-variance-of-two-groups-given-known-group-variances-mean][this]] stack exchange answer
   + Pearson r for the continuous-continuous (but we already have this)
+  + Also https://www.psychometrica.de/effect_size.html has lots of javascript calculators for transorming between different sorts of effect sizes
 + [X] Find p value for Pearson r tests (such as in the pair plot)
 + [ ] Do Pearson r for all the continuous variables against Rc and R90, and compare the p-values with those from A-D
-
-
+***** Effect size for changes in dispersion
++ There is a paper by Best (1994) that talks about a "partition-of-\chi^2" test that treats location and spread separately
+  + This cites a previous paper by Nair (1986)
+  + And that has a citation of Mood (1954), who has what may be even better, so we look at that next
++ Mood has various tests, but including:
+  #+BEGIN_QUOTE
+  square rank test for dispersion
+  #+END_QUOTE
+  which looks worht investigating
 
 *** Comparison with the Orion Nebula bow shocks
 
