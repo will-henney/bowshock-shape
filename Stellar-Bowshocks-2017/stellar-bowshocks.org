@@ -4124,6 +4124,26 @@ This is the one I am tending towards - close together on the sky, clearly showin
 #+TBLFM: $2=1 - $1**0.1;f2::$4=1 - $1**0.5;f2::$6=1 - $1;f2::
 
 
+**** False discovery rate revisited [2017-04-07 Fri]
++ Colquhoun uses "False discovery rate" to mean the probability of Type I error (given the observations)
++ There are some extensive discussions:
+  + In discussions after [[https://errorstatistics.com/2015/03/16/stephen-senn-the-pathetic-p-value-guest-post/][this blog post]]
+  + And in [[http://stats.stackexchange.com/questions/143325/confusion-with-false-discovery-rate-and-multiple-testing-on-colquhoun-2014/146405#146405][this stack exchange question]]
++ In both cases Colquhoun joins in
++ And there is a lot of push-back against his paper
++ Some of the anti-Colquhoun points made are
+  1. That he misuses the term "false discovery rate" FDR when he really means "false discovery proportion" FDP, as defined by Benjamini-Hochberg
+     - This point is made by Bonferroni in a stack exchage comment!
+  2. That Colquhoun is assuming point nulls and two-sided tests, whereas in practice people often use compound nulls and one-sided tests
+     - Although everyone seems to agree that most papers fail to be explicit about it
+     - A point null is something like "there is no difference", or "parameters are uncorrelated"
+     - A compound null can be something like "A is no better than B", that is, "difference is less than or equal to zero"
+  3. That his "FDP \ge 30% for p < 0.05" is not as watertight as he thinks
+     - It would be bigger if the prior probability of the null were < 50%
+       + But he rebuts this by mocking the idea that we should presuppose the truth of the hypothesis we are testing
+       + I'm not sure what I think of this - certainly in some cases we may have good external grounds for thinking that the null is not true
+       + But he is right that it would be odd to be testing /only/ hypotheses that we already are convinced of
+     - Supposedly things are different with one-sided tests and compound nulls, but I haven't really looked into this
 
 **** Problems with the median split
 + Cautionary quote from \cite{Ruscio:2008a}
@@ -4187,7 +4207,20 @@ This is the one I am tending towards - close together on the sky, clearly showin
   + But the only one I can find a python routine for is [[https://en.wikipedia.org/wiki/Levene%2527s_test][Levene's test]]
     + See also this [[http://www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm][NIST page]]
     + Implemented in =scipy.stats.levene=
-    + Has the advantage that there are three different variants, which use different measures of the "location" (median, mean, or trimmed mean), which are better suited to different sorts of distributions
+    + Has the advantage that there are three different variants, which use different measures of the "location" (mean, median, or trimmed mean), which are better suited to different sorts of distributions
+    + So, if we use the median option, then this /is/ the Brown-Forsythe test
+    + In Brown & Forsyth (1974), the three options are called W_0, W_50, and W_10
+      + W_0 (mean) is the original Levine
+      + W_50 (median) is B--F, and is recommended for skewed distros
+      + W_10 (trimmed) is recommended for heavy-tailed distros
++ Brown & Forsyth (1974) Table 1 gives power estimates for various tests at the \alpha = 0.05 level
+  + By which they mean the p-value threshold
+  + Numbers are expressed as percentages
+  + For zero effect size (1:1 variances), these /ought/ to give p = \alpha = 5%
+    + But the parametric tests, e.g., F-test, give much larger values when the distros are non-gaussian
+  + With N=40 in each sample, we only have power of about 40% for 2:1 variances, or 80% for 4:1 variances (this is using W_50 or W_10, as appropriate)
+  + Presumably, this would improve with larger N
+  + Unfortunately, there is no estimate for smaller values of \alpha than 0.05
 
 *** Comparison with the Orion Nebula bow shocks
 
