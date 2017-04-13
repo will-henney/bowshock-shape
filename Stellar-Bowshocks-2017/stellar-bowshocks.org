@@ -4124,7 +4124,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
 #+TBLFM: $2=1 - $1**0.1;f2::$4=1 - $1**0.5;f2::$6=1 - $1;f2::
 
 
-**** False discovery rate revisited [2017-04-07 Fri]
+**** TODO False discovery rate revisited [2017-04-07 Fri]
 + Colquhoun uses "False discovery rate" to mean the probability of Type I error (given the observations)
 + There are some extensive discussions:
   + In discussions after [[https://errorstatistics.com/2015/03/16/stephen-senn-the-pathetic-p-value-guest-post/][this blog post]]
@@ -4134,16 +4134,58 @@ This is the one I am tending towards - close together on the sky, clearly showin
 + Some of the anti-Colquhoun points made are
   1. That he misuses the term "false discovery rate" FDR when he really means "false discovery proportion" FDP, as defined by Benjamini-Hochberg
      - This point is made by Bonferroni in a stack exchage comment!
-  2. That Colquhoun is assuming point nulls and two-sided tests, whereas in practice people often use compound nulls and one-sided tests
+  2. That Colquhoun is assuming point nulls and two-sided tests, whereas in practice people often use composite nulls and one-sided tests
      - Although everyone seems to agree that most papers fail to be explicit about it
      - A point null is something like "there is no difference", or "parameters are uncorrelated"
-     - A compound null can be something like "A is no better than B", that is, "difference is less than or equal to zero"
+     - A composite null can be something like "A is no better than B", that is, "difference is less than or equal to zero"
   3. That his "FDP \ge 30% for p < 0.05" is not as watertight as he thinks
-     - It would be bigger if the prior probability of the null were < 50%
+     - It would be smaller if the prior probability of the null were < 50%
        + But he rebuts this by mocking the idea that we should presuppose the truth of the hypothesis we are testing
        + I'm not sure what I think of this - certainly in some cases we may have good external grounds for thinking that the null is not true
-       + But he is right that it would be odd to be testing /only/ hypotheses that we already are convinced of
-     - Supposedly things are different with one-sided tests and compound nulls, but I haven't really looked into this
+       + But he is right that it would be odd to be testing /only/ hypotheses that we are already convinced of
+     - Supposedly things are different with one-sided tests and composite nulls, but I haven't really looked into this (see below)
++ Further info on this
+  + Casella & Berger (1987) "Reconciling bayesian and frequentist evidence in the one-sided testing problem"
+  + This argues a counterpoint to Berger & Sellke (1987), which was the ur-paper for Sellke, Bayarri, & Berger (2001) that gives the "callibration" of p-values
+  + Note that these are two different Bergers!
+    1. James O. Berger, who works with Sellke
+    2. Roger L. Berger, who works with Casella
+  + So, Casella & Berger consider 1-sided tests between two "diffuse" hypothesese, instead of the 2-sided test of a point hypothesis pace Berger & Sellke
+    + They find that the posterior probability of H_0 (which is the false discovery proportion) is no higher than p in this case
+    + Which is very different from Berger & Sellke
+    + They suggest that the problem lies in having a point null, so that the (supposedly fair) prior is a "point mass" of 0.5 at H_0 and the other 0.5 spread over H_1.  They think that this is not an "impartial" prior, but is rather heavily biased in favour of H_0
++ The HEP point of view
+  + Excellent review paper: Cousins (2017) "The Jeffreys--Lindley paradox and discovery criteria in high energy physics"
+  + Jeffreys--Lindley paradox is that we can have a small p, which disfavours the null hypothesis H_0 in frequentist framework (small likelihood ratio), but if n is sufficiently large, then the Bayes Factor will favour H_0
+    + This is for simple-vs-composite hypothesis testing
+    + And is because \lambda \propto (\sigma_tot/\tau) BF
+    + Where \lambda = L(\theta_0) / L(\hat{\theta}) is ratio of likelihood of \theta_0 under H_0 (which is a bit like p, but with the pdf instead of cdf) and L(\hat{\theta}) is maximum likelihood of \theta under H_1
+    + And \sigma_tot = \sigma/N^{1/2} is the std of the observed sample mean if \sigma^2 is the population variance
+    + And \tau is the scale of the prior pdf for H_1
+  + It turns out that the false-positive Type I error rate \alpha is more usually defined as the /probability of wrongly rejecting H_0 when it is true/, which means that it is equal to the p value
+    + So this is very different from how Sellke (2001) use it, which is /probability of H_0 given the data/, or the "posterior probability of H_0": Pr(H_0 | x)
+    + So I should probably not use \alpha in this way, since it is a bit non-standard
+  + Interesting history of 5-\sigma criterion (p = 3e-7 !!!):
+    + This arose from observations in 1960s of resonances associated with new particles
+    + Partly a way of mitigating the "multiple trials factor", which in HEP seems to be called the /look elsewhere effect/
+    + And partly to offset poorly understood "systematic effects"
+    + Was mainly practical, in the sense that empirically it was found that 3-\sigma and 4-\sigma discoveries tended to go away as more data was accumulated
+    + There is even a short paper by Louis Lyons (2013) on it
+  + One strategy for dealing with the look elsewhere effect is given in Gross & Vitells (2010), while another is given in Algeri & van Dyk (2017)
+    + These are both a lot more complicated than tha Bonferroni correction
+  + Hierarchy of scales that give rise to the Jeffreys--Lindley paradox
+    + \tau \gg \sigma_tot \gg \epsilon
+    + \tau and \sigma_tot are defined above (H_1 prior scale and evidence scale)
+    + \epsilon is the scale of H_0, which \to 0 for a point hypothesis
+  + So the factor (\sigma_tot/\tau) is called the /Ockham factor/
+    + It can become very small for large N
+  + In HEP there is often a high degree of belief in the null hypothesis
++ So there is a big fight among
+  1. Those who don't like p-values and think we should report posterior probabilities instead
+     - For example, [[http://www.fharrell.com/2017/02/a-litany-of-problems-with-p-values.html][Frank Harrell in this blog post]]
+  2. Those who say this is confusing things and that \alpha should always mean the significance level for the likelihood integral.  And that there is no problem with p-values per se, just with people abusing them
+     - For example, anything by [[https://errorstatistics.com][Deborah Mayo]]
+
 
 **** Problems with the median split
 + Cautionary quote from \cite{Ruscio:2008a}
