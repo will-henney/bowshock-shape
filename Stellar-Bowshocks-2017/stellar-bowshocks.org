@@ -2664,9 +2664,11 @@ CLOSED: [2017-03-20 Mon 14:01]
 + [X] Also, calculate the 5-sample A-D statistic
 + [X] And add in the wing asymmetry factor |R_{90+} - R_{90-}| / R_90
   + This is about 0.2
-+ [ ] Try tests of heteroscedasticity
++ [X] Try tests of heteroscedasticity
   + White's Lagrange Multiplier Test =statsmodels.stats.diagnostic.het_white()=
   + Or just do a Pearson-r on the absolute deviations
+  + Finally plumped for Brown--Forsythe variant of Levene test
++ [X] Add in the observational =R90_sigma=
 
 #+BEGIN_SRC python :results file :return figfile
   import numpy as np
@@ -2690,8 +2692,9 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
   tab['dR90'] = np.abs(tab['R90p'] - tab['R90n'])/tab['R90']
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
 
-  fig, axes = plt.subplots(4, 1, sharex=True, figsize=(3, 7))
+  fig, axes = plt.subplots(5, 1, sharex=True, figsize=(3, 8))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2718,14 +2721,19 @@ CLOSED: [2017-03-20 Mon 14:01]
   #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
   R0_order = sorted(set(R0_label), key=float)
 
-  for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', R0var]):
+  for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'R90_sigma', R0var]):
       sns.boxplot(x=R0_label, y=tab[Rshape][mgood], order=R0_order, ax=ax)
       if Rshape != R0var:
           # Anderson-Darling k-sample test over the 5 sub-samples
           AD, levelsAD, pAD = anderson_ksamp(
               [tab[Rshape][mgood][R0_label == _] for _ in R0_order],
               midrank=False)
-          ax.text(0.1, -0.04, f'A-D $p = {pAD:.3f}$',
+          if pAD > 0.01:
+              s = f'A-D $p = {pAD:.3f}$'
+          else:
+              pexp = np.floor(np.log10(pAD))
+              s = rf'A-D $p = {pAD/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+          ax.text(0.1, -0.04, s,
                   ha='left', va='top', transform=ax.transAxes,
                   fontsize='x-small'
           )
@@ -2733,8 +2741,11 @@ CLOSED: [2017-03-20 Mon 14:01]
 
   axes[0].set(ylabel=r'$R_{90} / R_{0}$', ylim=[0.0, None])
   axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[0.0, 5.0])
-  axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$', ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
-  axes[3].set(ylabel=r"$R_0$, $''$", yscale='log', ylim=[None, 200.0])
+  axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$',
+              ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
+  axes[3].set(ylabel=r'$\sigma (R_{90}) / R_{0}$',
+              ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
+  axes[4].set(ylabel=r"$R_0$, $''$", yscale='log', ylim=[None, 200.0])
   for iR0, R0_median in enumerate(R0_order):
       x = (iR0 + 0.5) / len(R0_order)
       axes[-1].text(x, 1.0, f'$N = {np.sum(R0_label == R0_median)}$',
@@ -2777,6 +2788,7 @@ Try the same with H_0
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
   tab['dR90'] = np.abs(tab['R90p'] - tab['R90n'])/tab['R90']
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
 
   # Recalculate extinction
   tab['Ak'] = 0.893*(tab['Hmag'] - tab['4.5mag'] + 0.1)
@@ -2785,7 +2797,7 @@ Try the same with H_0
   # Correct H magnitude for extinction
   tab['Hmag'] -= 1.55*tab['Ak']
 
-  fig, axes = plt.subplots(4, 1, sharex=True, figsize=(3, 7))
+  fig, axes = plt.subplots(5, 1, sharex=True, figsize=(3, 8))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -2812,21 +2824,28 @@ Try the same with H_0
   #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
   H0_order = sorted(set(H0_label), key=float)[::-1]
 
-  for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'Hmag']):
+  for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'R90_sigma', 'Hmag']):
       sns.boxplot(x=H0_label, y=tab[Rshape][mgood], order=H0_order, ax=ax)
       if Rshape != 'Hmag':
           # Anderson-Darling k-sample test over the 5 sub-samples
           AD, levelsAD, pAD = anderson_ksamp(
               [tab[Rshape][mgood][H0_label == _] for _ in H0_order],
               midrank=False)
-          ax.text(0.1, -0.04, f'A-D $p = {pAD:.3f}$',
+          if pAD > 0.01:
+              s = f'A-D $p = {pAD:.3f}$'
+          else:
+              pexp = np.floor(np.log10(pAD))
+              s = rf'A-D $p = {pAD/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+          ax.text(0.1, -0.04, s,
                   ha='left', va='top', transform=ax.transAxes,
                   fontsize='x-small'
           )
   axes[0].set(ylabel=r'$R_{90} / R_{0}$', ylim=[0.0, None])
   axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[0.0, 5.0])
   axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$', ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
-  axes[3].set(ylabel=r'$H_0$, mag', ylim=[4.5, 13.9], yticks=[6, 9, 12])
+  axes[3].set(ylabel=r'$\sigma (R_{90}) / R_{0}$',
+              ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
+  axes[4].set(ylabel=r'$H_0$, mag', ylim=[4.5, 13.9], yticks=[6, 9, 12])
   for iH0, H0_median in enumerate(H0_order):
       x = (iH0 + 0.5) / len(H0_order)
       axes[-1].text(x, 1.0, f'$N = {np.sum(H0_label == H0_median)}$',
@@ -3789,6 +3808,170 @@ CLOSED: [2017-03-20 Mon 10:48]
 + JSON file with the stats results: [[file:mipsgal-pairplot.json]]
 
 
+
+*** Do all the statistical tests at once
+
+#+BEGIN_SRC python :return tabfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp, mannwhitneyu, ttest_ind, levene
+  import astropy.coordinates as coord
+  from astropy.table import Table
+  import astropy.units as u
+  import json
+
+  def ra_dec_string_from_table_row(data):
+      ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
+      dec = f"{int(data['DE-']*data['DEd'])} {data['DEm']} {data['DEs']}"
+      return f'{ra} {dec}'
+
+  def rank_biserial(a, b):
+      U = mannwhitneyu(a, b, alternative='two-sided')
+      rb = 1.0 - 2*U.statistic/(len(a)*len(b))
+      return rb, U.pvalue
+
+  class MyEncoder(json.JSONEncoder):
+      def default(self, obj):
+          if isinstance(obj, np.integer):
+              return int(obj)
+          elif isinstance(obj, np.floating):
+              return float(obj)
+          elif isinstance(obj, np.ndarray):
+              return obj.tolist()
+          else:
+              return super(MyEncoder, self).default(obj)
+
+  tabfile = 'mipsgal-all-stats.json'
+
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  ra_dec_strings = [ra_dec_string_from_table_row(row) for row in tab]
+  c =  coord.SkyCoord(ra_dec_strings, unit=(u.hourangle, u.deg)).transform_to('galactic')
+
+  tab['log10 |b|'] = np.log10(np.abs(c.b.deg))
+  tab['cos(l)'] = np.cos(c.l)
+
+  R0var = 'R0_fit'
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab[R0var]
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  # Recalculate extinction
+  tab['Ak'] = 0.893*(tab['Hmag'] - tab['4.5mag'] + 0.1)
+  tab['Ak'][tab['Ak'] < 0.0] = np.nan
+
+  # Correct H magnitude for extinction
+  tab['Hmag'] -= 1.55*tab['Ak']
+
+  Ak_median = np.nanmedian(tab['Ak'][mgood])
+  R0_median = np.nanmedian(tab[R0var][mgood])
+  MH_median = np.nanmedian(tab['Hmag'][mgood])
+  bmedian = np.nanmedian(tab['log10 |b|'][mgood])
+  cosl_median = 0.8
+
+  results = {}
+
+  masks4tests = {
+      'Environment: Facing': [
+          tab['Env'] == 'I',
+          (tab['Env'] == 'FH') | (tab['Env'] == 'FB')],
+      'Environment: H II': [
+          tab['Env'] == 'I',
+          tab['Env'] == 'H'],
+      'Single/Multiple source candidate': [
+          tab['Unc'] != 'C',
+          tab['Unc'] == 'C'],
+      'With/without 8 micron': [
+          tab['8um'] == 'Y',
+          tab['8um'] == 'Y'],
+      'Low/high extinction': [
+          tab['Ak'] < Ak_median,
+          tab['Ak'] >= Ak_median],
+      'Low/high R0': [
+          tab[R0var] < R0_median,
+          tab[R0var] >= R0_median],
+      'Faint/bright H magnitude': [
+          tab['Hmag'] > MH_median,
+          tab['Hmag'] <= MH_median],
+      'Low/high |b|': [
+          tab['log10 |b|'] < bmedian,
+          tab['log10 |b|'] >= bmedian],
+      'High/low cos(l)': [
+          tab['cos(l)'] >= cosl_median,
+          tab['cos(l)'] < cosl_median],
+  }
+
+
+  # First do the descriptive stats on the full sample of 3, 4, 5-star sources
+
+  dep_vars = 'Rc', 'R90', 'Rc_sigma', 'R90_sigma', 'R90_asym'
+
+  descriptive_stats = {
+      'mean': np.nanmean,
+      'median': np.nanmedian,
+      'sigma': np.nanstd,
+      'iqr': lambda x: np.diff(np.nanpercentile(x, [25, 75]))[0],
+      'mad': lambda x: np.nanmedian(np.abs(x - np.nanmedian(x))),
+      'n': len,
+  }
+
+  test_stats = {
+      'Welch t-test for mean': lambda x, y: ttest_ind(x, y, equal_var=False),
+      'Anderson-Darling': lambda x, y: anderson_ksamp([x, y], midrank=False)[::2],
+      'Kolmogorov-Smirnov': ks_2samp, 
+      'Rank biserial coefficient': rank_biserial,
+      'Brown-Forsythe test for dispersion': levene,
+  }
+
+  results['Full sample'] = {
+      v: {slabel: stat(tab[v][mgood])
+          for slabel, stat in descriptive_stats.items()}
+      for v in dep_vars}
+
+  for mlabel, (m1, m2) in masks4tests.items():
+      results[mlabel] = {
+          'Sample A': {
+              v: {slabel: stat(tab[v][mgood & m1])
+                  for slabel, stat in descriptive_stats.items()}
+              for v in dep_vars},
+          'Sample B': {
+              v: {slabel: stat(tab[v][mgood & m2])
+                  for slabel, stat in descriptive_stats.items()}
+              for v in dep_vars},
+          'A vs B Tests':{
+              v: {tlabel: test(tab[v][mgood & m1], tab[v][mgood & m2])
+                  for tlabel, test in test_stats.items()}
+              for v in dep_vars}
+      }
+
+
+
+  with open(tabfile, 'w') as f:
+      json.dump(results, f, indent=4, sort_keys=True, cls=MyEncoder)
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-all-stats.json]]
+
+
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
   FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf'
@@ -3801,7 +3984,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Thu Apr  6 13:20:49 CDT 2017
+Fri Apr 14 22:51:46 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
