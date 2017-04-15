@@ -3880,6 +3880,14 @@ CLOSED: [2017-03-20 Mon 10:48]
   # Correct H magnitude for extinction
   tab['Hmag'] -= 1.55*tab['Ak']
 
+  otab = Table.read('../LL-shapes-2017/ll-arcs-radii.tab', format='ascii.tab')
+  ctab = Table.read('../LL-shapes-2017/rsg-arcs-radii.tab', format='ascii.tab')
+  otab['Rc'] = otab['Rc out']
+  otab['R90_asym'] = 2*otab['dR90']
+  ctab['Rc'] = ctab['Rc out']
+  ctab['R90_asym'] = 2*ctab['dR90']
+
+
   Ak_median = np.nanmedian(tab['Ak'][mgood])
   R0_median = np.nanmedian(tab[R0var][mgood])
   MH_median = np.nanmedian(tab['Hmag'][mgood])
@@ -3916,6 +3924,11 @@ CLOSED: [2017-03-20 Mon 10:48]
       'High/low cos(l)': [
           tab['cos(l)'] >= cosl_median,
           tab['cos(l)'] < cosl_median],
+  }
+
+  datasets4tests = {
+      'OB vs Orion': [tab[mgood], otab],
+      'OB vs RSG': [tab[mgood], ctab]
   }
 
 
@@ -3957,6 +3970,24 @@ CLOSED: [2017-03-20 Mon 10:48]
               for v in dep_vars},
           'A vs B Tests':{
               v: {tlabel: test(tab[v][mgood & m1], tab[v][mgood & m2])
+                  for tlabel, test in test_stats.items()}
+              for v in dep_vars}
+      }
+
+  # We only have a sub-set of the vars for the other datasets
+  dep_vars = 'Rc', 'R90', 'R90_asym'
+  for dlabel, (d1, d2) in datasets4tests.items():
+      results[dlabel] = {
+          'Sample A': {
+              v: {slabel: stat(d1[v])
+                  for slabel, stat in descriptive_stats.items()}
+              for v in dep_vars},
+          'Sample B': {
+              v: {slabel: stat(d2[v])
+                  for slabel, stat in descriptive_stats.items()}
+              for v in dep_vars},
+          'A vs B Tests':{
+              v: {tlabel: test(d1[v], d2[v])
                   for tlabel, test in test_stats.items()}
               for v in dep_vars}
       }
