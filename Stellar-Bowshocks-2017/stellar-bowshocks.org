@@ -3810,7 +3810,9 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 
 *** Do all the statistical tests at once
-
++ This includes all the A/B tests on the MIPSGAL dataset
++ Plus intercomparison with Orion and RSG
++ And we do all the statistical tests we can think of
 #+BEGIN_SRC python :return tabfile :results file
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp, mannwhitneyu, ttest_ind, levene
@@ -3908,7 +3910,7 @@ CLOSED: [2017-03-20 Mon 10:48]
           tab['Unc'] == 'C'],
       'With/without 8 micron': [
           tab['8um'] == 'Y',
-          tab['8um'] == 'Y'],
+          tab['8um'] != 'Y'],
       'Low/high extinction': [
           tab['Ak'] < Ak_median,
           tab['Ak'] >= Ak_median],
@@ -3960,39 +3962,33 @@ CLOSED: [2017-03-20 Mon 10:48]
 
   for mlabel, (m1, m2) in masks4tests.items():
       results[mlabel] = {
-          'Sample A': {
-              v: {slabel: stat(tab[v][mgood & m1])
-                  for slabel, stat in descriptive_stats.items()}
-              for v in dep_vars},
-          'Sample B': {
-              v: {slabel: stat(tab[v][mgood & m2])
-                  for slabel, stat in descriptive_stats.items()}
-              for v in dep_vars},
-          'A vs B Tests':{
-              v: {tlabel: test(tab[v][mgood & m1], tab[v][mgood & m2])
+          v: {
+              'Sample A': {
+                  slabel: stat(tab[v][mgood & m1])
+                  for slabel, stat in descriptive_stats.items()},
+              'Sample B': {
+                  slabel: stat(tab[v][mgood & m2])
+                  for slabel, stat in descriptive_stats.items()},
+              'A vs B Tests':{
+                  tlabel: test(tab[v][mgood & m1], tab[v][mgood & m2])
                   for tlabel, test in test_stats.items()}
-              for v in dep_vars}
-      }
+          } for v in dep_vars}
 
   # We only have a sub-set of the vars for the other datasets
   dep_vars = 'Rc', 'R90', 'R90_asym'
   for dlabel, (d1, d2) in datasets4tests.items():
       results[dlabel] = {
-          'Sample A': {
-              v: {slabel: stat(d1[v])
-                  for slabel, stat in descriptive_stats.items()}
-              for v in dep_vars},
-          'Sample B': {
-              v: {slabel: stat(d2[v])
-                  for slabel, stat in descriptive_stats.items()}
-              for v in dep_vars},
-          'A vs B Tests':{
-              v: {tlabel: test(d1[v], d2[v])
+          v: {
+              'Sample A': {
+                  slabel: stat(d1[v])
+                  for slabel, stat in descriptive_stats.items()},
+              'Sample B': {
+                  slabel: stat(d2[v])
+                  for slabel, stat in descriptive_stats.items()},
+              'A vs B Tests':{
+                  tlabel: test(d1[v], d2[v])
                   for tlabel, test in test_stats.items()}
-              for v in dep_vars}
-      }
-
-
+          } for v in dep_vars}
 
   with open(tabfile, 'w') as f:
       json.dump(results, f, indent=4, sort_keys=True, cls=MyEncoder)
@@ -4002,6 +3998,116 @@ CLOSED: [2017-03-20 Mon 10:48]
 #+RESULTS:
 [[file:mipsgal-all-stats.json]]
 
+
+*** Make a table of all the statistics
+#+BEGIN_SRC python :return tabfile :results file
+  import json
+  import numpy as np
+  from astropy.table import Table
+
+  tabfile = 'mipsgal-summary-stats.tab'
+  comparisons = json.load(open('mipsgal-all-stats.json'))
+
+  cols = [
+      'Comparison',
+      'Variable',
+      # Descriptive stats
+      'mean A',
+      'mean B',
+      'sigma A',
+      'sigma B',
+      'delta A',
+      'delta B',
+      'sigtot A',
+      'sigtot B',
+      # Effect sizes
+      'r_b',
+      'd_c',
+      'sig/tau',
+      # p-values
+      'A-D p',
+      'r_b p',
+      'B-F p',
+  ]
+
+  formats = {
+      'Comparison': '{}',
+      'Variable': '{}',
+      # Descriptive stats
+      'mean A': '{:.3f}',
+      'mean B': '{:.3f}',
+      'sigma A': '{:.3f}',
+      'sigma B': '{:.3f}',
+      'delta A': '{:.3f}',
+      'delta B': '{:.3f}',
+      'sigtot A': '{:.3f}',
+      'sigtot B': '{:.3f}',
+      # Effect sizes
+      'r_b': '{:.3f}',
+      'd_c': '{:.3f}',
+      'sig/tau': '{:.3f}',
+      # p-values
+      'A-D p': '{:.3g}',
+      'r_b p': '{:.3g}',
+      'B-F p': '{:.3g}',
+  }
+
+
+  select_params = ['R90', 'Rc', 'R90_asym']
+
+  default_delta = {
+      'Sample A': {'mean': np.nan},
+      'Sample B': {'mean': np.nan},
+  }
+
+  rows = []
+  for comparison, params in comparisons.items():
+      if comparison == 'Full sample':
+          continue
+      for param, data in params.items():
+          assert 'Sample A' in data, f'{comparison} {param} {data}'
+          if param not in select_params:
+              continue
+          sig_param = param + '_sigma'
+          sdata = params.get(sig_param, default_delta)
+          delta_A = sdata['Sample A']['mean']
+          delta_B = sdata['Sample B']['mean']
+          sigA = data['Sample A']['sigma']
+          sigB = data['Sample B']['sigma']
+          nA = data['Sample A']['n']
+          nB = data['Sample B']['n']
+          sig_pool = np.sqrt((nA*sigA**2 + nB*sigB**2)/(nA + nB))
+          row = {
+             'Comparison': comparison,
+             'Variable': param,
+             # Descriptive stats
+             'mean A': data['Sample A']['mean'],
+             'mean B': data['Sample B']['mean'],
+             'sigma A': sigA,
+             'sigma B': sigB,
+             'delta A': delta_A,
+             'delta B': delta_B,
+             'sigtot A': sigA/np.sqrt(nA),
+             'sigtot B': sigB/np.sqrt(nB),
+             # Effect sizes
+             'r_b': data['A vs B Tests']['Rank biserial coefficient'][0],
+             'd_c': (data['Sample A']['mean'] - data['Sample B']['mean'])/sig_pool,
+             'sig/tau': sigA / sigB,
+             # p-values
+             'A-D p': data['A vs B Tests']['Anderson-Darling'][1],
+             'r_b p': data['A vs B Tests']['Rank biserial coefficient'][1],
+             'B-F p': data['A vs B Tests']['Brown-Forsythe test for dispersion'][1],
+          }
+          rows.append(row)
+
+  tab = Table(names=cols, rows=rows)
+
+  tab.write(tabfile, format='ascii.tab', formats=formats)
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-summary-stats.tab]]
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
@@ -4168,17 +4274,89 @@ This is the one I am tending towards - close together on the sky, clearly showin
 [[file:p-value-histogram.pdf]]
 
 
-+ Linear version does not work
-+ We don't have enough samples to use bins of width 0.05
-#+header: :var tab=all-p-values
++ [2017-04-16 Sun] Try again with the values from astropy table
+
 #+BEGIN_SRC python :return figfile :results file 
   import numpy as np
+  from astropy.table import Table
   import matplotlib.pyplot as plt
   import seaborn as sns
   sns.set_style('white')
   sns.set_color_codes('dark')
-  figfile='p-value-histogram-linear.pdf'
-  pvalues = np.array([float(p) for s, p in tab])
+  figfile='p-value-histogram-new.pdf'
+  tab = Table.read('mipsgal-summary-stats.tab', format='ascii.tab')
+  pvalues = np.concatenate([tab['r_b p'], tab['B-F p'], tab['A-D p']])
+  n = len(pvalues)
+  nsig = (pvalues < 0.001).sum()
+  nn = n - nsig
+  fig, ax = plt.subplots(figsize=(6,3.5))
+  x1, x2 = -6.0, 0.0
+  nbins = 18
+  height = 500.0
+  pvalues[pvalues < 10**x1] = 10**x1
+  sns.distplot(np.log10(pvalues), kde=False, rug=True,
+               rug_kws={'height': 0.05, 'lw': 0.5},
+               hist_kws={'range': [x1, x2], 'bottom': 0.01}, bins=nbins, ax=ax)
+  x = np.linspace(x1, x2, nbins)
+  xc = 0.5*(x[1:] + x[:-1])
+  pc = 10**x[1:] - 10**x[:-1]
+  ax.plot(xc, nn*pc, c='r')
+  xu = -0.6
+
+  ax.annotate('uniform\n$p$ distribution', (xc[-7], nn*pc[-7]), color='r',
+              xytext=(5, -20), textcoords='offset points',
+              ha='left', va='top', bbox={'fc': 'w', 'alpha': 0.7, 'ec': 'none'},
+              arrowprops={'arrowstyle': '-|>', 'color': 'r'})
+
+  for p0 in 0.001, 0.05:
+      ax.axvspan(np.log10(p0), x2+0.05, color='k', alpha=0.05)
+      ax.axvline(np.log10(p0), lw=2, ls='--', alpha=0.7, c='k')
+  ticklabels = [f'$10^{{{i}}}$' for i in range(-6, 1)]
+  ticklabels[0] = r'$\leq 10^{-6}$'
+  ax.set(xlim=[x1-0.1, x2+0.05], ylim=[0.005, height],
+	 xticks=range(-6, 1),
+	 xticklabels=ticklabels,
+	 xlabel='$p$', ylabel='Number of correlations tested',
+	 yscale='log',
+  )
+  ax.text(np.log10(0.001), 20, '$p = 0.001$', ha='center', va='bottom',
+          bbox={'fc': 'w'})
+  ax.text(np.log10(0.05), 20, '$p = 0.05$', ha='center', va='bottom',
+          bbox={'fc': 'w'})
+  xa, xb = np.log10(0.001), np.log10(0.05)
+  ax.annotate('significant', (xa, 0.4*height),
+              xytext=(-20, 0), textcoords='offset points',
+              ha='right', va='bottom', fontsize='small')
+  ax.annotate('marginally\nsignificant', (0.5*(xa+xb), 0.4*height),
+              xytext=(0, 0), textcoords='offset points',
+              ha='center', va='center', fontsize='small')
+  ax.annotate('non-significant', (xb, 0.4*height),
+              xytext=(5, 0), textcoords='offset points',
+              ha='left', va='bottom', fontsize='small')
+  sns.despine(ax=ax, trim=True)
+  fig.tight_layout()
+  fig.savefig(figfile)
+#+END_SRC
+
+#+RESULTS:
+[[file:p-value-histogram-new.pdf]]
+
+
++ [ ] [2017-04-16 Sun] Try linear version again
++ Previously, linear version does not work because we didn't have enough samples
++ But now we have more if we use all the r_b and B--F p-values
+#+BEGIN_SRC python :return figfile :results file 
+  import numpy as np
+  import matplotlib.pyplot as plt
+  from astropy.table import Table
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+  figfile='p-value-histogram-new-linear.pdf'
+  tab = Table.read('mipsgal-summary-stats.tab', format='ascii.tab')
+  pvalues = np.concatenate([tab['r_b p'], tab['B-F p']])
+
   n = len(pvalues)
   fig, ax = plt.subplots(figsize=(6,3))
   x1, x2 = 0.0, 1.0
@@ -4189,7 +4367,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   ax.plot(x, 2.0*x**0.0, c='r')
   ax.axvspan(0.05, x2, color='k', alpha=0.05)
   ax.axvline(0.05, lw=2, ls='--', alpha=0.7, c='k')
-  ax.set(xlim=[x1, x2], ylim=[0.0, 9.0],
+  ax.set(xlim=[x1, x2], ylim=[0.0, None],
 	 xlabel='Significance level, $p$', 
      ylabel='Number of correlations tested',
   )
@@ -4207,7 +4385,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
 #+END_SRC
 
 #+RESULTS:
-[[file:p-value-histogram-linear.pdf]]
+[[file:p-value-histogram-new-linear.pdf]]
 
 
 **** Controlling the familywise error rate
