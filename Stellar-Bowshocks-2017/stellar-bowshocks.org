@@ -4109,9 +4109,12 @@ CLOSED: [2017-03-20 Mon 10:48]
 #+RESULTS:
 [[file:mipsgal-summary-stats.tab]]
 
+Now, tidy up the table for conversion to latex - done by hand
+
+
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf'
+  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram-new.pdf p-value-histogram-new-linear.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -4121,7 +4124,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Fri Apr 14 22:51:46 CDT 2017
+Mon Apr 17 11:54:47 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -4133,7 +4136,8 @@ mipsgal-Rc-R90-candidates.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-candidates
 mipsgal-Rc-R90-environment.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-environment.pdf
 mipsgal-Rc-R90-vs-Orion.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Orion.pdf
 mipsgal-Rc-R90-vs-Herschel.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-vs-Herschel.pdf
-p-value-histogram.pdf -> ../papers/Paper1/figs/p-value-histogram.pdf
+p-value-histogram-new.pdf -> ../papers/Paper1/figs/p-value-histogram-new.pdf
+p-value-histogram-new-linear.pdf -> ../papers/Paper1/figs/p-value-histogram-new-linear.pdf
 mipsgal-boxplot-Rc-R90-versus-R0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf
 mipsgal-boxplot-Rc-R90-versus-H0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf
 mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf -> ../papers/Paper1/figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf
@@ -4294,6 +4298,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   nbins = 18
   height = 500.0
   pvalues[pvalues < 10**x1] = 10**x1
+  pvalues[pvalues > 1.0] = 1.0
   sns.distplot(np.log10(pvalues), kde=False, rug=True,
                rug_kws={'height': 0.05, 'lw': 0.5},
                hist_kws={'range': [x1, x2], 'bottom': 0.01}, bins=nbins, ax=ax)
@@ -4316,7 +4321,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   ax.set(xlim=[x1-0.1, x2+0.05], ylim=[0.005, height],
 	 xticks=range(-6, 1),
 	 xticklabels=ticklabels,
-	 xlabel='$p$', ylabel='Number of correlations tested',
+	 xlabel='Significance level, $p$', ylabel='Number of correlations tested',
 	 yscale='log',
   )
   ax.text(np.log10(0.001), 20, '$p = 0.001$', ha='center', va='bottom',
@@ -4342,7 +4347,9 @@ This is the one I am tending towards - close together on the sky, clearly showin
 [[file:p-value-histogram-new.pdf]]
 
 
-+ [ ] [2017-04-16 Sun] Try linear version again
++ [X] [2017-04-16 Sun] Try linear version again
+  + Still not as good as log-log one
+  + But give complementary info, so we will use both
 + Previously, linear version does not work because we didn't have enough samples
 + But now we have more if we use all the r_b and B--F p-values
 #+BEGIN_SRC python :return figfile :results file 
@@ -4355,30 +4362,42 @@ This is the one I am tending towards - close together on the sky, clearly showin
   sns.set_color_codes('dark')
   figfile='p-value-histogram-new-linear.pdf'
   tab = Table.read('mipsgal-summary-stats.tab', format='ascii.tab')
-  pvalues = np.concatenate([tab['r_b p'], tab['B-F p']])
+  pvalues = np.concatenate([tab['r_b p'], tab['B-F p'], tab['A-D p']])
+  pvalues[pvalues > 1.0] = 1.0
 
   n = len(pvalues)
-  fig, ax = plt.subplots(figsize=(6,3))
+  nsig = (pvalues < 0.001).sum()
+  nn = n - nsig
+
+  fig, ax = plt.subplots(figsize=(6,3.5))
   x1, x2 = 0.0, 1.0
+  nbins = 20
   sns.distplot(pvalues, kde=False, rug=True,
-               rug_kws={'height': 0.05},
-               hist_kws={'range': [x1, x2]}, bins=10, ax=ax)
+               rug_kws={'height': 0.05, 'lw': 0.5},
+               hist_kws={'range': [x1, x2]}, bins=nbins, ax=ax)
   x = np.linspace(x1, x2, 200)
-  ax.plot(x, 2.0*x**0.0, c='r')
-  ax.axvspan(0.05, x2, color='k', alpha=0.05)
+  ax.plot(x, (nn/nbins)*x**0.0, c='r')
+  #ax.axvspan(0.05, x2, color='k', alpha=0.05)
   ax.axvline(0.05, lw=2, ls='--', alpha=0.7, c='k')
-  ax.set(xlim=[x1, x2], ylim=[0.0, None],
+  ax.annotate('uniform\n$p$ distribution', (0.45, nn/nbins), color='r',
+              xytext=(10, 30), textcoords='offset points',
+              ha='left', va='bottom', bbox={'fc': 'w', 'alpha': 0.7, 'ec': 'none'},
+              arrowprops={'arrowstyle': '-|>', 'color': 'r'})
+  ax.set(xlim=[x1-0.02, x2+0.02], ylim=[-1.1, 14.8],
 	 xlabel='Significance level, $p$', 
      ylabel='Number of correlations tested',
   )
-  ax.text(0.05, 1.5, '$p = 0.05$', ha='center', va='bottom',
-          bbox={'fc': 'w'})
-  ax.annotate('significant', (0.05, 2),
-              xytext=(-10, 0), textcoords='offset points',
-              ha='right', va='bottom')
-  ax.annotate('non-significant', (0.05, 2),
-              xytext=(10, 0), textcoords='offset points',
-              ha='left', va='bottom')
+  ax.annotate('$p = 0.05$', (0.05, 11),
+              xytext=(20, 0), textcoords='offset points',
+              ha='left', va='center',
+              bbox={'fc': 'w'}, 
+              arrowprops={'arrowstyle': '-|>'})
+  # ax.annotate('significant', (0.05, 2),
+  #             xytext=(-10, 0), textcoords='offset points',
+  #             ha='right', va='bottom')
+  # ax.annotate('non-significant', (0.05, 2),
+  #             xytext=(10, 0), textcoords='offset points',
+  #             ha='left', va='bottom')
   sns.despine(ax=ax, trim=True)
   fig.tight_layout()
   fig.savefig(figfile)

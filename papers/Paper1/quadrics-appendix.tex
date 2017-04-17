@@ -189,16 +189,21 @@ From equation (\ref{eq:Rcurv}) for the radius of curvature we finally get the nu
 \label{sec:distr-p-values}
 
 \begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/p-value-histogram}
-  \caption{Histogram of \(p\)-values for all Anderson--Darling
-    non-parametric 2-sample tests performed during the analysis of
-    section~\ref{sec:comp-with-observ}.  The vertical dashed lines
-    shows the traditional threshold values for significance:
+  (a)\\
+  \includegraphics[width=\linewidth]{figs/p-value-histogram-new-linear}\\
+  (b)\\
+  \includegraphics[width=\linewidth]{figs/p-value-histogram-new}
+  \caption{Histogram of \(p\)-values for all non-parametric 2-sample
+    tests performed during the analysis of
+    section~\ref{sec:comp-with-observ}. (a)~Uniformly spaced linear
+    bins and linear vertical axis. (b)~Uniformly spaced logarithmic
+    bins and logarithmic vertical axis, with all values
+    \(p \le 10^{-6}\) included in the leftmost bin.  The vertical dashed
+    lines shows the traditional threshold values for significance:
     \(p = 0.001\) and \(p = 0.05\). The red solid line shows the
-    expected uniform distribution of \(p\)-values that would be
-    expected if the null hypothesis were always true, that is, if no
-    significant correlations existed.}
+    uniform distribution of \(p\)-values that would be expected if the
+    null hypothesis were always true, that is, if no significant
+    correlations existed.}
   \label{fig:histo-p-values}
 \end{figure}
 
