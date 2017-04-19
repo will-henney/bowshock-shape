@@ -3886,8 +3886,10 @@ CLOSED: [2017-03-20 Mon 10:48]
   ctab = Table.read('../LL-shapes-2017/rsg-arcs-radii.tab', format='ascii.tab')
   otab['Rc'] = otab['Rc out']
   otab['R90_asym'] = 2*otab['dR90']
+  otab['R90_asym'][otab['R90_asym'] == 0.0] = np.nan
   ctab['Rc'] = ctab['Rc out']
   ctab['R90_asym'] = 2*ctab['dR90']
+  ctab['R90_asym'][ctab['R90_asym'] == 0.0] = np.nan
 
 
   Ak_median = np.nanmedian(tab['Ak'][mgood])
@@ -3980,13 +3982,13 @@ CLOSED: [2017-03-20 Mon 10:48]
       results[dlabel] = {
           v: {
               'Sample A': {
-                  slabel: stat(d1[v])
+                  slabel: stat(d1[v][np.isfinite(d1[v])])
                   for slabel, stat in descriptive_stats.items()},
               'Sample B': {
-                  slabel: stat(d2[v])
+                  slabel: stat(d2[v][np.isfinite(d2[v])])
                   for slabel, stat in descriptive_stats.items()},
               'A vs B Tests':{
-                  tlabel: test(d1[v], d2[v])
+                  tlabel: test(d1[v][np.isfinite(d1[v])], d2[v][np.isfinite(d2[v])])
                   for tlabel, test in test_stats.items()}
           } for v in dep_vars}
 
@@ -4091,8 +4093,8 @@ CLOSED: [2017-03-20 Mon 10:48]
              'sigtot B': sigB/np.sqrt(nB),
              # Effect sizes
              'r_b': data['A vs B Tests']['Rank biserial coefficient'][0],
-             'd_c': (data['Sample A']['mean'] - data['Sample B']['mean'])/sig_pool,
-             'sig/tau': sigA / sigB,
+             'd_c': (data['Sample B']['mean'] - data['Sample A']['mean'])/sig_pool,
+             'sig/tau': sigB / sigA,
              # p-values
              'A-D p': data['A vs B Tests']['Anderson-Darling'][1],
              'r_b p': data['A vs B Tests']['Rank biserial coefficient'][1],
@@ -4115,7 +4117,193 @@ CLOSED: [2017-03-20 Mon 10:48]
 :TABLE_EXPORT_FILE: migsgal-summary-stats-tidied
 :END:
 
-- done by hand
+
+#+name: table-header-snippet
+#+BEGIN_SRC latex
+  % \Width is used to align number under col header in first column
+  \newlength\Width\settowidth\Width{Comparison}
+  \begin{tabular}{@{} ll @{\quad } S[round-mode=places]S[round-mode=places] S[round-mode=places]S[round-mode=places] SS SS @{\quad\quad\quad} SSS[round-mode=places] @{\quad} S@{}S@{}S @{}}\toprule
+    & & \multicolumn{2}{c}{Mean} & \multicolumn{2}{c}{Std.\ Dev.} & \multicolumn{2}{c}{Obs.\ Disp.} & \multicolumn{2}{c @{\quad\quad\quad}}{s.e.m.} & \multicolumn{3}{c @{\quad} }{\dotfill Effect sizes\dotfill } & \multicolumn{3}{c}{\dotfill Non-parametric test \(p\)-values  \dotfill} \\ 
+    {Comparison} & {Variable} & {\(\langle \text{A} \rangle\)} & {\(\langle \text{B} \rangle\)} & {\(\sigma_{\text{A}}\)} & {\(\sigma_{\text{B}}\)} & {\(\langle \epsilon_{\text{A}} \rangle\)} & {\(\langle \epsilon_{\text{B}} \rangle\)} & {\((\sigma/\!\sqrt n)_{\text{A}}\)} & {\((\sigma/\!\sqrt n)_{\text{B}}\)} & {\(r_b\)} & {Cohen \(d\)} & {\(\sigma_{\text{A}}/\sigma_{\text{B}}\)} & \multicolumn{1}{c}{Anderson--Darling} & \multicolumn{1}{c}{Rank biserial} &  \multicolumn{1}{c}{Brown--Forsythe}\\
+    {\makebox[\Width]{(1)}} & \multicolumn{1}{c@{\quad}}{(2)} & {(3)} & {(4)} & {(5)} & {(6)} & {(7)} & {(8)} & {(9)} & {(10)}  & {(11)} & {(12)} & {(13)} & {(14)} & {(15)} & {(16)} \\  
+    \midrule
+#+END_SRC
+
+#+header: :var table_header=table-header-snippet
+#+BEGIN_SRC python :return outfile :results file
+  import numpy as np
+  import datetime
+  from textwrap import dedent
+  from astropy.table import Table
+
+  tabfile = 'mipsgal-summary-stats.tab'
+  outfile = 'mipsgal-summary-stats-table-body.tex'
+  tab = Table.read(tabfile, format='ascii.tab')
+
+  file_header = f"""\
+  %%% MIPSGAL summary statistics
+  %%% Table automatically generated from {tabfile}
+  %%% {datetime.datetime.now()}
+  %%%
+  """
+
+  table_footer = r'''
+  \\
+  \bottomrule
+  \end{tabular}
+  '''
+
+  order = [
+      ['Faint/bright H magnitude', 
+       'Low/high R0', 
+       'Low/high extinction', 
+       'Low/high |b|',
+       'High/low cos(l)'
+      ], 
+      ['Environment: Facing', 
+       'Environment: H II', 
+       'Single/Multiple source candidate', 
+       'With/without 8 micron'
+      ], 
+      ['OB vs Orion', 
+       'OB vs RSG'
+      ], 
+  ]
+
+  variable_replacements = {
+      'R90': r'\(R_{90}\)',
+      'R90_asym': r'\(\Delta R_{90}\)',
+      'Rc': r'\(R_{c}\)',
+  }
+
+  comparison_replacements = {
+      'Faint/bright H magnitude': [r'Faint/bright',
+                                   r'\(H\) magnitude',
+                                   r'\(n_{\text{A}} =  n_{\text{B}} = 113\)'], 
+      'Low/high R0': [r'Low/high',
+                      r'bow shock size, \(R_0\)',
+                      r'\(n_{\text{A}} =  n_{\text{B}} = 113\)'], 
+      'Low/high extinction': [r'Low/high',
+                              r'extinction, \(A_K\)',
+                              r'\(n_{\text{A}} =  n_{\text{B}} = 113\)'], 
+      'High/low cos(l)': [r'High/low',
+                          r'\(\cos \ell\)',
+                          r'\(n_{\text{A}}, n_{\text{B}} = 137, 90\)'], 
+      'Low/high |b|': [r'Low/high',
+                       r'\(\vert{}b\vert\)',
+                       r'\(n_{\text{A}} =  n_{\text{B}} = 113\)'], 
+      'Environment: Facing': [r'Environment:',
+                              r'Isolated vs Facing',
+                              r'\(n_{\text{A}}, n_{\text{B}} = 170, 41\)'], 
+      'Environment: H II': [r'Environment:',
+                            r'Isolated vs \hii',
+                            r'\(n_{\text{A}}, n_{\text{B}} = 170, 16\)'], 
+      'Single/Multiple source candidate': [r'Single/multiple',
+                                           r'source candidate',
+                                           r'\(n_{\text{A}}, n_{\text{B}} = 167, 60\)'], 
+      'With/without 8 micron': [r'With/without',
+				r'\SI{8}{\um} emission',
+				r'\(n_{\text{A}}, n_{\text{B}} = 45, 182\)'], 
+      'OB vs Orion': [r'MIPS vs Orion',
+                      r'',
+                      r'\(n_{\text{A}}, n_{\text{B}} = 227, 18\)'], 
+      'OB vs RSG': [r'MIPS vs RSG',
+                    r'',
+                    r'\(n_{\text{A}}, n_{\text{B}} = 227, 7\)'], 
+  }
+
+
+  def format_group_header(s):
+      head = r'\multicolumn{10}{@{} l @{\quad\quad\quad}}{\itshape '
+      tail = r' \dotfill}\\'
+      return head + s + tail + '\n' + r'\addlinespace' + '\n'
+
+  group_headers = [
+      'Median split of continuous variables',
+      'Categorical variables',
+      'Intercomparison with other datasets',
+  ]
+
+
+  # Which p value is important for which columns
+  signifiers = {
+      'A-D p': 'A-D p',
+      'r_b p': 'A-D p',
+      'B-F p': 'B-F p',
+      'r_b': 'r_b p',
+      'd_c': 'r_b p',
+      'sig/tau': 'B-F p',
+  }
+
+  p_threshold = 0.003
+  p_threshold_marginal = 0.05
+
+  def format_field(field, colname, row):
+      """Indicate significant p values with font changes"""
+      if colname == 'Comparison':
+          # Take elements one by one from front of list
+          return comparison_replacements[field].pop(0)
+      elif colname == 'Variable':
+          return variable_replacements[field]
+      elif colname in signifiers:
+          p = row[signifiers[colname]]
+          if p <= p_threshold:
+              return fr'\bfseries {field}'
+          elif p <= p_threshold_marginal:
+              return fr'\itshape {field}'
+          else:
+              return f'{field}'
+      else:
+          return f'{field}'
+
+
+  def remove_nans(s):
+      return ' ' if 'nan' in s else s
+
+  linesep = r'\\' + '\n' 
+  stanzasep = r'\\' + '\n' + r'\addlinespace' + '\n'
+  groupsep = r'\\' + '\n' + r'\midrule' + '\n'
+  fieldsep = ' & '
+  lines = groupsep.join(
+      format_group_header(gheader) + stanzasep.join(
+          linesep.join(
+              fieldsep.join(
+                  remove_nans(format_field(field, colname, row))
+                  for field, colname in zip(row.as_void(), row.colnames))
+              for row in tab[tab['Comparison'] == comparison])
+          for comparison in group)
+      for group, gheader in zip(order, group_headers))
+
+  with open(outfile, 'w') as f:
+      f.write(
+          dedent(file_header)
+          + dedent(table_header)
+          + lines
+          + dedent(table_footer))
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-summary-stats-table-body.tex]]
+
+
+
+***** Test of using external latex snippets in python code block
+#+name: test-snippet
+#+BEGIN_SRC latex
+\emph{Hello}
+#+END_SRC
+
+#+BEGIN_SRC python :var s=test-snippet :return ss :results latex
+ss = s.replace('Hello', 'Goodbye')
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_EXPORT latex
+\emph{Goodbye}
+#+END_EXPORT
+
+***** Old version done by hand
 
 | Comparison                       | Variable | mean A | mean B | sigma A | sigma B | delta A | delta B | sigtot A | sigtot B |     r_b |     d_c | sig/tau |    A-D p |     r_b p |    B-F p |
 |----------------------------------+----------+--------+--------+---------+---------+---------+---------+----------+----------+--------+--------+---------+----------+----------+----------|
@@ -4159,7 +4347,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram-new.pdf p-value-histogram-new-linear.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf'
+  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram-new.pdf p-value-histogram-new-linear.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf mipsgal-summary-stats-table-body.tex'
   date
   pwd
   for f in $FIGFILES; do
@@ -4169,7 +4357,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 
 #+RESULTS:
 #+begin_example
-Mon Apr 17 11:54:47 CDT 2017
+Wed Apr 19 13:16:23 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -4186,6 +4374,7 @@ p-value-histogram-new-linear.pdf -> ../papers/Paper1/figs/p-value-histogram-new-
 mipsgal-boxplot-Rc-R90-versus-R0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf
 mipsgal-boxplot-Rc-R90-versus-H0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf
 mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf -> ../papers/Paper1/figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf
+mipsgal-summary-stats-table-body.tex -> ../papers/Paper1/figs/mipsgal-summary-stats-table-body.tex
 #+end_example
 
 Also, example objects for each star rating
