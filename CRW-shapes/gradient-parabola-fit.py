@@ -26,9 +26,11 @@ R = np.sqrt(3*(1-theta/np.tan(theta))/np.sin(theta)**2)
 x = R*np.cos(theta)
 y = R*np.sin(theta)
 dxdy = np.diff(x)/np.diff(y)
-y_min = R_point(np.radians(90))*np.sin(np.radians(90)) 
-y_max = R_point(np.radians(150))*np.sin(np.radians(150))
-mfit, y_ref = par_fit(dxdy,y[:-1],y_min,y_max)
+th_min = 90
+th_max = 110
+y_min = R_point(np.radians(th_min))*np.sin(np.radians(th_min)) 
+y_max = R_point(np.radians(th_max))*np.sin(np.radians(th_max))
+mfit, y_ref = par_fit(dxdy, y[:-1], y_min, y_max)
 dxdy_line = mfit*y[:-1] + y_ref
 f = plt.figure()
 #ax1 = f.add_subplot(3, 1, 1, adjustable="box", aspect=1)
@@ -43,7 +45,7 @@ ax1.set_ylabel(r"$\frac{dx}{dy}$")
 ################## Plot parabola and ellipse ####################
 Rcp = -1./mfit
 y1 = y_max
-x1 = y1/np.tan(np.radians(150))
+x1 = y1/np.tan(np.radians(th_min))
 x0p = x1 + 0.5*y1**2/Rcp
 # ################## t parameter for parabola ####################
 Q2 = 1
@@ -76,7 +78,7 @@ ax2.legend()
 ax2.set_xlabel(r"$x$")
 ax2.set_ylabel(r"$y$")  
 ax2.set_xlim(-100,1)
-ax2.set_ylim(0,20)
+ax2.set_ylim(0,20) 
 #################################################################
 
 ##################### Plot residuals ############################
@@ -90,5 +92,37 @@ ax3.plot(np.degrees(theta), epsilone, label="Elliptic Head")
 ax3.set_ylim(-0.1,1) 
 ax3.set_xlabel(r"$\theta$ (deg)")
 ax3.set_ylabel(r"$\epsilon$")
+ax3.fill_between(np.degrees(theta), 0, 0.1, alpha=0.5)
 #################################################################
 f.savefig("gradient-par-test.pdf")
+print("Rc = {}, x0 = {}".format(Rcp, x0p))
+############## Compare gradient and two points method ###########
+def wilkin_tail_params(t1,t2):
+    def pointR(t):
+        return np.sqrt(3*(1-t/np.tan(t))/np.sin(t)**2)
+    x1 = pointR(t1)*np.cos(t1)
+    x2 = pointR(t2)*np.cos(t2)
+    y1 = pointR(t1)*np.sin(t1)
+    y2 = pointR(t2)*np.sin(t2)
+    Rc = -0.5*(y1**2-y2**2)/(x1-x2)
+    x0 = 0.5*(x1+x2) + 0.25*(y1**2+y2**2)/Rc
+    return Rc,x0
+
+TpRc,Tpx0 = wilkin_tail_params(np.radians(th_min),np.radians(th_max)) 
+
+Q2 = 1
+Q1 = 2/np.tan(theta)
+Q0 = -2*Tpx0/TpRc
+Tpt = (-Q1 + np.sqrt(Q1**2 - 4*Q2*Q0))/(2*Q2)
+Tpx = -0.5*TpRc*tp**2 + Tpx0
+Tpy = TpRc*tp
+TpR = np.sqrt(Tpx**2 + Tpy**2)
+Tpepsilon = np.abs(TpR - R)/R
+plt.clf()
+plt.plot(np.degrees(theta), epsilon, label="Gradient method residuals")
+plt.plot(np.degrees(theta), Tpepsilon, label="2 points method residuals", lw=4, alpha=0.7)
+plt.legend()
+plt.xlabel(r"$\theta$ (deg)")
+plt.ylabel(r"$\epsilon$")
+plt.savefig("residuals-comparison.pdf")
+#################################################################

@@ -87,11 +87,37 @@ t &= \frac{y}{\tilde{R}_c}
 With this, is possible to find $\tilde{R}_c$ by doing a linear fit to $-dx/dy$ of Wilkin solution at a certain range of 
 $y$, while $x_0$ may be found giving a point which belongs to $R(\theta)$.
 ** TODO Non parabolic methods
+
 Since the Wilkin solution for the two winds interacting bow shock seems to be more complicated than a simple parabola we must try 
 approximations that doesn't assume the tail behavior is parabolic and do a straightforward projection as section 3.
-*** TODO Taylor series tail method
-*** TODO Non parabolic Gradient method
-*** TODO Polynomial fit method 
+
+For the tail we may do the following approximation for the Wilkin solution:
+
+\begin{align}
+R(\theta) \simeq \sqrt{-3*\theta\csc^2\cot\theta}
+\end{align}
+
+*** DONE Taylor series tail method
+
+We make a change of variable $\phi = \pi - \theta$, so we get the following:
+
+\begin{align}
+R(\phi) \simeq \sqrt{3*(\pi-\phi)\csc^2\phi\cot\phi}
+\end{align}
+
+And then, approximate the tail shape with Taylor Series until Nth order.
+Using mathematica as exploratory approximation, I found out that the result is a serie of powers of the
+square root of phi.
+
+*** DONE Polynomial fit method
+
+Another approximation is doing a polynomial fit via least squares to $R(\phi)$ until Nth order. Maybe this is
+a more easy and useful approximation. Is worth to try.
+
+*** DONE Non parabolic Gradient method
+
+Similar to parabolic gradient method, but instead of fitting dx/dy we'll fit dy/dx to a line.
+
 ** DONE Test the "Two points" method
 #+NAME: Wilkin-Parabola-Fit-2points
 #+BEGIN_SRC python :eval no :tangle ./2-points-parabola-fit.py
@@ -213,9 +239,11 @@ R = np.sqrt(3*(1-theta/np.tan(theta))/np.sin(theta)**2)
 x = R*np.cos(theta)
 y = R*np.sin(theta)
 dxdy = np.diff(x)/np.diff(y)
-y_min = R_point(np.radians(90))*np.sin(np.radians(90)) 
-y_max = R_point(np.radians(150))*np.sin(np.radians(150))
-mfit, y_ref = par_fit(dxdy,y[:-1],y_min,y_max)
+th_min = 90
+th_max = 110
+y_min = R_point(np.radians(th_min))*np.sin(np.radians(th_min)) 
+y_max = R_point(np.radians(th_max))*np.sin(np.radians(th_max))
+mfit, y_ref = par_fit(dxdy, y[:-1], y_min, y_max)
 dxdy_line = mfit*y[:-1] + y_ref
 f = plt.figure()
 #ax1 = f.add_subplot(3, 1, 1, adjustable="box", aspect=1)
@@ -230,7 +258,7 @@ ax1.set_ylabel(r"$\frac{dx}{dy}$")
 ################## Plot parabola and ellipse ####################
 Rcp = -1./mfit
 y1 = y_max
-x1 = y1/np.tan(np.radians(150))
+x1 = y1/np.tan(np.radians(th_min))
 x0p = x1 + 0.5*y1**2/Rcp
 # ################## t parameter for parabola ####################
 Q2 = 1
@@ -263,7 +291,7 @@ ax2.legend()
 ax2.set_xlabel(r"$x$")
 ax2.set_ylabel(r"$y$")  
 ax2.set_xlim(-100,1)
-ax2.set_ylim(0,20)
+ax2.set_ylim(0,20) 
 #################################################################
 
 ##################### Plot residuals ############################
@@ -277,8 +305,40 @@ ax3.plot(np.degrees(theta), epsilone, label="Elliptic Head")
 ax3.set_ylim(-0.1,1) 
 ax3.set_xlabel(r"$\theta$ (deg)")
 ax3.set_ylabel(r"$\epsilon$")
+ax3.fill_between(np.degrees(theta), 0, 0.1, alpha=0.5)
 #################################################################
 f.savefig("gradient-par-test.pdf")
+print("Rc = {}, x0 = {}".format(Rcp, x0p))
+############## Compare gradient and two points method ###########
+def wilkin_tail_params(t1,t2):
+    def pointR(t):
+        return np.sqrt(3*(1-t/np.tan(t))/np.sin(t)**2)
+    x1 = pointR(t1)*np.cos(t1)
+    x2 = pointR(t2)*np.cos(t2)
+    y1 = pointR(t1)*np.sin(t1)
+    y2 = pointR(t2)*np.sin(t2)
+    Rc = -0.5*(y1**2-y2**2)/(x1-x2)
+    x0 = 0.5*(x1+x2) + 0.25*(y1**2+y2**2)/Rc
+    return Rc,x0
+
+TpRc,Tpx0 = wilkin_tail_params(np.radians(th_min),np.radians(th_max)) 
+
+Q2 = 1
+Q1 = 2/np.tan(theta)
+Q0 = -2*Tpx0/TpRc
+Tpt = (-Q1 + np.sqrt(Q1**2 - 4*Q2*Q0))/(2*Q2)
+Tpx = -0.5*TpRc*tp**2 + Tpx0
+Tpy = TpRc*tp
+TpR = np.sqrt(Tpx**2 + Tpy**2)
+Tpepsilon = np.abs(TpR - R)/R
+plt.clf()
+plt.plot(np.degrees(theta), epsilon, label="Gradient method residuals")
+plt.plot(np.degrees(theta), Tpepsilon, label="2 points method residuals", lw=4, alpha=0.7)
+plt.legend()
+plt.xlabel(r"$\theta$ (deg)")
+plt.ylabel(r"$\epsilon$")
+plt.savefig("residuals-comparison.pdf")
+#################################################################
 #+END_SRC
 Diagnostic: This method seem to have similar results as the Two points method.
 Need a direct comparison to check if both methods are equivalent.
@@ -290,8 +350,82 @@ python gradient-parabola-fit.py
 #+RESULTS:
 
 [[file:gradient-par-test.pdf]]
-** TODO Compare both parabolic methods
-#+NAME: Compare-parabolic-fits
-#+BEGIN_SRC python :eval no :tangle ./compare-parabolic-fits.py
+** DONE Compare both parabolic methods
+- [X] Enhance Gradient method program
 
+Diagnostic: Gradient method seems to have less residuals than the two points method
+** DONE Test Polynomial fit method
+#+NAME: Polynomial Method
+#+BEGIN_SRC python :eval no :tangle ./poly_fit_tail.py
+  import numpy as np
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+
+  ##################### Create theta and R arrays #########################
+
+  theta = np.linspace(0, np.pi, 400, endpoint=False)
+  phi = np.pi - theta
+  R = np.sqrt(3*(1 - theta/np.tan(theta))/np.sin(theta)**2)
+  R_app = np.sqrt(3*(np.pi - phi)*np.cos(phi)/np.sin(phi)**3)
+
+  ############### Test 1: Plot real vs approximate solution ###############
+
+  plt.plot(np.degrees(theta), R, 'k-', alpha=0.8, lw=4, label='Exact solution')
+  plt.plot(np.degrees(theta), R_app, label='approximate solution')
+  plt.legend()
+  plt.savefig("poly_fit_tail.pdf")
+
+  #########################################################################
+  # Diagnostic: No difference for theta > 90                              #
+  #########################################################################
+
+  ############# Fit a polynomial function to R_app (the tail) #############
+  m = np.isfinite(R_app)
+  p2 = np.polyfit(phi[m], R_app[m], 2)
+  p3 = np.polyfit(phi[m], R_app[m], 3)
+  p4 = np.polyfit(phi[m], R_app[m], 4) 
+  R_poly_2 = p2[0]*phi**2 + p2[1]*phi + p2[2]
+  R_poly_3 = p3[0]*phi**3 + p3[1]*phi**2 + p3[2]*phi + p3[3]
+  R_poly_4 = p4[0]*phi**4 + p4[1]*phi**3 + p4[2]*phi**2 + p4[3]*phi + p4[4]
+
+  ############# Test 2: Plot R_app vs polynomial fit ######################
+
+  plt.clf()
+  plt.plot(phi, R_app, "k-", lw=4, alpha=0.6, label="Approximate Solution")
+  plt.plot(phi, R_poly_2, label="Quadratic Polynomial fit")
+  plt.plot(phi, R_poly_3, label="Cubic Polynomial fit")
+  plt.plot(phi, R_poly_4, label="Quartic Polynomial fit")
+  plt.legend()
+  plt.savefig("poly_fit_tail_2.pdf")
+#+END_SRC
+Diagnostic: Maybe I need a very high order polynomial to have a good
+approximation.
+** TODO Test Non parabolic Gradient method
+
+#+BEGIN_SRC python :eval no :tangle ./non-parabolic-gradient-test.py
+  import numpy as np
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+
+  theta = np.linspace(np.radians(100), np.radians(150), 400, endpoint=False)
+  R = np.sqrt(3*(1 - theta/np.tan(theta))/np.sin(theta)**2)
+
+
+  ############### Plot gradient and linear fit ####################
+  x = R*np.cos(theta)
+  y = R*np.sin(theta)
+  dydx = np.diff(y)/np.diff(x)
+  #y_min = R_point(np.radians(110))*np.sin(np.radians(110)) 
+  #y_max = R_point(np.radians(150))*np.sin(np.radians(150))
+  #mfit, y_ref = par_fit(dxdy,y[:-1],y_min,y_max)
+  #dxdy_line = mfit*y[:-1] + y_ref
+  f = plt.figure()
+  ax1 = f.add_subplot(1, 1, 1, adjustable="box", aspect=10)
+  ax1.plot(x[:-1], dydx, label="Wilkin")
+  #ax1.plot(x[:-1], dydx_line, label="Linear fit")
+  ax1.legend()
+  ax1.set_xlabel(r"$x$")
+  ax1.set_ylabel(r"$\frac{dy}{dx}$")
+  #################################################################
+  f.savefig("non-parabolic-test.pdf")
 #+END_SRC
