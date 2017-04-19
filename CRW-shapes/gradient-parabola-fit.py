@@ -77,8 +77,8 @@ ax2.plot(xe, ye, label="Elliptic head")
 ax2.legend()
 ax2.set_xlabel(r"$x$")
 ax2.set_ylabel(r"$y$")  
-ax2.set_xlim(-100,1)
-ax2.set_ylim(0,20) 
+ax2.set_xlim(-5,2)
+ax2.set_ylim(0,7) 
 #################################################################
 
 ##################### Plot residuals ############################
