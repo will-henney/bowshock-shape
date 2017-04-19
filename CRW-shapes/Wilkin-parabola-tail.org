@@ -86,6 +86,27 @@ t &= \frac{y}{\tilde{R}_c}
 \end{align*}
 With this, is possible to find $\tilde{R}_c$ by doing a linear fit to $-dx/dy$ of Wilkin solution at a certain range of 
 $y$, while $x_0$ may be found giving a point which belongs to $R(\theta)$.
+** TODO Motivation for the parabolic fit methods
+   + Tried to emulate existing fitting methods for the bowshock shapes 
+     checking ./two-quadric-th90-vs-i.py and ./conic_parameters.py and found the following into the *HeadTail* Class:
+
+>
+>        elif method == 'match R90 and gradient':
+>            # New 30 Sep 2016 - fit tail to y, dy/dx @ 90 deg, instead
+>            # of to head conic
+>            self.x0_t = self.R90*self.m90 / self.tau_t**2
+>            self.a_t = np.sqrt(self.x0_t**2 - (self.R90/self.tau_t)**2)
+>            self.x_m = 0.0      # for completeness, but we don't use it
+>
+
+   + Next: Adapted the method to the parabola case: the gradient of a parabola must be a linear function. I developed
+     two different methods to obtain the slope: 
+
+       - Obtain the slope with two points which belongs to the Wilkin solution --> "Two points method"
+       - Fit a linear function to the gradient --> "Gradient Method"
+
+   - [ ]  Next step: Rewrite fitting methods as a python class and implement the results
+
 ** TODO Non parabolic methods
 
 Since the Wilkin solution for the two winds interacting bow shock seems to be more complicated than a simple parabola we must try 
