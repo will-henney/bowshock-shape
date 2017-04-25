@@ -200,10 +200,36 @@ From equation (\ref{eq:Rcurv}) for the radius of curvature we finally get the nu
   \input{figs/mipsgal-summary-stats-table-body.tex}
 \end{table}
 \end{landscape}
+\begin{table}
+  \contcaption{Results of all statistical tests performed on observed
+    bow shock shape parameters.}
+  \begin{tabular}{p{0.9\linewidth}}
+    \toprule
+    \textit{Description of columns:}
+    (Col.~1)~How the two A/B source sub-samples are defined, also giving the size of each sub-sample, \(n_{\text{A}}\) and~\(n_{\text{B}}\).
+    (Col.~2)~Dependent variable whose distribution is compared between the two sub-samples.
+    (Cols.~3--6)~Mean and standard deviation, \(\sigma\), of the dependent variable for each of the two sub-samples.
+    (Cols.~7--8)~Mean over each sub-sample of the observational dispersion (\(\epsilon\), standard deviation) of radii that contribute to the dependent variable for each individual source.
+    (Cols.~9--10)~``Standard error of the mean'' (s.e.m.) of the dependent variable for each of the two sub-samples. 
+    (Cols.~11--13)~Standardized ``effect sizes'', which are dimensionless measures of the difference in the distribution of the dependent variable between the two sub-samples.
+    (Col.~11)~Rank biserial correlation coefficient \citep{Cureton:1956a}, which is obtained by considering all \(n_{\text{A}} n_{\text{B}}\) pair-wise comparisons of the dependent variable between a source in sub-sample~A and a source in sub-sample~B.  It is the difference between the fraction of such comparisons ``won'' by sub-sample~A and those ``won'' by sub-sample~B, and thus may vary between \(-1\) and \(+1\). 
+    (Col.~12)~Cohen's \(d\), which is a dimensionless mean difference: \(d = (\langle \text{A} \rangle - \langle \text{B} \rangle) / \sigma_{\text{pool}} \), where \(\sigma_{\text{pool}} = (n_{\text{A}} \sigma_{\text{A}}^2 + n_{\text{B}} \sigma_{\text{B}}^2)^{1/2} / \sqrt{n_{\text{A}} + n_{\text{B}}}\) is the pooled standard deviation.
+    (Col.~13)~Ratio of standard deviations between the two sub-samples.
+    (Cols.~14--16)~Probabilities (\(p\)-values) of the two sub-samples being as different as observed if they were to be drawn from the same population, according to three different non-parametric tests.
+    (Col.~14)~Anderson--Darling 2-sample test, which is a general test of similarity between two distributions that is designed to retain sensitivity to differences in the tails of the distributions.
+    (Col.~15)~Mann--Whitney--Wilcoxon \(U\) test \citep{Mann:1947a}
+    (Col.~16)~Brown--Forsythe test for dispersion
+    \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \addtocounter{section}{-1}
 
 \section{Distribution of p-values for all correlations tested}
 \label{sec:distr-p-values}
+\addtocounter{table}{1}
+
 
 \begin{figure}
   (a)\\
