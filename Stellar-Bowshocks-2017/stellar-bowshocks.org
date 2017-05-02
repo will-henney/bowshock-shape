@@ -4310,7 +4310,7 @@ ss = s.replace('Hello', 'Goodbye')
 | Faint/bright \(H\) magnitude     | R90      |  1.677 |  1.768 |   0.269 |   0.316 |   0.231 |   0.236 |    0.025 |    0.030 |  0.174 | -0.308 |   0.851 |   0.0215 |   0.0235 |    0.125 |
 |                                  | dR90     |  0.183 |  0.198 |   0.161 |   0.163 |         |         |    0.015 |    0.015 |  0.070 | -0.093 |   0.987 |    0.538 |    0.365 |    0.761 |
 |                                  | Rc       |  1.655 |  1.917 |   0.631 |   1.045 |   0.097 |   0.078 |    0.059 |    0.098 |  0.123 | -0.303 |   0.604 |    0.123 |    0.111 |   0.0335 |
-| Low/high \(R_0\)                   | R90      |  1.707 |  1.739 |   0.250 |   0.336 |   0.256 |   0.212 |    0.024 |    0.031 |  0.061 | -0.110 |   0.745 |   0.0281 |    0.428 |  0.00139 |
+| Low/high \(R_0\)                  | R90      |  1.707 |  1.739 |   0.250 |   0.336 |   0.256 |   0.212 |    0.024 |    0.031 |  0.061 | -0.110 |   0.745 |   0.0281 |    0.428 |  0.00139 |
 |                                  | dR90     |  0.175 |  0.204 |   0.157 |   0.165 |         |         |    0.015 |    0.015 |  0.091 | -0.176 |   0.948 |    0.103 |    0.238 |    0.193 |
 |                                  | Rc       |  1.766 |  1.803 |   0.975 |   0.755 |   0.114 |   0.062 |    0.092 |    0.071 |  0.100 | -0.043 |   1.291 |    0.228 |    0.192 |    0.599 |
 | Low/high extinction              | R90      |  1.703 |  1.742 |   0.267 |   0.323 |   0.233 |   0.235 |    0.025 |    0.030 |  0.040 | -0.132 |   0.824 |    0.554 |    0.602 |    0.123 |
@@ -4639,6 +4639,41 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
 #+RESULTS:
 [[file:p-value-histogram-new-linear.pdf]]
+
+
+
+**** Relation of p values to standard deviations
++ If we have a two-sided test, then we have the following:
+  #+BEGIN_SRC python :return table
+    import numpy as np
+    import scipy.special
+    from scipy.special import erfinv
+
+    def two_sided_gauss_quantile(p):
+        """Also known as 'probit function', `p` is the usual p-value from a
+    two-sided significance test.  Returns the number of standard deviations"""
+        p1 = 1 - 0.5*p
+        return np.sqrt(2)*erfinv(2*p1 - 1)
+
+    pvalues = [0.05, 0.003, 6e-5, 6e-7, 2e-9]
+    table = [['p', '(1 - p) %', 'n sigma', 'approx'], None]
+    for p in pvalues:
+        nsig = two_sided_gauss_quantile(p)
+        table.append([p, 100*(1 - p), f'{nsig:.2f}', int(np.round(nsig))])
+    table.append(None)
+  #+END_SRC
+
+    #+RESULTS:
+    |     p |  (1 - p) % | n sigma | approx |
+    |-------+------------+---------+--------|
+    |  0.05 |       95.0 |    1.96 |      2 |
+    | 0.003 |       99.7 |    2.97 |      3 |
+    | 6e-05 |     99.994 |    4.01 |      4 |
+    | 6e-07 |   99.99994 |    4.99 |      5 |
+    | 2e-09 | 99.9999998 |    6.00 |      6 |
+    |-------+------------+---------+--------|
+
++ So, for instance 3-sigma significance corresponds to p = 0.003 and 99.7% confidence
 
 
 **** Controlling the familywise error rate
