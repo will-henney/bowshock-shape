@@ -1314,7 +1314,7 @@ Plot KDE of the distribution
 [[file:mipsgal-Rc-R90-environment.pdf]]
 
 
-**** Single vesus multiple candidates for central source
+**** Single versus multiple candidates for central source
 + This is the "Unc" column in the table
 + The idea is the ones with "C" have an aditional uncertainty in R_0, which could move points along diagonal lines through the origin
   + Actually not quite that, since R90 would be affected too
@@ -3079,6 +3079,7 @@ CLOSED: [2017-03-20 Mon 11:31]
 #+RESULTS:
 [[file:mipsgal-Rc-R90-Mag.pdf]]
 
+
 **** DONE Galactic longitude and latitude
 CLOSED: [2017-03-20 Mon 14:22]
 + Use |b| for distance of sight line from plane
@@ -4656,7 +4657,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
         return np.sqrt(2)*erfinv(2*p1 - 1)
 
     pvalues = [0.05, 0.003, 6e-5, 6e-7, 2e-9]
-    table = [['p', '(1 - p) %', 'n sigma', 'approx'], None]
+    table = [None, ['p', '(1 - p) %', 'n sigma', 'approx'], None]
     for p in pvalues:
         nsig = two_sided_gauss_quantile(p)
         table.append([p, 100*(1 - p), f'{nsig:.2f}', int(np.round(nsig))])
@@ -4664,6 +4665,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   #+END_SRC
 
     #+RESULTS:
+    |-------+------------+---------+--------|
     |     p |  (1 - p) % | n sigma | approx |
     |-------+------------+---------+--------|
     |  0.05 |       95.0 |    1.96 |      2 |

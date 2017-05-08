@@ -757,6 +757,20 @@ Use fixed D_0 = 1 arcmin
 
 
 
+
+
+* Abstract for Grazyna conference
+
+** Title
+Runaways and weather vanes: the shapes of stellar bow shocks
+
+** Authors
+William Henney; Jorge Tarango Yong
+
+** Abstract
+Stellar bow shocks are the result of the supersonic interaction between a stellar wind and its environment.  Some of these are "runaways": high-velocity stars that have been ejected from a star cluster.  Others are "weather vanes", where it is the local interstellar medium itself that is moving, perhaps as the result of a champagne flow of ionized gas from a nearby H II region.  We present a new two-dimensional classification scheme for the shape of such bow shocks, which accounts for both the apex (pointy versus flat) and the wings (open versus closed).  For different theoretical bow shock models, we show how variations in the true shape can be disentangled from projection effects due to variations in the inclination angle.  We apply our classification scheme to three different observational datasets: mid-infrared arcs around OB stars (N = 227), far-infrared arcs around AGB and RSG stars (N = 7), and emission-line arcs around proplyds and other young stars in the Orion Nebula (N = 18).  We find significant differences between the three datasets: AGB/RSG bow shocks have markedly more closed wings than OB star bow shocks, while differences in the shape of the apex region are only marginally significant.  The Orion Nebula arcs, on the other hand, have both significantly more open wings and significantly flatter apices than the OB star bow shocks.  We discuss the implications of these differences for understanding the physics of the bow shock interaction in the three classes of sources. 
+
+
 * Export options
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
