@@ -4358,7 +4358,7 @@ ss = s.replace('Hello', 'Goodbye')
 
 #+RESULTS:
 #+begin_example
-Wed Apr 19 13:16:23 CDT 2017
+Tue May  9 10:45:17 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -4526,7 +4526,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   tab = Table.read('mipsgal-summary-stats.tab', format='ascii.tab')
   pvalues = np.concatenate([tab['r_b p'], tab['B-F p'], tab['A-D p']])
   n = len(pvalues)
-  nsig = (pvalues < 0.001).sum()
+  nsig = (pvalues < 0.003).sum()
   nn = n - nsig
   fig, ax = plt.subplots(figsize=(6,3.5))
   x1, x2 = -6.0, 0.0
@@ -4548,7 +4548,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
               ha='left', va='top', bbox={'fc': 'w', 'alpha': 0.7, 'ec': 'none'},
               arrowprops={'arrowstyle': '-|>', 'color': 'r'})
 
-  for p0 in 0.001, 0.05:
+  for p0 in 0.003, 0.05:
       ax.axvspan(np.log10(p0), x2+0.05, color='k', alpha=0.05)
       ax.axvline(np.log10(p0), lw=2, ls='--', alpha=0.7, c='k')
   ticklabels = [f'$10^{{{i}}}$' for i in range(-6, 1)]
@@ -4559,11 +4559,11 @@ This is the one I am tending towards - close together on the sky, clearly showin
 	 xlabel='Significance level, $p$', ylabel='Number of correlations tested',
 	 yscale='log',
   )
-  ax.text(np.log10(0.001), 20, '$p = 0.001$', ha='center', va='bottom',
+  ax.text(np.log10(0.003), 20, '$p = 0.003$', ha='center', va='bottom',
           bbox={'fc': 'w'})
   ax.text(np.log10(0.05), 20, '$p = 0.05$', ha='center', va='bottom',
           bbox={'fc': 'w'})
-  xa, xb = np.log10(0.001), np.log10(0.05)
+  xa, xb = np.log10(0.003), np.log10(0.05)
   ax.annotate('significant', (xa, 0.4*height),
               xytext=(-20, 0), textcoords='offset points',
               ha='right', va='bottom', fontsize='small')

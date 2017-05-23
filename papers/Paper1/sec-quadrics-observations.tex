@@ -561,22 +561,35 @@ correlated with any other parameters via the following methodology:
   \(R_c\)--\(R_{90}\) plane (see Figs.~\ref{fig:mipsgal-correlated} and
   \ref{fig:mipsgal-uncorrelated}) to check for any obvious
   differences.
-\item We test if there is any statistically significant difference
-  between the bow shock shapes of the sub-samples by applying the
-  two-sample Anderson--Darling test \citep{Anderson:1952a,
-    Scholz:1987a, Makarov:2017a} to \(R_c/R_0\) and \(R_{90}/R_0\)
-  separately.  This is a non-parametric test of the \textit{null
+\item We check if there is any statistically significant difference
+  between the bow shock shapes of the sub-samples by applying three
+  different non-parametric tests to \(R_c/R_0\) and \(R_{90}/R_0\)
+  separately.  The principal test used is the two-sample
+  Anderson--Darling test \citep{Anderson:1952a, Scholz:1987a,
+    Makarov:2017a}, which is a general test of the \textit{null
     hypothesis} that the two sub-samples are drawn from the same
   distribution.  It returns a \(p\)-value, which is the estimated
   probability that the observed difference between the two sub-samples
   would be as large as it is purely by chance if they were all were
-  drawn from the same distribution.  We adopt a threshold of
-  \(p < 0.001\) in order to confidently reject the null hypothesis and
-  declare a ``significant'' difference between the two sub-samples,
-  but we also consider the less strict threshold of \(p < 0.05\) as an
-  indicator of ``probable'' difference (see
+  drawn from the same distribution.  We consider two different
+  thresholds for significance: \(p < 0.05\) (approximately
+  2-\(\sigma\) for a normal distribution) and \(p < 0.003\) (approximately
+  3-\(\sigma\)).  We show in Appendix~\ref{sec:distr-p-values} that the
+  more stringent \(p < 0.003\) condition is required in order to
+  confidently reject the null hypothesis and declare a ``significant''
+  difference between the two sub-samples, but we also consider the
+  less strict threshold of \(p < 0.05\) as an indicator of
+  ``possible'' difference.  We supplement the general-purpose
+  Anderson--Darling test with two tests that probe specific features of
+  the sample distributions: the Mann--Whitney--Wilcoxon \(U\) test
+  \citep{Mann:1947a}, which is sensitive to differences in the central
+  value (e.g., median) and the Brown--Forsythe test
+  \citep{Brown:1974a}, which is sensitive to differences in the
+  variance, or width, of the distribution (see
   Appendix~\ref{sec:distr-p-values} for details).
 \end{enumerate}
+
+
 
 \subsection{Far-infrared arcs around late-type stars}
 \label{sec:far-infrared-arcs}
