@@ -366,6 +366,32 @@ the apparent negative extinctions that are found in the catalog.  The
 same reddening law gives \(A_H = 1.55 A_K\), and this is used to
 derive extinction-corrected \(H\)-band apparent magnitudes, \(H_0\).
 
+\begin{figure*}
+  \centering
+  \begin{tabular}{ll}
+    (a) & (b) \\
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-environment} &
+    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-candidates} 
+  \end{tabular}
+  \caption[]{Example comparisons between the distribution of bowshock
+    shapes when the sources are divided into two or more sub-samples
+    according to the value of a categorical parameter.  Contours show
+    the KDE of the distribution of each sub-sample for all 3-, 4-, and
+    5-star sources, while filled circles show 5-star sources
+    only. Inset histograms show the marginal distributions on the two
+    shape axes. (a)~Source environment, divided into three
+    sub-samples: ``Isolated'' (purple symbols and purple filled
+    contours), ``Facing \hii{} region or \SI{8}{\um} bright-rimmed
+    cloud'' (orange symbols and orange-brown hollow continuous
+    contours), and ``Within \hii{} region'' (green symbols and green
+    hollow dashed contours). (b)~Uncertainty in stellar source
+    identification, divided into two sub-samples: ``Multiple
+    candidates for stellar source'' (green symbols and green filled
+    contours) and ``Single candidate for stellar source'' (orange
+    symbols and orange-brown hollow continuous contours).}
+  \label{fig:mipsgal-uncorrelated}
+\end{figure*}
+
 The most significant linear correlation between any pair of parameters
 in Figure~\ref{fig:mipsgal-pairplot} is that between bow shock size
 and stellar source brightness: \(H_0\) versus \(\log_{10} R_0\), with
@@ -409,19 +435,6 @@ already seen that the spread in \(H_0\) probably \emph{is} mostly due
 to a spread in distance, rather than a spread in \(H\)-band stellar
 luminosity.  If this is true, it follows that it is \(R_0\) that
 depends only weakly on \(d\) and is more influenced by other factors.
-
-\begin{figure*}
-  \centering
-  \begin{tabular}{ll}
-    (a) & (b) \\
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-environment} &
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-candidates} 
-  \end{tabular}
-  \caption[]{Lack of significant correlation of bow shock shape with
-    (a) environment, and (b) uncertainty in stellar source
-    identification.}
-  \label{fig:mipsgal-uncorrelated}
-\end{figure*}
 
 One such factor is the stellar/environmental momentum-loss ratio,
 \(\beta\), between the two supersonic flows that form the bow shock.  All
@@ -480,11 +493,14 @@ extreme inclinations.
     \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-R0} &
     \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-Mag} 
   \end{tabular}
-  \caption[]{Comparison between the distribution of bowshock shapes
-    when the sources are divided into two sub-samples according to the
-    value of another parameter. (a)~Bow shock angular size, \(R_0\).
-    (b)~Extinction-corrected \(H\)-band magnitude of the stellar
-    source.}
+  \caption[]{As Fig.~\ref{fig:mipsgal-uncorrelated} but for median
+    splits of continuous parameters. (a)~Bow shock angular size,
+    \(R_0\), divided into two equal-sized sub-samples: large (blue
+    symbols and blue filled contours) and small (red symbols and red
+    hollow contours).  (b)~Extinction-corrected \(H\)-band magnitude
+    of the stellar source, divided into two equal-sized sub-samples:
+    bright (red symbols and orange filled contours) and faint (green
+    symbols and green hollow contours).}
   \label{fig:mipsgal-correlated}
 \end{figure*}
 
@@ -642,7 +658,7 @@ level.
 The only parameters that \emph{do} show a possible correlation with
 the bowshock shape are the bow shock angular size, \(R_0\), and the
 extinction-corrected magnitude of the central star, \(H_0\), which are
-illustrated
+illustrated in Figure~\ref{fig:mipsgal-correlated}. 
 
 
 As mentioned in \S~\ref{sec:ob-shapes} there is also a shape
@@ -654,7 +670,7 @@ in this section (\(p < 10^{-4}\) for \(R_{90}/R_0\) and
 \(p < 10^{-5}\) for \(R_c/R_0\)).  This means that it cannot be simply
 due to the tendency of the higher-rated sources to have larger angular
 sizes.  However, the subjective nature of the star ratings makes this
-hard to interpret.
+result hard to interpret.
 
 \subsection{Far-infrared arcs around late-type stars}
 \label{sec:far-infrared-arcs}
