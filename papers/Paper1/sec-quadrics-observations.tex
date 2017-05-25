@@ -304,13 +304,15 @@ the shaded from the unshaded regions of the graph.
 The KDE contours in Figure~\ref{fig:mipsgal-shapes}b show that the
 distribution of 3-star sources is very similar to that of 4- and
 5-star sources, although the higher-rated sources are shifted slightly
-to the upper right.  This is probably due to higher-rated sources
-being on average bigger, as will be discussed further below.  The bulk
-of the sources are concentrated around the paraboloid line, with
-\(1 < R_c/R_0 < 2.5\), and \(1.2 < R_{90}/R_0 < 2\).  But significant
-minorities are found in three other regions: (1)~a clump with
-\(R_c/R_0 \la 1\); (2)~a vertical spur towards higher \(R_{90}\) at
-\(R_c/R_0 \approx 2\); and (3)~a broad horizontal tail towards higher
+to the upper right.  Possible reasons for this are discussed in
+\S~\ref{sec:corr-shape} below.
+% This is probably due to higher-rated sources
+% being on average bigger, as will be discussed further below.
+The bulk of the sources are concentrated around the paraboloid line,
+with \(1 < R_c/R_0 < 2.5\), and \(1.2 < R_{90}/R_0 < 2\).  But
+significant minorities are found in three other regions: (1)~a clump
+with \(R_c/R_0 \la 1\); (2)~a vertical spur towards higher \(R_{90}\)
+at \(R_c/R_0 \approx 2\); and (3)~a broad horizontal tail towards higher
 \(R_c\) at \(R_{90}/R_0 \la 2\).
 
 
@@ -618,13 +620,41 @@ might also be weather vanes rather than runaways.
 
 The second example (Fig.~\ref{fig:mipsgal-uncorrelated}b) divides the
 sources according to whether or not \citet{Kobulnicky:2016a} judged
-there to be multiple candidates for identity of the central star that
-drives the bow shock.  If the central star were to be misidentified,
-then the measured value of \(R_0\) would be erroneous, which would
-increase the dispersion in both \(R_c/R_0\) and \(R_{90}/R_0\).  The
+there to be multiple candidates for the identity of the central star
+that drives the bow shock.  If the central star were to be
+misidentified in a significant number of sources, then the measured
+value of \(R_0\) for those sources would be erroneous, which would
+increase the scatter in both \(R_c/R_0\) and \(R_{90}/R_0\).  The
 fact that no significant difference is seen in the shape distributions
 between sources with/without multiple candidates implies that such
 mistakes in identification of the central star must be rare.
+
+We also tested all the other source parameters listed in
+\citeauthor{Kobulnicky:2016a}'s catalog, finding no significant shape
+differences for sources with/without \SI{8}{\um} emission, with
+low/high extinction, closer/farther from the Galactic plane, or
+closer/farther from the Galactic center. Details are given in
+Table~\ref{tab:big-p}.  In all these cases, differences in mean or
+median \(R_{90}/R_0\) less than \(0.06\) and in \(R_c/R_0\) less than
+\(0.16\) are found, which are not significant even at the 2-\(\sigma\)
+level.
+
+The only parameters that \emph{do} show a possible correlation with
+the bowshock shape are the bow shock angular size, \(R_0\), and the
+extinction-corrected magnitude of the central star, \(H_0\), which are
+illustrated
+
+
+As mentioned in \S~\ref{sec:ob-shapes} there is also a shape
+difference between the 3-star sources and the 4/5-star sources (see
+Fig.~\ref{fig:mipsgal-shapes}b).  The \(p\)-values of statistical
+tests (see Table~\ref{tab:big-p}) indicate that this is much more
+significant than any correlation with the other parameters discussed
+in this section (\(p < 10^{-4}\) for \(R_{90}/R_0\) and
+\(p < 10^{-5}\) for \(R_c/R_0\)).  This means that it cannot be simply
+due to the tendency of the higher-rated sources to have larger angular
+sizes.  However, the subjective nature of the star ratings makes this
+hard to interpret.
 
 \subsection{Far-infrared arcs around late-type stars}
 \label{sec:far-infrared-arcs}

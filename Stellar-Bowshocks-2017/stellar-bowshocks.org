@@ -2757,14 +2757,18 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 
   ax.set(
-      xlim=[0.65, 1.85], ylim=[0.55, 2.9],
+      xlim=[0.65, 1.95], ylim=[0.55, 2.9],
       ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$')
   axr.set(
       ylim=[-0.08, 0.78],
       ylabel=r'Absolute residual from $R_{90}/R_0$ regression')
+  xticks_linear = [5.0, 10.0, 20.0, 40.0, 80.0]
   axa.set(
       # ylim=[-0.08, 0.78],
-      xlabel=r'Axial radius: $\log_{10}\, R_0$',
+      xticks = [np.log10(_) for _ in xticks_linear],
+      xticklabels = [f'{int(_)}' for _ in xticks_linear],
+      # xlabel=r'Axial radius: $\log_{10}\, R_0$',
+      xlabel=r"Axial radius: $R_0$, $''$ (log scale)",
       ylabel=r'$|R_{90+} - R_{90-}| / R_{90}$')
 
 
@@ -2938,9 +2942,11 @@ CLOSED: [2017-03-20 Mon 14:01]
   axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[0.0, 5.0])
   axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$',
               ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
-  axes[3].set(ylabel=r'$\sigma (R_{90}) / R_{0}$',
+  axes[3].set(ylabel=r'$\epsilon (R_{90}) / R_{0}$',
               ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
-  axes[4].set(ylabel=r"$R_0$, $''$", yscale='log', ylim=[None, 200.0])
+  axes[4].set(ylabel=r"$R_0$, $''$", yscale='log',
+              yticks=[5, 10, 50],
+              ylim=[4.0, 160.0])
   for iR0, R0_median in enumerate(R0_order):
       x = (iR0 + 0.5) / len(R0_order)
       axes[-1].text(x, 1.0, f'$N = {np.sum(R0_label == R0_median)}$',
@@ -4109,6 +4115,9 @@ CLOSED: [2017-03-20 Mon 10:48]
       'With/without 8 micron': [
           tab['8um'] == 'Y',
           tab['8um'] != 'Y'],
+      '3-star/4+-star': [
+          m3,
+          (m4 | m5)],
       'Low/high extinction': [
           tab['Ak'] < Ak_median,
           tab['Ak'] >= Ak_median],
@@ -4359,7 +4368,8 @@ CLOSED: [2017-03-20 Mon 10:48]
       ['Environment: Facing', 
        'Environment: H II', 
        'Single/Multiple source candidate', 
-       'With/without 8 micron'
+       'With/without 8 micron',
+       '3-star/4+-star',
       ], 
       ['OB vs Orion', 
        'OB vs RSG'
@@ -4398,14 +4408,17 @@ CLOSED: [2017-03-20 Mon 10:48]
                                            r'source candidate',
                                            r'\(n_{\text{A}}, n_{\text{B}} = 167, 60\)'], 
       'With/without 8 micron': [r'With/without',
-				r'\SI{8}{\um} emission',
-				r'\(n_{\text{A}}, n_{\text{B}} = 45, 182\)'], 
+                                r'\SI{8}{\um} emission',
+                                r'\(n_{\text{A}}, n_{\text{B}} = 45, 182\)'], 
       'OB vs Orion': [r'MIPS vs Orion',
                       r'',
                       r'\(n_{\text{A}}, n_{\text{B}} = 227, 18\)'], 
       'OB vs RSG': [r'MIPS vs RSG',
                     r'',
-                    r'\(n_{\text{A}}, n_{\text{B}} = 227, 7\)'], 
+                    r'\(n_{\text{A}}, n_{\text{B}} = 227, 7\)'],
+      '3-star/4+-star': [r'3-star vs (4+5)-star',
+                         r'',
+                         r'\(n_{\text{A}}, n_{\text{B}} = 133, 94\)'],
   }
 
 
@@ -4424,7 +4437,7 @@ CLOSED: [2017-03-20 Mon 10:48]
   # Which p value is important for which columns
   signifiers = {
       'A-D p': 'A-D p',
-      'r_b p': 'A-D p',
+      'r_b p': 'r_b p',
       'B-F p': 'B-F p',
       'r_b': 'r_b p',
       'd_c': 'r_b p',
@@ -4553,7 +4566,7 @@ ss = s.replace('Hello', 'Goodbye')
 
 #+RESULTS:
 #+begin_example
-Tue May  9 10:45:17 CDT 2017
+Thu May 25 12:17:31 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -4813,7 +4826,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
               xytext=(10, 30), textcoords='offset points',
               ha='left', va='bottom', bbox={'fc': 'w', 'alpha': 0.7, 'ec': 'none'},
               arrowprops={'arrowstyle': '-|>', 'color': 'r'})
-  ax.set(xlim=[x1-0.02, x2+0.02], ylim=[-1.1, 14.8],
+  ax.set(xlim=[x1-0.02, x2+0.02], ylim=[-1.1, 21.8], yticks=[0, 5, 10, 15, 20],
 	 xlabel='Significance level, $p$', 
      ylabel='Number of correlations tested',
   )

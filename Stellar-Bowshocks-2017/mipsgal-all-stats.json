@@ -1,10 +1,212 @@
 {
+    "3-star/4+-star": {
+        "R90": {
+            "A vs B Tests": {
+                "Anderson-Darling": [
+                    10.93532691578221,
+                    8.22530738895516e-05
+                ],
+                "Brown-Forsythe test for dispersion": [
+                    0.7033943791463705,
+                    0.40253560039483804
+                ],
+                "Kolmogorov-Smirnov": [
+                    0.2969924812030075,
+                    8.449810869790216e-05
+                ],
+                "Rank biserial coefficient": [
+                    0.3277875539913614,
+                    2.6328760812755538e-05
+                ],
+                "Welch t-test for mean": [
+                    -3.8879388477878982,
+                    0.0001372391972259972
+                ]
+            },
+            "Sample A": {
+                "iqr": 0.29246270901890137,
+                "mad": 0.1444512356661365,
+                "mean": 1.660756538419332,
+                "median": 1.6413684725317497,
+                "n": 133,
+                "sigma": 0.288254532054693
+            },
+            "Sample B": {
+                "iqr": 0.3693008464161598,
+                "mad": 0.18877223617635142,
+                "mean": 1.8116375235441502,
+                "median": 1.8217010987066118,
+                "n": 94,
+                "sigma": 0.28551448156047254
+            }
+        },
+        "R90_asym": {
+            "A vs B Tests": {
+                "Anderson-Darling": [
+                    -0.795253381902599,
+                    0.8090251093542746
+                ],
+                "Brown-Forsythe test for dispersion": [
+                    0.339149076269755,
+                    0.5609039155743367
+                ],
+                "Kolmogorov-Smirnov": [
+                    0.09542473204287316,
+                    0.675991698031792
+                ],
+                "Rank biserial coefficient": [
+                    -0.007198848184290618,
+                    0.9272504285098652
+                ],
+                "Welch t-test for mean": [
+                    -0.06338437077435888,
+                    0.9495234469110008
+                ]
+            },
+            "Sample A": {
+                "iqr": 0.18180421215963527,
+                "mad": 0.0940518279919621,
+                "mean": 0.18896134589149208,
+                "median": 0.14478560084169623,
+                "n": 133,
+                "sigma": 0.1621426274231239
+            },
+            "Sample B": {
+                "iqr": 0.22351678081978865,
+                "mad": 0.10560323495368096,
+                "mean": 0.19034794281294876,
+                "median": 0.15763824119912878,
+                "n": 94,
+                "sigma": 0.16119362936593642
+            }
+        },
+        "R90_sigma": {
+            "A vs B Tests": {
+                "Anderson-Darling": [
+                    3.1505886125453353,
+                    0.016882674685820814
+                ],
+                "Brown-Forsythe test for dispersion": [
+                    9.948382398755412e-08,
+                    0.9997486182555835
+                ],
+                "Kolmogorov-Smirnov": [
+                    0.17869140937450007,
+                    0.05218423756018199
+                ],
+                "Rank biserial coefficient": [
+                    -0.19196928491441367,
+                    0.01385020304956918
+                ],
+                "Welch t-test for mean": [
+                    2.202737101433648,
+                    0.028691973370249316
+                ]
+            },
+            "Sample A": {
+                "iqr": 0.10776289477219617,
+                "mad": 0.05554719695533711,
+                "mean": 0.2465236346888384,
+                "median": 0.23544658394360157,
+                "n": 133,
+                "sigma": 0.10876041952130153
+            },
+            "Sample B": {
+                "iqr": 0.11078178466386321,
+                "mad": 0.05645498263561044,
+                "mean": 0.2158939042843128,
+                "median": 0.20579509177085742,
+                "n": 94,
+                "sigma": 0.09822575829568053
+            }
+        },
+        "Rc": {
+            "A vs B Tests": {
+                "Anderson-Darling": [
+                    15.598480048759564,
+                    1.4714340794309295e-05
+                ],
+                "Brown-Forsythe test for dispersion": [
+                    0.09160978447570921,
+                    0.7624201665441959
+                ],
+                "Kolmogorov-Smirnov": [
+                    0.33610622300431936,
+                    4.99830853452129e-06
+                ],
+                "Rank biserial coefficient": [
+                    0.3855383138697809,
+                    7.661658774701213e-07
+                ],
+                "Welch t-test for mean": [
+                    -3.2807952976832695,
+                    0.001205015623313048
+                ]
+            },
+            "Sample A": {
+                "iqr": 0.6594128118537126,
+                "mad": 0.31671862487326896,
+                "mean": 1.6322037115394548,
+                "median": 1.35893705695377,
+                "n": 133,
+                "sigma": 0.909779545736527
+            },
+            "Sample B": {
+                "iqr": 0.7980567799568481,
+                "mad": 0.404327612833041,
+                "mean": 1.99964241015621,
+                "median": 1.8893926668030088,
+                "n": 94,
+                "sigma": 0.7637896844645542
+            }
+        },
+        "Rc_sigma": {
+            "A vs B Tests": {
+                "Anderson-Darling": [
+                    34.479811123270395,
+                    0.0010595536580950856
+                ],
+                "Brown-Forsythe test for dispersion": [
+                    23.12800020908445,
+                    2.774501227205084e-06
+                ],
+                "Kolmogorov-Smirnov": [
+                    0.4362501999680052,
+                    7.296048230114824e-10
+                ],
+                "Rank biserial coefficient": [
+                    -0.56838905775076,
+                    3.1228005436283175e-13
+                ],
+                "Welch t-test for mean": [
+                    8.053230872425711,
+                    4.730746696818123e-14
+                ]
+            },
+            "Sample A": {
+                "iqr": 0.08263085074690671,
+                "mad": 0.04111476061295924,
+                "mean": 0.10631194035384359,
+                "median": 0.10234984840969946,
+                "n": 133,
+                "sigma": 0.04797481054422683
+            },
+            "Sample B": {
+                "iqr": 0.038671512335812785,
+                "mad": 0.01758034575112111,
+                "mean": 0.061236059591158847,
+                "median": 0.05267724876543525,
+                "n": 94,
+                "sigma": 0.035944935023706666
+            }
+        }
+    },
     "Environment: Facing": {
         "R90": {
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.5213239087160222,
-                    0.6029016851249542
+                    0.6029016851249551
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.7365285691390311,
@@ -44,7 +246,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.3588282333299233,
-                    0.5072994615223557
+                    0.5072994615223564
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.6044320780126701,
@@ -84,7 +286,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.5728870649319532,
-                    0.6370317589256388
+                    0.6370317589256397
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.1028944192441934,
@@ -124,7 +326,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.6775847082002668,
-                    0.7126868663807957
+                    0.7126868663807968
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.7834193058600214,
@@ -164,7 +366,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.38842754961330067,
-                    0.5234551933900793
+                    0.5234551933900802
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.010399755305464652,
@@ -206,7 +408,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.37763413591604206,
-                    0.5175025832733667
+                    0.5175025832733674
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.07704670323212148,
@@ -246,7 +448,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.9258203699797877,
-                    0.9320025344762486
+                    0.9320025344762498
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.0647454721727097,
@@ -286,7 +488,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.9453931500172174,
-                    0.9520546223063295
+                    0.9520546223063311
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.013397457699887977,
@@ -326,7 +528,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.33750692648055197,
-                    0.4959854548000662
+                    0.4959854548000669
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.3045334598775433,
@@ -366,7 +568,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.4768800125535108,
-                    0.21320580699933864
+                    0.21320580699933891
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.8961825543888252,
@@ -448,7 +650,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.41391795156957334,
-                    0.537799049548124
+                    0.5377990495481247
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.09243288422048665,
@@ -488,7 +690,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.9195875109605961,
-                    0.9257098958007438
+                    0.9257098958007453
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.1927419753989477,
@@ -528,7 +730,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     1.0269167871943357,
-                    0.1228555541733762
+                    0.12285555417337629
                 ],
                 "Brown-Forsythe test for dispersion": [
                     4.5756532352805435,
@@ -568,7 +770,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     5.498884774995426,
-                    0.0024529198481143097
+                    0.0024529198481143006
                 ],
                 "Brown-Forsythe test for dispersion": [
                     2.8449957513430624,
@@ -652,7 +854,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.03452426476799453,
-                    0.3608707744840941
+                    0.36087077448409455
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.9956322091546523,
@@ -692,7 +894,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.5231200604626787,
-                    0.6040578837297158
+                    0.6040578837297166
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.824142634853201,
@@ -732,7 +934,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.064667570382509,
-                    0.32551612921048917
+                    0.3255161292104896
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.5298969094759498,
@@ -772,7 +974,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -1.016217572904899,
-                    1.0284532608228834
+                    1.028453260822885
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.3607259828713892,
@@ -812,7 +1014,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.6483590603291688,
-                    0.17924597653910102
+                    0.17924597653910118
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.09223905178153546,
@@ -894,7 +1096,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     1.2049457307044624,
-                    0.10311726539479751
+                    0.1031172653947976
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.7084603963237581,
@@ -934,7 +1136,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     12.163408654386709,
-                    4.6986313657783035e-05
+                    4.698631365778245e-05
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.7245118450696784,
@@ -974,7 +1176,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.4127626161199234,
-                    0.22758246844887411
+                    0.22758246844887436
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.2771235130725284,
@@ -1014,7 +1216,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     49.73769069657217,
-                    17717.446655432937
+                    17717.446655429634
                 ],
                 "Brown-Forsythe test for dispersion": [
                     14.673086322649525,
@@ -1056,7 +1258,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.4414960302511521,
-                    0.553781164030679
+                    0.5537811640306798
                 ],
                 "Brown-Forsythe test for dispersion": [
                     2.3925083110957437,
@@ -1096,7 +1298,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.13920308132583448,
-                    0.301346689892166
+                    0.30134668989216634
                 ],
                 "Brown-Forsythe test for dispersion": [
                     2.5501121316236297,
@@ -1136,7 +1338,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.5870504563289605,
-                    0.6467555746026304
+                    0.6467555746026314
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.0734462681384176,
@@ -1176,7 +1378,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.4519039005030836,
-                    0.21868937655085158
+                    0.21868937655085188
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.000511429343644996,
@@ -1216,7 +1418,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.38743773238780665,
-                    0.5229063371653309
+                    0.5229063371653316
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.08994271670747961,
@@ -1258,7 +1460,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.11760759126084468,
-                    0.30814968403832177
+                    0.30814968403832216
                 ],
                 "Brown-Forsythe test for dispersion": [
                     3.771218536606518,
@@ -1298,7 +1500,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.9564435264780833,
-                    0.9635738068614118
+                    0.963573806861413
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.15537507651579507,
@@ -1338,7 +1540,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.3343284818017953,
-                    0.49432155816941187
+                    0.4943215581694126
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.1562516218969917,
@@ -1378,7 +1580,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.5885112427068069,
-                    0.19040298529633004
+                    0.19040298529633026
                 ],
                 "Brown-Forsythe test for dispersion": [
                     3.007987376716877,
@@ -1418,7 +1620,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.4500978393953829,
-                    0.21909159498887995
+                    0.21909159498888023
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.14084006785035133,
@@ -1460,7 +1662,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     19.755639384773595,
-                    8.021326950821804e-06
+                    8.021326950821546e-06
                 ],
                 "Brown-Forsythe test for dispersion": [
                     21.283014565330415,
@@ -1500,7 +1702,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     17.543377195433045,
-                    9.935726501823031e-06
+                    9.935726501822801e-06
                 ],
                 "Brown-Forsythe test for dispersion": [
                     43.76534246329439,
@@ -1540,7 +1742,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     7.740821197269971,
-                    0.0005045717562543324
+                    0.0005045717562543305
                 ],
                 "Brown-Forsythe test for dispersion": [
                     2.428657572568953,
@@ -1582,7 +1784,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     7.774504722992658,
-                    0.0004936815565227551
+                    0.0004936815565227525
                 ],
                 "Brown-Forsythe test for dispersion": [
                     3.6504764717691076,
@@ -1622,7 +1824,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.06689821151911192,
-                    0.37326168265420334
+                    0.37326168265420384
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.275288635664901,
@@ -1662,7 +1864,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     1.5440704305240534,
-                    0.0741935218294309
+                    0.07419352182943095
                 ],
                 "Brown-Forsythe test for dispersion": [
                     3.8664032777274904,
@@ -1704,7 +1906,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.017133301458264638,
-                    0.3419829272202732
+                    0.3419829272202737
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.9217335540994622,
@@ -1744,7 +1946,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.1822164988867502,
-                    0.4211400238638633
+                    0.42114002386386384
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.0013977759174243754,
@@ -1784,7 +1986,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.8015749628925728,
-                    0.8145707394385361
+                    0.8145707394385372
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.8277171104669272,
@@ -1824,7 +2026,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.9891425306993509,
-                    0.9985190574565284
+                    0.9985190574565299
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.2684669012456891,
@@ -1864,7 +2066,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     0.45447628588696376,
-                    0.21811783069746296
+                    0.2181178306974632
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.5235356993738105,
@@ -1906,7 +2108,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.5096274544817735,
-                    0.5954288899390443
+                    0.5954288899390451
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.33520672869557794,
@@ -1946,7 +2148,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.7430904094181946,
-                    0.7647416015105706
+                    0.7647416015105717
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.5175366696206642,
@@ -1986,7 +2188,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.3632840957671735,
-                    0.5096978256110928
+                    0.5096978256110934
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.0869143603662421,
@@ -2026,7 +2228,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.8121465607499055,
-                    0.8239335045069363
+                    0.8239335045069374
                 ],
                 "Brown-Forsythe test for dispersion": [
                     1.6490751742785104,
@@ -2066,7 +2268,7 @@
             "A vs B Tests": {
                 "Anderson-Darling": [
                     -0.6510281677593921,
-                    0.6926497090294716
+                    0.6926497090294726
                 ],
                 "Brown-Forsythe test for dispersion": [
                     0.08191760802204243,
