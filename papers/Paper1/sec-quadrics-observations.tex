@@ -146,20 +146,24 @@ We developed a methodology for automatically tracing the arcs as follows:
   than \(C_1\) and therefore \(|\theta_k|\) can be much larger than
   \(60\degr\).
 \item Make our own estimate of the axial size, \(R_0\), of the bow
-  shock by calculating the mean and standard deviation of \(R_k\) over
-  all points \(C_k\) with \(|\theta_k| \le 10\degr\).  Note that this is
-  distinct from the nominal value of \(R_0\) given in the
-  \citet{Kobulnicky:2016a} catalog, which was ``measured by eye''.
+  shock by calculating the mean of \(R_k\) over all points \(C_k\)
+  with \(|\theta_k| \le 10\degr\).  Note that this is distinct from the
+  nominal value of \(R_0\) given in the \citet{Kobulnicky:2016a}
+  catalog, which was ``measured by eye''.  We denote by
+  \(\epsilon(R_0)\) the standard deviation of the \(R_k\) that go into
+  calculating \(R_0\).\label{step:R0}
 \item Estimate the radius of curvature, \(R_c\), by fitting a circle
   to all those points within \(\pm 45\degr\) of the nominal axis
   (\(|\theta_k| < 45\degr\)), but after excluding any point with
   \(R_k < \frac12 R_m\) or \(R_k > 2 R_m\), where \(R_m\) is the median
   \(R_k\) for \(|\theta_k| < 45\degr\).
 \item Determine two separate estimates, \(R_{90+}\) and \(R_{90-}\),
-  of the perpendicular radius, \(R_{90}\), by taking the mean and
-  standard deviation of \(R_k\) over all points \(C_k\) with
+  of the perpendicular radius, \(R_{90}\), by taking the mean of
+  \(R_k\) over all points \(C_k\) with
   \(|\theta_k - 90\degr| \le 10\degr\) for \(R_{90+}\), and with
-  \(|\theta_k + 90\degr| \le 10\degr\) for \(R_{90-}\).
+  \(|\theta_k + 90\degr| \le 10\degr\) for \(R_{90-}\).  The average of the
+  two standard deviations of the \(R_k\) that contribute to
+  \(R_{90+}\) and \(R_{90-}\) is denoted by \(\epsilon(R_{90})\).\label{step:R90}
 \end{enumerate}
 
 
@@ -249,8 +253,11 @@ indicated by the dotted horizontal line in te figure).
     distribution for 3-star sources (blue, filled contours) and 4-
     plus 5-star sources (orange/brown, unfilled contours).  The KDE
     uses an anisotropic gaussian kernel with bandwidths of
-    \(0.18 \times 0.12\). Images of representative 4- and 5-star sources at
-    different points on the \(R_c\)--\(R_{90}\) plane are also shown.}
+    \(0.18 \times 0.12\). Thumbnail images of representative 4- and 5-star
+    sources at different points on the \(R_c\)--\(R_{90}\) plane are
+    also shown. The angular scale of each image is indicated by a
+    yellow circle of diameter \(7.5''\), centered on the stellar
+    source.}
   \label{fig:mipsgal-shapes}
 \end{figure*}
 
@@ -377,7 +384,7 @@ derive extinction-corrected \(H\)-band apparent magnitudes, \(H_0\).
     shapes when the sources are divided into two or more sub-samples
     according to the value of a categorical parameter.  Contours show
     the KDE of the distribution of each sub-sample for all 3-, 4-, and
-    5-star sources, while filled circles show 5-star sources
+    5-star sources, while filled circle symbols show 5-star sources
     only. Inset histograms show the marginal distributions on the two
     shape axes. (a)~Source environment, divided into three
     sub-samples: ``Isolated'' (purple symbols and purple filled
@@ -524,17 +531,18 @@ extreme inclinations.
     illustrated in the lower panel.  The colored boxes show the
     interquartile range, with the median indicated by a horizontal
     line, the 1st-to-9th interdecile range by error bars, and outliers
-    by diamonds.  A 5-sample Anderson--Darling test is performed for
-    each dependent variable, with resultant \(p\)-value given at the
-    bottom of each panel.  It is apparent that the dispersion in
-    \(R_{90} / R_0\) (upper panel) increases systematically with
-    \(R_0\), although the central value is roughly constant.  No clear
-    systematic changes are apparent in \(R_c / R_{90}\) (middle
-    panel).  (b)~As (a), but partitioning on the extinction-corrected
-    \(H\)-band magnitude, \(H_0\).  Note that sub-samples are plotted
-    in order of \textit{decreasing} magnitude to allow comparison
-    between (a) and (b), given the negative correlation between
-    \(H_0\) and \(R_0\) (see Fig.~\ref{fig:mipsgal-pairplot}).}
+    by diamonds.  A 5-sample Anderson--Darling test and Brown--Forsythe
+    test is performed for each dependent variable, with resultant
+    \(p\)-value given at the bottom of each panel.   It is apparent
+    that the dispersion in \(R_{90} / R_0\) (upper panel) increases
+    systematically with \(R_0\), although the central value is roughly
+    constant.  No clear systematic changes are apparent in
+    \(R_c / R_{90}\) (middle panel).  (b)~As (a), but partitioning on
+    the extinction-corrected \(H\)-band magnitude, \(H_0\).  Note that
+    sub-samples are plotted in order of \textit{decreasing} magnitude
+    to allow comparison between (a) and (b), given the negative
+    correlation between \(H_0\) and \(R_0\) (see
+    Fig.~\ref{fig:mipsgal-pairplot}).}
   \label{fig:mipsgal-boxplot}
 \end{figure}
 
@@ -652,13 +660,61 @@ low/high extinction, closer/farther from the Galactic plane, or
 closer/farther from the Galactic center. Details are given in
 Table~\ref{tab:big-p}.  In all these cases, differences in mean or
 median \(R_{90}/R_0\) less than \(0.06\) and in \(R_c/R_0\) less than
-\(0.16\) are found, which are not significant even at the 2-\(\sigma\)
-level.
+\(0.16\) are found, corresponding to rank biserial correlation
+coefficients (a non-parametric dimensionless measure of the difference
+between two samples, see Appendix~\ref{sec:distr-p-values}) of
+\(r_b < 0.15\), which are not significant even at the 2-\(\sigma\) level.
 
 The only parameters that \emph{do} show a possible correlation with
 the bowshock shape are the bow shock angular size, \(R_0\), and the
 extinction-corrected magnitude of the central star, \(H_0\), which are
-illustrated in Figure~\ref{fig:mipsgal-correlated}. 
+illustrated in Figure~\ref{fig:mipsgal-correlated}.  In both cases,
+the general purpose Anderson--Darling test indicates differences in the
+sub-sample distributions of \(R_{90} / R_0\) at the 2-\(\sigma\) level.  It
+is apparent from the histograms shown in the right-hand inset graphs
+of Figure~\ref{fig:mipsgal-correlated}a that in the case of the
+small/large \(R_0\) sub-samples it is the width rather than the
+central tendency of the distributions that is different, which is
+confirmed by the more specific Brown--Forsythe test, which indicates a
+difference between the sub-sample dispersions at the 3-\(\sigma\) level.
+In the case of the faint/bright \(H_0\) sub-samples
+(Fig.~\ref{fig:mipsgal-heteroscedastic}b), it is less clear what
+feature of the distributions differ.
+
+In order to investigate these effects in more detail and look for
+systematic trends, we divide the independent parameter (\(R_0\) or
+\(H_0\)) into 5 rather than 2 equal-sized sub-samples, with results
+shown as box plots in Figure~\ref{fig:mipsgal-boxplot}.  A systematic
+increase with \(R_0\) in the dispersion of \(R_{90}/R_0\) (upper panel
+of Fig.~\ref{fig:mipsgal-boxplot}a) is apparent from both the
+interquartile range (colored boxes) and interdecile range (error
+bars).  As a check on whether observational uncertainties might be
+contributing to this trend, the third and fourth rows of box plots
+show the statistics for, respectively, the fractional asymmetry of the
+bowshock wings and the standard deviation, \(\epsilon(R_{90})\), of the
+individual points on the bow shock that go into determining \(R_{90}\)
+(see step~\ref{step:R90} of the tracing/fitting methodology described
+in \S~\ref{sec:autom-trac-fitt}).  It can be seen that neither of
+these quantities tends to increase with \(R_0\), and in fact there is
+a significant \emph{decrease} in \(\epsilon(R_{90})\) with \(R_0\).  This
+implies that the increase with angular size of the diversity of bow
+shock wing shapes is real, and not due to observational uncertainties.  
+On the other hand, the fact that no clear trends are evident as a
+function of source magnitude \(H_0\) (Fig.~\ref{fig:mipsgal-boxplot}b)
+leads us to suspect that the \(p < 0.05\) result obtained for the
+2-sample Anderson--Darling test was a \emph{false positive}, which is
+also supported by the analysis in Appendix~\ref{sec:distr-p-values}
+and Figure~\ref{fig:histo-p-values}.
+
+So, the only correlation that survives scrutiny is the increase in
+dispersion of \(R_{90}/R_0\) with increasing \(R_0\), which is finally
+presented in the greatest detail in
+Figure~\ref{fig:mipsgal-heteroscedastic}, where eschew any binning and
+perform linear regressions of the individual sources as a function of
+\(\log_{10} R_0\).  As expected from the previous 2-sample and
+5-sample analyses, the regression of \(R_{90}/R_0\) is almost flat,
+with a low correlation coefficient.
+
 
 
 As mentioned in \S~\ref{sec:ob-shapes} there is also a shape

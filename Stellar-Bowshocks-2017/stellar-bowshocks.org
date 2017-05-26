@@ -2871,7 +2871,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 #+BEGIN_SRC python :results file :return figfile
   import numpy as np
-  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
+  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr, levene
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -2920,19 +2920,24 @@ CLOSED: [2017-03-20 Mon 14:01]
   #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
   R0_order = sorted(set(R0_label), key=float)
 
+  def pformat(p):
+      """Pretty-print a p-value"""
+      if p > 0.01:
+          return f'$p = {p:.3f}$'
+      else:
+          pexp = np.floor(np.log10(p))
+          return rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+    
+
   for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'R90_sigma', R0var]):
       sns.boxplot(x=R0_label, y=tab[Rshape][mgood], order=R0_order, ax=ax)
       if Rshape != R0var:
           # Anderson-Darling k-sample test over the 5 sub-samples
-          AD, levelsAD, pAD = anderson_ksamp(
-              [tab[Rshape][mgood][R0_label == _] for _ in R0_order],
-              midrank=False)
-          if pAD > 0.01:
-              s = f'A-D $p = {pAD:.3f}$'
-          else:
-              pexp = np.floor(np.log10(pAD))
-              s = rf'A-D $p = {pAD/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
-          ax.text(0.1, -0.04, s,
+          subsamples = [tab[Rshape][mgood][R0_label == _] for _ in R0_order]
+          AD, levelsAD, pAD = anderson_ksamp(subsamples, midrank=False)
+          BF, pBF = levene(*subsamples, center='median')
+          s = f'{pformat(pAD)} (AD), {pformat(pBF)} (BF)'
+          ax.text(0.05, -0.04, s,
                   ha='left', va='top', transform=ax.transAxes,
                   fontsize='x-small'
           )
@@ -2968,7 +2973,7 @@ Try the same with H_0
 
 #+BEGIN_SRC python :results file :return figfile
   import numpy as np
-  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr
+  from scipy.stats import ks_2samp, anderson_ksamp, pearsonr, levene
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -3025,26 +3030,29 @@ Try the same with H_0
   #R0_label = (2*np.round(logR0/2, 1)).astype('U3')
   H0_order = sorted(set(H0_label), key=float)[::-1]
 
+  def pformat(p):
+      """Pretty-print a p-value"""
+      if p > 0.01:
+          return f'$p = {p:.3f}$'
+      else:
+          pexp = np.floor(np.log10(p))
+          return rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
+
   for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'R90_sigma', 'Hmag']):
       sns.boxplot(x=H0_label, y=tab[Rshape][mgood], order=H0_order, ax=ax)
       if Rshape != 'Hmag':
-          # Anderson-Darling k-sample test over the 5 sub-samples
-          AD, levelsAD, pAD = anderson_ksamp(
-              [tab[Rshape][mgood][H0_label == _] for _ in H0_order],
-              midrank=False)
-          if pAD > 0.01:
-              s = f'A-D $p = {pAD:.3f}$'
-          else:
-              pexp = np.floor(np.log10(pAD))
-              s = rf'A-D $p = {pAD/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
-          ax.text(0.1, -0.04, s,
+          subsamples = [tab[Rshape][mgood][H0_label == _] for _ in H0_order]
+          AD, levelsAD, pAD = anderson_ksamp(subsamples, midrank=False)
+          BF, pBF = levene(*subsamples, center='median')
+          s = f'{pformat(pAD)} (AD), {pformat(pBF)} (BF)'
+          ax.text(0.05, -0.04, s,
                   ha='left', va='top', transform=ax.transAxes,
                   fontsize='x-small'
           )
   axes[0].set(ylabel=r'$R_{90} / R_{0}$', ylim=[0.0, None])
   axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[0.0, 5.0])
   axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$', ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
-  axes[3].set(ylabel=r'$\sigma (R_{90}) / R_{0}$',
+  axes[3].set(ylabel=r'$\epsilon (R_{90}) / R_{0}$',
               ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
   axes[4].set(ylabel=r'$H_0$, mag', ylim=[4.5, 13.9], yticks=[6, 9, 12])
   for iH0, H0_median in enumerate(H0_order):
@@ -4328,7 +4336,7 @@ CLOSED: [2017-03-20 Mon 10:48]
   % \Width is used to align number under col header in first column
   \newlength\Width\settowidth\Width{Comparison}
   \begin{tabular}{@{} ll @{\quad } S[round-mode=places]S[round-mode=places] S[round-mode=places]S[round-mode=places] SS SS @{\quad\quad\quad} SSS[round-mode=places] @{\quad} S@{}S@{}S @{}}\toprule
-    & & \multicolumn{2}{c}{Mean} & \multicolumn{2}{c}{Std.\ Dev.} & \multicolumn{2}{c}{Obs.\ Disp.} & \multicolumn{2}{c @{\quad\quad\quad}}{s.e.m.} & \multicolumn{3}{c @{\quad} }{\dotfill Effect sizes\dotfill } & \multicolumn{3}{c}{\dotfill Non-parametric test \(p\)-values  \dotfill} \\ 
+    & {Dependent} & \multicolumn{2}{c}{Mean} & \multicolumn{2}{c}{Std.\ Dev.} & \multicolumn{2}{c}{Obs.\ Disp.} & \multicolumn{2}{c @{\quad\quad\quad}}{s.e.m.} & \multicolumn{3}{c @{\quad} }{\dotfill Effect sizes\dotfill } & \multicolumn{3}{c}{\dotfill Non-parametric test \(p\)-values  \dotfill} \\ 
     {Comparison} & {Variable} & {\(\langle \text{A} \rangle\)} & {\(\langle \text{B} \rangle\)} & {\(\sigma_{\text{A}}\)} & {\(\sigma_{\text{B}}\)} & {\(\langle \epsilon_{\text{A}} \rangle\)} & {\(\langle \epsilon_{\text{B}} \rangle\)} & {\((\sigma/\!\sqrt n)_{\text{A}}\)} & {\((\sigma/\!\sqrt n)_{\text{B}}\)} & {\(r_b\)} & {Cohen \(d\)} & {\(\sigma_{\text{A}}/\sigma_{\text{B}}\)} & \multicolumn{1}{c}{Anderson--Darling} & \multicolumn{1}{c}{Rank biserial} &  \multicolumn{1}{c}{Brown--Forsythe}\\
     {\makebox[\Width]{(1)}} & \multicolumn{1}{c@{\quad}}{(2)} & {(3)} & {(4)} & {(5)} & {(6)} & {(7)} & {(8)} & {(9)} & {(10)}  & {(11)} & {(12)} & {(13)} & {(14)} & {(15)} & {(16)} \\  
     \midrule
@@ -4377,9 +4385,9 @@ CLOSED: [2017-03-20 Mon 10:48]
   ]
 
   variable_replacements = {
-      'R90': r'\(R_{90}\)',
-      'R90_asym': r'\(\Delta R_{90}\)',
-      'Rc': r'\(R_{c}\)',
+      'R90': r'\(R_{90} / R_{0}\)',
+      'R90_asym': r'\(\Delta R_{90} / R_{90}\)',
+      'Rc': r'\(R_{c} / R_{0}\)',
   }
 
   comparison_replacements = {
@@ -4428,8 +4436,8 @@ CLOSED: [2017-03-20 Mon 10:48]
       return head + s + tail + '\n' + r'\addlinespace' + '\n'
 
   group_headers = [
-      'Median split of continuous variables',
-      'Categorical variables',
+      'Median split of continuous independent variables',
+      'Categorical independent variables',
       'Intercomparison with other datasets',
   ]
 
@@ -4566,7 +4574,7 @@ ss = s.replace('Hello', 'Goodbye')
 
 #+RESULTS:
 #+begin_example
-Thu May 25 12:17:31 CDT 2017
+Fri May 26 13:28:16 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
