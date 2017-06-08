@@ -1,64 +1,67 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 fk5
-point(6:36:32.834,+38:26:43.15) # point=circle text={UU Aur}
-point(6:36:43.654,+38:27:45.50) # point=x
-point(6:36:43.414,+38:27:39.87) # point=x
-point(6:36:43.517,+38:27:34.24) # point=x
-point(6:36:43.277,+38:27:26.99) # point=x
-point(6:36:43.002,+38:27:20.15) # point=x
-point(6:36:42.625,+38:27:15.33) # point=x
-point(6:36:42.180,+38:27:10.50) # point=x
-point(6:36:42.180,+38:27:03.66) # point=x
-point(6:36:42.145,+38:26:57.62) # point=x
-point(6:36:41.974,+38:26:50.78) # point=x
-point(6:36:41.836,+38:26:44.75) # point=x
-point(6:36:41.768,+38:26:41.13) # point=x
-point(6:36:41.528,+38:26:36.30) # point=x
-point(6:36:41.356,+38:26:28.65) # point=x
-point(6:36:41.219,+38:26:22.21) # point=x
-point(6:36:41.013,+38:26:16.18) # point=x
-point(6:36:40.979,+38:26:07.73) # point=x
-point(6:36:40.568,+38:26:01.69) # point=x
-point(6:36:40.191,+38:25:56.46) # point=x
-point(6:36:39.780,+38:25:52.04) # point=x
-point(6:36:39.437,+38:25:45.60) # point=x
-point(6:36:38.752,+38:25:38.36) # point=x
-point(6:36:38.238,+38:25:33.13) # point=x
-point(6:36:37.690,+38:25:29.51) # point=x
-point(6:36:37.074,+38:25:26.69) # point=x
-point(6:36:36.526,+38:25:24.68) # point=x
-point(6:36:35.704,+38:25:20.26) # point=x
-point(6:36:34.745,+38:25:16.64) # point=x
-point(6:36:33.992,+38:25:17.44) # point=x
-point(6:36:33.204,+38:25:17.04) # point=x
-point(6:36:32.759,+38:25:17.84) # point=x
-point(6:36:31.937,+38:25:19.45) # point=x
-point(6:36:31.184,+38:25:21.06) # point=x
-point(6:36:30.705,+38:25:23.88) # point=x
-point(6:36:30.122,+38:25:26.29) # point=x
-point(6:36:29.506,+38:25:29.51) # point=x
-point(6:36:28.924,+38:25:33.94) # point=x
-point(6:36:28.376,+38:25:39.17) # point=x
-point(6:36:27.862,+38:25:44.80) # point=x
-point(6:36:27.382,+38:25:51.64) # point=x
-point(6:36:27.074,+38:25:56.06) # point=x
-point(6:36:26.526,+38:26:01.29) # point=x
-point(6:36:26.149,+38:26:08.13) # point=x
-point(6:36:25.738,+38:26:14.57) # point=x
-point(6:36:25.464,+38:26:22.62) # point=x
-point(6:36:25.121,+38:26:29.05) # point=x
-point(6:36:25.018,+38:26:34.28) # point=x
-point(6:36:24.709,+38:26:40.72) # point=x
-point(6:36:24.675,+38:26:46.76) # point=x
-point(6:36:24.709,+38:26:52.79) # point=x
-point(6:36:24.846,+38:27:00.44) # point=x
-point(6:36:24.811,+38:27:06.48) # point=x
-point(6:36:24.743,+38:27:13.32) # point=x
-point(6:36:24.674,+38:27:17.34) # point=x
-point(6:36:24.605,+38:27:23.78) # point=x
-point(6:36:24.742,+38:27:30.62) # point=x
-point(6:36:24.845,+38:27:39.07) # point=x
-point(6:36:25.016,+38:27:46.32) # point=x
-point(6:36:25.255,+38:27:53.56) # point=x
-point(6:36:25.461,+38:27:57.99) # point=x
+point(6:36:32.834,+38:26:43.15) # point=circle color=red text={UU Aur}
+point(6:36:27.656,+38:28:30.60) # point=x color=red
+point(6:36:26.352,+38:28:13.50) # point=x color=red
+point(6:36:42.541,+38:27:47.53) # point=x color=red
+point(6:36:42.323,+38:27:36.38) # point=x color=red
+point(6:36:42.110,+38:27:28.75) # point=x color=red
+point(6:36:41.813,+38:27:20.60) # point=x color=red
+point(6:36:41.661,+38:27:13.94) # point=x color=red
+point(6:36:41.262,+38:27:07.10) # point=x color=red
+point(6:36:42.079,+38:27:00.75) # point=x color=red
+point(6:36:41.908,+38:26:53.91) # point=x color=red
+point(6:36:41.770,+38:26:47.88) # point=x color=red
+point(6:36:41.990,+38:26:44.26) # point=x color=red
+point(6:36:41.462,+38:26:39.43) # point=x color=red
+point(6:36:41.578,+38:26:31.78) # point=x color=red
+point(6:36:41.441,+38:26:25.34) # point=x color=red
+point(6:36:41.235,+38:26:19.31) # point=x color=red
+point(6:36:41.201,+38:26:10.86) # point=x color=red
+point(6:36:40.790,+38:26:04.82) # point=x color=red
+point(6:36:40.413,+38:25:59.59) # point=x color=red
+point(6:36:40.002,+38:25:55.17) # point=x color=red
+point(6:36:39.659,+38:25:51.59) # point=x color=red
+point(6:36:38.974,+38:25:44.35) # point=x color=red
+point(6:36:38.460,+38:25:39.12) # point=x color=red
+point(6:36:37.912,+38:25:35.50) # point=x color=red
+point(6:36:37.296,+38:25:32.68) # point=x color=red
+point(6:36:36.748,+38:25:30.67) # point=x color=red
+point(6:36:35.926,+38:25:26.25) # point=x color=red
+point(6:36:34.967,+38:25:22.63) # point=x color=red
+point(6:36:34.214,+38:25:20.57) # point=x color=red
+point(6:36:33.426,+38:25:20.17) # point=x color=red
+point(6:36:32.981,+38:25:20.97) # point=x color=red
+point(6:36:32.159,+38:25:22.58) # point=x color=red
+point(6:36:31.406,+38:25:24.19) # point=x color=red
+point(6:36:30.927,+38:25:27.01) # point=x color=red
+point(6:36:30.344,+38:25:29.42) # point=x color=red
+point(6:36:29.728,+38:25:32.64) # point=x color=red
+point(6:36:29.146,+38:25:37.07) # point=x color=red
+point(6:36:28.598,+38:25:42.30) # point=x color=red
+point(6:36:28.084,+38:25:47.93) # point=x color=red
+point(6:36:27.604,+38:25:54.77) # point=x color=red
+point(6:36:27.296,+38:25:59.19) # point=x color=red
+point(6:36:26.748,+38:26:04.42) # point=x color=red
+point(6:36:26.371,+38:26:11.26) # point=x color=red
+point(6:36:25.960,+38:26:17.70) # point=x color=red
+point(6:36:25.686,+38:26:25.75) # point=x color=red
+point(6:36:25.343,+38:26:32.18) # point=x color=red
+point(6:36:25.240,+38:26:37.41) # point=x color=red
+point(6:36:24.931,+38:26:43.85) # point=x color=red
+point(6:36:24.897,+38:26:49.89) # point=x color=red
+point(6:36:24.931,+38:26:55.92) # point=x color=red
+point(6:36:25.068,+38:27:03.57) # point=x color=red
+point(6:36:25.033,+38:27:09.61) # point=x color=red
+point(6:36:24.965,+38:27:16.45) # point=x color=red
+point(6:36:24.896,+38:27:20.47) # point=x color=red
+point(6:36:24.827,+38:27:26.91) # point=x color=red
+point(6:36:24.964,+38:27:33.75) # point=x color=red
+point(6:36:25.067,+38:27:42.20) # point=x color=red
+point(6:36:25.238,+38:27:49.45) # point=x color=red
+point(6:36:25.477,+38:27:56.69) # point=x color=red
+point(6:36:25.683,+38:28:01.12) # point=x color=red
+point(6:36:28.242,+38:28:43.42) # point=x color=red
+point(6:36:29.201,+38:28:54.06) # point=x color=red
+point(6:36:30.479,+38:29:03.13) # point=x color=red

@@ -5649,6 +5649,10 @@ sqrt(xc**2 + yc**2) =  152.903583849
   + Done at 70 micron in most of them, since higher resolution and arc is generally more prominent
   + Exception is V1943 Sgr, which was better at 160 micron because the arc is incomplete (and smaller radius) in 70 micron
 
+
+
+
+
 #+BEGIN_SRC sh :results verbatim
 cd RSG
 D=../../read-shapes-LL
@@ -5974,6 +5978,14 @@ sqrt(xc**2 + yc**2) =  60.361729257
 #+BEGIN_SRC sh :results silent
 open RSG/*-imageplot.pdf
 #+END_SRC
+**** Re-do the arc tracing for Herschel sources
++ [X] alpha ori - no change
++ [X] mu cep - moved inwards, made red
++ [X] r hya - moved inwards, made red
++ [X] r leo - moved about a bit, made red
++ [X] uu aur - ditto
++ [X] v 1943 sgr - ditto
++ [X] x pav - ditto
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs

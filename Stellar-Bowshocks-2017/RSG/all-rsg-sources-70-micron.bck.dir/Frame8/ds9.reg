@@ -1,0 +1,37 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(302.94183,-59.9371) # point=circle color=red text={X Pav}
+point(302.91508,-59.914623) # point=x color=red
+point(302.92012,-59.916283) # point=x color=red
+point(302.92427,-59.916281) # point=x color=red
+point(302.92958,-59.917366) # point=x color=red
+point(302.93353,-59.917699) # point=x color=red
+point(302.93781,-59.917848) # point=x color=red
+point(302.94144,-59.918821) # point=x color=red
+point(302.9451,-59.91963) # point=x color=red
+point(302.94863,-59.92145) # point=x color=red
+point(302.95125,-59.922223) # point=x color=red
+point(302.95531,-59.923048) # point=x color=red
+point(302.95704,-59.924733) # point=x color=red
+point(302.96059,-59.926384) # point=x color=red
+point(302.96336,-59.92847) # point=x color=red
+point(302.96503,-59.930557) # point=x color=red
+point(302.9667,-59.932223) # point=x color=red
+point(302.9683,-59.933911) # point=x color=red
+point(302.96809,-59.93584) # point=x color=red
+point(302.96865,-59.937648) # point=x color=red
+point(302.96865,-59.939596) # point=x color=red
+point(302.96785,-59.941283) # point=x color=red
+point(302.96699,-59.943212) # point=x color=red
+point(302.96643,-59.945018) # point=x color=red
+point(302.96656,-59.946705) # point=x color=red
+point(302.96394,-59.948037) # point=x color=red
+point(302.96144,-59.949748) # point=x color=red
+point(302.95894,-59.951279) # point=x color=red
+point(302.95533,-59.953923) # point=x color=red
+point(302.95271,-59.955993) # point=x color=red
+point(302.94644,-59.957123) # point=x color=red
+point(302.93453,-59.961976) # point=x color=red
+point(302.92922,-59.962809) # point=x color=red
+point(302.94035,-59.960053) # point=x color=red

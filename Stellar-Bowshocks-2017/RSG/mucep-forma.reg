@@ -1,51 +1,51 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 fk5
-point(21:43:30.432,+58:46:49.36) # point=circle text={mu Cep}
-point(21:43:32.932,+58:45:21.36) # point=x
-point(21:43:33.320,+58:45:25.72) # point=x
-point(21:43:33.752,+58:45:30.07) # point=x
-point(21:43:34.528,+58:45:33.43) # point=x
-point(21:43:35.347,+58:45:38.46) # point=x
-point(21:43:36.080,+58:45:41.81) # point=x
-point(21:43:36.554,+58:45:45.50) # point=x
-point(21:43:36.985,+58:45:53.88) # point=x
-point(21:43:37.460,+58:46:00.58) # point=x
-point(21:43:38.194,+58:46:12.32) # point=x
-point(21:43:38.755,+58:46:21.37) # point=x
-point(21:43:39.100,+58:46:26.74) # point=x
-point(21:43:39.489,+58:46:33.44) # point=x
-point(21:43:39.791,+58:46:41.49) # point=x
-point(21:43:40.007,+58:46:49.54) # point=x
-point(21:43:39.376,+58:46:59.39) # point=x
-point(21:43:39.302,+58:47:09.82) # point=x
-point(21:43:39.303,+58:47:22.57) # point=x
-point(21:43:39.229,+58:47:35.32) # point=x
-point(21:43:38.857,+58:47:48.07) # point=x
-point(21:43:37.963,+58:47:57.92) # point=x
-point(21:43:36.994,+58:48:07.20) # point=x
-point(21:43:36.248,+58:48:10.10) # point=x
-point(21:43:35.503,+58:48:17.63) # point=x
-point(21:43:31.922,+58:45:14.52) # point=x
-point(21:43:31.177,+58:45:07.56) # point=x
-point(21:43:30.284,+58:45:00.03) # point=x
-point(21:43:29.167,+58:44:55.39) # point=x
-point(21:43:28.273,+58:44:52.50) # point=x
-point(21:43:26.933,+58:44:49.02) # point=x
-point(21:43:25.370,+58:44:46.11) # point=x
-point(21:43:34.098,+58:48:21.30) # point=x
-point(21:43:33.042,+58:48:25.17) # point=x
-point(21:43:31.736,+58:48:28.06) # point=x
-point(21:43:30.369,+58:48:35.31) # point=x
-point(21:43:29.125,+58:48:38.20) # point=x
-point(21:43:27.820,+58:48:37.24) # point=x
-point(21:43:26.515,+58:48:32.40) # point=x
-point(21:43:25.023,+58:48:31.43) # point=x
-point(21:43:24.028,+58:48:30.47) # point=x
-point(21:43:22.101,+58:48:27.56) # point=x
-point(21:43:20.362,+58:48:18.38) # point=x
-point(21:43:19.492,+58:48:15.47) # point=x
-point(21:43:18.498,+58:48:09.67) # point=x
-point(21:43:16.262,+58:48:00.00) # point=x
-point(21:43:14.585,+58:47:49.36) # point=x
-point(21:43:13.655,+58:47:36.80) # point=x
+point(21:43:30.432,+58:46:49.36) # point=circle color=red text={mu Cep}
+point(21:43:32.852,+58:45:26.68) # point=x color=red
+point(21:43:22.269,+58:44:21.27) # point=x color=red
+point(21:43:33.752,+58:45:30.07) # point=x color=red
+point(21:43:39.275,+58:46:20.96) # point=x color=red
+point(21:43:34.181,+58:45:39.09) # point=x color=red
+point(21:43:34.472,+58:45:44.63) # point=x color=red
+point(21:43:37.644,+58:47:05.25) # point=x color=red
+point(21:43:35.497,+58:45:56.39) # point=x color=red
+point(21:43:36.857,+58:46:01.83) # point=x color=red
+point(21:43:36.988,+58:46:13.89) # point=x color=red
+point(21:43:37.951,+58:46:22.62) # point=x color=red
+point(21:43:38.255,+58:46:27.06) # point=x color=red
+point(21:43:38.725,+58:46:34.69) # point=x color=red
+point(21:43:39.349,+58:46:42.74) # point=x color=red
+point(21:43:39.001,+58:46:50.17) # point=x color=red
+point(21:43:38.612,+58:46:58.45) # point=x color=red
+point(21:43:39.222,+58:47:09.82) # point=x color=red
+point(21:43:38.981,+58:47:23.82) # point=x color=red
+point(21:43:39.229,+58:47:34.07) # point=x color=red
+point(21:43:38.857,+58:47:48.07) # point=x color=red
+point(21:43:37.640,+58:47:44.78) # point=x color=red
+point(21:43:36.913,+58:48:00.63) # point=x color=red
+point(21:43:36.127,+58:48:04.16) # point=x color=red
+point(21:43:35.100,+58:48:11.38) # point=x color=red
+point(21:43:31.922,+58:45:14.52) # point=x color=red
+point(21:43:31.901,+58:45:21.63) # point=x color=red
+point(21:43:30.284,+58:45:00.03) # point=x color=red
+point(21:43:29.046,+58:44:55.39) # point=x color=red
+point(21:43:27.750,+58:45:01.26) # point=x color=red
+point(21:43:26.933,+58:44:50.27) # point=x color=red
+point(21:43:25.370,+58:44:46.11) # point=x color=red
+point(21:43:34.098,+58:48:28.18) # point=x color=red
+point(21:43:33.243,+58:48:16.41) # point=x color=red
+point(21:43:32.018,+58:48:22.74) # point=x color=red
+point(21:43:30.289,+58:48:32.18) # point=x color=red
+point(21:43:29.125,+58:48:33.20) # point=x color=red
+point(21:43:27.860,+58:48:34.11) # point=x color=red
+point(21:43:26.515,+58:48:32.40) # point=x color=red
+point(21:43:25.104,+58:48:26.74) # point=x color=red
+point(21:43:24.028,+58:48:29.22) # point=x color=red
+point(21:43:22.343,+58:48:27.87) # point=x color=red
+point(21:43:20.362,+58:48:13.38) # point=x color=red
+point(21:43:19.573,+58:48:12.66) # point=x color=red
+point(21:43:18.498,+58:48:09.67) # point=x color=red
+point(21:43:16.262,+58:48:00.00) # point=x color=red
+point(21:43:14.585,+58:47:49.36) # point=x color=red
+point(21:43:13.655,+58:47:36.80) # point=x color=red
