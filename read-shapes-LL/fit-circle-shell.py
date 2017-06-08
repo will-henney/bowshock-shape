@@ -109,6 +109,7 @@ def update_arc_data(data, thmax=90.0):
     data.update(Rc=Rc, xc=xc, yc=yc, PAc=PA_circle(xc, yc), R90=R90)
     if cmd_args.savefig:
         plt.plot(-x, y, ".")
+        plt.plot(-x[m], y[m], "o")
         print(arc, ":", xc, yc, Rc)
         plt.plot(-xc, yc, "+" + colors[arc], ms=5.0)
         c = plt.Circle((-xc, yc), radius=Rc,

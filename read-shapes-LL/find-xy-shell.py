@@ -19,6 +19,8 @@ parser.add_argument("--debug", action="store_true",
 
 parser.add_argument("--pa0", type=float, default=None,
                     help="Optionally over-ride guess at PA of bow shock axis")
+parser.add_argument("--window", type=int, default=3,
+                    help="Number of points to use when searching for min R")
 
 cmd_args = parser.parse_args()
 regionfile = cmd_args.source + "-forma.reg"
@@ -191,8 +193,10 @@ for arc_type, x, y in [
         print("th:", np.degrees(th)) 
 
     i0 = np.argmin(R)
-    if i0 > 0 and i0 + 1 < len(R):
-        nbhood = slice(i0-1, i0+2)
+    i1 = i0 - (cmd_args.window - 1)//2
+    i2 = i0 + (cmd_args.window + 1)//2
+    if i1 >= 0 and i2 < len(R):
+        nbhood = slice(i1, i2)
     else:
         nbhood = slice(None)    # Use all the points in the quadratic fit
         print("Warning: Closest point of {} arc is at one end, using all points in parabola fit".format(arc_type))
