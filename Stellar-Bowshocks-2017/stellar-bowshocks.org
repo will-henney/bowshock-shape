@@ -4564,7 +4564,7 @@ ss = s.replace('Hello', 'Goodbye')
 
 *** Copy mipsgal figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram-new.pdf p-value-histogram-new-linear.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf mipsgal-summary-stats-table-body.tex'
+  FIGFILES='mipsgal-r0-r0-plus-dPA-edited.pdf mipsgal-Rc-R90-zoom-annotated.pdf mipsgal-Rc-R90-thumbnails.pdf mipsgal-pairplot.pdf mipsgal-Rc-R90-Mag.pdf mipsgal-Rc-R90-R0.pdf mipsgal-Rc-R90-candidates.pdf mipsgal-Rc-R90-environment.pdf mipsgal-Rc-R90-vs-Orion.pdf mipsgal-Rc-R90-vs-Herschel.pdf p-value-histogram-new.pdf p-value-histogram-new-linear.pdf mipsgal-boxplot-Rc-R90-versus-R0.pdf mipsgal-boxplot-Rc-R90-versus-H0.pdf mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf mipsgal-summary-stats-table-body.tex RSG/*-imageplot.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -4574,7 +4574,7 @@ ss = s.replace('Hello', 'Goodbye')
 
 #+RESULTS:
 #+begin_example
-Fri May 26 13:28:16 CDT 2017
+Thu Jun  8 14:54:29 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -4592,6 +4592,13 @@ mipsgal-boxplot-Rc-R90-versus-R0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc
 mipsgal-boxplot-Rc-R90-versus-H0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf
 mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf -> ../papers/Paper1/figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf
 mipsgal-summary-stats-table-body.tex -> ../papers/Paper1/figs/mipsgal-summary-stats-table-body.tex
+RSG/alphaori-imageplot.pdf -> ../papers/Paper1/figs/alphaori-imageplot.pdf
+RSG/mucep-imageplot.pdf -> ../papers/Paper1/figs/mucep-imageplot.pdf
+RSG/rhya-imageplot.pdf -> ../papers/Paper1/figs/rhya-imageplot.pdf
+RSG/rleo-imageplot.pdf -> ../papers/Paper1/figs/rleo-imageplot.pdf
+RSG/uuaur-imageplot.pdf -> ../papers/Paper1/figs/uuaur-imageplot.pdf
+RSG/v1943sgr-imageplot.pdf -> ../papers/Paper1/figs/v1943sgr-imageplot.pdf
+RSG/xpav-imageplot.pdf -> ../papers/Paper1/figs/xpav-imageplot.pdf
 #+end_example
 
 Also, example objects for each star rating
@@ -5236,10 +5243,17 @@ This is the one I am tending towards - close together on the sky, clearly showin
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4],
-                  bw=(0.15, 0.1),
+                  #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4],
+                  bw=(0.3, 0.2),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
+      sns.kdeplot(otab['Rc out'].data, otab['R90'].data, 
+                  n_levels=8, cmap='Greens_d', linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
+                  bw=(0.3, 0.2),
+                  shade=False, shade_lowest=False, ax=ax, alpha=alpha)
+    
   # masks5 = m5, 
   # colors = 'purple', 
   # alphas = 0.8, 
@@ -5252,7 +5266,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
   ax.legend(frameon=True, loc='lower right', title='')
 
-  Rmax = 9.0
+  Rmax = 6.5
 
   #ax.legend(frameon=True, loc='upper right')
   ax.set(
@@ -5265,9 +5279,9 @@ This is the one I am tending towards - close together on the sky, clearly showin
   ## Histograms of marginal distributions
   subwin_w = 0.2
   subwin_h = 0.09
-  subwin_x0 = 0.4
+  subwin_x0 = 0.2
   subwin_y0 = 0.65
-  subwin_xmargin = 0.06
+  subwin_xmargin = 0.26
   subwin_ymargin = 0.02
 
 
@@ -5311,7 +5325,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
           if c != colors[0]:
               KS, pKS = ks_2samp(data, datasets[0])
               AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
-						 midrank=False)
+                                                 midrank=False)
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.5f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
@@ -5344,7 +5358,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
           if c != colors[0]:
               KS, pKS = ks_2samp(data, datasets[0])
               AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
-						 midrank=False)
+                                                 midrank=False)
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.5f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
@@ -5440,9 +5454,16 @@ This is the one I am tending towards - close together on the sky, clearly showin
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4],
-                  bw=(0.15, 0.1),
+                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
+                  bw=(0.135, 0.09),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+    
+      sns.kdeplot(otab['Rc out'].data, otab['R90'].data, 
+                  n_levels=8, cmap='Reds_d', linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
+                  bw=(0.12, 0.08),
+                  shade=False, shade_lowest=False, ax=ax, alpha=alpha)
 
   # masks5 = m5, 
   # colors = 'purple', 
@@ -5516,7 +5537,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
           if c != colors[0]:
               KS, pKS = ks_2samp(data, datasets[0])
               AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
-						 midrank=False)
+                                                 midrank=False)
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.3f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
@@ -5549,7 +5570,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
           if c != colors[0]:
               KS, pKS = ks_2samp(data, datasets[0])
               AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
-						 midrank=False)
+                                                 midrank=False)
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
