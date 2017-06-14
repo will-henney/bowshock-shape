@@ -4508,7 +4508,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 ***** Test of using external latex snippets in python code block
 #+name: test-snippet
 #+BEGIN_SRC latex
-\emph{Hello}
+  \emph{Hello}
 #+END_SRC
 
 #+BEGIN_SRC python :var s=test-snippet :return ss :results latex
@@ -7235,6 +7235,11 @@ open RSG/*-imageplot.pdf
 + [X] uu aur - ditto
 + [X] v 1943 sgr - ditto
 + [X] x pav - ditto
+**** Add some more Type I sources?
+If we use criterion that we must be able to see the shell at theta=90, then we could also argue for
+- W Pic - although gets a bit speckly around the edge
+- Chi Cyg - although so big it may not fit on image
+- Omicron Cet - although we would have to ignore the fainter outer shell
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs
