@@ -1,0 +1,24 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(195.64649,5.1517445) # point=x color=red
+point(195.65098,5.1526749) # point=x color=red
+point(195.6577,5.15621) # point=x color=red
+point(195.66218,5.1586287) # point=x color=red
+point(195.66555,5.1612335) # point=x color=red
+point(195.6704,5.1643963) # point=x color=red
+point(195.67694,5.1694197) # point=x color=red
+point(195.68031,5.1729546) # point=x color=red
+point(195.68404,5.1792804) # point=x color=red
+point(195.68498,5.1852341) # point=x color=red
+point(195.68498,5.1923041) # point=x color=red
+point(195.68311,5.1969556) # point=x color=red
+point(195.67825,5.2043979) # point=x color=red
+point(195.67433,5.2071888) # point=x color=red
+point(195.67003,5.2112821) # point=x color=red
+point(195.66592,5.2138869) # point=x color=red
+point(195.66106,5.2183522) # point=x color=red
+point(195.65695,5.221329) # point=x color=red
+point(195.64686,5.2230034) # point=x color=red
+point(195.64272,5.2224451) # point=x color=red
+point(195.65856,5.1856806) # point=circle color=red text={RT Vir}

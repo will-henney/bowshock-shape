@@ -7238,31 +7238,45 @@ open RSG/*-imageplot.pdf
 + [2017-07-05 Wed 11:54]
   + Moved the fits files back onto internal disk
   + They are now at [[file:RSG/MESS_PPHOT/]]
+    + Original sources [[file:RSG/MESS_PPHOT/Batch01/]]
+    + New sources [[file:RSG/MESS_PPHOT/Batch02/]]
 **** Add some more Type I sources?
 + Checkbox status means:
   + [ ] Got [[file:RSG/wget-scripts/][wget script]]
   + [-] Downloaded data
-  + [X] Fitted shell
+  + [X] Traced shell and saved ds9 backup OR cancelled and moved to the "no" list
+    + Examples:
+      + [[file:RSG/cwleo-forma.reg]]
+      + [[file:RSG/cwleo.bck]]
 + If we use criterion that we must be able to see the shell at theta=90, then we could also argue for
   - [-] W Pic - although gets a bit speckly around the edge
-  - [-] Chi Cyg - although so big it may not fit on image
-  - [-] Omicron Cet - although we would have to ignore the fainter outer shell
+  - [X] Chi Cyg - although so big it may not fit on image
 + And also maybe
-  - [-] RT Vir - which has a very pointy shell
+  - [X] RT Vir - which has a very pointy shell
+    - Actually, that was an artefact of the way that Cox displayed the figure
+    - In reality, it has a very nice faint outer shell
+    - But there is a brighter, two-headed inner shell that we are ignoring
   - [-] X Her - with a two-headed appearance
-  - [-] R Cas - faint around the edge
-  - [-] EP Aqr - although multiple shells?
-  - [-] CW Leo - although again very big, and only at 160 micron
+  - [X] R Cas - faint around the edge
+    - This one has a beautifully clear shell, although it has some
+      undulations
+  - [X] EP Aqr - although multiple shells?
+    + Fitting may be hairy where there are two shells
+    + Currently I only trace the outer shell, but maybe it would be better to trace the inner shell too, and let the fitting split the difference
+  - [X] CW Leo - although again very big, and only at 160 micron
+    + Was a bit touch and go finding the side of the shell
   - [-] W Aql - although maybe faint at sides
 + Ones we definitely can't do
-  + TX Psc - one-sided and pointy
-  + T Mic - very irregular, multiple strands
-  + Theta Aps - too faint at sides
-  + W Pic - too faint at sides
-  + W Ori - too faint full stop
-  + R Scl - small and diffuse sides
+  - [X] Omicron Cet 
+    - Too many shells! and too asymmetrical
+  - TX Psc - one-sided and pointy
+  - T Mic - very irregular, multiple strands
+  - Theta Aps - too faint at sides
+  - W Pic - too faint at sides
+  - W Ori - too faint full stop
+  - R Scl - small and diffuse sides
     + probably best contender of this lot
-  + NML Tau - even smaller and diffuser
+  - NML Tau - even smaller and diffuser
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs

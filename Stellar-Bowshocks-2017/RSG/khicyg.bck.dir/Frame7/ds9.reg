@@ -1,0 +1,21 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(297.75353,32.846136) # point=x color=yellow
+point(297.73696,32.838949) # point=x color=yellow
+point(297.72438,32.834638) # point=x color=yellow
+point(297.6981,32.829373) # point=x color=yellow
+point(297.67982,32.82842) # point=x color=yellow
+point(297.66668,32.827463) # point=x color=yellow
+point(297.64098,32.827465) # point=x color=yellow
+point(297.62441,32.827464) # point=x color=yellow
+point(297.58842,32.845694) # point=x color=yellow
+point(297.57698,32.851929) # point=x color=yellow
+point(297.5644,32.869681) # point=x color=yellow
+point(297.55066,32.890792) # point=x color=yellow
+point(297.53745,32.942622) # point=x color=yellow
+point(297.52657,32.951732) # point=x color=yellow
+point(297.52885,32.961334) # point=x color=yellow
+point(297.53798,32.976702) # point=x color=yellow
+point(297.5477,32.99111) # point=x color=yellow
+point(297.64164,32.914178) # point=circle color=red text={Chi Cyg}

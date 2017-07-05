@@ -1,0 +1,22 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(9:47:57.446,+13:16:44.70) # point=circle color=red text={CW Leo}
+point(9:48:29.455,+13:17:50.90) # point=x color=yellow
+point(9:48:27.807,+13:19:32.72) # point=x color=yellow
+point(9:48:24.874,+13:21:38.66) # point=x color=yellow
+point(9:48:20.970,+13:23:37.97) # point=x color=yellow
+point(9:48:10.132,+13:25:41.47) # point=x color=yellow
+point(9:48:03.257,+13:26:54.78) # point=x color=yellow
+point(9:47:46.067,+13:27:56.50) # point=x color=yellow
+point(9:47:39.191,+13:27:44.90) # point=x color=yellow
+point(9:48:29.152,+13:16:41.25) # point=x color=yellow
+point(9:48:28.885,+13:15:39.52) # point=x color=yellow
+point(9:48:28.353,+13:13:55.36) # point=x color=yellow
+point(9:48:26.500,+13:12:22.78) # point=x color=yellow
+point(9:48:24.913,+13:11:17.20) # point=x color=yellow
+point(9:48:23.063,+13:10:23.20) # point=x color=yellow
+point(9:48:19.627,+13:09:21.49) # point=x color=yellow
+point(9:48:16.192,+13:08:04.35) # point=x color=yellow
+point(9:48:03.777,+13:04:32.20) # point=x color=yellow
+point(9:47:58.760,+13:04:05.19) # point=x color=yellow
