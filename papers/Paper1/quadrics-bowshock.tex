@@ -37,11 +37,17 @@
       \zendextract}}}
 \makeatother
 
-% The \eye command is in the dingbat package, but we need to take care
-% of a naming conflict with the AMS package
-\usepackage{savesym}
-\savesymbol{checkmark}
-\usepackage{dingbat}
+% % The \eye command is in the dingbat package, but we need to take care
+% % of a naming conflict with the AMS package
+% \usepackage{savesym}
+% \savesymbol{checkmark}
+% \usepackage{dingbat}
+
+% The "eye" symbol is drawn with the \faEye command of the fontawesome
+% package
+\usepackage{fontawesome}
+% The ``irregular'' symbol is drawn from the Icelandic Sorcery and Witchcraft 
+\usepackage{staves}
 
 \hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
   urlcolor=blue!50!black}
