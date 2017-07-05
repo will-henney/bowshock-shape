@@ -7234,11 +7234,35 @@ open RSG/*-imageplot.pdf
 + [X] uu aur - ditto
 + [X] v 1943 sgr - ditto
 + [X] x pav - ditto
+**** Reorganize data storage
++ [2017-07-05 Wed 11:54]
+  + Moved the fits files back onto internal disk
+  + They are now at [[file:RSG/MESS_PPHOT/]]
 **** Add some more Type I sources?
-If we use criterion that we must be able to see the shell at theta=90, then we could also argue for
-- W Pic - although gets a bit speckly around the edge
-- Chi Cyg - although so big it may not fit on image
-- Omicron Cet - although we would have to ignore the fainter outer shell
++ Checkbox status means:
+  + [ ] Got [[file:RSG/wget-scripts/][wget script]]
+  + [-] Downloaded data
+  + [X] Fitted shell
++ If we use criterion that we must be able to see the shell at theta=90, then we could also argue for
+  - [-] W Pic - although gets a bit speckly around the edge
+  - [-] Chi Cyg - although so big it may not fit on image
+  - [-] Omicron Cet - although we would have to ignore the fainter outer shell
++ And also maybe
+  - [-] RT Vir - which has a very pointy shell
+  - [-] X Her - with a two-headed appearance
+  - [-] R Cas - faint around the edge
+  - [-] EP Aqr - although multiple shells?
+  - [-] CW Leo - although again very big, and only at 160 micron
+  - [-] W Aql - although maybe faint at sides
++ Ones we definitely can't do
+  + TX Psc - one-sided and pointy
+  + T Mic - very irregular, multiple strands
+  + Theta Aps - too faint at sides
+  + W Pic - too faint at sides
+  + W Ori - too faint full stop
+  + R Scl - small and diffuse sides
+    + probably best contender of this lot
+  + NML Tau - even smaller and diffuser
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs
