@@ -2499,7 +2499,6 @@ CLOSED: [2017-03-20 Mon 14:01]
 
 #+RESULTS:
 [[file:mipsgal-Rc-R90-R0-4star.pdf]]
-
 ***** Look directly at joint distributions of R_0 and the radial ratios
 + These turn out not to be very illuminating
 + The previous graphs are much better

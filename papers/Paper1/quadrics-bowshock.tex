@@ -22,6 +22,27 @@
 \usepackage{rotating}
 \usepackage{hyperref}
 
+% Define a fermata symbol for use inline with text
+% 04 Jul 2017 WJH
+% Based on info in Secs 18.4.1 and 24.1 of musixdoc.pdf
+\usepackage{musixtex}
+\makeatletter
+\newcommand\textfermata{%
+  {\let\extractline\relax
+    \setlines10\smallmusicsize \nobarnumbers \nostartrule
+    \staffbotmarg0pt \setclefsymbol1\empty \global\clef@skip0pt
+    \raisebox{0ex}[0ex][0ex]{
+      \startextract\addspace{-\afterruleskip}%
+      \notes\fermataup{-2}\en
+      \zendextract}}}
+\makeatother
+
+% The \eye command is in the dingbat package, but we need to take care
+% of a naming conflict with the AMS package
+\usepackage{savesym}
+\savesymbol{checkmark}
+\usepackage{dingbat}
+
 \hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
   urlcolor=blue!50!black}
 
