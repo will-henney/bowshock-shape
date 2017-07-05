@@ -7085,11 +7085,262 @@ Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
 Separation star->center in arcsec:  24.79385171499403
 sqrt(xc**2 + yc**2) =  24.7943471462
 #+end_example
+**** TODO Circle fits to second batch of sources
+
+#+name: second-batch-sources
+| name   | pa0 |
+|--------+-----|
+| cwleo  |  80 |
+| epaqr  |  10 |
+| khicyg | 200 |
+| rcas   |  80 |
+| rtvir  | 100 |
+| waql   |  80 |
+| wpic   | 350 |
+| rscl   | 190 |
+| tetaps | 260 |
+
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py cwleo --pa0 80 --window 11
+python $D/fit-circle-shell.py cwleo --thmax 75 --savefig
+open cwleo-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 13
+    # variables        = 2
+    chi-square         = 606.068
+    reduced chi-square = 55.097
+    Akaike info crit   = 53.947
+    Bayesian info crit = 55.076
+[[Variables]]
+    xc:  -249.427556 +/- 18.29556 (7.34%) (init=-466.9935)
+    yc:  -19.7220640 +/- 4.619262 (23.42%) (init=-34.60173)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.149 
+outer : -249.427556586 -19.7220640281 717.946479807
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py epaqr --pa0 10 --window 5
+python $D/fit-circle-shell.py epaqr --thmax 75 --savefig
+open epaqr-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 12
+    # data points      = 10
+    # variables        = 2
+    chi-square         = 9.772
+    reduced chi-square = 1.221
+    Akaike info crit   = 3.769
+    Bayesian info crit = 4.374
+[[Variables]]
+    xc:  -26.5151362 +/- 3.360498 (12.67%) (init=-23.48984)
+    yc:  -24.6657349 +/- 3.051297 (12.37%) (init=-20.85778)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.916 
+outer : -26.5151362653 -24.6657349165 68.4954872991
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py khicyg --pa0 200 --window 9
+python $D/fit-circle-shell.py khicyg --thmax 75 --savefig
+open khicyg-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 11
+    # variables        = 2
+    chi-square         = 1515.748
+    reduced chi-square = 168.416
+    Akaike info crit   = 58.183
+    Bayesian info crit = 58.979
+[[Variables]]
+    xc:   84.7730499 +/- 20.95704 (24.72%) (init= 207.1589)
+    yc:   101.484979 +/- 18.45505 (18.19%) (init= 196.5163)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.872 
+outer : 84.7730499542 101.484979909 419.999889947
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py rcas --pa0 80 --window 9
+python $D/fit-circle-shell.py rcas --thmax 75 --savefig
+open rcas-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 13
+    # variables        = 2
+    chi-square         = 259.387
+    reduced chi-square = 23.581
+    Akaike info crit   = 42.914
+    Bayesian info crit = 44.044
+[[Variables]]
+    xc:  -56.2346587 +/- 12.86917 (22.88%) (init=-79.01164)
+    yc:  -11.1884093 +/- 4.998666 (44.68%) (init=-30.77708)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.796 
+outer : -56.2346587335 -11.1884093561 140.089904897
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py rtvir --pa0 100 --window 11
+python $D/fit-circle-shell.py rtvir --thmax 75 --savefig
+open rtvir-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Warning: Closest point of outer arc is at one end, using all points in parabola fit
+[[Fit Statistics]]
+    # function evals   = 22
+    # data points      = 11
+    # variables        = 2
+    chi-square         = 86.559
+    reduced chi-square = 9.618
+    Akaike info crit   = 26.692
+    Bayesian info crit = 27.488
+[[Variables]]
+    xc:  -4.42029111 +/- 4.240483 (95.93%) (init=-85.26845)
+    yc:   4.60132551 +/- 1.878071 (40.82%) (init= 17.32993)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.577 
+outer : -4.42029111933 4.60132550992 97.9470021696
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py waql --pa0 80 --window 9
+python $D/fit-circle-shell.py waql --thmax 75 --savefig
+open waql-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 21
+    # data points      = 13
+    # variables        = 2
+    chi-square         = 12.812
+    reduced chi-square = 1.165
+    Akaike info crit   = 3.810
+    Bayesian info crit = 4.940
+[[Variables]]
+    xc:  -12.0949132 +/- 1.682015 (13.91%) (init=-40.87123)
+    yc:   0.66101057 +/- 0.652962 (98.78%) (init= 9.197393)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.541 
+outer : -12.0949132709 0.661010578663 53.8154713214
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py wpic --pa0 350 --window 9
+python $D/fit-circle-shell.py wpic --thmax 75 --savefig
+open wpic-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 12
+    # variables        = 2
+    chi-square         = 9.998
+    reduced chi-square = 1.000
+    Akaike info crit   = 1.810
+    Bayesian info crit = 2.780
+[[Variables]]
+    xc:   4.01965136 +/- 1.164850 (28.98%) (init= 8.129169)
+    yc:  -15.8942974 +/- 2.565151 (16.14%) (init=-26.84568)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.808 
+outer : 4.01965136134 -15.8942973988 44.9133508674
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py rscl --pa0 190 --window 13
+python $D/fit-circle-shell.py rscl --thmax 75 --savefig
+open rscl-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Warning: Closest point of outer arc is at one end, using all points in parabola fit
+[[Fit Statistics]]
+    # function evals   = 19
+    # data points      = 11
+    # variables        = 2
+    chi-square         = 4.567
+    reduced chi-square = 0.507
+    Akaike info crit   = -5.670
+    Bayesian info crit = -4.874
+[[Variables]]
+    xc:   8.07007150 +/- 1.108187 (13.73%) (init= 39.06783)
+    yc:   6.43189082 +/- 0.741708 (11.53%) (init= 27.66114)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.803 
+outer : 8.07007150822 6.43189082349 58.9608685659
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+cd RSG
+D=../../read-shapes-LL
+python $D/find-xy-shell.py tetaps --pa0 260 --window 9
+python $D/fit-circle-shell.py tetaps --thmax 75 --savefig
+open tetaps-arcfits.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 11
+    # variables        = 2
+    chi-square         = 5.727
+    reduced chi-square = 0.636
+    Akaike info crit   = -3.179
+    Bayesian info crit = -2.383
+[[Variables]]
+    xc:   23.7470520 +/- 1.527059 (6.43%) (init= 43.90069)
+    yc:   18.9336158 +/- 1.182626 (6.25%) (init= 36.10765)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.872 
+outer : 23.7470520056 18.9336158538 87.2483463678
+#+end_example
 
 **** Make figures of the RSG sources
 
 
-#+BEGIN_SRC python :results silent
+#+BEGIN_SRC python :eval no :tangle rsg_plot.py
   import json
   import glob
   import numpy as np
@@ -7100,21 +7351,24 @@ sqrt(xc**2 + yc**2) =  24.7943471462
   from astropy.visualization.lupton_rgb import LinearMapping
   from reproject import reproject_interp
 
-  def plot_rsg_image_fit(source='AlphaOri',
+  def plot_rsg_image_fit(source='AlphaOri', batch=1, 
                          pmin=1, pmax=99,
                          pmin160=1, pmax160=99,
+                         extra='', extra160='',
                          window_factor=1.5,
+                         show160=False,
                          label=r'$\alpha$ Ori'):
       jsonfile = f'RSG/{source.lower()}-arcdata.json'
       with open(jsonfile) as f:
           arcdata = json.load(f)
 
-      fits_pattern = ('RSG/OriginalData/MESS_PPHOT/'
-                      + f'{source.upper()}*[-_]70_*pixfrac*.fits')
+      fits_pattern = (f'RSG/MESS_PPHOT/Batch{batch:02d}/'
+                      + f'{source.upper()}*{extra}_70_*pixfrac*.fits')
       fitsfile = glob.glob(fits_pattern)[0]
       hdulist = fits.open(fitsfile)
       hdu = hdulist['image']
-      hdu160 = fits.open(fitsfile.replace('70', '160'))['image']
+      hdu160 = fits.open(fitsfile.replace(f'{extra}_70',
+                                          f'{extra160}_160'))['image']
 
       # Fix the unit keywords
       for k in 'CUNIT1', 'CUNIT2':
@@ -7152,8 +7406,12 @@ sqrt(xc**2 + yc**2) =  24.7943471462
       axim.imshow(rgbim)
       # axim.imshow(hdu.data, origin='lower',
       #             vmin=vmin, vmax=vmax, cmap='gray', alpha=1.0)
-      ax.imshow(hdu.data, origin='lower',
-                vmin=vmin, vmax=vmax, cmap='gray_r', alpha=0.6)
+      if show160:
+          ax.imshow(hdu160_remap, origin='lower',
+                    vmin=vmin160, vmax=vmax160, cmap='gray_r', alpha=0.6)
+      else:
+          ax.imshow(hdu.data, origin='lower',
+                    vmin=vmin, vmax=vmax, cmap='gray_r', alpha=0.6)
       bmax = hdu.data.max()
       axim.contour(hdu.data, levels=[0.05*bmax, 0.2*bmax], colors='r')
       ax.contour(hdu.data, levels=[0.05*bmax, 0.2*bmax], colors='r')
@@ -7202,10 +7460,15 @@ sqrt(xc**2 + yc**2) =  24.7943471462
       axim.coords['ra'].set_axislabel('Right Ascension')
       axim.coords['dec'].set_axislabel('Declination')
       ax.coords['dec'].set_ticklabel_visible(False)
-      fig.savefig(f'RSG/{source.lower()}-imageplot.pdf')
+      figfile = f'RSG/{source.lower()}-imageplot.pdf'
+      fig.savefig(figfile)
       plt.close(fig)
+      return figfile
 
+#+END_SRC
 
+#+BEGIN_SRC python :results silent
+  from rsg_plot import plot_rsg_image_fit
 
   plot_rsg_image_fit(pmin=3, pmin160=3, pmax=98, pmax160=98)
   plot_rsg_image_fit('MUCep', label=r'$\mu$ Cep',
@@ -7226,6 +7489,98 @@ sqrt(xc**2 + yc**2) =  24.7943471462
 #+BEGIN_SRC sh :results silent
 open RSG/*-imageplot.pdf
 #+END_SRC
+
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('CWLEO', label='CW Leo', batch=2,
+                         extra160='-1', show160=True, 
+                         pmin=50, pmin160=20, pmax=80, pmax160=80)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/cwleo-imageplot.pdf]]
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('EPAQR', label='EP Aqr', batch=2,
+                         pmin=5, pmin160=5, pmax=99.5, pmax160=99)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/epaqr-imageplot.pdf]]
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('KHICYG', label=r'$\chi$ Cyg', batch=2, show160=False,
+                         pmin=55, pmin160=5, pmax=90
+, pmax160=97)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/khicyg-imageplot.pdf]]
+
+Very faint!
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('RCAS', label='R Cas', batch=2,
+                         pmin=5, pmin160=5, pmax=98, pmax160=98)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/rcas-imageplot.pdf]]
+
+Could go on the first panel
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('RTVIR', label='RT Vir', batch=2,
+                         pmin=15, pmin160=10, pmax=97, pmax160=97)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/rtvir-imageplot.pdf]]
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('WAQL', label='W Aql', batch=2,
+                         pmin=10, pmin160=10, pmax=99.5, pmax160=99)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/waql-imageplot.pdf]]
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('WPIC', label='W Pic', batch=2,
+                         pmin=15, pmin160=15, pmax=95, pmax160=98)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/wpic-imageplot.pdf]]
+
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('RSCL', label='R Scl', batch=2,
+                         pmin=5, pmin160=5, pmax=99, pmax160=98)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/rscl-imageplot.pdf]]
+
+#+BEGIN_SRC python :results file :return _
+  from rsg_plot import plot_rsg_image_fit
+  _ = plot_rsg_image_fit('TETAPS', label=r'$\theta$ Aps', batch=2,
+                         pmin=5, pmin160=5, pmax=99, pmax160=98)
+#+END_SRC
+
+#+RESULTS:
+[[file:RSG/tetaps-imageplot.pdf]]
+
+
+
 **** Re-do the arc tracing for Herschel sources
 + [X] alpha ori - no change
 + [X] mu cep - moved inwards, made red
@@ -7240,7 +7595,7 @@ open RSG/*-imageplot.pdf
   + They are now at [[file:RSG/MESS_PPHOT/]]
     + Original sources [[file:RSG/MESS_PPHOT/Batch01/]]
     + New sources [[file:RSG/MESS_PPHOT/Batch02/]]
-**** Add some more Type I sources?
+**** TODO Add some more Type I sources?
 + Checkbox status means:
   + [ ] Got [[file:RSG/wget-scripts/][wget script]]
   + [-] Downloaded data
@@ -7249,14 +7604,14 @@ open RSG/*-imageplot.pdf
       + [[file:RSG/cwleo-forma.reg]]
       + [[file:RSG/cwleo.bck]]
 + If we use criterion that we must be able to see the shell at theta=90, then we could also argue for
-  - [-] W Pic - although gets a bit speckly around the edge
+  - [X] W Pic - although gets a bit speckly around the edge
+    - Actually fine
   - [X] Chi Cyg - although so big it may not fit on image
-+ And also maybe
+    - Just about traceable
   - [X] RT Vir - which has a very pointy shell
     - Actually, that was an artefact of the way that Cox displayed the figure
     - In reality, it has a very nice faint outer shell
     - But there is a brighter, two-headed inner shell that we are ignoring
-  - [-] X Her - with a two-headed appearance
   - [X] R Cas - faint around the edge
     - This one has a beautifully clear shell, although it has some
       undulations
@@ -7265,17 +7620,21 @@ open RSG/*-imageplot.pdf
     + Currently I only trace the outer shell, but maybe it would be better to trace the inner shell too, and let the fitting split the difference
   - [X] CW Leo - although again very big, and only at 160 micron
     + Was a bit touch and go finding the side of the shell
-  - [-] W Aql - although maybe faint at sides
+  - [X] W Aql - although maybe faint at sides
+    + Actually, it is fine
+  - [X] R Scl - small and diffuse sides
+    + probably best contender of this lot
+    + yeah, it was fine
+  - [X] Theta Aps - originally looked too faint at sides
+    - But turned out to be fine
 + Ones we definitely can't do
   - [X] Omicron Cet 
     - Too many shells! and too asymmetrical
+  - [X] X Her - with a two-headed appearance
+    - Again, too many shells, and too irregular 
   - TX Psc - one-sided and pointy
   - T Mic - very irregular, multiple strands
-  - Theta Aps - too faint at sides
-  - W Pic - too faint at sides
   - W Ori - too faint full stop
-  - R Scl - small and diffuse sides
-    + probably best contender of this lot
   - NML Tau - even smaller and diffuser
 
 * Convert images to FITS

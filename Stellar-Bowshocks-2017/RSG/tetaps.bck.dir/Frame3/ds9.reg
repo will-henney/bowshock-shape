@@ -1,0 +1,25 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(211.39857,-76.817966) # point=x color=red
+point(211.37656,-76.817279) # point=x color=red
+point(211.35531,-76.816416) # point=x color=red
+point(211.3371,-76.815898) # point=x color=red
+point(211.31737,-76.813647) # point=x color=red
+point(211.29537,-76.811049) # point=x color=red
+point(211.28021,-76.808104) # point=x color=red
+point(211.27037,-76.804813) # point=x color=red
+point(211.26205,-76.80083) # point=x color=red
+point(211.256,-76.797367) # point=x color=red
+point(211.25451,-76.793386) # point=x color=red
+point(211.25528,-76.790443) # point=x color=red
+point(211.25834,-76.78629) # point=x color=red
+point(211.26441,-76.784042) # point=x color=red
+point(211.27426,-76.781794) # point=x color=red
+point(211.28562,-76.779373) # point=x color=red
+point(211.30152,-76.777991) # point=x color=red
+point(211.32043,-76.776608) # point=x color=red
+point(211.33405,-76.776608) # point=x color=red
+point(211.39461,-76.780928) # point=x color=red
+point(211.33187,-76.797333) # point=circle color=red text={Theta Aps}
+point(211.36251,-76.775905) # point=x color=red

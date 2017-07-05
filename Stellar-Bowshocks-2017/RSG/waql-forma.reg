@@ -1,0 +1,26 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(19:15:23.406,-7:02:51.20) # point=circle color=red text={W Aql}
+point(19:15:23.130,-7:03:48.75) # point=x color=red
+point(19:15:23.782,-7:03:43.39) # point=x color=red
+point(19:15:24.030,-7:03:38.70) # point=x color=red
+point(19:15:25.110,-7:03:27.32) # point=x color=red
+point(19:15:25.515,-7:03:22.63) # point=x color=red
+point(19:15:25.852,-7:03:13.59) # point=x color=red
+point(19:15:26.010,-7:03:04.21) # point=x color=red
+point(19:15:26.167,-7:02:57.18) # point=x color=red
+point(19:15:26.280,-7:02:49.47) # point=x color=red
+point(19:15:26.235,-7:02:42.11) # point=x color=red
+point(19:15:26.077,-7:02:32.73) # point=x color=red
+point(19:15:25.717,-7:02:24.69) # point=x color=red
+point(19:15:25.492,-7:02:17.99) # point=x color=red
+point(19:15:25.087,-7:02:12.97) # point=x color=red
+point(19:15:24.570,-7:01:58.24) # point=x color=red
+point(19:15:24.165,-7:01:53.21) # point=x color=red
+point(19:15:23.737,-7:01:50.20) # point=x color=red
+point(19:15:23.040,-7:01:47.18) # point=x color=red
+point(19:15:22.410,-7:01:47.18) # point=x color=red
+point(19:15:21.713,-7:01:48.52) # point=x color=red
+point(19:15:20.678,-7:01:56.23) # point=x color=red
+point(19:15:24.952,-7:02:07.28) # point=x color=red

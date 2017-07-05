@@ -1,0 +1,25 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(14:05:35.658,-76:49:04.68) # point=x color=red
+point(14:05:30.375,-76:49:02.20) # point=x color=red
+point(14:05:25.274,-76:48:59.10) # point=x color=red
+point(14:05:20.903,-76:48:57.23) # point=x color=red
+point(14:05:16.168,-76:48:49.13) # point=x color=red
+point(14:05:10.889,-76:48:39.78) # point=x color=red
+point(14:05:07.251,-76:48:29.17) # point=x color=red
+point(14:05:04.888,-76:48:17.33) # point=x color=red
+point(14:05:02.891,-76:48:02.99) # point=x color=red
+point(14:05:01.441,-76:47:50.52) # point=x color=red
+point(14:05:01.082,-76:47:36.19) # point=x color=red
+point(14:05:01.268,-76:47:25.60) # point=x color=red
+point(14:05:02.001,-76:47:10.65) # point=x color=red
+point(14:05:03.457,-76:47:02.55) # point=x color=red
+point(14:05:05.822,-76:46:54.46) # point=x color=red
+point(14:05:08.549,-76:46:45.74) # point=x color=red
+point(14:05:12.364,-76:46:40.77) # point=x color=red
+point(14:05:16.904,-76:46:35.79) # point=x color=red
+point(14:05:20.173,-76:46:35.79) # point=x color=red
+point(14:05:34.705,-76:46:51.34) # point=x color=red
+point(14:05:19.649,-76:47:50.40) # point=circle color=red text={Theta Aps}
+point(14:05:27.004,-76:46:33.26) # point=x color=red
