@@ -4573,7 +4573,7 @@ ss = s.replace('Hello', 'Goodbye')
 
 #+RESULTS:
 #+begin_example
-Thu Jun  8 14:54:29 CDT 2017
+Wed Jul  5 18:53:48 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -4592,11 +4592,20 @@ mipsgal-boxplot-Rc-R90-versus-H0.pdf -> ../papers/Paper1/figs/mipsgal-boxplot-Rc
 mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf -> ../papers/Paper1/figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf
 mipsgal-summary-stats-table-body.tex -> ../papers/Paper1/figs/mipsgal-summary-stats-table-body.tex
 RSG/alphaori-imageplot.pdf -> ../papers/Paper1/figs/alphaori-imageplot.pdf
+RSG/cwleo-imageplot.pdf -> ../papers/Paper1/figs/cwleo-imageplot.pdf
+RSG/epaqr-imageplot.pdf -> ../papers/Paper1/figs/epaqr-imageplot.pdf
+RSG/khicyg-imageplot.pdf -> ../papers/Paper1/figs/khicyg-imageplot.pdf
 RSG/mucep-imageplot.pdf -> ../papers/Paper1/figs/mucep-imageplot.pdf
+RSG/rcas-imageplot.pdf -> ../papers/Paper1/figs/rcas-imageplot.pdf
 RSG/rhya-imageplot.pdf -> ../papers/Paper1/figs/rhya-imageplot.pdf
 RSG/rleo-imageplot.pdf -> ../papers/Paper1/figs/rleo-imageplot.pdf
+RSG/rscl-imageplot.pdf -> ../papers/Paper1/figs/rscl-imageplot.pdf
+RSG/rtvir-imageplot.pdf -> ../papers/Paper1/figs/rtvir-imageplot.pdf
+RSG/tetaps-imageplot.pdf -> ../papers/Paper1/figs/tetaps-imageplot.pdf
 RSG/uuaur-imageplot.pdf -> ../papers/Paper1/figs/uuaur-imageplot.pdf
 RSG/v1943sgr-imageplot.pdf -> ../papers/Paper1/figs/v1943sgr-imageplot.pdf
+RSG/waql-imageplot.pdf -> ../papers/Paper1/figs/waql-imageplot.pdf
+RSG/wpic-imageplot.pdf -> ../papers/Paper1/figs/wpic-imageplot.pdf
 RSG/xpav-imageplot.pdf -> ../papers/Paper1/figs/xpav-imageplot.pdf
 #+end_example
 
