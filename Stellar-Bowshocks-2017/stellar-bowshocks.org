@@ -4422,7 +4422,7 @@ CLOSED: [2017-03-20 Mon 10:48]
                       r'\(n_{\text{A}}, n_{\text{B}} = 227, 18\)'], 
       'OB vs RSG': [r'MIPS vs RSG',
                     r'',
-                    r'\(n_{\text{A}}, n_{\text{B}} = 227, 7\)'],
+                    r'\(n_{\text{A}}, n_{\text{B}} = 227, 16\)'],
       '3-star/4+-star': [r'3-star vs (4+5)-star',
                          r'',
                          r'\(n_{\text{A}}, n_{\text{B}} = 133, 94\)'],
@@ -4573,7 +4573,7 @@ ss = s.replace('Hello', 'Goodbye')
 
 #+RESULTS:
 #+begin_example
-Wed Jul  5 18:53:48 CDT 2017
+Wed Jul  5 23:24:08 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017
 mipsgal-r0-r0-plus-dPA-edited.pdf -> ../papers/Paper1/figs/mipsgal-r0-r0-plus-dPA-edited.pdf
 mipsgal-Rc-R90-zoom-annotated.pdf -> ../papers/Paper1/figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -4766,7 +4766,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   pvalues[pvalues < 10**x1] = 10**x1
   pvalues[pvalues > 1.0] = 1.0
   sns.distplot(np.log10(pvalues), kde=False, rug=True,
-               rug_kws={'height': 0.05, 'lw': 0.5},
+               rug_kws={'height': 0.045, 'lw': 0.5, 'alpha': 0.5},
                hist_kws={'range': [x1, x2], 'bottom': 0.01}, bins=nbins, ax=ax)
   x = np.linspace(x1, x2, nbins)
   xc = 0.5*(x[1:] + x[:-1])
@@ -4839,7 +4839,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   x1, x2 = 0.0, 1.0
   nbins = 20
   sns.distplot(pvalues, kde=False, rug=True,
-               rug_kws={'height': 0.05, 'lw': 0.5},
+               rug_kws={'height': 0.04, 'lw': 0.3, 'alpha': 0.3},
                hist_kws={'range': [x1, x2]}, bins=nbins, ax=ax)
   x = np.linspace(x1, x2, 200)
   ax.plot(x, (nn/nbins)*x**0.0, c='r')
@@ -5467,7 +5467,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
     
       sns.kdeplot(otab['Rc out'].data, otab['R90'].data, 
-                  n_levels=8, cmap='Reds_d', linewidths=1, norm=PowerNorm(gamma),
+                  n_levels=6, cmap='Reds_d', linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
                   #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
                   bw=(0.12, 0.08),
@@ -5481,7 +5481,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   ax.plot(tab['Rc'][m5], tab['R90'][m5], 
           'o', ms=4, alpha=0.5, c='purple', label='MIPSGAL arcs')
   ax.plot(otab['Rc out'], otab['R90'], 
-          'o', ms=7, alpha=0.8, c='r', mec='w', mew=1, label='Herschel arcs')
+          'o', ms=6, alpha=0.8, c='r', mec='w', mew=1, label='Herschel arcs')
 
   ax.legend(frameon=True, loc='lower right', title='')
 
@@ -5579,7 +5579,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
               KS, pKS = ks_2samp(data, datasets[0])
               AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
                                                  midrank=False)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.5f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
@@ -7094,7 +7094,8 @@ Arc center coords:  <SkyCoord (ICRS): (ra, dec) in deg
 Separation star->center in arcsec:  24.79385171499403
 sqrt(xc**2 + yc**2) =  24.7943471462
 #+end_example
-**** TODO Circle fits to second batch of sources
+**** DONE Circle fits to second batch of sources
+CLOSED: [2017-07-05 Wed 19:07]
 
 #+name: second-batch-sources
 | name   | pa0 |
@@ -7108,6 +7109,15 @@ sqrt(xc**2 + yc**2) =  24.7943471462
 | wpic   | 350 |
 | rscl   | 190 |
 | tetaps | 260 |
+
+#+BEGIN_SRC python :var tab=second-batch-sources :return _ :results raw drawer
+  _ = ', '.join(["'" + row[0] + "'" for row in tab])
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+'cwleo', 'epaqr', 'khicyg', 'rcas', 'rtvir', 'waql', 'wpic', 'rscl', 'tetaps'
+:END:
 
 
 #+BEGIN_SRC sh :results verbatim
@@ -7604,7 +7614,8 @@ Could go on the first panel
   + They are now at [[file:RSG/MESS_PPHOT/]]
     + Original sources [[file:RSG/MESS_PPHOT/Batch01/]]
     + New sources [[file:RSG/MESS_PPHOT/Batch02/]]
-**** TODO Add some more Type I sources?
+**** DONE Add some more Type I sources?
+CLOSED: [2017-07-05 Wed 19:07]
 + Checkbox status means:
   + [ ] Got [[file:RSG/wget-scripts/][wget script]]
   + [-] Downloaded data

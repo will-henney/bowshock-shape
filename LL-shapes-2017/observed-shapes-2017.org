@@ -403,7 +403,9 @@ python ../read-shapes-LL/plot-image.py 042-628 --image Bally_16
 #+BEGIN_SRC python :return table
   import json
 
-  SOURCES = ['alphaori', 'uuaur', 'rleo', 'rhya', 'v1943sgr', 'xpav', 'mucep']
+  SOURCES = ['alphaori', 'uuaur', 'rleo', 'rhya', 'v1943sgr', 'xpav', 'mucep',
+             'cwleo', 'epaqr', 'khicyg', 'rcas', 'rtvir', 'waql',
+             'wpic', 'rscl', 'tetaps', ]
 
   radii_header = ['R0/100', 'Rc/R0', 'R90/R0', 'Rm90/R0']
   header = [['Source', *radii_header], None]
@@ -438,15 +440,24 @@ python ../read-shapes-LL/plot-image.py 042-628 --image Bally_16
 #+END_SRC
 
 #+RESULTS: harvest-radii-rc-rsg
-| Source   | R0/100 | Rc/R0 | R90/R0 | Rm90/R0 |
-|----------+--------+-------+--------+---------|
-| alphaori |   3.70 |  1.43 |   1.38 |    1.43 |
-| uuaur    |   0.78 |  1.31 |   1.22 |    1.39 |
-| rleo     |   0.85 |  1.43 |   1.29 |    1.39 |
-| rhya     |   0.89 |  1.48 |   1.46 |    1.69 |
-| v1943sgr |   0.53 |  1.34 |   1.42 |    1.20 |
-| xpav     |   0.48 |  1.51 |   1.48 |    1.50 |
-| mucep    |   0.70 |  1.56 |   1.52 |    1.26 |
+| Source   | R0/100 | Rc/R0 |  R90/R0 | Rm90/R0 |
+|----------+--------+-------+---------+---------|
+| alphaori |   3.70 |  1.43 |    1.38 |    1.43 |
+| uuaur    |   0.78 |  1.31 |    1.22 |    1.39 |
+| rleo     |   0.85 |  1.43 |    1.29 |    1.39 |
+| rhya     |   0.89 |  1.48 |    1.46 |    1.69 |
+| v1943sgr |   0.53 |  1.34 |    1.42 |    1.20 |
+| xpav     |   0.48 |  1.51 |    1.48 |    1.50 |
+| mucep    |   0.70 |  1.56 |    1.52 |    1.26 |
+| cwleo    |   4.68 |  1.53 |    1.41 |    1.60 |
+| epaqr    |   0.31 |  2.18 |    1.62 | -999.00 |
+| khicyg   |   2.86 |  1.47 |    1.35 | -999.00 |
+| rcas     |   0.85 |  1.65 |    1.56 |    1.46 |
+| rtvir    |   0.87 |  1.13 |    1.25 |    1.38 |
+| waql     |   0.42 |  1.28 |    1.39 | -999.00 |
+| wpic     |   0.28 |  1.60 |    1.45 | -999.00 |
+| rscl     |   0.48 |  1.23 |    1.31 | -999.00 |
+| tetaps   |   0.57 |  1.53 | -999.00 |    1.29 |
 
 
 
