@@ -739,14 +739,20 @@ result hard to interpret.
 \begin{figure*}
   \centering
   \setkeys{Gin}{width=0.48\linewidth}
-  \includegraphics[trim=10 0 60 30, clip]{figs/alphaori-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/mucep-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/rhya-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/rleo-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/uuaur-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/v1943sgr-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/xpav-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/rcas-imageplot}
+  \begin{tabular}{@{}ll@{}}
+    (a) & (b) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/alphaori-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/mucep-imageplot}\\
+    (c) & (d) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/rhya-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/rleo-imageplot}\\
+    (e) & (f) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/uuaur-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/v1943sgr-imageplot}\\
+    (g) & (h) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/xpav-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/rcas-imageplot}
+  \end{tabular}
   \caption{RSG and AGB shells observed with Herschel.  Selected
     Class~I sources (``fermata-like'') from the MESS survey
     \citet{Cox:2012a}, where the arc structure is particularly clear
@@ -754,26 +760,36 @@ result hard to interpret.
     brightness (blue) and \SI{160}{\um} (orange).  Right panels show
     tracing of the bow shock arc (red symbols) and circle fit (magenta
     lines and symbols) superimposed on a low-contrast image of the
-    \SI{70}{\um} surface brightness.}
+    \SI{70}{\um} surface brightness. (a)~\(\alpha\)~Ori. (b)~\(\mu\)~Cep.
+    (c)~R~Hya. (d)~R~Leo. (e)~UU~Aur. (f)~V1934~Sgr. (g)~X~Pav.
+    (h)~R~Cas.}
   \label{fig:herschel-arc-fits}
 \end{figure*}
 
 \begin{figure*}
   \centering
   \setkeys{Gin}{width=0.48\linewidth}
-  \includegraphics[trim=10 0 60 30, clip]{figs/cwleo-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/epaqr-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/khicyg-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/rtvir-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/waql-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/wpic-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/rscl-imageplot}
-  \includegraphics[trim=10 0 60 30, clip]{figs/tetaps-imageplot}
+  \begin{tabular}{@{}ll@{}}
+    (a) & (b) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/cwleo-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/epaqr-imageplot} \\
+    (c) & (d) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/khicyg-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/rtvir-imageplot} \\
+    (e) & (f) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/waql-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/wpic-imageplot} \\
+    (g) & (h) \\
+    \includegraphics[trim=10 0 60 30, clip]{figs/rscl-imageplot}
+    & \includegraphics[trim=10 0 60 30, clip]{figs/tetaps-imageplot}
+  \end{tabular}
   \caption{As Fig~\ref{fig:herschel-arc-fits}, but for a further 8
     Class~I sources from \citet{Cox:2012a} where the arc structure is
-    more diffuse, weak, and/or asymmetric. For CW~Leo only (top-left),
-    the right-hand panel shows a grayscale image of the \SI{160}{\um}
-    rather than \SI{70}{\um} emission.}
+    more diffuse, weak, and/or asymmetric. (a)~CW~Leo. For this source
+    only, the right-hand panel shows a grayscale image of the
+    \SI{160}{\um} rather than \SI{70}{\um}
+    emission. (b)~EP~Aqr. (c)~\(\chi\)~Cyg. (d)~RT~Vir. (e)~W~Aql. (f)~W~Pic. (g)~R~Scl.
+    (h)~\(\theta\)~Aps.}
   \label{fig:herschel-arc-fits-poor}
 \end{figure*}
 
@@ -799,13 +815,28 @@ which represent 22 out of 50 total sources detected with extended
 emission.  For our sample, we select the 16 Class~I sources where the
 shape parameters can be reliably measured, and which are shown in
 Figures~\ref{fig:herschel-arc-fits}
-and~\ref{fig:herschel-compare-mipsgal}.  In most sources, the bow
-shock shell is most clearly visible in the \SI{70}{\um} band, with the
-exception being CW~Leo where the \SI{180}{\um} band is used instead.
+and~\ref{fig:herschel-arc-fits-poor}. The remaining six Class~I
+sources (Fig.~1 of \citealp{Cox:2012a}) are too asymmetrical or
+irregular to reliably determine \(R_{c}\) and \(R_{90}\), and are
+therefore excluded from our sample.
 
-The remaining six Class~I sources (Fig.~1 of \citealp{Cox:2012a}) are
-too asymmetrical or irregular to reliably determine \(R_{c}\) and
-\(R_{90}\), and are therefore excluded from our sample.  
+In most sources, the bow shock shell is most clearly visible in the
+\SI{70}{\um} band, with the exception being CW~Leo where the
+\SI{180}{\um} band is used instead.  In several sources, the shell is
+split into multiple filaments, with the clearest example being
+\(\alpha\)~Ori (Betelgeuse), shown in
+Figure~\ref{fig:herschel-arc-fits}(a).  For such sources, we take the
+outer envelope of the filaments as the bow shock arc.  Given this
+complication, and the fact that the angular resolution relative to the
+bow shock size is much better than in the MIPSGAL sources, we judge
+that the arc tracing is best performed by eye and this is carried out
+using the SAOImage~DS9 FITS viewer \citep{Joye:2003a}, with results
+shown as small red open circles in Figures~\ref{fig:herschel-arc-fits}
+and~\ref{fig:herschel-arc-fits-poor}.  Subsequently, the bow shock
+parameters \(R_0\), \(R_{90}\), and \(R_c\) are determined by circle
+fits, as in steps 5--8 of \S~\ref{sec:autom-trac-fitt}, with results
+shown in magenta on the figures.
+
 
 \subsection{Stationary emission line arcs in M42}
 \label{sec:stat-emiss-line}
