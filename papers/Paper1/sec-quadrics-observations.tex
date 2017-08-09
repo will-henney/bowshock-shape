@@ -796,8 +796,15 @@ result hard to interpret.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=\linewidth]{figs/mipsgal-Rc-R90-vs-Herschel}
-  \caption[]{Comparison of RSG/AGB arcs with OB star arcs.}
+  \includegraphics[width=0.8\linewidth]{figs/mipsgal-Rc-R90-vs-Herschel}
+  \caption[]{Comparison of bow shock shapes between Herschel RSG/AGB
+    arcs (large red symbols and hollow red contours) and MIPSGAL OB
+    star arcs (small purple symbols and filled purple contours).
+    Other details of the plots are as in
+    Figs.~\ref{fig:mipsgal-shapes} and~\ref{fig:mipsgal-uncorrelated},
+    except that the diagnostic plots are zoomed in slightly to show
+    more detail, and a smaller KDE smoothing bandwidth of
+    \(0.12 \times 0.08\) is used.}
   \label{fig:herschel-compare-mipsgal}
 \end{figure*}
 
@@ -837,21 +844,53 @@ parameters \(R_0\), \(R_{90}\), and \(R_c\) are determined by circle
 fits, as in steps 5--8 of \S~\ref{sec:autom-trac-fitt}, with results
 shown in magenta on the figures.
 
+Figure~\ref{fig:herschel-compare-mipsgal} compares the distributions
+of bow shock shapes between the Herschel (RSG/AGB) and MIGSGAL (OB
+star) samples.  The Anderson--Darling test gives a highly significant
+difference between the \(R_{90}/R_0\) ratio distributions of the two
+samples, but only a marginally significant difference between the
+\(R_c/R_0\) ratio distributions (detailed results are shown in
+Table~\ref{tab:big-p}).  The Herschel sources show considerably
+smaller \(R_{90}\) ratio (median \(R_{90}/R_0 \approx 1.4\), implying bow
+shock wings that are more closed than in the MIPSGAL sources (median
+\(R_{90}/R_0 \approx 1.7\)).  For the radius of curvature ratio, there is
+only a slight difference in average values: median
+\(R_c/R_0 \approx 1.5\) for Herschel versus \(\approx 1.6\) for MIPSGAL, which is
+not statistically significant (rank biserial \(p = 0.29\)).  On the
+other hand, the dispersion in \(R_c/R_0\) is four times smaller for
+the Herschel sample, which is marginally significant (Brown--Forsythe
+\(p = 0.015\)).  In particular, the MIPSGAL sample shows a significant
+minority of very flat-nosed shapes (\(R_c/R_0 > 2\)), but these are
+absent in the Herschel sample.  The same can be seen directly by
+comparing the RSG/AGB bow shock shapes in
+Figures~\ref{fig:herschel-arc-fits}
+and~\ref{fig:herschel-arc-fits-poor} with the representative OB bow
+shocks of Figure~\ref{fig:mipsgal-shapes}b.  The MIPSGAL sources K489
+and K123 have shapes that are similar to specific Herschel sources
+(UU~Aur and R~Hya, respectively), while sources such as K447 (extreme
+flat head) or K517 (extreme open wings) have no analog among the
+Herschel sources.
+
+
 
 \subsection{Stationary emission line arcs in M42}
 \label{sec:stat-emiss-line}
 
 \begin{figure*}
   \centering
-  \includegraphics[width=\textwidth]{figs/annotated-ll-arcs}
+  \includegraphics[width=\linewidth]{figs/annotated-ll-arcs}
   \caption[]{Stationary bow shock arcs in the Orion Nebula.}
   \label{fig:ll-arcs}
 \end{figure*}
 
 \begin{figure*}
   \centering
-  \includegraphics[width=\linewidth]{figs/mipsgal-Rc-R90-vs-Orion}
-  \caption[]{Comparison of Orion with OB stars.}
+  \includegraphics[width=0.8\linewidth]{figs/mipsgal-Rc-R90-vs-Orion}
+  \caption[]{Comparison of Orion with OB stars.  Other details of the
+    plots are as in Figs.~\ref{fig:mipsgal-shapes}
+    and~\ref{fig:mipsgal-uncorrelated}, except that the diagnostic
+    plots are zoomed out to encompass larger ratio values, and a
+    larger KDE smoothing bandwidth of \(0.3 \times 0.2\) is used.}
   \label{fig:ll-compare-mipsgal}
 \end{figure*}
 
