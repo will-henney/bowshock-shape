@@ -34,9 +34,16 @@ dash_triple_dot_dashed = [1, 2, 1, 2, 1, 2, 4, 2]
 dashes = [dash_triple_dot_dashed, dash_solid,
           dash_dashed, dash_dotted, dash_dot_dashed]
 
-def Rc_dash(inc, Tc, Rc):
+def Rc_prime(inc, Tc, Rc):
     f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
     return Rc * (1 + np.tan(inc)**2) / f / (1.0 + Rc*(f - 1.0) / Tc)
+
+def Tc_prime(inc, Tc):
+    fsquared = 1.0 + Tc*np.tan(inc)**2
+    return Tc * (1.0 + np.tan(inc)**2) / fsquared
+
+def R90_prime(inc, Tc, Rc):
+    return np.sqrt(2*Rc_prime(inc, Tc, Rc) - Tc_prime(inc, Tc))
 
 for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
     for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
@@ -44,7 +51,7 @@ for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
             label = fr'{shape}: $T_c = {Tc:.1f}$'
         else:
             label = None
-        ax.plot(inc_deg, Rc_dash(inc, Tc, Rc),
+        ax.plot(inc_deg, R90_prime(inc, Tc, Rc),
                 c=col, lw=lw, alpha=alpha, label=label)
 
 i25, i50, i75 = [90.0 - np.degrees(np.arccos(_)) for _ in [0.25, 0.5, 0.75]]
@@ -55,11 +62,11 @@ ax.legend(ncol=1, fontsize='small', frameon=True, borderaxespad=0, title='Quadri
 ax.set(
     yscale='linear',
     xlim=[0.0, 90.0],
-    ylim=[0.0, 10.0],
+    ylim=[0.0, 5.0],
     # yticks=[1.0, 2.0, 5.0, 10.0],
     # yticklabels=['1', '2', '5', '10'],
     xlabel=r'Inclination, degrees',
-    ylabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+    ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
     xticks=[15, 30, 45, 60, 75, 90],
 )        
 yaxis = ax.get_yaxis()
@@ -67,7 +74,7 @@ yaxis = ax.get_yaxis()
 # yaxis.set_major_locator(matplotlib.ticker.LogLocator(base=2.0))
 # yaxis.set_major_formatter(matplotlib.ticker.LogFormatter())
 
-yaxis.set_major_locator(FixedLocator([0.5, 1.0, 2.0, 4.0, 8.0]))
+yaxis.set_major_locator(FixedLocator([1.0, 2.0, 3.0, 4.0]))
 sns.despine()
 
 fig.tight_layout()
