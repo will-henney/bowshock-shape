@@ -5,11 +5,20 @@ import matplotlib.ticker
 import seaborn as sns
 import conic_parameters
 
-plotfile = sys.argv[0].replace('.py', '.pdf')
+try: 
+    xiset = sys.argv[1]
+    plotfile = sys.argv[0].replace('.py', f'-{xiset}.pdf')
+    assert xiset in 'ab'
+    istart = -2 if xiset == 'a' else -1
+except:
+    sys.exit(f"Usage: {sys.argv[0]} a|b")
 
 sns.set_style('white')
 fig, ax = plt.subplots(figsize=(5, 5))
 
+
+left_annotate_pars = dict(xytext=(-5, 5), ha='right', va='bottom')
+right_annotate_pars = dict(xytext=(5, -5), ha='left', va='top')
 
 
 Rc_grid = np.linspace(0.0, 10.0, 2000)
@@ -29,12 +38,13 @@ inc_deg = np.degrees(inc)
 
 
 XI_LIST = [None, 1.0, 0.8, 0.4]
-BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.01, 0.001, 0.0001, 0.00001]
+BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.005, 1e-6]
 nxi, nbeta = len(XI_LIST), len(BETA_LIST)
 
 cols = sns.color_palette('magma', n_colors=nxi)
+annot_pars_list = [left_annotate_pars]*2 + [right_annotate_pars]*2 
 for beta in BETA_LIST[::-1]:
-    for xi, col in list(zip(XI_LIST, cols))[::-1]:
+    for xi, col, annot_pars in list(zip(XI_LIST, cols, annot_pars_list))[istart::-2]:
 
         # Fit to head and analytic fit to fit to tail
         ht = conic_parameters.HeadTail(beta, xi=xi, xmin=0.0, method='analytic fit')
@@ -102,21 +112,31 @@ for beta in BETA_LIST[::-1]:
 
 
         # Masks for high and low inclinations (overlapping range)
-        mlo = inc_deg <= inc_deg[i0]
-        mhi = inc_deg >= inc_deg[i0]
+        overlap_deg = 0.0
+        mlo = inc_deg <= inc_deg[i0] + overlap_deg
+        mhi = inc_deg >= inc_deg[i0] - overlap_deg
+        # mlo = inc_deg <= 40.0
+        # mhi = inc_deg >= 30.0
+
         # Ensure that LOS is not inside the tail cone
         mhi = mhi & (inc < 0.5*np.pi - ht.theta_t)
         # Plot the head discriminant for low inclinations
         ax.plot(tilde_Rc_h_prime[mlo], R90_h_prime[mlo]/R0_h_prime[mlo],
-                c=col, label=None, lw=2, alpha=0.4)
+                c=col, label=None, lw=1.6, alpha=0.7)
         # Put a dot at the i=0 case
-        ax.plot([tilde_Rc_h], [R90_h/R0_h], 'o', c=col, alpha=0.6)
+        ax.plot([tilde_Rc_h], [R90_h/R0_h], '.', c=col, alpha=1.0)
         # Plot the combined discriminant for high inclinations
         ax.plot(tilde_Rc_h_prime[mhi], R90_t_prime[mhi]/R0_h_prime[mhi],
                 c=col, label=label, lw=0.8, alpha=1.0)
-        #ax.plot([tilde_Rc_h], [T_combine], '.', c=col)
+        # Label the dot with the cross-over inclination
+        ax.annotate(rf'$\beta = \mathrm{{{beta:g}}}$, $i^*\!\!\! = {inc_deg[i0]:.0f}^\circ$',
+                    xy=(tilde_Rc_h, R90_h/R0_h),
+                    textcoords='offset points',
+                    fontsize='x-small', color=col, **annot_pars)
+        # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
+        ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
 
-ax.legend(ncol=1, fontsize='xx-small', frameon=True)
+ax.legend(ncol=1, fontsize='small', frameon=True)
 ax.set(
     yscale='linear',
     xscale='linear',

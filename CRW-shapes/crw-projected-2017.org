@@ -176,11 +176,20 @@ open two-quadric-R90-vs-i.pdf
   import seaborn as sns
   import conic_parameters
 
-  plotfile = sys.argv[0].replace('.py', '.pdf')
+  try: 
+      xiset = sys.argv[1]
+      plotfile = sys.argv[0].replace('.py', f'-{xiset}.pdf')
+      assert xiset in 'ab'
+      istart = -2 if xiset == 'a' else -1
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} a|b")
 
   sns.set_style('white')
   fig, ax = plt.subplots(figsize=(5, 5))
 
+
+  left_annotate_pars = dict(xytext=(-5, 5), ha='right', va='bottom')
+  right_annotate_pars = dict(xytext=(5, -5), ha='left', va='top')
 
 
   Rc_grid = np.linspace(0.0, 10.0, 2000)
@@ -200,12 +209,13 @@ open two-quadric-R90-vs-i.pdf
 
 
   XI_LIST = [None, 1.0, 0.8, 0.4]
-  BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.01, 0.001, 0.0001, 0.00001]
+  BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.005, 1e-6]
   nxi, nbeta = len(XI_LIST), len(BETA_LIST)
 
   cols = sns.color_palette('magma', n_colors=nxi)
+  annot_pars_list = [left_annotate_pars]*2 + [right_annotate_pars]*2 
   for beta in BETA_LIST[::-1]:
-      for xi, col in list(zip(XI_LIST, cols))[::-1]:
+      for xi, col, annot_pars in list(zip(XI_LIST, cols, annot_pars_list))[istart::-2]:
 
           # Fit to head and analytic fit to fit to tail
           ht = conic_parameters.HeadTail(beta, xi=xi, xmin=0.0, method='analytic fit')
@@ -273,21 +283,31 @@ open two-quadric-R90-vs-i.pdf
 
 
           # Masks for high and low inclinations (overlapping range)
-          mlo = inc_deg <= inc_deg[i0]
-          mhi = inc_deg >= inc_deg[i0]
+          overlap_deg = 0.0
+          mlo = inc_deg <= inc_deg[i0] + overlap_deg
+          mhi = inc_deg >= inc_deg[i0] - overlap_deg
+          # mlo = inc_deg <= 40.0
+          # mhi = inc_deg >= 30.0
+
           # Ensure that LOS is not inside the tail cone
           mhi = mhi & (inc < 0.5*np.pi - ht.theta_t)
           # Plot the head discriminant for low inclinations
           ax.plot(tilde_Rc_h_prime[mlo], R90_h_prime[mlo]/R0_h_prime[mlo],
-                  c=col, label=None, lw=2, alpha=0.4)
+                  c=col, label=None, lw=1.6, alpha=0.7)
           # Put a dot at the i=0 case
-          ax.plot([tilde_Rc_h], [R90_h/R0_h], 'o', c=col, alpha=0.6)
+          ax.plot([tilde_Rc_h], [R90_h/R0_h], '.', c=col, alpha=1.0)
           # Plot the combined discriminant for high inclinations
           ax.plot(tilde_Rc_h_prime[mhi], R90_t_prime[mhi]/R0_h_prime[mhi],
                   c=col, label=label, lw=0.8, alpha=1.0)
-          #ax.plot([tilde_Rc_h], [T_combine], '.', c=col)
-
-  ax.legend(ncol=1, fontsize='xx-small', frameon=True)
+          # Label the dot with the cross-over inclination
+          ax.annotate(rf'$\beta = \mathrm{{{beta:g}}}$, $i^*\!\!\! = {inc_deg[i0]:.0f}^\circ$',
+                      xy=(tilde_Rc_h, R90_h/R0_h),
+                      textcoords='offset points',
+                      fontsize='x-small', color=col, **annot_pars)
+          # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
+          ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
+        
+  ax.legend(ncol=1, fontsize='small', frameon=True)
   ax.set(
       yscale='linear',
       xscale='linear',
@@ -298,7 +318,7 @@ open two-quadric-R90-vs-i.pdf
       ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
   )        
 
-
+  sns.despine()
   fig.tight_layout()
   fig.savefig(plotfile)
   print(plotfile, end='')
@@ -306,11 +326,19 @@ open two-quadric-R90-vs-i.pdf
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
-python two-quadric-R90-vs-Rc.py
+python two-quadric-R90-vs-Rc.py a
 #+END_SRC
 
 #+RESULTS:
-[[file:two-quadric-R90-vs-Rc.pdf]]
+[[file:two-quadric-R90-vs-Rc-a.pdf]]
+
+#+BEGIN_SRC sh :results file
+python two-quadric-R90-vs-Rc.py b
+#+END_SRC
+
+#+RESULTS:
+[[file:two-quadric-R90-vs-Rc-b.pdf]]
+
 ** DONE th90 versus inclination for generalized CRW
 CLOSED: [2017-02-22 Wed 11:35]
 #+BEGIN_SRC python :eval no :tangle two-quadric-th90-vs-i.py
@@ -613,8 +641,10 @@ cp -av two-quadric-*.pdf ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Fri Mar 31 13:08:12 CST 2017
+: Thu Sep 28 10:59:17 CDT 2017
 : two-quadric-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/two-quadric-R90-Rc-snapshots.pdf
+: two-quadric-R90-vs-Rc-a.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-Rc-a.pdf
+: two-quadric-R90-vs-Rc-b.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-Rc-b.pdf
 : two-quadric-R90-vs-Rc.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-Rc.pdf
 : two-quadric-R90-vs-i.pdf -> ../papers/Paper1/figs/two-quadric-R90-vs-i.pdf
 : two-quadric-Tc-vs-Rc.pdf -> ../papers/Paper1/figs/two-quadric-Tc-vs-Rc.pdf

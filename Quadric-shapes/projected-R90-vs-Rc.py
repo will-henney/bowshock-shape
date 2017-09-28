@@ -26,7 +26,7 @@ ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 inc = np.linspace(0.0, 0.5*np.pi, 500, endpoint=False)
 inc_deg = np.degrees(inc)
 
-Rcs = [0.5, 1.0, 2.0, 4.0, 8.0]
+Rcs = [0.5, 1.0, 1.5, 2.0, 4.0, 8.0]
 Tcs = [-2.0, -1.0, -0.5, 1e-8, 0.5, 1.0, 2.0]
 shapes =  ['Hyperbola']*3 + ['Parabola', 'Prolate', 'Sphere', 'Oblate', ]
 
@@ -34,15 +34,6 @@ n_Rc = len(Rcs)
 n_Tc = len(Tcs)
 
 lws = np.linspace(0.5, 2.0, n_Rc)
-dash_solid = []
-dash_dashed = [3, 2]
-dash_dotted = [1, 2]
-dash_dot_dashed = [1, 2, 4, 2]
-dash_triple_dot_dashed = [1, 2, 1, 2, 1, 2, 4, 2]
-dashes = [dash_triple_dot_dashed, dash_solid,
-          dash_dashed, dash_dotted, dash_dot_dashed]
-
-lss = ['-.', '-', '--', ':', '-.']
 alphas = np.linspace(1.0, 0.2, n_Rc)
 cols = sns.color_palette('magma', n_colors=n_Tc)
 cols = 'cgbkmry'
@@ -60,7 +51,7 @@ def R90_prime(inc, Tc, Rc):
     return np.sqrt(2*Rc_prime(inc, Tc, Rc) - Tc_prime(inc, Tc))
 
 
-for Rc, lw, alpha, dash in list(zip(Rcs, lws, alphas, dashes))[::-1]:
+for Rc, lw, alpha in list(zip(Rcs, lws, alphas))[::-1]:
     for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
         if Rc == 1.0:
             label = fr'{shape}: $T_c = {Tc:.1f}$'
@@ -70,7 +61,7 @@ for Rc, lw, alpha, dash in list(zip(Rcs, lws, alphas, dashes))[::-1]:
                 c=col, lw=lw, label=label)
         # ax.plot(Rc_dash(inc, Tc, Rc), Tc_dash(inc, Tc), '.', alpha=0.1, ms=4,
         #         c=col, label=label)
-        ax.plot([Rc_prime(0, Tc, Rc)], [R90_prime(0, Tc, Rc)], 'o', c=col)
+        ax.plot([Rc_prime(0, Tc, Rc)], [R90_prime(0, Tc, Rc)], '.', c=col, zorder=100)
 
 ax.legend(ncol=1, fontsize='small', frameon=True, loc='upper left', title='Quadric Shape')
 ax.set(
