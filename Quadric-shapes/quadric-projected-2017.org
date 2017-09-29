@@ -772,19 +772,22 @@ python projected-th90-vs-i.py
 :END:
 #+BEGIN_SRC sh :results verbatim
 date
-cp -v projected-*.pdf ../papers/Paper1/figs
+cp -v projected-*.pdf dust-*.pdf ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Thu Sep 28 10:59:04 CDT 2017
-: projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
-: projected-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-R90-Rc-snapshots.pdf
-: projected-R90-vs-Rc.pdf -> ../papers/Paper1/figs/projected-R90-vs-Rc.pdf
-: projected-R90-vs-i.pdf -> ../papers/Paper1/figs/projected-R90-vs-i.pdf
-: projected-Rc-vs-i.pdf -> ../papers/Paper1/figs/projected-Rc-vs-i.pdf
-: projected-Tc-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.pdf
-: projected-Tc-vs-Rc.pdf -> ../papers/Paper1/figs/projected-Tc-vs-Rc.pdf
-: projected-th90-vs-i.pdf -> ../papers/Paper1/figs/projected-th90-vs-i.pdf
+#+begin_example
+Fri Sep 29 10:09:59 CDT 2017
+projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
+projected-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-R90-Rc-snapshots.pdf
+projected-R90-vs-Rc.pdf -> ../papers/Paper1/figs/projected-R90-vs-Rc.pdf
+projected-R90-vs-i.pdf -> ../papers/Paper1/figs/projected-R90-vs-i.pdf
+projected-Rc-vs-i.pdf -> ../papers/Paper1/figs/projected-Rc-vs-i.pdf
+projected-Tc-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-Tc-Rc-snapshots.pdf
+projected-Tc-vs-Rc.pdf -> ../papers/Paper1/figs/projected-Tc-vs-Rc.pdf
+projected-th90-vs-i.pdf -> ../papers/Paper1/figs/projected-th90-vs-i.pdf
+dust-trajectories.pdf -> ../papers/Paper1/figs/dust-trajectories.pdf
+#+end_example
 
 
 
@@ -829,6 +832,7 @@ cp -v projected-*.pdf ../papers/Paper1/figs
          xlabel="$x / R_0$",
          ylabel="$y / R_0$")
   sns.despine()
+  fig.tight_layout()
   fig.savefig(figfile)
   print(figfile, end='')
 #+END_SRC

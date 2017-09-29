@@ -1,0 +1,43 @@
+\section{Parabola of Revolution}
+\label{app:parabola}
+
+In this section we develop the particular case of the parabola.
+The parametrization is given by:
+
+\begin{align}
+x &= - \frac{1}{2}R_ct^2 + R_0 \\
+y &= R_c t
+\end{align}
+Where $R_c$ is the radius of curvature and $R_0$ is the distance of the parabola nose to the
+origin.
+The respective tridimensional shape is given by:
+\begin{align}
+x &= -\frac{1}{2}R_ct^2 + R_0 \label{eq:x-par-a}\\
+y &= R_c t \cos\phi  \label{eq:y-par-a}\\
+z &= R_c t \sin\phi  \label{eq:z-par-a}
+\end{align}
+The azimutal angle where the surface is tangent to the line of sight in this case is given by:
+\begin{align}
+\sin\phi_t = -\frac{\tan i}{t} \label{eq:sin-tan-a} 
+\end{align}
+
+Subtituting (\ref{eq:sin-tan-a}) into (\ref{eq:x-par-a}), (\ref{eq:y-par-a}) and
+(\ref{eq:z-par-a}) we find the apparent shape
+of the paraboloid:
+
+\begin{align}
+x' &= -\frac{R_c(\frac{1}{2}t^2 \cos^2 i -\sin^2 i)}{\cos i}+R_0\cos i \\
+y' &= R_c\left(t^2-\tan^2 i\right)^{1/2} 
+\end{align}
+
+Taking the limit of equations (\ref{eq:qprime}) and (\ref{eq:Aprime}) when $\theta_c$ tends to zero we find that:
+
+\begin{align}
+\left(\frac{q'}{q}\right)_{\mathrm{parabola}} &= 1+\frac{\tilde{R}_c\tan^2 i}{2}\\
+\left(\tilde{R}'_c\right)_{\mathrm{parabola}} &= \frac{\tilde{R}_c}{\cos^2 i + \frac{\tilde{R}_c}{2}\sin^2 i}
+\end{align}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "quadrics-bowshock"
+%%% End:

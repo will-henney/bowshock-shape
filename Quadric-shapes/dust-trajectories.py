@@ -34,5 +34,6 @@ ax.set(xlim=[-3, 3], ylim=[-0.1, 5.9],
        xlabel="$x / R_0$",
        ylabel="$y / R_0$")
 sns.despine()
+fig.tight_layout()
 fig.savefig(figfile)
 print(figfile, end='')
