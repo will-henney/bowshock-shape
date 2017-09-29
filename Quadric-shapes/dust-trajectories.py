@@ -1,19 +1,38 @@
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
+import seaborn as sns
 
 figfile = sys.argv[0].replace('.py', '.pdf')
-NTH = 501
+NTH = 4001
+sns.set_style('white')
+sns.set_color_codes('dark')
 fig, ax = plt.subplots(figsize=(5, 5))
-for thm in np.linspace(0.0, 1.5*np.pi/2, 25):
-    rm = 2.0/(1.0 + np.cos(thm))
+blist = np.linspace(0.0, 6.0) + 0.01
+thmlist = np.arccos(1./np.sqrt(1.0 + 4.0*blist**2))
+for thm in thmlist:
     epsilon = 1./np.cos(thm)
-    theta = np.linspace(0.01, 2*thm - 0.01, NTH)
+    theta = np.linspace(0.001, min(np.pi, 2*thm - 0.001), NTH)
+    im = np.argmin(np.abs(theta - thm))
     r = 0.5*(epsilon**2 - 1)/(epsilon*np.cos(theta - thm) - 1.0)
-    ax.plot(r*np.cos(theta), r*np.sin(theta), '-', color='k', lw=0.5)
-    ax.plot([rm*np.cos(thm)], [rm*np.sin(thm)], '.', color='k')
+    x = r*np.cos(theta)
+    y = r*np.sin(theta)
+    m_in = (theta <= thm) & (y >= 0.0)
+    m_out = (theta > thm) & (y >= 0.0)
+    ax.plot([r[im]*np.cos(theta[im])], [r[im]*np.sin(theta[im])],
+            's', ms=0.6, color='k')
+    ax.plot(x[m_in], y[m_in], '-', color='gray', alpha=0.8, lw=0.5)
+    ax.plot(x[m_out], y[m_out], '-', color='r', alpha=0.8, lw=0.5)
+thm_grid = np.linspace(0.0, np.pi, 200)
+rm = 2.0/(1.0 + np.cos(thm_grid))
+xlocus = rm*np.cos(thm_grid)
+ylocus = rm*np.sin(thm_grid)
+ax.plot(xlocus, ylocus, '-', color='k', alpha=0.2, lw=3)
 
 ax.plot([0.0], [0.0], '*', color='r')
-ax.set(xlim=[-1.5, 2.5], ylim=[-0.2, 3.8])
+ax.set(xlim=[-3, 3], ylim=[-0.1, 5.9],
+       xlabel="$x / R_0$",
+       ylabel="$y / R_0$")
+sns.despine()
 fig.savefig(figfile)
 print(figfile, end='')
