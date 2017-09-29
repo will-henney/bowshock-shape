@@ -8,7 +8,7 @@ import conic_parameters
 plotfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('white')
-fig, ax = plt.subplots(figsize=(5, 5))
+fig, (axx, ax) = plt.subplots(2, 1, sharex=True, figsize=(5, 5))
 
 
 
@@ -17,7 +17,7 @@ inc_deg = np.degrees(inc)
 
 
 XI_LIST = [None, 1.0, 0.8, 0.4]
-BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.01, 0.001, 0.0001, 0.00001]
+BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.005, 1e-6]
 nxi, nbeta = len(XI_LIST), len(BETA_LIST)
 
 dashes_solid = []
@@ -25,16 +25,17 @@ dashes_dashed = [3, 2]
 dashes_dotted = [1, 2]
 dashes_dot_dashed = [1, 2, 4, 2]
 dashes_triple_dot_dashed = [1, 2, 1, 2, 1, 2, 4, 2]
+dashes_triple_dot_spaced = [1, 2, 1, 2, 1, 6]
 dashes_styles = [dashes_solid, dashes_dashed, dashes_dotted,
                  dashes_dot_dashed, dashes_triple_dot_dashed,
-                 dashes_solid, dashes_solid]
+                 dashes_triple_dot_spaced]
 
 cols = sns.color_palette('magma', n_colors=nxi)
 
 ax.axhspan(100.0, 110.0, facecolor='k', alpha=0.1)
 
 for beta, dashes in list(zip(BETA_LIST, dashes_styles))[::-1]:
-    for xi, col in list(zip(XI_LIST, cols))[::-1]:
+    for xi, col in list(zip(XI_LIST, cols))[-4::-1]:
 
         # Fit to head and analytic fit to fit to tail
         ht = conic_parameters.HeadTail(beta, xi=xi, xmin=0.0, method='analytic fit')
@@ -99,7 +100,7 @@ for beta, dashes in list(zip(BETA_LIST, dashes_styles))[::-1]:
         # else:
         #     label = None
         if beta == BETA_LIST[0]:
-            label = 'CRW' if xi is None else fr'$\xi = {xi:.1f}$'
+            xilabel = 'CRW' if xi is None else fr'$\xi = {xi:.1f}$'
         else:
             label = None
 
@@ -116,22 +117,36 @@ for beta, dashes in list(zip(BETA_LIST, dashes_styles))[::-1]:
         mhi = mhi & (inc < 0.5*np.pi - ht.theta_t)
 
 
-        ax.plot(inc_deg, th90_h, c=col, label=label, lw=2, dashes=dashes, alpha=0.4)
-        # ax.plot(inc_deg, th90_t, c=col, label=label, lw=0.5, dashes=dashes, alpha=0.8)
+        ax.plot(inc_deg[mlo], th90_h[mlo],
+                c=col, label=None, lw=1.5, dashes=dashes, alpha=0.8)
+        ax.plot(inc_deg[mhi], th90_t[mhi],
+                c=col, label=label, lw=0.7, dashes=dashes, alpha=0.8)
+
+        axx.plot(inc_deg[mlo], R90_h_prime[mlo],
+                 c=col, label=None, lw=1.5, dashes=dashes, alpha=0.8)
+        axx.plot(inc_deg[mhi], R90_t_prime[mhi],
+                 c=col, label=label, lw=0.7, dashes=dashes, alpha=0.8)
+        axx.plot([inc_deg[i0]], [R90_t_prime[i0]], '.', c=col, label=None) 
 
 ax.legend(ncol=1, fontsize='xx-small', frameon=True)
 ax.set(
     yscale='linear',
     xscale='linear',
     xlim=[0.0, 90.0],
-    ylim=[80.0, 160.0],
+    ylim=[80.0, 180.0],
 #    ylim=[-3.0, 1.1],
     xlabel=r'Inclination, degrees',
     ylabel=r"Body-frame polar angle of perpendicular projected axis: $\theta_{90}$, degrees",
     xticks=[15, 30, 45, 60, 75, 90],
 )        
+axx.set(
+    yscale='log',
+    xscale='linear',
+    ylim=[1.0, 100.0],
+    ylabel=r"Projected perpendicular radius, $R'_{90}$",
+)        
 
-
-fig.tight_layout()
+sns.despine()
+#fig.tight_layout()
 fig.savefig(plotfile)
 print(plotfile, end='')
