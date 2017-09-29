@@ -3876,6 +3876,18 @@ CLOSED: [2017-03-20 Mon 10:48]
          - If they are coupled, then each grain has to drag around 100 times its own mass in gas
          - Which will reduce the stagnation radius by a factor of 100
          - So it probably wouldn't be competitive with the hydrodynamic stagnaton radius
+       - [2017-09-29 Fri] Apropos of last, we can estimate whether the dust is coupled to the gas or not. Compare:
+         - Crossing time: r_0 / v
+         - Drag time: m v / f_coll
+           - Collisional force: f_coll = \sigma_coll \rho v^2 
+           - => t_drag = m / \sigma_coll \rho v
+           - First, assume solid body collisions (neutral grain):
+             - \sigma_coll = \pi a^2
+             - m = 4\pi/3 \rho_s a^3
+             - => t_drag = 4/3 (a/v) (\rho_s/\rho) … so roughly crossing time for grain (small!) multiplied by grain-ISM density ratio (large!)
+         - So t_drag < t_coll when 4/3 (a/v) (\rho_s/\rho) < r_0 / v
+           - => 0.066 pc (L_4 / a_0.1 v_50^2) > 2.16 pc a_0.1 / n_1
+           - => a_0.1^2 v_50^2 / L_4 n_1 < 0.03
 
   2. Next highest correlation is A_K versus |b|, which is unsurprising: higher extinction closer to the Galactic plane
   3. Finally, there is a weak correlation of A_K with H_0, due to larger extinction at greater distances.  But the fact that it is so weak implies that the variation between different lines of sight is more important for determining A_K
