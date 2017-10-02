@@ -3888,7 +3888,73 @@ CLOSED: [2017-03-20 Mon 10:48]
          - So t_drag < t_coll when 4/3 (a/v) (\rho_s/\rho) < r_0 / v
            - => 0.066 pc (L_4 / a_0.1 v_50^2) > 2.16 pc a_0.1 / n_1
            - => a_0.1^2 v_50^2 / L_4 n_1 < 0.03
-
+         - Alternative approach is to calculate terminal drift speed (following Lamers & Cassinelli, Chapter 7)
+           - Balance between radiative acceleration and drag
+             * (\pi a^2) Q L / 4 \pi r^2 c = (\pi a^2) \rho w (w^2 + a_th^2)^{1/2}
+           - If drift speed w is supersonic (w \gg a_th which is the case we are most interested in), then
+             * w = [Q L / 4 \pi r^2 \rho c]^{1/2}
+             * We take typical values as above and put r = r_0 \approx 0.1 pc
+             * => w = 221 km/s L_4^0.5 n_1^-0.5 r_0.1^-1
+           - So, the drift speed is pretty high, unless the density is higher than I have been assuming
+         - But this is all assuming neutral gas and neutral grains.  In ionized gas, coulomb collisions increase the drag
+           - The grain potential U is mainly determined by competition between photoelectric effect and electron capture
+             - We need to be careful about the difference between
+               1. CGS esu units (statvolt)
+               2. Actual volts, where 1 statvolt = 300 V
+             - Papers usually give potential in Volts, but in an equation like E_pot = e U we need to use stat Volts 
+           - In H II regions, it seems that potential is typically U \approx +1 V, which is \approx 0.003 statV
+             - So the parameter \phi = e U / k T is about unity.
+             - This is also consistent with fact that e U = 1 eV for U = 1 V
+           - The potential does depend on the ionization parameter
+             - Feuerbacher et al (1973) have a good graph (Fig 7 and 8)
+             - For O5 star @ 0.1 pc, they predict
+               - U = +5 V for n = 1000 pcc
+               - U = +1.5 V for n = 1e4 pcc
+               - U = -0.5 V for n = 1e5 pcc
+             - For B0 star @ 0.1 pc, they predict
+               - U = +1.5 V for n = 100 pcc
+               - U = -1.5 V for n = 1000 pcc
+             - These are both for aluminium oxide.  They also give results for graphite, which are less positive on the whole, since photoelectric yield is lower (roughly speaking, everything shifted to 10 times lower densities)
+           - Charge on the grain, Z, is related to potential by U = e Z / a, with U in statV if e is the esu value.
+             - => Z = a U / e \approx 70 (U / 1 V) a_0.1
+           - So, finally we get to the Coulomb multiplier for the drag
+             - We can follow Spitzer book and do it in terms of slowing-down time
+             - Or we can follow Draine & Salpeter (1979), who themselves seem to be following another Spitzer paper:
+               - \sigma_Coulomb / \sigma_Sphere = z_i^2 \phi^2 ln(\Lambda/z_i) G_2(s) / G_0(s)
+               - z_i is charge of colliding particle, which we can take as 1
+               - \phi = e U / k T, which is about U in Volts (roughly unity)
+               - G_2(s) \approx s / (1.32 + s^3)
+               - G_0(s) \approx 1.504 (1 + 0.44 s^2)^{1/2}
+               - For supersonic velocities, s \gg 1, this reduces to
+                 - G_2(s) \simeq s^-2
+                 - G_0(s) \simeq s
+                 - => \sigma/\sigma \approx U^2 ln \Lambda / s^3
+               - For subsonic velocities, s \ll 1, we have
+                 - G_2(s) \approx s / 1.32
+                 - G_0(s) \approx 1.504
+                 - => \sigma/\sigma \approx U^2 ln \Lambda 0.5 s
+               - ln \Lambda  \simeq 20 in H II regions
+               - If we have v = 50 km/s, then s \approx 4
+               - So \sigma/\sigma \approx 0.3 U^2, which means that there is no real boost unless U is significantly larger than 1 V
+               - However, the v should be the relative velocity
+       - [2017-09-30 Sat] Also consider effects of gravity
+         - Dust-Eddington luminosity:
+         - G M m / r^2 = \sigma L_edd / (4 \pi r^2 c)
+         - L_edd = 4 \pi c G M m / \sigma
+           + where m / \sigma = 4/3 \rho_s a / Q
+           + L_edd / M = (16\pi/3) c G \rho_s a / Q
+             + Where: G = 6.673e-8
+             + \rho = 3 g / cm^3
+             + a = 0.1 \mu m
+             + Q \sim 1
+             + => (L/M)_Edd in solar units is 1.93 (L_\odot/M_\odot) (\rho_3 a_0.1 / Q) 
+             + Whereas all our stars of interest (O stars, RSG, AGB) have L/M > 1000 L_\odot/M_\odot, which means they are very super-Eddington
+         - The same is true, even if we have dust coupled to gas.  Roughly, this should mean that we multiply m by about 100 to account for the gas that is dragged along
+           - Which would give about 200 L_\odot/M_\odot
+           - But I will also do the calculation using a standard dust opacity of 5e-22 cm^2/H
+             - L / M = 4 \pi c G m_H / \sigma = 162 (L_\odot/M_\odot)
+             - That is close enough
+           - So the gravity can be ignored in all these cases (roughly 10% reduction in acceleration for well-coupled grains, or 0.1% reduction for uncoupled grains).
   2. Next highest correlation is A_K versus |b|, which is unsurprising: higher extinction closer to the Galactic plane
   3. Finally, there is a weak correlation of A_K with H_0, due to larger extinction at greater distances.  But the fact that it is so weak implies that the variation between different lines of sight is more important for determining A_K
 
