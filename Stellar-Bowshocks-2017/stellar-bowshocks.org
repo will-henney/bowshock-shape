@@ -3746,6 +3746,9 @@ CLOSED: [2017-03-20 Mon 14:22]
 
 **** DONE Multifactor pair plot of the non-shape parameters
 CLOSED: [2017-03-20 Mon 10:48]
+:PROPERTIES:
+:ID:       5493D03D-24D5-479B-8C7B-0BE2FCA576EF
+:END:
 + Use =seaborn.pairplot()= to make a grid of regression plots
 + Or =seaborn.PairGrid()= for finer control
 + Note that the sample is only our fitted bow shocks, so doesn't include the non-Spitzer sources

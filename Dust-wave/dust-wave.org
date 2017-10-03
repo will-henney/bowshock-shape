@@ -1,0 +1,210 @@
+* Bow waves formed by radiation pressure on dust grains
++ This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]
++ So, I am moving it here to give it room to grow
+** Dust grain trajectories
++ The figure of these in the case of zero gas-grain coupling is done in [[id:8EC004CA-32CC-4B41-830C-535FF79B0544][Dust grain trajectories in a central force]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Quadric-shapes/quadric-projected-2017.org][../Quadric-shapes/quadric-projected-2017.org]]
++ [ ] I would like to do some sort of n-body code coupled with a gas code to allow a more realistic model
+  + A first approach would be a test-particle approximation, which would avoid the need for the gas code
+  + We would have a uniform background gas flow to provide drag, but would ignore the back reaction of the grains on the gas (valid for sufficiently low dust-gas ratio)
+  + We could solve this using ~scipy.integrate.odeint~ or ~scipy.integrate.ode~
+  + On the axis, for sufficiently weak coupling, I think the trajectories will oscillate between
+    1. an inner radius, r_0, where drift speed w \gg inflow speed v_0, allowing grain to decouple and turn from inflow to outflow
+    2. an outer radius, r_1, where w = v_0, so grain re-couples and turns from outflow back to inflow again 
+  + If density is constant, then w \propto 1/r, so if w_0 is the drift speed at r_0, then r_1 = r_0 w_0 / v_0
+  + Although, wouldn’t grain get trapped at r_1?
+  + Yes, it turns out that the phase space (x, u) trajectories spiral into (x=r_1, u=0)
+*** On-axis numerical solution for trajectories
+#+BEGIN_SRC python :eval no :tangle dust-coupling-1d.py
+  import sys
+  import numpy as np
+  from scipy.integrate import odeint
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  def dydt(y, t, alpha):
+      """Derivatives for ODE: x'' = 0.5 (x^{-2} - alpha^2 (x' + 1))"""
+      x, u = y
+      dxdt = u
+      dudt = 0.5*(x**(-2) - alpha**2 * (u + 1.0))
+      return [dxdt, dudt]
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  # Initial conditions
+  y0 = [10.0, -1.0]
+
+  # Coupling parameter
+  alpha = 1.0/2.0
+
+  # Time grid
+  t = np.linspace(0.0, 60.0, 201)
+
+  soln = odeint(dydt, y0, t, args=(alpha,))
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+  fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
+  ax.plot(t, soln[:, 1], label='$u$')
+  ax.plot(t, soln[:, 0], label='$x$')
+  ax.axhspan(0.0, 1.0, color='k', alpha=0.1)
+  ax.legend()
+  ax.set(xlabel='Time', ylim=[None, 4])
+
+  axp.plot(soln[:, 0], soln[:, 1])
+  axp.axhline(0, color='k', lw=0.5)
+  axp.set(xlabel='$x$', ylabel='$u$',
+          xlim=[None, 5], ylim=[-1, 1])
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC shell :results file
+python dust-coupling-1d.py
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-coupling-1d.pdf]]
+*** COMMENT Two-d solution for trajectories
+
+
+#+BEGIN_SRC python :eval no :tangle dust_couple_ode.py
+  import numpy as np
+  from scipy.integrate import odeint
+
+  def dydt(y, t, alpha):
+      """Derivatives for ODE: x'' = 0.5 (x^{-2} - alpha^2 (x' + 1))"""
+      X, U, Y, V = y
+      dXdt = U
+      dYdt = V
+      R2 = X**2 + Y**2
+      theta = np.arctan2(Y, X)
+      dUdt = 0.5*(np.cos(theta)/R2 - alpha**2 * (U + 1.0))
+      dVdt = 0.5*(np.sin(theta)/R2 - alpha**2 * V)
+      return [dXdt, dUdt, dYdt, dVdt]
+
+
+  def streamline(alpha=1.0/3.0, x0=10.0, y0=0.0,
+                 tstop=60.0, n=201):
+      # Initial conditions
+      y0 = [x0, -1.0, y0, 0.0]
+      # Time grid
+      t = np.linspace(0.0, tstop, n)
+      soln = odeint(dydt, y0, t, args=(alpha,))
+      return {'t': t, 'b': y0, 'alpha': alpha,
+              'x': soln[:, 0], 'u': soln[:, 1],
+              'y': soln[:, 2], 'v': soln[:, 3],}
+
+#+END_SRC
+
+#+BEGIN_SRC python :eval no :tangle dust-coupling-2d.py
+  import sys
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from dust_couple_ode import streamline
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  # Impact parameter
+  b = 0.001
+  stream = streamline(y0=b, alpha=1.0/2.0)
+  sns.set_style('white')
+  sns.set_color_codes()
+  fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
+  ax.plot(stream['t'], stream['u'], label='$u$')
+  ax.plot(stream['t'], stream['v'], label='$v$')
+  ax.plot(stream['t'], stream['x'], label='$x$')
+  ax.plot(stream['t'], stream['y'], label='$y$')
+  ax.axhspan(0.0, 1.0, color='k', alpha=0.1)
+  ax.legend(title=(fr"$\alpha = {stream['alpha']:.3f}$, "
+                   f"$b = {b:.3f}$"), ncol=2)
+  ax.set(xlabel='Time', ylim=[-3, 5])
+
+  axp.plot(stream['x'], stream['u'], label='$(x, u)$')
+  axp.plot(stream['y'], stream['v'], label='$(y, v)$')
+  axp.axhline(0, color='k', lw=0.5)
+  axp.legend(title='Phase space')
+  axp.set(xlabel='$x$, $y$', ylabel='$u$, $v$',
+          xlim=[-3, 5], ylim=[-1.1, 1.1])
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python dust-coupling-2d.py
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-coupling-2d.pdf]]
+
+
+#+BEGIN_SRC python :eval no :tangle dust-couple-stream.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from dust_couple_ode import streamline
+
+  figfile = sys.argv[0].replace('.py', '.jpg')
+
+  sns.set_style('white')
+  sns.set_color_codes()
+  fig, axes = plt.subplots(2, 2, figsize=(6, 4))
+  alphas = [1.0/4.0, 1.0/2.0, 1.0, 2.0]
+  nb = 501
+  bgrid = 0.005 + np.linspace(0.0, 5.0, 501)
+  ibspecial = [5, 20, 50, 100, 200, 300]
+  thm_grid = np.linspace(0.0, np.pi, 200)
+  rm = 2.0/(1.0 + np.cos(thm_grid))
+  xlocus = rm*np.cos(thm_grid)
+  ylocus = rm*np.sin(thm_grid)
+  xmin, xmax = [-3.999, 3.999]
+  ymin, ymax = [0.0, 4.999]
+  for alpha, ax in zip(alphas, axes.flat):
+      xx, yy = [], []
+      xs, ys = [], []
+      for ib, b in enumerate(bgrid):
+          s = streamline(y0=b, alpha=alpha, n=5001)
+          # ax.plot(s['x'], s['y'], color='k', lw=0.5)
+          # Accumulate (x, y) points in a long list
+          xx.extend(s['x'])
+          yy.extend(s['y'])
+          # ax.plot(s['x'], s['y'], '.',
+          #         mec='none', mfc='r', ms=3, alpha=0.02)
+          if ib in ibspecial:
+              # Save streamlines for selected impact parameters
+              xs.append(s['x'])
+              ys.append(s['y'])
+      # Plot a density histogram of all the (x, y) points we accumulated
+      ax.hist2d(xx, yy, bins=(80*2, 50*2),
+                range=[[xmin, xmax], [ymin, ymax]])
+      # Plot the streamlines that we saved earlier
+      for x, y in zip(xs, ys):
+          ax.plot(x, y, '-', color='y', lw=0.5)
+      ax.plot(xlocus, ylocus, ':', color='w', alpha=0.5, lw=2)
+      ax.axvline(0.0, ls='--', color='w', lw=0.5)
+      ax.text(1.0, 4.0, 
+              fr"$\alpha_\mathrm{{drag}} = {alpha:.2f}$",
+              color='y')
+      ax.set(xlabel='$x$', ylabel='$y$',
+             xlim=[xmin, xmax], ylim=[ymin, ymax])
+      ax.set_aspect('equal', adjustable='box')
+
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile, dpi=300)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python dust-couple-stream.py
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-couple-stream.jpg]]
