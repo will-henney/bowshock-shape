@@ -7,7 +7,7 @@ figfile = sys.argv[0].replace('.py', '.pdf')
 
 # Impact parameter
 b = 0.001
-stream = streamline(y0=b, alpha=1.0/2.0)
+stream = streamline(Y0=b, alpha=1.0/2.0)
 sns.set_style('white')
 sns.set_color_codes()
 fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
