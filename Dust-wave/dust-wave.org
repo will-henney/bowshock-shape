@@ -1,6 +1,21 @@
 * Bow waves formed by radiation pressure on dust grains
 + This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]
 + So, I am moving it here to give it room to grow
+** Copy dust wave figure files to paper folder
+#+BEGIN_SRC sh :results output
+  FIGFILES='dust-couple-stream-annotate.pdf'
+  date
+  pwd
+  for f in $FIGFILES; do
+      cp -av $f ../papers/Paper1/figs 
+  done
+#+END_SRC
+
+#+RESULTS:
+: Tue Oct  3 11:00:24 CDT 2017
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
+: dust-couple-stream-annotate.pdf -> ../papers/Paper1/figs/dust-couple-stream-annotate.pdf
+
 ** Dust grain trajectories
 + The figure of these in the case of zero gas-grain coupling is done in [[id:8EC004CA-32CC-4B41-830C-535FF79B0544][Dust grain trajectories in a central force]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Quadric-shapes/quadric-projected-2017.org][../Quadric-shapes/quadric-projected-2017.org]]
 + [ ] I would like to do some sort of n-body code coupled with a gas code to allow a more realistic model
@@ -148,6 +163,7 @@ python dust-coupling-2d.py
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
+  from astropy.table import Table
   from dust_couple_ode import streamline
 
   figfile = sys.argv[0].replace('.py', '.jpg')
@@ -159,7 +175,10 @@ python dust-coupling-2d.py
   nb = 501
   bgrid = 0.001 + np.linspace(0.0, 5.0, 1001)
   ibspecial = [5, 20, 50, 100, 200, 300]
-  thm_grid = np.linspace(0.0, np.pi, 200)
+  nth = 200
+  thm_grid = np.linspace(0.0, np.pi, nth)
+  dth = np.pi/nth
+
   rm = 2.0/(1.0 + np.cos(thm_grid))
   xlocus = rm*np.cos(thm_grid)
   ylocus = rm*np.sin(thm_grid)
@@ -198,6 +217,22 @@ python dust-coupling-2d.py
               color='y')
       ax.set_aspect('equal', adjustable='box-forced')
 
+      # Save the minimum radius as a function of theta
+      rr = np.hypot(xx, yy)
+      theta = np.arctan2(yy, xx)
+      rrm_grid = np.empty_like(thm_grid)
+      for j, th0 in enumerate(thm_grid):
+          # Mask to select points with theta between th0 -> th0 + dth
+          m = np.abs(theta - (th0 + 0.5*dth)) <= 0.5*dth
+          try:
+              rrm_grid[j] = rr[m].min()
+          except:
+              # Sometimes mask may be empty
+              rrm_grid[j] = np.nan
+            
+      tabfilename = sys.argv[0].replace('.py', f'-alpha{int(100*alpha):03d}.tab')
+      Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab')
+
   for ax in axes[:, 0]:
       ax.set(ylabel='$y/R_{0}$', ylim=[ymin, ymax])
   for ax in axes[-1, :]:
@@ -218,3 +253,160 @@ python dust-couple-stream.py
 
 + I will now annotate this figure with Graphic.app
   + PDF export in [[file:dust-couple-stream-annotate.pdf]]
+*** Shape parameters as function of drag parameter
++ We have written tables of R(\theta) for the inner edge of the dust shells
+  + [[file:dust-couple-stream-alpha025.tab]]
+  + [[file:dust-couple-stream-alpha050.tab]]
+  + [[file:dust-couple-stream-alpha100.tab]]
+  + [[file:dust-couple-stream-alpha200.tab]]
++ So we can find R_c and R_90 and plot them as function of \alpha_drag
+
+#+BEGIN_SRC python :eval no :tangle dust-wave-Rc-R90.py
+  import sys
+  import numpy as np
+  from scipy.interpolate import interp1d
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from astropy.table import Table
+  import astropy.modeling.fitting
+  from astropy.modeling.models import custom_model
+  from astropy.modeling.fitting import LevMarLSQFitter
+  sys.path.append('../conic-projection')
+  from conproj_utils import Conic
+
+  @custom_model
+  def conic_y_x(x, x0=-3.0, a=5.0, b=3.0):
+      return b*np.sqrt(1.0 - ((x - x0)/a)**2)
+
+  fit = LevMarLSQFitter()
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+  sns.set_style('white')
+  sns.set_color_codes()
+
+  fig, axes = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 4))
+
+  alphas = [1.0/4.0, 1.0/2.0, 1.0, 2.0]
+  results = {'alpha': [0.0] + alphas, 'Rc': [2.0], 'R90': [2.0]}
+  for alpha, ax in zip(alphas, axes.flat):
+      astring = f'-alpha{int(100*alpha):03d}.tab'
+      t = Table.read('dust-couple-stream' + astring, format='ascii.tab')
+      dth = np.pi/len(t)
+      theta = t['theta'] + 0.5*dth
+      # Mask to select only the near-apex region
+      m = np.degrees(theta) <= 30.0
+      # Reflect through origin to ensure an even function
+      thth = np.concatenate([-theta[m][::-1], theta[m]])
+      RR = np.concatenate([t['R'][m][::-1], t['R'][m]])
+      # Fit polynomial to find R0 and Rc
+      a, b, c = np.polyfit(thth, RR, deg=2)
+      assert(b == 0.0, 'Linear term should be non-zero, but is not')
+      R0 = c
+      Rc = 1.0/(1.0 - 2.0*a/c)
+
+      # Find R90 by linear interpolation
+      f = interp1d(theta, t['R'], kind='linear')
+      R90 = f(0.5*np.pi)/R0
+      results['Rc'].append(Rc)
+      results['R90'].append(R90)
+
+      R_bow = t['R']/R0
+      x_bow = R_bow*np.cos(theta)
+      y_bow = R_bow*np.sin(theta)
+
+      # Define the head-fit conic section that corresponds to (Rc, R90)
+      arg = 2*Rc - R90**2
+      thc = np.sign(arg)*np.arctan(np.sqrt(np.abs(arg)))
+      head_conic = Conic(A=Rc, th_conic=np.degrees(thc))
+      t = head_conic.make_t_array()
+      x_head = head_conic.x(t)
+      y_head = head_conic.y(t)
+
+
+      # Now find a tail-fit conic
+      mtail = (x_bow < -1.0) & (x_bow > -8.0)
+
+      # Try a more direct approach: fit hyperbola with LM
+      model = conic_y_x()
+      best_model = fit(model, x_bow[mtail], y_bow[mtail])
+      print(best_model.a, best_model.b, best_model.x0)
+      r0_tail = best_model.a.value + best_model.x0.value
+
+      # # Add the other branch of the tail
+      # xx = np.concatenate([x_bow[mtail][::-1], x_bow[mtail]])
+      # yy = np.concatenate([-y_bow[mtail][::-1], y_bow[mtail]])
+      # # This is reverse polynomial: x(y)
+      # tail_coeffs = np.polyfit(yy, xx, deg=2)
+      # assert(tail_coeffs[1] == 0.0, tail_coeffs)
+      # ptail = np.poly1d(tail_coeffs)
+
+      x_tail = np.linspace(r0_tail, -10.0, 200)
+      y_tail = best_model(x_tail)
+
+      ax.plot(x_bow, y_bow, lw=3, alpha=0.5)
+      ax.plot(x_head, y_head, ls='--')
+      ax.plot(x_tail, y_tail, ls=':', lw=2.5, color='r')
+      ax.set_aspect('equal', adjustable='box-forced')
+
+  for ax in axes[-1, :]:
+      ax.set(xlim=[-8, 2], xlabel='$x/R_0$')
+
+  for ax in axes[:, 0]:
+      ax.set(ylim=[0, 6], ylabel='$y/R_0$')
+
+  # print(results)
+  #     ax.plot(theta, R, label=fr"${alpha:.2f}$")
+
+  # ax.legend(title=r"$\alpha_\mathrm{drag}$")
+  # ax.axhline(2.0, color='k', alpha=0.3, lw=1)
+  # ax.axvline(90.0, color='k', alpha=0.3, lw=1)
+  # ax.set(xlim=[0.0, 180.0], ylim=[0.0, 14.0],
+  #        xlabel=r'$\theta$', ylabel=r'$R$')
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile, dpi=300)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results output
+python dust-wave-Rc-R90.py
+#+END_SRC
+
+#+RESULTS:
+: Parameter('a', value=39.94715027206335) Parameter('b', value=8.766150261149845) Parameter('x0', value=-38.92890856916904)
+: Parameter('a', value=18.33528583600588) Parameter('b', value=5.800291512485708) Parameter('x0', value=-17.277278360530772)
+: Parameter('a', value=10.388454532268298) Parameter('b', value=4.001183255580075) Parameter('x0', value=-9.106031055710734)
+: Parameter('a', value=8.400437072521607) Parameter('b', value=3.0106156980396337) Parameter('x0', value=-6.450432146734382)
+: dust-wave-Rc-R90.pdf
+
+
+
+Try fitting head and tail
+
+#+BEGIN_SRC python
+  import sys
+  import numpy as np
+  import astropy.modeling.fitting
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  sys.path.append('../CRW-shapes')
+  import conic_parameters
+  import theta_ratio_fit 
+  sys.path.append('../conic-projection')
+  from conproj_utils import Conic
+
+  for alpha in alphas:
+      astring = f'-alpha{int(100*alpha):03d}.tab'
+      t = Table.read('dust-couple-stream' + astring, format='ascii.tab')
+      dth = np.pi/len(t)
+      theta = t['theta'] + 0.5*dth
+      R_bow = t['R']/t['R'][0]
+      x_bow = R_bow*np.cos(theta)
+      y_bow = R_bow*np.sin(theta)
+
+      ht = 
+
+#+END_SRC
+

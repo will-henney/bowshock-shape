@@ -2,6 +2,7 @@ import sys
 import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
+from astropy.table import Table
 from dust_couple_ode import streamline
 
 figfile = sys.argv[0].replace('.py', '.jpg')
@@ -13,7 +14,10 @@ alphas = [1.0/4.0, 1.0/2.0, 1.0, 2.0]
 nb = 501
 bgrid = 0.001 + np.linspace(0.0, 5.0, 1001)
 ibspecial = [5, 20, 50, 100, 200, 300]
-thm_grid = np.linspace(0.0, np.pi, 200)
+nth = 200
+thm_grid = np.linspace(0.0, np.pi, nth)
+dth = np.pi/nth
+
 rm = 2.0/(1.0 + np.cos(thm_grid))
 xlocus = rm*np.cos(thm_grid)
 ylocus = rm*np.sin(thm_grid)
@@ -51,6 +55,22 @@ for alpha, ax in zip(alphas, axes.flat):
             fr"$\alpha_\mathrm{{drag}} = {alpha:.2f}$",
             color='y')
     ax.set_aspect('equal', adjustable='box-forced')
+
+    # Save the minimum radius as a function of theta
+    rr = np.hypot(xx, yy)
+    theta = np.arctan2(yy, xx)
+    rrm_grid = np.empty_like(thm_grid)
+    for j, th0 in enumerate(thm_grid):
+        # Mask to select points with theta between th0 -> th0 + dth
+        m = np.abs(theta - (th0 + 0.5*dth)) <= 0.5*dth
+        try:
+            rrm_grid[j] = rr[m].min()
+        except:
+            # Sometimes mask may be empty
+            rrm_grid[j] = np.nan
+
+    tabfilename = sys.argv[0].replace('.py', f'-alpha{int(100*alpha):03d}.tab')
+    Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab')
 
 for ax in axes[:, 0]:
     ax.set(ylabel='$y/R_{0}$', ylim=[ymin, ymax])
