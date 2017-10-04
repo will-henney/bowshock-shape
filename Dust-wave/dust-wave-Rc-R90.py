@@ -69,6 +69,7 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     # We only fit the tail between xswitch and xfar
     xswitch, xfar = -1.0, -8.0
     mtail = (x_bow < xswitch) & (x_bow > xfar)
+    mfar = (x_bow <= xfar) & (x_bow > -40.0)
 
     # Try a more direct approach: fit hyperbola with LM
     model = conic_y_x()
@@ -89,11 +90,22 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     th_tail = np.arctan2(y_tail, x_tail)
     R_tail = np.hypot(x_tail, y_tail)
 
+    # Finally, a third fit to the far tail with a hyperbola
+    # model2 = conic_y_x(x0=15.0, a=30.0, b=1.0)
+    model2 = conic_y_x(x0=-15.0, a=30.0, b=y_bow[mfar].max())
+    best_model2 = fit(model2, x_bow[mfar], y_bow[mfar]) 
+    x_far = np.linspace(2.0, -100.0, 1000)
+    y_far = best_model2(x_far)
+    th_far = np.arctan2(y_far, x_far)
+    R_far = np.hypot(x_far, y_far)
+
     # Plot the bow and the two fits
-    ax.plot(x_bow, y_bow, lw=3, alpha=0.5, label='_nolegend_')
-    ax.plot(x_head, y_head, ls='--', label="Head fit")
+    ax.axvspan(xfar, xswitch, color='k', alpha=0.05)
+    ax.plot(x_bow, y_bow, lw=7, alpha=0.3, label='_nolegend_')
+    ax.plot(x_far, y_far, ls='-.', color='m', label="Far tail fit")
     ax.plot(x_tail, y_tail, ls=':', lw=2.5, color='r', label="Tail fit")
-    ax.text(-7.5, 0.5, alpha_label, fontsize='small')
+    ax.plot(x_head, y_head, ls='--', color='orange', label="Head fit")
+    ax.text(-14, 0.8, alpha_label, fontsize='small')
 
     ax.set_aspect('equal', adjustable='box-forced')
 
@@ -102,6 +114,9 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     e_tail = (f_R_tail(theta) - R_bow)/R_bow
     f_R_head = interp1d(th_head, R_head, bounds_error=False)
     e_head = (f_R_head(theta) - R_bow)/R_bow
+    f_R_far = interp1d(th_far, R_far, bounds_error=False)
+    e_far = (f_R_far(theta) - R_bow)/R_bow
+
     # Find angle that corresponds to x = -1
     th1 = interp1d(x_bow, theta)(xswitch)
     # Find angle that corresponds to x = -8
@@ -114,13 +129,14 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     eax.axhspan(-0.01, 0.01, color='b', alpha=0.1, ec='none')
     eax.axvspan(np.degrees(th1), np.degrees(th2), color='k', alpha=0.05)
 
-    # Plot each error curve twice, faintly over the bad bit …
+    # Plot each error curve twice, faintly over the bad zone …
     eax.plot(np.degrees(theta[mt | mtt]), e_head[mt | mtt], label='_nolegend_',
              ls='--', color='orange', alpha=0.3)
     # And strongly over the range it should be fitting
     eax.plot(np.degrees(theta[mh]), e_head[mh], label="Head fit",
              ls='--', color='orange', alpha=1.0)
 
+    # Same for the tail fit, but 3 times since we have a bad zone each side
     eax.plot(np.degrees(theta[mh]), e_tail[mh], label='_nolegend_',
              ls=':', lw=2.5, color='r', alpha=0.3)
     eax.plot(np.degrees(theta[mtt]), e_tail[mtt], label='_nolegend_',
@@ -128,14 +144,20 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     eax.plot(np.degrees(theta[mt]), e_tail[mt], label="Tail fit",
              ls=':', lw=2.5, color='r', alpha=1.0)
 
+    # And now for the far-tail fit as well
+    eax.plot(np.degrees(theta[mt]), e_far[mt], label='_nolegend_',
+             ls='-.', color='m', alpha=0.3)
+    eax.plot(np.degrees(theta[mtt]), e_far[mtt], label="Far tail fit",
+             ls='-.', color='m', alpha=1.0)
+
     eax.text(10.0, -0.04, alpha_label, fontsize='small')
 
 
 for ax in axes[-1, :]:
-    ax.set(xlim=[-8, 2], xlabel='$x/R_0$')
+    ax.set(xlim=[-15, 2.5], xlabel='$x/R_0$')
 for ax in axes[:, 0]:
-    ax.set(ylim=[0, 6], ylabel='$y/R_0$')
-axes[-1,-1].legend()
+    ax.set(ylim=[0, 8], ylabel='$y/R_0$')
+axes[-1,-1].legend(fontsize='small')
 
 for eax in eaxes[-1, :]:
     eax.set(xlim=[0.0, 180.0],
@@ -143,8 +165,8 @@ for eax in eaxes[-1, :]:
             xticks=[0, 30, 60, 90, 120, 150, 180])
 for eax in eaxes[:, 0]:
     eax.set(ylim=[-0.05, 0.05],
-            ylabel=r"Relative error: $\delta R / R$")
-eaxes[-1,-1].legend()
+            ylabel=r"Fractional error: $\delta R / R$")
+eaxes[-1,-1].legend(fontsize='small')
 eaxes[-1, 1].text(10.0, -0.9/100, r"$|\delta R/R| < 1\%$", 
                   color='b', fontsize='x-small')
 
