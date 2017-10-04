@@ -1,4 +1,5 @@
 import sys
+import json
 import numpy as np
 from scipy.interpolate import interp1d
 from matplotlib import pyplot as plt
@@ -15,6 +16,7 @@ def conic_y_x(x, x0=-3.0, a=5.0, b=3.0):
     s = np.sign(x0 - 1.0)
     return b*np.sqrt(1.0 + s*((x - x0)/a)**2)
 
+alldata = {}
 
 fit = LevMarLSQFitter()
 
@@ -30,6 +32,7 @@ results = {'alpha': [0.0] + alphas, 'Rc': [2.0], 'R90': [2.0]}
 for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     astring = f'-alpha{int(100*alpha):03d}.tab'
     alpha_label = fr"$\alpha_\mathrm{{drag}} =  {alpha:.02f}$"
+    fitdata = {}
     t = Table.read('dust-couple-stream' + astring, format='ascii.tab')
     dth = np.pi/len(t)
     theta = t['theta'] + 0.5*dth
@@ -64,6 +67,10 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     th_head = np.arctan2(y_head, x_head)
     R_head = np.hypot(x_head, y_head)
 
+    # Save the parameters for the head fit
+    fitdata['head'] = {'Rc': Rc,
+                       'R90': R90,
+                       'T': head_conic.b_a}
 
     # Now find a tail-fit conic
     # We only fit the tail between xswitch and xfar
@@ -74,21 +81,19 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     # Try a more direct approach: fit hyperbola with LM
     model = conic_y_x()
     best_model = fit(model, x_bow[mtail], y_bow[mtail])
-    # print(best_model.a, best_model.b, best_model.x0)
     r0_tail = best_model.a.value + best_model.x0.value
-
-    # # Add the other branch of the tail
-    # xx = np.concatenate([x_bow[mtail][::-1], x_bow[mtail]])
-    # yy = np.concatenate([-y_bow[mtail][::-1], y_bow[mtail]])
-    # # This is reverse polynomial: x(y)
-    # tail_coeffs = np.polyfit(yy, xx, deg=2)
-    # assert(tail_coeffs[1] == 0.0, tail_coeffs)
-    # ptail = np.poly1d(tail_coeffs)
 
     x_tail = np.linspace(r0_tail, -30.0, 1000)
     y_tail = best_model(x_tail)
     th_tail = np.arctan2(y_tail, x_tail)
     R_tail = np.hypot(x_tail, y_tail)
+
+    # Save the parameters for the tail fit
+    fitdata['tail'] = {'x0': best_model.x0.value,
+                       'a': best_model.a.value,
+                       'b': best_model.b.value,
+                       'r0': best_model.a.value + best_model.x0.value,
+                       'T': best_model.b.value/best_model.a.value}
 
     # Finally, a third fit to the far tail with a hyperbola
     # model2 = conic_y_x(x0=15.0, a=30.0, b=1.0)
@@ -98,6 +103,16 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     y_far = best_model2(x_far)
     th_far = np.arctan2(y_far, x_far)
     R_far = np.hypot(x_far, y_far)
+
+    # Save the parameters for the far tail fit
+    fitdata['far'] = {'x0': best_model2.x0.value,
+                      'a': best_model2.a.value,
+                      'b': best_model2.b.value,
+                      'r0': best_model2.a.value + best_model2.x0.value,
+                      'T': best_model2.b.value/best_model2.a.value}
+
+    # Stash the fit data in the big dict
+    alldata[alpha] = fitdata
 
     # Plot the bow and the two fits
     ax.axvspan(xfar, xswitch, color='k', alpha=0.05)
@@ -186,5 +201,9 @@ fig.savefig(figfile)
 sns.despine(efig)
 efig.tight_layout()
 efig.savefig(figfile.replace('.pdf', '-error.pdf'))
+
+jsonfile = figfile.replace('-Rc-R90.pdf', '-fitdata.json')
+with open(jsonfile, 'w') as f:
+    json.dump(alldata, f, indent=4)
 
 print(figfile, end='')
