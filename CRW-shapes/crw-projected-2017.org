@@ -167,6 +167,9 @@ python two-quadric-Tc-vs-Rc.py
 open two-quadric-R90-vs-i.pdf
 #+END_SRC
 ** R90 vs Rc for generalized CRW
+:PROPERTIES:
+:ID:       F47926C6-77DB-4797-9101-F83B5E59DA6A
+:END:
 + Same but doing R90 vs Rc
 #+BEGIN_SRC python :eval no :tangle two-quadric-R90-vs-Rc.py
   import sys

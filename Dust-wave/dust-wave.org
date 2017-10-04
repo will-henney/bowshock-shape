@@ -484,33 +484,16 @@ python dust-wave-Rc-R90.py
 [[file:dust-wave-Rc-R90.pdf]]
 
 + Error figure: [[file:dust-wave-Rc-R90-error.pdf]]
-
-Try fitting head and tail
 + JSON data file: [[file:dust-wave-fitdata.json]]
 
+*** Plot diagnostic diagrams for the 3-quadric dust wave fits
++ So this will be like the current Fig 16, but for the \alpha_drag models instead of the carawilkinoids
+  + Could I call them /dragoids/?
+  + Yes, I think I could
++ The graph for the carawilkinoids was done here: [[id:F47926C6-77DB-4797-9101-F83B5E59DA6A][R90 vs Rc for generalized CRW]]
+  + It made use of this module: [[id:0483E2CE-E74E-4CFD-89B2-0AE92CCC6217][Utility functions for A, B, and \theta_c]]
+  + But that is very specific to those fits and the tortuous process of trying to do analytic matching, which I ended up not using.
+  + I think we can do something simpler 
 #+BEGIN_SRC python
-  import sys
-  import numpy as np
-  import astropy.modeling.fitting
-  from astropy.table import Table
-  from matplotlib import pyplot as plt
-  import seaborn as sns
-  sys.path.append('../CRW-shapes')
-  import conic_parameters
-  import theta_ratio_fit 
-  sys.path.append('../conic-projection')
-  from conproj_utils import Conic
-
-  for alpha in alphas:
-      astring = f'-alpha{int(100*alpha):03d}.tab'
-      t = Table.read('dust-couple-stream' + astring, format='ascii.tab')
-      dth = np.pi/len(t)
-      theta = t['theta'] + 0.5*dth
-      R_bow = t['R']/t['R'][0]
-      x_bow = R_bow*np.cos(theta)
-      y_bow = R_bow*np.sin(theta)
-
-      ht = 
-
 #+END_SRC
 
