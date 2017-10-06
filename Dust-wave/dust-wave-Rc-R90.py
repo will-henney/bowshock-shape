@@ -70,7 +70,7 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
     # Save the parameters for the head fit
     fitdata['head'] = {'Rc': Rc,
                        'R90': R90,
-                       'T': head_conic.b_a}
+                       'T': head_conic.b_a**2}
 
     # Now find a tail-fit conic
     # We only fit the tail between xswitch and xfar
@@ -93,7 +93,7 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
                        'a': best_model.a.value,
                        'b': best_model.b.value,
                        'r0': best_model.a.value + best_model.x0.value,
-                       'T': best_model.b.value/best_model.a.value}
+                       'T': (best_model.b.value/best_model.a.value)**2}
 
     # Finally, a third fit to the far tail with a hyperbola
     # model2 = conic_y_x(x0=15.0, a=30.0, b=1.0)
@@ -109,7 +109,7 @@ for alpha, ax, eax in zip(alphas, axes.flat, eaxes.flat):
                       'a': best_model2.a.value,
                       'b': best_model2.b.value,
                       'r0': best_model2.a.value + best_model2.x0.value,
-                      'T': best_model2.b.value/best_model2.a.value}
+                      'T': (best_model2.b.value/best_model2.a.value)**2}
 
     # Stash the fit data in the big dict
     alldata[alpha] = fitdata

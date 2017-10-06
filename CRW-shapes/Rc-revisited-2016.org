@@ -1532,7 +1532,7 @@ python conic-head-tail-fit.py
 
   figfilename = sys.argv[0].replace('.py', '.pdf')
 
-  sns.set_style('whitegrid')
+  sns.set_style('white')
   sns.set_color_codes('dark')
 
   NROWS = 2
@@ -1614,6 +1614,7 @@ python conic-head-tail-fit.py
       xlabel=r'$x / r_{0}$', ylabel=r'$y / r_{0}$',
   )
 
+  sns.despine(bottom=True)
   fig.set_size_inches(2*nbeta, 2*nxi)
   fig.tight_layout()
   fig.savefig(figfilename)

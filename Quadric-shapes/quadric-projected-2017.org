@@ -1,4 +1,7 @@
 * Projection of Quadrics
+:PROPERTIES:
+:ID:       B3ABBD4B-6A04-415F-8A8D-6A3179EB3686
+:END:
 
 + Define a conic parameter: T_c = sgn(\theta_c) tan^2 \theta_c
   + Sphere: T_c = 1
@@ -8,6 +11,8 @@
   + T_c = 2 ~R_c - ~R_{90}^2
   + \(T_{c} = 2\, \widetilde{R}_{c} - \widetilde{R}_{90}{}^{2}\)
   + We could call this the *"conic discriminant"*
+    + [2017-10-04 Wed] Or would it be better to call it the *quadric discriminant*
+    + That way, we could use T_q instead of T_c, which would reduce the confusion between c for conic and c for curvature. 
   + Note that this is related to the "second discriminant" of conic
     sections
     + https://en.wikipedia.org/wiki/Discriminant#Conic_sections
@@ -401,6 +406,9 @@ python projected-Tc-vs-Rc.py
 [[file:projected-Tc-vs-Rc.pdf]]
 
 ** Projected R90 versus Rc
+:PROPERTIES:
+:ID:       9232DE3C-903E-4D13-8E72-FC2B92D1FF95
+:END:
 #+BEGIN_SRC python :eval no :tangle projected-R90-vs-Rc.py
   import sys
   import numpy as np

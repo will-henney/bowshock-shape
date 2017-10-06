@@ -28,7 +28,7 @@ theta = np.linspace(0.0, np.pi, ntheta)
 
 figfilename = sys.argv[0].replace('.py', '.pdf')
 
-sns.set_style('whitegrid')
+sns.set_style('white')
 sns.set_color_codes('dark')
 
 NROWS = 2
@@ -110,6 +110,7 @@ axes[-1, 0].set(
     xlabel=r'$x / r_{0}$', ylabel=r'$y / r_{0}$',
 )
 
+sns.despine(bottom=True)
 fig.set_size_inches(2*nbeta, 2*nxi)
 fig.tight_layout()
 fig.savefig(figfilename)

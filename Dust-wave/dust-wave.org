@@ -336,7 +336,7 @@ python dust-couple-stream.py
       # Save the parameters for the head fit
       fitdata['head'] = {'Rc': Rc,
                          'R90': R90,
-                         'T': head_conic.b_a}
+                         'T': head_conic.b_a**2}
 
       # Now find a tail-fit conic
       # We only fit the tail between xswitch and xfar
@@ -359,7 +359,7 @@ python dust-couple-stream.py
                          'a': best_model.a.value,
                          'b': best_model.b.value,
                          'r0': best_model.a.value + best_model.x0.value,
-                         'T': best_model.b.value/best_model.a.value}
+                         'T': (best_model.b.value/best_model.a.value)**2}
 
       # Finally, a third fit to the far tail with a hyperbola
       # model2 = conic_y_x(x0=15.0, a=30.0, b=1.0)
@@ -375,7 +375,7 @@ python dust-couple-stream.py
                         'a': best_model2.a.value,
                         'b': best_model2.b.value,
                         'r0': best_model2.a.value + best_model2.x0.value,
-                        'T': best_model2.b.value/best_model2.a.value}
+                        'T': (best_model2.b.value/best_model2.a.value)**2}
 
       # Stash the fit data in the big dict
       alldata[alpha] = fitdata
@@ -490,10 +490,151 @@ python dust-wave-Rc-R90.py
 + So this will be like the current Fig 16, but for the \alpha_drag models instead of the carawilkinoids
   + Could I call them /dragoids/?
   + Yes, I think I could
+  + Actually, we need to ditch /[an]carawilkinoid/, since it is such a mouthful
+  + New terms:
+    + /cantoid/ for the CRW shape
+    + /ancantoid/ for the anisotropic generalization of ~CRW~
+      + Or maybe even /tarangoid/ !!
+    + Special cases of ancantoids
+      + /proploid/ for \xi = 0.8
+      + /jetoid/ for small \xi
 + The graph for the carawilkinoids was done here: [[id:F47926C6-77DB-4797-9101-F83B5E59DA6A][R90 vs Rc for generalized CRW]]
   + It made use of this module: [[id:0483E2CE-E74E-4CFD-89B2-0AE92CCC6217][Utility functions for A, B, and \theta_c]]
   + But that is very specific to those fits and the tortuous process of trying to do analytic matching, which I ended up not using.
-  + I think we can do something simpler 
-#+BEGIN_SRC python
+  + I think we can do something simpler
++ Some of the necessary equations are in [[id:B3ABBD4B-6A04-415F-8A8D-6A3179EB3686][Projection of Quadrics]]
+  + But a lot of the seem to be only in my handwritten notes still
+  + I have also copied some functions from [[id:9232DE3C-903E-4D13-8E72-FC2B92D1FF95][Projected R90 versus Rc]]
+#+BEGIN_SRC python :eval no :tangle three-quadric-dragoid-R90-vs-Rc.py
+  import sys
+  import json
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker
+  import seaborn as sns
+
+  def Rc_prime(inc, Tc, Rc):
+      f = np.sqrt(1.0 + Tc*np.tan(inc)**2)
+      return Rc * (1 + np.tan(inc)**2) / f / (1.0 + Rc*(f - 1.0) / Tc)
+
+  def Tc_prime(inc, Tc):
+      fsquared = 1.0 + Tc*np.tan(inc)**2
+      return Tc * (1.0 + np.tan(inc)**2) / fsquared
+
+  def R90_prime(inc, Tc, Rc):
+      return np.sqrt(2*Rc_prime(inc, Tc, Rc) - Tc_prime(inc, Tc))
+
+  plotfile = sys.argv[0].replace('.py', '.pdf')
+
+  alldata = json.load(open('dust-wave-fitdata.json'))
+
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  fig, ax = plt.subplots(figsize=(5, 5))
+
+
+  left_annotate_pars = dict(xytext=(-5, 5), ha='right', va='bottom')
+  right_annotate_pars = dict(xytext=(5, -5), ha='left', va='top')
+
+
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  inc = np.linspace(0.0, 0.5*np.pi, 500, endpoint=False)
+  inc_deg = np.degrees(inc)
+
+  colors = 'bmgr'
+
+  for (alpha, data), color in zip(alldata.items(), colors):
+      # Parameters for head conic
+      R0_h = 1.0
+      T_h = data['head']['T']
+      tilde_Rc_h = data['head']['Rc']
+      R90_h = data['head']['R90']
+      ax.plot([tilde_Rc_h], [R90_h], 'o', color=color)
+      ax.plot(Rc_prime(inc, T_h, tilde_Rc_h),
+              R90_prime(inc, T_h, tilde_Rc_h), '--', color=color)
+
+  # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
+  ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
+
+  ax.legend(ncol=1, fontsize='small', frameon=True)
+  ax.set(
+      yscale='linear',
+      xscale='linear',
+      xlim=[0.0, 3.1],
+      ylim=[0.0, 3.1],
+      xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+  )        
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+
+
 #+END_SRC
 
+
+#+BEGIN_SRC sh :results file
+  python three-quadric-dragoid-R90-vs-Rc.py
+#+END_SRC
+
+#+RESULTS:
+[[file:three-quadric-dragoid-R90-vs-Rc.pdf]]
+
+
+* Utility library for projecting a general shape
++ [ ] I need to find a better home for this
++ The plan is to find the plane-of-sky shape (x′, y′) numerically for an arbitrary R(\theta) at a given inclination
++ This will be a check on the multi-quadric 
++ Turns out that I already did a version of this years ago in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/projected/bowfuncs.py][projected/bowfuncs.py]], so I will copy routines from there and modify accordingly
+
+#+BEGIN_SRC python :tangle bowproject.py :eval no
+  import numpy as np
+  from scipy.optimize import brentq
+  from scipy.misc import derivative
+
+  def omega(func_R, theta):
+      """Find omega = (1 / R) dR / d theta
+  Note that theta may be an array
+    
+  """
+      def log_R(theta):
+          return np.log(func_R(theta))
+      return derivative(log_R, theta, dx=1.e-6)
+
+
+
+  # * Example shapes 
+
+  def parabola_R_theta(theta):
+      """This is the special parabola with Rc = 2"""
+      return 1.0 / (1.0 - np.cos(theta))
+
+  def parabola_omega_true(theta):
+      return np.sin(theta)  / (1.0 - np.cos(theta))
+
+  if __name__ == "__main__":
+      from matplotlib import pyplot as plt
+      import seaborn as sns
+      sns.set_style('white')
+      fig, ax = plt.subplots()
+    
+      th = np.linspace(0.0, np.pi, 101)
+      ax.plot(th, omega()
+
+
+#+END_SRC
