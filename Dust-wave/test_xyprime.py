@@ -14,17 +14,12 @@ th = np.linspace(0.0, np.pi, 1001)
 inclinations = [0, 15, 30, 45, 60, 75]
 colors = sns.color_palette(n_colors=len(inclinations))
 
-
-panels = [
-    ["Paraboloid", axes[0, 0], paraboloid_R_theta, ()],
-    ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, ()],
-    [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
-    [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
-]
-
-
-for shape_name, ax, R_theta, extra_pars in panels:
-
+for shape_name, ax, R_theta, extra_pars in [
+        ["Paraboloid", axes[0, 0], paraboloid_R_theta, ()],
+        ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, ()],
+        [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
+        [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
+]:
     for inc_dg, color in zip(inclinations, colors):
         inc = np.radians(inc_dg)
         xp, yp = xyprime_t(th, inc, R_theta, *extra_pars)

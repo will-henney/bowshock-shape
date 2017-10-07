@@ -597,21 +597,34 @@ python dust-wave-Rc-R90.py
 
 
 * Utility library ~bow_projection~ for projecting a general shape
-+ [ ] I need to find a better home for this
 + The plan is to find the plane-of-sky shape (x′, y′) numerically for an arbitrary R(\theta) at a given inclination
 + This will be a check on the multi-quadric 
 + Turns out that I already did a version of this years ago in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/projected/bowfuncs.py][projected/bowfuncs.py]], so I will copy routines from there and modify accordingly
-+ [2/6] Plan of work for ~bow_projection.py~ and its applications
++ [3/9] Plan of work for ~bow_projection.py~ and its applications
   1. [X] Implement analytic R(\theta) functions: paraboloid, wilkinoid, cantoid
   2. [X] Implement \omega(\theta)
      + Test for analytic functions
-  3. [ ] Implement x’_t, y’_t
+  3. [X] Implement x’_t, y’_t
      + Plot projected shapes for analytic functions
-  4. [ ] Implement numerical R(\theta) functions: ancantoid, dragoid
-     + Maybe use spline fits to get nice smooth derivatives (use much fewer spline knots than we have theta grid points)
+  4. [-] Implement numerical R(\theta) functions: ancantoid, dragoid
+     + [X] Use spline fits to get nice smooth derivatives (use much fewer spline knots than we have theta grid points)
+     + [ ] Solve the problems I have at \theta = 0 and \theta \to 180
+     + [ ] Use equation6.py or similar for the ancantoid
   5. [ ] Implement R_c, R_90
+     + Deal better with telling if we are outside the bow
      + Plot diagnostic graphs
-  6. [ ] Implement standing wave perturbations
+     + This might be better combined with the following step
+  6. [ ] Make a convenience function that will do all that is necessary to get the info for a given shape at a given inclination
+     - Find the range of relevant \theta and make an array
+     - Find the R_0’, R_c’, R_90’.
+       - Use linear interpolation to get the exact values for \theta_90, \theta_0
+       - Fit a quadratic to R’(\theta’) 
+     - Calculate the (x_t’, y_t’) curve, including the bottom branch and the special points.  Also the \theta’ array
+     - Return a dict with all this packaged up
+  7. [ ] Include some of these graphs in the paper
+  8. [ ] Implement standing wave perturbations
+     + Maybe use decorator
+  9. [ ] I need to find a better home for this work than the dust-wave file
 
 #+BEGIN_SRC python :tangle bow_projection.py :eval no
   import numpy as np
@@ -707,6 +720,95 @@ python dust-wave-Rc-R90.py
   def paraboloid_omega_true(theta):
       """Analytic omega for special parabola"""
       return np.sin(theta)  / (1.0 + np.cos(theta))
+
+
+  # * Non-analytic shape functions
+  #
+  # These are bow shock shapes for which it is "non-trivial" to
+  # calculate each R(theta).  E.g., requiring numerical root finding, so
+  # hard to write naturally in an element-wise vector form
+  #
+  # For efficiency, we therefore calculate R(theta) once on a grid, and
+  # then use a spline interpolation for fast subsequent evaluation
+  # of R(theta) and its derivative
+
+  import scipy.interpolate
+
+  class _Spline_R_theta(object):
+      """Base class for non-analytic shapes
+
+  The R(theta) shape is initialized once on a grid when the class is
+  instantiated, and fitted by a B-spline.  The object can then be called
+  as a function of theta, which will be very fast since it just
+  evaluates the B-spline.
+
+      """
+
+      thgrid = None
+      Rgrid = None
+      def _init_grid(self, ngrid, **shape_kwds):
+          raise NotImplementedError("Override this method in a sub-class")
+
+      def _init_spline(self, kspline, epsilon):
+          """Fit a smoothing spline to the R(theta) grid. 
+
+  `kspline` is the order of the splines (default: cubic). `epsilon` is
+  the required average rms deviation between the grid values and the
+  fitted spline, which is used in determining how many knots to use
+
+          """
+          mbad = ~np.isfinite(self.Rgrid) | (self.Rgrid == 0.0)
+          self.Rgrid[mbad] = 0.0
+          self.R_theta = scipy.interpolate.UnivariateSpline(
+              x=self.thgrid, y=self.Rgrid, w=~mbad,
+              k=kspline, s=len(self.thgrid)*epsilon**2,
+              check_finite=True)
+
+      def __call__(self, theta):
+          """Evaluate R(theta) from spline interpolation"""
+          return self.R_theta(theta)
+
+      def __init__(self, ngrid=100, kspline=3, epsilon=1.e-3, **shape_kwds):
+          """"""
+          # Set up grids of theta and R
+          self._init_grid(ngrid, **shape_kwds)
+          # Set up spline interpolation
+          self._init_spline(kspline, epsilon)
+
+
+  class Spline_R_theta_from_function(_Spline_R_theta):
+      """Spline-interpolated bow shock shape from explicit function
+
+  Extra parameters for initialization: `shape_func` and
+  `shape_func_pars`. THIS IS FOR TESTING ONLY!!! It checks that the
+  interpolation machinery works for simple shapes. Outside of such
+  tests, there is really no need to use the spline interpolation for
+  these cases.
+
+      """
+
+      def _init_grid(self, ngrid,
+                     shape_func=paraboloid_R_theta,
+                     shape_func_pars=()):
+          # Include the negative branch so the spline will have the
+          # right gradient on the axis
+          self.thgrid = np.linspace(-np.pi, np.pi, ngrid)
+          self.Rgrid = shape_func(self.thgrid, *shape_func_pars)
+
+
+  class Spline_R_theta_from_grid(_Spline_R_theta):
+      """Spline-interpolated bow shock shape from user-specified arrays
+
+  Extra parameters for initialization: `theta_grid` and `R_grid`
+
+      """
+      def _init_grid(self, ngrid, theta_grid=None, R_grid=None):
+          # Note that ngrid is ignored in this implementation
+          if theta_grid is not None and R_grid is not None:
+              self.thgrid = theta_grid
+              self.Rgrid = R_grid
+          else:
+              raise ValueError("Both theta_grid and R_grid must be specified")
 
 
   # * Basic tests of functionality
@@ -825,17 +927,12 @@ python test_phi_t.py
   inclinations = [0, 15, 30, 45, 60, 75]
   colors = sns.color_palette(n_colors=len(inclinations))
 
-
-  panels = [
-      ["Paraboloid", axes[0, 0], paraboloid_R_theta, ()],
-      ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, ()],
-      [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
-      [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
-  ]
-
-
-  for shape_name, ax, R_theta, extra_pars in panels:
-
+  for shape_name, ax, R_theta, extra_pars in [
+          ["Paraboloid", axes[0, 0], paraboloid_R_theta, ()],
+          ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, ()],
+          [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
+          [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
+  ]:
       for inc_dg, color in zip(inclinations, colors):
           inc = np.radians(inc_dg)
           xp, yp = xyprime_t(th, inc, R_theta, *extra_pars)
@@ -871,3 +968,79 @@ python test_xyprime.py
 
 #+RESULTS:
 [[file:test_xyprime.pdf]]
+
+
+*** Test of spline fit shapes
+#+BEGIN_SRC python :eval no :tangle test_xyprime_spline.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from bow_projection import (xyprime_t, Spline_R_theta_from_function,
+                              paraboloid_R_theta, wilkinoid_R_theta,
+                              cantoid_R_theta)
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('ticks')
+  fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+
+  th = np.linspace(0.0, np.pi, 1001)
+  inclinations = [0, 15, 30, 45, 60, 75]
+  linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+  colors = sns.color_palette(n_colors=len(inclinations))
+
+  for shape_name, ax, R_theta in [
+          ["Paraboloid", axes[0, 0],
+           Spline_R_theta_from_function(ngrid=301,
+                                        shape_func=paraboloid_R_theta)],
+          ["Wilkinoid", axes[0, 1],
+           Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
+                                        shape_func=wilkinoid_R_theta)],
+          [r"Cantoid $\beta = 0.001$", axes[1, 0],
+           Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
+                                        shape_func=cantoid_R_theta,
+                                        shape_func_pars=(0.001,))],
+          [r"Cantoid $\beta = 0.01$", axes[1, 1],
+           Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
+                                        shape_func=cantoid_R_theta,
+                                        shape_func_pars=(0.01,))],
+  ]:
+      for inc_dg, color, lw in zip(inclinations, colors, linewidths):
+          inc = np.radians(inc_dg)
+          xp, yp = xyprime_t(th, inc, R_theta)
+          m = np.isfinite(xp) & np.isfinite(yp)
+          if m.sum() == 0:
+              # Case of no tangent line at all at this inclination
+              continue
+          xxp = np.concatenate((xp[m][::-1], xp[m]))
+          yyp = np.concatenate((-yp[m][::-1], yp[m]))
+          R0p = xxp.max()
+          ax.plot(xxp/R0p, yyp/R0p,
+                  label=fr"$i = {inc_dg:d}^\circ$",
+                  color=color, lw=lw)
+
+      ax.plot([0], [0], 'o', color='k')
+
+      ax.legend(title=shape_name, ncol=2, loc="center left")
+      ax.set(
+          xlabel=r"$x' / R_0'$",
+          ylabel=r"$y' / R_0'$",
+          xlim=[-7, 3],
+          ylim=[-5, 5],
+      )
+      ax.set_aspect('equal', adjustable='box')
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python test_xyprime_spline.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_spline.pdf]]
+

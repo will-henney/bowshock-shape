@@ -93,6 +93,95 @@ def paraboloid_omega_true(theta):
     return np.sin(theta)  / (1.0 + np.cos(theta))
 
 
+# * Non-analytic shape functions
+#
+# These are bow shock shapes for which it is "non-trivial" to
+# calculate each R(theta).  E.g., requiring numerical root finding, so
+# hard to write naturally in an element-wise vector form
+#
+# For efficiency, we therefore calculate R(theta) once on a grid, and
+# then use a spline interpolation for fast subsequent evaluation
+# of R(theta) and its derivative
+
+import scipy.interpolate
+
+class _Spline_R_theta(object):
+    """Base class for non-analytic shapes
+
+The R(theta) shape is initialized once on a grid when the class is
+instantiated, and fitted by a B-spline.  The object can then be called
+as a function of theta, which will be very fast since it just
+evaluates the B-spline.
+
+    """
+
+    thgrid = None
+    Rgrid = None
+    def _init_grid(self, ngrid, **shape_kwds):
+        raise NotImplementedError("Override this method in a sub-class")
+
+    def _init_spline(self, kspline, epsilon):
+        """Fit a smoothing spline to the R(theta) grid. 
+
+`kspline` is the order of the splines (default: cubic). `epsilon` is
+the required average rms deviation between the grid values and the
+fitted spline, which is used in determining how many knots to use
+
+        """
+        mbad = ~np.isfinite(self.Rgrid) | (self.Rgrid == 0.0)
+        self.Rgrid[mbad] = 0.0
+        self.R_theta = scipy.interpolate.UnivariateSpline(
+            x=self.thgrid, y=self.Rgrid, w=~mbad,
+            k=kspline, s=len(self.thgrid)*epsilon**2,
+            check_finite=True)
+
+    def __call__(self, theta):
+        """Evaluate R(theta) from spline interpolation"""
+        return self.R_theta(theta)
+
+    def __init__(self, ngrid=100, kspline=3, epsilon=1.e-3, **shape_kwds):
+        """"""
+        # Set up grids of theta and R
+        self._init_grid(ngrid, **shape_kwds)
+        # Set up spline interpolation
+        self._init_spline(kspline, epsilon)
+
+
+class Spline_R_theta_from_function(_Spline_R_theta):
+    """Spline-interpolated bow shock shape from explicit function
+
+Extra parameters for initialization: `shape_func` and
+`shape_func_pars`. THIS IS FOR TESTING ONLY!!! It checks that the
+interpolation machinery works for simple shapes. Outside of such
+tests, there is really no need to use the spline interpolation for
+these cases.
+
+    """
+
+    def _init_grid(self, ngrid,
+                   shape_func=paraboloid_R_theta,
+                   shape_func_pars=()):
+        # Include the negative branch so the spline will have the
+        # right gradient on the axis
+        self.thgrid = np.linspace(-np.pi, np.pi, ngrid)
+        self.Rgrid = shape_func(self.thgrid, *shape_func_pars)
+
+
+class Spline_R_theta_from_grid(_Spline_R_theta):
+    """Spline-interpolated bow shock shape from user-specified arrays
+
+Extra parameters for initialization: `theta_grid` and `R_grid`
+
+    """
+    def _init_grid(self, ngrid, theta_grid=None, R_grid=None):
+        # Note that ngrid is ignored in this implementation
+        if theta_grid is not None and R_grid is not None:
+            self.thgrid = theta_grid
+            self.Rgrid = R_grid
+        else:
+            raise ValueError("Both theta_grid and R_grid must be specified")
+
+
 # * Basic tests of functionality
 #
 
