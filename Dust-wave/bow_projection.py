@@ -59,7 +59,7 @@ def xyprime_t(theta, inc, func_R, *args_for_func_R):
 
 def wilkinoid_R_theta(theta):
     """Wilkin solution for wind-stream interaction"""
-    return np.sqrt(3*(1.0 - theta/np.tan(theta)))/np.sin(theta)
+    return np.sqrt(3*(1.0 - theta/np.tan(theta)))/np.sin(np.abs(theta))
 
 
 def cantoid_R_theta(theta, beta):
@@ -80,7 +80,7 @@ Returns R(theta), normalized to the stagnation radius. Extra parameter
     R0 = np.sqrt(beta)/(1.0+np.sqrt(beta))
 
     # Return radius in units of R0
-    return  np.sin(theta1) / np.sin(theta + theta1) / R0
+    return  np.sin(theta1) / np.sin(np.abs(theta) + theta1) / R0
 
 
 def paraboloid_R_theta(theta):
@@ -120,31 +120,33 @@ evaluates the B-spline.
     def _init_grid(self, ngrid, **shape_kwds):
         raise NotImplementedError("Override this method in a sub-class")
 
-    def _init_spline(self, kspline, epsilon):
+    def _init_spline(self, kspline, Rmax, smooth):
         """Fit a smoothing spline to the R(theta) grid. 
 
-`kspline` is the order of the splines (default: cubic). `epsilon` is
-the required average rms deviation between the grid values and the
-fitted spline, which is used in determining how many knots to use
+We fit B-splines to the parametric [x(theta), y(theta)] representation
+of the bow shock. `kspline` is the order of the splines (default:
+cubic). `Rmax` is the maximum radius to be included in the spline fit.
+`smooth` is the spline smoothing condition (see docs for
+`scipy.interpolate.splprep`).
 
         """
-        mbad = ~np.isfinite(self.Rgrid) | (self.Rgrid == 0.0)
-        self.Rgrid[mbad] = 0.0
-        self.R_theta = scipy.interpolate.UnivariateSpline(
-            x=self.thgrid, y=self.Rgrid, w=~mbad,
-            k=kspline, s=len(self.thgrid)*epsilon**2,
-            check_finite=True)
+        mgood = np.isfinite(self.Rgrid) & (self.Rgrid <= Rmax)
+        x = self.Rgrid[mgood]*np.cos(self.thgrid[mgood])
+        y = self.Rgrid[mgood]*np.sin(self.thgrid[mgood])
+        self.spline_tck, u = scipy.interpolate.splprep(
+            [x, y], u=self.thgrid[mgood], k=kspline, s=smooth)
 
     def __call__(self, theta):
         """Evaluate R(theta) from spline interpolation"""
-        return self.R_theta(theta)
+        x, y = scipy.interpolate.splev(theta, self.spline_tck)
+        return np.hypot(x, y)
 
-    def __init__(self, ngrid=100, kspline=3, epsilon=1.e-3, **shape_kwds):
+    def __init__(self, ngrid=100, kspline=3, Rmax=100, smooth=0, **shape_kwds):
         """"""
         # Set up grids of theta and R
         self._init_grid(ngrid, **shape_kwds)
         # Set up spline interpolation
-        self._init_spline(kspline, epsilon)
+        self._init_spline(kspline, Rmax, smooth)
 
 
 class Spline_R_theta_from_function(_Spline_R_theta):

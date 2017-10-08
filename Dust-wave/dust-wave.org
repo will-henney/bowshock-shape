@@ -688,7 +688,7 @@ python dust-wave-Rc-R90.py
 
   def wilkinoid_R_theta(theta):
       """Wilkin solution for wind-stream interaction"""
-      return np.sqrt(3*(1.0 - theta/np.tan(theta)))/np.sin(theta)
+      return np.sqrt(3*(1.0 - theta/np.tan(theta)))/np.sin(np.abs(theta))
 
 
   def cantoid_R_theta(theta, beta):
@@ -709,7 +709,7 @@ python dust-wave-Rc-R90.py
       R0 = np.sqrt(beta)/(1.0+np.sqrt(beta))
 
       # Return radius in units of R0
-      return  np.sin(theta1) / np.sin(theta + theta1) / R0
+      return  np.sin(theta1) / np.sin(np.abs(theta) + theta1) / R0
 
 
   def paraboloid_R_theta(theta):
@@ -749,31 +749,33 @@ python dust-wave-Rc-R90.py
       def _init_grid(self, ngrid, **shape_kwds):
           raise NotImplementedError("Override this method in a sub-class")
 
-      def _init_spline(self, kspline, epsilon):
+      def _init_spline(self, kspline, Rmax, smooth):
           """Fit a smoothing spline to the R(theta) grid. 
 
-  `kspline` is the order of the splines (default: cubic). `epsilon` is
-  the required average rms deviation between the grid values and the
-  fitted spline, which is used in determining how many knots to use
+  We fit B-splines to the parametric [x(theta), y(theta)] representation
+  of the bow shock. `kspline` is the order of the splines (default:
+  cubic). `Rmax` is the maximum radius to be included in the spline fit.
+  `smooth` is the spline smoothing condition (see docs for
+  `scipy.interpolate.splprep`).
 
           """
-          mbad = ~np.isfinite(self.Rgrid) | (self.Rgrid == 0.0)
-          self.Rgrid[mbad] = 0.0
-          self.R_theta = scipy.interpolate.UnivariateSpline(
-              x=self.thgrid, y=self.Rgrid, w=~mbad,
-              k=kspline, s=len(self.thgrid)*epsilon**2,
-              check_finite=True)
+          mgood = np.isfinite(self.Rgrid) & (self.Rgrid <= Rmax)
+          x = self.Rgrid[mgood]*np.cos(self.thgrid[mgood])
+          y = self.Rgrid[mgood]*np.sin(self.thgrid[mgood])
+          self.spline_tck, u = scipy.interpolate.splprep(
+              [x, y], u=self.thgrid[mgood], k=kspline, s=smooth)
 
       def __call__(self, theta):
           """Evaluate R(theta) from spline interpolation"""
-          return self.R_theta(theta)
+          x, y = scipy.interpolate.splev(theta, self.spline_tck)
+          return np.hypot(x, y)
 
-      def __init__(self, ngrid=100, kspline=3, epsilon=1.e-3, **shape_kwds):
+      def __init__(self, ngrid=100, kspline=3, Rmax=100, smooth=0, **shape_kwds):
           """"""
           # Set up grids of theta and R
           self._init_grid(ngrid, **shape_kwds)
           # Set up spline interpolation
-          self._init_spline(kspline, epsilon)
+          self._init_spline(kspline, Rmax, smooth)
 
 
   class Spline_R_theta_from_function(_Spline_R_theta):
@@ -971,6 +973,58 @@ python test_xyprime.py
 
 
 *** Test of spline fits
+#+BEGIN_SRC python :eval no :tangle test_spline_radius.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from bow_projection import (omega, paraboloid_R_theta,
+                              wilkinoid_R_theta, cantoid_R_theta,
+                              Spline_R_theta_from_function)
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('ticks')
+  fig, ax = plt.subplots()
+
+  th = np.linspace(-np.pi, np.pi, 10001)
+  th_dg = np.degrees(th)
+
+  for label, func, pars, ngrid, s in [
+          ["paraboloid", paraboloid_R_theta, (), 1001, 0],
+          ["Wilkinoid", wilkinoid_R_theta, (), 1001, 0],
+          # [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 1001, 0],
+          # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
+  ]:
+      spline_func = Spline_R_theta_from_function(
+          ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
+      ax.plot(th_dg, spline_func(th), lw=0.5, label=label)
+      ax.plot(th_dg, func(th, *pars), color='b', alpha=0.2, lw=2, label='_nolabel_')
+
+  ax.legend(title=r"Spline approximations")
+  ax.set(
+      xlabel=r"Polar angle: $\theta$, degrees",
+      ylabel=r"$R$",
+      xlim=[-180, 180],
+      yscale='log',
+      ylim=[0.9, 200.0],
+      xticks=[0, 30, 60, 90, 120, 150, 180],
+  )
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python test_spline_radius.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_spline_radius.pdf]]
+
 #+BEGIN_SRC python :eval no :tangle test_spline.py
   import sys
   import numpy as np
@@ -985,20 +1039,19 @@ python test_xyprime.py
   sns.set_style('ticks')
   fig, ax = plt.subplots()
 
-  th = np.linspace(0.0, np.pi, 501)
+  th = np.linspace(0, np.pi, 10001)
   th_dg = np.degrees(th)
 
-  for label, func, pars, ngrid, epsilon in [
-          ["paraboloid", paraboloid_R_theta, (), 301, 1e-3],
-          ["Wilkinoid", wilkinoid_R_theta, (), 101, 1e-6],
-          [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 101, 1e-6],
-          [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 101, 1e-6],
-          [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-6],
+  for label, func, pars, ngrid, s in [
+          ["paraboloid", paraboloid_R_theta, (), 1001, 0],
+          ["Wilkinoid", wilkinoid_R_theta, (), 1001, 0],
+          # [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 1001, 0],
+          # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
   ]:
       spline_func = Spline_R_theta_from_function(
-          ngrid=ngrid, epsilon=epsilon,
-          shape_func=func, shape_func_pars=pars)
-      ax.plot(th_dg, omega(th, spline_func), label=label)
+          ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
+      ax.plot(th_dg, omega(th, spline_func), lw=0.5, label=label)
       ax.plot(th_dg, omega(th, func, *pars), color='b', alpha=0.2, lw=2, label='_nolabel_')
 
   ax.legend(title=r"Spline approximations")
@@ -1047,25 +1100,19 @@ python test_spline.py
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
   colors = sns.color_palette(n_colors=len(inclinations))
 
-  for shape_name, ax, R_theta in [
-          ["Paraboloid", axes[0, 0],
-           Spline_R_theta_from_function(ngrid=301,
-                                        shape_func=paraboloid_R_theta)],
-          ["Wilkinoid", axes[0, 1],
-           Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
-                                        shape_func=wilkinoid_R_theta)],
-          [r"Cantoid $\beta = 0.001$", axes[1, 0],
-           Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
-                                        shape_func=cantoid_R_theta,
-                                        shape_func_pars=(0.001,))],
-          [r"Cantoid $\beta = 0.01$", axes[1, 1],
-           Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
-                                        shape_func=cantoid_R_theta,
-                                        shape_func_pars=(0.01,))],
+  for label, ax, func, pars, ngrid, s in [
+          ["paraboloid", axes[0, 0], paraboloid_R_theta, (), 1001, 0],
+          ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, (), 1001, 0],
+          [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,), 1001, 0],
+          # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
   ]:
+      spline_func = Spline_R_theta_from_function(
+          ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
+
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):
           inc = np.radians(inc_dg)
-          xp, yp = xyprime_t(th, inc, R_theta)
+          xp, yp = xyprime_t(th, inc, spline_func)
           m = np.isfinite(xp) & np.isfinite(yp)
           if m.sum() == 0:
               # Case of no tangent line at all at this inclination
@@ -1079,7 +1126,7 @@ python test_spline.py
 
       ax.plot([0], [0], 'o', color='k')
 
-      ax.legend(title=shape_name, ncol=2, loc="center left")
+      ax.legend(title=label, ncol=2, loc="center left")
       ax.set(
           xlabel=r"$x' / R_0'$",
           ylabel=r"$y' / R_0'$",

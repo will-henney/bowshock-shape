@@ -16,25 +16,19 @@ inclinations = [0, 15, 30, 45, 60, 75]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
 colors = sns.color_palette(n_colors=len(inclinations))
 
-for shape_name, ax, R_theta in [
-        ["Paraboloid", axes[0, 0],
-         Spline_R_theta_from_function(ngrid=301,
-                                      shape_func=paraboloid_R_theta)],
-        ["Wilkinoid", axes[0, 1],
-         Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
-                                      shape_func=wilkinoid_R_theta)],
-        [r"Cantoid $\beta = 0.001$", axes[1, 0],
-         Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
-                                      shape_func=cantoid_R_theta,
-                                      shape_func_pars=(0.001,))],
-        [r"Cantoid $\beta = 0.01$", axes[1, 1],
-         Spline_R_theta_from_function(ngrid=101, epsilon=1e-6,
-                                      shape_func=cantoid_R_theta,
-                                      shape_func_pars=(0.01,))],
+for label, ax, func, pars, ngrid, s in [
+        ["paraboloid", axes[0, 0], paraboloid_R_theta, (), 1001, 0],
+        ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, (), 1001, 0],
+        [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,), 101, 1e-10],
+        [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,), 1001, 0],
+        # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
 ]:
+    spline_func = Spline_R_theta_from_function(
+        ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
+
     for inc_dg, color, lw in zip(inclinations, colors, linewidths):
         inc = np.radians(inc_dg)
-        xp, yp = xyprime_t(th, inc, R_theta)
+        xp, yp = xyprime_t(th, inc, spline_func)
         m = np.isfinite(xp) & np.isfinite(yp)
         if m.sum() == 0:
             # Case of no tangent line at all at this inclination
@@ -48,7 +42,7 @@ for shape_name, ax, R_theta in [
 
     ax.plot([0], [0], 'o', color='k')
 
-    ax.legend(title=shape_name, ncol=2, loc="center left")
+    ax.legend(title=label, ncol=2, loc="center left")
     ax.set(
         xlabel=r"$x' / R_0'$",
         ylabel=r"$y' / R_0'$",
