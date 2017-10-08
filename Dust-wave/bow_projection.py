@@ -145,8 +145,10 @@ cubic). `Rmax` is the maximum radius to be included in the spline fit.
     def __call__(self, theta):
         """Evaluate R(theta) from spline interpolation"""
         x, y = scipy.interpolate.splev(theta, self.spline_tck, ext=1)
+        # The ext=1 option to splev return 0 for points outside range of theta
         R = np.hypot(x, y)
-        R[x == 0.0] = np.nan
+        # Then we set those out-of-bound points to NaN
+        R[(x == 0.0) & (y == 0.0)] = np.nan
         return R
 
     def __init__(self, ngrid=100, kspline=3, Rmax=100, smooth=0, **shape_kwds):

@@ -600,16 +600,16 @@ python dust-wave-Rc-R90.py
 + The plan is to find the plane-of-sky shape (x′, y′) numerically for an arbitrary R(\theta) at a given inclination
 + This will be a check on the multi-quadric 
 + Turns out that I already did a version of this years ago in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/projected/bowfuncs.py][projected/bowfuncs.py]], so I will copy routines from there and modify accordingly
-+ [3/9] Plan of work for ~bow_projection.py~ and its applications
++ [4/9] Plan of work for ~bow_projection.py~ and its applications
   1. [X] Implement analytic R(\theta) functions: paraboloid, wilkinoid, cantoid
   2. [X] Implement \omega(\theta)
      + Test for analytic functions
   3. [X] Implement x’_t, y’_t
      + Plot projected shapes for analytic functions
-  4. [-] Implement numerical R(\theta) functions: ancantoid, dragoid
+  4. [X] Implement numerical R(\theta) functions: ancantoid, dragoid
      + [X] Use spline fits to get nice smooth derivatives (use much fewer spline knots than we have theta grid points)
      + [X] Solve the problems I have at \theta = 0 and \theta \to 180
-     + [ ] Use equation6.py or similar for the ancantoid
+     + [X] Use equation6.py or similar for the ancantoid
   5. [ ] Implement R_c, R_90
      + Deal better with telling if we are outside the bow
      + Plot diagnostic graphs
@@ -774,8 +774,10 @@ python dust-wave-Rc-R90.py
       def __call__(self, theta):
           """Evaluate R(theta) from spline interpolation"""
           x, y = scipy.interpolate.splev(theta, self.spline_tck, ext=1)
+          # The ext=1 option to splev return 0 for points outside range of theta
           R = np.hypot(x, y)
-          R[x == 0.0] = np.nan
+          # Then we set those out-of-bound points to NaN
+          R[(x == 0.0) & (y == 0.0)] = np.nan
           return R
 
       def __init__(self, ngrid=100, kspline=3, Rmax=100, smooth=0, **shape_kwds):
@@ -865,7 +867,8 @@ python dust-wave-Rc-R90.py
 
 ** Test the ~bow_projection~ library
 
-*** Basic test of omega(theta) for analytic shape
+*** Tests of analytic shapes
+**** Basic test of omega(theta) for analytic shape
 This is included in the module itself.  Note the ~symlog~ y-axis, which is linear from 0 \to 1 and then logarithmic from 1 \to 200
 #+BEGIN_SRC sh :results file
   python bow_projection.py
@@ -874,7 +877,7 @@ This is included in the module itself.  Note the ~symlog~ y-axis, which is linea
 #+RESULTS:
 [[file:test_bow_projection_omega.pdf]]
 
-*** Test of \phi_t
+**** Test of \phi_t
 #+BEGIN_SRC python :eval no :tangle test_phi_t.py
   import sys
   import numpy as np
@@ -919,7 +922,7 @@ python test_phi_t.py
 #+RESULTS:
 [[file:test_phi_t.pdf]]
 
-*** Test of plane-of-sky shape
+**** Test of plane-of-sky shape
 #+BEGIN_SRC python :eval no :tangle test_xyprime.py
   import sys
   import numpy as np
@@ -980,7 +983,9 @@ python test_xyprime.py
 [[file:test_xyprime.pdf]]
 
 
-*** Test of spline fits
+*** Test of spline fits to analytic shapes
+
+**** R(\theta) spline fit to function
 #+BEGIN_SRC python :eval no :tangle test_spline_radius.py
   import sys
   import numpy as np
@@ -1033,6 +1038,8 @@ python test_spline_radius.py
 #+RESULTS:
 [[file:test_spline_radius.pdf]]
 
+
+**** \omega(\theta) spline fit to function
 #+BEGIN_SRC python :eval no :tangle test_spline.py
   import sys
   import numpy as np
@@ -1088,7 +1095,7 @@ python test_spline.py
 #+RESULTS:
 [[file:test_spline.pdf]]
 
-*** Test of spline fit plane-of-sky shapes
+**** (x_t’, y_t’) spline fit to function
 #+BEGIN_SRC python :eval no :tangle test_xyprime_spline.py
   import sys
   import numpy as np
@@ -1155,4 +1162,157 @@ python test_xyprime_spline.py
 
 #+RESULTS:
 [[file:test_xyprime_spline.pdf]]
+
+
+** Ancantoid application of ~bow_projection~ library
+
+*** Spline fit to ancantoid shape
+#+BEGIN_SRC python :eval no :tangle ancantoid_shape.py
+  import sys
+  import numpy as np
+  from bow_projection import Spline_R_theta_from_grid
+  sys.path.append("../CRW-shapes")
+  import equation6
+
+  DEBUG = False
+
+  class Ancantoid(object):
+      def __init__(self, xi, beta, n=101):
+          if DEBUG:
+              print("Initialising Ancantoid(xi={xi:.2g}, beta={beta:.2g}, n={n})",
+                    file=sys.stderr)
+          # Use equation6 to find grid of R, theta
+          self.thgrid = np.linspace(0.0, np.pi, n)
+          self.shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
+          self.Rgrid = self.shell.radius(self.thgrid) / self.shell.R0
+          if DEBUG:
+              print("thgrid =", self.thgrid, file=sys.stderr)
+              print("Rgrid = ", self.Rgrid, file=sys.stderr)
+          # Then set up the spline fit to the grid points
+          self.splinefit = Spline_R_theta_from_grid(
+              theta_grid=self.thgrid, R_grid=self.Rgrid)
+
+      def __call__(self, theta):
+          # When called as a function, give the spline fitted result
+           return self.splinefit(theta)
+
+
+  if __name__ == "__main__":
+
+      from matplotlib import pyplot as plt
+      import seaborn as sns
+
+      lib_name = sys.argv[0].replace('.py', '')
+      figfile = f"test_{lib_name}_radius.pdf"
+
+
+      sns.set_style('ticks')
+      fig, ax = plt.subplots()
+
+      th = np.linspace(-np.pi, np.pi, 1001)
+      th_dg = np.degrees(th)
+
+      for xi, beta in [[0.8, 0.001],
+                       [0.8, 0.01],
+                       [0.8, 0.1],
+                       [0.4, 0.001],
+                       [0.4, 0.01],
+                       [0.4, 0.1],]:
+          label = fr"$\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
+          shape = Ancantoid(xi=xi, beta=beta)
+          ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
+                  color='b', alpha=0.2, lw=2, label='_nolabel_')
+          ax.plot(th_dg, shape(th), lw=0.8, label=label)
+
+      ax.legend(title=r"Ancantoid shapes")
+      ax.set(
+          xlabel=r"Polar angle: $\theta$, degrees",
+          ylabel=r"$R$",
+          xlim=[0, 180],
+          yscale='log',
+          ylim=[0.9, 200.0],
+          xticks=[0, 30, 60, 90, 120, 150, 180],
+      )
+      sns.despine()
+      fig.tight_layout()
+      fig.savefig(figfile)
+      print(figfile, end='')
+
+#+END_SRC
+
+
+**** Test R(\theta) spline fit to ancantoid
+#+BEGIN_SRC sh :results file
+python ancantoid_shape.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_ancantoid_shape_radius.pdf]]
+
+
+**** Test (x_t’, y_t’) for ancantoid
+#+BEGIN_SRC python :eval no :tangle test_xyprime_ancantoid.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from bow_projection import (xyprime_t)
+  from ancantoid_shape import Ancantoid
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('ticks')
+  fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+
+  th = np.linspace(0.0, np.pi, 1001)
+  inclinations = [0, 15, 30, 45, 60, 75]
+  linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+  colors = sns.color_palette(n_colors=len(inclinations))
+
+  for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
+                       [0.8, 0.1, axes[0, 1]],
+                       [0.4, 0.001, axes[1, 0]],
+                       [0.4, 0.1, axes[1, 1]],]:
+
+      label = fr"$\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
+      shape = Ancantoid(xi=xi, beta=beta)
+
+      for inc_dg, color, lw in zip(inclinations, colors, linewidths):
+          inc = np.radians(inc_dg)
+          xp, yp = xyprime_t(th, inc, shape)
+          m = np.isfinite(xp) & np.isfinite(yp)
+          if m.sum() == 0:
+              # Case of no tangent line at all at this inclination
+              continue
+          xxp = np.concatenate((xp[m][::-1], xp[m]))
+          yyp = np.concatenate((-yp[m][::-1], yp[m]))
+          R0p = xxp.max()
+          ax.plot(xxp/R0p, yyp/R0p,
+                  label=fr"$i = {inc_dg:d}^\circ$",
+                  color=color, lw=lw)
+
+      ax.plot([0], [0], 'o', color='k')
+
+      ax.legend(title=label, ncol=2, loc="center left")
+      ax.set(
+          xlabel=r"$x' / R_0'$",
+          ylabel=r"$y' / R_0'$",
+          xlim=[-7, 3],
+          ylim=[-5, 5],
+      )
+      ax.set_aspect('equal', adjustable='box')
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python test_xyprime_ancantoid.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_ancantoid.pdf]]
+
 
