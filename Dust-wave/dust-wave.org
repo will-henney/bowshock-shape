@@ -610,6 +610,7 @@ python dust-wave-Rc-R90.py
      + [X] Use spline fits to get nice smooth derivatives (use much fewer spline knots than we have theta grid points)
      + [X] Solve the problems I have at \theta = 0 and \theta \to 180
      + [X] Use equation6.py or similar for the ancantoid
+     + [X] Read dragoid shapes from json files
   5. [ ] Implement R_c, R_90
      + Deal better with telling if we are outside the bow
      + Plot diagnostic graphs
@@ -811,7 +812,8 @@ python dust-wave-Rc-R90.py
   class Spline_R_theta_from_grid(_Spline_R_theta):
       """Spline-interpolated bow shock shape from user-specified arrays
 
-  Extra parameters for initialization: `theta_grid` and `R_grid`
+  Extra parameters for initialization: `theta_grid` and `R_grid`.  This
+  is the main way that the spline fits will be used.
 
       """
       def _init_grid(self, ngrid, theta_grid=None, R_grid=None):
@@ -1164,6 +1166,135 @@ python test_xyprime_spline.py
 [[file:test_xyprime_spline.pdf]]
 
 
+
+** Dragoid application of ~bow_projection~ library
+
+#+BEGIN_SRC python :eval no :tangle dragoid_shape.py
+  import sys
+  import numpy as np
+  from astropy.table import Table
+  from bow_projection import Spline_R_theta_from_grid
+
+  class Dragoid(object):
+      def __init__(self, alpha):
+          astring = f'-alpha{int(100*alpha):03d}.tab'
+          self.label = fr"$\alpha_\mathrm{{drag}} =  {alpha:.02f}$"
+          t = Table.read('dust-couple-stream' + astring, format='ascii.tab')
+          dth = np.pi/len(t)
+          self.thgrid = t['theta'] + 0.5*dth
+          self.Rgrid = t['R']/t['R'][0]
+          self.thgrid = np.concatenate([-self.thgrid[::-1], self.thgrid])
+          self.Rgrid = np.concatenate([self.Rgrid[::-1], self.Rgrid])
+          self.splinefit = Spline_R_theta_from_grid(
+                theta_grid=self.thgrid, R_grid=self.Rgrid)
+
+      def __call__(self, theta):
+          # When called as a function, give the spline fitted result
+          return self.splinefit(theta)
+
+  if __name__ == "__main__":
+
+      from matplotlib import pyplot as plt
+      import seaborn as sns
+
+      lib_name = sys.argv[0].replace('.py', '')
+      figfile = f"test_{lib_name}_radius.pdf"
+
+      sns.set_style('ticks')
+      fig, ax = plt.subplots()
+
+      th = np.linspace(-np.pi, np.pi, 1001)
+      th_dg = np.degrees(th)
+
+      for alpha in [0.25, 0.5, 1.0, 2.0]:
+          shape = Dragoid(alpha=alpha)
+          ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
+                  color='b', alpha=0.2, lw=2, label='_nolabel_')
+          ax.plot(th_dg, shape(th), lw=0.8, label=shape.label)
+
+      ax.legend(title=r"Dragoid shapes")
+      ax.set(
+          xlabel=r"Polar angle: $\theta$, degrees",
+          ylabel=r"$R$",
+          xlim=[0, 180],
+          yscale='log',
+          ylim=[0.9, 200.0],
+          xticks=[0, 30, 60, 90, 120, 150, 180],
+      )
+      sns.despine()
+      fig.tight_layout()
+      fig.savefig(figfile)
+      print(figfile, end='')
+
+#+END_SRC
+
+**** Test R(\theta) spline fit to dragoid
+#+BEGIN_SRC sh :results file
+python dragoid_shape.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_dragoid_shape_radius.pdf]]
+**** Test (x_t’, y_t’) for dragoid
+#+BEGIN_SRC python :eval no :tangle test_xyprime_dragoid.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from bow_projection import (xyprime_t)
+  from dragoid_shape import Dragoid
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('ticks')
+  fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+
+  th = np.linspace(0.0, np.pi, 1001)
+  inclinations = [0, 15, 30, 45, 60, 75]
+  linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+  colors = sns.color_palette(n_colors=len(inclinations))
+
+  for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
+      shape = Dragoid(alpha=alpha)
+
+      for inc_dg, color, lw in zip(inclinations, colors, linewidths):
+          inc = np.radians(inc_dg)
+          xp, yp = xyprime_t(th, inc, shape)
+          m = np.isfinite(xp) & np.isfinite(yp)
+          if m.sum() == 0:
+              # Case of no tangent line at all at this inclination
+              continue
+          xxp = np.concatenate((xp[m][::-1], xp[m]))
+          yyp = np.concatenate((-yp[m][::-1], yp[m]))
+          R0p = xxp.max()
+          ax.plot(xxp/R0p, yyp/R0p,
+                  label=fr"$i = {inc_dg:d}^\circ$",
+                  color=color, lw=lw)
+
+      ax.plot([0], [0], 'o', color='k')
+
+      ax.legend(title="Dragoid " + shape.label, ncol=2, loc="center left")
+      ax.set(
+          xlabel=r"$x' / R_0'$",
+          ylabel=r"$y' / R_0'$",
+          xlim=[-7, 3],
+          ylim=[-5, 5],
+      )
+      ax.set_aspect('equal', adjustable='box')
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python test_xyprime_dragoid.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_dragoid.pdf]]
+
 ** Ancantoid application of ~bow_projection~ library
 
 *** Spline fit to ancantoid shape
@@ -1274,7 +1405,7 @@ python ancantoid_shape.py
                        [0.4, 0.001, axes[1, 0]],
                        [0.4, 0.1, axes[1, 1]],]:
 
-      label = fr"$\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
+      label = fr"Ancantoid $\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
       shape = Ancantoid(xi=xi, beta=beta)
 
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):

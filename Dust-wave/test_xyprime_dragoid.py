@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
 from bow_projection import (xyprime_t)
-from ancantoid_shape import Ancantoid
+from dragoid_shape import Dragoid
 
 figfile = sys.argv[0].replace('.py', '.pdf')
 
@@ -15,13 +15,8 @@ inclinations = [0, 15, 30, 45, 60, 75]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
 colors = sns.color_palette(n_colors=len(inclinations))
 
-for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
-                     [0.8, 0.1, axes[0, 1]],
-                     [0.4, 0.001, axes[1, 0]],
-                     [0.4, 0.1, axes[1, 1]],]:
-
-    label = fr"Ancantoid $\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
-    shape = Ancantoid(xi=xi, beta=beta)
+for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
+    shape = Dragoid(alpha=alpha)
 
     for inc_dg, color, lw in zip(inclinations, colors, linewidths):
         inc = np.radians(inc_dg)
@@ -39,7 +34,7 @@ for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
 
     ax.plot([0], [0], 'o', color='k')
 
-    ax.legend(title=label, ncol=2, loc="center left")
+    ax.legend(title="Dragoid " + shape.label, ncol=2, loc="center left")
     ax.set(
         xlabel=r"$x' / R_0'$",
         ylabel=r"$y' / R_0'$",
