@@ -74,13 +74,19 @@ Returns R(theta), normalized to the stagnation radius. Extra parameter
     # the "other" star
     theta1 = np.sqrt(7.5*(-1.0 + np.sqrt(
         1.0 + 0.8*beta*(1.0 - theta/np.tan(theta)))))
+    # Make sure theta1 and theta have the same sign
+    theta1 *= np.sign(theta)
 
     # On-axis (theta = 0) radius to stagnation point, in units of
     # star-star separation D
     R0 = np.sqrt(beta)/(1.0+np.sqrt(beta))
 
-    # Return radius in units of R0
-    return  np.sin(theta1) / np.sin(np.abs(theta) + theta1) / R0
+    R = np.where(np.abs(theta + theta1) > np.pi,
+                 # theta > theta_inf => no solution
+                 np.nan,
+                 # theta <= theta_inf => return radius in units of R0
+                 np.sin(theta1) / np.sin(theta + theta1) / R0)
+    return R
 
 
 def paraboloid_R_theta(theta):
@@ -138,8 +144,10 @@ cubic). `Rmax` is the maximum radius to be included in the spline fit.
 
     def __call__(self, theta):
         """Evaluate R(theta) from spline interpolation"""
-        x, y = scipy.interpolate.splev(theta, self.spline_tck)
-        return np.hypot(x, y)
+        x, y = scipy.interpolate.splev(theta, self.spline_tck, ext=1)
+        R = np.hypot(x, y)
+        R[x == 0.0] = np.nan
+        return R
 
     def __init__(self, ngrid=100, kspline=3, Rmax=100, smooth=0, **shape_kwds):
         """"""

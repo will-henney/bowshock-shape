@@ -19,7 +19,7 @@ colors = sns.color_palette(n_colors=len(inclinations))
 for label, ax, func, pars, ngrid, s in [
         ["paraboloid", axes[0, 0], paraboloid_R_theta, (), 1001, 0],
         ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, (), 1001, 0],
-        [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,), 101, 1e-10],
+        [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,), 1001, 0],
         [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,), 1001, 0],
         # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
 ]:

@@ -17,9 +17,9 @@ th_dg = np.degrees(th)
 for label, func, pars, ngrid, s in [
         ["paraboloid", paraboloid_R_theta, (), 1001, 0],
         ["Wilkinoid", wilkinoid_R_theta, (), 1001, 0],
-        # [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 101, 1e-10],
+        [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 1001, 0],
         [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 1001, 0],
-        # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
+        [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 1001, 0],
 ]:
     spline_func = Spline_R_theta_from_function(
         ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)

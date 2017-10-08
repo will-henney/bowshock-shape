@@ -608,7 +608,7 @@ python dust-wave-Rc-R90.py
      + Plot projected shapes for analytic functions
   4. [-] Implement numerical R(\theta) functions: ancantoid, dragoid
      + [X] Use spline fits to get nice smooth derivatives (use much fewer spline knots than we have theta grid points)
-     + [ ] Solve the problems I have at \theta = 0 and \theta \to 180
+     + [X] Solve the problems I have at \theta = 0 and \theta \to 180
      + [ ] Use equation6.py or similar for the ancantoid
   5. [ ] Implement R_c, R_90
      + Deal better with telling if we are outside the bow
@@ -703,13 +703,19 @@ python dust-wave-Rc-R90.py
       # the "other" star
       theta1 = np.sqrt(7.5*(-1.0 + np.sqrt(
           1.0 + 0.8*beta*(1.0 - theta/np.tan(theta)))))
+      # Make sure theta1 and theta have the same sign
+      theta1 *= np.sign(theta)
 
       # On-axis (theta = 0) radius to stagnation point, in units of
       # star-star separation D
       R0 = np.sqrt(beta)/(1.0+np.sqrt(beta))
 
-      # Return radius in units of R0
-      return  np.sin(theta1) / np.sin(np.abs(theta) + theta1) / R0
+      R = np.where(np.abs(theta + theta1) > np.pi,
+                   # theta > theta_inf => no solution
+                   np.nan,
+                   # theta <= theta_inf => return radius in units of R0
+                   np.sin(theta1) / np.sin(theta + theta1) / R0)
+      return R
 
 
   def paraboloid_R_theta(theta):
@@ -767,8 +773,10 @@ python dust-wave-Rc-R90.py
 
       def __call__(self, theta):
           """Evaluate R(theta) from spline interpolation"""
-          x, y = scipy.interpolate.splev(theta, self.spline_tck)
-          return np.hypot(x, y)
+          x, y = scipy.interpolate.splev(theta, self.spline_tck, ext=1)
+          R = np.hypot(x, y)
+          R[x == 0.0] = np.nan
+          return R
 
       def __init__(self, ngrid=100, kspline=3, Rmax=100, smooth=0, **shape_kwds):
           """"""
@@ -860,7 +868,7 @@ python dust-wave-Rc-R90.py
 *** Basic test of omega(theta) for analytic shape
 This is included in the module itself.  Note the ~symlog~ y-axis, which is linear from 0 \to 1 and then logarithmic from 1 \to 200
 #+BEGIN_SRC sh :results file
-python bow_projection.py
+  python bow_projection.py
 #+END_SRC
 
 #+RESULTS:
@@ -993,9 +1001,9 @@ python test_xyprime.py
   for label, func, pars, ngrid, s in [
           ["paraboloid", paraboloid_R_theta, (), 1001, 0],
           ["Wilkinoid", wilkinoid_R_theta, (), 1001, 0],
-          # [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 1001, 0],
           [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 1001, 0],
-          # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 1001, 0],
   ]:
       spline_func = Spline_R_theta_from_function(
           ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
@@ -1045,9 +1053,9 @@ python test_spline_radius.py
   for label, func, pars, ngrid, s in [
           ["paraboloid", paraboloid_R_theta, (), 1001, 0],
           ["Wilkinoid", wilkinoid_R_theta, (), 1001, 0],
-          # [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 1001, 0],
           [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 1001, 0],
-          # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 1001, 0],
   ]:
       spline_func = Spline_R_theta_from_function(
           ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
@@ -1103,7 +1111,7 @@ python test_spline.py
   for label, ax, func, pars, ngrid, s in [
           ["paraboloid", axes[0, 0], paraboloid_R_theta, (), 1001, 0],
           ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, (), 1001, 0],
-          [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,), 101, 1e-10],
+          [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,), 1001, 0],
           [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,), 1001, 0],
           # [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 1e-10],
   ]:
