@@ -632,6 +632,7 @@ python dust-wave-Rc-R90.py
   from scipy.optimize import brentq
   from scipy.misc import derivative
 
+
   # * Module parameters
   #
   # The delta theta that is used in the central difference approximation
@@ -639,6 +640,9 @@ python dust-wave-Rc-R90.py
   # between round-off and discretization error, this should be of order
   # ~sqrt(eps)~, where ~eps~ is the machine precision
   DX_FOR_NUMERICAL_DERIVATIVE = 3.0*np.sqrt(np.finfo(1.0).resolution)
+
+  # If True, then print out some diagnostic info
+  DEBUG = False
 
   # * Functions to find plane-of-sky shape
   #
@@ -671,7 +675,11 @@ python dust-wave-Rc-R90.py
       """Returns sin(phi_t), where phi_t is azimuth along tangent line"""
       om = omega(theta, func_R, *args_for_func_R)
       tan_theta = np.tan(theta)
-      return np.tan(inc)*(1.0 + om*tan_theta)/(om - tan_theta) 
+      if np.tan(inc) == 0.0:
+          # Avoid NaNs in the zero inclination case
+          return 0.0
+      else:
+          return np.tan(inc)*(1.0 + om*tan_theta)/(om - tan_theta) 
 
 
   def xyprime_t(theta, inc, func_R, *args_for_func_R):
@@ -687,7 +695,8 @@ python dust-wave-Rc-R90.py
   def radius_of_curvature(theta, func_R, *args_for_func_R):
       """Returns R_c = (R^2 + R'^2)^{3/2} / |R^2 + 2 R'^2 - R R''| 
 
-  Uses numerical differentiation
+  Uses numerical differentiation.  NOT RECOMMENDED SINCE NOT ACCURATE ON
+  THE AXIS.  Use `axis_Rc` instead.
 
       """
       R = func_R(theta, *args_for_func_R)
@@ -696,6 +705,84 @@ python dust-wave-Rc-R90.py
       d2R = derivative(func_R, theta, n=2,
                        dx=DX_FOR_NUMERICAL_DERIVATIVE, args=args_for_func_R)
       return (R**2 + dR**2)**1.5 / np.abs(R**2 + 2*dR**2 - R*d2R)
+
+
+  # * Projected R_c and R_{90}
+  #
+
+  def theta_0(inc, func_R, *args_for_func_R):
+      """Minimum theta, corresponding to y'_t = 0
+      """
+
+      tani = np.tan(inc)
+      def f(theta):
+          """Function to be zeroed: f(theta) = 0 for theta = theta_0"""
+          om = omega(theta, func_R, *args_for_func_R)
+          return np.sin(theta)*(1.0 - om*tani) - np.cos(theta)*(om + tani)
+
+      # Root could be anywhere in range 0 -> pi, except not exactly pi
+      th1, th2 = 0.0, np.pi - 1.e-6
+      # Make sure we do indeed bracket the root
+      assert(f(th1)*f(th2) <= 0.0, "Unbracketed root in theta_0!")
+      # And use Brent's method to find the root
+      return brentq(f, th1, th2)
+
+  # Number of neighborhood points to use when fitting around projected
+  # axes
+  N_NEIGHBORHOOD = 50
+  # Size of neighborhood in radians
+  DTH_NEIGHBORHOOD = 0.01
+  # Degree of polynomial used in fitting neighborhood
+  DEGREE_POLY_NEIGHBORHOOD = 5
+
+  def characteristic_radii_projected(inc, func_R, *args_for_func_R):
+      """Return all the characteristic radii for projected bow shock
+
+  Returns dict of 'R_0 prime', 'tilde R_c prime', 'theta_0', 'tilde R_90
+  prime', 'theta_90'
+
+      """
+      # First, the quantities at th0, which is theta on the projected
+      # symmetry axis (y' = 0) for this inclination
+      th0 = theta_0(inc, func_R, *args_for_func_R)
+
+      # Make a grid of theta in the neighborhood of th0
+      # 
+      # dth is 0.01 radians usually, but not more than half of range from
+      # th0 -> pi
+      dth = min(DTH_NEIGHBORHOOD, 0.5*(np.pi - th0))
+      th = np.linspace(th0, th0 + dth, N_NEIGHBORHOOD)
+
+      # Now find the tangent line and convert back to polar coordinates
+      xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
+      Rprime = np.hypot(xprime, yprime)
+      thprime = np.arctan2(yprime, xprime)
+      # Filter out any NaNs in the projected coordinates
+      m = np.isfinite(Rprime*thprime)
+      # Fit R' with a cubic in (theta')^2, and use the constant and
+      # linear coefficients to find the projected R_0 and R_c
+      #
+      # It may seem excessive to use deg=5, but this was necessary to
+      # get 0.1% relative error in R'_c for the parabola at inc=89 degrees
+      coeffs = np.polyfit(thprime[m]**2, Rprime[m],
+                          deg=DEGREE_POLY_NEIGHBORHOOD)
+      R0_prime = coeffs[-1]
+      gamma = coeffs[-2]/coeffs[-1]
+      Rc_prime = 1./(1. - 2*gamma)
+      if DEBUG:
+          print(coeffs/coeffs[-1])
+
+
+      # Second, the quantities at th90, which is the theta on the projected
+      # perpendicular axis (x' = 0)
+      th90 = None                 # TODO
+      R90_prime = None            # TODO
+    
+      return {'R_0 prime': R0_prime,
+              'tilde R_c prime': Rc_prime, 'theta_0': th0,
+              'tilde R_90 prime': R90_prime, 'theta_90': th90}
+
+
 
 
   # * Example analytic shape functions
@@ -717,12 +804,16 @@ python dust-wave-Rc-R90.py
       """Cantoid solution from CRW for wind-wind interaction
 
   Returns R(theta), normalized to the stagnation radius. Extra parameter
-  `beta` is the momentum ratio of the two winds
+  `beta` is the momentum ratio of the two winds.  Note that this will
+  not be accurate if beta is too close to zero, but it seems to be OK
+  with beta >= 1.e-6.  For lower values than this, the results will be
+  almost identical to the Wilkinoid, so `wilkinoid_R_theta` should be
+  used instead.
 
       """
 
       theta = np.atleast_1d(theta)
-    
+
       # Approximate solution for theta_1, the polar angle measured from
       # the "other" star
       theta1 = np.sqrt(7.5*(-1.0 + np.sqrt(
@@ -730,7 +821,7 @@ python dust-wave-Rc-R90.py
       # Make sure theta1 and theta have the same sign
       theta1 *= np.sign(theta)
 
-    
+
       # On-axis (theta = 0) radius to stagnation point, in units of
       # star-star separation D
       R0 = np.sqrt(beta)/(1.0+np.sqrt(beta))
