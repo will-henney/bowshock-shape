@@ -54,13 +54,34 @@ def xyprime_t(theta, inc, func_R, *args_for_func_R):
     return R*xx, R*yy
 
 
+def radius_of_curvature(theta, func_R, *args_for_func_R):
+    """Returns R_c = (R^2 + R'^2)^{3/2} / |R^2 + 2 R'^2 - R R''| 
+
+Uses numerical differentiation
+
+    """
+    R = func_R(theta, *args_for_func_R)
+    dR = derivative(func_R, theta,
+                    dx=DX_FOR_NUMERICAL_DERIVATIVE, args=args_for_func_R)
+    d2R = derivative(func_R, theta, n=2,
+                     dx=DX_FOR_NUMERICAL_DERIVATIVE, args=args_for_func_R)
+    return (R**2 + dR**2)**1.5 / np.abs(R**2 + 2*dR**2 - R*d2R)
+
+
 # * Example analytic shape functions
 #
 
 def wilkinoid_R_theta(theta):
     """Wilkin solution for wind-stream interaction"""
-    return np.sqrt(3*(1.0 - theta/np.tan(theta)))/np.sin(np.abs(theta))
-
+    # Convert to array if scalar
+    theta = np.atleast_1d(theta)
+    # Equation (9) of Wilkin (1996)
+    R = np.sqrt(3*(1.0 - theta/np.tan(theta)))/np.sin(np.abs(theta))
+    # Equation is not stable for very small theta, so we use a Taylor
+    # expansion instead
+    small_angle = np.abs(theta) < 1e-5
+    R[small_angle] = 1.0 + 0.2*theta[small_angle]**2
+    return R
 
 def cantoid_R_theta(theta, beta):
     """Cantoid solution from CRW for wind-wind interaction
@@ -70,12 +91,15 @@ Returns R(theta), normalized to the stagnation radius. Extra parameter
 
     """
 
+    theta = np.atleast_1d(theta)
+
     # Approximate solution for theta_1, the polar angle measured from
     # the "other" star
     theta1 = np.sqrt(7.5*(-1.0 + np.sqrt(
         1.0 + 0.8*beta*(1.0 - theta/np.tan(theta)))))
     # Make sure theta1 and theta have the same sign
     theta1 *= np.sign(theta)
+
 
     # On-axis (theta = 0) radius to stagnation point, in units of
     # star-star separation D
@@ -86,6 +110,13 @@ Returns R(theta), normalized to the stagnation radius. Extra parameter
                  np.nan,
                  # theta <= theta_inf => return radius in units of R0
                  np.sin(theta1) / np.sin(theta + theta1) / R0)
+
+    # Replace with Taylor expansion close to axis
+    C = (1.0 - beta)/30.0
+    gamma = C/(1.0 + np.sqrt(beta)) + (1.0 + 2*np.sqrt(beta))/6
+    small_angle = np.abs(theta) < 1.e-5
+    R[small_angle] = 1.0 + gamma*theta[small_angle]**2
+
     return R
 
 
@@ -182,7 +213,8 @@ these cases.
 class Spline_R_theta_from_grid(_Spline_R_theta):
     """Spline-interpolated bow shock shape from user-specified arrays
 
-Extra parameters for initialization: `theta_grid` and `R_grid`
+Extra parameters for initialization: `theta_grid` and `R_grid`.  This
+is the main way that the spline fits will be used.
 
     """
     def _init_grid(self, ngrid, theta_grid=None, R_grid=None):
