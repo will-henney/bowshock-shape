@@ -688,7 +688,8 @@ python dust-wave-Rc-R90.py
       sphi_t = sin_phi_t(theta, inc, func_R, *args_for_func_R)
       cos_theta, sin_theta = np.cos(theta), np.sin(theta)
       xx = cos_theta*np.cos(inc) - sin_theta*sphi_t*np.sin(inc)
-      yy = sin_theta*np.sqrt(1.0 - sphi_t**2)
+      with np.errstate(all='ignore'):
+          yy = sin_theta*np.sqrt(1.0 - sphi_t**2)
       return R*xx, R*yy
 
 
@@ -710,30 +711,64 @@ python dust-wave-Rc-R90.py
   # * Projected R_c and R_{90}
   #
 
+  # How close we try to get to the asymptotic theta
+  TOLERANCE_THETA_INFINITY = 1.e-6
+
+  def theta_infinity(func_R, *args_for_func_R):
+      """Return maximum theta where R its derivative are still finite"""
+      th0, dth = 0.0, np.pi
+      with np.errstate(all='ignore'):
+          # Keep repeating on a finer and finer grid until we get to within
+          # the required tolerance
+          while dth > TOLERANCE_THETA_INFINITY:
+              # This will divide dth by 50 on each iteration
+              th, dth = np.linspace(th0, th0 + dth, retstep=True)
+              # It is more stringent to insist that omega must be
+              # finite, since that needs to be an extra distance (=
+              # DX_FOR_NUMERICAL_DERIVATIVE) away from the asymptote in
+              # order to calculate the numerical derivative
+              om = omega(th, func_R, *args_for_func_R)
+              # The largest th for which omega is finite must be within at most
+              # (dth + DX_FOR_NUMERICAL_DERIVATIVE) of the true asymptote
+              th0 = th[np.isfinite(om)].max()
+
+      return th0
+        
+
+
   def theta_0(inc, func_R, *args_for_func_R):
       """Minimum theta, corresponding to y'_t = 0
       """
-
       tani = np.tan(inc)
-      def f(theta):
-          """Function to be zeroed: f(theta) = 0 for theta = theta_0"""
+
+      def _f(theta):
+          """Function that is zero at theta = theta0"""
           om = omega(theta, func_R, *args_for_func_R)
           return np.sin(theta)*(1.0 - om*tani) - np.cos(theta)*(om + tani)
 
-      # Root could be anywhere in range 0 -> pi, except not exactly pi
-      th1, th2 = 0.0, np.pi - 1.e-6
-      # Make sure we do indeed bracket the root
-      assert(f(th1)*f(th2) <= 0.0, "Unbracketed root in theta_0!")
-      # And use Brent's method to find the root
-      return brentq(f, th1, th2)
+
+      th_inf = theta_infinity(func_R, *args_for_func_R)
+      # If the inclination is too high, then there may be no solution
+      if np.abs(inc) > th_inf - np.pi/2:
+          return np.nan
+      else:
+          # Root could be anywhere in range 0 -> th_inf, but we set the
+          # lower limit higher than that to avoid some rare errors.
+          # This should be alright unless R_c/R_0 < 0.1, which is not
+          # true for any of the models I am interested in
+          th1, th2 = 0.1*inc, th_inf
+          # Make sure we do indeed bracket the root
+          assert _f(th1)*_f(th2) <= 0.0, f"Unbracketed root: {_f(th1)}, {_f(th2)}"
+          # And use Brent's method to find the root
+          return brentq(_f, th1, th2)
 
   # Number of neighborhood points to use when fitting around projected
   # axes
-  N_NEIGHBORHOOD = 50
-  # Size of neighborhood in radians
-  DTH_NEIGHBORHOOD = 0.01
+  N_NEIGHBORHOOD = 8
+  # Scale of neighborhood in units of (pi - th0)
+  SCALE_NEIGHBORHOOD = 0.01
   # Degree of polynomial used in fitting neighborhood
-  DEGREE_POLY_NEIGHBORHOOD = 5
+  DEGREE_POLY_NEIGHBORHOOD = 2
 
   def characteristic_radii_projected(inc, func_R, *args_for_func_R):
       """Return all the characteristic radii for projected bow shock
@@ -742,46 +777,59 @@ python dust-wave-Rc-R90.py
   prime', 'theta_90'
 
       """
+
+      # Zeroth step, check that we do have a tangent line
+      th_inf = theta_infinity(func_R, *args_for_func_R)
+      if np.abs(inc) > th_inf - np.pi/2:
+          # No tangent line, so return all NaNs
+          return {'R_0 prime': np.nan, 'theta_inf': th_inf,
+                  'tilde R_c prime': np.nan, 'theta_0': np.nan,
+                  'tilde R_90 prime': np.nan, 'theta_90': np.nan}
+    
       # First, the quantities at th0, which is theta on the projected
       # symmetry axis (y' = 0) for this inclination
       th0 = theta_0(inc, func_R, *args_for_func_R)
 
       # Make a grid of theta in the neighborhood of th0
-      # 
-      # dth is 0.01 radians usually, but not more than half of range from
-      # th0 -> pi
-      dth = min(DTH_NEIGHBORHOOD, 0.5*(np.pi - th0))
+      dth = SCALE_NEIGHBORHOOD*(np.pi - th0)
       th = np.linspace(th0, th0 + dth, N_NEIGHBORHOOD)
+      if DEBUG:
+          print("theta", th)
+          print("R", func_R(th, *args_for_func_R))
+          print("sin(phi_t)", sin_phi_t(th, inc, func_R, *args_for_func_R))
 
       # Now find the tangent line and convert back to polar coordinates
       xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
       Rprime = np.hypot(xprime, yprime)
       thprime = np.arctan2(yprime, xprime)
+      if DEBUG:
+          print("x'", xprime)
+          print("y'", yprime)
+          print("R'", Rprime)
+          print("theta'", thprime)
       # Filter out any NaNs in the projected coordinates
       m = np.isfinite(Rprime*thprime)
       # Fit R' with a cubic in (theta')^2, and use the constant and
       # linear coefficients to find the projected R_0 and R_c
       #
-      # It may seem excessive to use deg=5, but this was necessary to
-      # get 0.1% relative error in R'_c for the parabola at inc=89 degrees
+      # It seems to be enough to use deg=2 on 8 points
       coeffs = np.polyfit(thprime[m]**2, Rprime[m],
                           deg=DEGREE_POLY_NEIGHBORHOOD)
       R0_prime = coeffs[-1]
       gamma = coeffs[-2]/coeffs[-1]
       Rc_prime = 1./(1. - 2*gamma)
       if DEBUG:
-          print(coeffs/coeffs[-1])
+          print("Polynomial coefficients", coeffs/coeffs[-1])
 
 
       # Second, the quantities at th90, which is the theta on the projected
       # perpendicular axis (x' = 0)
       th90 = None                 # TODO
       R90_prime = None            # TODO
-    
-      return {'R_0 prime': R0_prime,
+
+      return {'R_0 prime': R0_prime, 'theta_inf': th_inf,
               'tilde R_c prime': Rc_prime, 'theta_0': th0,
               'tilde R_90 prime': R90_prime, 'theta_90': th90}
-
 
 
 
