@@ -2,6 +2,7 @@ import numpy as np
 from scipy.optimize import brentq
 from scipy.misc import derivative
 
+
 # * Module parameters
 #
 # The delta theta that is used in the central difference approximation
@@ -9,6 +10,9 @@ from scipy.misc import derivative
 # between round-off and discretization error, this should be of order
 # ~sqrt(eps)~, where ~eps~ is the machine precision
 DX_FOR_NUMERICAL_DERIVATIVE = 3.0*np.sqrt(np.finfo(1.0).resolution)
+
+# If True, then print out some diagnostic info
+DEBUG = False
 
 # * Functions to find plane-of-sky shape
 #
@@ -39,6 +43,10 @@ Note that theta may be an array. Any extra arguments are passed to
 
 def sin_phi_t(theta, inc, func_R, *args_for_func_R):
     """Returns sin(phi_t), where phi_t is azimuth along tangent line"""
+    if np.tan(inc) == 0.0:
+        # Avoid NaNs in the zero inclination case
+        return np.zeros_like(theta)
+
     om = omega(theta, func_R, *args_for_func_R)
     tan_theta = np.tan(theta)
     return np.tan(inc)*(1.0 + om*tan_theta)/(om - tan_theta) 
@@ -50,14 +58,16 @@ def xyprime_t(theta, inc, func_R, *args_for_func_R):
     sphi_t = sin_phi_t(theta, inc, func_R, *args_for_func_R)
     cos_theta, sin_theta = np.cos(theta), np.sin(theta)
     xx = cos_theta*np.cos(inc) - sin_theta*sphi_t*np.sin(inc)
-    yy = sin_theta*np.sqrt(1.0 - sphi_t**2)
+    with np.errstate(all='ignore'):
+        yy = sin_theta*np.sqrt(1.0 - sphi_t**2)
     return R*xx, R*yy
 
 
 def radius_of_curvature(theta, func_R, *args_for_func_R):
     """Returns R_c = (R^2 + R'^2)^{3/2} / |R^2 + 2 R'^2 - R R''| 
 
-Uses numerical differentiation
+Uses numerical differentiation.  NOT RECOMMENDED SINCE NOT ACCURATE ON
+THE AXIS.  Use `axis_Rc` instead.
 
     """
     R = func_R(theta, *args_for_func_R)
@@ -66,6 +76,171 @@ Uses numerical differentiation
     d2R = derivative(func_R, theta, n=2,
                      dx=DX_FOR_NUMERICAL_DERIVATIVE, args=args_for_func_R)
     return (R**2 + dR**2)**1.5 / np.abs(R**2 + 2*dR**2 - R*d2R)
+
+
+# * Projected R_c and R_{90}
+#
+
+# How close we try to get to the asymptotic theta
+TOLERANCE_THETA_INFINITY = 1.e-6
+
+def theta_infinity(func_R, *args_for_func_R):
+    """Return maximum theta where R its derivative are still finite"""
+    th0, dth = 0.0, np.pi
+    with np.errstate(all='ignore'):
+        # Keep repeating on a finer and finer grid until we get to within
+        # the required tolerance
+        while dth > TOLERANCE_THETA_INFINITY:
+            # This will divide dth by 50 on each iteration
+            th, dth = np.linspace(th0, th0 + dth, retstep=True)
+            # It is more stringent to insist that omega must be
+            # finite, since that needs to be an extra distance (=
+            # DX_FOR_NUMERICAL_DERIVATIVE) away from the asymptote in
+            # order to calculate the numerical derivative
+            om = omega(th, func_R, *args_for_func_R)
+            # The largest th for which omega is finite must be within at most
+            # (dth + DX_FOR_NUMERICAL_DERIVATIVE) of the true asymptote
+            th0 = th[np.isfinite(om)].max()
+
+    return th0
+
+
+
+def theta_0_90(inc, func_R, *args_for_func_R):
+    """Return (theta_0, theta_90), corresponding projected x and y axes
+    """
+
+    # Easy case first
+    if inc == 0.0:
+        return 0.0, np.pi/2
+
+    # Second, check tangent line existence
+    th_inf = theta_infinity(func_R, *args_for_func_R)
+    if np.abs(inc) > th_inf - np.pi/2:
+        return np.nan, np.nan
+
+    # Otherwise, use root finding
+
+    tani = np.tan(inc)
+    sinsq2i = np.sin(2*inc)**2
+    cossqi = np.cos(inc)**2
+
+    def _f0(theta):
+        """Function that is zero at theta = theta_0"""
+        om = omega(theta, func_R, *args_for_func_R)
+        return np.sin(theta)*(1.0 - om*tani) - np.cos(theta)*(om + tani)
+
+    def _f90(theta):
+        """Function that is zero at theta = theta_90"""
+        om = omega(theta, func_R, *args_for_func_R)
+        return (1.0/np.tan(theta)
+                - (1.0 - np.sqrt(1.0 + om**2 * sinsq2i))/(2*om*cossqi))
+
+    th_inf = theta_infinity(func_R, *args_for_func_R)
+    # If the inclination is too high, then there may be no solution
+    if np.abs(inc) > th_inf - np.pi/2:
+        return np.nan
+
+    # The theta_0 value could be anywhere in range 0 -> th_inf, but we
+    # set the lower limit higher than that to avoid some rare errors.
+    # This should be alright unless R_c/R_0 < 0.1, which is not true
+    # for any of the models I am interested in
+    th1, th2 = 0.1*inc, th_inf
+    # Make sure we do indeed bracket the root
+    assert _f0(th1)*_f0(th2) <= 0.0, f"Unbracketed th0 root: {_f0(th1)}, {_f0(th2)}"
+    # And use Brent's method to find the root
+    th0 = brentq(_f0, th1, th2)
+
+    # Repeat for the theta_90 value, which must be higher than theta_0
+    th1, th2 = th0, th_inf
+    assert _f90(th1)*_f90(th2) <= 0.0, f"Unbracketed th90 root: {_f90(th1)}, {_f90(th2)}"
+    th90 = brentq(_f90, th1, th2)
+
+    return th0, th90
+
+
+# Number of neighborhood points to use when fitting around projected
+# axes
+N_NEIGHBORHOOD = 8
+# Scale of neighborhood in units of (pi - th0)
+SCALE_NEIGHBORHOOD = 0.01
+# Degree of polynomial used in fitting neighborhood
+DEGREE_POLY_NEIGHBORHOOD = 2
+
+def characteristic_radii_projected(inc, func_R, *args_for_func_R):
+    """Return all the characteristic radii for projected bow shock
+
+Returns dict of 'R_0 prime', 'tilde R_c prime', 'theta_0', 'tilde R_90
+prime', 'theta_90'
+
+    """
+
+    # Zeroth step, check that we do have a tangent line
+    th_inf = theta_infinity(func_R, *args_for_func_R)
+    if np.abs(inc) > th_inf - np.pi/2:
+        # No tangent line, so return all NaNs
+        return {'R_0 prime': np.nan, 'theta_inf': th_inf,
+                'tilde R_c prime': np.nan, 'theta_0': np.nan,
+                'tilde R_90 prime': np.nan, 'theta_90': np.nan}
+
+    # First, the quantities at th0, which is theta on the projected
+    # symmetry axis (y' = 0) for this inclination
+    th0, th90 = theta_0_90(inc, func_R, *args_for_func_R)
+
+    # Make a grid of theta in the neighborhood of th0
+    dth = SCALE_NEIGHBORHOOD*(np.pi - th0)
+    th = np.linspace(th0, th0 + dth, N_NEIGHBORHOOD)
+    if DEBUG:
+        print("theta", th)
+        print("R", func_R(th, *args_for_func_R))
+        print("sin(phi_t)", sin_phi_t(th, inc, func_R, *args_for_func_R))
+
+    # Now find the tangent line and convert back to polar coordinates
+    xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
+    Rprime = np.hypot(xprime, yprime)
+    thprime = np.arctan2(yprime, xprime)
+    if DEBUG:
+        print("x'", xprime)
+        print("y'", yprime)
+        print("R'", Rprime)
+        print("theta'", thprime)
+    # Filter out any NaNs in the projected coordinates
+    m = np.isfinite(Rprime*thprime)
+    # Fit R' with a cubic in (theta')^2, and use the constant and
+    # linear coefficients to find the projected R_0 and R_c
+    #
+    # It seems to be enough to use deg=2 on 8 points
+    coeffs = np.polyfit(thprime[m]**2, Rprime[m],
+                        deg=DEGREE_POLY_NEIGHBORHOOD)
+    R0_prime = coeffs[-1]
+    gamma = coeffs[-2]/coeffs[-1]
+    Rc_prime = 1./(1. - 2*gamma)
+    if DEBUG:
+        print("Polynomial coefficients", coeffs/coeffs[-1])
+
+
+    # Second, the quantities at th90, which is the theta on the projected
+    # perpendicular axis (x' = 0)
+    th = np.linspace(th90 - dth/2, th90 + dth/2, N_NEIGHBORHOOD)
+    xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
+    Rprime = np.hypot(xprime, yprime)
+    thprime = np.arctan2(yprime, xprime)
+    if DEBUG:
+        print("90 x'", xprime)
+        print("90 y'", yprime)
+        print("90 R'", Rprime)
+        print("90 theta'", thprime)
+    m = np.isfinite(Rprime*thprime)
+    # Fit a polynomial to thprime, Rprime in the vecinity of pi/2
+    p = np.poly1d(np.polyfit(thprime[m], Rprime[m],
+                             deg=DEGREE_POLY_NEIGHBORHOOD))
+    # Evaluate polynomial at pi/2 to find R90_prime
+    R90_prime = p(np.pi/2)/R0_prime
+
+    return {'R_0 prime': R0_prime, 'theta_inf': th_inf,
+            'tilde R_c prime': Rc_prime, 'theta_0': th0,
+            'tilde R_90 prime': R90_prime, 'theta_90': th90}
+
 
 
 # * Example analytic shape functions
@@ -87,7 +262,11 @@ def cantoid_R_theta(theta, beta):
     """Cantoid solution from CRW for wind-wind interaction
 
 Returns R(theta), normalized to the stagnation radius. Extra parameter
-`beta` is the momentum ratio of the two winds
+`beta` is the momentum ratio of the two winds.  Note that this will
+not be accurate if beta is too close to zero, but it seems to be OK
+with beta >= 1.e-6.  For lower values than this, the results will be
+almost identical to the Wilkinoid, so `wilkinoid_R_theta` should be
+used instead.
 
     """
 
@@ -175,6 +354,7 @@ cubic). `Rmax` is the maximum radius to be included in the spline fit.
 
     def __call__(self, theta):
         """Evaluate R(theta) from spline interpolation"""
+        theta = np.atleast_1d(theta)
         x, y = scipy.interpolate.splev(theta, self.spline_tck, ext=1)
         # The ext=1 option to splev return 0 for points outside range of theta
         R = np.hypot(x, y)
@@ -206,7 +386,8 @@ these cases.
                    shape_func_pars=()):
         # Include the negative branch so the spline will have the
         # right gradient on the axis
-        self.thgrid = np.linspace(-np.pi, np.pi, ngrid)
+        self.th_inf = theta_infinity(shape_func, *shape_func_pars)
+        self.thgrid = np.linspace(0.0, self.th_inf, ngrid)
         self.Rgrid = shape_func(self.thgrid, *shape_func_pars)
 
 

@@ -611,9 +611,9 @@ python dust-wave-Rc-R90.py
      + [X] Solve the problems I have at \theta = 0 and \theta \to 180
      + [X] Use equation6.py or similar for the ancantoid
      + [X] Read dragoid shapes from json files
-  5. [ ] Implement R_c, R_90
-     + Deal better with telling if we are outside the bow
-     + Plot diagnostic graphs
+  5. [-] Implement R_c, R_90
+     + [X] Deal better with telling if we are outside the bow
+     + [ ] Plot diagnostic graphs
      + This might be better combined with the following step
   6. [ ] Make a convenience function that will do all that is necessary to get the info for a given shape at a given inclination
      - Find the range of relevant \theta and make an array
@@ -673,13 +673,13 @@ python dust-wave-Rc-R90.py
 
   def sin_phi_t(theta, inc, func_R, *args_for_func_R):
       """Returns sin(phi_t), where phi_t is azimuth along tangent line"""
-      om = omega(theta, func_R, *args_for_func_R)
-      tan_theta = np.tan(theta)
       if np.tan(inc) == 0.0:
           # Avoid NaNs in the zero inclination case
-          return 0.0
-      else:
-          return np.tan(inc)*(1.0 + om*tan_theta)/(om - tan_theta) 
+          return np.zeros_like(theta)
+
+      om = omega(theta, func_R, *args_for_func_R)
+      tan_theta = np.tan(theta)
+      return np.tan(inc)*(1.0 + om*tan_theta)/(om - tan_theta) 
 
 
   def xyprime_t(theta, inc, func_R, *args_for_func_R):
@@ -787,8 +787,8 @@ python dust-wave-Rc-R90.py
       th90 = brentq(_f90, th1, th2)
 
       return th0, th90
-    
-    
+
+
   # Number of neighborhood points to use when fitting around projected
   # axes
   N_NEIGHBORHOOD = 8
@@ -861,8 +861,10 @@ python dust-wave-Rc-R90.py
           print("90 R'", Rprime)
           print("90 theta'", thprime)
       m = np.isfinite(Rprime*thprime)
+      # Fit a polynomial to thprime, Rprime in the vecinity of pi/2
       p = np.poly1d(np.polyfit(thprime[m], Rprime[m],
                                deg=DEGREE_POLY_NEIGHBORHOOD))
+      # Evaluate polynomial at pi/2 to find R90_prime
       R90_prime = p(np.pi/2)/R0_prime
 
       return {'R_0 prime': R0_prime, 'theta_inf': th_inf,
@@ -982,6 +984,7 @@ python dust-wave-Rc-R90.py
 
       def __call__(self, theta):
           """Evaluate R(theta) from spline interpolation"""
+          theta = np.atleast_1d(theta)
           x, y = scipy.interpolate.splev(theta, self.spline_tck, ext=1)
           # The ext=1 option to splev return 0 for points outside range of theta
           R = np.hypot(x, y)
@@ -1013,7 +1016,8 @@ python dust-wave-Rc-R90.py
                      shape_func_pars=()):
           # Include the negative branch so the spline will have the
           # right gradient on the axis
-          self.thgrid = np.linspace(-np.pi, np.pi, ngrid)
+          self.th_inf = theta_infinity(shape_func, *shape_func_pars)
+          self.thgrid = np.linspace(0.0, self.th_inf, ngrid)
           self.Rgrid = shape_func(self.thgrid, *shape_func_pars)
 
 
@@ -1093,21 +1097,26 @@ This is included in the module itself.  Note the ~symlog~ y-axis, which is linea
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
-  from bow_projection import sin_phi_t, paraboloid_R_theta
+  from bow_projection import sin_phi_t, paraboloid_R_theta, theta_infinity, theta_0_90
 
   figfile = sys.argv[0].replace('.py', '.pdf')
 
   sns.set_style('ticks')
   fig, ax = plt.subplots(figsize=(5, 5))
 
-  th = np.linspace(0.0, np.pi, 501)
-  th_dg = np.degrees(th)
   inclinations = [0, 15, 30, 45, 60, 75]
   colors = sns.color_palette(n_colors=len(inclinations))
+  th_inf = theta_infinity(paraboloid_R_theta)
   for inc_dg, color in zip(inclinations, colors):
       inc = np.radians(inc_dg)
+      th0, th90 = theta_0_90(inc, paraboloid_R_theta)
+      th = np.linspace(th0, th_inf, 501)
+      th_dg = np.degrees(th)
+      print("theta:", th_dg, file=sys.stderr)
       sphit = sin_phi_t(th, inc, paraboloid_R_theta)
+      print("sphit:", sphit, file=sys.stderr)
       phit_dg = np.degrees(np.arcsin(sphit))
+      print("phi:", phit_dg, file=sys.stderr)
       ax.plot(th_dg, phit_dg, label=f"inc = {inc_dg:d}", color=color)
 
   ax.legend(title="paraboloid")
@@ -1138,15 +1147,15 @@ python test_phi_t.py
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
-  from bow_projection import (xyprime_t, paraboloid_R_theta,
-                              wilkinoid_R_theta, cantoid_R_theta)
+  from bow_projection import (xyprime_t, theta_infinity, theta_0_90,
+                              paraboloid_R_theta, wilkinoid_R_theta,
+                              cantoid_R_theta)
 
   figfile = sys.argv[0].replace('.py', '.pdf')
 
   sns.set_style('ticks')
   fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
-  th = np.linspace(0.0, np.pi, 1001)
   inclinations = [0, 15, 30, 45, 60, 75]
   colors = sns.color_palette(n_colors=len(inclinations))
 
@@ -1156,8 +1165,11 @@ python test_phi_t.py
           [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
           [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
   ]:
+      th_inf = theta_infinity(R_theta, *extra_pars)
       for inc_dg, color in zip(inclinations, colors):
           inc = np.radians(inc_dg)
+          th0, th90 = theta_0_90(inc, R_theta, *extra_pars)
+          th = np.linspace(th0, th_inf, 101)
           xp, yp = xyprime_t(th, inc, R_theta, *extra_pars)
           m = np.isfinite(xp) & np.isfinite(yp)
           if m.sum() == 0:
@@ -1210,26 +1222,26 @@ python test_xyprime.py
   sns.set_style('ticks')
   fig, ax = plt.subplots()
 
-  th = np.linspace(-np.pi, np.pi, 10001)
+  th = np.linspace(-np.pi, np.pi, 1001)
   th_dg = np.degrees(th)
 
   for label, func, pars, ngrid, s in [
-          ["paraboloid", paraboloid_R_theta, (), 1001, 0],
-          ["Wilkinoid", wilkinoid_R_theta, (), 1001, 0],
-          [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 1001, 0],
-          [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 1001, 0],
-          [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 1001, 0],
+          ["paraboloid", paraboloid_R_theta, (), 101, 1.0],
+          ["Wilkinoid", wilkinoid_R_theta, (), 101, 0],
+          [r"Cantoid $\beta = 0.001$", cantoid_R_theta, (0.001,), 101, 0],
+          [r"Cantoid $\beta = 0.01$", cantoid_R_theta, (0.01,), 101, 0],
+          [r"Cantoid $\beta = 0.1$", cantoid_R_theta, (0.1,), 101, 0],
   ]:
       spline_func = Spline_R_theta_from_function(
           ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
-      ax.plot(th_dg, spline_func(th), lw=0.5, label=label)
       ax.plot(th_dg, func(th, *pars), color='b', alpha=0.2, lw=2, label='_nolabel_')
+      ax.plot(th_dg, spline_func(th), lw=0.8, label=label)
 
   ax.legend(title=r"Spline approximations")
   ax.set(
       xlabel=r"Polar angle: $\theta$, degrees",
       ylabel=r"$R$",
-      xlim=[-180, 180],
+      xlim=[0, 180],
       yscale='log',
       ylim=[0.9, 200.0],
       xticks=[0, 30, 60, 90, 120, 150, 180],
@@ -1276,8 +1288,8 @@ python test_spline_radius.py
   ]:
       spline_func = Spline_R_theta_from_function(
           ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
-      ax.plot(th_dg, omega(th, spline_func), lw=0.5, label=label)
       ax.plot(th_dg, omega(th, func, *pars), color='b', alpha=0.2, lw=2, label='_nolabel_')
+      ax.plot(th_dg, omega(th, spline_func), lw=0.8, label=label)
 
   ax.legend(title=r"Spline approximations")
   ax.axhline(1.0, xmin=0.35, xmax=0.65, color='white', lw=4, zorder=100)
@@ -1311,7 +1323,9 @@ python test_spline.py
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
-  from bow_projection import (xyprime_t, Spline_R_theta_from_function,
+  from bow_projection import (xyprime_t, theta_infinity, theta_0_90,
+                              characteristic_radii_projected,
+                              Spline_R_theta_from_function,
                               paraboloid_R_theta, wilkinoid_R_theta,
                               cantoid_R_theta)
 
@@ -1320,7 +1334,6 @@ python test_spline.py
   sns.set_style('ticks')
   fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
-  th = np.linspace(0.0, np.pi, 1001)
   inclinations = [0, 15, 30, 45, 60, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
   colors = sns.color_palette(n_colors=len(inclinations))
@@ -1334,9 +1347,11 @@ python test_spline.py
   ]:
       spline_func = Spline_R_theta_from_function(
           ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
-
+      th_inf = theta_infinity(spline_func)
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):
           inc = np.radians(inc_dg)
+          th0, th90 = theta_0_90(inc, spline_func)
+          th = np.linspace(th0, th_inf, 301)
           xp, yp = xyprime_t(th, inc, spline_func)
           m = np.isfinite(xp) & np.isfinite(yp)
           if m.sum() == 0:
@@ -1344,7 +1359,8 @@ python test_spline.py
               continue
           xxp = np.concatenate((xp[m][::-1], xp[m]))
           yyp = np.concatenate((-yp[m][::-1], yp[m]))
-          R0p = xxp.max()
+          radii = characteristic_radii_projected(inc, spline_func)
+          R0p = radii['R_0 prime']
           ax.plot(xxp/R0p, yyp/R0p,
                   label=fr"$i = {inc_dg:d}^\circ$",
                   color=color, lw=lw)

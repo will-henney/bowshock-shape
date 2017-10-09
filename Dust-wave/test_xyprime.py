@@ -2,15 +2,15 @@ import sys
 import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
-from bow_projection import (xyprime_t, paraboloid_R_theta,
-                            wilkinoid_R_theta, cantoid_R_theta)
+from bow_projection import (xyprime_t, theta_infinity, theta_0_90,
+                            paraboloid_R_theta, wilkinoid_R_theta,
+                            cantoid_R_theta)
 
 figfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('ticks')
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
-th = np.linspace(0.0, np.pi, 1001)
 inclinations = [0, 15, 30, 45, 60, 75]
 colors = sns.color_palette(n_colors=len(inclinations))
 
@@ -20,8 +20,11 @@ for shape_name, ax, R_theta, extra_pars in [
         [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
         [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
 ]:
+    th_inf = theta_infinity(R_theta, *extra_pars)
     for inc_dg, color in zip(inclinations, colors):
         inc = np.radians(inc_dg)
+        th0, th90 = theta_0_90(inc, R_theta, *extra_pars)
+        th = np.linspace(th0, th_inf, 101)
         xp, yp = xyprime_t(th, inc, R_theta, *extra_pars)
         m = np.isfinite(xp) & np.isfinite(yp)
         if m.sum() == 0:

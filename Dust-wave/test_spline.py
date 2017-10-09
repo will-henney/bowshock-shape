@@ -23,8 +23,8 @@ for label, func, pars, ngrid, s in [
 ]:
     spline_func = Spline_R_theta_from_function(
         ngrid=ngrid, smooth=s, shape_func=func, shape_func_pars=pars)
-    ax.plot(th_dg, omega(th, spline_func), lw=0.5, label=label)
     ax.plot(th_dg, omega(th, func, *pars), color='b', alpha=0.2, lw=2, label='_nolabel_')
+    ax.plot(th_dg, omega(th, spline_func), lw=0.8, label=label)
 
 ax.legend(title=r"Spline approximations")
 ax.axhline(1.0, xmin=0.35, xmax=0.65, color='white', lw=4, zorder=100)
