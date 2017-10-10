@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from scipy.optimize import brentq
 from scipy.misc import derivative
@@ -160,12 +161,17 @@ def theta_0_90(inc, func_R, *args_for_func_R):
 
 
 # Number of neighborhood points to use when fitting around projected
-# axes
-N_NEIGHBORHOOD = 8
-# Scale of neighborhood in units of (pi - th0)
-SCALE_NEIGHBORHOOD = 0.01
-# Degree of polynomial used in fitting neighborhood
-DEGREE_POLY_NEIGHBORHOOD = 2
+# axes (theta' = 0 and theta' = 90)
+N_NEIGHBORHOOD = 50
+# Theta scale of neighborhood around theta' = 0 in units of (pi - th0)
+SCALE_NEIGHBORHOOD = 0.2
+# Degree of theta'^2 polynomial used in fitting R'(theta') @ theta' = 0
+DEGREE_POLY_NEIGHBORHOOD = 1
+
+# Same for around theta' = 90.  These need to be different since we
+# are fitting a polynomial in just theta' instead of theta'^2
+SCALE_NEIGHBORHOOD_90 = 0.03
+DEGREE_POLY_NEIGHBORHOOD_90 = 2
 
 def characteristic_radii_projected(inc, func_R, *args_for_func_R):
     """Return all the characteristic radii for projected bow shock
@@ -177,11 +183,15 @@ prime', 'theta_90'
 
     # Zeroth step, check that we do have a tangent line
     th_inf = theta_infinity(func_R, *args_for_func_R)
+
+    # What to return when there is no solution 
+    no_solution = {'R_0 prime': np.nan, 'theta_inf': th_inf,
+                   'tilde R_c prime': np.nan, 'theta_0': np.nan,
+                   'tilde R_90 prime': np.nan, 'theta_90': np.nan}
+
     if np.abs(inc) > th_inf - np.pi/2:
         # No tangent line, so return all NaNs
-        return {'R_0 prime': np.nan, 'theta_inf': th_inf,
-                'tilde R_c prime': np.nan, 'theta_0': np.nan,
-                'tilde R_90 prime': np.nan, 'theta_90': np.nan}
+        return no_solution
 
     # First, the quantities at th0, which is theta on the projected
     # symmetry axis (y' = 0) for this inclination
@@ -191,21 +201,26 @@ prime', 'theta_90'
     dth = SCALE_NEIGHBORHOOD*(np.pi - th0)
     th = np.linspace(th0, th0 + dth, N_NEIGHBORHOOD)
     if DEBUG:
-        print("theta", th)
-        print("R", func_R(th, *args_for_func_R))
-        print("sin(phi_t)", sin_phi_t(th, inc, func_R, *args_for_func_R))
+        print("theta", th, file=sys.stderr)
+        print("R", func_R(th, *args_for_func_R), file=sys.stderr)
+        print("sin(phi_t)", sin_phi_t(th, inc, func_R, *args_for_func_R),
+              file=sys.stderr)
 
     # Now find the tangent line and convert back to polar coordinates
     xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
     Rprime = np.hypot(xprime, yprime)
     thprime = np.arctan2(yprime, xprime)
     if DEBUG:
-        print("x'", xprime)
-        print("y'", yprime)
-        print("R'", Rprime)
-        print("theta'", thprime)
+        print("x'", xprime, file=sys.stderr)
+        print("y'", yprime, file=sys.stderr)
+        print("R'", Rprime, file=sys.stderr)
+        print("theta'", thprime, file=sys.stderr)
     # Filter out any NaNs in the projected coordinates
     m = np.isfinite(Rprime*thprime)
+    if m.sum() <= 3*DEGREE_POLY_NEIGHBORHOOD:
+        # If not enough good points, then give up
+        return no_solution
+
     # Fit R' with a cubic in (theta')^2, and use the constant and
     # linear coefficients to find the projected R_0 and R_c
     #
@@ -216,26 +231,32 @@ prime', 'theta_90'
     gamma = coeffs[-2]/coeffs[-1]
     Rc_prime = 1./(1. - 2*gamma)
     if DEBUG:
-        print("Polynomial coefficients", coeffs/coeffs[-1])
+        print("Polynomial coefficients", coeffs/coeffs[-1], file=sys.stderr)
 
 
     # Second, the quantities at th90, which is the theta on the projected
     # perpendicular axis (x' = 0)
+    dth = SCALE_NEIGHBORHOOD_90*np.pi/2
     th = np.linspace(th90 - dth/2, th90 + dth/2, N_NEIGHBORHOOD)
     xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
     Rprime = np.hypot(xprime, yprime)
     thprime = np.arctan2(yprime, xprime)
     if DEBUG:
-        print("90 x'", xprime)
-        print("90 y'", yprime)
-        print("90 R'", Rprime)
-        print("90 theta'", thprime)
+        print("90 x'", xprime, file=sys.stderr)
+        print("90 y'", yprime, file=sys.stderr)
+        print("90 R'", Rprime, file=sys.stderr)
+        print("90 theta'", thprime, file=sys.stderr)
     m = np.isfinite(Rprime*thprime)
+    if m.sum() <= 3*DEGREE_POLY_NEIGHBORHOOD_90:
+        # If not enough good points, then give up
+        return no_solution
     # Fit a polynomial to thprime, Rprime in the vecinity of pi/2
     p = np.poly1d(np.polyfit(thprime[m], Rprime[m],
-                             deg=DEGREE_POLY_NEIGHBORHOOD))
+                             deg=DEGREE_POLY_NEIGHBORHOOD_90))
     # Evaluate polynomial at pi/2 to find R90_prime
     R90_prime = p(np.pi/2)/R0_prime
+    if DEBUG:
+        print("90 Polynomial coefficients", coeffs/coeffs[-1], file=sys.stderr)
 
     return {'R_0 prime': R0_prime, 'theta_inf': th_inf,
             'tilde R_c prime': Rc_prime, 'theta_0': th0,

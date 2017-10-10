@@ -629,6 +629,7 @@ python dust-wave-Rc-R90.py
   9. [ ] I need to find a better home for this work than the dust-wave file
 
 #+BEGIN_SRC python :tangle bow_projection.py :eval no
+  import sys
   import numpy as np
   from scipy.optimize import brentq
   from scipy.misc import derivative
@@ -791,12 +792,17 @@ python dust-wave-Rc-R90.py
 
 
   # Number of neighborhood points to use when fitting around projected
-  # axes
-  N_NEIGHBORHOOD = 8
-  # Scale of neighborhood in units of (pi - th0)
-  SCALE_NEIGHBORHOOD = 0.01
-  # Degree of polynomial used in fitting neighborhood
-  DEGREE_POLY_NEIGHBORHOOD = 2
+  # axes (theta' = 0 and theta' = 90)
+  N_NEIGHBORHOOD = 50
+  # Theta scale of neighborhood around theta' = 0 in units of (pi - th0)
+  SCALE_NEIGHBORHOOD = 0.2
+  # Degree of theta'^2 polynomial used in fitting R'(theta') @ theta' = 0
+  DEGREE_POLY_NEIGHBORHOOD = 1
+
+  # Same for around theta' = 90.  These need to be different since we
+  # are fitting a polynomial in just theta' instead of theta'^2
+  SCALE_NEIGHBORHOOD_90 = 0.03
+  DEGREE_POLY_NEIGHBORHOOD_90 = 2
 
   def characteristic_radii_projected(inc, func_R, *args_for_func_R):
       """Return all the characteristic radii for projected bow shock
@@ -808,11 +814,15 @@ python dust-wave-Rc-R90.py
 
       # Zeroth step, check that we do have a tangent line
       th_inf = theta_infinity(func_R, *args_for_func_R)
+
+      # What to return when there is no solution 
+      no_solution = {'R_0 prime': np.nan, 'theta_inf': th_inf,
+                     'tilde R_c prime': np.nan, 'theta_0': np.nan,
+                     'tilde R_90 prime': np.nan, 'theta_90': np.nan}
+
       if np.abs(inc) > th_inf - np.pi/2:
           # No tangent line, so return all NaNs
-          return {'R_0 prime': np.nan, 'theta_inf': th_inf,
-                  'tilde R_c prime': np.nan, 'theta_0': np.nan,
-                  'tilde R_90 prime': np.nan, 'theta_90': np.nan}
+          return no_solution
 
       # First, the quantities at th0, which is theta on the projected
       # symmetry axis (y' = 0) for this inclination
@@ -822,21 +832,26 @@ python dust-wave-Rc-R90.py
       dth = SCALE_NEIGHBORHOOD*(np.pi - th0)
       th = np.linspace(th0, th0 + dth, N_NEIGHBORHOOD)
       if DEBUG:
-          print("theta", th)
-          print("R", func_R(th, *args_for_func_R))
-          print("sin(phi_t)", sin_phi_t(th, inc, func_R, *args_for_func_R))
+          print("theta", th, file=sys.stderr)
+          print("R", func_R(th, *args_for_func_R), file=sys.stderr)
+          print("sin(phi_t)", sin_phi_t(th, inc, func_R, *args_for_func_R),
+                file=sys.stderr)
 
       # Now find the tangent line and convert back to polar coordinates
       xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
       Rprime = np.hypot(xprime, yprime)
       thprime = np.arctan2(yprime, xprime)
       if DEBUG:
-          print("x'", xprime)
-          print("y'", yprime)
-          print("R'", Rprime)
-          print("theta'", thprime)
+          print("x'", xprime, file=sys.stderr)
+          print("y'", yprime, file=sys.stderr)
+          print("R'", Rprime, file=sys.stderr)
+          print("theta'", thprime, file=sys.stderr)
       # Filter out any NaNs in the projected coordinates
       m = np.isfinite(Rprime*thprime)
+      if m.sum() <= 3*DEGREE_POLY_NEIGHBORHOOD:
+          # If not enough good points, then give up
+          return no_solution
+
       # Fit R' with a cubic in (theta')^2, and use the constant and
       # linear coefficients to find the projected R_0 and R_c
       #
@@ -847,26 +862,32 @@ python dust-wave-Rc-R90.py
       gamma = coeffs[-2]/coeffs[-1]
       Rc_prime = 1./(1. - 2*gamma)
       if DEBUG:
-          print("Polynomial coefficients", coeffs/coeffs[-1])
+          print("Polynomial coefficients", coeffs/coeffs[-1], file=sys.stderr)
 
 
       # Second, the quantities at th90, which is the theta on the projected
       # perpendicular axis (x' = 0)
+      dth = SCALE_NEIGHBORHOOD_90*np.pi/2
       th = np.linspace(th90 - dth/2, th90 + dth/2, N_NEIGHBORHOOD)
       xprime, yprime = xyprime_t(th, inc, func_R, *args_for_func_R)
       Rprime = np.hypot(xprime, yprime)
       thprime = np.arctan2(yprime, xprime)
       if DEBUG:
-          print("90 x'", xprime)
-          print("90 y'", yprime)
-          print("90 R'", Rprime)
-          print("90 theta'", thprime)
+          print("90 x'", xprime, file=sys.stderr)
+          print("90 y'", yprime, file=sys.stderr)
+          print("90 R'", Rprime, file=sys.stderr)
+          print("90 theta'", thprime, file=sys.stderr)
       m = np.isfinite(Rprime*thprime)
+      if m.sum() <= 3*DEGREE_POLY_NEIGHBORHOOD_90:
+          # If not enough good points, then give up
+          return no_solution
       # Fit a polynomial to thprime, Rprime in the vecinity of pi/2
       p = np.poly1d(np.polyfit(thprime[m], Rprime[m],
-                               deg=DEGREE_POLY_NEIGHBORHOOD))
+                               deg=DEGREE_POLY_NEIGHBORHOOD_90))
       # Evaluate polynomial at pi/2 to find R90_prime
       R90_prime = p(np.pi/2)/R0_prime
+      if DEBUG:
+          print("90 Polynomial coefficients", coeffs/coeffs[-1], file=sys.stderr)
 
       return {'R_0 prime': R0_prime, 'theta_inf': th_inf,
               'tilde R_c prime': Rc_prime, 'theta_0': th0,
@@ -1687,36 +1708,40 @@ This is what we have been working towards
 
 #+BEGIN_SRC python :eval yes :return result :tangle bow_diagnostic.py
   import numpy as np
-  from bow_projection import characteristic_radii_projected
+  from astropy.table import Table
+  import bow_projection as bp
 
-  def Rcp_R90p(inclinations, shape, *shape_args):
-      """Return (~R_c', ~R_90') for `inclinations` from `shape`
+  def parameter_table(inclinations, shape, *shape_args):
+      """Diagnostic parameters for `inclinations` from `shape`
 
-  `inclinations` should be a vector of angles (in radians) and `shape`
-  should be callable to give R(theta), optionally with additional
-  arguments `shape_args`
+  Input argument `inclinations` should be a vector of angles (in
+  radians) and input argument `shape` should be callable to give
+  R(theta), optionally with additional arguments `shape_args`.  Example
+  functions suitable for passing as `shape` can be found in the
+  `bow_projection` module.
+
+  Returns an `astropy.table.Table` of characteristic angles and radii.
 
       """
-      Rcp, R90p = [], []
-      for inc in inclinations:
-          radii = characteristic_radii_projected(inc, shape, *shape_args)
-          Rcp.append(radii['tilde R_c prime'])
-          R90p.append(radii['tilde R_90 prime'])
-      return np.array(Rcp), np.array(R90p)
+      rows = [bp.characteristic_radii_projected(inc, shape, *shape_args)
+              for inc in inclinations]
+      tab = Table(rows=rows)
+      tab['inc'] = inclinations
+      return tab
 
 
   if __name__ == '__main__':
-      from bow_projection import (wilkinoid_R_theta, cantoid_R_theta,
-                                  Spline_R_theta_from_function, theta_infinity)
-
-      th_inf = theta_infinity(cantoid_R_theta, 0.001)
+      bp.DEBUG = True
+      th_inf = bp.theta_infinity(bp.cantoid_R_theta, 0.001)
       inclinations = np.linspace(0.0, th_inf - np.pi/2, 30)
-      Rc, R90 = Rcp_R90p(inclinations, cantoid_R_theta, 0.001)
-      Rc_s, R90_s = Rcp_R90p(inclinations,
-                             Spline_R_theta_from_function(
-                                 ngrid=1000,
-                                 shape_func=cantoid_R_theta,
-                                 shape_func_pars=(0.001,)))
+      tab = parameter_table(inclinations, bp.cantoid_R_theta, 0.001)
+      Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+      tab_s = parameter_table(inclinations,
+                              bp.Spline_R_theta_from_function(
+                                  ngrid=1000,
+                                  shape_func=bp.cantoid_R_theta,
+                                  shape_func_pars=(0.001,)))
+      Rc_s, R90_s = tab_s['tilde R_c prime'], tab_s['tilde R_90 prime']
 
       result = [['inc', 'R_c', 'R_c spline', 'R_90', 'R_90 spline'], None]
       result += list(zip(np.degrees(inclinations).astype(int),
@@ -1724,38 +1749,38 @@ This is what we have been working towards
 #+END_SRC
 
 #+RESULTS:
-| inc |                  R_c |          R_c spline |                R_90 |         R_90 spline |
-|-----+---------------------+--------------------+--------------------+--------------------|
-|   0 |  1.7211762909806865 | 1.7211969933001612 |  1.788432876163065 |  1.788432877628362 |
-|   2 |   1.721060046949576 | 1.7210306733096299 | 1.7884078871159215 | 1.7884078439998612 |
-|   5 |  1.7208435443442867 |  1.720846770359542 | 1.7883335061114378 |  1.788333503302761 |
-|   8 |  1.7205407234524173 | 1.7205412706343892 | 1.7882121036740382 | 1.7882121026860351 |
-|  10 |  1.7201146055611949 | 1.7201162108258143 |  1.788047532459995 | 1.7880475353093999 |
-|  13 |  1.7195744508625364 | 1.7195708814809856 | 1.7878455449239274 | 1.7878455382485092 |
-|  16 |  1.7189145023787393 | 1.7189145886194037 | 1.7876140334640094 | 1.7876140335756852 |
-|  18 |  1.7181502795143566 | 1.7181561069157838 | 1.7873635524631581 | 1.7873635667409582 |
-|  21 |  1.7172848769865823 | 1.7172921072570502 | 1.7871078717004685 |  1.787107891379602 |
-|  24 |   1.716327858628093 | 1.7163364994238792 | 1.7868648555814752 |  1.786864881301521 |
-|  26 |  1.7153017659553342 | 1.7153017828588415 | 1.7866576331528545 | 1.7866576331412702 |
-|  29 |  1.7141931975862852 |  1.714204672374434 | 1.7865159979786245 | 1.7865160373831397 |
-|  32 |  1.7130675649398328 |  1.713067566558465 | 1.7864789223577728 | 1.7864789223317543 |
-|  34 |  1.7119063824693783 |  1.711906382824093 |  1.786596977541205 |   1.78659697757871 |
-|  37 |  1.7108045983020774 | 1.7108046000972157 | 1.7869372200012266 | 1.7869372200006295 |
-|  40 |  1.7097584359505655 | 1.7097584424159404 |  1.787588387996814 |  1.787588388018829 |
-|  43 |  1.7088911910121842 |  1.708891220720459 | 1.7886705292524463 |  1.788670529390398 |
-|  45 |  1.7083134495372134 | 1.7083134489615501 | 1.7903475278924434 | 1.7903475278819656 |
-|  48 |   1.708119645144747 |  1.708139683025186 | 1.7928471108956148 | 1.7928472004272897 |
-|  51 |   1.708606710207008 |  1.708585730739672 | 1.7964935532700566 | 1.7964934580755825 |
-|  53 |  1.7100379308331568 | 1.7100160668963498 | 1.8017587525554792 | 1.8017586523849358 |
-|  56 |   1.712925506782704 | 1.7129255085517854 | 1.8093529457108366 | 1.8093529456587698 |
-|  59 |   1.718023069335738 | 1.7180230824590272 |  1.820386746609525 | 1.8203867465948196 |
-|  61 |  1.7266895894254655 | 1.7266895934444673 | 1.8366869032712032 | 1.8366869032366162 |
-|  64 |  1.7411296046395335 | 1.7411035328872697 | 1.8614612584653576 | 1.8614611425168164 |
-|  67 |  1.7657599739293375 | 1.7657317875316594 | 1.9008806120538697 | 1.9008804904720948 |
-|  69 |   1.810217910461067 | 1.8102499471695703 | 1.9685004554476422 | 1.9685005849645556 |
-|  72 |  1.9009164615240182 | 1.9009164161746304 |  2.101257055489833 | 2.1012570511538806 |
-|  75 |  2.1482452207298013 |  2.148245268653532 | 2.4537609492552956 | 2.4537608693339577 |
-|  77 | -0.7429653388595682 |                nan |  3.092947312986562 |                nan |
+| inc |                 R_c |          R_c spline |                R_90 |         R_90 spline |
+|-----+--------------------+--------------------+--------------------+--------------------|
+|   0 |  1.789377469163851 | 1.7893774719381208 | 1.7892213647976138 |  1.789221364975816 |
+|   2 |  1.808810299263375 | 1.8078102904811302 | 1.7898814852986236 | 1.7898068573749908 |
+|   5 | 1.8257711455423171 | 1.8257710499842363 | 1.7904458562031142 |  1.790445898529346 |
+|   8 | 1.8432477217817476 | 1.8432656078540084 | 1.7911229270950029 | 1.7911239596802575 |
+|  10 | 1.8626874355683998 | 1.8602623973233525 | 1.7920752376068763 | 1.7918290072728764 |
+|  13 | 1.8767011533501423 | 1.8796307261516534 |  1.792550612117018 | 1.7928685678740488 |
+|  16 | 1.8960013772742152 | 1.8959901640039474 | 1.7936789869878733 | 1.7936780422109722 |
+|  18 | 1.9116936859468097 | 1.9077527075977856 | 1.7944979288613399 | 1.7940239726099434 |
+|  21 | 1.9266748775223996 | 1.9222240027276973 | 1.7953265704730603 | 1.7947702582711713 |
+|  24 |  1.940878657431972 |  1.935921415937547 |  1.796167779227101 | 1.7955278349112185 |
+|  26 | 1.9487959111910325 | 1.9487952736985494 | 1.7963071989221953 | 1.7963071509555921 |
+|  29 | 1.9667391855289766 | 1.9608051382715435 | 1.7979316998959758 | 1.7971261090989723 |
+|  32 | 1.9719238667192072 | 1.9719241202312858 | 1.7980122705569552 | 1.7980122985244984 |
+|  34 | 1.9889795377444468 | 1.9889823970992564 |  1.799967455818278 | 1.7999677867724164 |
+|  37 |  1.991484633416159 | 1.9914849025868466 | 1.8001649429554047 | 1.8001649700006503 |
+|  40 | 2.0076427372038808 | 2.0076424314020827 |  1.802670632337036 | 1.8026706009888138 |
+|  43 |  2.015802379619519 | 2.0157992644437828 | 1.8044960917559083 |  1.804495736680376 |
+|  45 | 2.0150615463650396 | 2.0150611512026746 |  1.805616167526933 | 1.8056161348273903 |
+|  48 |  2.030697771219821 | 2.0220689626129285 |  1.809907481737671 | 1.8086426665200979 |
+|  51 |   2.02926199259129 | 2.0381696173080024 | 1.8127384136688875 | 1.8140445179693123 |
+|  53 |   2.03732730009133 | 2.0464977187578137 |  1.818382567587985 | 1.8197230985197341 |
+|  56 | 2.0473251376901374 | 2.0473258244602195 | 1.8262980568042833 | 1.8262981156794227 |
+|  59 |  2.070742758266764 |  2.070741861835485 | 1.8390180844768484 |  1.839017990940519 |
+|  61 | 2.0812826861623774 |  2.081282439945009 | 1.8542294562683679 | 1.8542294253375937 |
+|  64 | 2.1135977875845944 | 2.1243324476571175 | 1.8794174018806087 | 1.8808715934189126 |
+|  67 | 2.1689930435367972 |  2.180741499042678 |  1.919543165707861 |  1.921051336772019 |
+|  69 |  2.287984726129154 |  2.274180622271585 | 1.9902266249430978 |  1.988608365140729 |
+|  72 |  2.535301106708848 |  2.535301767721559 | 2.1268462923962606 |  2.126846336335543 |
+|  75 |  3.472317663348866 |   3.47231359263767 | 2.4906240403931674 |  2.490623615682201 |
+|  77 |                nan |                nan |                nan |                nan |
 
 + So there are two problems here:
   1. The direct function has problems for inc = 1, 2, 3 degrees, while the spline fit is fine there
@@ -1765,7 +1790,274 @@ This is what we have been working towards
 
 
 
-*** Reproduce Fig 16
+*** Test ~bow_diagnostic.py~ for the dragoids
++ Something strange is going on with these
++ R_0’ is fine and R_90’ is mostly fine too, but R_c’ is all over the place, especially for low inclinations
++ This turned out to be because of the small value of ~bp.SCALE_NEIGHBORHOOD~, which meant it was trying to fit small fluctuations in the radius close to the axis
+  + These are really there in the data, and must be due to the discretization in the impact parameter of the drag models
++ So, if I use ~bp.SCALE_NEIGHBORHOOD = 0.2~, which corresponds to 36 degrees, then things are much better
++ Results are:
+  + R_c increases slightly at constant R_90 for i = 0 \to 20 deg, but this is hardly noticeable: for instance, 1.89 \to 1.92 for \alpha_drag = 0.25
+  + Then R_c goes back again, and then keeps on decreasing, while R_90 starts decreasing also, maintaining R_90 \approx 1.03 R_c
+#+name: test-dragoid-diagnostic
+#+header: :var alpha=0.25
+#+BEGIN_SRC python :eval yes :return result
+  import sys
+  import numpy as np
+  import bow_projection as bp
+  import dragoid_shape
+  import bow_diagnostic
+
+  bp.N_NEIGHBORHOOD = 50
+  bp.DEGREE_POLY_NEIGHBORHOOD = 2
+  bp.SCALE_NEIGHBORHOOD = 0.2
+  bp.DEGREE_POLY_NEIGHBORHOOD_90 = 2
+  bp.SCALE_NEIGHBORHOOD_90 = 0.01
+
+  shape = dragoid_shape.Dragoid(alpha=alpha)
+
+  th_inf = bp.theta_infinity(shape)
+  inclinations = np.linspace(0.0, th_inf - np.pi/2, 50)
+  tab = bow_diagnostic.parameter_table(inclinations, shape)
+
+  # Number formatting in output
+  for k in tab.colnames:
+      if 'theta' in k or 'inc' in k:
+          # Angle columns: convert to degrees, give to 1 decimal place
+          tab[k] = np.degrees(tab[k]).round(decimals=1)
+      else:
+          # Radii columns: give to 4 decimal places
+          tab[k] = tab[k].round(decimals=4)
+
+  result = [tab.colnames, None] + list(tab.as_array())
+
+#+END_SRC
+
+#+RESULTS: test-dragoid-diagnostic
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|   0.9999 |      0 |      90 |    163.3 |          1.9583 |           1.89 |    0 |
+|   1.0001 |    3.9 |      90 |    163.3 |          1.9586 |         1.9048 |  1.5 |
+|   1.0008 |    6.5 |    90.1 |    163.3 |          1.9591 |         1.9221 |    3 |
+|   1.0023 |   11.2 |    90.3 |    163.3 |          1.9591 |         1.9228 |  4.5 |
+|   1.0045 |    9.3 |    90.6 |    163.3 |          1.9592 |         1.9299 |    6 |
+|   1.0073 |   11.6 |    90.9 |    163.3 |          1.9594 |         1.9354 |  7.5 |
+|   1.0109 |   16.1 |    91.4 |    163.3 |          1.9593 |          1.929 |    9 |
+|   1.0152 |   20.3 |    91.8 |    163.3 |          1.9594 |         1.9257 | 10.5 |
+|   1.0202 |   23.5 |    92.3 |    163.3 |           1.959 |         1.9235 |   12 |
+|   1.0259 |   26.4 |      93 |    163.3 |          1.9587 |         1.9237 | 13.5 |
+|   1.0323 |   28.6 |    93.7 |    163.3 |          1.9586 |         1.9222 |   15 |
+|   1.0395 |     32 |    94.4 |    163.3 |          1.9583 |         1.9226 | 16.4 |
+|   1.0475 |   35.4 |    95.3 |    163.3 |          1.9577 |         1.9199 | 17.9 |
+|   1.0561 |   37.4 |    96.2 |    163.3 |          1.9583 |         1.9244 | 19.4 |
+|   1.0658 |   40.3 |      97 |    163.3 |          1.9578 |         1.9242 | 20.9 |
+|   1.0765 |   43.8 |    98.1 |    163.3 |          1.9569 |         1.9133 | 22.4 |
+|   1.0879 |   47.3 |    99.1 |    163.3 |          1.9562 |         1.9154 | 23.9 |
+|   1.1002 |   49.6 |   100.2 |    163.3 |          1.9557 |         1.9172 | 25.4 |
+|   1.1136 |   52.1 |   101.5 |    163.3 |          1.9552 |         1.9196 | 26.9 |
+|   1.1284 |   55.5 |   102.6 |    163.3 |           1.954 |         1.9118 | 28.4 |
+|   1.1441 |   58.2 |     104 |    163.3 |          1.9533 |         1.9105 | 29.9 |
+|   1.1615 |     62 |   105.4 |    163.3 |          1.9516 |         1.8947 | 31.4 |
+|   1.1793 |   64.5 |   106.5 |    163.3 |          1.9518 |         1.8993 | 32.9 |
+|   1.1988 |   66.6 |     108 |    163.3 |          1.9509 |         1.9008 | 34.4 |
+|   1.2198 |     70 |   109.7 |    163.3 |          1.9488 |         1.8953 | 35.9 |
+|   1.2423 |   73.1 |   110.8 |    163.3 |          1.9475 |          1.894 | 37.4 |
+|   1.2665 |     75 |   112.4 |    163.3 |          1.9457 |         1.8949 | 38.9 |
+|   1.2922 |   77.6 |     114 |    163.3 |          1.9446 |         1.8972 | 40.4 |
+|   1.3209 |   82.6 |   115.7 |    163.3 |          1.9417 |         1.8793 | 41.9 |
+|   1.3514 |   85.3 |   117.1 |    163.3 |          1.9392 |         1.8702 | 43.4 |
+|   1.3827 |   87.3 |   118.9 |    163.3 |          1.9383 |         1.8876 | 44.9 |
+|   1.4182 |   90.2 |   120.5 |    163.3 |          1.9349 |         1.8711 | 46.4 |
+|   1.4555 |   93.8 |   122.2 |    163.3 |           1.933 |         1.8727 | 47.8 |
+|   1.4963 |   96.4 |   123.9 |    163.3 |          1.9297 |         1.8697 | 49.3 |
+|   1.5402 |   99.5 |   125.7 |    163.3 |          1.9263 |         1.8647 | 50.8 |
+|   1.5879 |  102.3 |   127.5 |    163.3 |          1.9225 |         1.8542 | 52.3 |
+|   1.6402 |  106.1 |   129.4 |    163.3 |          1.9174 |         1.8383 | 53.8 |
+|   1.6953 |  107.9 |   131.1 |    163.3 |           1.914 |         1.8462 | 55.3 |
+|   1.7555 |  110.4 |     133 |    163.3 |          1.9099 |          1.849 | 56.8 |
+|   1.8219 |  113.9 |   134.8 |    163.3 |          1.9046 |         1.8405 | 58.3 |
+|   1.8947 |  116.8 |   136.7 |    163.3 |          1.8989 |         1.8343 | 59.8 |
+|   1.9743 |  119.6 |   138.6 |    163.3 |           1.892 |         1.8285 | 61.3 |
+|   2.0618 |  122.3 |   140.4 |    163.3 |          1.8845 |         1.8229 | 62.8 |
+|   2.1587 |  125.3 |   142.3 |    163.3 |          1.8762 |         1.8127 | 64.3 |
+|   2.2657 |    128 |   144.3 |    163.3 |           1.867 |         1.8063 | 65.8 |
+|   2.3856 |  131.1 |   146.2 |    163.3 |          1.8561 |          1.794 | 67.3 |
+|   2.5192 |  133.8 |   148.1 |    163.3 |           1.844 |         1.7834 | 68.8 |
+|   2.6708 |  136.8 |     150 |    163.3 |          1.8293 |         1.7603 | 70.3 |
+|   2.8384 |  139.4 |     152 |    163.3 |           1.815 |         1.7601 | 71.8 |
+|   3.0316 |  142.3 |   153.9 |    163.3 |          1.7967 |         1.7417 | 73.3 |
+
+#+call: test-dragoid-diagnostic(alpha=0.5)
+
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|   0.9999 |      0 |      90 |    168.7 |          1.9188 |         1.8572 |    0 |
+|   1.0002 |    5.6 |      90 |    168.7 |           1.919 |         1.8679 |  1.6 |
+|   1.0011 |      6 |    90.2 |    168.7 |          1.9191 |         1.8723 |  3.2 |
+|   1.0027 |    7.6 |    90.4 |    168.7 |          1.9191 |         1.8795 |  4.8 |
+|   1.0051 |   10.5 |    90.7 |    168.7 |           1.919 |         1.8834 |  6.4 |
+|   1.0083 |     14 |      91 |    168.7 |          1.9187 |          1.885 |    8 |
+|   1.0122 |   17.5 |    91.5 |    168.7 |          1.9184 |         1.8864 |  9.6 |
+|   1.0169 |   20.9 |      92 |    168.7 |           1.918 |         1.8848 | 11.2 |
+|   1.0223 |   23.8 |    92.6 |    168.7 |          1.9175 |         1.8883 | 12.8 |
+|   1.0285 |   26.7 |    93.3 |    168.7 |          1.9168 |         1.8918 | 14.5 |
+|   1.0358 |     32 |    94.1 |    168.7 |           1.916 |         1.8855 | 16.1 |
+|   1.0437 |   34.1 |    94.9 |    168.7 |          1.9155 |         1.8876 | 17.7 |
+|   1.0526 |   36.8 |    95.7 |    168.7 |          1.9143 |         1.8839 | 19.3 |
+|   1.0624 |   39.5 |    96.9 |    168.7 |          1.9133 |         1.8814 | 20.9 |
+|   1.0731 |   42.8 |    97.7 |    168.7 |          1.9124 |          1.882 | 22.5 |
+|   1.0852 |   47.3 |    98.8 |    168.7 |          1.9096 |         1.8667 | 24.1 |
+|    1.098 |   49.7 |   100.1 |    168.7 |           1.908 |         1.8674 | 25.7 |
+|   1.1115 |   51.7 |   101.3 |    168.7 |          1.9071 |         1.8753 | 27.3 |
+|   1.1266 |   55.6 |   102.5 |    168.7 |          1.9048 |         1.8707 | 28.9 |
+|   1.1431 |   58.4 |   103.9 |    168.7 |          1.9028 |          1.865 | 30.5 |
+|   1.1606 |   60.6 |   105.2 |    168.7 |          1.9004 |         1.8638 | 32.1 |
+|   1.1797 |   64.3 |   106.5 |    168.7 |          1.8974 |          1.855 | 33.7 |
+|   1.2003 |   67.5 |   108.4 |    168.7 |          1.8955 |         1.8468 | 35.3 |
+|   1.2226 |     71 |   109.2 |    168.7 |          1.8915 |         1.8368 | 36.9 |
+|   1.2454 |   72.5 |   111.3 |    168.7 |          1.8891 |         1.8543 | 38.5 |
+|   1.2717 |   77.3 |   112.8 |    168.7 |           1.884 |         1.8311 | 40.1 |
+|   1.2984 |   79.2 |   114.3 |    168.7 |          1.8812 |          1.841 | 41.8 |
+|   1.3282 |   82.8 |   116.2 |    168.7 |          1.8765 |         1.8308 | 43.4 |
+|   1.3607 |   85.4 |   117.8 |    168.7 |          1.8709 |         1.8161 |   45 |
+|   1.3944 |   88.1 |   119.5 |    168.7 |          1.8663 |         1.8175 | 46.6 |
+|   1.4313 |   91.8 |   121.3 |    168.7 |          1.8607 |         1.8076 | 48.2 |
+|   1.4711 |   95.1 |   123.2 |    168.7 |          1.8549 |         1.8051 | 49.8 |
+|   1.5141 |   97.6 |   124.9 |    168.7 |          1.8479 |          1.801 | 51.4 |
+|   1.5609 |  101.3 |   126.8 |    168.7 |          1.8403 |         1.7873 |   53 |
+|   1.6112 |  103.9 |   128.6 |    168.7 |          1.8325 |         1.7806 | 54.6 |
+|   1.6678 |  108.1 |   130.4 |    168.7 |          1.8213 |         1.7511 | 56.2 |
+|   1.7245 |    109 |   132.2 |    168.7 |          1.8146 |         1.7747 | 57.8 |
+|   1.7896 |  112.8 |   134.2 |    168.7 |          1.8032 |         1.7558 | 59.4 |
+|   1.8608 |  116.1 |   136.1 |    168.7 |          1.7908 |         1.7367 |   61 |
+|   1.9371 |  118.5 |     138 |    168.7 |          1.7788 |         1.7314 | 62.6 |
+|   2.0212 |  121.5 |   139.8 |    168.7 |          1.7644 |         1.7193 | 64.2 |
+|   2.1132 |  123.9 |   141.9 |    168.7 |          1.7491 |          1.711 | 65.8 |
+|   2.2158 |  127.2 |   143.8 |    168.7 |           1.731 |         1.6889 | 67.4 |
+|   2.3289 |  130.4 |   145.8 |    168.7 |          1.7112 |         1.6664 | 69.1 |
+|   2.4533 |  133.1 |   147.7 |    168.7 |          1.6899 |         1.6506 | 70.7 |
+|   2.5925 |    136 |   149.7 |    168.7 |          1.6658 |         1.6263 | 72.3 |
+|   2.7479 |  138.7 |   151.7 |    168.7 |          1.6389 |          1.601 | 73.9 |
+|   2.9228 |  141.7 |   153.7 |    168.7 |          1.6086 |         1.5695 | 75.5 |
+|   3.1194 |  144.4 |   155.6 |    168.7 |          1.5749 |         1.5372 | 77.1 |
+|   3.3429 |  147.3 |   157.6 |    168.7 |           1.537 |         1.5002 | 78.7 |
+
+
+#+call: test-dragoid-diagnostic(alpha=1.0)
+
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|        1 |      0 |      90 |    174.1 |          1.8309 |         1.7709 |    0 |
+|   1.0003 |    3.3 |      90 |    174.1 |          1.8308 |         1.7735 |  1.7 |
+|   1.0012 |      7 |    90.2 |    174.1 |          1.8309 |         1.7872 |  3.4 |
+|   1.0029 |    8.2 |    90.4 |    174.1 |          1.8308 |         1.7967 |  5.2 |
+|   1.0054 |   12.4 |    90.7 |    174.1 |          1.8302 |         1.7976 |  6.9 |
+|   1.0088 |   15.9 |    91.1 |    174.1 |          1.8294 |         1.7938 |  8.6 |
+|   1.0128 |   18.8 |    91.5 |    174.1 |          1.8284 |         1.7909 | 10.3 |
+|   1.0175 |   21.1 |    92.1 |    174.1 |          1.8275 |         1.7965 |   12 |
+|    1.023 |   24.6 |    92.7 |    174.1 |          1.8263 |         1.8011 | 13.7 |
+|   1.0295 |   27.8 |    93.5 |    174.1 |          1.8248 |          1.801 | 15.5 |
+|   1.0369 |   31.1 |    94.3 |    174.1 |          1.8233 |          1.794 | 17.2 |
+|   1.0451 |   34.7 |      95 |    174.1 |          1.8211 |         1.7905 | 18.9 |
+|   1.0541 |   37.2 |    96.1 |    174.1 |          1.8188 |          1.791 | 20.6 |
+|   1.0641 |   41.3 |    97.1 |    174.1 |          1.8169 |         1.7864 | 22.3 |
+|    1.075 |     42 |      98 |    174.1 |          1.8142 |         1.7847 |   24 |
+|   1.0873 |   46.5 |    99.3 |    174.1 |            1.81 |         1.7742 | 25.8 |
+|   1.1003 |     50 |   100.3 |    174.1 |          1.8069 |         1.7704 | 27.5 |
+|    1.114 |   54.6 |   101.7 |    174.1 |          1.8038 |         1.7723 | 29.2 |
+|   1.1295 |   55.3 |   102.9 |    174.1 |          1.7997 |         1.7664 | 30.9 |
+|    1.146 |   57.6 |   104.4 |    174.1 |          1.7954 |         1.7639 | 32.6 |
+|   1.1637 |   62.8 |   105.5 |    174.1 |          1.7908 |         1.7602 | 34.3 |
+|   1.1839 |   67.2 |   107.3 |    174.1 |          1.7842 |         1.7357 | 36.1 |
+|   1.2041 |   67.5 |   108.6 |    174.1 |          1.7791 |         1.7405 | 37.8 |
+|   1.2261 |     71 |   110.4 |    174.1 |          1.7751 |         1.7391 | 39.5 |
+|   1.2502 |   74.5 |   111.4 |    174.1 |          1.7679 |         1.7273 | 41.2 |
+|   1.2757 |   77.9 |   113.5 |    174.1 |          1.7601 |         1.7203 | 42.9 |
+|   1.3024 |   80.9 |   115.2 |    174.1 |          1.7536 |         1.7252 | 44.6 |
+|   1.3339 |   86.2 |   116.7 |    174.1 |          1.7426 |         1.6916 | 46.4 |
+|   1.3651 |   88.2 |   118.4 |    174.1 |          1.7347 |         1.6906 | 48.1 |
+|   1.3985 |   89.1 |   120.3 |    174.1 |          1.7259 |         1.6912 | 49.8 |
+|    1.435 |   92.7 |   121.8 |    174.1 |          1.7161 |         1.6803 | 51.5 |
+|   1.4744 |     95 |   123.9 |    174.1 |          1.7051 |         1.6638 | 53.2 |
+|   1.5161 |     98 |   125.6 |    174.1 |          1.6938 |         1.6606 | 54.9 |
+|   1.5617 |  102.2 |   127.2 |    174.1 |          1.6813 |         1.6449 | 56.7 |
+|   1.6105 |  104.9 |   129.3 |    174.1 |          1.6673 |         1.6309 | 58.4 |
+|   1.6654 |  109.7 |   131.3 |    174.1 |          1.6507 |         1.5969 | 60.1 |
+|    1.721 |  110.8 |   133.2 |    174.1 |          1.6361 |         1.5907 | 61.8 |
+|   1.7817 |  113.7 |   135.2 |    174.1 |          1.6199 |         1.5806 | 63.5 |
+|   1.8477 |  116.2 |     137 |    174.1 |          1.6022 |         1.5686 | 65.2 |
+|     1.92 |  119.4 |   139.1 |    174.1 |          1.5822 |         1.5488 |   67 |
+|   1.9996 |  123.1 |   140.8 |    174.1 |            1.56 |         1.5192 | 68.7 |
+|   2.0843 |  125.2 |   143.1 |    174.1 |          1.5377 |         1.5012 | 70.4 |
+|   2.1777 |  128.6 |   145.1 |    174.1 |          1.5128 |         1.4767 | 72.1 |
+|   2.2803 |  131.4 |   147.1 |    174.1 |          1.4855 |         1.4477 | 73.8 |
+|   2.3926 |  134.3 |   149.4 |    174.1 |          1.4558 |         1.4192 | 75.5 |
+|   2.5166 |  137.1 |   150.8 |    174.1 |          1.4234 |         1.3875 | 77.3 |
+|   2.6544 |  140.2 |   153.3 |    174.1 |          1.3877 |          1.353 |   79 |
+|   2.8084 |  143.3 |   155.4 |    174.1 |          1.3489 |         1.3163 | 80.7 |
+|   2.9825 |  146.9 |   157.7 |    174.1 |           1.305 |         1.2738 | 82.4 |
+|   3.1805 |  149.9 |     160 |    174.1 |          1.2559 |         1.2248 | 84.1 |
+
+#+call: test-dragoid-diagnostic(alpha=2.0)
+
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|   1.0004 |      0 |      90 |    176.8 |          1.7144 |         1.6534 |    0 |
+|        1 |    3.9 |      90 |    176.8 |          1.7155 |         1.6887 |  1.8 |
+|   1.0005 |    1.5 |    90.2 |    176.8 |          1.7158 |         1.7118 |  3.5 |
+|   1.0024 |    9.6 |    90.4 |    176.8 |          1.7147 |         1.6838 |  5.3 |
+|   1.0045 |    9.8 |    90.6 |    176.8 |          1.7143 |         1.6931 |  7.1 |
+|   1.0075 |   18.2 |      91 |    176.8 |           1.713 |         1.6882 |  8.9 |
+|   1.0113 |   20.3 |    91.4 |    176.8 |          1.7115 |         1.6827 | 10.6 |
+|   1.0158 |   22.3 |      92 |    176.8 |          1.7096 |         1.6738 | 12.4 |
+|   1.0209 |     23 |    92.5 |    176.8 |          1.7077 |         1.6719 | 14.2 |
+|   1.0266 |   26.8 |    93.2 |    176.8 |          1.7057 |         1.6741 | 15.9 |
+|    1.033 |   28.6 |    93.9 |    176.8 |          1.7033 |         1.6732 | 17.7 |
+|   1.0402 |   32.1 |    94.9 |    176.8 |          1.7011 |         1.6751 | 19.5 |
+|   1.0486 |   35.7 |    95.5 |    176.8 |          1.6977 |         1.6603 | 21.3 |
+|   1.0574 |     36 |    96.8 |    176.8 |          1.6939 |          1.657 |   23 |
+|    1.067 |   42.1 |    97.4 |    176.8 |           1.691 |         1.6541 | 24.8 |
+|   1.0776 |     44 |    98.9 |    176.8 |          1.6869 |         1.6487 | 26.6 |
+|   1.0887 |   46.6 |    99.7 |    176.8 |          1.6834 |          1.651 | 28.4 |
+|   1.1014 |   51.6 |   100.7 |    176.8 |          1.6781 |         1.6407 | 30.1 |
+|   1.1141 |   58.2 |   102.3 |    176.8 |          1.6731 |         1.6451 | 31.9 |
+|   1.1289 |   58.4 |   103.4 |    176.8 |          1.6675 |         1.6334 | 33.7 |
+|   1.1441 |   58.5 |   104.8 |    176.8 |          1.6615 |         1.6357 | 35.4 |
+|   1.1606 |   63.5 |   106.2 |    176.8 |          1.6558 |         1.6348 | 37.2 |
+|   1.1794 |   67.5 |   107.6 |    176.8 |          1.6478 |         1.6137 |   39 |
+|    1.199 |   72.6 |   108.6 |    176.8 |          1.6393 |         1.5924 | 40.8 |
+|   1.2192 |   72.8 |   111.3 |    176.8 |          1.6317 |         1.5831 | 42.5 |
+|   1.2404 |   74.6 |   111.7 |    176.8 |          1.6249 |         1.5781 | 44.3 |
+|   1.2626 |   79.6 |   113.5 |    176.8 |          1.6159 |         1.5782 | 46.1 |
+|   1.2873 |   80.2 |   115.4 |    176.8 |          1.6084 |         1.5695 | 47.8 |
+|   1.3153 |   82.7 |     117 |    176.8 |          1.5963 |         1.5405 | 49.6 |
+|   1.3431 |     89 |   118.8 |    176.8 |          1.5837 |         1.5429 | 51.4 |
+|   1.3731 |   89.5 |   119.8 |    176.8 |          1.5721 |         1.5302 | 53.2 |
+|   1.4045 |   92.1 |     122 |    176.8 |          1.5613 |         1.5221 | 54.9 |
+|   1.4384 |   95.3 |   124.2 |    176.8 |          1.5484 |         1.5125 | 56.7 |
+|   1.4752 |   99.1 |     125 |    176.8 |          1.5343 |         1.4943 | 58.5 |
+|   1.5139 |  100.5 |   127.2 |    176.8 |          1.5197 |         1.4759 | 60.3 |
+|   1.5548 |  103.5 |   129.3 |    176.8 |          1.5046 |         1.4664 |   62 |
+|   1.5985 |  106.8 |   131.2 |    176.8 |          1.4893 |         1.4531 | 63.8 |
+|   1.6453 |  108.5 |     132 |    176.8 |           1.472 |           1.44 | 65.6 |
+|   1.6978 |  111.7 |   134.9 |    176.8 |          1.4519 |         1.4072 | 67.3 |
+|   1.7537 |  115.4 |   136.4 |    176.8 |          1.4314 |         1.3821 | 69.1 |
+|   1.8101 |  117.2 |   138.5 |    176.8 |          1.4126 |         1.3756 | 70.9 |
+|   1.8746 |  121.8 |   140.6 |    176.8 |          1.3895 |         1.3515 | 72.7 |
+|   1.9434 |  124.5 |   143.2 |    176.8 |          1.3651 |         1.3275 | 74.4 |
+|   2.0175 |  127.3 |   144.3 |    176.8 |          1.3394 |          1.303 | 76.2 |
+|   2.0992 |  131.2 |   146.6 |    176.8 |          1.3113 |         1.2731 |   78 |
+|   2.1869 |  133.6 |   149.4 |    176.8 |          1.2816 |         1.2516 | 79.7 |
+|   2.2864 |  137.8 |     152 |    176.8 |          1.2478 |         1.2161 | 81.5 |
+|   2.3954 |  140.6 |   154.2 |    176.8 |          1.2115 |         1.1847 | 83.3 |
+|   2.5197 |  144.1 |   157.2 |    176.8 |            1.17 |         1.1474 | 85.1 |
+|   2.6646 |  149.4 |   159.8 |    176.8 |          1.1222 |          1.105 | 86.8 |
+
+
+*** Reproduce paper fig of R_c-R_90 for cantoid and ancantoid 
 
 #+BEGIN_SRC python :eval no :tangle ancantoid-R90-vs-Rc.py
   import sys
@@ -1819,7 +2111,7 @@ This is what we have been working towards
       for xi, col, annot_pars in list(zip(XI_LIST, cols, annot_pars_list))[istart::-2]:
 
           if beta == BETA_LIST[0]:
-              label = 'CRW' if xi is None else fr'$\xi = {xi:.1f}$'
+              label = "Cantoid" if xi is None else fr"Ancantoid $\xi = {xi:.1f}$"
           else:
               label = None
 
@@ -1832,11 +2124,11 @@ This is what we have been working towards
               shape = ancantoid_shape.Ancantoid(xi=xi, beta=beta, n=301)
 
           Rc, R90 = bow_diagnostic.Rcp_R90p(inc, shape)
-        
-          # Plot the head discriminant for low inclinations
-          ax.plot(Rc, R90, c=col, label=None, lw=1.6, alpha=0.7)
+
+          ax.plot(Rc, R90, c=col, label=label, lw=1.6, alpha=0.7)
+          ax.plot(Rc, R90, '.', every=5, c=col, alpha=0.7)
           # Put a dot at the i=0 case
-          ax.plot(Rc[0:1], R90[0:1], '.', c=col, alpha=1.0)
+          ax.plot(Rc[0:1], R90[0:1], '.', c=col, alpha=0.7)
           # Label the dot with the cross-over inclination
           ax.annotate(rf'$\beta = \mathrm{{{beta:g}}}$',
                       xy=(Rc[0], R90[0]),
@@ -1879,3 +2171,91 @@ python ancantoid-R90-vs-Rc.py b
 
 #+RESULTS:
 [[file:ancantoid-R90-vs-Rc-b.pdf]]
+
+*** Figure of R_c-R_90 for the dragoids
+This is something I never got finished for the multi-quadric fits
+
+#+BEGIN_SRC python :eval no :tangle dragoid-R90-vs-Rc.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker
+  import seaborn as sns
+  import bow_projection as bp
+  import dragoid_shape
+  import bow_diagnostic
+
+  bp.N_NEIGHBORHOOD = 50
+  bp.DEGREE_POLY_NEIGHBORHOOD = 2
+  bp.SCALE_NEIGHBORHOOD = 0.2
+  bp.DEGREE_POLY_NEIGHBORHOOD_90 = 2
+  bp.SCALE_NEIGHBORHOOD_90 = 0.01
+
+  plotfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('ticks')
+  fig, ax = plt.subplots(figsize=(5, 5))
+
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
+  ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
+  # And plot the projected wilkinoids 
+  shape = bp.wilkinoid_R_theta
+  th_inf = bp.theta_infinity(shape)
+  inc = np.linspace(0.0, th_inf - np.pi/2, 50)
+  tab = bow_diagnostic.parameter_table(inc, shape)
+  Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+  ax.plot(Rc, R90, c='w', label='_nolabel_', lw=1.6, alpha=0.7)
+
+
+  ALPHA_LIST = [0.25, 0.5, 1.0, 2.0]
+  nalpha = len(ALPHA_LIST)
+  cols = sns.color_palette('magma', n_colors=nalpha)
+  for alpha, col in list(zip(ALPHA_LIST, cols))[::-1]:
+      shape = dragoid_shape.Dragoid(alpha=alpha)
+      th_inf = bp.theta_infinity(shape)
+      inc = np.linspace(0.0, th_inf - np.pi/2, 50)
+      tab = bow_diagnostic.parameter_table(inc, shape)
+      Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+
+      ax.plot(Rc, R90, c=col, label=shape.label, lw=1.6, alpha=0.7)
+      # Put a dot at the i=0 case
+      ax.plot(Rc[0:1], R90[0:1], '.', label='_nolabel_', c=col, alpha=1.0)
+
+
+  ax.legend(ncol=1, fontsize='small', title='Dragoid', frameon=True)
+  ax.set(
+      yscale='linear',
+      xscale='linear',
+      xlim=[0.0, 5.1],
+      ylim=[0.0, 5.1],
+  #    ylim=[-3.0, 1.1],
+      xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+  )        
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python dragoid-R90-vs-Rc.py
+#+END_SRC
+
+#+RESULTS:
+[[file:dragoid-R90-vs-Rc.pdf]]
+
