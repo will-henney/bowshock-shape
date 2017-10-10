@@ -1679,3 +1679,83 @@ python test_xyprime_ancantoid.py
 [[file:test_xyprime_ancantoid.pdf]]
 
 
+** Diagnostic plots with the ~bow_projection~ library
+This is what we have been working towards
+
+#+BEGIN_SRC python :eval yes :return result :tangle bow_diagnostic.py
+  import numpy as np
+  from bow_projection import characteristic_radii_projected
+
+  def Rcp_R90p(inclinations, shape, *shape_args):
+      """Return (~R_c', ~R_90') for `inclinations` from `shape`
+
+  `inclinations` should be a vector of angles (in radians) and `shape`
+  should be callable to give R(theta), optionally with additional
+  arguments `shape_args`
+
+      """
+      Rcp, R90p = [], []
+      for inc in inclinations:
+          radii = characteristic_radii_projected(inc, shape, *shape_args)
+          Rcp.append(radii['tilde R_c prime'])
+          R90p.append(radii['tilde R_90 prime'])
+      return np.array(Rcp), np.array(R90p)
+
+
+  if __name__ == '__main__':
+      from bow_projection import (wilkinoid_R_theta, cantoid_R_theta,
+                                  Spline_R_theta_from_function, theta_infinity)
+
+      th_inf = theta_infinity(cantoid_R_theta, 0.001)
+      inclinations = np.linspace(0.0, th_inf - np.pi/2, 30)
+      Rc, R90 = Rcp_R90p(inclinations, cantoid_R_theta, 0.001)
+      Rc_s, R90_s = Rcp_R90p(inclinations,
+                             Spline_R_theta_from_function(
+                                 ngrid=1000,
+                                 shape_func=cantoid_R_theta,
+                                 shape_func_pars=(0.001,)))
+
+      result = [['inc', 'R_c', 'R_c spline', 'R_90', 'R_90 spline'], None]
+      result += list(zip(np.degrees(inclinations).astype(int),
+                         Rc, Rc_s, R90, R90_s))
+#+END_SRC
+
+#+RESULTS:
+| inc |                  R_c |          R_c spline |                R_90 |         R_90 spline |
+|-----+---------------------+--------------------+--------------------+--------------------|
+|   0 |  1.7211762909806865 | 1.7211969933001612 |  1.788432876163065 |  1.788432877628362 |
+|   2 |   1.721060046949576 | 1.7210306733096299 | 1.7884078871159215 | 1.7884078439998612 |
+|   5 |  1.7208435443442867 |  1.720846770359542 | 1.7883335061114378 |  1.788333503302761 |
+|   8 |  1.7205407234524173 | 1.7205412706343892 | 1.7882121036740382 | 1.7882121026860351 |
+|  10 |  1.7201146055611949 | 1.7201162108258143 |  1.788047532459995 | 1.7880475353093999 |
+|  13 |  1.7195744508625364 | 1.7195708814809856 | 1.7878455449239274 | 1.7878455382485092 |
+|  16 |  1.7189145023787393 | 1.7189145886194037 | 1.7876140334640094 | 1.7876140335756852 |
+|  18 |  1.7181502795143566 | 1.7181561069157838 | 1.7873635524631581 | 1.7873635667409582 |
+|  21 |  1.7172848769865823 | 1.7172921072570502 | 1.7871078717004685 |  1.787107891379602 |
+|  24 |   1.716327858628093 | 1.7163364994238792 | 1.7868648555814752 |  1.786864881301521 |
+|  26 |  1.7153017659553342 | 1.7153017828588415 | 1.7866576331528545 | 1.7866576331412702 |
+|  29 |  1.7141931975862852 |  1.714204672374434 | 1.7865159979786245 | 1.7865160373831397 |
+|  32 |  1.7130675649398328 |  1.713067566558465 | 1.7864789223577728 | 1.7864789223317543 |
+|  34 |  1.7119063824693783 |  1.711906382824093 |  1.786596977541205 |   1.78659697757871 |
+|  37 |  1.7108045983020774 | 1.7108046000972157 | 1.7869372200012266 | 1.7869372200006295 |
+|  40 |  1.7097584359505655 | 1.7097584424159404 |  1.787588387996814 |  1.787588388018829 |
+|  43 |  1.7088911910121842 |  1.708891220720459 | 1.7886705292524463 |  1.788670529390398 |
+|  45 |  1.7083134495372134 | 1.7083134489615501 | 1.7903475278924434 | 1.7903475278819656 |
+|  48 |   1.708119645144747 |  1.708139683025186 | 1.7928471108956148 | 1.7928472004272897 |
+|  51 |   1.708606710207008 |  1.708585730739672 | 1.7964935532700566 | 1.7964934580755825 |
+|  53 |  1.7100379308331568 | 1.7100160668963498 | 1.8017587525554792 | 1.8017586523849358 |
+|  56 |   1.712925506782704 | 1.7129255085517854 | 1.8093529457108366 | 1.8093529456587698 |
+|  59 |   1.718023069335738 | 1.7180230824590272 |  1.820386746609525 | 1.8203867465948196 |
+|  61 |  1.7266895894254655 | 1.7266895934444673 | 1.8366869032712032 | 1.8366869032366162 |
+|  64 |  1.7411296046395335 | 1.7411035328872697 | 1.8614612584653576 | 1.8614611425168164 |
+|  67 |  1.7657599739293375 | 1.7657317875316594 | 1.9008806120538697 | 1.9008804904720948 |
+|  69 |   1.810217910461067 | 1.8102499471695703 | 1.9685004554476422 | 1.9685005849645556 |
+|  72 |  1.9009164615240182 | 1.9009164161746304 |  2.101257055489833 | 2.1012570511538806 |
+|  75 |  2.1482452207298013 |  2.148245268653532 | 2.4537609492552956 | 2.4537608693339577 |
+|  77 | -0.7429653388595682 |                nan |  3.092947312986562 |                nan |
+
++ So there are two problems here:
+  1. The direct function has problems for inc = 1, 2, 3 degrees, while the spline fit is fine there
+     - (not apparent any more with this particular list of incs)
+     - But we get occasional unbracketed roots errors if we use slightly different lists
+  2. The spline fit doesn’t quite get to the asymptotic angle
