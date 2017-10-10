@@ -600,7 +600,7 @@ python dust-wave-Rc-R90.py
 + The plan is to find the plane-of-sky shape (x′, y′) numerically for an arbitrary R(\theta) at a given inclination
 + This will be a check on the multi-quadric 
 + Turns out that I already did a version of this years ago in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/projected/bowfuncs.py][projected/bowfuncs.py]], so I will copy routines from there and modify accordingly
-+ [4/9] Plan of work for ~bow_projection.py~ and its applications
++ [5/9] Plan of work for ~bow_projection.py~ and its applications
   1. [X] Implement analytic R(\theta) functions: paraboloid, wilkinoid, cantoid
   2. [X] Implement \omega(\theta)
      + Test for analytic functions
@@ -615,7 +615,8 @@ python dust-wave-Rc-R90.py
      + [X] Deal better with telling if we are outside the bow
      + [ ] Plot diagnostic graphs
      + This might be better combined with the following step
-  6. [ ] Make a convenience function that will do all that is necessary to get the info for a given shape at a given inclination
+  6. [X] Make a convenience function that will do all that is necessary to get the info for a given shape at a given inclination
+     - *cancelled* This is not necessary, since much is already done by  ~characteristic_radii_projected~
      - Find the range of relevant \theta and make an array
      - Find the R_0’, R_c’, R_90’.
        - Use linear interpolation to get the exact values for \theta_90, \theta_0
@@ -1465,24 +1466,27 @@ python dragoid_shape.py
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
-  from bow_projection import (xyprime_t)
+  from bow_projection import (xyprime_t, theta_infinity, theta_0_90,
+                              characteristic_radii_projected)
   from dragoid_shape import Dragoid
 
   figfile = sys.argv[0].replace('.py', '.pdf')
 
   sns.set_style('ticks')
   fig, axes = plt.subplots(2, 2, figsize=(8, 8))
-
-  th = np.linspace(0.0, np.pi, 1001)
-  inclinations = [0, 15, 30, 45, 60, 75]
+  
+  # For some reason, exactly 30.0 had problems with R0p
+  inclinations = [0.0, 15.0, 30.01, 45.0, 60.0, 75.01]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
   colors = sns.color_palette(n_colors=len(inclinations))
 
   for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
       shape = Dragoid(alpha=alpha)
-
+      th_inf = theta_infinity(shape)
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):
           inc = np.radians(inc_dg)
+          th0, th90 = theta_0_90(inc, shape)
+          th = np.linspace(th0, th_inf, 301)
           xp, yp = xyprime_t(th, inc, shape)
           m = np.isfinite(xp) & np.isfinite(yp)
           if m.sum() == 0:
@@ -1490,9 +1494,10 @@ python dragoid_shape.py
               continue
           xxp = np.concatenate((xp[m][::-1], xp[m]))
           yyp = np.concatenate((-yp[m][::-1], yp[m]))
-          R0p = xxp.max()
+          radii = characteristic_radii_projected(inc, shape)        
+          R0p = radii['R_0 prime']
           ax.plot(xxp/R0p, yyp/R0p,
-                  label=fr"$i = {inc_dg:d}^\circ$",
+                  label=fr"$i = {inc_dg:.0f}^\circ$",
                   color=color, lw=lw)
 
       ax.plot([0], [0], 'o', color='k')
@@ -1611,7 +1616,8 @@ python ancantoid_shape.py
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
-  from bow_projection import (xyprime_t)
+  from bow_projection import (xyprime_t, theta_infinity, theta_0_90,
+                              characteristic_radii_projected)
   from ancantoid_shape import Ancantoid
 
   figfile = sys.argv[0].replace('.py', '.pdf')
@@ -1619,7 +1625,6 @@ python ancantoid_shape.py
   sns.set_style('ticks')
   fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
-  th = np.linspace(0.0, np.pi, 1001)
   inclinations = [0, 15, 30, 45, 60, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
   colors = sns.color_palette(n_colors=len(inclinations))
@@ -1631,9 +1636,11 @@ python ancantoid_shape.py
 
       label = fr"Ancantoid $\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
       shape = Ancantoid(xi=xi, beta=beta)
-
+      th_inf = theta_infinity(shape)
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):
           inc = np.radians(inc_dg)
+          th0, th90 = theta_0_90(inc, shape)
+          th = np.linspace(th0, th_inf, 301)
           xp, yp = xyprime_t(th, inc, shape)
           m = np.isfinite(xp) & np.isfinite(yp)
           if m.sum() == 0:
@@ -1641,7 +1648,8 @@ python ancantoid_shape.py
               continue
           xxp = np.concatenate((xp[m][::-1], xp[m]))
           yyp = np.concatenate((-yp[m][::-1], yp[m]))
-          R0p = xxp.max()
+          radii = characteristic_radii_projected(inc, shape)
+          R0p = radii['R_0 prime']
           ax.plot(xxp/R0p, yyp/R0p,
                   label=fr"$i = {inc_dg:d}^\circ$",
                   color=color, lw=lw)
