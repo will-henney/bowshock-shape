@@ -2903,7 +2903,7 @@ python test_xyprime_wave.py 0.3 5.5
 This one is very silly. For phase = 0.5 it looks like a duck
 
 
-*** Diagnostic diagram for standing wave
+*** Characteristic radii for standing wave
 
 **** Wilkinoid
 #+name: test-wave-diagnostic
@@ -2917,7 +2917,7 @@ This one is very silly. For phase = 0.5 it looks like a duck
 
   bp.N_NEIGHBORHOOD = 50
   bp.DEGREE_POLY_NEIGHBORHOOD = 2
-  bp.SCALE_NEIGHBORHOOD = 0.2
+  bp.SCALE_NEIGHBORHOOD = 0.03
   bp.DEGREE_POLY_NEIGHBORHOOD_90 = 2
   bp.SCALE_NEIGHBORHOOD_90 = 0.01
 
@@ -2988,24 +2988,24 @@ This one is very silly. For phase = 0.5 it looks like a duck
 #+RESULTS:
 | R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime | inc |
 |----------+--------+---------+----------+-----------------+----------------+-----|
-|        1 |      0 |      90 |      180 |           1.732 |         1.6652 |   0 |
-|   1.0026 |    8.3 |    90.3 |      180 |          1.7317 |         1.6632 |   5 |
-|   1.0103 |   16.7 |    91.4 |      180 |          1.7307 |         1.6599 |  10 |
-|   1.0234 |   25.1 |      93 |      180 |          1.7289 |          1.656 |  15 |
-|   1.0422 |   33.5 |    95.4 |      180 |          1.7265 |         1.6509 |  20 |
-|   1.0674 |     42 |    98.3 |      180 |          1.7233 |         1.6449 |  25 |
-|   1.0997 |   50.6 |   101.8 |      180 |          1.7194 |         1.6374 |  30 |
-|   1.1402 |   59.3 |   105.8 |      180 |          1.7146 |         1.6297 |  35 |
-|   1.1903 |   68.2 |   110.4 |      180 |           1.709 |         1.6222 |  40 |
-|   1.2524 |   77.2 |   115.4 |      180 |          1.7023 |         1.6119 |  45 |
-|   1.3295 |   86.5 |   120.9 |      180 |          1.6947 |         1.6017 |  50 |
-|    1.426 |     96 |   126.8 |      180 |           1.686 |         1.5904 |  55 |
-|    1.549 |  105.9 |   133.2 |      180 |          1.6763 |         1.5791 |  60 |
-|   1.7104 |  116.3 |     140 |      180 |          1.6652 |         1.5642 |  65 |
-|   1.9309 |  127.2 |   147.2 |      180 |           1.653 |         1.5488 |  70 |
-|    2.254 |  138.9 |   154.9 |      180 |          1.6401 |         1.5319 |  75 |
-|   2.7913 |  151.5 |     163 |      180 |          1.6273 |         1.5142 |  80 |
-|   3.9842 |  165.2 |   171.4 |      180 |          1.6165 |         1.4982 |  85 |
+|        1 |      0 |      90 |      180 |          1.7321 |         1.6667 |   0 |
+|   1.0025 |    8.3 |    90.3 |      180 |          1.7317 |         1.6663 |   5 |
+|   1.0102 |   16.7 |    91.4 |      180 |          1.7307 |          1.665 |  10 |
+|   1.0233 |   25.1 |      93 |      180 |          1.7291 |         1.6629 |  15 |
+|   1.0421 |   33.5 |    95.4 |      180 |          1.7267 |           1.66 |  20 |
+|   1.0672 |     42 |    98.3 |      180 |          1.7236 |         1.6561 |  25 |
+|   1.0994 |   50.6 |   101.8 |      180 |          1.7197 |         1.6513 |  30 |
+|   1.1398 |   59.3 |   105.8 |      180 |          1.7151 |         1.6454 |  35 |
+|     1.19 |   68.2 |   110.4 |      180 |          1.7095 |         1.6384 |  40 |
+|    1.252 |   77.2 |   115.4 |      180 |           1.703 |         1.6302 |  45 |
+|    1.329 |   86.5 |   120.9 |      180 |          1.6954 |         1.6205 |  50 |
+|   1.4254 |     96 |   126.8 |      180 |          1.6867 |         1.6093 |  55 |
+|   1.5485 |  105.9 |   133.2 |      180 |          1.6769 |         1.5964 |  60 |
+|   1.7097 |  116.3 |     140 |      180 |          1.6658 |         1.5816 |  65 |
+|   1.9302 |  127.2 |   147.2 |      180 |          1.6536 |         1.5647 |  70 |
+|   2.2533 |  138.9 |   154.9 |      180 |          1.6407 |         1.5461 |  75 |
+|   2.7906 |  151.5 |     163 |      180 |          1.6277 |         1.5264 |  80 |
+|   3.9834 |  165.2 |   171.4 |      180 |          1.6168 |         1.5086 |  85 |
 |      nan |    nan |     nan |      180 |             nan |            nan |  90 |
 
 
@@ -3266,3 +3266,99 @@ This one is very silly. For phase = 0.5 it looks like a duck
 |   1.4033 |   98.7 |   120.8 |    128.8 |          4.0829 |         3.9949 | 34.5 |
 |   1.5453 |  109.3 |   124.6 |    128.8 |          5.2074 |           5.15 | 36.6 |
 |      nan |    nan |     nan |    128.8 |             nan |            nan | 38.8 |
+
+
+*** Figure of R_c-R_90 for the standing wave
+This is something I never got finished for the multi-quadric fits
+
+#+BEGIN_SRC python :eval no :tangle wilkinoid-R90-vs-Rc-wave.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker
+  import seaborn as sns
+  import bow_projection as bp
+  import bow_diagnostic
+  import standing_wave
+
+  bp.N_NEIGHBORHOOD = 50
+  bp.DEGREE_POLY_NEIGHBORHOOD = 2
+  bp.SCALE_NEIGHBORHOOD = 0.03
+  bp.DEGREE_POLY_NEIGHBORHOOD_90 = 2
+  bp.SCALE_NEIGHBORHOOD_90 = 0.01
+
+  try:
+      amplitude = float(sys.argv[1])
+      wavenumber = float(sys.argv[2])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} AMPLITUDE WAVENUMBER")
+
+  plotfile = sys.argv[0].replace(
+      '.py', f'-A{int(100*amplitude):03d}-N{int(10*wavenumber):02d}.pdf')
+
+  sns.set_style('ticks')
+  fig, ax = plt.subplots(figsize=(5, 5))
+
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
+  ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
+  # And plot the projected wilkinoids 
+  shape = bp.wilkinoid_R_theta
+  th_inf = bp.theta_infinity(shape)
+  inc = np.linspace(0.0, th_inf - np.pi/2, 50)
+  tab = bow_diagnostic.parameter_table(inc, shape)
+  Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+  ax.plot(Rc, R90, '-', c='w', label="_nolabel_", lw=0.6, alpha=0.9)
+  ax.plot(Rc, R90, 'x', ms=0.2, c='w', label="_nolabel_", alpha=0.5)
+
+
+  nphases = 11
+  ninc = 50
+  phases = np.linspace(0.0, 0.5, nphases)
+  mus = np.linspace(0.0, 1.0, ninc)
+  inclinations = np.arcsin(mus)
+  shape = standing_wave.StandingWave(
+      bp.wilkinoid_R_theta,
+      amplitude=amplitude, wavenumber=wavenumber)
+  cols = sns.color_palette('magma', n_colors=nphases)
+  for phase, col in list(zip(phases, cols))[::-1]:
+      shape.phase = phase
+      th_inf = bp.theta_infinity(shape)
+      tab = bow_diagnostic.parameter_table(inclinations, shape)
+      Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+      ax.plot(Rc, R90, '.',  mec='none', c=col, label="_nolabel_", alpha=0.8)
+
+  ax.set(
+      yscale='linear',
+      xscale='linear',
+      xlim=[0.0, 5.1],
+      ylim=[0.0, 5.1],
+  #    ylim=[-3.0, 1.1],
+      xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+  )        
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python wilkinoid-R90-vs-Rc-wave.py 0.1 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:wilkinoid-R90-vs-Rc-wave-A010-N10.pdf]]
