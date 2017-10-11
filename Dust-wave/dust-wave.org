@@ -2719,3 +2719,185 @@ python dragoid-R90-vs-Rc.py
 #+RESULTS:
 [[file:dragoid-R90-vs-Rc.pdf]]
 
+
+
+
+** Standing wave perturbations
+
+
+*** ~standing_wave.py~: class for perturbed shell 
+#+BEGIN_SRC python :eval no :tangle standing_wave.py
+  import numpy as np
+
+  class StandingWave(object):
+
+      def __init__(self, base_shape, amplitude, wavenumber, phase=0.0, *base_shape_args):
+          """
+          Constant amplitude standing wave with antinode on x-axis (theta = 0)
+
+          Parameters
+          ----------
+          base_shape : callable
+              Underlying R(theta) shape to be perturbed
+          amplitude
+              Relative amplitude of radial oscillation
+          wavenumber
+              Angular wavenumber of oscillation. With `wavenumber = 1.0` there will
+              be a node on the y-axis (theta = pi/2). With `wavenumber = 2.0` there
+              will be an anti-node on the y-axis that is out of phase with the
+              node on the x-axis.
+          phase : optional
+              Temporal phase of the oscillation. The amplitude is multiplied
+              by `cos(2 pi phase)`, so that When `phase = 0` the radial perturbation
+              is positive at `theta = 0`, whereas when `phase = 0.5` the radial
+              perturbation is negative at `theta = 0`.  For `phase = 0.25, 0.75`
+              the perturbation is zero for all `theta`.
+          ,*base_shape_args : optional
+              Any unrecognised args are passed on to the unperturbed radius
+              function: `base_shape(theta, *base_shape_args)` 
+
+
+          """
+          self.base_shape = base_shape
+          self.amplitude = amplitude
+          self.wavenumber = wavenumber
+          self.phase = phase
+          self.base_shape_args = base_shape_args
+
+      def __call__(self, theta):
+          """
+          Radius as function of `theta` for standing wave
+          """
+          return ((1.0 + self.perturbation(theta)) *
+                  self.base_shape(theta, *self.base_shape_args))
+
+      def perturbation(self, theta):
+          """
+          Fractional perturbation of `base_shape` radius at each angle `theta`
+          """
+          return (self.amplitude *
+                  np.cos(2*np.pi*self.phase) *
+                  np.cos(self.wavenumber*theta))
+
+#+END_SRC
+
+*** Test the xy shapes
+#+BEGIN_SRC python :eval no :tangle test_xyprime_wave.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  import bow_projection as bp
+  import standing_wave
+
+  try:
+      amplitude = float(sys.argv[1])
+      wavenumber = float(sys.argv[2])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} AMPLITUDE WAVENUMBER")
+
+
+  figfile = sys.argv[0].replace(
+      '.py', f'-A{int(100*amplitude):03d}-N{int(10*wavenumber):02d}.pdf')
+
+  sns.set_style('ticks')
+  fig, axes = plt.subplots(3, 3, figsize=(10, 10))
+
+  inclinations = [0, 15, 30, 45, 60, 75]
+  linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+  colors = sns.color_palette(palette="magma_r", n_colors=len(inclinations))
+
+
+  shape = standing_wave.StandingWave(
+      bp.wilkinoid_R_theta, amplitude=amplitude, wavenumber=wavenumber)
+
+  phases = np.linspace(0.0, 0.5, len(axes.flat))
+  for phase, ax in zip(phases, axes.flat):
+      shape.phase = phase
+      label = f"Phase = ${phase:.2f}$"
+      th_inf = bp.theta_infinity(shape)
+      for inc_dg, color, lw in zip(inclinations, colors, linewidths):
+          inc = np.radians(inc_dg)
+          th0, th90 = bp.theta_0_90(inc, shape)
+          th = np.linspace(th0, th_inf, 301)
+          xp, yp = bp.xyprime_t(th, inc, shape)
+          m = np.isfinite(xp) & np.isfinite(yp)
+          if m.sum() == 0:
+              # Case of no tangent line at all at this inclination
+              continue
+          xxp = np.concatenate((xp[m][::-1], xp[m]))
+          yyp = np.concatenate((-yp[m][::-1], yp[m]))
+          radii = bp.characteristic_radii_projected(inc, shape)
+          R0p = radii['R_0 prime']
+          ax.plot(xxp/R0p, yyp/R0p,
+                  label=fr"$i = {inc_dg:d}^\circ$",
+                  color=color, lw=lw)
+
+      ax.plot([0], [0], 'o', color='k')
+
+      ax.legend(title=label, ncol=1, loc="center left")
+      ax.set(
+          xlabel=r"$x' / R_0'$",
+          ylabel=r"$y' / R_0'$",
+          xlim=[-7, 3],
+          ylim=[-5, 5],
+      )
+      ax.set_aspect('equal', adjustable='box')
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+**** Wilkinoid, Wavenumber 1.0, Amplitude 0.1
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.1 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A010-N10.pdf]]
+
+Note that for phase = 0.12, the effect of the perturbation is to push the shape closer to the paraboloid, with the result that varying the inclination makes no difference
+
+**** Wilkinoid, Wavenumber 1.5, Amplitude 0.1
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.1 1.5
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A010-N15.pdf]]
+
+This one more clearly shows the difference between 
+1. phase = 0, where the i = 0 shape is pointy, becoming flatter as inc increases
+2. phase = 0.5, where the i = 0 shapes is flat, and it becomes pointier as inc increases
+
+**** Wilkinoid, Wavenumber 2.5, Amplitude 0.07
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.07 2.5
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A007-N25.pdf]]
+
+
+
+**** Wilkinoid, Wavenumber 4.5, Amplitude 0.05
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.05 4.5
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A005-N45.pdf]]
+
+Having such a high wave number is a bit silly, but it does show new behaviour: we can get the perturbations in R_c and R_90 having opposite signs
+
+**** Wilkinoid, Wavenumber 5.5, Amplitude 0.3
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.3 5.5
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A030-N55.pdf]]
+
+This one is very silly. For phase = 0.5 it looks like a duck
