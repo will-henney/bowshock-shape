@@ -38,7 +38,8 @@ th_inf = bp.theta_infinity(shape)
 inc = np.linspace(0.0, th_inf - np.pi/2, 50)
 tab = bow_diagnostic.parameter_table(inc, shape)
 Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
-ax.plot(Rc, R90, c='w', label='_nolabel_', lw=1.6, alpha=0.7)
+ax.plot(Rc, R90, '-', c='w', label="_nolabel_", lw=0.6, alpha=0.9)
+ax.plot(Rc, R90, 'x', ms=0.2, c='w', label="_nolabel_", alpha=0.5)
 
 
 ALPHA_LIST = [0.25, 0.5, 1.0, 2.0]
@@ -51,12 +52,14 @@ for alpha, col in list(zip(ALPHA_LIST, cols))[::-1]:
     tab = bow_diagnostic.parameter_table(inc, shape)
     Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
 
-    ax.plot(Rc, R90, c=col, label=shape.label, lw=1.6, alpha=0.7)
+    ax.plot(Rc, R90, '-', c=col, label=shape.label, lw=0.4, alpha=0.9)
+    ax.plot(Rc, R90, 'x', ms=0.2, c=col, label="_nolabel_", alpha=0.5)
     # Put a dot at the i=0 case
-    ax.plot(Rc[0:1], R90[0:1], '.', label='_nolabel_', c=col, alpha=1.0)
+    ax.plot(Rc[0:1], R90[0:1], '.', mec='none', c=col, label="_nolabel_", alpha=0.7)
 
 
-ax.legend(ncol=1, fontsize='small', title='Dragoid', frameon=True)
+ax.legend(ncol=1, fontsize='small', title='Dragoid',
+          frameon=True, loc="lower right")
 ax.set(
     yscale='linear',
     xscale='linear',

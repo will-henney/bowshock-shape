@@ -1,4 +1,5 @@
 import sys
+import json
 import numpy as np
 from bow_projection import Spline_R_theta_from_grid
 sys.path.append("../CRW-shapes")
@@ -6,15 +7,25 @@ import equation6
 
 DEBUG = False
 
+
 class Ancantoid(object):
     def __init__(self, xi, beta, n=101):
         if DEBUG:
             print("Initialising Ancantoid(xi={xi:.2g}, beta={beta:.2g}, n={n})",
                   file=sys.stderr)
-        # Use equation6 to find grid of R, theta
+        self.xi = xi
+        self.beta = beta
+        self.n = n
         self.thgrid = np.linspace(0.0, np.pi, n)
-        self.shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
-        self.Rgrid = self.shell.radius(self.thgrid) / self.shell.R0
+        try:
+            # First, look for cached file
+            self._load_Rgrid_from_cache()
+        except:
+            # Failing that, use equation6 to find grid of R, theta
+            self.shell = equation6.Shell(innertype='anisotropic', beta=beta, xi=xi)
+            self.Rgrid = self.shell.radius(self.thgrid) / self.shell.R0
+            self._save_Rgrid_to_cache()
+
         if DEBUG:
             print("thgrid =", self.thgrid, file=sys.stderr)
             print("Rgrid = ", self.Rgrid, file=sys.stderr)
@@ -25,6 +36,25 @@ class Ancantoid(object):
     def __call__(self, theta):
         # When called as a function, give the spline fitted result
          return self.splinefit(theta)
+
+    def _load_Rgrid_from_cache(self):
+        with open(self._cache_filename()) as f:
+            data = json.load(f)
+        self.thgrid = np.array(data['theta'])
+        self.Rgrid = np.array(data['R'])
+
+    def _save_Rgrid_to_cache(self):
+        data = {'theta': list(self.thgrid), 'R': list(self.Rgrid)}
+        with open(self._cache_filename(), 'w') as f:
+            json.dump(data, f, indent=4)
+
+    def _cache_filename(self, suffix=".json"):
+        fn = "ancantoid"
+        fn += f"-xi{int(100*self.xi):03d}"
+        fn += f"-beta{int(100000*self.beta):06d}"
+        fn += f"-n{self.n:05d}"
+        fn += suffix
+        return fn
 
 
 if __name__ == "__main__":
@@ -44,8 +74,10 @@ if __name__ == "__main__":
 
     for xi, beta in [[0.8, 0.001],
                      [0.8, 0.01],
+                     [0.8, 0.1],
                      [0.4, 0.001],
-                     [0.4, 0.01],]:
+                     [0.4, 0.01],
+                     [0.4, 0.1],]:
         label = fr"$\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
         shape = Ancantoid(xi=xi, beta=beta)
         ax.plot(np.degrees(shape.thgrid), shape.Rgrid,

@@ -18,6 +18,11 @@ except:
 sns.set_style('ticks')
 fig, ax = plt.subplots(figsize=(5, 5))
 
+bp.N_NEIGHBORHOOD = 50
+bp.DEGREE_POLY_NEIGHBORHOOD = 2
+bp.SCALE_NEIGHBORHOOD = 0.03
+bp.DEGREE_POLY_NEIGHBORHOOD_90 = 2
+bp.SCALE_NEIGHBORHOOD_90 = 0.01
 
 left_annotate_pars = dict(xytext=(-5, 5), ha='right', va='bottom')
 right_annotate_pars = dict(xytext=(5, -5), ha='left', va='top')
@@ -35,23 +40,31 @@ ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
-inc = np.linspace(0.0, 0.5*np.pi, 500, endpoint=False)
-inc_deg = np.degrees(inc)
-
-
 XI_LIST = [None, 1.0, 0.8, 0.4]
 BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.005, 1e-3]
 nxi, nbeta = len(XI_LIST), len(BETA_LIST)
 
+# Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
+ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
+# And plot the projected wilkinoids 
+shape = bp.wilkinoid_R_theta
+th_inf = bp.theta_infinity(shape)
+inc = np.linspace(0.0, th_inf - np.pi/2, 50)
+tab = bow_diagnostic.parameter_table(inc, shape)
+Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+ax.plot(Rc, R90, '-', c='w', label="_nolabel_", lw=0.6, alpha=0.9)
+ax.plot(Rc, R90, 'x', ms=0.2, c='w', label="_nolabel_", alpha=0.5)
+
+
 cols = sns.color_palette('magma', n_colors=nxi)
-annot_pars_list = [left_annotate_pars]*2 + [right_annotate_pars]*2 
+annot_pars_list = [right_annotate_pars]*2 + [left_annotate_pars]*2 
 for beta in BETA_LIST[::-1]:
     for xi, col, annot_pars in list(zip(XI_LIST, cols, annot_pars_list))[istart::-2]:
 
         if beta == BETA_LIST[0]:
-            label = 'CRW' if xi is None else fr'$\xi = {xi:.1f}$'
+            label = "Cantoid" if xi is None else fr"Ancantoid $\xi = {xi:.1f}$"
         else:
-            label = None
+            label = "_nolabel_"
 
         if xi is None:
             shape = bp.Spline_R_theta_from_function(
@@ -61,20 +74,21 @@ for beta in BETA_LIST[::-1]:
         else:
             shape = ancantoid_shape.Ancantoid(xi=xi, beta=beta, n=301)
 
-        Rc, R90 = bow_diagnostic.Rcp_R90p(inc, shape)
+        th_inf = bp.theta_infinity(shape)
+        inc = np.linspace(0.0, th_inf - np.pi/2, 50)
+        tab = bow_diagnostic.parameter_table(inc, shape)
+        Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
 
-        # Plot the head discriminant for low inclinations
-        ax.plot(Rc, R90, c=col, label=None, lw=1.6, alpha=0.7)
+        ax.plot(Rc, R90, '-', c=col, label=label, lw=0.4, alpha=0.9)
+        ax.plot(Rc, R90, 'x', ms=0.2, c=col, label="_nolabel_", alpha=0.5)
         # Put a dot at the i=0 case
-        ax.plot(Rc[0:1], R90[0:1], '.', c=col, alpha=1.0)
+        ax.plot(Rc[0:1], R90[0:1], '.', mec='none', c=col, label="_nolabel_", alpha=0.7)
         # Label the dot with the cross-over inclination
         ax.annotate(rf'$\beta = \mathrm{{{beta:g}}}$',
                     xy=(Rc[0], R90[0]),
                     textcoords='offset points',
                     fontsize='x-small', color=col, **annot_pars)
 
-# Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
-ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
 
 ax.legend(ncol=1, fontsize='small', frameon=True)
 ax.set(
