@@ -2731,7 +2731,7 @@ python dragoid-R90-vs-Rc.py
 
   class StandingWave(object):
 
-      def __init__(self, base_shape, amplitude, wavenumber, phase=0.0, *base_shape_args):
+      def __init__(self, base_shape, amplitude, wavenumber, phase=0.0, **base_shape_kwds):
           """
           Constant amplitude standing wave with antinode on x-axis (theta = 0)
 
@@ -2752,9 +2752,9 @@ python dragoid-R90-vs-Rc.py
               is positive at `theta = 0`, whereas when `phase = 0.5` the radial
               perturbation is negative at `theta = 0`.  For `phase = 0.25, 0.75`
               the perturbation is zero for all `theta`.
-          ,*base_shape_args : optional
+          ,**base_shape_kwds : optional
               Any unrecognised args are passed on to the unperturbed radius
-              function: `base_shape(theta, *base_shape_args)` 
+              function: `base_shape(theta, **base_shape_kwds)` 
 
 
           """
@@ -2762,14 +2762,14 @@ python dragoid-R90-vs-Rc.py
           self.amplitude = amplitude
           self.wavenumber = wavenumber
           self.phase = phase
-          self.base_shape_args = base_shape_args
+          self.base_shape_kwds = base_shape_kwds
 
       def __call__(self, theta):
           """
           Radius as function of `theta` for standing wave
           """
           return ((1.0 + self.perturbation(theta)) *
-                  self.base_shape(theta, *self.base_shape_args))
+                  self.base_shape(theta, **self.base_shape_kwds))
 
       def perturbation(self, theta):
           """
@@ -2905,6 +2905,7 @@ This one is very silly. For phase = 0.5 it looks like a duck
 
 *** Diagnostic diagram for standing wave
 
+**** Wilkinoid
 #+name: test-wave-diagnostic
 #+header: :var phase=0.0 amplitude=0.1 wavenumber=1.0
 #+BEGIN_SRC python :eval yes :return result
@@ -2931,7 +2932,7 @@ This one is very silly. For phase = 0.5 it looks like a duck
 #+END_SRC
 
 
-**** Tables for amplitude=0.1 wavenumber=1.0
+***** Tables for amplitude=0.1 wavenumber=1.0
 #+call: test-wave-diagnostic(phase=0.0)
 
 #+RESULTS:
@@ -3008,7 +3009,7 @@ This one is very silly. For phase = 0.5 it looks like a duck
 |      nan |    nan |     nan |      180 |             nan |            nan |  90 |
 
 
-**** Tables for wavenumber=2
+***** Tables for wavenumber=2
 #+call: test-wave-diagnostic(phase=0.0, wavenumber=2.0, amplitude=0.05)
 
 #+RESULTS:
@@ -3059,7 +3060,7 @@ This one is very silly. For phase = 0.5 it looks like a duck
 |   3.8111 |    165 |   171.4 |      180 |          1.6092 |         1.4865 |  85 |
 |      nan |    nan |     nan |      180 |             nan |            nan |  90 |
 
-**** Tables for wavenumber=4
+***** Tables for wavenumber=4
 #+call: test-wave-diagnostic(phase=0.0, wavenumber=4, amplitude=0.02)
 
 #+RESULTS:
@@ -3109,3 +3110,159 @@ This one is very silly. For phase = 0.5 it looks like a duck
 |    2.816 |  150.3 |   162.7 |      180 |          1.6013 |         1.4821 |  80 |
 |   3.9439 |  164.9 |   171.3 |      180 |          1.6061 |         1.4816 |  85 |
 |      nan |    nan |     nan |      180 |             nan |            nan |  90 |
+
+
+**** Cantoid
+#+name: test-wave-diagnostic-cantoid
+#+header: :var beta=0.01 phase=0.0 amplitude=0.1 wavenumber=1.0
+#+BEGIN_SRC python :eval yes :return result
+  import sys
+  import numpy as np
+  import bow_projection as bp
+  import bow_diagnostic
+  import standing_wave
+
+  bp.N_NEIGHBORHOOD = 50
+  bp.DEGREE_POLY_NEIGHBORHOOD = 2
+  bp.SCALE_NEIGHBORHOOD = 0.03
+  bp.DEGREE_POLY_NEIGHBORHOOD_90 = 2
+  bp.SCALE_NEIGHBORHOOD_90 = 0.01
+
+  shape = standing_wave.StandingWave(
+      bp.cantoid_R_theta,
+      amplitude=amplitude, wavenumber=wavenumber, phase=phase,
+      beta=beta)
+  th_inf = bp.theta_infinity(shape)
+  inclinations = np.linspace(0.0, th_inf - np.pi/2, 19)
+  tab = bow_diagnostic.parameter_table(inclinations, shape)
+
+  result = [tab.colnames, None] + list(tab.as_array())
+
+#+END_SRC
+
+
+***** Tables for \beta = 0.1, amplitude=0.1 wavenumber=1.0
+#+call: test-wave-diagnostic-cantoid(beta=0.1, phase=0.0)
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|      1.1 |      0 |      90 |    128.8 |          2.2807 |         1.9953 |    0 |
+|   1.1008 |    4.3 |    90.1 |    128.8 |          2.2825 |         1.9965 |  2.2 |
+|   1.1031 |    8.6 |    90.5 |    128.8 |          2.2879 |         2.0001 |  4.3 |
+|    1.107 |     13 |    91.1 |    128.8 |          2.2971 |         2.0063 |  6.5 |
+|   1.1126 |   17.4 |    91.9 |    128.8 |          2.3104 |         2.0153 |  8.6 |
+|     1.12 |   21.8 |    92.9 |    128.8 |          2.3282 |         2.0274 | 10.8 |
+|   1.1291 |   26.4 |    94.2 |    128.8 |          2.3513 |          2.043 | 12.9 |
+|   1.1404 |   31.1 |    95.8 |    128.8 |          2.3806 |         2.0627 | 15.1 |
+|   1.1538 |   35.9 |    97.6 |    128.8 |          2.4174 |         2.0877 | 17.2 |
+|   1.1698 |   40.9 |    99.6 |    128.8 |          2.4636 |          2.119 | 19.4 |
+|   1.1886 |   46.1 |   101.8 |    128.8 |           2.522 |         2.1586 | 21.5 |
+|   1.2109 |   51.7 |   104.4 |    128.8 |          2.5967 |         2.2094 | 23.7 |
+|   1.2373 |   57.6 |   107.1 |    128.8 |          2.6944 |         2.2764 | 25.9 |
+|   1.2689 |   64.1 |   110.1 |    128.8 |          2.8261 |         2.3672 |   28 |
+|   1.3075 |   71.2 |   113.4 |    128.8 |          3.0122 |         2.4971 | 30.2 |
+|   1.3559 |   79.4 |   116.9 |    128.8 |          3.2956 |         2.6981 | 32.3 |
+|     1.42 |   89.2 |   120.6 |    128.8 |           3.788 |         3.0543 | 34.5 |
+|   1.5153 |  101.9 |   124.6 |    128.8 |          4.9353 |         3.9022 | 36.6 |
+|      nan |    nan |     nan |    128.8 |             nan |            nan | 38.8 |
+
+#+call: test-wave-diagnostic-cantoid(beta=0.1, phase=0.25)
+
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|        1 |      0 |      90 |    128.8 |          2.5088 |         2.4375 |    0 |
+|    1.001 |    5.3 |    90.1 |    128.8 |          2.5105 |         2.4389 |  2.2 |
+|   1.0041 |   10.5 |    90.5 |    128.8 |          2.5156 |         2.4435 |  4.3 |
+|   1.0093 |   15.8 |    91.1 |    128.8 |          2.5244 |         2.4512 |  6.5 |
+|   1.0166 |   21.1 |      92 |    128.8 |          2.5372 |         2.4625 |  8.6 |
+|   1.0263 |   26.5 |    93.1 |    128.8 |          2.5543 |         2.4776 | 10.8 |
+|   1.0384 |   31.9 |    94.5 |    128.8 |          2.5764 |         2.4972 | 12.9 |
+|   1.0532 |   37.4 |    96.1 |    128.8 |          2.6045 |          2.522 | 15.1 |
+|    1.071 |     43 |    97.9 |    128.8 |          2.6398 |         2.5532 | 17.2 |
+|   1.0922 |   48.7 |    99.9 |    128.8 |          2.6841 |         2.5925 | 19.4 |
+|   1.1173 |   54.5 |   102.2 |    128.8 |          2.7401 |         2.6422 | 21.5 |
+|    1.147 |   60.6 |   104.7 |    128.8 |          2.8119 |         2.7057 | 23.7 |
+|   1.1824 |   66.8 |   107.5 |    128.8 |          2.9058 |         2.7885 | 25.9 |
+|   1.2249 |   73.4 |   110.4 |    128.8 |          3.0328 |         2.9004 |   28 |
+|   1.2768 |   80.4 |   113.6 |    128.8 |          3.2127 |         3.0592 | 30.2 |
+|   1.3419 |     88 |     117 |    128.8 |           3.488 |         3.2997 | 32.3 |
+|    1.428 |   96.5 |   120.7 |    128.8 |          3.9692 |         3.7177 | 34.5 |
+|   1.5546 |  106.9 |   124.6 |    128.8 |          5.1001 |         4.6823 | 36.6 |
+|      nan |    nan |     nan |    128.8 |             nan |            nan | 38.8 |
+
+#+call: test-wave-diagnostic-cantoid(beta=0.1, phase=0.5)
+
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|      0.9 |      0 |      90 |    128.8 |          2.7875 |         3.3428 |    0 |
+|   0.9015 |    7.2 |    90.1 |    128.8 |          2.7882 |         3.3379 |  2.2 |
+|    0.906 |   14.2 |    90.5 |    128.8 |          2.7906 |         3.3247 |  4.3 |
+|   0.9134 |   21.1 |    91.2 |    128.8 |          2.7949 |         3.3056 |  6.5 |
+|   0.9239 |   27.7 |    92.1 |    128.8 |          2.8016 |          3.284 |  8.6 |
+|   0.9375 |   34.1 |    93.3 |    128.8 |          2.8116 |         3.2632 | 10.8 |
+|   0.9544 |   40.2 |    94.7 |    128.8 |          2.8255 |         3.2458 | 12.9 |
+|   0.9747 |   46.2 |    96.3 |    128.8 |          2.8446 |         3.2341 | 15.1 |
+|   0.9987 |     52 |    98.2 |    128.8 |          2.8703 |         3.2302 | 17.2 |
+|    1.027 |   57.7 |   100.3 |    128.8 |          2.9046 |         3.2368 | 19.4 |
+|     1.06 |   63.4 |   102.6 |    128.8 |          2.9503 |         3.2552 | 21.5 |
+|   1.0986 |     69 |   105.1 |    128.8 |          3.0114 |         3.2916 | 23.7 |
+|    1.144 |   74.7 |   107.8 |    128.8 |          3.0944 |         3.3502 | 25.9 |
+|   1.1979 |   80.6 |   110.7 |    128.8 |            3.21 |         3.4415 |   28 |
+|    1.263 |   86.8 |   113.8 |    128.8 |          3.3783 |         3.5826 | 30.2 |
+|    1.344 |   93.3 |   117.2 |    128.8 |          3.6415 |         3.8144 | 32.3 |
+|   1.4497 |  100.7 |   120.8 |    128.8 |          4.1096 |         4.2377 | 34.5 |
+|   1.6036 |  109.6 |   124.6 |    128.8 |          5.2251 |         5.2052 | 36.6 |
+|      nan |    nan |     nan |    128.8 |             nan |            nan | 38.8 |
+
+***** Tables for \beta = 0.1, amplitude=0.02 wavenumber=4.0
+#+call: test-wave-diagnostic-cantoid(beta=0.1, phase=0.0, amplitude=0.02, wavenumber=4.0)
+
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|     1.02 |      0 |      90 |    128.8 |          2.5088 |         1.3812 |    0 |
+|   1.0203 |      3 |    90.1 |    128.8 |          2.5123 |         1.3856 |  2.2 |
+|   1.0211 |      6 |    90.5 |    128.8 |          2.5231 |         1.3991 |  4.3 |
+|   1.0226 |    9.2 |    91.1 |    128.8 |          2.5411 |         1.4231 |  6.5 |
+|   1.0249 |   12.6 |      92 |    128.8 |          2.5666 |         1.4608 |  8.6 |
+|   1.0281 |   16.4 |    93.1 |    128.8 |          2.5995 |         1.5183 | 10.8 |
+|   1.0326 |   20.9 |    94.4 |    128.8 |            2.64 |         1.6097 | 12.9 |
+|   1.0393 |   26.9 |      96 |    128.8 |          2.6875 |         1.7771 | 15.1 |
+|   1.0503 |   38.3 |    97.8 |    128.8 |          2.7379 |         2.2461 | 17.2 |
+|   1.0721 |   53.7 |    99.8 |    128.8 |          2.7765 |         2.9468 | 19.4 |
+|   1.1037 |   61.8 |     102 |    128.8 |          2.8108 |         3.1394 | 21.5 |
+|    1.142 |   67.8 |   104.5 |    128.8 |          2.8538 |         3.1957 | 23.7 |
+|   1.1868 |     73 |   107.2 |    128.8 |          2.9155 |         3.2116 | 25.9 |
+|   1.2385 |     78 |   110.2 |    128.8 |          3.0086 |         3.2242 |   28 |
+|   1.2983 |     83 |   113.4 |    128.8 |           3.155 |         3.2551 | 30.2 |
+|   1.3686 |   88.5 |   116.9 |    128.8 |          3.3991 |         3.3399 | 32.3 |
+|   1.4543 |   94.9 |   120.6 |    128.8 |          3.8553 |         3.5479 | 34.5 |
+|   1.5693 |    104 |   124.6 |    128.8 |          4.9769 |         4.1857 | 36.6 |
+|      nan |    nan |     nan |    128.8 |             nan |            nan | 38.8 |
+
+#+call: test-wave-diagnostic-cantoid(beta=0.1, phase=0.5, amplitude=0.02, wavenumber=4.0)
+
+#+RESULTS:
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime |  inc |
+|----------+--------+---------+----------+-----------------+----------------+------|
+|     0.98 |      0 |      90 |    128.8 |          2.5088 |         11.942 |    0 |
+|    0.985 |   14.6 |    90.1 |    128.8 |          2.5002 |         6.9256 |  2.2 |
+|   0.9949 |     21 |    90.5 |    128.8 |          2.4882 |         5.0329 |  4.3 |
+|   1.0072 |   25.8 |    91.1 |    128.8 |          2.4792 |         4.1256 |  6.5 |
+|   1.0213 |   29.9 |      92 |    128.8 |          2.4754 |         3.5804 |  8.6 |
+|    1.037 |   33.6 |    93.1 |    128.8 |          2.4784 |         3.2153 | 10.8 |
+|   1.0541 |     37 |    94.5 |    128.8 |          2.4897 |         2.9526 | 12.9 |
+|   1.0725 |   40.4 |    96.2 |    128.8 |           2.511 |         2.7569 | 15.1 |
+|   1.0923 |   43.8 |      98 |    128.8 |          2.5443 |         2.6091 | 17.2 |
+|   1.1136 |   47.2 |   100.1 |    128.8 |          2.5922 |          2.498 | 19.4 |
+|   1.1366 |   50.9 |   102.4 |    128.8 |          2.6584 |         2.4192 | 21.5 |
+|   1.1618 |   54.8 |     105 |    128.8 |           2.748 |         2.3718 | 23.7 |
+|   1.1897 |   59.4 |   107.7 |    128.8 |          2.8686 |         2.3622 | 25.9 |
+|   1.2216 |     65 |   110.7 |    128.8 |          3.0326 |         2.4141 |   28 |
+|   1.2605 |   73.3 |   113.8 |    128.8 |          3.2596 |         2.6121 | 30.2 |
+|   1.3155 |   86.6 |   117.2 |    128.8 |          3.5805 |          3.197 | 32.3 |
+|   1.4033 |   98.7 |   120.8 |    128.8 |          4.0829 |         3.9949 | 34.5 |
+|   1.5453 |  109.3 |   124.6 |    128.8 |          5.2074 |           5.15 | 36.6 |
+|      nan |    nan |     nan |    128.8 |             nan |            nan | 38.8 |

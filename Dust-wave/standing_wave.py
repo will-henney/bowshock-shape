@@ -2,7 +2,7 @@ import numpy as np
 
 class StandingWave(object):
 
-    def __init__(self, base_shape, amplitude, wavenumber, phase=0.0, *base_shape_args):
+    def __init__(self, base_shape, amplitude, wavenumber, phase=0.0, **base_shape_kwds):
         """
         Constant amplitude standing wave with antinode on x-axis (theta = 0)
 
@@ -23,9 +23,9 @@ class StandingWave(object):
             is positive at `theta = 0`, whereas when `phase = 0.5` the radial
             perturbation is negative at `theta = 0`.  For `phase = 0.25, 0.75`
             the perturbation is zero for all `theta`.
-        *base_shape_args : optional
+        **base_shape_kwds : optional
             Any unrecognised args are passed on to the unperturbed radius
-            function: `base_shape(theta, *base_shape_args)` 
+            function: `base_shape(theta, **base_shape_kwds)` 
 
 
         """
@@ -33,14 +33,14 @@ class StandingWave(object):
         self.amplitude = amplitude
         self.wavenumber = wavenumber
         self.phase = phase
-        self.base_shape_args = base_shape_args
+        self.base_shape_kwds = base_shape_kwds
 
     def __call__(self, theta):
         """
         Radius as function of `theta` for standing wave
         """
         return ((1.0 + self.perturbation(theta)) *
-                self.base_shape(theta, *self.base_shape_args))
+                self.base_shape(theta, **self.base_shape_kwds))
 
     def perturbation(self, theta):
         """
