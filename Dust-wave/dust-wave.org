@@ -626,8 +626,10 @@ python dust-wave-Rc-R90.py
      - Calculate the (x_t’, y_t’) curve, including the bottom branch and the special points.  Also the \theta’ array
      - Return a dict with all this packaged up
   7. [ ] Include some of these graphs in the paper
-  8. [ ] Implement standing wave perturbations
-     + Maybe use decorator
+  8. [-] Implement standing wave perturbations
+     - [X] Write class to perturb a base shape
+     - [X] Make graphs of (x, y) appearance
+     - [ ] Make graphs of (R_c, R_90) diagrams
   9. [ ] I need to find a better home for this work than the dust-wave file
 
 #+BEGIN_SRC python :tangle bow_projection.py :eval no
@@ -3268,35 +3270,169 @@ This one is very silly. For phase = 0.5 it looks like a duck
 |      nan |    nan |     nan |    128.8 |             nan |            nan | 38.8 |
 
 
-*** Figure of R_c-R_90 for the standing wave
-This is something I never got finished for the multi-quadric fits
 
-#+BEGIN_SRC python :eval no :tangle wilkinoid-R90-vs-Rc-wave.py
+
+
+*** Write files of (R_c, R_90) versus inclination and phase
++ It takes a long time to run a large number of models, so I want to decouple the calculations from the graphing
++ This will allow me to experiment more with the graphs
+
+#+BEGIN_SRC python :eval no :tangle save-wave-data.py
   import sys
+  import json
   import numpy as np
-  from matplotlib import pyplot as plt
-  import matplotlib.ticker
-  import seaborn as sns
+  import scanf
+
   import bow_projection as bp
   import bow_diagnostic
   import dragoid_shape
   import ancantoid_shape
   import standing_wave
 
+
+  # Parse command line arguments
+  try:
+      BASE_SHAPE_ID = sys.argv[1]
+      AMPLITUDE = float(sys.argv[2])
+      WAVENUMBER = float(sys.argv[3])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} BASE_SHAPE_ID AMPLITUDE WAVENUMBER")
+
+  # Sensible defaults for the poly fitting to get R_c and R_90
   bp.N_NEIGHBORHOOD = 50
   bp.DEGREE_POLY_NEIGHBORHOOD = 2
   bp.SCALE_NEIGHBORHOOD = 0.03
   bp.DEGREE_POLY_NEIGHBORHOOD_90 = 2
   bp.SCALE_NEIGHBORHOOD_90 = 0.01
 
-  try:
-      amplitude = float(sys.argv[1])
-      wavenumber = float(sys.argv[2])
-  except:
-      sys.exit(f"Usage: {sys.argv[0]} AMPLITUDE WAVENUMBER")
 
-  plotfile = sys.argv[0].replace(
-      '.py', f'-A{int(100*amplitude):03d}-N{int(10*wavenumber):02d}.pdf')
+  # Choose which base shape according to command-line argument and parse
+  # out the shape parameters if any
+  if BASE_SHAPE_ID == "paraboloid":
+      base_shape = bp.paraboloid_R_theta
+      shape_label = "Paraboloid"
+  elif BASE_SHAPE_ID == "wilkinoid":
+      base_shape = bp.wilkinoid_R_theta
+      shape_label = "Wilkinoid"
+  elif BASE_SHAPE_ID.startswith("cantoid"):
+      ibeta, = scanf.scanf("cantoid-beta%d", BASE_SHAPE_ID)
+      beta = ibeta / 100000
+      base_shape = bp.Spline_R_theta_from_function(
+          ngrid=1000, shape_func=bp.cantoid_R_theta, shape_func_pars=(beta,))
+      shape_label = rf"Cantoid $\beta = {beta}$"
+  elif BASE_SHAPE_ID.startswith("ancantoid"):
+      ixi, ibeta = scanf.scanf("ancantoid-xi%d-beta%d", BASE_SHAPE_ID)
+      xi, beta = ixi / 100, ibeta / 100000
+      base_shape = ancantoid_shape.Ancantoid(xi=xi, beta=beta, n=301)
+      shape_label = rf"Ancantoid $\xi = {xi:.1f}$, $\beta = {beta}$"
+  elif BASE_SHAPE_ID.startswith("dragoid"):
+      ialpha, = scanf.scanf("dragoid-alpha%d", BASE_SHAPE_ID)
+      alpha = ialpha / 100
+      base_shape = dragoid_shape.Dragoid(alpha=alpha)
+      shape_label = rf"Dragoid $\alpha_\mathrm{{drag}} = {alpha:.2f}$"
+      bp.SCALE_NEIGHBORHOOD = 0.2
+
+  # Create perturbed shape
+  shape = standing_wave.StandingWave(base_shape,
+                                     amplitude=AMPLITUDE,
+                                     wavenumber=WAVENUMBER)
+
+
+  # Create arrays of inclinations and phases
+  nphase, ninc = 21, 50
+  phases = np.linspace(0.0, 0.5, nphase)
+  # Uniform distribution in sin inc
+  inclinations = np.arcsin(np.linspace(0.0, 1.0, ninc))
+  # Allocate arrays to hold the (R_c, R_90) results
+  Rc = np.empty((ninc, nphase))
+  R90 = np.empty((ninc, nphase))
+  # Loop over inclinations and phases and save the radii
+  for i, inclination in enumerate(inclinations):
+      for j, phase in enumerate(phases):
+          shape.phase = phase
+          radii = bp.characteristic_radii_projected(inclination, shape)
+          Rc[i, j] = radii['tilde R_c prime']
+          R90[i, j] = radii['tilde R_90 prime']
+
+
+  # Save the results
+  shape_id = f"{BASE_SHAPE_ID}-wave-A{int(100*AMPLITUDE):03d}-N{int(10*WAVENUMBER):02d}"
+
+  # Save Rc, R90 arrays in binary format
+  # To retrieve:
+  #
+  # >>> arrays = np.load(FILE.npz)
+  # >>> Rc = arrays['Rc']
+  #
+  # Etcetera
+  np.savez(shape_id, Rc=Rc, R90=R90)
+
+  # Save metadata as JSON 
+  metadata = {
+      'shape_id': shape_id,
+      'shape_label': shape_label,
+      'wave_label': f"Perturbation $A = {AMPLITUDE}$, $N = {WAVENUMBER}$",
+      'ninc': ninc,
+      'nphase': nphase,
+      'inclinations': list(np.round(np.degrees(inclinations), 1)),
+      'phases': list(np.round(phases, 4)),
+  }
+  jsonfile = shape_id + ".json"
+  with open(jsonfile, 'w') as f:
+      json.dump(metadata, f, indent=4)
+
+  print(jsonfile, end='')
+#+END_SRC
+
+
+**** Generate the data for different shapes and waves
+
+#+name: run-save-wave
+#+header: :var A=0.1 N=1.5
+#+BEGIN_SRC sh :results verbatim
+  for shape in wilkinoid cantoid-beta002000 ancantoid-xi080-beta000500 dragoid-alpha100; do
+      python save-wave-data.py $shape $A $N
+      echo
+  done
+#+END_SRC
+
+#+RESULTS: run-save-wave
+: wilkinoid-wave-A010-N15.jsoncantoid-beta002000-wave-A010-N15.jsonancantoid-xi080-beta000500-wave-A010-N15.jsondragoid-alpha100-wave-A010-N15.json
+
+#+call: run-save-wave(A=0.1, N=1)
+
+#+RESULTS:
+: wilkinoid-wave-A010-N10.json
+: cantoid-beta002000-wave-A010-N10.json
+: ancantoid-xi080-beta000500-wave-A010-N10.json
+: dragoid-alpha100-wave-A010-N10.json
+
+#+call: run-save-wave(A=0.05, N=2)
+
+#+RESULTS:
+: wilkinoid-wave-A005-N20.json
+: cantoid-beta002000-wave-A005-N20.json
+: ancantoid-xi080-beta000500-wave-A005-N20.json
+: dragoid-alpha100-wave-A005-N20.json
+
+*** Figure of R_c-R_90 for the standing wave
+This is something I never got finished for the multi-quadric fits
+
+#+BEGIN_SRC python :eval no :tangle wave-R90-vs-Rc.py
+  import sys
+  import json
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker
+  import seaborn as sns
+
+  try:
+      WAVE_ID = sys.argv[1]
+      BASE_SHAPE_IDS = sys.argv[2:]
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} WAVE_ID SHAPE_ID [SHAPE_ID ...]")
+
+  plotfile = sys.argv[0].replace('.py', f'-{WAVE_ID}.pdf')
 
   sns.set_style('ticks')
   fig, ax = plt.subplots(figsize=(5, 5))
@@ -3315,69 +3451,26 @@ This is something I never got finished for the multi-quadric fits
 
   # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
   ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
-  # And plot the projected wilkinoids 
-  shape = bp.wilkinoid_R_theta
-  th_inf = bp.theta_infinity(shape)
-  inc = np.linspace(0.0, th_inf - np.pi/2, 50)
-  tab = bow_diagnostic.parameter_table(inc, shape)
-  Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
-  ax.plot(Rc, R90, '-', c='w', label="_nolabel_", lw=0.6, alpha=0.9)
-  ax.plot(Rc, R90, 'x', ms=0.2, c='w', label="_nolabel_", alpha=0.5)
 
-  base_shapes = [
-      bp.paraboloid_R_theta,
-      bp.wilkinoid_R_theta, 
-      dragoid_shape.Dragoid(alpha=1.0),
-      bp.Spline_R_theta_from_function(ngrid=1000,
-                                      shape_func=bp.cantoid_R_theta,
-                                      shape_func_pars=(0.1,)),
-      ancantoid_shape.Ancantoid(xi=0.8, beta=0.005, n=301),
-  ]
+  nshapes = len(BASE_SHAPE_IDS)
+  colors = sns.color_palette(n_colors=nshapes)
+  for base_shape_id, color in zip(BASE_SHAPE_IDS, colors):
+      prefix = f"{base_shape_id}-wave-{WAVE_ID}"
+      metadata = json.load(open(prefix + '.json'))
+      data = np.load(prefix + '.npz')
+      Rc, R90 = data['Rc'], data['R90']
+      for x, y in zip(Rc, R90):
+          ax.plot(x, y, '-', lw=2, c=color, label="_nolabel_", alpha=0.3)
+      ax.plot(Rc[0], R90[0], '-', lw=3, c=color,
+              label=metadata['shape_label'], alpha=0.8)
 
-  shape_labels = [
-      "Paraboloid",
-      "Wilkinoid",
-      r"Dragoid $\alpha_\mathrm{drag} = 1.0$",
-      r"Cantoid $\beta = 0.1$",
-      r"Ancantoid $\xi = 0.8$, $\beta = 0.05$" 
-  ]
-
-  nshapes = len(base_shapes)
-  cols = sns.color_palette(n_colors=nshapes)
-
-  shapes = [standing_wave.StandingWave(base_shape,
-                                       amplitude=amplitude,
-                                       wavenumber=wavenumber)
-            for base_shape in base_shapes]
-
-
-  nphases = 21
-  ninc = 50
-  # nphases = 5
-  # ninc = 20
-  phases = np.linspace(0.0, 0.5, nphases)
-  mus = np.linspace(0.0, 1.0, ninc)
-  inclinations = np.arcsin(mus)
-  for phase in phases[::-1]:
-      for shape, shape_label, col in zip(shapes, shape_labels, cols):
-          shape.phase = phase
-          tab = bow_diagnostic.parameter_table(inclinations, shape)
-          Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
-          ax.plot(Rc, R90, '.', ms=2, mec='none', c=col,
-                  label="_nolabel_", alpha=0.2)
-          # And plot the inc=0 case bolder
-          label = shape_label if phase == 0.0 else "_nolabel_"
-          ax.plot(Rc[0:1], R90[0:1], '.', ms=4, mec='none', c=col,
-                  label=label, alpha=0.8)
-
-  ax.legend(title= f"$A = {amplitude:.03f}$, $N = {wavenumber:0.1f}$)")
+  ax.legend(title=metadata['wave_label'])
 
   ax.set(
       yscale='linear',
       xscale='linear',
       xlim=[0.0, 5.1],
       ylim=[0.0, 5.1],
-  #    ylim=[-3.0, 1.1],
       xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
       ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
   )        
@@ -3390,22 +3483,36 @@ This is something I never got finished for the multi-quadric fits
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
-python wilkinoid-R90-vs-Rc-wave.py 0.1 1.5
+  python wave-R90-vs-Rc.py A010-N15 \
+         cantoid-beta002000 \
+         ancantoid-xi080-beta000500 \
+         dragoid-alpha100 \
+         wilkinoid 
 #+END_SRC
 
 #+RESULTS:
-[[file:wilkinoid-R90-vs-Rc-wave-A010-N15.pdf]]
+[[file:wave-R90-vs-Rc-A010-N15.pdf]]
+
 
 #+BEGIN_SRC sh :results file
-python wilkinoid-R90-vs-Rc-wave.py 0.05 2.5
+  python wave-R90-vs-Rc.py A010-N10 \
+         cantoid-beta002000 \
+         ancantoid-xi080-beta000500 \
+         dragoid-alpha100 \
+         wilkinoid 
 #+END_SRC
 
 #+RESULTS:
-[[file:wilkinoid-R90-vs-Rc-wave-A005-N25.pdf]]
+[[file:wave-R90-vs-Rc-A010-N10.pdf]]
 
 #+BEGIN_SRC sh :results file
-python wilkinoid-R90-vs-Rc-wave.py 0.15 0.7
+  python wave-R90-vs-Rc.py A005-N20 \
+         cantoid-beta002000 \
+         ancantoid-xi080-beta000500 \
+         dragoid-alpha100 \
+         wilkinoid 
 #+END_SRC
 
 #+RESULTS:
-[[file:wilkinoid-R90-vs-Rc-wave-A015-N07.pdf]]
+[[file:wave-R90-vs-Rc-A005-N20.pdf]]
+

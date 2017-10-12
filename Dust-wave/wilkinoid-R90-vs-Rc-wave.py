@@ -89,14 +89,14 @@ for phase in phases[::-1]:
         shape.phase = phase
         tab = bow_diagnostic.parameter_table(inclinations, shape)
         Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
-        ax.plot(Rc, R90, '.', ms=2, mec='none', c=col,
-                label="_nolabel_", alpha=0.2)
+        ax.plot(Rc, R90, '-', lw=2, c=col,
+                label="_nolabel_", alpha=0.3)
         # And plot the inc=0 case bolder
         label = shape_label if phase == 0.0 else "_nolabel_"
-        ax.plot(Rc[0:1], R90[0:1], '.', ms=4, mec='none', c=col,
+        ax.plot(Rc[0:1], R90[0:1], '-', lw=3, c=col,
                 label=label, alpha=0.8)
 
-ax.legend(title= f"$A = {amplitude:.03f}$, $N = {wavenumber:0.1f}$)")
+ax.legend(title= f"Perturbation $A = {amplitude:.03f}$, $N = {wavenumber:0.1f}$")
 
 ax.set(
     yscale='linear',
