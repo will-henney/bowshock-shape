@@ -3279,6 +3279,8 @@ This is something I never got finished for the multi-quadric fits
   import seaborn as sns
   import bow_projection as bp
   import bow_diagnostic
+  import dragoid_shape
+  import ancantoid_shape
   import standing_wave
 
   bp.N_NEIGHBORHOOD = 50
@@ -3322,22 +3324,53 @@ This is something I never got finished for the multi-quadric fits
   ax.plot(Rc, R90, '-', c='w', label="_nolabel_", lw=0.6, alpha=0.9)
   ax.plot(Rc, R90, 'x', ms=0.2, c='w', label="_nolabel_", alpha=0.5)
 
+  base_shapes = [
+      bp.paraboloid_R_theta,
+      bp.wilkinoid_R_theta, 
+      dragoid_shape.Dragoid(alpha=1.0),
+      bp.Spline_R_theta_from_function(ngrid=1000,
+                                      shape_func=bp.cantoid_R_theta,
+                                      shape_func_pars=(0.1,)),
+      ancantoid_shape.Ancantoid(xi=0.8, beta=0.005, n=301),
+  ]
 
-  nphases = 11
+  shape_labels = [
+      "Paraboloid",
+      "Wilkinoid",
+      r"Dragoid $\alpha_\mathrm{drag} = 1.0$",
+      r"Cantoid $\beta = 0.1$",
+      r"Ancantoid $\xi = 0.8$, $\beta = 0.05$" 
+  ]
+
+  nshapes = len(base_shapes)
+  cols = sns.color_palette(n_colors=nshapes)
+
+  shapes = [standing_wave.StandingWave(base_shape,
+                                       amplitude=amplitude,
+                                       wavenumber=wavenumber)
+            for base_shape in base_shapes]
+
+
+  nphases = 21
   ninc = 50
+  # nphases = 5
+  # ninc = 20
   phases = np.linspace(0.0, 0.5, nphases)
   mus = np.linspace(0.0, 1.0, ninc)
   inclinations = np.arcsin(mus)
-  shape = standing_wave.StandingWave(
-      bp.wilkinoid_R_theta,
-      amplitude=amplitude, wavenumber=wavenumber)
-  cols = sns.color_palette('magma', n_colors=nphases)
-  for phase, col in list(zip(phases, cols))[::-1]:
-      shape.phase = phase
-      th_inf = bp.theta_infinity(shape)
-      tab = bow_diagnostic.parameter_table(inclinations, shape)
-      Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
-      ax.plot(Rc, R90, '.',  mec='none', c=col, label="_nolabel_", alpha=0.8)
+  for phase in phases[::-1]:
+      for shape, shape_label, col in zip(shapes, shape_labels, cols):
+          shape.phase = phase
+          tab = bow_diagnostic.parameter_table(inclinations, shape)
+          Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+          ax.plot(Rc, R90, '.', ms=2, mec='none', c=col,
+                  label="_nolabel_", alpha=0.2)
+          # And plot the inc=0 case bolder
+          label = shape_label if phase == 0.0 else "_nolabel_"
+          ax.plot(Rc[0:1], R90[0:1], '.', ms=4, mec='none', c=col,
+                  label=label, alpha=0.8)
+
+  ax.legend(title= f"$A = {amplitude:.03f}$, $N = {wavenumber:0.1f}$)")
 
   ax.set(
       yscale='linear',
@@ -3357,8 +3390,22 @@ This is something I never got finished for the multi-quadric fits
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
-python wilkinoid-R90-vs-Rc-wave.py 0.1 1.0
+python wilkinoid-R90-vs-Rc-wave.py 0.1 1.5
 #+END_SRC
 
 #+RESULTS:
-[[file:wilkinoid-R90-vs-Rc-wave-A010-N10.pdf]]
+[[file:wilkinoid-R90-vs-Rc-wave-A010-N15.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wilkinoid-R90-vs-Rc-wave.py 0.05 2.5
+#+END_SRC
+
+#+RESULTS:
+[[file:wilkinoid-R90-vs-Rc-wave-A005-N25.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wilkinoid-R90-vs-Rc-wave.py 0.15 0.7
+#+END_SRC
+
+#+RESULTS:
+[[file:wilkinoid-R90-vs-Rc-wave-A015-N07.pdf]]
