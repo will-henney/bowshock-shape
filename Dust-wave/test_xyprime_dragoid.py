@@ -14,7 +14,7 @@ fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 # For some reason, exactly 30.0 had problems with R0p
 inclinations = [0.0, 15.0, 30.01, 45.0, 60.0, 75.01]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
-colors = sns.color_palette(n_colors=len(inclinations))
+colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
 for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
     shape = Dragoid(alpha=alpha)
@@ -34,7 +34,7 @@ for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
         R0p = radii['R_0 prime']
         ax.plot(xxp/R0p, yyp/R0p,
                 label=fr"$i = {inc_dg:.0f}^\circ$",
-                color=color, lw=lw)
+                color=color, lw=1.5*lw)
 
     ax.plot([0], [0], 'o', color='k')
 

@@ -13,7 +13,7 @@ fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
 inclinations = [0, 15, 30, 45, 60, 75]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
-colors = sns.color_palette(n_colors=len(inclinations))
+colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
 for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
                      [0.8, 0.1, axes[0, 1]],
@@ -38,7 +38,7 @@ for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
         R0p = radii['R_0 prime']
         ax.plot(xxp/R0p, yyp/R0p,
                 label=fr"$i = {inc_dg:d}^\circ$",
-                color=color, lw=lw)
+                color=color, lw=1.5*lw)
 
     ax.plot([0], [0], 'o', color='k')
 

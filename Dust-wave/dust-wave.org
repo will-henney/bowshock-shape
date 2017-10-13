@@ -596,11 +596,11 @@ python dust-wave-Rc-R90.py
 [[file:three-quadric-dragoid-R90-vs-Rc.pdf]]
 
 
-* Utility library ~bow_projection~ for projecting a general shape
+* Projection of a general shape
 + The plan is to find the plane-of-sky shape (x′, y′) numerically for an arbitrary R(\theta) at a given inclination
 + This will be a check on the multi-quadric 
 + Turns out that I already did a version of this years ago in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/projected/bowfuncs.py][projected/bowfuncs.py]], so I will copy routines from there and modify accordingly
-+ [6/9] Plan of work for ~bow_projection.py~ and its applications
++ [7/9] Plan of work for ~bow_projection.py~ and its applications
   1. [X] Implement analytic R(\theta) functions: paraboloid, wilkinoid, cantoid
   2. [X] Implement \omega(\theta)
      + Test for analytic functions
@@ -626,12 +626,26 @@ python dust-wave-Rc-R90.py
      - Calculate the (x_t’, y_t’) curve, including the bottom branch and the special points.  Also the \theta’ array
      - Return a dict with all this packaged up
   7. [ ] Include some of these graphs in the paper
-  8. [-] Implement standing wave perturbations
+     - [ ] Copy figure files
+     - [ ] Write about them
+  8. [X] Implement standing wave perturbations
      - [X] Write class to perturb a base shape
      - [X] Make graphs of (x, y) appearance
-     - [ ] Make graphs of (R_c, R_90) diagrams
+     - [X] Make graphs of (R_c, R_90) diagrams
   9. [ ] I need to find a better home for this work than the dust-wave file
 
+** Copy bow projection figure files to paper folder
+#+BEGIN_SRC sh :results output
+  FIGFILES='test_xy{prime,dragoid,ancantoid}.pdf *oid-R90-vs-Rc*.pdf compare_xyprime_wave-wilkinoid.pdf wave-R90-vs-Rc-A010-N10.pdf wave-R90-vs-Rc-A005-N20.pdf'
+  date
+  pwd
+  for f in $FIGFILES; do
+      cp -av $f ../papers/Paper1/figs 
+  done
+#+END_SRC
+
+
+** Utility library ~bow_projection.py~ source
 #+BEGIN_SRC python :tangle bow_projection.py :eval no
   import sys
   import numpy as np
@@ -1182,8 +1196,9 @@ python test_phi_t.py
   sns.set_style('ticks')
   fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
-  inclinations = [0, 15, 30, 45, 60, 75]
-  colors = sns.color_palette(n_colors=len(inclinations))
+  inclinations = [0, 15, 30, 45, 60.1, 75]
+  linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+  colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
   for shape_name, ax, R_theta, extra_pars in [
           ["Paraboloid", axes[0, 0], paraboloid_R_theta, ()],
@@ -1192,7 +1207,7 @@ python test_phi_t.py
           [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
   ]:
       th_inf = theta_infinity(R_theta, *extra_pars)
-      for inc_dg, color in zip(inclinations, colors):
+      for inc_dg, color, lw in zip(inclinations, colors, linewidths):
           inc = np.radians(inc_dg)
           th0, th90 = theta_0_90(inc, R_theta, *extra_pars)
           th = np.linspace(th0, th_inf, 101)
@@ -1204,7 +1219,7 @@ python test_phi_t.py
           xxp = np.concatenate((xp[m][::-1], xp[m]))
           yyp = np.concatenate((-yp[m][::-1], yp[m]))
           R0p = xxp.max()
-          ax.plot(xxp/R0p, yyp/R0p, label=fr"$i = {inc_dg:d}^\circ$", color=color)
+          ax.plot(xxp/R0p, yyp/R0p, label=fr"$i = {int(inc_dg):d}^\circ$", lw=1.5*lw, color=color)
 
       ax.plot([0], [0], 'o', color='k')
 
@@ -1362,7 +1377,7 @@ python test_spline.py
 
   inclinations = [0, 15, 30, 45, 60, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
-  colors = sns.color_palette(n_colors=len(inclinations))
+  colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
   for label, ax, func, pars, ngrid, s in [
           ["paraboloid", axes[0, 0], paraboloid_R_theta, (), 1001, 0],
@@ -1503,7 +1518,7 @@ python dragoid_shape.py
   # For some reason, exactly 30.0 had problems with R0p
   inclinations = [0.0, 15.0, 30.01, 45.0, 60.0, 75.01]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
-  colors = sns.color_palette(n_colors=len(inclinations))
+  colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
   for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
       shape = Dragoid(alpha=alpha)
@@ -1523,7 +1538,7 @@ python dragoid_shape.py
           R0p = radii['R_0 prime']
           ax.plot(xxp/R0p, yyp/R0p,
                   label=fr"$i = {inc_dg:.0f}^\circ$",
-                  color=color, lw=lw)
+                  color=color, lw=1.5*lw)
 
       ax.plot([0], [0], 'o', color='k')
 
@@ -1687,7 +1702,7 @@ python ancantoid_shape.py
 
   inclinations = [0, 15, 30, 45, 60, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
-  colors = sns.color_palette(n_colors=len(inclinations))
+  colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
   for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
                        [0.8, 0.1, axes[0, 1]],
@@ -1712,7 +1727,7 @@ python ancantoid_shape.py
           R0p = radii['R_0 prime']
           ax.plot(xxp/R0p, yyp/R0p,
                   label=fr"$i = {inc_dg:d}^\circ$",
-                  color=color, lw=lw)
+                  color=color, lw=1.5*lw)
 
       ax.plot([0], [0], 'o', color='k')
 
@@ -1757,8 +1772,8 @@ python test_xyprime_ancantoid.py
 
   inclinations = [0, 15, 30, 45, 60, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
-  colors = sns.color_palette(n_colors=len(inclinations))
-  0.2, 0.1, 0.05, 0.02, 0.005, 1e-3
+  colors = sns.color_palette('magma_r', n_colors=len(inclinations))
+
   for xi, beta, ax in [[1.0, 0.001, axes[0, 0]],
                        [1.0, 0.02, axes[0, 1]],
                        [1.0, 0.05, axes[1, 0]],
@@ -1782,7 +1797,7 @@ python test_xyprime_ancantoid.py
           R0p = radii['R_0 prime']
           ax.plot(xxp/R0p, yyp/R0p,
                   label=fr"$i = {inc_dg:d}^\circ$",
-                  color=color, lw=lw)
+                  color=color, lw=1.5*lw)
 
       ax.plot([0], [0], 'o', color='k')
 
@@ -2803,7 +2818,7 @@ python dragoid-R90-vs-Rc.py
       '.py', f'-A{int(100*amplitude):03d}-N{int(10*wavenumber):02d}.pdf')
 
   sns.set_style('ticks')
-  fig, axes = plt.subplots(3, 3, figsize=(10, 10))
+  fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
   inclinations = [0, 15, 30, 45, 60, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
@@ -2833,7 +2848,7 @@ python dragoid-R90-vs-Rc.py
           R0p = radii['R_0 prime']
           ax.plot(xxp/R0p, yyp/R0p,
                   label=fr"$i = {inc_dg:d}^\circ$",
-                  color=color, lw=lw)
+                  color=color, lw=1.5*lw)
 
       ax.plot([0], [0], 'o', color='k')
 
@@ -2861,6 +2876,14 @@ python test_xyprime_wave.py 0.1 1.0
 [[file:test_xyprime_wave-A010-N10.pdf]]
 
 Note that for phase = 0.12, the effect of the perturbation is to push the shape closer to the paraboloid, with the result that varying the inclination makes no difference
+
+**** Wilkinoid, Wavenumber 2.0, Amplitude 0.05
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.05 2.0
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A005-N20.pdf]]
 
 **** Wilkinoid, Wavenumber 1.5, Amplitude 0.1
 #+BEGIN_SRC sh :results file
@@ -2914,10 +2937,135 @@ This one is very silly. For phase = 0.5 it looks like a duck
 
 
 
-*** Zoom and compare different waves in (x, y) shape 
+
+
+*** Same again, but zooming in and allowing different shapes
+
+#+BEGIN_SRC python :eval no :tangle wave_xyprime.py
+  import sys
+  import scanf
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  import bow_projection as bp
+  import ancantoid_shape
+  import dragoid_shape
+  import standing_wave
+
+  try:
+      AMPLITUDE = float(sys.argv[1])
+      WAVENUMBER = float(sys.argv[2])
+      BASE_SHAPE_ID = sys.argv[3]
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} AMPLITUDE WAVENUMBER BASE_SHAPE_ID")
+
+
+  figfile = sys.argv[0].replace(
+      '.py', f'-A{int(100*AMPLITUDE):03d}-N{int(10*WAVENUMBER):02d}'
+      f'-{BASE_SHAPE_ID}.pdf')
+
+  # Choose which base shape according to command-line argument and parse
+  # out the shape parameters if any
+  if BASE_SHAPE_ID == "paraboloid":
+      base_shape = bp.paraboloid_R_theta
+      shape_label = "Paraboloid"
+  elif BASE_SHAPE_ID == "wilkinoid":
+      base_shape = bp.wilkinoid_R_theta
+      shape_label = "Wilkinoid"
+  elif BASE_SHAPE_ID.startswith("cantoid"):
+      ibeta, = scanf.scanf("cantoid-beta%d", BASE_SHAPE_ID)
+      beta = ibeta / 100000
+      base_shape = bp.Spline_R_theta_from_function(
+          ngrid=1000, shape_func=bp.cantoid_R_theta, shape_func_pars=(beta,))
+      shape_label = rf"Cantoid $\beta = {beta}$"
+  elif BASE_SHAPE_ID.startswith("ancantoid"):
+      ixi, ibeta = scanf.scanf("ancantoid-xi%d-beta%d", BASE_SHAPE_ID)
+      xi, beta = ixi / 100, ibeta / 100000
+      base_shape = ancantoid_shape.Ancantoid(xi=xi, beta=beta, n=301)
+      shape_label = rf"Ancantoid $\xi = {xi:.1f}$, $\beta = {beta}$"
+  elif BASE_SHAPE_ID.startswith("dragoid"):
+      ialpha, = scanf.scanf("dragoid-alpha%d", BASE_SHAPE_ID)
+      alpha = ialpha / 100
+      base_shape = dragoid_shape.Dragoid(alpha=alpha)
+      shape_label = rf"Dragoid $\alpha_\mathrm{{drag}} = {alpha:.2f}$"
+
+
+  sns.set_style('ticks')
+  fig, axes = plt.subplots(1, 3, figsize=(9, 4))
+
+  inclinations = [0, 15, 30, 45, 60, 75]
+  linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+  colors = sns.color_palette(palette="magma_r", n_colors=len(inclinations))
+
+
+  shape = standing_wave.StandingWave(
+      base_shape, amplitude=AMPLITUDE, wavenumber=WAVENUMBER)
+
+  phases = np.linspace(0.0, 0.5, len(axes.flat))
+  for phase, ax in zip(phases, axes.flat):
+      shape.phase = phase
+      label = f"Phase = ${phase:.2f}$"
+      th_inf = bp.theta_infinity(shape)
+      for inc_dg, color, lw in zip(inclinations, colors, linewidths):
+          inc = np.radians(inc_dg)
+          th0, th90 = bp.theta_0_90(inc, shape)
+          th = np.linspace(th0, th_inf, 301)
+          xp, yp = bp.xyprime_t(th, inc, shape)
+          m = np.isfinite(xp) & np.isfinite(yp)
+          if m.sum() == 0:
+              # Case of no tangent line at all at this inclination
+              continue
+          xxp = np.concatenate((xp[m][::-1], xp[m]))
+          yyp = np.concatenate((-yp[m][::-1], yp[m]))
+          radii = bp.characteristic_radii_projected(inc, shape)
+          R0p = radii['R_0 prime']
+          ax.plot(xxp/R0p, yyp/R0p,
+                  label=fr"$i = {inc_dg:d}^\circ$",
+                  color=color, lw=1.5*lw)
+
+      ax.plot([0], [0], 'o', color='k')
+
+      ax.legend(title=label, ncol=1, loc="center left")
+      ax.set(
+          xlabel=r"$x' / R_0'$",
+          ylabel=r"$y' / R_0'$",
+          xlim=[-2.5, 1.2],
+          ylim=[-3, 3],
+      )
+      ax.set_aspect('equal', adjustable='box')
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.05 2.0 ancantoid-xi080-beta000500
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.1 1.0 ancantoid-xi080-beta000500
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A010-N10-ancantoid-xi080-beta000500.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.05 2.0 dragoid-alpha100
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A005-N20-dragoid-alpha100.pdf]]
+
+*** Zoom and compare different waves in (x, y) shape @ inc=0 
 
 #+BEGIN_SRC python :eval no :tangle compare_xyprime_wave.py
   import sys
+  import scanf
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
@@ -2959,7 +3107,7 @@ This one is very silly. For phase = 0.5 it looks like a duck
       shape_label = rf"Dragoid $\alpha_\mathrm{{drag}} = {alpha:.2f}$"
 
   sns.set_style('ticks')
-  fig, axes = plt.subplots(1, 3, figsize=(8, 5))
+  fig, axes = plt.subplots(1, 3, figsize=(8, 4))
 
   # Different phases are different lines on same graph
   phases = [0.0, 0.25, 0.5]
@@ -2995,17 +3143,19 @@ This one is very silly. For phase = 0.5 it looks like a duck
           ax.plot(xxp/R0p, yyp/R0p, label=phase_label, color=color, lw=lw)
 
       ax.plot([0], [0], 'o', color='k')
-
-      ax.legend(title=wave_label, ncol=1, loc="lower right")
+      ax.axhline(0, color='k', lw=0.8)
+      ax.legend(title=wave_label, ncol=1, loc="upper right")
       ax.set(
           xlabel=r"$x / R_0$",
           ylabel=r"$y / R_0$",
-          xlim=[-1.2, 1.8],
-          ylim=[-3.9, 3.1],
+          xlim=[-2.5, 1.5],
+          ylim=[-0.5, 4.8],
+          xticks=[-2, -1, 0, 1],
+          yticks=[0, 1, 2, 3],
       )
       ax.set_aspect('equal', adjustable='box')
 
-  sns.despine()
+  sns.despine(bottom=True)
   fig.tight_layout()
   fig.savefig(figfile)
   print(figfile, end='')
@@ -3017,6 +3167,15 @@ python compare_xyprime_wave.py wilkinoid
 
 #+RESULTS:
 [[file:compare_xyprime_wave-wilkinoid.pdf]]
+
+#+BEGIN_SRC sh :results file
+python compare_xyprime_wave.py cantoid-beta010000
+#+END_SRC
+
+#+RESULTS:
+[[file:compare_xyprime_wave-cantoid-beta010000.pdf]]
+
+
 
 *** Characteristic radii for standing wave
 
@@ -3045,6 +3204,29 @@ python compare_xyprime_wave.py wilkinoid
   result = [tab.colnames, None] + list(tab.as_array())
 
 #+END_SRC
+
+#+RESULTS: test-wave-diagnostic
+| R_0 prime | theta_0 | theta_90 | theta_inf | tilde R_90 prime | tilde R_c prime | inc |
+|----------+--------+---------+----------+-----------------+----------------+-----|
+|      1.1 |      0 |      90 |      180 |          1.5746 |         1.4474 |   0 |
+|   1.1019 |    7.2 |    90.3 |      180 |          1.5747 |         1.4475 |   5 |
+|   1.1076 |   14.5 |    91.2 |      180 |          1.5751 |         1.4479 |  10 |
+|   1.1172 |   21.9 |    92.7 |      180 |          1.5758 |         1.4487 |  15 |
+|   1.1311 |   29.3 |    94.8 |      180 |          1.5768 |         1.4497 |  20 |
+|   1.1497 |   36.9 |    97.4 |      180 |          1.5781 |         1.4511 |  25 |
+|   1.1736 |   44.7 |   100.7 |      180 |          1.5797 |         1.4528 |  30 |
+|   1.2036 |   52.7 |   104.5 |      180 |          1.5817 |         1.4549 |  35 |
+|    1.241 |     61 |   108.9 |      180 |          1.5841 |         1.4575 |  40 |
+|   1.2875 |   69.7 |   113.8 |      180 |           1.587 |         1.4606 |  45 |
+|   1.3455 |     79 |   119.3 |      180 |          1.5904 |         1.4644 |  50 |
+|    1.419 |   88.8 |   125.4 |      180 |          1.5944 |          1.469 |  55 |
+|    1.514 |   99.4 |     132 |      180 |          1.5989 |         1.4747 |  60 |
+|   1.6408 |  110.9 |   139.1 |      180 |          1.6036 |         1.4816 |  65 |
+|   1.8184 |  123.4 |   146.7 |      180 |          1.6081 |         1.4892 |  70 |
+|   2.0864 |  136.6 |   154.6 |      180 |          1.6117 |         1.4963 |  75 |
+|   2.5463 |  150.6 |   162.9 |      180 |          1.6133 |         1.5009 |  80 |
+|   3.5983 |  165.1 |   171.4 |      180 |          1.6129 |         1.5014 |  85 |
+|      nan |    nan |     nan |      180 |             nan |            nan |  90 |
 
 
 ***** Tables for amplitude=0.1 wavenumber=1.0
@@ -3648,3 +3830,6 @@ This is something I never got finished for the multi-quadric fits
 
 #+RESULTS:
 [[file:wave-R90-vs-Rc-A001-N50.pdf]]
+
+
+

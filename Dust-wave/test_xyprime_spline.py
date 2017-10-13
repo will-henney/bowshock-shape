@@ -15,7 +15,7 @@ fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
 inclinations = [0, 15, 30, 45, 60, 75]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
-colors = sns.color_palette(n_colors=len(inclinations))
+colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
 for label, ax, func, pars, ngrid, s in [
         ["paraboloid", axes[0, 0], paraboloid_R_theta, (), 1001, 0],

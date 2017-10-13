@@ -11,8 +11,9 @@ figfile = sys.argv[0].replace('.py', '.pdf')
 sns.set_style('ticks')
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
-inclinations = [0, 15, 30, 45, 60, 75]
-colors = sns.color_palette(n_colors=len(inclinations))
+inclinations = [0, 15, 30, 45, 60.1, 75]
+linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
 for shape_name, ax, R_theta, extra_pars in [
         ["Paraboloid", axes[0, 0], paraboloid_R_theta, ()],
@@ -21,7 +22,7 @@ for shape_name, ax, R_theta, extra_pars in [
         [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
 ]:
     th_inf = theta_infinity(R_theta, *extra_pars)
-    for inc_dg, color in zip(inclinations, colors):
+    for inc_dg, color, lw in zip(inclinations, colors, linewidths):
         inc = np.radians(inc_dg)
         th0, th90 = theta_0_90(inc, R_theta, *extra_pars)
         th = np.linspace(th0, th_inf, 101)
@@ -33,7 +34,7 @@ for shape_name, ax, R_theta, extra_pars in [
         xxp = np.concatenate((xp[m][::-1], xp[m]))
         yyp = np.concatenate((-yp[m][::-1], yp[m]))
         R0p = xxp.max()
-        ax.plot(xxp/R0p, yyp/R0p, label=fr"$i = {inc_dg:d}^\circ$", color=color)
+        ax.plot(xxp/R0p, yyp/R0p, label=fr"$i = {int(inc_dg):d}^\circ$", lw=1.5*lw, color=color)
 
     ax.plot([0], [0], 'o', color='k')
 

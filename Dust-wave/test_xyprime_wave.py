@@ -16,7 +16,7 @@ figfile = sys.argv[0].replace(
     '.py', f'-A{int(100*amplitude):03d}-N{int(10*wavenumber):02d}.pdf')
 
 sns.set_style('ticks')
-fig, axes = plt.subplots(3, 3, figsize=(10, 10))
+fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
 inclinations = [0, 15, 30, 45, 60, 75]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
@@ -46,7 +46,7 @@ for phase, ax in zip(phases, axes.flat):
         R0p = radii['R_0 prime']
         ax.plot(xxp/R0p, yyp/R0p,
                 label=fr"$i = {inc_dg:d}^\circ$",
-                color=color, lw=lw)
+                color=color, lw=1.5*lw)
 
     ax.plot([0], [0], 'o', color='k')
 
