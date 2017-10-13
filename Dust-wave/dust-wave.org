@@ -636,13 +636,33 @@ python dust-wave-Rc-R90.py
 
 ** Copy bow projection figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='test_xy{prime,dragoid,ancantoid}.pdf *oid-R90-vs-Rc*.pdf compare_xyprime_wave-wilkinoid.pdf wave-R90-vs-Rc-A010-N10.pdf wave-R90-vs-Rc-A005-N20.pdf'
+  FIGFILES='test_xy{prime,dragoid,ancantoid}.pdf *oid-R90-vs-Rc*.pdf compare_xyprime_wave-wilkinoid.pdf wave-R90-vs-Rc-A010-N10.pdf wave-R90-vs-Rc-A005-N20.pdf wave_xyprime-A005-N20-dragoid-alpha100.pdf wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf'
   date
   pwd
   for f in $FIGFILES; do
       cp -av $f ../papers/Paper1/figs 
   done
 #+END_SRC
+
+#+RESULTS:
+#+begin_example
+Fri Oct 13 15:46:36 CDT 2017
+/Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
+ancantoid-R90-vs-Rc-a.pdf -> ../papers/Paper1/figs/ancantoid-R90-vs-Rc-a.pdf
+ancantoid-R90-vs-Rc-b.pdf -> ../papers/Paper1/figs/ancantoid-R90-vs-Rc-b.pdf
+dragoid-R90-vs-Rc.pdf -> ../papers/Paper1/figs/dragoid-R90-vs-Rc.pdf
+three-quadric-dragoid-R90-vs-Rc.pdf -> ../papers/Paper1/figs/three-quadric-dragoid-R90-vs-Rc.pdf
+wilkinoid-R90-vs-Rc-wave-A005-N20.pdf -> ../papers/Paper1/figs/wilkinoid-R90-vs-Rc-wave-A005-N20.pdf
+wilkinoid-R90-vs-Rc-wave-A005-N25.pdf -> ../papers/Paper1/figs/wilkinoid-R90-vs-Rc-wave-A005-N25.pdf
+wilkinoid-R90-vs-Rc-wave-A010-N10.pdf -> ../papers/Paper1/figs/wilkinoid-R90-vs-Rc-wave-A010-N10.pdf
+wilkinoid-R90-vs-Rc-wave-A010-N15.pdf -> ../papers/Paper1/figs/wilkinoid-R90-vs-Rc-wave-A010-N15.pdf
+wilkinoid-R90-vs-Rc-wave-A015-N07.pdf -> ../papers/Paper1/figs/wilkinoid-R90-vs-Rc-wave-A015-N07.pdf
+compare_xyprime_wave-wilkinoid.pdf -> ../papers/Paper1/figs/compare_xyprime_wave-wilkinoid.pdf
+wave-R90-vs-Rc-A010-N10.pdf -> ../papers/Paper1/figs/wave-R90-vs-Rc-A010-N10.pdf
+wave-R90-vs-Rc-A005-N20.pdf -> ../papers/Paper1/figs/wave-R90-vs-Rc-A005-N20.pdf
+wave_xyprime-A005-N20-dragoid-alpha100.pdf -> ../papers/Paper1/figs/wave_xyprime-A005-N20-dragoid-alpha100.pdf
+wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf -> ../papers/Paper1/figs/wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf
+#+end_example
 
 
 ** Utility library ~bow_projection.py~ source
