@@ -2894,6 +2894,14 @@ python test_xyprime_wave.py 0.05 4.5
 
 Having such a high wave number is a bit silly, but it does show new behaviour: we can get the perturbations in R_c and R_90 having opposite signs
 
+**** Wilkinoid, Wavenumber 5, Amplitude 0.01
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.01 5
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A001-N50.pdf]]
+
 **** Wilkinoid, Wavenumber 5.5, Amplitude 0.3
 #+BEGIN_SRC sh :results file
 python test_xyprime_wave.py 0.3 5.5
@@ -3415,6 +3423,15 @@ This one is very silly. For phase = 0.5 it looks like a duck
 : ancantoid-xi080-beta000500-wave-A005-N20.json
 : dragoid-alpha100-wave-A005-N20.json
 
+
+#+call: run-save-wave(A=0.01, N=5)
+
+#+RESULTS:
+: wilkinoid-wave-A001-N50.json
+: cantoid-beta002000-wave-A001-N50.json
+: ancantoid-xi080-beta000500-wave-A001-N50.json
+: dragoid-alpha100-wave-A001-N50.json
+
 *** Figure of R_c-R_90 for the standing wave
 This is something I never got finished for the multi-quadric fits
 
@@ -3516,3 +3533,13 @@ This is something I never got finished for the multi-quadric fits
 #+RESULTS:
 [[file:wave-R90-vs-Rc-A005-N20.pdf]]
 
+#+BEGIN_SRC sh :results file
+  python wave-R90-vs-Rc.py A001-N50 \
+         cantoid-beta002000 \
+         ancantoid-xi080-beta000500 \
+         dragoid-alpha100 \
+         wilkinoid 
+#+END_SRC
+
+#+RESULTS:
+[[file:wave-R90-vs-Rc-A001-N50.pdf]]
