@@ -198,79 +198,79 @@ where
 \end{alignat}
 
 
-\newcommand\iso{\ensuremath{^{\mathrm{iso}}}}
+% \newcommand\iso{\ensuremath{^{\mathrm{iso}}}}
 
-\begin{table}
-  \caption{Coefficients for hyperbola fit to bowshock tails}
-  \label{tab:tail-fit-coeffs}
-  \renewcommand\arraystretch{1.2}
-  \setlength\tabcolsep{0.5\tabcolsep}
-  \begin{tabular}{@{}llll@{}}
-    \toprule
-    Equation~(\ref{eq:tail-analytic-x0}) & 
-    \multicolumn{3}{l}{
-    Equation~(\ref{eq:tail-analytic-coeffs-c}) \dotfill
-    } \\ \midrule
-    \( C\iso_0 = +1.3195     \)    
-    & \( c_{0,0} = +2.0758   \)  
-    & \( c_{1,0} = -0.2309   \)  
-    & \( c_{2,0} = -0.2532   \)\\
-      \( C\iso_1 = +0.4229     \)    
-    & \( c_{0,1} = +0.9571   \)  
-    & \( c_{1,1} = -0.1530   \)  
-    & \( c_{2,1} = -0.2487   \)\\
-      \( C\iso_2 = +0.1092     \)    
-    & \( c_{0,2} = +0.2528   \)  
-    & \( c_{1,2} = -0.0360   \)  
-    & \( c_{2,2} = -0.0794   \)\\
-      \( C\iso_3 = +0.0051     \)    
-    & \( c_{0,3} = +0.0171   \)  
-    & \( c_{1,3} = -0.0010   \)  
-    & \( c_{2,3} = -0.0095   \)\\ \midrule
-    Equation~(\ref{eq:tail-analytic-x0-minus-a}) &
-    \multicolumn{3}{l}{
-    Equation~(\ref{eq:tail-analytic-coeffs-d}) \dotfill
-    } \\ \midrule
-    \( D\iso_0 = +0.7962   \)    
-    & \( d_{0,0} = +0.8516 \)  
-    & \( d_{1,0} = -0.0907 \)  
-    & \( d_{2,0} = -0.2002 \)\\
-      \( D\iso_1 = -0.2363   \)    
-    & \( d_{0,1} = -0.7620 \)  
-    & \( d_{1,1} = +0.1411 \)  
-    & \( d_{2,1} = -0.0295 \)\\
-      \( D\iso_2 = -0.0126   \)    
-    & \( d_{0,2} = -0.0683 \)  
-    & \( d_{1,2} = +0.0390 \)  
-    & \( d_{2,2} = -0.0236 \)\\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-
+% \begin{table}
+%   \caption{Coefficients for hyperbola fit to bowshock tails}
+%   \label{tab:tail-fit-coeffs}
+%   \renewcommand\arraystretch{1.2}
+%   \setlength\tabcolsep{0.5\tabcolsep}
+%   \begin{tabular}{@{}llll@{}}
+%     \toprule
+%     Equation~(\ref{eq:tail-analytic-x0}) & 
+%     \multicolumn{3}{l}{
+%     Equation~(\ref{eq:tail-analytic-coeffs-c}) \dotfill
+%     } \\ \midrule
+%     \( C\iso_0 = +1.3195     \)    
+%     & \( c_{0,0} = +2.0758   \)  
+%     & \( c_{1,0} = -0.2309   \)  
+%     & \( c_{2,0} = -0.2532   \)\\
+%       \( C\iso_1 = +0.4229     \)    
+%     & \( c_{0,1} = +0.9571   \)  
+%     & \( c_{1,1} = -0.1530   \)  
+%     & \( c_{2,1} = -0.2487   \)\\
+%       \( C\iso_2 = +0.1092     \)    
+%     & \( c_{0,2} = +0.2528   \)  
+%     & \( c_{1,2} = -0.0360   \)  
+%     & \( c_{2,2} = -0.0794   \)\\
+%       \( C\iso_3 = +0.0051     \)    
+%     & \( c_{0,3} = +0.0171   \)  
+%     & \( c_{1,3} = -0.0010   \)  
+%     & \( c_{2,3} = -0.0095   \)\\ \midrule
+%     Equation~(\ref{eq:tail-analytic-x0-minus-a}) &
+%     \multicolumn{3}{l}{
+%     Equation~(\ref{eq:tail-analytic-coeffs-d}) \dotfill
+%     } \\ \midrule
+%     \( D\iso_0 = +0.7962   \)    
+%     & \( d_{0,0} = +0.8516 \)  
+%     & \( d_{1,0} = -0.0907 \)  
+%     & \( d_{2,0} = -0.2002 \)\\
+%       \( D\iso_1 = -0.2363   \)    
+%     & \( d_{0,1} = -0.7620 \)  
+%     & \( d_{1,1} = +0.1411 \)  
+%     & \( d_{2,1} = -0.0295 \)\\
+%       \( D\iso_2 = -0.0126   \)    
+%     & \( d_{0,2} = -0.0683 \)  
+%     & \( d_{1,2} = +0.0390 \)  
+%     & \( d_{2,2} = -0.0236 \)\\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
 
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.8\textwidth]{figs/conic-head-tail-analytic}
-  \caption{Double quadric fits to thin shell
-    solutions.}
-  \label{fig:head-tail}
-\end{figure*}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/two-quadric-th90-vs-i}
-  \caption{Variation with inclination of the body-frame polar angle
-    \(\theta_{90}\) that corresponds to the projected perpendicular radius
-    \(R’_{90}\).  Line colors and thicknesses represent different
-    quadrics of revolution, as in
-    Fig.~\ref{fig:projected-R90-Rc-snapshots}.  This quantity is
-    important because the quadric fits to the bow shock shape must be
-    accurate for \(\theta < \theta_{90}\) in order to give a reliable estimate
-    for \(R’_{90}\).}
-  \label{fig:projected-th90}
-\end{figure}
+
+% \begin{figure*}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{figs/conic-head-tail-analytic}
+%   \caption{Double quadric fits to thin shell
+%     solutions.}
+%   \label{fig:head-tail}
+% \end{figure*}
+
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=\linewidth]{figs/two-quadric-th90-vs-i}
+%   \caption{Variation with inclination of the body-frame polar angle
+%     \(\theta_{90}\) that corresponds to the projected perpendicular radius
+%     \(R’_{90}\).  Line colors and thicknesses represent different
+%     quadrics of revolution, as in
+%     Fig.~\ref{fig:projected-R90-Rc-snapshots}.  This quantity is
+%     important because the quadric fits to the bow shock shape must be
+%     accurate for \(\theta < \theta_{90}\) in order to give a reliable estimate
+%     for \(R’_{90}\).}
+%   \label{fig:projected-th90}
+% \end{figure}
 
 
 
@@ -287,13 +287,37 @@ where
 \subsection{Projection effects in the thin shell model}
 \label{sec:proj-effects-thin}
 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/test_xyprime}
+  \caption{Apparent bow shapes as a function of inclination angle for
+    isotropic thin shell models. (a)~Confocal paraboloid for
+    comparison (shape independent of inclination).
+    (b)~Wilkinoid. (c)~Cantoid, \(\beta = 0.001\). (d)~Cantoid,
+    \(\beta = 0.01\). }
+  \label{fig:xyprime}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/test_xyprime_ancantoid}
+  \caption{Further apparent bow shapes as a function of inclination
+    angle for anisotropic thin shell models (ancantoids).
+    (a)~\(\beta = 0.001\), \(\xi =.8\); (b) (a)~\(\beta = 0.1\),
+    \(\xi =.8\); (c)~\(\beta = 0.001\) \(\xi =0.4\); (d)
+    \(\beta = 0.1\) \(\xi =0.4\).}
+  \label{fig:xyprime-anacantoid}
+\end{figure}
+
+
 \begin{figure*}
   \centering
   \setkeys{Gin}{width=0.48\linewidth}
   \begin{tabular}{@{}ll@{}}
     (a) & (b) \\
-    \includegraphics{figs/two-quadric-R90-vs-Rc-a}
-        & \includegraphics{figs/two-quadric-R90-vs-Rc-b} \\
+    \includegraphics{figs/ancantoid-R90-vs-Rc-a}
+        & \includegraphics{figs/ancantoid-R90-vs-Rc-b} \\
   \end{tabular}
   \caption{Diagnostic diagram for thin shell models}
   \label{fig:thin-shell-R90-Rc}

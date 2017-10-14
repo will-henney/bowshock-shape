@@ -636,7 +636,7 @@ python dust-wave-Rc-R90.py
 
 ** Copy bow projection figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='test_xy{prime,dragoid,ancantoid}.pdf *oid-R90-vs-Rc*.pdf compare_xyprime_wave-wilkinoid.pdf wave-R90-vs-Rc-A010-N10.pdf wave-R90-vs-Rc-A005-N20.pdf wave_xyprime-A005-N20-dragoid-alpha100.pdf wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf'
+  FIGFILES='test_xyprime.pdf test_xyprime_dragoid.pdf test_xyprime_ancantoid.pdf *oid-R90-vs-Rc*.pdf compare_xyprime_wave-wilkinoid.pdf wave-R90-vs-Rc-A010-N10.pdf wave-R90-vs-Rc-A005-N20.pdf wave_xyprime-A005-N20-dragoid-alpha100.pdf wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -646,8 +646,11 @@ python dust-wave-Rc-R90.py
 
 #+RESULTS:
 #+begin_example
-Fri Oct 13 15:46:36 CDT 2017
+Fri Oct 13 22:53:03 CDT 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
+test_xyprime.pdf -> ../papers/Paper1/figs/test_xyprime.pdf
+test_xyprime_dragoid.pdf -> ../papers/Paper1/figs/test_xyprime_dragoid.pdf
+test_xyprime_ancantoid.pdf -> ../papers/Paper1/figs/test_xyprime_ancantoid.pdf
 ancantoid-R90-vs-Rc-a.pdf -> ../papers/Paper1/figs/ancantoid-R90-vs-Rc-a.pdf
 ancantoid-R90-vs-Rc-b.pdf -> ../papers/Paper1/figs/ancantoid-R90-vs-Rc-b.pdf
 dragoid-R90-vs-Rc.pdf -> ../papers/Paper1/figs/dragoid-R90-vs-Rc.pdf
