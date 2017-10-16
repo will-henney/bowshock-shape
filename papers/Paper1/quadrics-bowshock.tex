@@ -8,8 +8,6 @@
 
 % Standard LaTeX packages
 % \usepackage[varg]{txfonts}
-\usepackage[varg]{newtxmath}
-\usepackage{newtxtext}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{xcolor}
@@ -21,6 +19,9 @@
 \usepackage{pdflscape}
 \usepackage{rotating}
 \usepackage{hyperref}
+
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
 
 % Define a fermata symbol for use inline with text
 % 04 Jul 2017 WJH
@@ -49,6 +50,12 @@
 % The ``irregular'' symbol is drawn from the Icelandic Sorcery and Witchcraft 
 \usepackage{staves}
 
+% Fonts 
+\usepackage{newtxtext}
+% Note: newtxmath must come AFTER newtxtext
+\usepackage[varg]{newtxmath}
+
+
 \hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
   urlcolor=blue!50!black}
 
@@ -69,7 +76,7 @@
 \newcommand\hii{\ion{H}{ii}}
 
 
-\title[Bowshock shapes]{True versus apparent shapes of bow shocks and bow waves}
+\title[Bow shock shapes]{True versus apparent shapes of bow shocks and bow waves}
 
 \newcommand\AddressCRyA{Instituto de Radioastronom\'{\i}a y Astrof\'{\i}sica,
   Universidad Nacional Aut\'onoma de M\'exico, Apartado Postal 3-72,
@@ -90,7 +97,7 @@
   new two-dimensional classification scheme for bow shapes, which is
   based on dimensionless geometric ratios that can be estimated from
   observational images.  The two ratios are related to the
-  ``snubness'' of the bow's apex and the ``openness'' of its wings.
+  ``flatness'' of the bow's apex and the ``openness'' of its wings.
 
   ADD MORE
 \end{abstract}
@@ -100,7 +107,9 @@
 \input{sec-projection}
 \input{sec-conic}
 \input{sec-thin-shell}
+\clearpage
 \input{app-dust-wave}
+\clearpage
 \input{sec-standing-wave}
 \input{sec-conclusions}
 \clearpage
