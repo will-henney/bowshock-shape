@@ -2900,6 +2900,14 @@ python test_xyprime_wave.py 0.1 1.0
 
 Note that for phase = 0.12, the effect of the perturbation is to push the shape closer to the paraboloid, with the result that varying the inclination makes no difference
 
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.3 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A030-N10.pdf]]
+
+
 **** Wilkinoid, Wavenumber 2.0, Amplitude 0.05
 #+BEGIN_SRC sh :results file
 python test_xyprime_wave.py 0.05 2.0
@@ -2907,6 +2915,13 @@ python test_xyprime_wave.py 0.05 2.0
 
 #+RESULTS:
 [[file:test_xyprime_wave-A005-N20.pdf]]
+
+#+BEGIN_SRC sh :results file
+python test_xyprime_wave.py 0.15 2.0
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_wave-A015-N20.pdf]]
 
 **** Wilkinoid, Wavenumber 1.5, Amplitude 0.1
 #+BEGIN_SRC sh :results file
@@ -3083,6 +3098,28 @@ python wave_xyprime.py 0.05 2.0 dragoid-alpha100
 
 #+RESULTS:
 [[file:wave_xyprime-A005-N20-dragoid-alpha100.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.4 2.0 ancantoid-xi080-beta000500
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A040-N20-ancantoid-xi080-beta000500.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.1 6.0 ancantoid-xi080-beta000500
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A010-N60-ancantoid-xi080-beta000500.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.04 10.0 ancantoid-xi080-beta000500
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A004-N100-ancantoid-xi080-beta000500.pdf]]
+
 
 *** Zoom and compare different waves in (x, y) shape @ inc=0 
 
