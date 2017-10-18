@@ -3892,4 +3892,15 @@ This is something I never got finished for the multi-quadric fits
 [[file:wave-R90-vs-Rc-A001-N50.pdf]]
 
 
+*** Slope of Rc-R90 graph from analytic estimate
+|    N | (1 - cos(N\pi/2))/N |
+|------+-------------------|
+| 0.25 |              0.30 |
+|  0.5 |              0.59 |
+|  1.0 |              1.00 |
+|  1.5 |              1.14 |
+|  2.0 |              1.00 |
+|  2.5 |              0.68 |
+|  3.0 |              0.33 |
+#+TBLFM: $2=(1 - cos($1 90))/$1 ; f2
 
