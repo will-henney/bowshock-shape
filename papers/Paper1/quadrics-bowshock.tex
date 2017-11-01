@@ -85,7 +85,16 @@
   Jorge A. Tarango Yong \& William J. Henney\\
   \AddressCRyA
 }
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2017}
+
 \begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
 \maketitle
 \begin{abstract}
   Astrophysical bow shocks are a common result of the interaction
@@ -97,12 +106,20 @@
   shape. We propose a new two-dimensional classification scheme for
   bow shapes, which is based on dimensionless geometric ratios that
   can be estimated from observational images.  The two ratios are
-  related to the ``flatness'' of the bow's apex, which we term
-  \textit{planitude} and the ``openness'' of its wings, which we term
-  \textit{alatude}.
-
-  ADD MORE
+  related to the flatness of the bow's apex, which we term
+  \textit{planitude} and the openness of its wings, which we term
+  \textit{alatude}.  We calculate the expected distribution on the
+  planitude--alatude diagram for a variety of simple geometrical and
+  physical models: quadrics of revolution, wilkinoids, cantoids,
+  ancantoids, and dragoids.  We further show how these are modified in
+  the presence of small-amplitude standing-wave oscillations of the
+  basic shape, as may be produced by hydrodynamic instabilities or a
+  time-varying source.
 \end{abstract}
+
+\begin{keywords}
+  hydrodynamics -- stars: winds, outflows
+\end{keywords}
 
 \input{sec-intro}
 \input{sec-generic-model}
@@ -124,6 +141,9 @@
 \input{app-r90}
 \input{app-wilkinoid}
 
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
 \end{document}
 
 %%% Local Variables:
