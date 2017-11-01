@@ -68,59 +68,104 @@ star that is orthogonal to the axis, with the \textit{far wings} being
 the wing region farthest from the apex. Finally, the \textit{tail} is
 the region near the axis but in the opposite direction from the apex.
 
-
-
-Bow shocks from pulsars and neutron stars
-\citep{Cordes:1993a, Brownsberger:2014a}. 
-
-Terminology: head, wings, nose, apex, limb, etc. 
-
-
-
-
-Radiative versus non-radiative shocks. 
-
-
 \begin{figure}
   % \includegraphics[width=\linewidth]{2winds-scheme}
   \includegraphics[width=\linewidth]{figs/generic-bowshock}
   \caption{Quasi-stationary bow shock structure formed by the
     interaction of two supersonic winds.  Lower-left inset box shows
     the case where the inner wind is anisotropic. The streamlines
-    (thin lines) are drawn to be qualitatively realistic: they
-    are straight in regions of hypersonic flow, but curved in subsonic
-    regions, responding to pressure gradients in the shocked shells.}
+    (thin lines) are drawn to be qualitatively realistic: they are
+    straight in regions of hypersonic flow, but curved in subsonic
+    regions, responding to pressure gradients in the shocked
+    shells. Streamline slopes are discontinuous across oblique
+    shocks.}
 \label{fig:2-winds}
 \end{figure}
-can't doesn;t 
+\newcommand\Mach{\ensuremath{\mathcal{M}}} Figure~\ref{fig:2-winds}
+shows an idealized schematic of how a double bow-shock shell is formed
+from the interaction of two supersonic streams: an \textit{inner wind}
+and an \textit{outer wind}, with the inner wind being the weaker of
+the two (in terms of momentum), so that the shell curves back around
+the inner source.  The outer wind may be from another star, or may be
+a larger scale flow of the interstellar medium, such as the
+\textit{champagne flow} produced by the expansion of an \hii{} region
+away from a molecular cloud \cite{Tenorio-Tagle:1979a, Shu:2002a,
+  Medina:2014a}.  Alternatively, it may be due to the supersonic
+motion of the inner source through a relatively static medium, in
+which case the outer wind will not be divergent as shown in the figure
+but rather plane-parallel.  The thickness of the shocked shells at the
+apex depends on the Mach number, \Mach{}, of the flows and the
+efficiency of the post-shock cooling.  For sufficiently strong
+cooling, the post-shock cooling zone thickness is negligible and the
+shock can be considered isothermal.  In this case, the shell thickness
+is of order \(\Mach^{-2}\) times the source-apex separation
+\citep{Henney:2002a}, which can become very small for high Mach
+numbers.  The shell thickness will tend to increase towards the wings,
+due to the increasing shock obliqueness, which reduces the
+perpendicular Mach number.
+
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/bowshock-crw-variables}
-  \caption[]{Schematic diagram of two-wind interaction problem,
-    following \citet{Canto:1996}.}
+  \caption[]{Schematic diagram of cylindrically symmetric two-wind
+    interaction problem in the thin-shell limit, following
+    \citet{Canto:1996}.}
   \label{fig:crw-schema}
 \end{figure}
+In the extreme thin-shell limit, the entire bow structure can be
+treated as a surface.  The bow radius measured from the inner source
+(star) is \(R(\theta, \phi)\), where \(\theta\) is the polar angle, measured from
+the star-apex axis, and \(\phi\) is the azimuthal angle, measured around
+that axis.  Assuming cylindrical symmetry about the axis, this reduces
+to \(R(\theta)\), which is illustrated in Figure~\ref{fig:crw-schema},
+following \citet{Canto:1996}.  The separation between the two sources
+is \(D\) and the complementary angle, as measured at the position of
+the outer source, is \(\theta_1\).  The minimum value of \(R(\theta)\) is the
+stagnation radius, \(R_0\), which occurs at the apex (\(\theta = 0\)).  In
+a steady state, ram-pressure balance on the axis implies that
+\begin{equation}
+  \label{eq:stagnation-radius}
+  \frac{R_0} {D} = \frac{\beta^{1/2}} {1 + \beta^{1/2}} ,
+\end{equation}
+where \(\beta\) is the momentum ratio between the two winds.  If the inner
+wind has mass-loss rate \(\dot{M}_w\) and terminal velocity \(V_w\),
+while the outer wind has corresponding values \(\dot{M}_{w1}\) and
+\(V_{w1}\), then the momentum ratio is
+\begin{equation}
+  \label{eq:beta-definition}
+  \beta = \frac{\dot{M}_w V_w} {\dot{M}_{w1} V_{w1}} .
+\end{equation}
+The case where the outer wind is a parallel stream
+\citep{Wilkin:1996a} corresponds to the limit \(\beta \to 0\), in which case
+\(D\) is no longer a meaningful parameter.
 
-The general case of a two-wind interaction bow shock is illustrated in
-Figure~\ref{fig:2-winds}.  If the winds are isotropic, then the bow
-shock pattern wraps around the weaker of the two sources, in
+Bow shocks from pulsars and neutron stars
+\citep{Cordes:1993a, Brownsberger:2014a}. 
 
-The bow shocks we consider are originated by a source located at the
-origin, emitting a wind with a mass loss rate of $\dot{M}_w$ and a
-terminal (supersonic) velocity $v_w$. This wind interacts with another
-wind originated by another source located at a distance $D$ from the
-first one.  The mass loss rate of the second source is $\dot{M}_{w1}$
-and the terminal velocity is $v_{w1}$. The momentum of the wind of the
-second source is higher than the momentum of the first one, and the
-resultant bow shock is stationary due to pressure balance.
+% The bow shocks we consider are originated by a source located at the
+% origin, emitting a wind with a mass loss rate of $\dot{M}_w$ and a
+% terminal (supersonic) velocity $v_w$. This wind interacts with another
+% wind originated by another source located at a distance $D$ from the
+% first one.  The mass loss rate of the second source is $\dot{M}_{w1}$
+% and the terminal velocity is $v_{w1}$. The momentum of the wind of the
+% second source is higher than the momentum of the first one, and the
+% resultant bow shock is stationary due to pressure balance.
 
-\subsection{Characteristic Radii}
+\subsection{Parameters to characterize a bow shape}
+
+
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/characteristic-radii}
   \caption{Characteristic radii in the body frame.}
   \label{fig:characteristic-radii}
 \end{figure}
+
+The stagnation radius \(R_0\) describes the linear scale of the bow
+shock, but in order to characterize its shape more parameters are
+required.  To efficiently capture the diversity of bow shapes, we propose the parameters shown in Figure~\ref{fig:characteristic-radii}. 
+
+\(R_{90}\) has been used before \citep{Robberto:2005, Meyer:2016a}, but as far as we know \(R_c\) hasn't. 
 
 
 In order to contrast different bow shock models, we derive a set of
