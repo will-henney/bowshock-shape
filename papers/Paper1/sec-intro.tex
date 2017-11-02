@@ -140,7 +140,9 @@ The case where the outer wind is a parallel stream
 \(D\) is no longer a meaningful parameter.
 
 Bow shocks from pulsars and neutron stars
-\citep{Cordes:1993a, Brownsberger:2014a}. 
+\citep{Cordes:1993a, Brownsberger:2014a}.
+
+Radiation bow waves \citep{van-Marle:2011a}
 
 % The bow shocks we consider are originated by a source located at the
 % origin, emitting a wind with a mass loss rate of $\dot{M}_w$ and a
@@ -151,34 +153,108 @@ Bow shocks from pulsars and neutron stars
 % second source is higher than the momentum of the first one, and the
 % resultant bow shock is stationary due to pressure balance.
 
-\subsection{Parameters to characterize a bow shape}
+\section{Planitude and alatude of bow shapes}
 
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/characteristic-radii}
-  \caption{Characteristic radii in the body frame.}
+  \caption{Parameters for characterizing a bow shape.  Bow radius from
+    the star, measured parallel (\(R_0\)) and perpendicular
+    (\(R_{90}\)) to the symmetry axis, together with radius of
+    curvature (\(R_c\)) at apex and asymptotic opening angle
+    (\(\theta_\infty\)) of the far wings. }
   \label{fig:characteristic-radii}
 \end{figure}
 
 The stagnation radius \(R_0\) describes the linear scale of the bow
 shock, but in order to characterize its shape more parameters are
-required.  To efficiently capture the diversity of bow shapes, we propose the parameters shown in Figure~\ref{fig:characteristic-radii}. 
+required.  To efficiently capture the diversity of bow shapes, we
+propose the parameters shown in Figure~\ref{fig:characteristic-radii}.
+The perpendicular radius \(R_{90}\) is the value of \(R(\theta)\) at
+\(\theta = 90^\circ\), whereas \(R_c\) is the radius of curvature of the bow at
+the apex (\(\theta = 0\)), which in cylindrical symmetry simplifies to
+\begin{equation}
+  \label{eq:radius-curvature}
+  R_c 
+  % = R_0 \Biggl[ 1
+  % - \frac{1} {R_0} \left.\frac{d^2\! R} {d\,\theta^2}\right|_{\theta = 0} \Biggr]^{-1}
+  = \frac{R_0^2}{R_0 - R_0''} \ , 
+\end{equation}
+where \(R_0''\) is \(d^2 \!R / d\theta^2\) evaluated at \(\theta = 0\).
 
-\(R_{90}\) has been used before \citep{Robberto:2005, Meyer:2016a}, but as far as we know \(R_c\) hasn't. 
+A fourth parameter is the asymptotic opening angle of the far wings,
+\(\theta_\infty\), which is useful in the case that the wings are asymptotically
+conical.  However, in many bow shocks the wings tend towards the
+asymptotic angle only slowly, making \(\theta_\infty\) difficult to measure,
+especially since the emission from the far wings is often weak at
+best.  In contrast, the three radii, \(R_0\), \(R_{90}\), and
+\(R_c\). are straightforward to determine from observations.  One
+simple method to estimate the radius of curvature is to make use of
+the Taylor expansion\footnote{%
+  This method assumes both that \(R(\theta)\) is even (true for a
+  cylindrically symmetric bow) and that the orientation of the axis is
+  already known.  Generalization to cases where these assumptions do
+  not hold is discussed in \citet{Henney:2017a}.} %
+of \(R(\theta)\) about the apex (with \(\theta\) in
+radians):
+\begin{equation}
+  \label{eq:taylor-R-theta}
+  R(\theta) = R_0 + \frac12 R_0'' \theta^2 + \mathcal{O}(\theta^4) \ ,
+\end{equation}
+so that fitting a polynomial in \(\theta^2\) to \(R(\theta)\) for
+\(|\theta| < \Delta\theta \) yields \(R_0\) and \(R_0''\) from the first two
+coefficients, and hence \(R_c\) from
+equation~\eqref{eq:radius-curvature}.  Experience has shown that
+\(\Delta\theta = 30^\circ\) and three terms in the polynomial are good choices,
+where the third term is used only as a monitor (if the co-efficient of
+\(\theta^4\) is not small compared with \(R_0\), then it may indicate a
+problem with the fit).
 
+Since we have three radii, we can construct two dimensionless
+parameters:
+\begin{align}
+  \label{eq:planitude}
+  \text{Planitude} \quad \Pi & \equiv  \frac{R_c} {R_0} \\
+  \label{eq:alatude}
+  \text{Alatude} \quad \Lambda & \equiv  \frac{R_{90}} {R_0}
+\end{align}
+and these will be the principal shape parameters that we will use in
+the remainder of the paper.  The \textit{planitude}, \(\Pi\), is a
+measure of the flatness of the head of the bow around the apex, while
+the \textit{alatude}, \(\Lambda\), is a measure of the openness of the bow
+wings.  Although ``planitude'' can be found in the dictionary,
+``alatude'' is a new word that we introduce here, derived from the latin
+\textit{ala} for ``wing''.
 
-In order to contrast different bow shock models, we derive a set of
-measurable radii. Each model used should predict them and these
-predictions can be compared with observations.
-\begin{itemize}
-\item Radius at axis of symmetry. Denoted as $R_0$.
-\item Radius of Curvature at the axis of symmetry. Denoted as $R_c$
-\item Radius at the perpendicular direction to the symmetry
-  axis. Denoted as $R_{90}$
-\item For open bow shocks, the asymptotic angle. Denoted as
-  $\theta_\infty$
-\end{itemize}
+Several previous studies have discussed the relation between
+\(R_{90}\) and \(R_0\) as a diagnostic of bow shape (for example
+\citealp{Robberto:2005, Cox:2012a, Meyer:2016a}), but as far as we
+know, we are the first to include \(R_c\).  \citet{Robberto:2005} use
+the ratios \(R_0/D\) and \(R_{90}/D\) in analyzing proplyd bow shapes
+in the Trapezium cluster in the center of the Orion Nebula
+\citep{Hayward:1994a, Garcia-Arredondo:2001a, Smith:2005a}.  In that
+case, the source of the outer wind is known, and so \(D\) is
+well-determined (at least, in projection), but for many bow shocks
+\(D\) is not known, and is not even defined for the moving-star or
+parallel-stream case. \citet{Cox:2012a} \S~4.1 use \(A\) and \(B\)
+for the projected values of \(R_0\) and \(R_{90}\), respectively (see
+next section for discussion of projection effects).
+\citet{Meyer:2016a} analyze the distribution of \(R_0 / R_{90}\),
+which is the reciproical of our \(\Lambda\), for numerical hydrodynamic
+simulations of bow shocks.
+
+% In order to contrast different bow shock models, we derive a set of
+% measurable radii. Each model used should predict them and these
+% predictions can be compared with observations.
+% \begin{itemize}
+% \item Radius at axis of symmetry. Denoted as $R_0$.
+% \item Radius of Curvature at the axis of symmetry. Denoted as $R_c$
+% \item Radius at the perpendicular direction to the symmetry
+%   axis. Denoted as $R_{90}$
+% \item For open bow shocks, the asymptotic angle. Denoted as
+%   $\theta_\infty$
+% \end{itemize}
 
 
 
