@@ -27,9 +27,9 @@
     \(\theta_q = \tan^{-1} T_q\), varies over the family (see text), with
     lower values of \(\theta_q\) giving larger values of the alatude,
     \(\Lambda = R_{90}/R_0 \), meaning more open wings.  Different values of
-    \(\Pi\) can be achieved for the same quadrics by sliding them along
-    the \(x\)-axis, which will also change the axis scales since these
-    are normalized by \(R_0\).}
+    \(\Pi\) can be achieved for the exact same quadrics by sliding them
+    along the \(x\)-axis, which will also change the axis scales since
+    these are normalized by \(R_0\).}
   \label{fig:conics-family}
 \end{figure}
 
@@ -228,6 +228,90 @@ illustrated in Figure~\ref{fig:conics-family}.
 
 \subsection{Plane-of-sky projection of quadric surfaces} 
 
+We now apply the machinery of \S~\ref{sec:projection} to find the
+projected shape of a quadric bow on the plane of the sky.  The
+intrinsic 3D shape of the shell is given by rotating
+equations~\eqref{eq:par-xy} about the \(x\)-axis, but it is more
+convenient to first transform to a reference frame where the origin is
+at the center of the conic section:
+\begin{equation}
+  \label{eq:xyz-XYZ}
+  (X, Y, Z) = (x - X_0, y, z) . 
+\end{equation}
+In this new frame, the quadric shape is
+\begin{gather}
+  \label{eq:quadric-XYZ}
+  \begin{aligned}
+    X &= a\Cos(t) \\ 
+    Y &= b \Sin(t)\cos\phi \\
+    Z &= b \Sin(t)\sin\phi
+  \end{aligned}
+\end{gather}
+The azimuth of the tangent line as a function of inclination and
+parametric variable is then found from equations (\ref{eq:alpha},
+\ref{eq:tanphi}) to be
+\begin{equation}
+  \label{eq:phit-quadric}
+  \sin\phi_{\T} = \frac{b \Cos(t)} {a \Sin(t)} \tan i \ .
+\end{equation}
+Combining equations~(\ref{eq:Trans}, \ref{eq:quadric-XYZ},
+\ref{eq:phit-quadric}) gives the observer-frame cartesian
+plane-of-sky coordinates of the tangent line:
+\begin{gather}
+  \label{eq:conic-projected-XY}
+  \begin{aligned}
+    X_{\T}' & = \frac{\Cos(t)}{a\cos i}
+    \left(a^2\cos^2 i + \sigma b^2\sin^2 i\right)
+    \\
+    Y_{\T}' &= b\Sin(t)
+    \left(
+      1 - \frac{b^2 \Cos^2(t)}{a^2 \Sin^2(t)}
+      \tan^2 i\right)^{1/2}
+  \end{aligned}
+\end{gather}
+
+We now show that the projected shape is a conic section of the same
+variety (ellipse or hyperbola) as the one that generated the original
+quadric.  If this were true, then it should be possible to write the
+plane-of-sky coordinates as
+\begin{gather}
+  \begin{aligned}
+    X_{\T}' = a'\Cos( t')  \\
+    Y_{\T}' = b'\Sin (t')  . 
+  \end{aligned}\label{eq:conic-projected-XY-conic}
+\end{gather}
+Comparing equations (\ref{eq:conic-projected-XY}) and
+(\ref{eq:conic-projected-XY-conic}), we find after some algebra that
+\begin{align}
+  a' &= \left(a^2\cos^2 i + \sigma b^2\sin^2 i\right)^{1/2} \\
+  b' &= b \label{eq:b-prime} \\
+  \Cos(t') &= \frac{a'\Cos(t)}{a\cos i} \ , 
+\end{align} 
+thus demonstrating the claim.
+
+Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
+
+\begin{align}
+R'_0 &= \pm a' + x_0\cos i \\
+R'_0 &= \pm\left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} +  (R_0 \mp a)\cos i
+\end{align}
+
+Defining  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
+\begin{align}
+\frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm \tilde{R}_c\cot^2\theta_c(f(i;\theta_c)-1) \right)
+\label{eq:qprime}
+\end{align}
+%Where $A\equiv \frac{R_c}{R_0}$
+The Radius of curvature in the observer's frame is given by $R'_c=\frac{b'^2}{a'}$. Then:
+\begin{align}
+  \tilde{R}_c'\equiv  \frac{R'_c}{R'_0} &= \frac{\tilde{R}_c}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
+  \label{eq:Aprime}\\
+  \tan\theta'_c & = \frac{\tan\theta_c}{\cos i f(i;\theta_c)} \\
+  \tilde{R}'_{90} &= \left(\frac{2\tilde{R}_cf(i;\theta_c) \mp \tan^2\theta_c\frac{q'}{q}}{\frac{q'}{q}}\right)^{1/2}\frac{\sec i}{f(i;\theta_c)}
+\end{align}
+where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$.
+
+When $R'_{90}$ is measurable, diagnostic diagrams like figure (\ref{fig:projected-R90-vs-Rc}) can be used to compare with observations.  
 \begin{figure*}
   \centering
   \setkeys{Gin}{width=0.48\linewidth}
@@ -265,75 +349,6 @@ illustrated in Figure~\ref{fig:conics-family}.
   \caption{Variation with inclination angle of projected quadric parameters}
   \label{fig:projected-R90-Rc-snapshots}
 \end{figure*}
-We now apply the machinery of \S~\ref{sec:projection} to find the projected shape of a quadric bow on the plane of the sky.
-
-
-Once the parametrization is done, we can find the apparent shape of
-the shell in the observer's frame, following the procedure explained
-in section.  First of all, the intrinsic 3D shape of the shell is given by:
-\begin{align}
-x &= a\Cos(t)+x_0 \\ 
-y &= b\Sin(t)\cos\phi \\
-z &=  b\Sin(t)\sin\phi
-\end{align}
-The azimutal angle where the line of sight is tangent to the shell is given by equation (\ref{eq:tanphi}) and (\ref{eq:alpha}), then:
-\begin{align}
-\sin\phi_t &= \frac{b}{a}\tan i\Cot(t) 
-\end{align}
-where:
-\begin{align}
-\Cot(t) = \left\lbrace \begin{array}{c}
-\cot t ~\mathrm{if~ellipse} \\
-\coth t ~\mathrm{if~hyperbola}
-\end{array}\right.
-\end{align}
-
-We could work in another frame where the origin is located at the conic's center: $(X,Y)$, where $X=x-X_0$ and $Y=y$.
-In this frame, we use the transformations (\ref{eq:Trans})  to obtain the apparent shape of the shell:
-\begin{align}
-X' &= \frac{\Cos(t)}{a\cos i}\left(a^2\cos^2 i \pm b^2\sin^2 i\right)  \label{eq:conic-projected-x}\\
-Y' &= b\Sin(t)\left(1-\frac{b^2}{a^2}\tan^2 i\Cot^2(t)\right)^{1/2}
-\label{eq:conic-projected-y}
-\end{align}
-
-
-If the apparent shape of the shell in the observer's frame is still the same conic, then, we
-can write equations(\ref{eq:conic-projected-x}) and (\ref{eq:conic-projected-y}) as follows:
-\begin{align}
-X' = a'\Cos( t') \label{eq:conic-projected-x-2} \\
-Y' = b'\Sin (t') \label{eq:conic-projected-y-2} . 
-\end{align}
-
-Comparing, (\ref{eq:conic-projected-x}), (\ref{eq:conic-projected-x-2}), (\ref{eq:conic-projected-y}) and (\ref{eq:conic-projected-y-2}) we find that
-\begin{align}
-a' &= \left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} \\
-\Cos(t') &= \frac{a'\Cos(t)}{a\cos i} \\
-b' &= b \label{eq:b-prime}
-\end{align} 
-
-Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
-
-\begin{align}
-R'_0 &= \pm a' + x_0\cos i \\
-R'_0 &= \pm\left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} +  (R_0 \mp a)\cos i
-\end{align}
-
-Defining  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
-\begin{align}
-\frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm \tilde{R}_c\cot^2\theta_c(f(i;\theta_c)-1) \right)
-\label{eq:qprime}
-\end{align}
-%Where $A\equiv \frac{R_c}{R_0}$
-The Radius of curvature in the observer's frame is given by $R'_c=\frac{b'^2}{a'}$. Then:
-\begin{align}
-  \tilde{R}_c'\equiv  \frac{R'_c}{R'_0} &= \frac{\tilde{R}_c}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
-  \label{eq:Aprime}\\
-  \tan\theta'_c & = \frac{\tan\theta_c}{\cos i f(i;\theta_c)} \\
-  \tilde{R}'_{90} &= \left(\frac{2\tilde{R}_cf(i;\theta_c) \mp \tan^2\theta_c\frac{q'}{q}}{\frac{q'}{q}}\right)^{1/2}\frac{\sec i}{f(i;\theta_c)}
-\end{align}
-where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$.
-
-When $R'_{90}$ is measurable, diagnostic diagrams like figure (\ref{fig:projected-R90-vs-Rc}) can be used to compare with observations.  
 
 
 
