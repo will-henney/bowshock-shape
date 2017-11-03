@@ -1,9 +1,42 @@
+\begin{figure*}
+  \setlength\tabcolsep{2em}
+  \begin{tabular}{ll}
+    (a) & (b) \\
+    \includegraphics[height=0.45\linewidth]{figs/ellipse_edited}
+        & \includegraphics[height=0.45\linewidth]{figs/hyperbola_edited}
+  \end{tabular}
+  \caption{Example off-center conic sections that can form quadrics of
+    revolution: (a) ellipse, (b) hyperbola.  The relationship is shown
+    between the conic section parameters \(a\), \(b\), \(\theta_q\) and the
+    bowshock characteristic radii \(R_0\), \(R_{90}\), \(R_c\), as
+    defined in Fig.~\ref{fig:characteristic-radii}. The origin (center
+    of the weaker flow) is indicated by a red star, the center of
+    curvature of the apex of the bow shock is indicated by a green
+    dot, and the geometric center of the conic section is indicated by
+    a blue cross, which is offset by \(x_0\) from the origin.  Note
+    that \(R_0\), \(R_{90}\), \(R_c\), \(a\), and \(b\) are all
+    \emph{lengths} and are always positive, whereas \(x_0\) is a
+    \emph{displacement} and may be positive or negative.}
+  \label{fig:conics}
+\end{figure*}
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/conic1}
+  \caption{Example of a family of conic sections, all with the same
+    planitude (flatness at apex, marked by white dot):
+    \(\Pi = R_c/R_0 = 2 \). The quadric angle,
+    \(\theta_q = \tan^{-1} T_q\), varies over the family (see text), with
+    lower values of \(\theta_q\) giving larger values of the alatude,
+    \(\Lambda = R_{90}/R_0 \), meaning more open wings.  Different values of
+    \(\Pi\) can be achieved for the same quadrics by sliding them along
+    the \(x\)-axis, which will also change the axis scales since these
+    are normalized by \(R_0\).}
+  \label{fig:conics-family}
+\end{figure}
+
+
 \section{Quadrics of revolution}
 \label{sec:conic}
 
-\newcommand\Sin{\ensuremath{\mathcal{S}}}
-\newcommand\Cos{\ensuremath{\mathcal{C}}}
-\newcommand\Cot{\ensuremath{\mathcal{T}}}
 
 For an arbitrary surface of revolution, application of
 equations~(\ref{eq:tanphi}, \ref{eq:tangential}) to determine the
@@ -31,35 +64,6 @@ more complex bow shock shapes.
 %Instead of the excentricity, we utilize the parameter $\theta_c$ to characterize the different curves, where
 %$\tan\theta_c = \frac{b}{a}$,  $b$ and $a$ are the typical parameters of conics. A positive value for $\theta_c$ indicates that the given curve is a closed one, i.e
 %an ellipse, while a negative value indicates that is an hyperbola. %Insert figures if neccesary  
-\begin{figure*}
-\setlength\tabcolsep{2em}
-\begin{tabular}{ll}
-  (a) & (b) \\
-  \includegraphics[height=0.45\linewidth]{figs/ellipse_edited}
-      & \includegraphics[height=0.45\linewidth]{figs/hyperbola_edited}
-\end{tabular}
-\label{fig:conics}
-\caption{Example off-center conic sections that can form quadrics of
-  revolution: (a) ellipse, (b) hyperbola.  The relationship is shown
-  between the conic section parameters \(a\), \(b\), \(\theta_c\) and the
-  bowshock characteristic radii \(R_0\), \(R_{90}\), \(R_c\), as
-  defined in Fig.~\ref{fig:characteristic-radii}. The origin (center
-  of the weaker flow) is indicated by a red star, the center of
-  curvature of the apex of the bow shock is indicated by a green dot,
-  and the geometric center of the conic section is indicated by a blue
-  cross.  }
-\end{figure*}
-\begin{figure}
-\includegraphics[width=\linewidth]{conic1}
-\caption{Example of a family of conic sections, all with the same
-  normalized radius of curvature at their apex (marked by white dot):
-  \(\widetilde{R}_c = R_c/R_0 = 2 \). The parameter
-  $\theta_c = \pm \tan^{-1} b/a$ describes the family, with negative values
-  corresponding to hyperbolae.  Differerent values of
-  \(\widetilde{R}_c\) can be achieved by moving the origin along the
-  \(x\)-axis while keeping the apex fixed at \(\tilde{x} = 1\).)}
-\label{fig:conics-family}
-\end{figure}
 
 The shape of the quadric curves in the \(xy\) plane (\(\phi = 0\)) are
 shown in Figure~\ref{fig:conics}(a) and (b) for the ellipse and
@@ -90,8 +94,9 @@ Figure~\ref{fig:conics}).
 A general parametric form\footnote{%
   The special case of the parabola needs to be treated differently,
   see Appendix~\ref{app:parabola}.} %
-for the \(xy\) coordinates of the quadrics (in the \(\phi = 0\)plane, and
-with the star at the origin) as a function of \(t = [0, \pi]\) is then
+for the \(xy\) coordinates of the quadrics (in the \(\phi = 0\) plane,
+and with the star at the origin) as a function of \(t = [0, \pi]\) is
+then
 \begin{gather}
   \label{eq:par-xy}
   \begin{aligned}
@@ -102,9 +107,9 @@ with the star at the origin) as a function of \(t = [0, \pi]\) is then
 where
 \begin{equation}
   \label{eq:sin-sinh-etc}
-  \Sin(t), \Cos(t) = \begin{cases}
-    \sin(t), \cos(t) & \text{ellipse}\\
-    \sinh(t), \cosh(t) & \text{hyperbola}
+  \Sin{}, \Cos = \begin{cases}
+    \sin{}, \cos & \text{ellipse}\\
+    \sinh{}, \cosh & \text{hyperbola}
   \end{cases}
 \end{equation}
 Except for the circle case (\(\sigma = +1\), \(a = b\)), the parametric
@@ -113,7 +118,7 @@ the polar form of the bow shape \(R(\theta)\) must be found by substituting
 equations~\eqref{eq:par-xy} into \(\theta = \tan^{-1} y/x\) and
 \(R = (x^2 + y^2)^{1/2}\).
 
-The ``type'' of quadric surface can be characterized by the
+The type of quadric surface can be characterized by the
 \textit{quadric parameter}:
 \begin{equation}
   \label{eq:Tq}
@@ -122,12 +127,17 @@ The ``type'' of quadric surface can be characterized by the
 where \(T_q < 0\) corresponds to open surfaces (hyperboloids) and
 \(T_q > 0\) corresponds to closed surfaces (oblate spheroids with
 \(T_q > 1\) and prolate spheroids with \(T_q < 1\)).  Special cases
-are the sphere (\(T_q = 1\)) and the paraboloid (\(T_q = 0\)).  The
-set of parameters \((T_q, a, x_0)\) are then sufficient to
-characterize the star/bow combination, where \(a\) is the quadric
-scale and \(x_0\) is its center displacement from the star.
+are the sphere (\(T_q = 1\)) and the paraboloid (\(T_q = 0\)).
+Alternatively, one can define a \textit{quadric angle}:
+\(\theta_q = \tan^{-1} T_q\), which is marked in Figure~\ref{fig:conics}.
+In the case of hyperboloids, the asymptotic opening angle of the wings
+(\S~\ref{sec:plan-alat-bow} and Fig.~\ref{fig:characteristic-radii})
+is \(\theta_\infty = \pi + \theta_q\) (note that \(\theta_q < 0\) in this case).
 
-But, we can also characterize the star/bow by \((R_0, \Pi, \Lambda)\), where
+The set of parameters \((T_q, a, x_0)\) are then sufficient to
+characterize the star/bow combination, where \(a\) is the quadric
+scale and \(x_0\) is its center displacement from the star.  However,
+we can also characterize the star/bow by \((R_0, \Pi, \Lambda)\), where
 \(\Pi\) and \(\Lambda\) are the planitude and alatude, see
 \S~\ref{sec:plan-alat-bow}.  We now derive the relationship between
 these two descriptions.  The apex radius of curvature for a conic
@@ -157,8 +167,8 @@ From these we see that it is the sign of \(2 \Pi - \Lambda^2\) that determines
 \(\sigma\) and thus whether a quadric is a spheroid or a hyperboloid.  For
 example, for a constant planitude, \(\Pi\), we can have a family of
 different quadric types, with varying alatude, \(\Lambda\), that increases
-from oblate to prolate to hyperboloid, as illustrated in
-Figure~\ref{fig:conics-family}.
+from oblate, through prolate and paraboloid, to hyperboloid, as
+illustrated in Figure~\ref{fig:conics-family}.
 
 
 % We have set a whole family of curves with a singular parameter denoted as:
@@ -255,9 +265,12 @@ Figure~\ref{fig:conics-family}.
   \caption{Variation with inclination angle of projected quadric parameters}
   \label{fig:projected-R90-Rc-snapshots}
 \end{figure*}
+We now apply the machinery of \S~\ref{sec:projection} to find the projected shape of a quadric bow on the plane of the sky.
+
+
 Once the parametrization is done, we can find the apparent shape of
 the shell in the observer's frame, following the procedure explained
-in section \ref{sec:projection}.  First of all, the intrinsic 3D shape of the shell is given by:
+in section.  First of all, the intrinsic 3D shape of the shell is given by:
 \begin{align}
 x &= a\Cos(t)+x_0 \\ 
 y &= b\Sin(t)\cos\phi \\

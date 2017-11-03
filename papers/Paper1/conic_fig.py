@@ -18,8 +18,8 @@ flag= args.fig <= 0
 ############## Variying  \theta_c with unitary radius of curvature ####################
 
 # Figure style
-sns.set_style('whitegrid')
-sns.set_context('talk')
+sns.set_style('ticks')
+#sns.set_context('talk')
 sns.set_color_codes('dark')
 
 
@@ -41,7 +41,7 @@ if flag:
         c  = conproj.Conic(A=2.0,th_conic = t)
         trange = c.make_t_array()
         ax.plot(c.x(trange), c.y(trange), lw=3, alpha=0.8,
-                label =r"{}: $\theta_c={:.0f}^\circ$".format(s, t))
+                label =r"{}: $\theta_q={:.0f}^\circ$".format(s, t))
 
     # Star at origin
     ax.plot([0],[0], "w*", ms=17, alpha=0.9)
@@ -60,8 +60,9 @@ if flag:
     ax.set_ylim(-4.1,4.1)
     ax.set_xlabel(r"$x/R_0$")
     ax.set_ylabel(r"$y/R_0$")
-    fig.set_size_inches(6, 6)
+    fig.set_size_inches(5, 5)
     fig.tight_layout()
+    sns.despine()
     fig.savefig("conic1.pdf")
 
 ##########  Show same conic at different inclinations (hyperbola example) #############
