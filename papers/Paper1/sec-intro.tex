@@ -89,7 +89,7 @@ the two (in terms of momentum), so that the shell curves back around
 the inner source.  The outer wind may be from another star, or may be
 a larger scale flow of the interstellar medium, such as the
 \textit{champagne flow} produced by the expansion of an \hii{} region
-away from a molecular cloud \cite{Tenorio-Tagle:1979a, Shu:2002a,
+away from a molecular cloud \citep{Tenorio-Tagle:1979a, Shu:2002a,
   Medina:2014a}.  Alternatively, it may be due to the supersonic
 motion of the inner source through a relatively static medium, in
 which case the outer wind will not be divergent as shown in the figure
@@ -213,9 +213,9 @@ the apex (\(\theta = 0\)), which in cylindrical symmetry simplifies to
   R_c 
   % = R_0 \Biggl[ 1
   % - \frac{1} {R_0} \left.\frac{d^2\! R} {d\,\theta^2}\right|_{\theta = 0} \Biggr]^{-1}
-  = \frac{R_0^2}{R_0 - R_0''} \ , 
+  = \frac{R_0^2}{R_0 - R_{\theta\theta,0}} \ , 
 \end{equation}
-where \(R_0''\) is \(d^2 \!R / d\theta^2\) evaluated at \(\theta = 0\).
+where \(R_{\theta\theta,0}\) is \(d^2 \!R / d\theta^2\) evaluated at \(\theta = 0\).
 
 A fourth parameter is the asymptotic opening angle of the far wings,
 \(\theta_\infty\), which is useful in the case that the wings are asymptotically
@@ -234,10 +234,10 @@ of \(R(\theta)\) about the apex (with \(\theta\) in
 radians):
 \begin{equation}
   \label{eq:taylor-R-theta}
-  R(\theta) = R_0 + \frac12 R_0'' \theta^2 + \mathcal{O}(\theta^4) \ ,
+  R(\theta) = R_0 + \frac12 R_{\theta\theta,0} \,\theta^2 + \mathcal{O}(\theta^4) \ ,
 \end{equation}
 so that fitting a polynomial in \(\theta^2\) to \(R(\theta)\) for
-\(|\theta| < \Delta\theta \) yields \(R_0\) and \(R_0''\) from the first two
+\(|\theta| < \Delta\theta \) yields \(R_0\) and \(R_{\theta\theta,0}\) from the first two
 coefficients, and hence \(R_c\) from
 equation~\eqref{eq:radius-curvature}.  Experience has shown that
 \(\Delta\theta = 30^\circ\) and three terms in the polynomial are good choices,

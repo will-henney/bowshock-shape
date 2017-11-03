@@ -6,7 +6,7 @@
 \label{sec:projection}
 
 In this section we calculate the apparent shape on the plane of the
-sky of the limb brightened border of a shock or shell that is
+sky of the limb-brightened border of a shock or shell that is
 idealized as an arbitrary cylindrically symmetric surface.
 
 % Note: I'm aware that some of this material should be moved to an appendix, but I think it will be a future edition.
@@ -160,8 +160,6 @@ condition
   \label{eq:tangent-line-condition}
   \uvec{n}'\cdot \uvec{z}' = 0.
 \end{equation}
-
-
 We denote by \(\phi\T\) that value of $\phi$ that satisfies this
 relation for a given inclination, \(i\), and polar angle, \(\theta\):
 \begin{equation}
@@ -213,9 +211,13 @@ and will no longer look like a bow shock to the observer.
 
 % Considering further applications to bow shocks, we will consider open shells.
 In order to compare the shell shape given by $R(\theta)$ with observations,
-it is convenient to define the following apparent radii in the observer frame: $R'_{0}$ and $R'_{90}$. These are projected distances of the shell tangent line
-from the origin. The first is measured in the direction of the symmetry axis, and the second in a perpendicular direction. More concretely $R'_{0} = x'\T(y'\T=0)$
-and $R'_{90} = y'\T(x'\T=0)$. From equations (\ref{eq:tanphi}) and (\ref{eq:tangential}) we find that:
+it is convenient to define the following apparent radii in the
+observer frame: $R'_{0}$ and $R'_{90}$. These are projected distances
+of the shell tangent line from the origin. The first is measured in
+the direction of the symmetry axis, and the second in a perpendicular
+direction. More concretely $R'_{0} = x'\T(y'\T=0)$ and
+$R'_{90} = y'\T(x'\T=0)$. From equations (\ref{eq:tanphi}) and
+(\ref{eq:tangential}) we find that:
 \begin{align}
 R'_{0} = R(\theta_{0})\cos(\theta_{0} + i) \label{eq:Rpar} 
 \end{align}
@@ -224,16 +226,31 @@ Where $\theta_{0}$ is the solution of equation (\ref{eq:thetapar}), and
   \label{eq:R90prime}
 R'_{90} = R(\theta_{90})\sin\theta_{90}\left(1-\sin^2\bigl(\phi\T(\theta_{90})\bigr)\right)^{1/2}
 \end{align}
-Where $\theta_{90}$ is the solution of the next implicit equation:
+Where $\theta_{90}$ is the solution of the implicit equation:
 \begin{align}
   \label{eq:th90}
 \cot\theta_{90} = \frac{1-\left(1+\omega(\theta_{90})^2\sin^22i\right)^{1/2}}{2\omega(\theta_{90})\cos^2 i}
 \end{align}
+The projected alatude (see \S~\ref{sec:plan-alat-bow}) is then given
+by \(\Lambda' = R_{90}' / R_0'\).
 
+Similarly, the projected planitude is \(\Pi' = R_c' / R_0'\), where
+\(R_c'\) is found by applying the equivalent of equation
+\eqref{eq:radius-curvature} for primed quantities:
+\begin{equation}
+  \label{eq:projected-radius-curvature}
+  R_c' 
+  = \frac{(R_0')^2}{R_0' - R_{\theta'\theta',0}'} \ .
+\end{equation}
 
-  \subsection{Line-of-sight velocities on the tangent line}
-  \label{sec:line-sight-veloc}
-  Motions in a thin shocked shell will be predominantly tangential to the shell surface. In addition, for the particular case of wind-wind bowshocks, the flow in each azimuthal slice can be shown to be independent \citep{Wilkin:2000a}, which implies that the shell velocity is parallel to \(\uvec{t}\). The projected line-of-sight shell velocity is therefore
+\subsection{Line-of-sight velocities on the tangent line}
+\label{sec:line-sight-veloc}
+Motions in a thin shocked shell will be predominantly tangential to
+the shell surface. In addition, for the particular case of wind-wind
+bowshocks, the flow in each azimuthal slice can be shown to be
+independent \citep{Wilkin:2000a}, which implies that the shell
+velocity is parallel to \(\uvec{t}\). The projected line-of-sight
+shell velocity is therefore
   \begin{equation}
     \label{eq:vlos}
     v_{\mathrm{los}} = (\uvec{t}' \cdot -\uvec{z}') \, v_{\parallel}(\theta) = \frac{v_{\parallel}(\theta) (1+\omega^2)^{1/2} \sin i }{\sin\theta - \omega\cos\theta} ,
