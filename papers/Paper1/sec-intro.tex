@@ -144,6 +144,40 @@ Bow shocks from pulsars and neutron stars
 
 Radiation bow waves \citep{van-Marle:2011a}
 
+The paper is organized as follows.
+%
+In \S~\ref{sec:plan-alat-bow} we outline the geometric parameters that
+are necessary for describing bow shapes and introduce two
+dimensionless ratios: planitude and alatude.
+%
+In \S~\ref{sec:projection} we derive general results for the
+projection of bow shapes on to the plane of the sky.
+%
+In \S~\ref{sec:conic} we apply the results to the simplest possible
+class of geometric bow models: the quadrics of revolution, which
+comprise spheroids, paraboloids, and hyperboloids, each of which
+occupies a disjoint region of the planitude--alatude plane.
+%
+In \S~\ref{sec:crw-scenario} we consider thin-shell hydrodynamic
+models for the parallel-stream case (wilkinoids) and wind-wind case
+(cantoids), including extension to an anisotropic inner wind
+(ancantoids).  We calculate the location of the models in the
+planitude--alatude plane as a function of the inclination of the bow
+shock axis to the plane of the sky.
+%
+In \S~\ref{sec:shape-dust-wave} we do the same for simple models of a
+dusty radiation bow wave (dragoids), including the effects of
+gas-grain drag.
+%
+In \S~\ref{sec:perturbed-bows} we investigate the effects on the
+planitude--alatude plane of small-amplitude perturbations to the bow
+shape.
+%
+In \S~\ref{sec:conc} we summarise our results and outline how
+following papers will apply these ideas to observations and numerical
+simulations.
+
+
 % The bow shocks we consider are originated by a source located at the
 % origin, emitting a wind with a mass loss rate of $\dot{M}_w$ and a
 % terminal (supersonic) velocity $v_w$. This wind interacts with another
@@ -154,7 +188,7 @@ Radiation bow waves \citep{van-Marle:2011a}
 % resultant bow shock is stationary due to pressure balance.
 
 \section{Planitude and alatude of bow shapes}
-
+\label{sec:plan-alat-bow}
 
 \begin{figure}
   \centering
@@ -211,8 +245,8 @@ where the third term is used only as a monitor (if the co-efficient of
 \(\theta^4\) is not small compared with \(R_0\), then it may indicate a
 problem with the fit).
 
-Since we have three radii, we can construct two dimensionless
-parameters:
+Since we have three radii, we can construct two independent
+dimensionless parameters:
 \begin{align}
   \label{eq:planitude}
   \text{Planitude} \quad \Pi & \equiv  \frac{R_c} {R_0} \\
@@ -223,26 +257,27 @@ and these will be the principal shape parameters that we will use in
 the remainder of the paper.  The \textit{planitude}, \(\Pi\), is a
 measure of the flatness of the head of the bow around the apex, while
 the \textit{alatude}, \(\Lambda\), is a measure of the openness of the bow
-wings.  Although ``planitude'' can be found in the dictionary,
-``alatude'' is a new word that we introduce here, derived from the latin
-\textit{ala} for ``wing''.
+wings.  Although ``planitude'' can be found in English dictionaries,
+``alatude'' is a new word that we introduce here, derived from the
+latin \textit{ala} for ``wing''.
 
 Several previous studies have discussed the relation between
 \(R_{90}\) and \(R_0\) as a diagnostic of bow shape (for example
 \citealp{Robberto:2005, Cox:2012a, Meyer:2016a}), but as far as we
-know, we are the first to include \(R_c\).  \citet{Robberto:2005} use
-the ratios \(R_0/D\) and \(R_{90}/D\) in analyzing proplyd bow shapes
-in the Trapezium cluster in the center of the Orion Nebula
+know, we are the first to include \(R_c\).  \citet{Robberto:2005}
+\S~4.2 use the ratios \(R_0/D\) and \(R_{90}/D\) in analyzing proplyd
+bow shapes in the Trapezium cluster in the center of the Orion Nebula
 \citep{Hayward:1994a, Garcia-Arredondo:2001a, Smith:2005a}.  In that
 case, the source of the outer wind is known, and so \(D\) is
 well-determined (at least, in projection), but for many bow shocks
 \(D\) is not known, and is not even defined for the moving-star or
-parallel-stream case. \citet{Cox:2012a} \S~4.1 use \(A\) and \(B\)
-for the projected values of \(R_0\) and \(R_{90}\), respectively (see
-next section for discussion of projection effects).
-\citet{Meyer:2016a} analyze the distribution of \(R_0 / R_{90}\),
-which is the reciproical of our \(\Lambda\), for numerical hydrodynamic
-simulations of bow shocks.
+parallel-stream case. \citet{Cox:2012a} \S~4.1 compare the observed
+shapes of bow shocks around cool giant stars with an analytic model,
+and use \(A\) and \(B\) for the projected values of \(R_0\) and
+\(R_{90}\), respectively (see next section for discussion of
+projection effects).  \citet{Meyer:2016a} \S~3.2 analyze the
+distribution of \(R_0 / R_{90}\) (the reciprocal of our \(\Lambda\)) for
+hydrodynamic simulations of bow shocks around runaway OB stars.
 
 % In order to contrast different bow shock models, we derive a set of
 % measurable radii. Each model used should predict them and these
@@ -262,8 +297,8 @@ simulations of bow shocks.
 %% Restriction to cylindrical symmetry
 %% 
 
-For simplicity, the current paper is restricted to cylindrically
-symmetric bow shock shapes. 
+% For simplicity, the current paper is restricted to cylindrically
+% symmetric bow shock shapes. 
 
 %%
 %% Effects of instabilities
