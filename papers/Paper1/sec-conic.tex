@@ -15,10 +15,12 @@ which are formed by rotating a conic section plane curve about its
 symmetry axis.  Examples are the sphere, spheroids (oblate and
 prolate), and right circular paraboloids and hyperboloids.\footnote{We
   consider only the case of a single sheet of a 2-sheet hyperboloid or
-  paraboloid.}  We ignore the degenerate cases of cylinders, cones,
-and pairs of parallel planes.  While mathematically simple, these
-quadrics are sufficiently flexible that they can provide a useful
-approximation to more complex bow shock shapes. 
+  paraboloid, since these are the versions that resemble a bow,
+  whereas the 1-sheet versions resemble the waist of an hourglass.}
+We ignore the degenerate cases of cylinders, cones, and pairs of
+parallel planes.  While mathematically simple, these quadrics are
+sufficiently flexible that they can provide a useful approximation to
+more complex bow shock shapes.
 
 %The 
 %In this section we will analyze the case where the resultant shape  of the bow shock is a conic curve (circle, ellipse, parabola or hyperbola).
@@ -59,68 +61,145 @@ approximation to more complex bow shock shapes.
 \label{fig:conics-family}
 \end{figure}
 
-Due to the similarities between the parametrization of the ellipse and the hyperbola, we can do the following parametrization, using the convention
-that if a dual sign appears, the upper sign correspond to the elliptical quadrics, and the lower sign to the hyperbolic quadrics
-\footnote{Equations (\ref{eq:par-x}) to (\ref{eq:b-prime}) does not apply for paraboloids. Instead, the parametrization and the
-  projected shape are developed in appendix \ref{app:parabola}}:
+The shape of the quadric curves in the \(xy\) plane (\(\phi = 0\)) are
+shown in Figure~\ref{fig:conics}(a) and (b) for the ellipse and
+hyperbola case, respectively.  The conic section itself is fully
+described by two lengths, \(a\) and \(b\), which are the
+semi-axes.\footnote{Note that we do not require that \(a > b\), so
+  either \(a\) or \(b\) may be the semi-major axis.}  However, the
+curve can be translated along the \(x\) axis to an arbitrary point
+with respect to the star, so that the apex distance \(R_0\) has no
+necessary relation to \(a\) or \(b\) and therefore the star/bow
+combination requires \emph{three} independent lengths for its
+specification.  The displacement \(x_0\) from the star to the
+``center'' of the conic section is
+\begin{equation}
+  \label{eq:conic-x0}
+  x_0 = R_0 - \sigma a
+  \quad \text{with} \quad
+  \sigma = \begin{cases}
+    +1 & \text{ellipse}\\
+    -1 & \text{hyperbola}
+  \end{cases} \ .
+\end{equation}
+For hyperbolas the center is ``outside'' of the bow and \(x_0\) is
+always positive, whereas for ellipses the center is ``inside'' the bow
+and \(x_0\) is usually negative, except when \(a < R_0\) (see
+Figure~\ref{fig:conics}).
+
+A general parametric form\footnote{%
+  The special case of the parabola needs to be treated differently,
+  see Appendix~\ref{app:parabola}.} %
+for the \(xy\) coordinates of the quadrics (in the \(\phi = 0\)plane, and
+with the star at the origin) as a function of \(t = [0, \pi]\) is then
+\begin{gather}
+  \label{eq:par-xy}
+  \begin{aligned}
+    x &= x_0 + \sigma a \Cos(t) \\ 
+    y &= b\Sin(t) 
+  \end{aligned}
+\end{gather}
+where
+\begin{equation}
+  \label{eq:sin-sinh-etc}
+  \Sin(t), \Cos(t) = \begin{cases}
+    \sin(t), \cos(t) & \text{ellipse}\\
+    \sinh(t), \cosh(t) & \text{hyperbola}
+  \end{cases}
+\end{equation}
+Except for the circle case (\(\sigma = +1\), \(a = b\)), the parametric
+variable \(t\) is not actually an angle in physical space.  Instead,
+the polar form of the bow shape \(R(\theta)\) must be found by substituting
+equations~\eqref{eq:par-xy} into \(\theta = \tan^{-1} y/x\) and
+\(R = (x^2 + y^2)^{1/2}\).
+
+The ``type'' of quadric surface can be characterized by the
+\textit{quadric parameter}:
+\begin{equation}
+  \label{eq:Tq}
+  T_q \equiv \sigma \frac{b} {a} \ , 
+\end{equation}
+where \(T_q < 0\) corresponds to open surfaces (hyperboloids) and
+\(T_q > 0\) corresponds to closed surfaces (oblate spheroids with
+\(T_q > 1\) and prolate spheroids with \(T_q < 1\)).  Special cases
+are the sphere (\(T_q = 1\)) and the paraboloid (\(T_q = 0\)).  The
+set of parameters \((T_q, a, x_0)\) are then sufficient to
+characterize the star/bow combination, where \(a\) is the quadric
+scale and \(x_0\) is its center displacement from the star.
+
+But, we can also characterize the star/bow by \((R_0, \Pi, \Lambda)\), where
+\(\Pi\) and \(\Lambda\) are the planitude and alatude, see
+\S~\ref{sec:plan-alat-bow}.  We now derive the relationship between
+these two descriptions.  The apex radius of curvature for a conic
+section is
+\begin{equation}
+  \label{eq:Rc-conic}
+  R_c = \frac{b^2}{a} \ ,
+\end{equation}
+whereas the perpendicular radius, \(R_{90}\), is the value of \(y\)
+when \(x = 0\), which can be found from equations (\ref{eq:conic-x0},
+\ref{eq:par-xy}) as
+\begin{equation}
+  \label{eq:conic-R90}
+  R_{90} = \left|T_q\right|
+  \left(2aR_0 - \sigma R_0^2\right)^{1/2} \ .
+\end{equation}
+Combining equations (\ref{eq:planitude}, \ref{eq:alatude},
+\ref{eq:conic-x0}, \ref{eq:Tq}--\ref{eq:conic-R90}) yields
 \begin{align}
-x &= a\Cos(t)+x_0 \label{eq:par-x}\\ 
-y &= b\Sin(t) \label{eq:par-y}
+  \label{eq:Tq-from-Pi-Lambda}
+  T_q &= \sigma \left| 2 \Pi - \Lambda^2 \right|^{1/2} \\
+  \label{eq:a-from-R0-Pi-Lambda}
+  a &= R_0 \frac{ \Pi  } { \left|  2 \Pi - \Lambda^2\right| } \\
+  x_0 &= R_0 \frac{\Pi - \Lambda^2} {2 \Pi - \Lambda^2}
 \end{align}
-where:
-\begin{align}
-\Cos(t) &= \left\lbrace \begin{array}{c}
-\cos t ~\mathrm{if~ellipse} \\
--\cosh t ~\mathrm{if~hyperbola}
-\end{array}\right.\\
-\Sin(t) &= \left\lbrace \begin{array}{c}
-\sin t ~\mathrm{if~ellipse} \\
-\sinh t ~\mathrm{if~hyperbola}
-\end{array}\right. \\
--\pi &< t < \pi \\
-x_0 &=  R_0 \mp a \label{eq:x0}\\
-\end{align}
-Where $a$ and $b$ are real, positive numbers.
-
-We have set a whole family of curves with a singular parameter denoted as:
-\begin{align}
-  \tan\theta_c \equiv \pm\frac{b}{a}\label{eq:Thc}
-\end{align}
-Positive values of this parameter describe closed curves (i.e. ellipses) and the negative ones describe open curves (i.e. hyperbolas).
-Particular cases are $\theta_c =\frac{\pi}{4}$,
-which describes a circle and $\theta_c=0$, which describes a parabola.
-To determine uniquely a given conic in terms of measurable quantities, we use the set of characteristic radii $(R_0,R_c,R_{90})$ in such way the conic
-parameters $(a,b,\theta_c)$ could be derived from the former. Either way, the radius of curvature can be computed as:
-
-\begin{align}
-R_c = \frac{b^2}{a} \label{eq:Rc-conic}
-\end{align}
-
-For the rest of the parameters, the equation for ellipses and hyperbolas are very similar:
-
-\begin{align}
-R_{90} = \left|\tan\theta_c\right|\left[2aR_0\mp R_0^2\right]^{1/2}\label{eq:conic-R90}
-\end{align}
+From these we see that it is the sign of \(2 \Pi - \Lambda^2\) that determines
+\(\sigma\) and thus whether a quadric is a spheroid or a hyperboloid.  For
+example, for a constant planitude, \(\Pi\), we can have a family of
+different quadric types, with varying alatude, \(\Lambda\), that increases
+from oblate to prolate to hyperboloid, as illustrated in
+Figure~\ref{fig:conics-family}.
 
 
-Now, we can invert equations (\ref{eq:Rc-conic}) and (\ref{eq:conic-R90}) to estimate the parameters $a$ and $b$.
-%But first is useful to define the quantities $\tilde{R}_c \equiv \frac{R_c}{R_0}$ and $\equiv \frac{\tilde{R}_{90}}{R_0}$ for simplification purposes.
-Hereafter is useful to denote with a tilde quantities which are normalized with $R_0$:
+% We have set a whole family of curves with a singular parameter denoted as:
+% \begin{align}
+%   \tan\theta_c \equiv \pm\frac{b}{a}\label{eq:Thc}
+% \end{align}
+% Positive values of this parameter describe closed curves (i.e. ellipses) and the negative ones describe open curves (i.e. hyperbolas).
+% Particular cases are $\theta_c =\frac{\pi}{4}$,
+% which describes a circle and $\theta_c=0$, which describes a parabola.
+% To determine uniquely a given conic in terms of measurable quantities, we use the set of characteristic radii $(R_0,R_c,R_{90})$ in such way the conic
+% parameters $(a,b,\theta_c)$ could be derived from the former. Either way, the radius of curvature can be computed as:
+
+% \begin{align}
+% R_c = \frac{b^2}{a} \label{eq:Rc-conic}
+% \end{align}
+
+% For the rest of the parameters, the equation for ellipses and hyperbolas are very similar:
+
+% \begin{align}
+% R_{90} = \left|\tan\theta_c\right|\left[2aR_0\mp R_0^2\right]^{1/2}\label{eq:conic-R90}
+% \end{align}
 
 
-\begin{align}
-  \tilde{a}\equiv \frac{a}{R_0} &= \pm\frac{\tilde{R}_c}{\left(2\tilde{R}_c-\tilde{R}_{90}^2\right)} \label{eq:a-con}\\
-  \tilde{b}\equiv \frac{b}{R_0} &= \frac{\tilde{R}_c}{\left|2\tilde{R}_c-\tilde{R}_{90}^2\right|^{1/2}} \label{eq:b-con}
-\end{align}
+% Now, we can invert equations (\ref{eq:Rc-conic}) and (\ref{eq:conic-R90}) to estimate the parameters $a$ and $b$.
+% %But first is useful to define the quantities $\tilde{R}_c \equiv \frac{R_c}{R_0}$ and $\equiv \frac{\tilde{R}_{90}}{R_0}$ for simplification purposes.
+% Hereafter is useful to denote with a tilde quantities which are normalized with $R_0$:
 
 
-Dividing equations (\ref{eq:a-con}) and (\ref{eq:b-con}) and substituting into equation (\ref{eq:Thc}) we get:
+% \begin{align}
+%   \tilde{a}\equiv \frac{a}{R_0} &= \pm\frac{\tilde{R}_c}{\left(2\tilde{R}_c-\tilde{R}_{90}^2\right)} \label{eq:a-con}\\
+%   \tilde{b}\equiv \frac{b}{R_0} &= \frac{\tilde{R}_c}{\left|2\tilde{R}_c-\tilde{R}_{90}^2\right|^{1/2}} \label{eq:b-con}
+% \end{align}
 
-\begin{align}
-\tan\theta_c = \pm \left|2\tilde{R}_c-\tilde{R}_{90}^2\right|^{1/2} \label{eq:th_c}
-\end{align}
 
-Note that the term $2\tilde{R}_c-\tilde{R}_{90}^2$ acts as a discriminant which determine the quadric we are working with.
+% Dividing equations (\ref{eq:a-con}) and (\ref{eq:b-con}) and substituting into equation (\ref{eq:Thc}) we get:
+
+% \begin{align}
+% \tan\theta_c = \pm \left|2\tilde{R}_c-\tilde{R}_{90}^2\right|^{1/2} \label{eq:th_c}
+% \end{align}
+
+% Note that the term $2\tilde{R}_c-\tilde{R}_{90}^2$ acts as a discriminant which determine the quadric we are working with.
 
 %The transformation between the conic parameters and the characteristic radii are given by:
 %\begin{align}
