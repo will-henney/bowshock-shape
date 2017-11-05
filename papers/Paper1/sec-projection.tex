@@ -93,18 +93,21 @@ We define unit vectors \(\uvec{n}, \uvec{t}\), such that \(\uvec{n}\) is normal 
     \sin\alpha \\ \cos\alpha \\ 0
   \end{Vector}, 
 \end{equation}
-where
+where \(\alpha\) is the \textit{slope angle}, given by
 \begin{equation}
   \label{eq:alpha}
   \tan\alpha = -\left.\frac{dy}{dx}\right\vert_{R(\theta)} 
   = \frac{1 + \omega \tan\theta}{\tan\theta - \omega}
 \end{equation}
-and 
+and \(\omega\) is a dimensionless \textit{local growth factor}:
 \begin{equation}
   \label{eq:omega}
   \omega(\theta) = \frac{1}{R} \frac{dR}{d\theta} . 
 \end{equation}
-For general \(\phi\), \(\uvec{n}\) and \(\uvec{t}\) can be found by rotating equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis, which can then be converted to the observer frame by use of equation~(\ref{eq:Trans}) to give
+For general \(\phi\), we find \(\uvec{n}\) and \(\uvec{t}\) by rotating
+equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis, and then
+converting to the observer frame by use of equation~(\ref{eq:Trans})
+to give
 \begin{gather}
   \label{eq:nprime}
   \begin{split}
@@ -132,6 +135,7 @@ For general \(\phi\), \(\uvec{n}\) and \(\uvec{t}\) can be found by rotating equ
   \end{split}
   \end{gather}
 \subsection{Tangent line}
+\label{sec:tangent-line}
 
 % For optically thin emission with isotropic emissivity \(j\), the observed
 % surface brightness for any line of sight that intersects the shell is

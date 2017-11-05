@@ -130,14 +130,36 @@ The type of quadric surface can be characterized by the
 \end{equation}
 where \(\Q < 0\) corresponds to open surfaces (hyperboloids) and
 \(\Q > 0\) corresponds to closed surfaces (oblate spheroids with
-\(\Q > 1\) and prolate spheroids with \(\Q < 1\)).  Special cases
-are the sphere (\(\Q = 1\)) and the paraboloid (\(\Q = 0\)).
+\(\Q > 1\) and prolate spheroids with \(\Q < 1\)).  Special cases are
+the sphere (\(\Q = 1\)) and the paraboloid (\(\Q = 0\)).
 Alternatively, one can define a \textit{quadric angle}:
 \(\thetaQ = \sigma \tan^{-1} (b/a)\), which is marked in
 Figure~\ref{fig:conics}.  In the case of hyperboloids, the asymptotic
 opening angle of the wings (\S~\ref{sec:plan-alat-bow} and
 Fig.~\ref{fig:characteristic-radii}) is
-\(\theta_\infty = \pi + \thetaQ\) (note that \(\thetaQ < 0\) in this case).
+\(\theta_\infty = \pi + \thetaQ\) (note that \(\thetaQ < 0\) in this case), and
+the minimum slope angle is \(\alpha_{\mathrm{min}} = |\thetaQ|\), see
+discussion following equation~\eqref{eq:thetapar}.   
+
+\begin{figure*}
+  \centering
+  \setkeys{Gin}{width=0.48\linewidth}
+  \begin{tabular}{@{}ll@{}}
+    (a) & (b) \\
+    \includegraphics{figs/projected-Rc-vs-i}
+        & \includegraphics{figs/projected-R90-vs-i}
+  \end{tabular}
+  \caption[]{Effects of projection on quadrics of revolution:
+    variation with inclination, \(|i|\), of bow size and shape.
+    Different line colors correspond to varying quadric parameter,
+    \(\Q\), (see key), while variation in line width corresponds to
+    variation in the ``true'' planitude, \(\Pi\), or apex radius of
+    curvature. Vertical gray rectangles show quartiles of
+    \(|\sin i|\), which will be equally populated for an isotropic
+    distribution of orientations. (a)~Projected planitude:
+    \(\Pi'\). (b)~Projected alatude, \(\Lambda'\).}
+  \label{fig:quadric-projection}
+\end{figure*}
 
 The set of parameters \((\Q, a, x_0)\) are then sufficient to
 characterize the star/bow combination, where \(a\) is the quadric
@@ -240,26 +262,6 @@ illustrated in Figure~\ref{fig:conics-family}.
 %\mathrm{where:~} B &\equiv \frac{R_{90}}{R_0} \\
 %#A &\equiv \frac{R_c}{R_0}
 %\end{align}
-\begin{figure*}
-  \centering
-  \setkeys{Gin}{width=0.48\linewidth}
-  \begin{tabular}{@{}ll@{}}
-    (a) & (b) \\
-    \includegraphics{figs/projected-Rc-vs-i}
-        & \includegraphics{figs/projected-R0-vs-i}
-  \end{tabular}
-  \caption[]{Effects of projection on quadrics of revolution:
-    variation with inclination of bow size and shape.  Different line
-    colors correspond to varying quadric parameter, \(\Q\), (see key),
-    while variation in line width corresponds to variation in the
-    ``true'' planitude, \(\Pi\), or apex radius of curvature. Vertical
-    gray rectangles show quartiles of \(|\sin i|\), which will be
-    equally populated for an isotropic distribution of
-    orientations. (a)~Projected planitude: \(\Pi'\). (b)~Projected/true
-    star-apex distance: \(R_0' / R_0\). }
-  \label{fig:quadric-projection}
-\end{figure*}
-
 
 \subsection{Plane-of-sky projection of quadric surfaces} 
 
@@ -361,16 +363,16 @@ foreshortening:
   \setkeys{Gin}{width=0.48\linewidth}
   \begin{tabular}{@{}ll@{}}
     (a) & (b) \\
-    \includegraphics{figs/projected-R90-vs-i}
+    \includegraphics{figs/projected-R0-vs-i}
     & \includegraphics{figs/projected-R90-vs-Rc}
   \end{tabular}
-  \caption[]{As Figure~\ref{fig:quadric-projection}, but (a)~projected
-    alatude, \(\Lambda'\), versus inclination, \(i\), and (b)~diagnostic
-    planitude--alatude diagram: \(\Lambda'\) versus \(\Pi'\).  Shading
-    indicates different classes of quadrics: hyperboloids (white),
-    prolate spheroids (dark gray), and oblate spheroids (light gray),
-    with the limiting case of paraboloids shown by the thin black
-    line.}
+  \caption[]{As Figure~\ref{fig:quadric-projection}, but
+    (a)~projected/true star-apex distance: \(R_0' / R_0\), \(i\), and
+    (b)~diagnostic planitude--alatude diagram: \(\Lambda'\) versus
+    \(\Pi'\).  Shading indicates different classes of quadrics:
+    hyperboloids (white), prolate spheroids (dark gray), and oblate
+    spheroids (light gray), with the limiting case of paraboloids
+    shown by the thin black line.}
   \label{fig:quadric-projection-continued}
 \end{figure*}
 
@@ -405,16 +407,42 @@ These are all shown in Figures~\ref{fig:quadric-projection}
 and~\ref{fig:quadric-projection-continued} for a variety of quadric
 parameter \(Q\) (line color) and true planitude \(\Pi\) (line
 thickness).  The projected planitude and alatude
-(Figs~\ref{fig:quadric-projection}a and
-\ref{fig:quadric-projection-continued}a) behave in a qualitatively
-similar fashion.  Whatever the true values of \(\Pi\) and \(\Lambda\), all
-spheroids (\(\Q > 0\)) tend towards \(\Pi' = 1\) and \(\Lambda' = 1\) as the
-inclination increases towards \(90^\circ\).  This is because when the
-spheroid is oriented edge-on, we see its circular cross-section.
-Hyperboloids, on the other hand,
+(Fig.~\ref{fig:quadric-projection}) behave in a qualitatively similar
+fashion.  Whatever the true values of \(\Pi\) and \(\Lambda\), all spheroids
+(\(\Q > 0\)) tend towards \(\Pi' = 1\) and \(\Lambda' = 1\) as the inclination
+increases towards \(90^\circ\).  This is because when the spheroid is
+oriented edge-on, we see its circular cross-section.  Hyperboloids
+behave differently: although \(\Pi'\) and \(\Lambda'\) initially decrease with
+increasing inclination (for true \(\Pi > 2\)), they turn around and
+increases again as \(|i|\) approaches the critical value
+\(i_{\mathrm{crit}} = 90^\circ - |\thetaQ|\).  For
+\(|i| > i_{\mathrm{crit}}\) the tangent line does not exist (see
+\S~\ref{sec:tangent-line}) because the line of sight is ``inside'' the
+asymptotic cone of the far wings (with opening half angle
+\(\alpha_{\mathrm{min}} = |\thetaQ|\)), and so no limb-brightened shell
+would be visible.\footnote{%
+  As illustrated in Figure~8 of \citet{Graham:2002a}, the isophotal
+  emission contours are elliptical in such a case (assuming
+  cylindrical symmetry) and no curved bow shape is apparent.
+  Deviations from cylindrical symmetry \emph{can} result in a curved
+  emission arc, even for this no-tangent case
+  (\citeauthor{Graham:2002a}'s Fig.~9), but that is beyond the scope
+  of this paper.} For paraboloids and spheroids,
+\(\alpha_{\mathrm{min}} = 0\), which means that the tangent line exists for
+all viewing angles.
 
+Figure~\ref{fig:quadric-projection-continued}a shows how the apparent
+star-apex separation varies with inclination.  For moderate
+inclinations, \(|i| < 30^\circ\), this depends primarily on the true
+planitude \(\Pi\), with very little influence of the quadric parameter
+\(\Q\).  For \(\Pi > 1\), the separation increases with \(|i|\), whereas
+for \(\Pi < 1\) it decreases slightly.  Note, however, that for cases
+where the projected distance to the source of the external flow,
+\(D'\), can be measured, then \(R_0'/D'\) is always an increasing
+function of \(|i|\).  For larger inclinations, \(|i| > 30^\circ\), the
+strands for different \(\Q\) begin to separate, with hyperbolae
+showing the strongest increase of \(R_0'\) with \(|i|\).
 
-Paraboloids (\(\Q = 0\)), on the other hand, 
 
 % Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
 
