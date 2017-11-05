@@ -1,3 +1,7 @@
+\newcommand{\Q}{\ensuremath{\mathcal{Q}}}
+\newcommand{\thetaQ}{\ensuremath{\theta_{\scriptscriptstyle \Q}}}
+
+
 \begin{figure*}
   \setlength\tabcolsep{2em}
   \begin{tabular}{ll}
@@ -7,7 +11,7 @@
   \end{tabular}
   \caption{Example off-center conic sections that can form quadrics of
     revolution: (a) ellipse, (b) hyperbola.  The relationship is shown
-    between the conic section parameters \(a\), \(b\), \(\theta_q\) and the
+    between the conic section parameters \(a\), \(b\), \(\thetaQ\) and the
     bowshock characteristic radii \(R_0\), \(R_{90}\), \(R_c\), as
     defined in Fig.~\ref{fig:characteristic-radii}. The origin (center
     of the weaker flow) is indicated by a red star, the center of
@@ -23,13 +27,13 @@
   \includegraphics[width=\linewidth]{figs/conic1}
   \caption{Example of a family of conic sections, all with the same
     planitude (flatness at apex, marked by white dot):
-    \(\Pi = R_c/R_0 = 2 \). The quadric angle,
-    \(\theta_q = \tan^{-1} T_q\), varies over the family (see text), with
-    lower values of \(\theta_q\) giving larger values of the alatude,
-    \(\Lambda = R_{90}/R_0 \), meaning more open wings.  Different values of
-    \(\Pi\) can be achieved for the exact same quadrics by sliding them
-    along the \(x\)-axis, which will also change the axis scales since
-    these are normalized by \(R_0\).}
+    \(\Pi = R_c/R_0 = 2 \). The quadric angle, \(\thetaQ\), varies over
+    the family (see text), with lower values of \(\thetaQ\) giving
+    larger values of the alatude, \(\Lambda = R_{90}/R_0 \), meaning more
+    open wings.  Different values of \(\Pi\) can be achieved for the
+    exact same quadrics by sliding them along the \(x\)-axis, which
+    will also change the axis scales since these are normalized by
+    \(R_0\).}
   \label{fig:conics-family}
 \end{figure}
 
@@ -122,54 +126,65 @@ The type of quadric surface can be characterized by the
 \textit{quadric parameter}:
 \begin{equation}
   \label{eq:Tq}
-  T_q \equiv \sigma \frac{b} {a} \ , 
+  \Q \equiv \sigma \frac{b^2} {a^2} \ , 
 \end{equation}
-where \(T_q < 0\) corresponds to open surfaces (hyperboloids) and
-\(T_q > 0\) corresponds to closed surfaces (oblate spheroids with
-\(T_q > 1\) and prolate spheroids with \(T_q < 1\)).  Special cases
-are the sphere (\(T_q = 1\)) and the paraboloid (\(T_q = 0\)).
+where \(\Q < 0\) corresponds to open surfaces (hyperboloids) and
+\(\Q > 0\) corresponds to closed surfaces (oblate spheroids with
+\(\Q > 1\) and prolate spheroids with \(\Q < 1\)).  Special cases
+are the sphere (\(\Q = 1\)) and the paraboloid (\(\Q = 0\)).
 Alternatively, one can define a \textit{quadric angle}:
-\(\theta_q = \tan^{-1} T_q\), which is marked in Figure~\ref{fig:conics}.
-In the case of hyperboloids, the asymptotic opening angle of the wings
-(\S~\ref{sec:plan-alat-bow} and Fig.~\ref{fig:characteristic-radii})
-is \(\theta_\infty = \pi + \theta_q\) (note that \(\theta_q < 0\) in this case).
+\(\thetaQ = \sigma \tan^{-1} (b/a)\), which is marked in
+Figure~\ref{fig:conics}.  In the case of hyperboloids, the asymptotic
+opening angle of the wings (\S~\ref{sec:plan-alat-bow} and
+Fig.~\ref{fig:characteristic-radii}) is
+\(\theta_\infty = \pi + \thetaQ\) (note that \(\thetaQ < 0\) in this case).
 
-The set of parameters \((T_q, a, x_0)\) are then sufficient to
+The set of parameters \((\Q, a, x_0)\) are then sufficient to
 characterize the star/bow combination, where \(a\) is the quadric
 scale and \(x_0\) is its center displacement from the star.  However,
 we can also characterize the star/bow by \((R_0, \Pi, \Lambda)\), where
-\(\Pi\) and \(\Lambda\) are the planitude and alatude, see
-\S~\ref{sec:plan-alat-bow}.  We now derive the relationship between
-these two descriptions.  The apex radius of curvature for a conic
-section is
+\(R_0\) is the star-apex distance, and \(\Pi\) and \(\Lambda\) are the
+planitude and alatude, see \S~\ref{sec:plan-alat-bow}.  We now derive
+the equivalences between these two descriptions.  The apex radius of
+curvature for a conic section is
 \begin{equation}
   \label{eq:Rc-conic}
-  R_c = \frac{b^2}{a} \ ,
+  R_c = \frac{b^2}{a} = a |\Q|\ ,
 \end{equation}
 whereas the perpendicular radius, \(R_{90}\), is the value of \(y\)
 when \(x = 0\), which can be found from equations (\ref{eq:conic-x0},
 \ref{eq:par-xy}) as
 \begin{equation}
   \label{eq:conic-R90}
-  R_{90} = \left|T_q\right|
-  \left(2aR_0 - \sigma R_0^2\right)^{1/2} \ .
+  R_{90}^2 = \Q \left(\sigma a^2 - x_0^2\right) \ .
 \end{equation}
 Combining equations (\ref{eq:planitude}, \ref{eq:alatude},
 \ref{eq:conic-x0}, \ref{eq:Tq}--\ref{eq:conic-R90}) yields
 \begin{align}
-  \label{eq:Tq-from-Pi-Lambda}
-  T_q &= \sigma \left| 2 \Pi - \Lambda^2 \right|^{1/2} \\
-  \label{eq:a-from-R0-Pi-Lambda}
-  a &= R_0 \frac{ \Pi  } { \left|  2 \Pi - \Lambda^2\right| } \\
-  x_0 &= R_0 \frac{\Pi - \Lambda^2} {2 \Pi - \Lambda^2}
+  \label{eq:R0-from-Q-a-x0}
+  R_0 &= x_0 + \sigma a  \\
+  \label{eq:Pi-from-Q-a-x0}
+  \Pi &= \frac{a \Q}{a + \sigma x_0} \\
+  \label{eq:Lambda-from-Q-a-x0}
+  \Lambda &= \left( \Q \frac{a - \sigma x_0} {a + \sigma x_0}  \right)^{1/2}
 \end{align}
-From these we see that it is the sign of \(2 \Pi - \Lambda^2\) that determines
-\(\sigma\) and thus whether a quadric is a spheroid or a hyperboloid.  For
+with \(\sigma = \sgn Q\).  It also follows that the quadric parameter in
+terms of the planitude and alatude is
+\begin{equation}
+  \label{eq:Tq-from-Pi-Lambda}
+  \Q = 2 \Pi - \Lambda^2 
+\end{equation}
+% \begin{align}
+%   \label{eq:a-from-R0-Pi-Lambda}
+%   a &= R_0 \frac{ \Pi  } { \left|  2 \Pi - \Lambda^2\right| } \\
+%   x_0 &= R_0 \frac{\Pi - \Lambda^2} {2 \Pi - \Lambda^2}
+% \end{align}
+Hence, it is the sign of \(2 \Pi - \Lambda^2\) that determines
+\(\sigma\) and whether a quadric is a spheroid or a hyperboloid.  For
 example, for a constant planitude, \(\Pi\), we can have a family of
 different quadric types, with varying alatude, \(\Lambda\), that increases
 from oblate, through prolate and paraboloid, to hyperboloid, as
 illustrated in Figure~\ref{fig:conics-family}.
-
 
 % We have set a whole family of curves with a singular parameter denoted as:
 % \begin{align}
@@ -236,7 +251,7 @@ convenient to first transform to a reference frame where the origin is
 at the center of the conic section:
 \begin{equation}
   \label{eq:xyz-XYZ}
-  (X, Y, Z) = (x - X_0, y, z) . 
+  (X, Y, Z) = (x - x_0, y, z) . 
 \end{equation}
 In this new frame, the quadric shape is
 \begin{gather}
@@ -269,25 +284,57 @@ plane-of-sky coordinates of the tangent line:
       \tan^2 i\right)^{1/2}
   \end{aligned}
 \end{gather}
-
-We now show that the projected shape is a conic section of the same
-variety (ellipse or hyperbola) as the one that generated the original
-quadric.  If this were true, then it should be possible to write the
-plane-of-sky coordinates as
+We wish to show that the projected shape is a conic section of the
+same variety (ellipse or hyperbola) as the one that generated the
+original quadric.  If this \emph{were} true, then it would be possible
+to write the plane-of-sky coordinates as
 \begin{gather}
   \begin{aligned}
-    X_{\T}' = a'\Cos( t')  \\
-    Y_{\T}' = b'\Sin (t')  . 
+    X_{\T}' &= a'\Cos( t')  \\
+    Y_{\T}' &= b'\Sin (t')  . 
   \end{aligned}\label{eq:conic-projected-XY-conic}
 \end{gather}
 Comparing equations (\ref{eq:conic-projected-XY}) and
 (\ref{eq:conic-projected-XY-conic}), we find after some algebra that
+the two forms for \((X_{\T}', Y_{\T}')\) are indeed consistent, with
+the equivalences:
+%
+\newcommand\fQi{\ensuremath{f_{\scriptscriptstyle \Q,i}}}
 \begin{align}
-  a' &= \left(a^2\cos^2 i + \sigma b^2\sin^2 i\right)^{1/2} \\
-  b' &= b \label{eq:b-prime} \\
-  \Cos(t') &= \frac{a'\Cos(t)}{a\cos i} \ , 
-\end{align} 
-thus demonstrating the claim.
+  \label{eq:a-prime}
+  a' &= a \fQi \cos i  \\
+  \label{eq:b-prime}
+  b' &= b \\
+  t' &= \Cos^{-1} \left[ \fQi \Cos(t) \right]  \ ,
+  % t' &= \Cos^{-1} \left[  \frac{a'\Cos(t)}{a\cos i}\right] \ .
+\end{align}
+where for convenience we define the quadric projection factor:
+\begin{equation}
+  \label{eq:fQi-factor}
+  \fQi = \left( 1 + \Q \tan^2 i \right)^{1/2} \ .
+\end{equation}
+This demonstrates the original claim that the projected shape is also
+a conic section, which means that we can re-use the previous
+equations~(\ref{eq:R0-from-Q-a-x0}--\ref{eq:Tq-from-Pi-Lambda}) with
+primed quantities substituted for unprimed ones.  From
+equations~(\ref{eq:Tq}, \ref{eq:a-prime}, \ref{eq:b-prime}) it follows
+that the quadric parameter of the projected shape is
+\begin{equation}
+  \label{eq:Q-prime}
+  \Q' = \frac{ \Q } { \fQi^2 \cos^2 i} \ .
+\end{equation}
+Finally, we transform the projected reference frame back to be
+centered on the star again:
+\begin{equation}
+  \label{eq:XYZ-xyz-prime}
+  (x_{\T}', y_{\T}') = (X_{\T}' + x_0', Y_{\T}') \ , 
+\end{equation}
+where the projected quadric displacement \(x_0'\) follows from simple
+foreshortening:
+\begin{equation}
+  \label{eq:x0-prime}
+  x_0' = x_0 \cos i \ .
+\end{equation}
 
 Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
 
