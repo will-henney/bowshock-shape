@@ -363,13 +363,15 @@ foreshortening:
   \setkeys{Gin}{width=0.48\linewidth}
   \begin{tabular}{@{}ll@{}}
     (a) & (b) \\
-    \includegraphics{figs/projected-R0-vs-i}
-    & \includegraphics{figs/projected-R90-vs-Rc}
+    \includegraphics{figs/projected-R90-vs-Rc}
+    & \includegraphics{figs/projected-R0-vs-i}
   \end{tabular}
-  \caption[]{As Figure~\ref{fig:quadric-projection}, but
-    (a)~projected/true star-apex distance: \(R_0' / R_0\), \(i\), and
-    (b)~diagnostic planitude--alatude diagram: \(\Lambda'\) versus
-    \(\Pi'\).  Shading indicates different classes of quadrics:
+  \caption[]{ As Figure~\ref{fig:quadric-projection}, but %
+    (a)~diagnostic planitude--alatude diagram: \(\Lambda'\) versus
+    \(\Pi'\), and %
+    (b)~projected/true star-apex distance: \(R_0' / R_0\) versus
+    \(|i|\). %
+    In (a), shading indicates different classes of quadrics:
     hyperboloids (white), prolate spheroids (dark gray), and oblate
     spheroids (light gray), with the limiting case of paraboloids
     shown by the thin black line.}
@@ -431,7 +433,25 @@ would be visible.\footnote{%
 \(\alpha_{\mathrm{min}} = 0\), which means that the tangent line exists for
 all viewing angles.
 
-Figure~\ref{fig:quadric-projection-continued}a shows how the apparent
+In Figure~\ref{fig:quadric-projection-continued}a, we show the
+inclination-dependent tracks of the quadrics in the diagnostic
+\(\Pi'\)--\(\Lambda'\) plane of projected alatude versus projected planitude.
+The true planitude and alatude, which are seen for an edge-on viewing
+angle \(i = 0^\circ\), are marked by filled circles.  The zones
+corresponding to each class of quadric (oblate spheroid, prolate
+spheroid, or hyperboloid) are marked by gray shading, and it can be
+seen that the tracks never cross from one zone to another. The
+convergence of all the spheroid tracks on the point
+\((\Pi', \Lambda') = (1, 1)\) is apparent, as is the divergence of the
+hyperboloid tracks towards \((\Pi', \Lambda') = (+\infty, +\infty)\).  The paraboloids,
+by contrast, converge on the point \((\Pi', \Lambda') = (2, 2)\), and the
+special case of the confocal paraboloid,\footnote{So named because the
+  star is at the focus of the parabola.} with true planitude and
+alatude \((\Pi, \Lambda) = (2, 2)\), is the only quadric whose apparent shape
+remains identical for all inclination angles.
+
+
+Figure~\ref{fig:quadric-projection-continued}b shows how the apparent
 star-apex separation varies with inclination.  For moderate
 inclinations, \(|i| < 30^\circ\), this depends primarily on the true
 planitude \(\Pi\), with very little influence of the quadric parameter
