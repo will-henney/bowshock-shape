@@ -240,6 +240,41 @@ illustrated in Figure~\ref{fig:conics-family}.
 %\mathrm{where:~} B &\equiv \frac{R_{90}}{R_0} \\
 %#A &\equiv \frac{R_c}{R_0}
 %\end{align}
+\begin{figure*}
+  \centering
+  \setkeys{Gin}{width=0.48\linewidth}
+  \begin{tabular}{@{}ll@{}}
+    (a) & (b) \\
+    \includegraphics{figs/projected-Rc-vs-i}
+        & \includegraphics{figs/projected-R0-vs-i} \\
+    (c) & (d) \\
+    \includegraphics{figs/projected-R90-vs-i}
+    & \includegraphics{figs/projected-R90-vs-Rc}
+  \end{tabular}
+  \caption[]{Effects of projection on quadrics of revolution:
+    variation with inclination of bow size and shape.  Different line
+    colors correspond to varying quadric parameter, \(\Q\), (see key),
+    while variation in line width corresponds to variation in the
+    ``true'' planitude, \(\Pi\), or apex radius of curvature. Vertical
+    gray rectangles show quartiles of \(|\sin i|\), which will be
+    equally populated for an isotropic distribution of
+    orientations. (a)~Projected planitude: \(\Pi'\). (b)~Projected/true
+    star-apex distance: \(R_0' / R_0\).  (c)~Projected alatude:
+    \(\Lambda'\). (d)~Diagnostic diagram for
+    dimensionless projected radii: \(\tilde{R}_{90}'\) versus
+    \(\tilde{R}_c'\).  Shading indicates different classes of
+    quadrics: hyperboloids (white), prolate spheroids (dark gray), and
+    oblate spheroids (light gray), with the limiting case of
+    paraboloids shown by the thin black line.}
+  \label{fig:quadric-projection}
+\end{figure*}
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/projected-R90-Rc-snapshots}
+  \caption{Variation with inclination angle of projected quadric parameters}
+  \label{fig:projected-R90-Rc-snapshots}
+\end{figure*}
 
 \subsection{Plane-of-sky projection of quadric surfaces} 
 
@@ -284,7 +319,7 @@ plane-of-sky coordinates of the tangent line:
       \tan^2 i\right)^{1/2}
   \end{aligned}
 \end{gather}
-We wish to show that the projected shape is a conic section of the
+We wish to show that this projected shape is a conic section of the
 same variety (ellipse or hyperbola) as the one that generated the
 original quadric.  If this \emph{were} true, then it would be possible
 to write the plane-of-sky coordinates as
@@ -336,66 +371,44 @@ foreshortening:
   x_0' = x_0 \cos i \ .
 \end{equation}
 
-Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
-
+The projection of the apex distance then follows from the primed
+version of equation~\eqref{eq:R0-from-Q-a-x0} as
+\begin{equation}
+  \label{eq:R0-prime}
+  \frac{R_0'}{R_0} =
+  \cos i \left[ 1 + \frac{\Pi} {\Q} \bigl(\fQi - 1\bigr) \right]
+\end{equation}
+and the projected planitude and alatude can be calculated as
 \begin{align}
-R'_0 &= \pm a' + x_0\cos i \\
-R'_0 &= \pm\left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} +  (R_0 \mp a)\cos i
+  \label{eq:Pi-prime}
+  \Pi' &= \frac{\Pi}{(R_0'/R_0)\, \fQi \cos i } \\
+  \label{eq:Lambda-prime}
+  \Lambda' &= \left( 2 \Pi' - \Q' \right)^{1/2} \ .
 \end{align}
 
-Defining  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
-\begin{align}
-\frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm \tilde{R}_c\cot^2\theta_c(f(i;\theta_c)-1) \right)
-\label{eq:qprime}
-\end{align}
-%Where $A\equiv \frac{R_c}{R_0}$
-The Radius of curvature in the observer's frame is given by $R'_c=\frac{b'^2}{a'}$. Then:
-\begin{align}
-  \tilde{R}_c'\equiv  \frac{R'_c}{R'_0} &= \frac{\tilde{R}_c}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
-  \label{eq:Aprime}\\
-  \tan\theta'_c & = \frac{\tan\theta_c}{\cos i f(i;\theta_c)} \\
-  \tilde{R}'_{90} &= \left(\frac{2\tilde{R}_cf(i;\theta_c) \mp \tan^2\theta_c\frac{q'}{q}}{\frac{q'}{q}}\right)^{1/2}\frac{\sec i}{f(i;\theta_c)}
-\end{align}
-where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$.
+% Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
 
-When $R'_{90}$ is measurable, diagnostic diagrams like figure (\ref{fig:projected-R90-vs-Rc}) can be used to compare with observations.  
-\begin{figure*}
-  \centering
-  \setkeys{Gin}{width=0.48\linewidth}
-  \begin{tabular}{@{}ll@{}}
-    (a) & (b) \\
-    \includegraphics{figs/projected-Rc-vs-i}
-        & \includegraphics{figs/projected-R0-vs-i} \\
-    (c) & (d) \\
-    \includegraphics{figs/projected-R90-vs-i}
-    & \includegraphics{figs/projected-R90-vs-Rc}
-  \end{tabular}
-  \caption[]{Effects of projection on quadrics of revolution:
-    variation with inclination of characteristic radii.  Different
-    line colors correspond to different quadric shapes (see key),
-    while variation in line width corresponds to variation in the
-    ``true'' dimensionless radius of curvature, \(\tilde{R}_c\), at
-    the apex. Vertical gray rectangles show quartiles of \(|\sin i|\),
-    which will be equally populated for an isotropic distribution of
-    orientations. (a)~Projected radius of curvature, normalized by
-    projected stand-off distance: \( \tilde{R}_c' = R'_c /
-    R'_0\). (b)~Projected stand-off distance: \(R_0' / R_0\).
-    (c)~Projected perpendicular radius, normalized by projected
-    stand-off distance: \( \tilde{R}_{90}' = R'_{90} /
-    R'_0\). (d)~Diagnostic diagram for dimensionless projected radii:
-    \(\tilde{R}_{90}'\) versus \(\tilde{R}_c'\).  Shading indicates
-    different classes of quadrics: hyperboloids (white), prolate
-    spheroids (dark gray), and oblate spheroids (light gray), with the
-    limiting case of paraboloids shown by the thin black line.}
-  \label{fig:quadric-projection}
-\end{figure*}
+% \begin{align}
+% R'_0 &= \pm a' + x_0\cos i \\
+% R'_0 &= \pm\left(a^2\cos^2 i \pm b^2\sin^2 i\right)^{1/2} +  (R_0 \mp a)\cos i
+% \end{align}
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{figs/projected-R90-Rc-snapshots}
-  \caption{Variation with inclination angle of projected quadric parameters}
-  \label{fig:projected-R90-Rc-snapshots}
-\end{figure*}
+% Defining  $f(i;\theta_c)\equiv\left(1\pm\tan^2\theta_c\tan^2i\right)^{1/2}$ we find that:
+% \begin{align}
+% \frac{R'_0}{D'}=\frac{R_0}{D}\left(1\pm \tilde{R}_c\cot^2\theta_c(f(i;\theta_c)-1) \right)
+% \label{eq:qprime}
+% \end{align}
+% %Where $A\equiv \frac{R_c}{R_0}$
+% The Radius of curvature in the observer's frame is given by $R'_c=\frac{b'^2}{a'}$. Then:
+% \begin{align}
+%   \tilde{R}_c'\equiv  \frac{R'_c}{R'_0} &= \frac{\tilde{R}_c}{\cos^2 i f(i;\theta_c)\frac{q'}{q}}
+%   \label{eq:Aprime}\\
+%   \tan\theta'_c & = \frac{\tan\theta_c}{\cos i f(i;\theta_c)} \\
+%   \tilde{R}'_{90} &= \left(\frac{2\tilde{R}_cf(i;\theta_c) \mp \tan^2\theta_c\frac{q'}{q}}{\frac{q'}{q}}\right)^{1/2}\frac{\sec i}{f(i;\theta_c)}
+% \end{align}
+% where $q=\frac{R_0}{D}$ and $q' = \frac{R'_0}{D'}$.
+
+% When $R'_{90}$ is measurable, diagnostic diagrams like figure (\ref{fig:projected-R90-vs-Rc}) can be used to compare with observations.  
 
 
 

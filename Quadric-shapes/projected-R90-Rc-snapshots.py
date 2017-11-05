@@ -6,7 +6,7 @@ import seaborn as sns
 
 plotfile = sys.argv[0].replace('.py', '.pdf')
 
-sns.set_style('white')
+sns.set_style('ticks')
 fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
 
 incs_deg = 10.0*np.arange(9)
@@ -70,10 +70,13 @@ axes[-1, 0].set(
     yscale='linear',
     xlim=[0.0, 8.1],
     ylim=[0.0, 8.1],
-    xlabel=r"$\widetilde{R}_{c}{}'$",
-    ylabel=r"$\widetilde{R}_{90}{}'$",
+    xticks=range(9),
+    yticks=range(9),
+    xlabel=r"$\Pi'$",
+    ylabel=r"$\Lambda'$",
 )        
 
+sns.despine()
 fig.tight_layout()
 fig.savefig(plotfile, dpi=300)
 print(plotfile, end='')

@@ -54,7 +54,7 @@ def R90_prime(inc, Tc, Rc):
 for Rc, lw, alpha in list(zip(Rcs, lws, alphas))[::-1]:
     for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
         if Rc == 1.0:
-            label = fr'{shape}: $T_c = {Tc:.1f}$'
+            label = fr'{shape}: $\mathcal{{Q}} = {Tc:.1f}$'
         else:
             label = None
         ax.plot(Rc_prime(inc, Tc, Rc), R90_prime(inc, Tc, Rc),
@@ -68,8 +68,8 @@ ax.set(
     yscale='linear',
     xlim=[0.0, 8.1],
     ylim=[0.0, 8.1],
-    xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
-    ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+    xlabel=r"Projected planitude: $\Pi'$",
+    ylabel=r"Projected alatude: $\Lambda'$",
 )        
 sns.despine()
 fig.tight_layout()

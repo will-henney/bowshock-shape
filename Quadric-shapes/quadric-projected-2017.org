@@ -91,7 +91,7 @@
   for Rc, lw, alpha, ls, dash, thlab in list(zip(Rcs, lws, alphas, lss, dashes, thlabs))[::-1]:
       for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
           if Rc == 1.0:
-              label = fr'{shape}: $T_c = {Tc:.1f}$'
+              label = fr'{shape}: $\mathcal{{Q}} = {Tc:.1f}$'
           else:
               label = None
           ax.plot(inc_deg, qratio(inc, Tc, Rc),
@@ -99,7 +99,7 @@
           # ax.plot(inc_deg, qratio(inc, Tc, Rc),
           #         c=col, dashes=dash, label=label)
       ax.text(thlab, qratio(np.radians(thlab), 0.5, Rc),
-              r'$\widetilde{R}_{c}{} = ' + f'{Rc:.1f}$',
+              r'$\Pi = ' + f'{Rc:.1f}$',
               ha='center', va='center', fontsize='x-small',
               bbox={'facecolor': 'white', 'alpha': 0.7, 'pad': 0.05, 'ec': 'none'})
 
@@ -123,7 +123,7 @@
       # ylim=[0.0, 5.5],
       ylim=[0.05, 50],
       xlabel=r'Inclination, degrees',
-      ylabel=r"Variation in projected stand-off distance: $R_{0}' / R_{0}$",
+      ylabel=r"Variation in projected star-apex separation: $R_{0}' / R_{0}$",
       xticks=[15, 30, 45, 60, 75, 90],
   )
   ax.yaxis.set_major_formatter( FormatStrFormatter('%.1f') )
@@ -188,7 +188,7 @@ python projected-R0-vs-i.py
   for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
       for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
           if Rc == 1.0:
-              label = fr'{shape}: $T_c = {Tc:.1f}$'
+              label = fr'{shape}: $\mathcal{{Q}} = {Tc:.1f}$'
           else:
               label = None
           ax.plot(inc_deg, Rc_dash(inc, Tc, Rc),
@@ -206,7 +206,7 @@ python projected-R0-vs-i.py
       # yticks=[1.0, 2.0, 5.0, 10.0],
       # yticklabels=['1', '2', '5', '10'],
       xlabel=r'Inclination, degrees',
-      ylabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+      ylabel=r"Projected planitude: $\Pi' = R_{c}'/R_{0}'$",
       xticks=[15, 30, 45, 60, 75, 90],
   )        
   yaxis = ax.get_yaxis()
@@ -285,7 +285,7 @@ python projected-Rc-vs-i.py
   for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
       for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
           if Rc == 1.0:
-              label = fr'{shape}: $T_c = {Tc:.1f}$'
+              label = fr'{shape}: $\mathcal{{Q}} = {Tc:.1f}$'
           else:
               label = None
           ax.plot(inc_deg, R90_prime(inc, Tc, Rc),
@@ -303,7 +303,7 @@ python projected-Rc-vs-i.py
       # yticks=[1.0, 2.0, 5.0, 10.0],
       # yticklabels=['1', '2', '5', '10'],
       xlabel=r'Inclination, degrees',
-      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+      ylabel=r"Projected alatude: $\Lambda' = R_{90}'/R_{0}'$",
       xticks=[15, 30, 45, 60, 75, 90],
   )        
   yaxis = ax.get_yaxis()
@@ -466,7 +466,7 @@ python projected-Tc-vs-Rc.py
   for Rc, lw, alpha in list(zip(Rcs, lws, alphas))[::-1]:
       for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
           if Rc == 1.0:
-              label = fr'{shape}: $T_c = {Tc:.1f}$'
+              label = fr'{shape}: $\mathcal{{Q}} = {Tc:.1f}$'
           else:
               label = None
           ax.plot(Rc_prime(inc, Tc, Rc), R90_prime(inc, Tc, Rc),
@@ -480,8 +480,8 @@ python projected-Tc-vs-Rc.py
       yscale='linear',
       xlim=[0.0, 8.1],
       ylim=[0.0, 8.1],
-      xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
-      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+      xlabel=r"Projected planitude: $\Pi'$",
+      ylabel=r"Projected alatude: $\Lambda'$",
   )        
   sns.despine()
   fig.tight_layout()
@@ -709,7 +709,7 @@ Do the same but for R90 vs Rc
 
   plotfile = sys.argv[0].replace('.py', '.pdf')
 
-  sns.set_style('white')
+  sns.set_style('ticks')
   fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
 
   incs_deg = 10.0*np.arange(9)
@@ -773,10 +773,13 @@ Do the same but for R90 vs Rc
       yscale='linear',
       xlim=[0.0, 8.1],
       ylim=[0.0, 8.1],
-      xlabel=r"$\widetilde{R}_{c}{}'$",
-      ylabel=r"$\widetilde{R}_{90}{}'$",
+      xticks=range(9),
+      yticks=range(9),
+      xlabel=r"$\Pi'$",
+      ylabel=r"$\Lambda'$",
   )        
 
+  sns.despine()
   fig.tight_layout()
   fig.savefig(plotfile, dpi=300)
   print(plotfile, end='')
@@ -906,7 +909,7 @@ cp -v projected-*.pdf dust-*.pdf ../papers/Paper1/figs
 
 #+RESULTS:
 #+begin_example
-Fri Sep 29 10:09:59 CDT 2017
+Sat Nov  4 20:15:07 CST 2017
 projected-R0-vs-i.pdf -> ../papers/Paper1/figs/projected-R0-vs-i.pdf
 projected-R90-Rc-snapshots.pdf -> ../papers/Paper1/figs/projected-R90-Rc-snapshots.pdf
 projected-R90-vs-Rc.pdf -> ../papers/Paper1/figs/projected-R90-vs-Rc.pdf

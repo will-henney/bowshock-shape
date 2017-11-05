@@ -42,7 +42,7 @@ def qratio(inc, Tc, Rc):
 for Rc, lw, alpha, ls, dash, thlab in list(zip(Rcs, lws, alphas, lss, dashes, thlabs))[::-1]:
     for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
         if Rc == 1.0:
-            label = fr'{shape}: $T_c = {Tc:.1f}$'
+            label = fr'{shape}: $\mathcal{{Q}} = {Tc:.1f}$'
         else:
             label = None
         ax.plot(inc_deg, qratio(inc, Tc, Rc),
@@ -50,7 +50,7 @@ for Rc, lw, alpha, ls, dash, thlab in list(zip(Rcs, lws, alphas, lss, dashes, th
         # ax.plot(inc_deg, qratio(inc, Tc, Rc),
         #         c=col, dashes=dash, label=label)
     ax.text(thlab, qratio(np.radians(thlab), 0.5, Rc),
-            r'$\widetilde{R}_{c}{} = ' + f'{Rc:.1f}$',
+            r'$\Pi = ' + f'{Rc:.1f}$',
             ha='center', va='center', fontsize='x-small',
             bbox={'facecolor': 'white', 'alpha': 0.7, 'pad': 0.05, 'ec': 'none'})
 
@@ -74,7 +74,7 @@ ax.set(
     # ylim=[0.0, 5.5],
     ylim=[0.05, 50],
     xlabel=r'Inclination, degrees',
-    ylabel=r"Variation in projected stand-off distance: $R_{0}' / R_{0}$",
+    ylabel=r"Variation in projected star-apex separation: $R_{0}' / R_{0}$",
     xticks=[15, 30, 45, 60, 75, 90],
 )
 ax.yaxis.set_major_formatter( FormatStrFormatter('%.1f') )

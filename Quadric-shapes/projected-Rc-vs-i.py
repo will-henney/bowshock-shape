@@ -41,7 +41,7 @@ def Rc_dash(inc, Tc, Rc):
 for Rc, lw, alpha, ls, dash in list(zip(Rcs, lws, alphas, lss, dashes))[::-1]:
     for Tc, col, shape in list(zip(Tcs, cols, shapes))[::-1]:
         if Rc == 1.0:
-            label = fr'{shape}: $T_c = {Tc:.1f}$'
+            label = fr'{shape}: $\mathcal{{Q}} = {Tc:.1f}$'
         else:
             label = None
         ax.plot(inc_deg, Rc_dash(inc, Tc, Rc),
@@ -59,7 +59,7 @@ ax.set(
     # yticks=[1.0, 2.0, 5.0, 10.0],
     # yticklabels=['1', '2', '5', '10'],
     xlabel=r'Inclination, degrees',
-    ylabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
+    ylabel=r"Projected planitude: $\Pi' = R_{c}'/R_{0}'$",
     xticks=[15, 30, 45, 60, 75, 90],
 )        
 yaxis = ax.get_yaxis()
