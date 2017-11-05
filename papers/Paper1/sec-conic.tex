@@ -246,10 +246,7 @@ illustrated in Figure~\ref{fig:conics-family}.
   \begin{tabular}{@{}ll@{}}
     (a) & (b) \\
     \includegraphics{figs/projected-Rc-vs-i}
-        & \includegraphics{figs/projected-R0-vs-i} \\
-    (c) & (d) \\
-    \includegraphics{figs/projected-R90-vs-i}
-    & \includegraphics{figs/projected-R90-vs-Rc}
+        & \includegraphics{figs/projected-R0-vs-i}
   \end{tabular}
   \caption[]{Effects of projection on quadrics of revolution:
     variation with inclination of bow size and shape.  Different line
@@ -259,22 +256,10 @@ illustrated in Figure~\ref{fig:conics-family}.
     gray rectangles show quartiles of \(|\sin i|\), which will be
     equally populated for an isotropic distribution of
     orientations. (a)~Projected planitude: \(\Pi'\). (b)~Projected/true
-    star-apex distance: \(R_0' / R_0\).  (c)~Projected alatude:
-    \(\Lambda'\). (d)~Diagnostic diagram for
-    dimensionless projected radii: \(\tilde{R}_{90}'\) versus
-    \(\tilde{R}_c'\).  Shading indicates different classes of
-    quadrics: hyperboloids (white), prolate spheroids (dark gray), and
-    oblate spheroids (light gray), with the limiting case of
-    paraboloids shown by the thin black line.}
+    star-apex distance: \(R_0' / R_0\). }
   \label{fig:quadric-projection}
 \end{figure*}
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{figs/projected-R90-Rc-snapshots}
-  \caption{Variation with inclination angle of projected quadric parameters}
-  \label{fig:projected-R90-Rc-snapshots}
-\end{figure*}
 
 \subsection{Plane-of-sky projection of quadric surfaces} 
 
@@ -371,6 +356,37 @@ foreshortening:
   x_0' = x_0 \cos i \ .
 \end{equation}
 
+\begin{figure*}
+  \centering
+  \setkeys{Gin}{width=0.48\linewidth}
+  \begin{tabular}{@{}ll@{}}
+    (a) & (b) \\
+    \includegraphics{figs/projected-R90-vs-i}
+    & \includegraphics{figs/projected-R90-vs-Rc}
+  \end{tabular}
+  \caption[]{As Figure~\ref{fig:quadric-projection}, but (a)~projected
+    alatude, \(\Lambda'\), versus inclination, \(i\), and (b)~diagnostic
+    planitude--alatude diagram: \(\Lambda'\) versus \(\Pi'\).  Shading
+    indicates different classes of quadrics: hyperboloids (white),
+    prolate spheroids (dark gray), and oblate spheroids (light gray),
+    with the limiting case of paraboloids shown by the thin black
+    line.}
+  \label{fig:quadric-projection-continued}
+\end{figure*}
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/projected-R90-Rc-snapshots}
+  \caption{Variation with inclination angle of the apparent shape of
+    quadric bows.  Upper left panel shows a set of quadrics at zero
+    inclination, uniformly distributed in planitude and alatude in the
+    ranges \(\Pi = [\frac12, 7]\), \(\Lambda = [\frac12, 7]\).  Subsequent
+    panels show the effect of projection on the apparent
+    \((\Pi', \Lambda')\) as the inclination is increased from
+    \(0^\circ\) to \(80^\circ\) in \(10^\circ\) steps.}
+  \label{fig:projected-R90-Rc-snapshots}
+\end{figure*}
+
 The projection of the apex distance then follows from the primed
 version of equation~\eqref{eq:R0-from-Q-a-x0} as
 \begin{equation}
@@ -385,6 +401,20 @@ and the projected planitude and alatude can be calculated as
   \label{eq:Lambda-prime}
   \Lambda' &= \left( 2 \Pi' - \Q' \right)^{1/2} \ .
 \end{align}
+These are all shown in Figures~\ref{fig:quadric-projection}
+and~\ref{fig:quadric-projection-continued} for a variety of quadric
+parameter \(Q\) (line color) and true planitude \(\Pi\) (line
+thickness).  The projected planitude and alatude
+(Figs~\ref{fig:quadric-projection}a and
+\ref{fig:quadric-projection-continued}a) behave in a qualitatively
+similar fashion.  Whatever the true values of \(\Pi\) and \(\Lambda\), all
+spheroids (\(\Q > 0\)) tend towards \(\Pi' = 1\) and \(\Lambda' = 1\) as the
+inclination increases towards \(90^\circ\).  This is because when the
+spheroid is oriented edge-on, we see its circular cross-section.
+Hyperboloids, on the other hand,
+
+
+Paraboloids (\(\Q = 0\)), on the other hand, 
 
 % Finally, using $D' = D\cos i$ and substituting $a'$ instead of $a$ in equation (\ref{eq:x0}) we find that: 
 
