@@ -7,13 +7,16 @@ import seaborn as sns
 plotfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('ticks')
-fig, axes = plt.subplots(3, 3, figsize=(9, 9), sharex=True, sharey=True)
+fig, axes = plt.subplots(2, 3, figsize=(9, 6), sharex=True, sharey=True)
 
-incs_deg = 10.0*np.arange(9)
 
-ny, nx = 55, 55
-Rcs = np.linspace(0.5, 7.0, nx)
-R90s = np.linspace(0.5, 7.0, ny)[::-1]
+sin_inc_edges = np.linspace(0.0, 1.0, len(axes.flat)+1)
+sin_incs = 0.5*(sin_inc_edges[:-1] + sin_inc_edges[1:])
+incs_deg = np.degrees(np.arcsin(sin_incs))
+
+ny, nx = 41, 41
+Rcs = np.linspace(0.5, 4.5, nx)
+R90s = np.linspace(0.5, 4.5, ny)[::-1]
 Rc_grid = Rcs[None, :]*np.ones_like(R90s[:, None])
 R90_grid = R90s[:, None]*np.ones_like(Rcs[None, :])
 Tc_grid = 2*Rc_grid - R90_grid**2
@@ -51,27 +54,35 @@ for ax, inc_deg in zip(axes.flat, incs_deg):
     ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
     inc = np.radians(inc_deg)
+
+    thetaQ = 0.5*np.pi - inc
+    Tc_crit = -np.tan(thetaQ)**2
+    R90_Tcrit_grid = np.sqrt(2*Rc_grid2 - Tc_crit)
+    ax.fill_between(Rc_grid2, R90_T0_grid, R90_Tcrit_grid, color='g', alpha=0.1)
+
     Rcp = Rc_prime(inc, Tc_grid, Rc_grid).ravel()
     R90p = R90_prime(inc, Tc_grid, Rc_grid).ravel()
     R0p = qratio(inc, Tc_grid, Rc_grid).ravel()
 
     ax.scatter(Rcp, R90p, c=Tc_grid.ravel(), s=15*R0p,
-	       vmin=Tc_grid.min(), vmax=Tc_grid.max(),
-	       edgecolors='none',
-	       cmap='magma', marker='.', alpha=0.8)
+               vmin=Tc_grid.min(), vmax=Tc_grid.max(),
+               edgecolors='none',
+               cmap='magma', marker='.', alpha=0.8)
     # ax.axhspan(0.0, 10.0, alpha=0.1, facecolor='k', zorder=-1)
     # ax.axhline(1.0, ls='--', lw=0.5, c='k', zorder=0)
     # ax.axvline(1.0, ls='--', lw=0.5, c='k', zorder=0)
     ax.plot([1.0], [1.0], 'x', c='k')
-    ax.text(5.5, 0.5, rf'$i = {inc_deg:.0f}^\circ$',
+    ax.text(2.5, 0.5, rf'$|i| = {inc_deg:.0f}^\circ$',
             bbox={'facecolor': 'w', 'alpha': 0.8, 'edgecolor': 'none'})
+
+    ax.set_aspect('equal', adjustable='box-forced')
 
 axes[-1, 0].set(
     yscale='linear',
-    xlim=[0.0, 8.1],
-    ylim=[0.0, 8.1],
-    xticks=range(9),
-    yticks=range(9),
+    xlim=[0.0, 5.1],
+    ylim=[0.0, 5.1],
+    xticks=range(5),
+    yticks=range(5),
     xlabel=r"$\Pi'$",
     ylabel=r"$\Lambda'$",
 )        
