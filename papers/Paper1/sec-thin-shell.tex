@@ -3,30 +3,39 @@
 \newcommand\CRW{\citetalias{Canto:1996}}
 
 
-\section{Application to the hypersonic thin shell solution}
+\section{Thin-shell hydrodynamic bow shock models}
 \label{sec:crw-scenario}
-As an example application of the ideas of this paper, we consider a
-generalization of the thin-shell solution presented in
-\citet[][hereafter \CRW{}]{Canto:1996}, for the interaction of two
-hypersonic, constant velocity stellar winds.  It is assumed that the
-two shocks are highly radiative and that the post-shock flows are
-perfectly mixed to form a single shell of negligible thickness.  In
-this approximation, the shape of the shell was found algebraically by
-\CRW{} from considering conservation of linear and angular momentum,
-following an approach first outlined in \citet{Wilkin:1996a}.  The
-shape of the bow shock shell is uniquely determined by the parameter
-\(\beta\), defined as the momentum-loss ratio of the two winds:
+
+More physically realistic examples of bow shapes are provided by
+steady-state hydrodynamic models for the interaction of hypersonic
+flows in the thin-shell limit.  The classic examples are the solutions
+for the wind--parallel stream and wind--wind problems (see
+\S~\ref{sec:intro}) of \citet[][hereafter \CRW{}]{Canto:1996}, where
+it is assumed that the two shocks are highly radiative and that the
+post-shock flows are perfectly mixed to form a single shell of
+negligible thickness. In this approximation, the shape of the shell is
+found algebraically by \CRW{} from conservation of linear and angular
+momentum, following an approach first outlined in
+\citet{Wilkin:1996a}.  For the wind--stream case, the resulting bow
+shape was dubbed \textit{wilkinoid} by \citet{Cox:2012a} and has the
+form:
 \begin{equation}
-  \label{eq:beta-definition}
-  \beta \equiv \frac{\dot{M}_w V_w}{\dot{M}_{w1} V_{w1}} . 
+  \label{eq:wilkinoid-R-theta}
+  R(\theta) = R_0\csc\theta\left( 3(1-\theta\cot\theta) \right)^{1/2} \ .
 \end{equation}
-In this definition we use the terminology of \CRW{}, in which
-\(\dot{M}_w\) and \(V_w\) are the mass-loss rate and velocity,
-respectively, of the wind with source at the origin, while
-\(\dot{M}_{w1}\) and \(V_{w1}\) are the mass-loss rate and velocity of
-the second wind, located at a distance \(D\) along their \(z\) axis.
-Note that \CRW{}'s \(z\) and \(r\) correspond to \(x\) and \(y\) in
-sections~\ref{sec:generic-model} to \ref{sec:conic} of the current
+For the wind--wind case, a family of solutions are found, depending on
+the value of \(\beta\), the wind momentum ratio, see
+Figure~\ref{fig:crw-schema}, equations~(\ref{eq:stagnation-radius},
+\ref{eq:beta-definition}), and surrounding discussion in
+\S~\ref{sec:intro}.  We propose that these shapes be called
+\textit{cantoids}.  The exact solution for the cantoid shapes
+(eqs.~[23, 24] of \CRW{}) is only obtainable in implicit form, but an
+approximate explicit solution (eq.~[26] of \CRW{}) is very accurate
+for \(\beta \le 0.1\).  The wilkinoid shape corresponds to the
+\(\beta \to 0\) limit of the cantoids.  Note that \CRW{}'s \(z\) and
+\(r\) axes, which we use in our Figure~\ref{fig:crw-schema},
+correspond respectively to the \(x\) and \(y\) axes in
+sections~\ref{sec:projection} and \ref{sec:conic} of the current
 paper.  By always placing the weaker of the two winds at the origin,
 it is only necessary to consider \(\beta \le 1\).
  
