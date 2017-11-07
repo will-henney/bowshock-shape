@@ -127,13 +127,13 @@ a steady state, ram-pressure balance on the axis implies that
   \label{eq:stagnation-radius}
   \frac{R_0} {D} = \frac{\beta^{1/2}} {1 + \beta^{1/2}} ,
 \end{equation}
-where \(\beta\) is the momentum ratio between the two winds.  If the inner
-wind has mass-loss rate \(\dot{M}_w\) and terminal velocity \(V_w\),
-while the outer wind has corresponding values \(\dot{M}_{w1}\) and
-\(V_{w1}\), then the momentum ratio is
+where \(\beta\) is the momentum ratio between the two winds.  If the winds
+are isotropic, with inner wind mass-loss rate \(\dot{M}_{\w}\) and
+terminal velocity \(V_{\w}\), while the outer wind has corresponding
+values \(\dot{M}_{\w1}\) and \(V_{\w1}\), then the momentum ratio is
 \begin{equation}
   \label{eq:beta-definition}
-  \beta = \frac{\dot{M}_w V_w} {\dot{M}_{w1} V_{w1}} .
+  \beta = \frac{\dot{M}_{\w} V_{\w}} {\dot{M}_{\w1} V_{\w1}} .
 \end{equation}
 The case where the outer wind is a parallel stream
 \citep{Wilkin:1996a} corresponds to the limit \(\beta \to 0\), in which case
@@ -179,11 +179,11 @@ simulations.
 
 
 % The bow shocks we consider are originated by a source located at the
-% origin, emitting a wind with a mass loss rate of $\dot{M}_w$ and a
-% terminal (supersonic) velocity $v_w$. This wind interacts with another
+% origin, emitting a wind with a mass loss rate of $\dot{M}_{\w}$ and a
+% terminal (supersonic) velocity $v_{\w}$. This wind interacts with another
 % wind originated by another source located at a distance $D$ from the
-% first one.  The mass loss rate of the second source is $\dot{M}_{w1}$
-% and the terminal velocity is $v_{w1}$. The momentum of the wind of the
+% first one.  The mass loss rate of the second source is $\dot{M}_{\w1}$
+% and the terminal velocity is $v_{\w1}$. The momentum of the wind of the
 % second source is higher than the momentum of the first one, and the
 % resultant bow shock is stationary due to pressure balance.
 
@@ -196,7 +196,7 @@ simulations.
   \caption{Parameters for characterizing a bow shape.  Bow radius from
     the star, measured parallel (\(R_0\)) and perpendicular
     (\(R_{90}\)) to the symmetry axis, together with radius of
-    curvature (\(R_c\)) at apex and asymptotic opening angle
+    curvature (\(R_{\C}\)) at apex and asymptotic opening angle
     (\(\theta_\infty\)) of the far wings. }
   \label{fig:characteristic-radii}
 \end{figure}
@@ -206,11 +206,11 @@ shock, but in order to characterize its shape more parameters are
 required.  To efficiently capture the diversity of bow shapes, we
 propose the parameters shown in Figure~\ref{fig:characteristic-radii}.
 The perpendicular radius \(R_{90}\) is the value of \(R(\theta)\) at
-\(\theta = 90^\circ\), whereas \(R_c\) is the radius of curvature of the bow at
+\(\theta = 90^\circ\), whereas \(R_{\C}\) is the radius of curvature of the bow at
 the apex (\(\theta = 0\)), which in cylindrical symmetry simplifies to
 \begin{equation}
   \label{eq:radius-curvature}
-  R_c 
+  R_{\C} 
   % = R_0 \Biggl[ 1
   % - \frac{1} {R_0} \left.\frac{d^2\! R} {d\,\theta^2}\right|_{\theta = 0} \Biggr]^{-1}
   = \frac{R_0^2}{R_0 - R_{\theta\theta,0}} \ , 
@@ -223,7 +223,7 @@ conical.  However, in many bow shocks the wings tend towards the
 asymptotic angle only slowly, making \(\theta_\infty\) difficult to measure,
 especially since the emission from the far wings is often weak at
 best.  In contrast, the three radii, \(R_0\), \(R_{90}\), and
-\(R_c\). are straightforward to determine from observations.  One
+\(R_{\C}\). are straightforward to determine from observations.  One
 simple method to estimate the radius of curvature is to make use of
 the Taylor expansion\footnote{%
   This method assumes both that \(R(\theta)\) is even (true for a
@@ -238,7 +238,7 @@ radians):
 \end{equation}
 so that fitting a polynomial in \(\theta^2\) to \(R(\theta)\) for
 \(|\theta| < \Delta\theta \) yields \(R_0\) and \(R_{\theta\theta,0}\) from the first two
-coefficients, and hence \(R_c\) from
+coefficients, and hence \(R_{\C}\) from
 equation~\eqref{eq:radius-curvature}.  Experience has shown that
 \(\Delta\theta = 30^\circ\) and three terms in the polynomial are good choices,
 where the third term is used only as a monitor (if the co-efficient of
@@ -249,7 +249,7 @@ Since we have three radii, we can construct two independent
 dimensionless parameters:
 \begin{align}
   \label{eq:planitude}
-  \text{Planitude} \quad \Pi & \equiv  \frac{R_c} {R_0} \\
+  \text{Planitude} \quad \Pi & \equiv  \frac{R_{\C}} {R_0} \\
   \label{eq:alatude}
   \text{Alatude} \quad \Lambda & \equiv  \frac{R_{90}} {R_0}
 \end{align}
@@ -264,7 +264,7 @@ latin \textit{ala} for ``wing''.
 Several previous studies have discussed the relation between
 \(R_{90}\) and \(R_0\) as a diagnostic of bow shape (for example
 \citealp{Robberto:2005, Cox:2012a, Meyer:2016a}), but as far as we
-know, we are the first to include \(R_c\).  \citet{Robberto:2005}
+know, we are the first to include \(R_{\C}\).  \citet{Robberto:2005}
 \S~4.2 use the ratios \(R_0/D\) and \(R_{90}/D\) in analyzing proplyd
 bow shapes in the Trapezium cluster in the center of the Orion Nebula
 \citep{Hayward:1994a, Garcia-Arredondo:2001a, Smith:2005a}.  In that
@@ -284,7 +284,7 @@ hydrodynamic simulations of bow shocks around runaway OB stars.
 % predictions can be compared with observations.
 % \begin{itemize}
 % \item Radius at axis of symmetry. Denoted as $R_0$.
-% \item Radius of Curvature at the axis of symmetry. Denoted as $R_c$
+% \item Radius of Curvature at the axis of symmetry. Denoted as $R_{\C}$
 % \item Radius at the perpendicular direction to the symmetry
 %   axis. Denoted as $R_{90}$
 % \item For open bow shocks, the asymptotic angle. Denoted as
