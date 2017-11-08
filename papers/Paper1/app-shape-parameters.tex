@@ -1,0 +1,70 @@
+
+\section{Planitude and alatude of thin-shell bow shapes}
+\label{sec:thin-shell-shapes}
+
+In this appendix, we provide analytic calculations of the planitude
+(exact) and alatude (approximate) for the wilkinoid, cantoids, and
+ancantoids.  We first consider the most general case of the
+ancantoids, and then show how results for cantoids and the wilkinoid
+follow as special cases.
+
+From equations~\eqref{eq:radius-curvature} and~\eqref{eq:planitude},
+the planitude depends on the apex second derivative,
+\(R_{\theta\theta,0}\), as
+\begin{equation}
+  \label{eq:planitude-from-2nd-derivative}
+  \Pi = \left(  1 - R_{\theta\theta,0} / R_0\right)^{-1} \ .
+\end{equation}
+From equation~\eqref{eq:taylor-R-theta}, the second derivative can be
+found from the coefficient of \(\theta^2\) in the Taylor expansion
+of \(R(\theta)\).  Since we do not have \(R(\theta)\) in explicit analytic form,
+we proceed via a Taylor expansion of the implicit
+equations~\eqref{eq:crw-angles}
+and~\eqref{eq:ancantoid-theta-theta1-implicit}, retaining terms up to
+\(\theta^4\) to obtain from
+equation~\eqref{eq:ancantoid-theta-theta1-implicit}:
+\begin{equation}
+  \label{eq:taylor-expansion-implicit}
+  \theta_1^2 = \beta \theta^2 \left( 1 + C_{k\beta} \theta^2\right) + \mathcal{O}(\theta^6)\ , 
+\end{equation}
+with the coefficient \(C_{k\beta}\) given by
+\begin{equation}
+  \label{eq:C-k-beta}
+  C_{k\beta} = \frac{1}{15} - \frac{3k}{20} - \frac{\beta}{15}  \ .
+\end{equation}
+Then, from equation~\eqref{eq:crw-angles} we find
+\begin{align}
+  \label{eq:taylor-R-over-D}
+  \frac{R}{D} & = \frac{\sin \theta_1} {\sin (\theta + \theta_1)} \nonumber \\
+              & = \frac{\beta^{1/2}}{1+\beta^{1/2}}
+                \left\lbrace 1 + \theta^2
+                \left[ \frac{C_{k\beta}} {2 \left(1+\beta^{1/2}\right)}
+                + \frac{1}{6} \left(1+2\beta^{1/2} \right)
+                \right]
+                \right\rbrace + \mathcal{O}(\theta^4) \ ,
+\end{align}
+where in the second line we have carried out a Taylor expansion of the
+two \(\sin\) terms and substituted
+\eqref{eq:taylor-expansion-implicit}.  Comparing coefficients of unity
+and \(\theta^2\) between equations~\eqref{eq:taylor-R-theta} and
+\eqref{eq:taylor-R-over-D} we find
+\begin{align}
+  \label{eq:again-R0-over-D}
+  \frac{R_0} {D} &= \frac{\beta^{1/2}}{1+\beta^{1/2}} \\
+  \label{eq:final-second-derivative}
+  \frac{R_{\theta\theta,0}} {R_0} &= \frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{3}\left(1+2\beta^{1/2}\right) \ ,
+\end{align}
+so that the final result for the planitude, from~\eqref{eq:planitude-from-2nd-derivative}, is
+\begin{equation}
+  \label{eq:final-planitude}
+  \Pi = \left[ {1 - \frac{C_{k\beta}}{1+\beta^{1/2}} - \frac{1}{3}\left(1+2\beta^{1/2}\right)}
+  \right]^{-1} \ .
+\end{equation}
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "quadrics-bowshock"
+%%% End:
