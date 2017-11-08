@@ -32,7 +32,9 @@ with the coefficient \(C_{k\beta}\) given by
   \label{eq:C-k-beta}
   C_{k\beta} = \frac{1}{15} - \frac{3k}{20} - \frac{\beta}{15}  \ .
 \end{equation}
-Then, from equation~\eqref{eq:crw-angles} we find
+Note that it is necessary to include the \(\theta^4\) term in the expansion
+of \(\theta_1^2\) so that \(\theta_1/\theta\) is accurate to order
+\(\theta^2\).  Then, from equation~\eqref{eq:crw-angles} we find
 \begin{align}
   \label{eq:taylor-R-over-D}
   \frac{R}{D} & = \frac{\sin \theta_1} {\sin (\theta + \theta_1)} \nonumber \\
@@ -61,7 +63,46 @@ so that the final result for the planitude, from~\eqref{eq:planitude-from-2nd-de
   \right]^{-1} \ .
 \end{equation}
 
-
+To find the alatude, \(\Lambda = R_{90} / R_0\), we use equation~\eqref{eq:crw-angles} at \(\theta = 90^\circ\) to write
+\begin{equation}
+  \label{eq:Lambda-from-theta-1-90}
+  \Lambda = \frac{D} {R_0} \tan \theta_{1,90} \ , 
+\end{equation}
+where \(\theta_{1,90} = \theta_1(\theta = 90^\circ)\), which, following
+equation~\eqref{eq:ancantoid-theta-theta1-implicit}, must satisfy
+\begin{equation}
+  \label{eq:theta-1-90-implicit}
+  \theta_{1,90} \cot \theta_{1,90}  = 1 - \frac{2 \beta}{k + 2} \ . 
+\end{equation}
+Combining \eqref{eq:Lambda-from-theta-1-90} and
+\eqref{eq:theta-1-90-implicit} with \eqref{eq:again-R0-over-D} yields
+\begin{equation}
+  \label{eq:Lambda-beta-xi-theta-1-90}
+  \Lambda = \frac{ \left(1 + \beta^{1/2}\right) \,\theta_{1,90}} {\beta^{1/2} \left(1 - \xi_k \beta\right)} \ ,
+\end{equation}
+where
+\begin{equation}
+  \label{eq:xi-k}
+  \xi_k = \frac{2} {k +2} \ .
+\end{equation}
+We now take the Taylor expansion of equation~\eqref{eq:theta-1-90-implicit} to find
+\begin{equation}
+  \label{eq:theta-1-90-Taylor}
+  \theta_{1,90}^2 + \tfrac{1}{15}  \theta_{1,90}^4 + \mathcal{O}(\theta_{1,90}^6)
+  = 3 \xi_k \beta \ , 
+\end{equation}
+which, if \(\theta_{1,90}\) is small, has the approximate solution
+\begin{equation}
+  \label{eq:theta-1-90-approx}
+  \theta_{1,90} \approx \left( \frac{3 \xi_k \beta} {1 + \tfrac15 \xi_k \beta} \right) \ .
+\end{equation}
+Substituting back into equation~\eqref{eq:Lambda-from-theta-1-90} yields an approximate value for the alatude of
+\begin{equation}
+  \label{eq:Lambda-approx}
+  \Lambda \approx \frac {(3 \xi_k)^{1/2} \left( 1 + \beta^{1/2} \right)}
+  { \left( 1 + \tfrac15 \xi_k \beta \right)^{1/2} \left( 1 - \xi_k \beta \right)} \ ,
+\end{equation}
+which has a relative error of order \((6 \beta / (k +2))^2\), so the approximation should be accurate for \(\beta < 0.1\). 
 
 
 %%% Local Variables:
