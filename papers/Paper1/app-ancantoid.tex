@@ -73,7 +73,7 @@ anisotropic case (replacing \CRW{}'s eqs.~[9, 10]) are:
   \label{eq:ancantoid-momenta}
   \begin{aligned}
     \dot{\Pi}_{\w{}z} &= \frac{k + 1}{2(k+2)}\, \dot{M}_{\w}^0 V_{\w}
-    \left(1-\cos^{k+2}\theta\right) \\
+    \max\left[\bigl(1- \cos^{k+2} \theta\bigr), 1 \right] \\
     \dot{\Pi}_{\w{}r} &= (k + 1)\, \dot{M}^0_{\w} V_{\w}\, I_k (\theta) 
   \end{aligned}
 \end{gather}
@@ -85,7 +85,7 @@ where
 is the total mass-loss rate of the inner wind. The integral
 \begin{equation}
   \label{eq:ancantoid-I-integral}
-  I_k(\theta) = \int^\theta_0 \cos^k \theta \sin^2\theta \,d\theta 
+  I_k(\theta) = \int^{\max(\theta, \pi/2)}_0 \cos^k \theta \sin^2\theta \,d\theta 
 \end{equation}
 has an analytic solution in terms of the hypergeometric function,
 \({}_2 F_1(-\tfrac12; \tfrac{1+k}2; \tfrac{3+k}2; \cos^2 \theta)\), but is

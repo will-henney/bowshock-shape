@@ -1,5 +1,5 @@
 
-\section{Planitude and alatude of thin-shell bow shapes}
+\section{Analytic derivation of thin-shell bow shapes}
 \label{sec:thin-shell-shapes}
 
 In this appendix, we provide analytic calculations of the planitude
@@ -7,6 +7,9 @@ In this appendix, we provide analytic calculations of the planitude
 ancantoids.  We first consider the most general case of the
 ancantoids, and then show how results for cantoids and the wilkinoid
 follow as special cases.
+
+\subsection{Planitude of ancantoids}
+\label{sec:ancantoid-planitude}
 
 From equations~\eqref{eq:radius-curvature} and~\eqref{eq:planitude},
 the planitude depends on the apex second derivative,
@@ -59,9 +62,13 @@ and \(\theta^2\) between equations~\eqref{eq:taylor-R-theta} and
 so that the final result for the planitude, from~\eqref{eq:planitude-from-2nd-derivative}, is
 \begin{equation}
   \label{eq:final-planitude}
+  \text{ancantoid} \quad
   \Pi = \left[ {1 - \frac{C_{k\beta}}{1+\beta^{1/2}} - \frac{1}{3}\left(1+2\beta^{1/2}\right)}
   \right]^{-1} \ .
 \end{equation}
+
+\subsection{Alatude of ancantoids}
+\label{sec:ancantoid-alatude}
 
 To find the alatude, \(\Lambda = R_{90} / R_0\), we use equation~\eqref{eq:crw-angles} at \(\theta = 90^\circ\) to write
 \begin{equation}
@@ -99,13 +106,76 @@ which, if \(\theta_{1,90}\) is small, has the approximate solution
 Substituting back into equation~\eqref{eq:Lambda-from-theta-1-90} yields an approximate value for the alatude of
 \begin{equation}
   \label{eq:Lambda-approx}
+  \text{ancantoid} \quad
   \Lambda \approx \frac {(3 \xi_k)^{1/2} \left( 1 + \beta^{1/2} \right)}
   { \left( 1 + \tfrac15 \xi_k \beta \right)^{1/2} \left( 1 - \xi_k \beta \right)} \ ,
 \end{equation}
 which has a relative error of order \((3 \xi_k \beta)^2\), so the
 approximation should be accurate for \(\beta < 0.1\).
 
+\subsection{Planitude and alatude of cantoids and wilkinoid}
+\label{sec:cantoid-wilkinoid-shapes}
 
+Since \(\Pi\) and \(\Lambda\) depend on only that portion of the inner wind
+emitted in the forward hemisphere, \(\theta \le 90^\circ\), the results for the
+cantoids can be found by taking \(k = 0\), in which case
+equations~(\ref{eq:C-k-beta}, \ref{eq:final-planitude}, \ref{eq:xi-k},
+\ref{eq:Lambda-approx}) yield
+\begin{gather}
+  \label{eq:cantoid-Pi-Lambda}
+  \text{cantoid} \quad
+  \begin{cases}
+    \quad \Pi &= \dfrac {5} {3 \left( 1 - \beta^{1/2} \right)}\\[12pt]
+    \quad \Lambda &= \dfrac { \sqrt 3} {\left( 1 + \tfrac15 \beta \right)^{1/2} \left( 1 - \beta^{1/2} \right)} \ .
+  \end{cases}
+\end{gather}
+The wilkinoid shape is equal to the \(\beta \to 0\) limit of the cantoid, so
+its planitude and alatude are given by:
+\begin{gather}
+  \label{eq:wilkinoid-Pi-Lambda}
+  \text{wilkinoid} \quad
+  \begin{cases}
+    \quad \Pi &= \dfrac {5} {3}\\[10pt]
+    \quad \Lambda &= \sqrt 3 \ .
+  \end{cases}
+\end{gather}
+
+\subsection{Asymptotic opening angle}
+\label{sec:asympt-open-angle}
+
+The asymptotic opening angle
+of the far wings, \(\theta_\infty\), can be found from
+equation~\eqref{eq:ancantoid-theta-theta1-implicit} for the
+ancantoids, together with the condition that
+\(\theta_\infty + \theta_{1\infty} = \pi\).  These yield the implicit equation
+\begin{equation}
+  \label{eq:anacantoid-theta-inf}
+  \theta_\infty - \left( \frac {k + 2 (1 - \beta)} {k + 2} \right) \tan \theta_\infty
+  = \pi + 2 \beta I_k(\pi/2) \ ,                                                                                                                                          
+\end{equation}
+where
+\begin{equation}
+  I_k(\pi/2) = \frac{\sqrt \pi}{4} \,
+      \frac{  \GammaFunc\left( \frac{k+1}{2} \right)} {\GammaFunc\left(\frac{k+4}{2}\right)}
+\end{equation}
+and \(\GammaFunc\) is the usual Gamma function.  This can be compared with the equivalent result obtained by \CRW{} for the cantoids:
+\begin{equation}
+  \label{eq:cantoid-theta-inf}
+  \theta_\infty - \tan \theta_\infty = \frac{\pi}{1 - \beta} \ .
+\end{equation}
+Note that, unlike the case for \(\Pi\) and \(\Lambda\),
+equation~\eqref{eq:anacantoid-theta-inf} does \emph{not} reduce to
+equation~\eqref{eq:cantoid-theta-inf} in the limit \(k \to 0\).  This is
+because, for \(\theta > 90^\circ\), the \(k = 0\) ancantoid differs from the
+cantoid since there is no wind in the backward hemisphere (see
+Figure~\ref{fig:anisotropic-arrows}).  Therefore there is less inner
+support for the far wings of the bow, and so \(\theta_\infty\) is smaller than
+in the cantoid case.  The wilkinoid result again follows from
+\(beta \to 0\), implying that \(\theta_\infty = \pi\), or, in other words, that
+the far wings are asymptotically parallel to the symmetry axis, as is
+the case for the paraboloid (App.~\ref{app:parabola}).  In the case of
+the wilkinoid, however, the behavior is cubic in the wings,
+\(z \sim r^3\), as opposed to quadratic as in the paraboloid.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "quadrics-bowshock"

@@ -435,7 +435,8 @@ Here is the image inline:
 #+END_SRC
 
 
-* Planitude-Alatude diagram from analytic equations
+* DONE Planitude-Alatude diagram from analytic equations
+CLOSED: [2017-11-08 Wed 22:25]
 + [2017-11-08 Wed] For the paper, I want to do something better than the pinky-gray plot that I have (currently figure 13).
 + Put all the ancantoids, etc on the \Pi--\Lambda diagram
 + Similar to Fig 10a, which shows this for the conics
@@ -514,7 +515,8 @@ python ancantoid-Pi-Lambda-true.py
 
 
 
-* Reproduce originally made by [[file:~/Work/Bowshocks/Jorge/bowshock-shape/papers/Paper1/shape_beta.py][shape_beta.py]]
+* DONE Reproduce figure originally made by [[file:~/Work/Bowshocks/Jorge/bowshock-shape/papers/Paper1/shape_beta.py][shape_beta.py]]
+CLOSED: [2017-11-08 Wed 22:25]
 
 #+BEGIN_SRC python :eval no :tangle ancantoid-shape.py
   import sys
@@ -578,6 +580,11 @@ python ancantoid-shape.py
 
 #+RESULTS:
 [[file:ancantoid-shape.pdf]]
+
+
+
+* TODO New version of the angle versus beta diagram
+
 
 * Copy figures to paper directory
 
