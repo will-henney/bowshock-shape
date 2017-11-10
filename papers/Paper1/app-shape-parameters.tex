@@ -1,9 +1,9 @@
 
-\section{Analytic derivation of thin-shell bow shapes}
+\section{Analytic derivation of thin-shell bow shape parameters}
 \label{sec:thin-shell-shapes}
 
-In this appendix, we provide analytic calculations of the planitude
-(exact) and alatude (approximate) for the wilkinoid, cantoids, and
+In this appendix, we provide analytic calculations of the planitude,
+alatude, and asymptotic opening angle for the wilkinoid, cantoids, and
 ancantoids.  We first consider the most general case of the
 ancantoids, and then show how results for cantoids and the wilkinoid
 follow as special cases.
@@ -103,15 +103,18 @@ which, if \(\theta_{1,90}\) is small, has the approximate solution
   \label{eq:theta-1-90-approx}
   \theta_{1,90} \approx \left( \frac{3 \xi_k \beta} {1 + \tfrac15 \xi_k \beta} \right) \ .
 \end{equation}
-Substituting back into equation~\eqref{eq:Lambda-from-theta-1-90} yields an approximate value for the alatude of
+Substituting back into equation~\eqref{eq:Lambda-from-theta-1-90}
+yields an approximate value for the alatude of
 \begin{equation}
   \label{eq:Lambda-approx}
   \text{ancantoid} \quad
   \Lambda \approx \frac {(3 \xi_k)^{1/2} \left( 1 + \beta^{1/2} \right)}
-  { \left( 1 + \tfrac15 \xi_k \beta \right)^{1/2} \left( 1 - \xi_k \beta \right)} \ ,
+  { \left( 1 + \tfrac15 \xi_k \beta \right)^{1/2} \left( 1 - \xi_k \beta \right)} \ .
 \end{equation}
-which has a relative error of order \((3 \xi_k \beta)^2\), so the
-approximation should be accurate for \(\beta < 0.1\).
+This approximation is surprisingly accurate, with a relative error of
+order \(1\%\) even for \(\beta\) as large as \(0.5\) with \(k = 0\).  The
+leading term in the relative error scales as \((\beta / (k + 2))^2\), so the
+approximation is even better for smaller \(\beta\) and larger \(k\).
 
 \subsection{Planitude and alatude of cantoids and wilkinoid}
 \label{sec:cantoid-wilkinoid-shapes}
@@ -139,6 +142,10 @@ its planitude and alatude are given by:
     \quad \Lambda &= \sqrt 3 \ .
   \end{cases}
 \end{gather}
+The same results can also be obtained directly from
+equation~\eqref{eq:wilkinoid-R-theta}, and in the case of \(\Lambda\) this
+has already been noted by several authors \citep{Cox:2012a,
+  Meyer:2016a}.
 
 \subsection{Asymptotic opening angle}
 \label{sec:asympt-open-angle}
@@ -151,7 +158,7 @@ ancantoids, together with the condition that
 \begin{equation}
   \label{eq:anacantoid-theta-inf}
   \theta_\infty - \left( \frac {k + 2 (1 - \beta)} {k + 2} \right) \tan \theta_\infty
-  = \pi + 2 \beta I_k(\pi/2) \ ,                                                                                                                                          
+  = \pi + 2 \beta I_k(\pi/2) \ ,
 \end{equation}
 where
 \begin{equation}
@@ -163,18 +170,18 @@ and \(\GammaFunc\) is the usual Gamma function.  This can be compared with the e
   \label{eq:cantoid-theta-inf}
   \theta_\infty - \tan \theta_\infty = \frac{\pi}{1 - \beta} \ .
 \end{equation}
-Note that, unlike the case for \(\Pi\) and \(\Lambda\),
+Note that, unlike in the cases of \(\Pi\) and \(\Lambda\),
 equation~\eqref{eq:anacantoid-theta-inf} does \emph{not} reduce to
 equation~\eqref{eq:cantoid-theta-inf} in the limit \(k \to 0\).  This is
 because, for \(\theta > 90^\circ\), the \(k = 0\) ancantoid differs from the
-cantoid since there is no wind in the backward hemisphere (see
+cantoid since the former has no wind in the backward hemisphere (see
 Figure~\ref{fig:anisotropic-arrows}).  Therefore there is less inner
 support for the far wings of the bow, and so \(\theta_\infty\) is smaller than
 in the cantoid case.  The wilkinoid result again follows from
-\(beta \to 0\), implying that \(\theta_\infty = \pi\), or, in other words, that
-the far wings are asymptotically parallel to the symmetry axis, as is
-the case for the paraboloid (App.~\ref{app:parabola}).  In the case of
-the wilkinoid, however, the behavior is cubic in the wings,
+\(\beta \to 0\), implying that \(\theta_\infty = \pi\), or, in other words, that the far
+wings are asymptotically parallel to the symmetry axis, as is the case
+for the paraboloid (App.~\ref{app:parabola}).  In the case of the
+wilkinoid, however, the behavior is cubic in the wings,
 \(z \sim r^3\), as opposed to quadratic as in the paraboloid.
 %%% Local Variables:
 %%% mode: latex
