@@ -9,7 +9,7 @@ plotfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('ticks')
 sns.set_color_codes(palette='deep')
-fig, ax = plt.subplots(figsize=(5, 5))
+fig, ax = plt.subplots(figsize=(4, 4))
 
 Rc_grid = np.linspace(0.0, 10.0, 2000)
 R90_T0_grid = np.sqrt(2*Rc_grid)
@@ -31,6 +31,7 @@ labels = ["Cantoid"] + [f"Ancantoid, $k = {k:.1f}$" for k in ks[1:]]
 bbetas = [1e-8, 0.01, 0.1]
 mss = [6, 4, 3]
 colors = 'krmb'
+ax.plot(5./3., np.sqrt(3.0), '+', color='0.8', mew=2, ms=13)
 ax.plot(5./3., np.sqrt(3.0), '+', color='white', ms=12)
 for k, color, label in zip(ks, colors, labels):
     xi = 2.0 / (k + 2.0)

@@ -21,7 +21,7 @@ plotfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('ticks')
 sns.set_color_codes(palette='deep')
-fig, ax = plt.subplots(figsize=(6, 5))
+fig, ax = plt.subplots(figsize=(4, 5))
 
 ks = [0.0, 0.5, 3.0, 8.0]
 colors = 'krmb'
@@ -59,7 +59,7 @@ thct_crw = np.degrees(-theta_tail(beta, None, f=conic_parameters.finf_CRW))
 ax.plot(beta, thct_crw, linestyle="-.", color="k", label="_nolabel_")
 
 i0 = len(beta)//2
-ax.annotate("Cantoid", xy=(beta[i0], thct_crw[i0]),
+ax.annotate("Cantoids", xy=(beta[i0], thct_crw[i0]),
             xytext=(-30, -30), textcoords='offset points',
             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
 
@@ -71,14 +71,14 @@ ellipse_tail = Ellipse(xy_tail, 1e-4, 20, **ellipse_props)
 ax.add_patch(ellipse_head)
 ax.add_patch(ellipse_tail)
 ax.annotate(r"$\theta_{\mathcal{Q}}$ from $\Pi$, $\Lambda$", xy=xy_head,
-            xytext=(30, 30), textcoords='offset points',
+            xytext=(15, 30), textcoords='offset points',
             arrowprops=dict(arrowstyle="simple,tail_width=0.1",
                             fc="0.2", ec="none",
                             patchB=ellipse_head, shrinkB=17,
                             connectionstyle="angle3,angleA=-10,angleB=-90"),
 )
 ax.annotate(r"$\theta_{\mathcal{Q}}$ from $\theta_\infty$", xy=xy_tail,
-            xytext=(20, -40), textcoords='offset points',
+            xytext=(10, -40), textcoords='offset points',
             arrowprops=dict(arrowstyle="simple,tail_width=0.1",
                             fc="0.2", ec="none",
                             patchB=ellipse_tail, shrinkB=17,
