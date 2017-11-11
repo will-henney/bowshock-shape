@@ -216,17 +216,21 @@ the resultant bow shapes as \textit{ancantoids}.
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/ancantoid-Pi-lambda-true}
-  \caption{Shapes of cantoids and ancantoids in the
-    \(\Pi\)--\(\Lambda\) plane.  Line colors correspond to different anisotropy
-    indices, and match the values if Fig.~\ref{fig:r-beta}. Circle
-    symbols mark particular \(\beta\) values: \(0, 0.01, 0.1\), from
-    largest to smallest circle.  Square symbols mark \(\beta = 0.5\), but
-    with \(\Lambda\) calculated exactly, instead of using the approximation
-    of equation~\eqref{eq:Lambda-approx}.  The white plus symbol marks
+  \caption{True shapes of cantoids and ancantoids in the
+    \(\Pi\)--\(\Lambda\) plane, calculated according to results of
+    App.~\ref{sec:thin-shell-shapes}.  For each line, \(\beta\) varies
+    over the range \([0, 1]\) from lower left to upper right (although
+    the black and red lines are truncated on the upper right), and
+    line colors correspond to different anisotropy indices, matching
+    those used in Fig.~\ref{fig:r-beta}. Circle symbols mark
+    particular \(\beta\) values: \(0, 0.01, 0.1\), from largest to
+    smallest circle.  Square symbols mark \(\beta = 0.5\), but with
+    \(\Lambda\) calculated exactly, instead of using the approximation of
+    equation~\eqref{eq:Lambda-approx}.  The white plus symbol marks
     the result for the wilkinoid:
     \((\Pi, \Lambda) = (\frac53, \sqrt{3})\).  Background shading indicates
     the domains of different quadric classes: hyperboloids (white),
-    prolate spheroids (darg gray), and oblate spheroids (light gray).}
+    prolate spheroids (dark gray), and oblate spheroids (light gray).}
   \label{fig:ancantoid-Pi-lambda-true}
 \end{figure}
 
@@ -241,27 +245,42 @@ location of these shapes in the planitude--alatude plane is shown in
 Figure~\ref{fig:ancantoid-Pi-lambda-true}, where the gray background
 shading indicates the zones of different quadric classes, as in
 \S~\ref{sec:conic}, Figures~\ref{fig:quadric-projection-continued}
-and~\ref{fig:projected-R90-Rc-snapshots}.  The \(k=0\) ancantoid is
-identical to the cantoid for \(\theta \le 90^\circ\) (\(z > 0\)), but is slightly
+and~\ref{fig:projected-R90-Rc-snapshots}.  Values of \(\Pi\) and
+\(\Lambda\) are calculated via the analytic expressions derived in
+Appendix~\ref{sec:ancantoid-planitude} and
+\ref{sec:ancantoid-alatude}, respectively, which are only approximate
+in the case of \(\Lambda\).  However, the filled square symbols show the
+exact results for \(\beta = 0.5\), which can be seen to lie extremely close
+to the approximate results, even for the worst case of \(k = 0\). The
+leading term in the relative error of
+equation~\eqref{eq:Lambda-approx} scales as \((\beta / (k + 2))^2\), so
+the approximation is even better for smaller \(\beta\) and larger \(k\).
+
+It is apparent from Figure~\ref{fig:r-beta} that the \(k=0\) ancantoid
+is identical to the cantoid for \(\theta \le 90^\circ\) (\(z > 0\), to the right
+of vertical dotted line in Fig.~\ref{fig:r-beta}), but is slightly
 more swept back in the far wings.\footnote{%
   Due to the discontinuity in the inner wind density at
-  \(theta = 90^\circ\) (see Fig.~\ref{fig:anisotropic-arrows}), there is a
+  \(\theta = 90^\circ\) (see Fig.~\ref{fig:anisotropic-arrows}), there is a
   discontinuity in the second derivative of the bow shape.} %
 Since the true planitude and alatude depend on \(R(\theta)\) only in the
 range \(\theta = [0, 90^\circ]\), the cantoid and the \(k = 0\) ancantoid
 behave identically in Figure~\ref{fig:ancantoid-Pi-lambda-true}.
-
 There is a general tendency for the bows to be flatter and more open
 with increasing \(\beta\) and decreasing \(k\), with the cantoid being
 most open at a given \(\beta\).  All the models cluster close to the
 diagonal \(\Lambda \simeq \Pi\) in the planitude--alatude plane, but with a tendency
 for \(\Lambda > \Pi\) at higher anisotropy.  There is therefore a degeneracy
 between \(\beta\) and \(k\) for higher values of \(\beta\).  The wilkinoid
-shape, which corresponds to the \(\beta \to 0\) limit of the cantoids is
+shape, which corresponds to the \(\beta \to 0\) limit of the cantoids, is
 marked by a white plus symbol in
-Figure~\ref{fig:ancantoid-Pi-lambda-true}, which lies in the prolate
-ellipsoid region of the plane.  
-
+Figure~\ref{fig:ancantoid-Pi-lambda-true}, and lies in the prolate
+spheroid region of the plane.  Cantoids lie either in the prolate
+spheroid or hyperboloid regions, according to whether \(\beta\) is less
+than or greater than about \(0.01\).  For ancantoids of increasing
+\(k\), this dividing point moves to higher values of \(\beta\), until
+almost the entire range of models with \(k = 8\) are within the
+prolate spheroid zone.
 
 \begin{figure}
   \centering
@@ -277,6 +296,43 @@ ellipsoid region of the plane.
     Fig.~\ref{fig:ancantoid-Pi-lambda-true}. }
   \label{fig:ancantoid-angles}
 \end{figure}
+
+However, the true planitude and alatude, which are what would be
+observed for a side-on viewing angle (\(i = 0\)), are not at all
+sensitive to the behavior of the far wings of the bow shock, which has
+a rather different implication as to which variety of quadric best
+approximates each shape.  We illustrate this is
+Figure~\ref{fig:ancantoid-angles}, which shows two different ways of
+estimating the quadric angle, \(\theta_{\Q}\) (see \S~\ref{sec:conic}).
+The first is from \((\Pi, \Lambda)\), as in
+Figure~\ref{fig:ancantoid-Pi-lambda-true}:
+\newcommand\head{^{\text{head}}}
+\newcommand\tail{^{\text{tail}}}
+\begin{equation}
+  \label{eq:thetaQ-head}
+  \theta_{\Q}\head =
+  \sgn{\bigl(2 \Pi - \Lambda^2\bigr)} \;
+  \tan^{-1} \Abs{2\Pi - \Lambda^2}^{1/2} \ ,
+\end{equation}
+which follows from equations~\eqref{eq:Tq}, \eqref{eq:thetaQ}, and
+\eqref{eq:Tq-from-Pi-Lambda}.  The second is from the asymptotic
+opening angle of the wings, \(\theta_\infty\) (Fig.~\ref{fig:characteristic-radii}):
+\begin{equation}
+  \label{eq:thetaQ-tail}
+  \theta_{\Q}\tail = \theta_\infty - 180^\circ \ , 
+\end{equation}
+where \(\theta_\infty\) is calculated from
+equation~\eqref{eq:anacantoid-theta-inf} for ancantoids, or
+\eqref{eq:cantoid-theta-inf} for cantoids.  If the bow shock shape
+were truly a quadric, then these two definitions would agree.
+However, as seen in Figure~\ref{fig:ancantoid-angles}, this is not the
+case for the cantoids and ancantoids.  While
+\(\smash[b]{\theta_{\Q}\head}\) generally corresponds to a prolate spheroid
+(except for the largest values of \(\beta\)),
+\(\smash[b]{\theta_{\Q}\tail}\) always corresponds to a hyperbola.  This
+has important implications for the projected shapes (as we will see in
+the next section), since the far wings influence the projected
+planitude and alatude when the inclination is large.
 
 
 % \subsection{Characteristic Radii}
@@ -474,6 +530,8 @@ ellipsoid region of the plane.
 % \subsection{Projection effects in the thin shell model}
 % \label{sec:proj-effects-thin}
 
+\subsection{Apparent shapes of projected cantoids and ancantoids}
+\label{sec:proj-shap-cant}
 
 \begin{figure*}
   \centering

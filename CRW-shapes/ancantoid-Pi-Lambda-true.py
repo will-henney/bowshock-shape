@@ -25,7 +25,7 @@ ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
 # Plot our curves
-betas = np.logspace(-5.0, np.log10(0.5), 100)
+betas = np.logspace(-5.0, np.log10(1.0), 100)
 ks = [0.0, 0.5, 3.0, 8.0]
 labels = ["Cantoid"] + [f"Ancantoid, $k = {k:.1f}$" for k in ks[1:]]
 bbetas = [1e-8, 0.01, 0.1]

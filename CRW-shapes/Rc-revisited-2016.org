@@ -468,7 +468,7 @@ CLOSED: [2017-11-08 Wed 22:25]
   ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   # Plot our curves
-  betas = np.logspace(-5.0, np.log10(0.5), 100)
+  betas = np.logspace(-5.0, np.log10(1.0), 100)
   ks = [0.0, 0.5, 3.0, 8.0]
   labels = ["Cantoid"] + [f"Ancantoid, $k = {k:.1f}$" for k in ks[1:]]
   bbetas = [1e-8, 0.01, 0.1]
@@ -721,7 +721,7 @@ cp -av $FIGS ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Fri Nov 10 23:18:14 CST 2017
+: Sat Nov 11 15:39:31 CST 2017
 : ancantoid-Pi-Lambda-true.pdf -> ../papers/Paper1/figs/ancantoid-Pi-Lambda-true.pdf
 : ancantoid-angles.pdf -> ../papers/Paper1/figs/ancantoid-angles.pdf
 : ancantoid-shape.pdf -> ../papers/Paper1/figs/ancantoid-shape.pdf
