@@ -646,7 +646,7 @@ python dust-wave-Rc-R90.py
 
 #+RESULTS:
 #+begin_example
-Fri Oct 13 22:53:03 CDT 2017
+Sat Nov 11 22:34:05 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 test_xyprime.pdf -> ../papers/Paper1/figs/test_xyprime.pdf
 test_xyprime_dragoid.pdf -> ../papers/Paper1/figs/test_xyprime_dragoid.pdf
@@ -2605,9 +2605,9 @@ This is what we have been working towards
   annot_pars_list = [right_annotate_pars]*2 + [left_annotate_pars]*2 
   for beta in BETA_LIST[::-1]:
       for xi, col, annot_pars in list(zip(XI_LIST, cols, annot_pars_list))[istart::-2]:
-
+          k = None if xi is None else 2/xi - 2
           if beta == BETA_LIST[0]:
-              label = "Cantoid" if xi is None else fr"Ancantoid $\xi = {xi:.1f}$"
+              label = "Cantoid" if k is None else fr"Ancantoid $k = {k:.1f}$"
           else:
               label = "_nolabel_"
 
@@ -2642,8 +2642,8 @@ This is what we have been working towards
       xlim=[0.0, 5.1],
       ylim=[0.0, 5.1],
   #    ylim=[-3.0, 1.1],
-      xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
-      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+      xlabel=r"Projected planitude: $\Pi'$",
+      ylabel=r"Projected alatude: $\Lambda'$",
   )        
 
   sns.despine()

@@ -60,9 +60,9 @@ cols = sns.color_palette('magma', n_colors=nxi)
 annot_pars_list = [right_annotate_pars]*2 + [left_annotate_pars]*2 
 for beta in BETA_LIST[::-1]:
     for xi, col, annot_pars in list(zip(XI_LIST, cols, annot_pars_list))[istart::-2]:
-
+        k = None if xi is None else 2/xi - 2
         if beta == BETA_LIST[0]:
-            label = "Cantoid" if xi is None else fr"Ancantoid $\xi = {xi:.1f}$"
+            label = "Cantoid" if k is None else fr"Ancantoid $k = {k:.1f}$"
         else:
             label = "_nolabel_"
 
@@ -97,8 +97,8 @@ ax.set(
     xlim=[0.0, 5.1],
     ylim=[0.0, 5.1],
 #    ylim=[-3.0, 1.1],
-    xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
-    ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
+    xlabel=r"Projected planitude: $\Pi'$",
+    ylabel=r"Projected alatude: $\Lambda'$",
 )        
 
 sns.despine()

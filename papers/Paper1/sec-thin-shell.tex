@@ -106,6 +106,20 @@ calculate results for general \(k\) with aligned axes, so as to
 provide a richer variety of cylindrically symmetric bow shock shapes
 than are seen in the cantoids.
 
+\begin{figure}
+\includegraphics[width=\linewidth]{figs/ancantoid-shape}
+\caption{Bow shock shapes for interacting winds in the thin-shell
+  approximation: cantoids and ancantoids. Coordinates are normalized
+  by $D$, the distance between the two wind sources, which are
+  indicated by black dots on the axis.  The weaker source is at
+  \((0.0, 0.0)\) and the stronger source is at \((1.0, 0.0)\).
+  Results are shown for different values of the wind momentum ratio,
+  \(\beta\) (different line widths), and for the case where the weaker
+  wind is isotropic (black lines) or anisotropic (colored lines).}
+\label{fig:r-beta}
+\end{figure}
+
+
 The general solution for the bow shock shape, \(R(\theta)\), in the \CRW{}
 formalism is
 \begin{equation}
@@ -157,6 +171,27 @@ completeness:
   \end{aligned} 
 \end{gather}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/ancantoid-Pi-lambda-true}
+  \caption{True shapes of cantoids and ancantoids in the
+    \(\Pi\)--\(\Lambda\) plane, calculated according to results of
+    App.~\ref{sec:thin-shell-shapes}.  For each line, \(\beta\) varies
+    over the range \([0, 1]\) from lower left to upper right (although
+    the black and red lines are truncated on the upper right), and
+    line colors correspond to different anisotropy indices, matching
+    those used in Fig.~\ref{fig:r-beta}. Circle symbols mark
+    particular \(\beta\) values: \(0, 0.01, 0.1\), from largest to
+    smallest circle.  Square symbols mark \(\beta = 0.5\), but with
+    \(\Lambda\) calculated exactly, instead of using the approximation of
+    equation~\eqref{eq:Lambda-approx}.  The white plus symbol marks
+    the result for the wilkinoid:
+    \((\Pi, \Lambda) = (\frac53, \sqrt{3})\).  Background shading indicates
+    the domains of different quadric classes: hyperboloids (white),
+    prolate spheroids (dark gray), and oblate spheroids (light gray).}
+  \label{fig:ancantoid-Pi-lambda-true}
+\end{figure}
+
 We define \(\beta\) in this case as the momentum ratio \emph{on the symmetry axis}, which means that 
 \begin{equation}
   \label{eq:ancantoid-momentum-ratio}
@@ -190,49 +225,44 @@ the resultant bow shapes as \textit{ancantoids}.
 
 
 
-%The most notable scenarios, since they have astrophysical relevance are the following:
-%$k=1/2$ ak.a. the ``proplyd case'', following \citep{HA:1998}, and $k=0$, ak.a, the ``isotropic case'', following \CRW{}. The comparison between both solutions
-%is shown in figure (\ref{fig:r-beta}), along with an extreme anisotropy case. 
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "quadrics-bowshock"
-%%% End:
-
-\begin{figure}
-\includegraphics[width=\linewidth]{figs/ancantoid-shape}
-\caption{Bow shock shapes for interacting winds in the thin-shell
-  approximation: cantoids and ancantoids. Coordinates are normalized
-  by $D$, the distance between the two wind sources, which are
-  indicated by black dots on the axis.  The weaker source is at
-  \((0.0, 0.0)\) and the stronger source is at \((1.0, 0.0)\).
-  Results are shown for different values of the wind momentum ratio,
-  \(\beta\) (different line widths), and for the case where the weaker
-  wind is isotropic (black lines) or anisotropic (colored lines).}
-\label{fig:r-beta}
-\end{figure}
-
-
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{figs/ancantoid-Pi-lambda-true}
-  \caption{True shapes of cantoids and ancantoids in the
-    \(\Pi\)--\(\Lambda\) plane, calculated according to results of
-    App.~\ref{sec:thin-shell-shapes}.  For each line, \(\beta\) varies
-    over the range \([0, 1]\) from lower left to upper right (although
-    the black and red lines are truncated on the upper right), and
-    line colors correspond to different anisotropy indices, matching
-    those used in Fig.~\ref{fig:r-beta}. Circle symbols mark
-    particular \(\beta\) values: \(0, 0.01, 0.1\), from largest to
-    smallest circle.  Square symbols mark \(\beta = 0.5\), but with
-    \(\Lambda\) calculated exactly, instead of using the approximation of
-    equation~\eqref{eq:Lambda-approx}.  The white plus symbol marks
-    the result for the wilkinoid:
-    \((\Pi, \Lambda) = (\frac53, \sqrt{3})\).  Background shading indicates
-    the domains of different quadric classes: hyperboloids (white),
-    prolate spheroids (dark gray), and oblate spheroids (light gray).}
-  \label{fig:ancantoid-Pi-lambda-true}
+  \includegraphics[width=\linewidth]{figs/ancantoid-angles}
+  \caption{Equivalent quadric angles, \(\theta_{\Q}\), for ancantoids and
+    cantoids.  Solid lines show values of \(\theta_{\Q}\) calculated from
+    \((\Pi, \Lambda)\), which is representative of the shape of the head,
+    while dashed lines show \(\theta_{\Q}\) calculated from
+    \(\theta_\infty\), which is representative of the tail.  Dot-dashed line
+    shows the result for cantoids, which differ from the \(k=0\)
+    ancantoids in \(\theta_\infty\), but not in \((\Pi, \Lambda)\). Gray shading and
+    line colors have the same meaning as in
+    Fig.~\ref{fig:ancantoid-Pi-lambda-true}. }
+  \label{fig:ancantoid-angles}
 \end{figure}
+
+
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.9\linewidth]{figs/test_xyprime}
+  \caption{Apparent bow shapes as a function of inclination angle for
+    isotropic thin shell models. (a)~Confocal paraboloid for
+    comparison (shape independent of inclination).
+    (b)~Wilkinoid. (c)~Cantoid, \(\beta = 0.001\). (d)~Cantoid,
+    \(\beta = 0.01\). }
+  \label{fig:xyprime}
+\end{figure*}
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.9\linewidth]{figs/test_xyprime_ancantoid}
+  \caption{Further apparent bow shapes as a function of inclination
+    angle for anisotropic thin shell models (ancantoids).
+    (a)~\(\beta = 0.001\), \(k = 0.5\); (b) (a)~\(\beta = 0.1\),
+    \(k = 0.5\); (c)~\(\beta = 0.001\) \(k = 3\); (d)
+    \(\beta = 0.1\) \(k = 3\).}
+  \label{fig:xyprime-ancantoid}
+\end{figure*}
 
 
 \subsection{True shapes of cantoids and ancantoids}
@@ -282,21 +312,6 @@ than or greater than about \(0.01\).  For ancantoids of increasing
 almost the entire range of models with \(k = 8\) are within the
 prolate spheroid zone.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/ancantoid-angles}
-  \caption{Equivalent quadric angles, \(\theta_{\Q}\), for ancantoids and
-    cantoids.  Solid lines show values of \(\theta_{\Q}\) calculated from
-    \((\Pi, \Lambda)\), which is representative of the shape of the head,
-    while dashed lines show \(\theta_{\Q}\) calculated from
-    \(\theta_\infty\), which is representative of the tail.  Dot-dashed line
-    shows the result for cantoids, which differ from the \(k=0\)
-    ancantoids in \(\theta_\infty\), but not in \((\Pi, \Lambda)\). Gray shading and
-    line colors have the same meaning as in
-    Fig.~\ref{fig:ancantoid-Pi-lambda-true}. }
-  \label{fig:ancantoid-angles}
-\end{figure}
-
 However, the true planitude and alatude, which are what would be
 observed for a side-on viewing angle (\(i = 0\)), are not at all
 sensitive to the behavior of the far wings of the bow shock, which has
@@ -322,7 +337,7 @@ opening angle of the wings, \(\theta_\infty\) (Fig.~\ref{fig:characteristic-radi
   \theta_{\Q}\tail = \theta_\infty - 180^\circ \ , 
 \end{equation}
 where \(\theta_\infty\) is calculated from
-equation~\eqref{eq:anacantoid-theta-inf} for ancantoids, or
+equation~\eqref{eq:ancantoid-theta-inf} for ancantoids, or
 \eqref{eq:cantoid-theta-inf} for cantoids.  If the bow shock shape
 were truly a quadric, then these two definitions would agree.
 However, as seen in Figure~\ref{fig:ancantoid-angles}, this is not the
@@ -330,6 +345,7 @@ case for the cantoids and ancantoids.  While
 \(\smash[b]{\theta_{\Q}\head}\) generally corresponds to a prolate spheroid
 (except for the largest values of \(\beta\)),
 \(\smash[b]{\theta_{\Q}\tail}\) always corresponds to a hyperbola.  This
+tension between the shape of the head and the shape of the far wings
 has important implications for the projected shapes (as we will see in
 the next section), since the far wings influence the projected
 planitude and alatude when the inclination is large.
@@ -530,50 +546,53 @@ planitude and alatude when the inclination is large.
 % \subsection{Projection effects in the thin shell model}
 % \label{sec:proj-effects-thin}
 
+
+\begin{figure}
+  \centering
+  \setkeys{Gin}{width=\linewidth}
+  \begin{tabular}{@{}l@{}}
+    (a) \\
+    \includegraphics{figs/ancantoid-R90-vs-Rc-a} \\
+    (b) \\
+    \includegraphics{figs/ancantoid-R90-vs-Rc-b}
+  \end{tabular}
+  \caption{Apparent projected shapes of wilkinoid, cantoids and
+    ancantoids in the \(\Pi'\)--\(\Lambda'\) plane.  Colored dots indicate the
+    \(\abs{i} = 0\) position (as shown in
+    Fig.~\ref{fig:ancantoid-Pi-lambda-true}).}
+  \label{fig:thin-shell-R90-Rc}
+\end{figure}
+
 \subsection{Apparent shapes of projected cantoids and ancantoids}
 \label{sec:proj-shap-cant}
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.8\linewidth]{figs/test_xyprime}
-  \caption{Apparent bow shapes as a function of inclination angle for
-    isotropic thin shell models. (a)~Confocal paraboloid for
-    comparison (shape independent of inclination).
-    (b)~Wilkinoid. (c)~Cantoid, \(\beta = 0.001\). (d)~Cantoid,
-    \(\beta = 0.01\). }
-  \label{fig:xyprime}
-\end{figure*}
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.8\linewidth]{figs/test_xyprime_ancantoid}
-  \caption{Further apparent bow shapes as a function of inclination
-    angle for anisotropic thin shell models (ancantoids).
-    (a)~\(\beta = 0.001\), \(\xi =.8\); (b) (a)~\(\beta = 0.1\),
-    \(\xi =.8\); (c)~\(\beta = 0.001\) \(\xi =0.4\); (d)
-    \(\beta = 0.1\) \(\xi =0.4\).}
-  \label{fig:xyprime-anacantoid}
-\end{figure*}
+Figures~\ref{fig:xyprime} and~\ref{fig:xyprime-ancantoid} show the
+apparent bow shapes of various thin shell models (wilkinoid, cantoids,
+ancantoids) for different inclination angles \(\abs{i}\).  For
+comparison, Figure~\ref{fig:xyprime}a shows the confocal paraboloid,
+whose apparent shape is independent of inclination (see
+Appendix~\ref{app:parabola}).  The wilkinoid (Fig.~\ref{fig:xyprime}b)
+shows only subtle changes, with the wings becoming slightly more swept
+back as the inclination increases.  The cantoids
+(Fig.~\ref{fig:xyprime}c and d) behave in the opposite way, with the
+wings becoming markedly more open once \(\abs{i}\) exceeds
+\(60^\circ\) (for \(\beta = 0.001\)), or \(45^\circ\) (for
+\(\beta = 0.01\)).  The ancantoids (Fig.~\ref{fig:xyprime-ancantoid}) can
+show more complex behavior.  For instance, in the \(k = 0.5\),
+\(\beta = 0.001\) ancantoid (Fig.~\ref{fig:xyprime-ancantoid}a) the near
+wings begin to become more closed with increasing inclination up to
+\(\abs{i} = 60^\circ\), at which point they open up again.
 
 
-\begin{figure*}
-  \centering
-  \setkeys{Gin}{width=0.48\linewidth}
-  \begin{tabular}{@{}ll@{}}
-    (a) & (b) \\
-    \includegraphics{figs/ancantoid-R90-vs-Rc-a}
-        & \includegraphics{figs/ancantoid-R90-vs-Rc-b} \\
-  \end{tabular}
-  \caption{Diagnostic diagram for thin shell models}
-  \label{fig:thin-shell-R90-Rc}
-\end{figure*}
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.8\textwidth]{figs/two-quadric-R90-Rc-snapshots}
-  \caption{Variation with inclination angle of radii diagnostics}
-  \label{fig:thin-shell-R90-Rc-snapshots}
-\end{figure*}
+
+
+% \begin{figure*}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{figs/two-quadric-R90-Rc-snapshots}
+%   \caption{Variation with inclination angle of radii diagnostics}
+%   \label{fig:thin-shell-R90-Rc-snapshots}
+% \end{figure*}
 
 
 %%% Local Variables:
