@@ -16,7 +16,7 @@ except:
     sys.exit(f"Usage: {sys.argv[0]} a|b")
 
 sns.set_style('ticks')
-fig, ax = plt.subplots(figsize=(5, 5))
+fig, ax = plt.subplots(figsize=(4, 4))
 
 bp.N_NEIGHBORHOOD = 50
 bp.DEGREE_POLY_NEIGHBORHOOD = 2
@@ -41,7 +41,7 @@ ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
 XI_LIST = [None, 1.0, 0.8, 0.4]
-BETA_LIST = [0.2, 0.1, 0.05, 0.02, 0.005, 1e-3]
+BETA_LIST = [0.3, 0.1, 0.03, 0.01, 1e-3]
 nxi, nbeta = len(XI_LIST), len(BETA_LIST)
 
 # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
@@ -53,7 +53,13 @@ inc = np.linspace(0.0, th_inf - np.pi/2, 50)
 tab = bow_diagnostic.parameter_table(inc, shape)
 Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
 ax.plot(Rc, R90, '-', c='w', label="_nolabel_", lw=0.6, alpha=0.9)
-ax.plot(Rc, R90, 'x', ms=0.2, c='w', label="_nolabel_", alpha=0.5)
+sini = np.linspace(0.0, 1.0, 10)
+inc_e = np.arcsin(sini)
+tab_e = bow_diagnostic.parameter_table(inc_e, shape)
+Rc_e, R90_e = tab_e['tilde R_c prime'], tab_e['tilde R_90 prime']
+ax.scatter(Rc_e, R90_e, marker='|', s=3**2,
+           linewidths=0.1, edgecolors='none',
+           c='w', alpha=0.5, label="_nolabel_")
 
 
 cols = sns.color_palette('magma', n_colors=nxi)
@@ -75,19 +81,30 @@ for beta in BETA_LIST[::-1]:
             shape = ancantoid_shape.Ancantoid(xi=xi, beta=beta, n=301)
 
         th_inf = bp.theta_infinity(shape)
-        inc = np.linspace(0.0, th_inf - np.pi/2, 50)
+        inc = np.linspace(0.0, th_inf - np.pi/2, 100)
         tab = bow_diagnostic.parameter_table(inc, shape)
         Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
+        ax.plot(Rc, R90, '-', c=col, label=label, lw=0.7, alpha=0.9)
 
-        ax.plot(Rc, R90, '-', c=col, label=label, lw=0.4, alpha=0.9)
-        ax.plot(Rc, R90, 'x', ms=0.2, c=col, label="_nolabel_", alpha=0.5)
+        # Get points evenly spaced in sin i
+        sini = np.linspace(0.0, 1.0, 20)
+        inc_e = np.arcsin(sini)
+        inc_e = inc_e[inc_e < th_inf - np.pi/2]
+        tab_e = bow_diagnostic.parameter_table(inc_e, shape)
+        Rc_e, R90_e = tab_e['tilde R_c prime'], tab_e['tilde R_90 prime']
+        ax.scatter(Rc_e, R90_e, marker='|', s=3**2,
+                   linewidths=0.1, edgecolors='none',
+                   c=col, alpha=0.5, label="_nolabel_")
+
         # Put a dot at the i=0 case
-        ax.plot(Rc[0:1], R90[0:1], '.', mec='none', c=col, label="_nolabel_", alpha=0.7)
+        ax.plot(Rc[0:1], R90[0:1], 'o', mec='none', c=col, label="_nolabel_", alpha=0.7)
         # Label the dot with the cross-over inclination
-        ax.annotate(rf'$\beta = \mathrm{{{beta:g}}}$',
-                    xy=(Rc[0], R90[0]),
-                    textcoords='offset points',
-                    fontsize='x-small', color=col, **annot_pars)
+        beta_label = rf'$\beta = \mathrm{{{beta:g}}}$'
+        if beta_label.endswith('1}$'):
+            # But only for some of them
+            ax.annotate(beta_label, xy=(Rc[0], R90[0]),
+                        textcoords='offset points',
+                        fontsize='x-small', color=col, **annot_pars)
 
 
 ax.legend(ncol=1, fontsize='small', frameon=True)
@@ -102,6 +119,6 @@ ax.set(
 )        
 
 sns.despine()
-fig.tight_layout()
+fig.tight_layout(pad=0.5)
 fig.savefig(plotfile)
 print(plotfile, end='')
