@@ -646,7 +646,7 @@ python dust-wave-Rc-R90.py
 
 #+RESULTS:
 #+begin_example
-Sat Nov 11 22:34:05 CST 2017
+Sun Nov 12 08:44:39 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 test_xyprime.pdf -> ../papers/Paper1/figs/test_xyprime.pdf
 test_xyprime_dragoid.pdf -> ../papers/Paper1/figs/test_xyprime_dragoid.pdf
@@ -1217,7 +1217,7 @@ python test_phi_t.py
   figfile = sys.argv[0].replace('.py', '.pdf')
 
   sns.set_style('ticks')
-  fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+  fig, axes = plt.subplots(2, 2, figsize=(6, 6), sharex=True, sharey=True)
 
   inclinations = [0, 15, 30, 45, 60.1, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
@@ -1226,8 +1226,8 @@ python test_phi_t.py
   for shape_name, ax, R_theta, extra_pars in [
           ["Paraboloid", axes[0, 0], paraboloid_R_theta, ()],
           ["Wilkinoid", axes[0, 1], wilkinoid_R_theta, ()],
-          [r"Cantoid $\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
-          [r"Cantoid $\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
+          ["Cantoid\n" r"$\beta = 0.001$", axes[1, 0], cantoid_R_theta, (0.001,)],
+          ["Cantoid\n" r"$\beta = 0.01$", axes[1, 1], cantoid_R_theta, (0.01,)],
   ]:
       th_inf = theta_infinity(R_theta, *extra_pars)
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):
@@ -1246,17 +1246,19 @@ python test_phi_t.py
 
       ax.plot([0], [0], 'o', color='k')
 
-      ax.legend(title=shape_name, ncol=2, loc="center left")
-      ax.set(
-          xlabel=r"$x' / R_0'$",
-          ylabel=r"$y' / R_0'$",
-          xlim=[-7, 3],
-          ylim=[-5, 5],
-      )
-      ax.set_aspect('equal', adjustable='box')
+      ax.legend(title=shape_name, ncol=2, fontsize='small',
+                handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
+                loc="center left")
+      ax.set_aspect('equal', adjustable='box-forced')
 
+  axes[-1,0].set(
+      xlabel=r"$x' / R_0'$",
+      ylabel=r"$y' / R_0'$",
+      xlim=[-7, 3],
+      ylim=[-5, 5],
+  )
   sns.despine()
-  fig.tight_layout()
+  fig.tight_layout(pad=0.3, h_pad=0.1, w_pad=0.1)
   fig.savefig(figfile)
   print(figfile, end='')
 #+END_SRC
@@ -1721,7 +1723,7 @@ python ancantoid_shape.py
   figfile = sys.argv[0].replace('.py', '.pdf')
 
   sns.set_style('ticks')
-  fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+  fig, axes = plt.subplots(2, 2, figsize=(6, 6), sharex=True, sharey=True)
 
   inclinations = [0, 15, 30, 45, 60, 75]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
@@ -1732,7 +1734,7 @@ python ancantoid_shape.py
                        [0.4, 0.001, axes[1, 0]],
                        [0.4, 0.1, axes[1, 1]],]:
 
-      label = fr"Ancantoid $\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
+      label = "Ancantoid\n" fr"$\beta = {beta:.3f}$, $k = {2/xi - 2:.1f}$"
       shape = Ancantoid(xi=xi, beta=beta)
       th_inf = theta_infinity(shape)
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):
@@ -1754,17 +1756,19 @@ python ancantoid_shape.py
 
       ax.plot([0], [0], 'o', color='k')
 
-      ax.legend(title=label, ncol=2, loc="center left")
-      ax.set(
-          xlabel=r"$x' / R_0'$",
-          ylabel=r"$y' / R_0'$",
-          xlim=[-7, 3],
-          ylim=[-5, 5],
-      )
-      ax.set_aspect('equal', adjustable='box')
+      ax.legend(title=label, ncol=2, fontsize='small',
+                handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
+                loc="center left")
+      ax.set_aspect('equal', adjustable='box-forced')
 
+  axes[-1,0].set(
+      xlabel=r"$x' / R_0'$",
+      ylabel=r"$y' / R_0'$",
+      xlim=[-7, 3],
+      ylim=[-5, 5],
+  )
   sns.despine()
-  fig.tight_layout()
+  fig.tight_layout(pad=0.3, h_pad=0.1, w_pad=0.1)
   fig.savefig(figfile)
   print(figfile, end='')
 #+END_SRC

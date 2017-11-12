@@ -9,7 +9,7 @@ from ancantoid_shape import Ancantoid
 figfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('ticks')
-fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+fig, axes = plt.subplots(2, 2, figsize=(6, 6), sharex=True, sharey=True)
 
 inclinations = [0, 15, 30, 45, 60, 75]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
@@ -20,7 +20,7 @@ for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
                      [0.4, 0.001, axes[1, 0]],
                      [0.4, 0.1, axes[1, 1]],]:
 
-    label = fr"Ancantoid $\beta = {beta:.3f}$, $\xi = {xi:.1f}$"
+    label = "Ancantoid\n" fr"$\beta = {beta:.3f}$, $k = {2/xi - 2:.1f}$"
     shape = Ancantoid(xi=xi, beta=beta)
     th_inf = theta_infinity(shape)
     for inc_dg, color, lw in zip(inclinations, colors, linewidths):
@@ -42,16 +42,18 @@ for xi, beta, ax in [[0.8, 0.001, axes[0, 0]],
 
     ax.plot([0], [0], 'o', color='k')
 
-    ax.legend(title=label, ncol=2, loc="center left")
-    ax.set(
-        xlabel=r"$x' / R_0'$",
-        ylabel=r"$y' / R_0'$",
-        xlim=[-7, 3],
-        ylim=[-5, 5],
-    )
-    ax.set_aspect('equal', adjustable='box')
+    ax.legend(title=label, ncol=2, fontsize='small',
+              handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
+              loc="center left")
+    ax.set_aspect('equal', adjustable='box-forced')
 
+axes[-1,0].set(
+    xlabel=r"$x' / R_0'$",
+    ylabel=r"$y' / R_0'$",
+    xlim=[-7, 3],
+    ylim=[-5, 5],
+)
 sns.despine()
-fig.tight_layout()
+fig.tight_layout(pad=0.3, h_pad=0.1, w_pad=0.1)
 fig.savefig(figfile)
 print(figfile, end='')
