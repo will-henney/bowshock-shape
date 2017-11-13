@@ -41,7 +41,7 @@ ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
 XI_LIST = [None, 1.0, 0.8, 0.4]
-BETA_LIST = [0.3, 0.1, 0.03, 0.01, 1e-3]
+BETA_LIST = [1e-3, 1e-4, 1e-5]
 nxi, nbeta = len(XI_LIST), len(BETA_LIST)
 
 # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
@@ -63,7 +63,7 @@ ax.scatter(Rc_e, R90_e, marker='|', s=3**2,
 
 
 cols = sns.color_palette('magma', n_colors=nxi)
-annot_pars_list = [right_annotate_pars]*2 + [left_annotate_pars]*2 
+annot_pars_list = [right_annotate_pars]*4 
 for beta in BETA_LIST[::-1]:
     for xi, col, annot_pars in list(zip(XI_LIST, cols, annot_pars_list))[istart::-2]:
         k = None if xi is None else 2/xi - 2
@@ -100,19 +100,18 @@ for beta in BETA_LIST[::-1]:
         ax.plot(Rc[0:1], R90[0:1], 'o', mec='none', c=col, label="_nolabel_", alpha=0.7)
         # Label the dot with the cross-over inclination
         beta_label = rf'$\beta = \mathrm{{{beta:g}}}$'
-        if beta_label.endswith('1}$'):
-            # But only for some of them
-            ax.annotate(beta_label, xy=(Rc[0], R90[0]),
-                        textcoords='offset points',
-                        fontsize='x-small', color=col, **annot_pars)
+        # But only for some of them
+        ax.annotate(beta_label, xy=(Rc[0], R90[0]),
+                    textcoords='offset points',
+                    fontsize='x-small', color=col, **annot_pars)
 
 
 ax.legend(ncol=1, fontsize='small', frameon=True)
 ax.set(
     yscale='linear',
     xscale='linear',
-    xlim=[0.0, 5.1],
-    ylim=[0.0, 5.1],
+    xlim=[1.3, 2.0],
+    ylim=[1.3, 2.0],
 #    ylim=[-3.0, 1.1],
     xlabel=r"Projected planitude: $\Pi'$",
     ylabel=r"Projected alatude: $\Lambda'$",
