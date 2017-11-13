@@ -99,7 +99,7 @@ for beta in BETA_LIST[::-1]:
         # Put a dot at the i=0 case
         ax.plot(Rc[0:1], R90[0:1], 'o', mec='none', c=col, label="_nolabel_", alpha=0.7)
         # Label the dot with the cross-over inclination
-        beta_label = rf'$\beta = \mathrm{{{beta:g}}}$'
+        beta_label = rf'$\beta = 10^{{{int(np.log10(beta)):d}}}$'
         # But only for some of them
         ax.annotate(beta_label, xy=(Rc[0], R90[0]),
                     textcoords='offset points',

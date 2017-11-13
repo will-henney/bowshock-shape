@@ -290,6 +290,7 @@ It is apparent from Figure~\ref{fig:r-beta} that the \(k=0\) ancantoid
 is identical to the cantoid for \(\theta \le 90^\circ\) (\(z > 0\), to the right
 of vertical dotted line in Fig.~\ref{fig:r-beta}), but is slightly
 more swept back in the far wings.\footnote{%
+  \label{fn:discontinuity}
   Due to the discontinuity in the inner wind density at
   \(\theta = 90^\circ\) (see Fig.~\ref{fig:anisotropic-arrows}), there is a
   discontinuity in the second derivative of the bow shape.} %
@@ -557,9 +558,17 @@ planitude and alatude when the inclination is large.
     \includegraphics{figs/ancantoid-R90-vs-Rc-b}
   \end{tabular}
   \caption{Apparent projected shapes of wilkinoid, cantoids and
-    ancantoids in the \(\Pi'\)--\(\Lambda'\) plane.  Colored dots indicate the
-    \(\abs{i} = 0\) position (as shown in
-    Fig.~\ref{fig:ancantoid-Pi-lambda-true}).}
+    ancantoids in the \(\Pi'\)--\(\Lambda'\) plane.  Colored symbols indicate
+    the \(\abs{i} = 0\) position for \(\beta = 0.001\), \(0.003\),
+    \(0.01\), \(0.03\), \(0.1\), \(0.3\).  Thin lines show the
+    inclination-dependent tracks of each model, with tick marks along
+    each track for 20 equal-spaced values of \(\abs{\sin i}\).  Gray
+    shaded regions are as in
+    Fig.~\ref{fig:quadric-projection-continued}a.  The wilkinoid track
+    is shown in white. (a)~Isotropic wind model (cantoid) and
+    proplyd-like model (ancantoid, \(k = 0.5\)). (b)~Hemispheric wind
+    model (ancantoid, \(k = 0\)) and jet-like model (ancantoid,
+    \(k = 3\)).}
   \label{fig:thin-shell-R90-Rc}
 \end{figure}
 
@@ -585,10 +594,68 @@ wings begin to become more closed with increasing inclination up to
 opening angle of the far wings increases monotonically with
 \(\abs{i}\).
 
-The inclination-dependent tracks that are traced in the projected
-planitude--alatude plane are shown in
-Figure~\ref{fig:thin-shell-R90-Rc}.
+The inclination-dependent tracks that are traced by the thin-shell
+models in the projected planitude--alatude plane are shown in
+Figure~\ref{fig:thin-shell-R90-Rc}.  The behavior is qualitatively
+different from the quadric shapes shown in
+Figure~\ref{fig:quadric-projection-continued}a in that the tracks are
+no longer confined within the borders of the region of a single type
+of quadric (hyperboloid or spheroid). At low inclinations, many of the
+models behave like the prolate spheroids, but then transition to a
+hyperboloid behavior at higher inclinations, which is due to the
+tension between the shape of the head and the shape of the far wings,
+as discussed in the previous section. This can be seen most clearly in
+the \(\beta = 0.001\), \(k = 0.5\) ancantoid (lowest red line in
+Fig.~\ref{fig:thin-shell-R90-Rc}a, see also zoomed version in
+Fig.~\ref{fig:convergence-cantoid-wilkinoid}). The track begins
+heading towards \((\Pi', \Gamma') = (1, 1)\), as expected for a spheroid, but
+then turns around and crosses the paraboloid line to head out on a
+hyperboloid-like track.
 
+Ancantoids with different degrees of inner-wind anisotropy are shown
+in Figure~\ref{fig:thin-shell-R90-Rc}b.  In all cases, the tracks
+follow hyperboloid-like behavior at high inclinations, tending to
+populate the region just above the diagonal \(\Lambda' = \Pi'\).  The
+\(k = 0\) ancantoids show a kink in their tracks at the point where
+the projected apex passes through \(\theta = 90^\circ\), due to the
+discontinuity in the second derivative of \(R(\theta)\) there (see
+footnote~\ref{fn:discontinuity}).  The wilkinoid has a much less
+interesting track, most clearly seen in the zoomed
+Figure~\ref{fig:convergence-cantoid-wilkinoid}, simply moving the
+short distance from \((\tfrac53, \sqrt3)\) to
+\((\tfrac32, \mathbf{???})\).  Despite its location in the ellipsoid
+region of the plane, the fact that it has \(\theta_\infty = 180^\circ\) means that it
+behaves more like a parabola at high inclination, but converges on
+\((\tfrac32, \mathbf{???})\) instead of \((2, 2)\) since the far wings
+are asymptotically cubic, rather than quadratic.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/ancantoid-R90-vs-Rc-lobeta-a}
+  \caption{As Fig.~\ref{fig:thin-shell-R90-Rc}a but zoomed in to show
+    the wilkinoid track (white) and the convergence of the cantoid
+    tracks (purple) to this as \(\beta \to 0\).}
+  \label{fig:convergence-cantoid-wilkinoid}
+\end{figure}
+
+The local density of tick marks gives an indication of how likely it
+would be to observe each portion of the track, assuming an isotropic
+distribution of viewing angles.  It can be seen that the ticks tend to
+be concentrated towards the beginning of each track, near the
+\(\abs{i} = 0\) point, so the hyperboloid-like portions of the tracks
+would be observed for only a relatively narrow range of inclinations.
+This concentration becomes more marked as \(\beta\) becomes smaller, which
+helps to resolve the apparent paradox that the wilkinoid corresponds
+to the \(\beta \to 0\) limit of the cantoids, and yet follows a
+qualitatively different track.  The detailed behavior of the
+small-\(\beta\) cantoid models is shown in
+Figure~\ref{fig:convergence-cantoid-wilkinoid}, which zooms in on the
+region around the wilkinoid track.  It can be seen that for
+\(\beta < 0.001\) the cantoid tracks begin to develop a downward hook,
+similar to the \(k = 0.5\) ancantoids discussed above.  For
+\(\beta < 10^{-4}\) this begins to approach the wilkinoid track and the
+high inclination, upward portion of the track becomes less and less
+important as \(\beta\) decreases.
 
 
 

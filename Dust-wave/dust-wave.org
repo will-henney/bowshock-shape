@@ -646,7 +646,7 @@ python dust-wave-Rc-R90.py
 
 #+RESULTS:
 #+begin_example
-Sun Nov 12 18:13:14 CST 2017
+Sun Nov 12 20:13:04 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 test_xyprime.pdf -> ../papers/Paper1/figs/test_xyprime.pdf
 test_xyprime_dragoid.pdf -> ../papers/Paper1/figs/test_xyprime_dragoid.pdf
@@ -2797,7 +2797,7 @@ python ancantoid-R90-vs-Rc.py b
           # Put a dot at the i=0 case
           ax.plot(Rc[0:1], R90[0:1], 'o', mec='none', c=col, label="_nolabel_", alpha=0.7)
           # Label the dot with the cross-over inclination
-          beta_label = rf'$\beta = \mathrm{{{beta:g}}}$'
+          beta_label = rf'$\beta = 10^{{{int(np.log10(beta)):d}}}$'
           # But only for some of them
           ax.annotate(beta_label, xy=(Rc[0], R90[0]),
                       textcoords='offset points',
