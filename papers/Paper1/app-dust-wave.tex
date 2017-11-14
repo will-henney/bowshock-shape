@@ -48,7 +48,8 @@ radiation pressure efficiency\footnote{%
   For absorption efficiency \(Q_{\text{abs}}\), scattering efficiency
   \(Q_{\text{scat}}\), and asymmetry parameter (mean scattering
   cosine) \(g\), we have
-  \(\Qp = Q_{\text{abs}} + (1 - g) Q_{\text{scat}}\).  } %
+  \(\Qp = Q_{\text{abs}} + (1 - g) Q_{\text{scat}}\)
+  \citep[e.g., \S~4.5 of][]{Bohren:1983a}.} %
 of the grain, \(c\) is the speed of light, and \(\tau\) is the
 frequency-averaged optical depth between the source and the grain.
 For simplicity, we will consider only the optically thin case,
@@ -56,40 +57,42 @@ For simplicity, we will consider only the optically thin case,
 
 If \(\frad\) is the only force experienced by the grain, then it will
 move on a \textit{ballistic} trajectory, determined by its initial
-speed at large distance, \(u_\infty\), and its impact parameter, \(b\).
+speed at large distance, \(v_\infty\), and its impact parameter, \(b\).
 For \(b = 0\), the grain radially approaches the source with initial
-radial velocity \(-u_\infty\), which is decelerated to zero at the distance
+radial velocity \(-v_\infty\), which is decelerated to zero at the distance
 of closest approach, \(R_0\), given by energy conservation:
 \begin{equation}
   \label{eq:dust-r0}
-  R_0 = \frac{\xsec \Qp L} {2 \pi c m\grain u_\infty^2} \ ,
+  R_0 = \frac{\xsec \Qp L} {2 \pi c m\grain v_\infty^2} \ ,
 \end{equation}
 where \(m\grain\) is the grain mass.  The grain then turns round and
 recedes from the source along the same radius, reaching a velocity of
-\(+u_\infty\) at large distance.  For \(b > 0\), the trajectory,
-\(R(\theta)\), is readily found\footnote{%
+\(+v_\infty\) at large distance.  For \(b > 0\), the trajectory,
+\(R\grain(\theta; b)\), is found\footnote{%
   The problem is formally identical to that of Rutherford scattering,
   or (modulo a change of sign) planetary orbits.  The method of
   solution (via introduction of a centrifugal potential term and
   reduction to a 1-dimensional problem) can be found in any classical
-  mechanics text \citep[e.g.,][\S~14]{Landau:1976a}. } in polar
-coordinates as
+  mechanics text \citep[e.g.,][\S~14]{Landau:1976a}.} %
+to be hyperbolic, characterized by an eccentricity,
+\(\varepsilon = \bigl( 1 + 4 b^2 / R_0^2\bigr)^{1/2}\), and polar angle of
+closest approach, \(\thm = \cos^{-1} \varepsilon^{-1}\).  The trajectory is
+symmetrical about \(\thm\) and can be written as
 \begin{equation}
   \label{eq:dust-r-theta}
   \frac{R\grain(\theta; b)} {R_0} = 
-  \frac{ \tfrac12 \bigl( \varepsilon^2 - 1 \bigr)} {\varepsilon \cos(\theta - \thm) - 1}
+  \frac{ \tfrac12 \bigl( \varepsilon^2 - 1 \bigr)} {\varepsilon \cos(\theta - \thm) - 1} \ , 
 \end{equation}
-where \(\varepsilon^2 = 1 + 4 b^2 / R_0^2\) and
-\(\thm = \cos^{-1} \varepsilon\) is the polar angle of closest approach along
-the trajectory (see Fig.~\ref{fig:dust-trajectories}).  If the
-incoming dust grains initially travel along parallel trajectories with
-varying \(b\), but the same \(u_\infty\), then the deflection of the
-trajectories by the radiative force will form a bow wave around the
-radiation source, as shown in Figure~\ref{fig:dust-trajectories}.
-However, the inner edge of the bow wave, \(R_{\text{in}}(\theta)\) is not
-given by the closest approach along individual trajectories,
-\(R\grain(\thm; b)\), but instead must found by minimizing
-\(R\grain(\theta; b)\) over all \(b\) for each value of \(\theta\), which yields
+with a total deflection angle of \(2 \thm\), which is equal to
+\(90^\circ\) when \(b = 0.5 R_0\).  If the incoming dust grains initially
+travel along parallel trajectories with varying \(b\), but the same
+\(v_\infty\), then deflection by the radiative force will form a bow wave
+around the radiation source, as shown in
+Figure~\ref{fig:dust-trajectories}.  However, the inner edge of the
+bow wave, \(R_{\text{in}}(\theta)\) is not given by the closest approach
+along individual trajectories, \(R\grain(\thm; b)\), but instead must
+found by minimizing \(R\grain(\theta; b)\) over all \(b\) for each value of
+\(\theta\), which yields
 \begin{equation}
   \label{eq:dust-r-in}
   \frac{R_{\text{in}}(\theta)} {R_0} = \frac{2}{1 + \cos\theta} \ .
@@ -97,6 +100,17 @@ given by the closest approach along individual trajectories,
 This is the polar form of the equation for the confocal parabola,
 which we have already discussed in detail in \S~\ref{sec:conic} and
 Appendix~\ref{app:parabola}.
+
+The length scale, \(R_0\), of the bow wave depends on the grain
+properties via the combination \(\xsec \Qp / m\grain\).  For grains of
+size \(a\grain\) and internal density \(\rho\grain\), we have
+\(\xsec / m\grain \approx (a\grain \rho\grain)^{-1}\).  For radiation with
+wavelength smaller than the grain size, \(\lambda < a\grain\), the
+efficiency is \(\Qp \sim 1\), whereas for \(\lambda > a\grain\) it is
+\(\Qp \sim a\grain/\lambda\).  Therefore, we would expect \(R_0\) to be almost
+independent of grain size for small grains, but to vary as
+\(R_0 \propto a\grain^{-1}\) for large grains, where small/large is relative
+to the peak wavelength of the radiation source.
 
 \begin{figure*}
   \centering
@@ -112,6 +126,7 @@ Appendix~\ref{app:parabola}.
     line.}
   \label{fig:dust-wave-coupling}
 \end{figure*}
+
 
 
 \begin{figure}
