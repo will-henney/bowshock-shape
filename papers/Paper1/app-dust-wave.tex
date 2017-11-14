@@ -27,7 +27,7 @@ to the action of radiation pressure on dust grains.
 
 
 \newcommand\Qp{\ensuremath{Q_{\text{p}}}}
-\newcommand{\grain}{\ensuremath{_{\text{g}}}}
+\newcommand{\grain}{\ensuremath{_{\text{d}}}}
 \newcommand{\xsec}{\ensuremath{\sigma\grain}}
 \newcommand\frad{\ensuremath{f_{\text{rad}}}}
 \newcommand\thm{\ensuremath{\theta_{\text{m}}}}
@@ -110,7 +110,10 @@ efficiency is \(\Qp \sim 1\), whereas for \(\lambda > a\grain\) it is
 \(\Qp \sim a\grain/\lambda\).  Therefore, we would expect \(R_0\) to be almost
 independent of grain size for small grains, but to vary as
 \(R_0 \propto a\grain^{-1}\) for large grains, where small/large is relative
-to the peak wavelength of the radiation source.
+to the peak wavelength of the radiation source.  In principle, a
+polydisperse population of grains could produce a blurring of the
+observed bow wave, but only if large grains contribute significantly
+to the dust emission.
 
 \begin{figure*}
   \centering
@@ -127,6 +130,33 @@ to the peak wavelength of the radiation source.
   \label{fig:dust-wave-coupling}
 \end{figure*}
 
+\newcommand\fdrag{\ensuremath{f_{\text{drag}}}}
+\newcommand{\gas}{\ensuremath{_{\text{gas}}}}
+\newcommand\Qdrag{\ensuremath{Q_{\text{drag}}}}
+\newcommand\soundspeed{\ensuremath{c_{\text{s,gas}}}}
+
+More realistically, a grain will also be subject to a drag force,
+\(\fdrag\), due to its relative motion with respect to gas or plasma
+particles. If the gas density, velocity, and sound speed are
+\(\rho\gas\), \(v\gas\), and \(\soundspeed\), then a grain with velocity
+\(v\grain\) will experience a drag force
+\begin{equation}
+  \label{eq:dust-fdrag}
+  \fdrag \approx \Qdrag \xsec \rho\gas (v\grain - v\gas)^2 
+\end{equation}
+so long as the relative speed, \(w = v\grain - v\gas\), is supersonic:
+\(\abs{w} > \soundspeed\).  If the grain is charged and immersed in an
+ionized plasma, then the interaction cross section is boosted by a
+factor \(\Qdrag\) with respect to the geometric one due to long-range
+Coulomb interactions \citep{Draine:1979a}.  We neglect the back
+reaction of the dust on the gas motion and assume a uniform background
+gas flow with \(v\gas = -v_\infty\).  We can define a characteristic
+asymptotic drift speed, \(w_0\), to be the value of \(w\) that gives
+\(\fdrag = \frad\) at \(R = R_0\), so that
+\begin{equation}
+  \label{eq:dust-w0}
+  w_0 = \left( \frac{\Qp L} {4\pi c \Qdrag \rho\gas R_0^2} \right)^{1/2}
+\end{equation}
 
 
 \begin{figure}
