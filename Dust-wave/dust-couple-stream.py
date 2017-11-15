@@ -45,15 +45,16 @@ for alpha, ax in zip(alphas, axes.flat):
                                range=[[xmin, xmax], [ymin, ymax]])
     rho_m = np.median(H)
     ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
-              vmin=0.0, vmax=2.0*rho_m)
+              vmin=0.0, vmax=2.0*rho_m, cmap='gray_r')
     # Plot the streamlines that we saved earlier
     for x, y in zip(xs, ys):
-        ax.plot(x, y, '-', color='c', lw=0.5)
+        ax.plot(x, y, '-', color='w', lw=0.8, alpha=0.5)
+        ax.plot(x, y, '-', color='k', lw=0.5)
     ax.plot(xlocus, ylocus, ':', color='w', alpha=0.5, lw=2)
     ax.axvline(0.0, ls='--', color='w', lw=0.5)
     ax.text(1.0, 4.0, 
             fr"$\alpha_\mathrm{{drag}} = {alpha:.2f}$",
-            color='y')
+            color='k')
     ax.set_aspect('equal', adjustable='box-forced')
 
     # Save the minimum radius as a function of theta
@@ -79,5 +80,5 @@ for ax in axes[-1, :]:
 
 sns.despine()
 fig.tight_layout()
-fig.savefig(figfile, dpi=300)
+fig.savefig(figfile, dpi=600)
 print(figfile, end='')

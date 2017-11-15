@@ -7,7 +7,7 @@ figfile = sys.argv[0].replace('.py', '.pdf')
 
 # Impact parameter
 b = 0.001
-stream = streamline(Y0=b, alpha=1.0/2.0)
+stream = streamline(Y0=b, alpha=1.0/2.0, tstop=90, X0=15., n=501)
 sns.set_style('white')
 sns.set_color_codes()
 fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
@@ -25,9 +25,9 @@ axp.plot(stream['y'], stream['v'], label='$(y, v)$')
 axp.axhline(0, color='k', lw=0.5)
 axp.legend(title='Phase space')
 axp.set(xlabel='$x$, $y$', ylabel='$u$, $v$',
-        xlim=[-3, 5], ylim=[-1.1, 1.1])
+        xlim=[-13, 15], ylim=[-1.1, 1.1])
 
-sns.despine()
+sns.despine(trim=True)
 fig.tight_layout()
 fig.savefig(figfile)
 print(figfile, end='')
