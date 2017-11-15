@@ -3,7 +3,7 @@
 + So, I am moving it here to give it room to grow
 ** Copy dust wave figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf'
+  FIGFILES='dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf dust-coupling-1d.pdf'
   date
   pwd
   for f in $FIGFILES; do
@@ -12,11 +12,12 @@
 #+END_SRC
 
 #+RESULTS:
-: Wed Oct  4 11:18:53 CDT 2017
+: Tue Nov 14 20:26:33 CST 2017
 : /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 : dust-couple-stream-annotate.pdf -> ../papers/Paper1/figs/dust-couple-stream-annotate.pdf
 : dust-wave-Rc-R90-error.pdf -> ../papers/Paper1/figs/dust-wave-Rc-R90-error.pdf
 : dust-wave-Rc-R90.pdf -> ../papers/Paper1/figs/dust-wave-Rc-R90.pdf
+: dust-coupling-1d.pdf -> ../papers/Paper1/figs/dust-coupling-1d.pdf
 
 ** Dust grain trajectories
 + The figure of these in the case of zero gas-grain coupling is done in [[id:8EC004CA-32CC-4B41-830C-535FF79B0544][Dust grain trajectories in a central force]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Quadric-shapes/quadric-projected-2017.org][../Quadric-shapes/quadric-projected-2017.org]]
@@ -54,26 +55,41 @@
   alpha = 1.0/2.0
 
   # Time grid
-  t = np.linspace(0.0, 60.0, 201)
-
+  t = np.linspace(0.0, 60.0, 501)
   soln = odeint(dydt, y0, t, args=(alpha,))
 
-  sns.set_style('white')
+  # Slippage velocity
+  w = 1.0 + soln[:, 1]
+  # Drift velocity
+  wdrift = 1.0 / alpha / soln[:, 0]
+
+  sns.set_style('ticks')
   sns.set_color_codes('dark')
   fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
-  ax.plot(t, soln[:, 1], label='$u$')
   ax.plot(t, soln[:, 0], label='$x$')
-  ax.axhspan(0.0, 1.0, color='k', alpha=0.1)
-  ax.legend()
-  ax.set(xlabel='Time', ylim=[None, 4])
+  ax.plot(t, w, label='$w$')
+  ax.plot(t, wdrift, ls='--', label='$w_\mathrm{drift}$')
 
-  axp.plot(soln[:, 0], soln[:, 1])
-  axp.axhline(0, color='k', lw=0.5)
+  ax.axhline(1.0/alpha, ls=':', color='k', lw=0.8)
+  ax.axhspan(0.0, 1.0, color='k', alpha=0.1)
+  ax.legend(title=r"$\alpha_\mathrm{drag} = 0.5$")
+  ax.set(xlabel='Time', ylim=[None, 4])
+  t2 = np.linspace(0.0, 20.0, 201)
+  soln2 = odeint(dydt, y0, t2, args=(2.0,))
+  soln0 = odeint(dydt, y0, t2, args=(0.0,))
+
+  axp.plot(soln0[:, 0], soln0[:, 1], label=r"$\alpha_\mathrm{drag} = 0$")
+  axp.plot(soln[:, 0], soln[:, 1], label=r"$\alpha_\mathrm{drag} = 0.5$")
+  axp.plot(soln2[:, 0], soln2[:, 1], label=r"$\alpha_\mathrm{drag} = 2$")
+  axp.axhline(0, xmax=0.55, color='k', lw=0.5)
+  axp.legend(title='Phase space')
   axp.set(xlabel='$x$', ylabel='$u$',
-          xlim=[None, 5], ylim=[-1, 1])
+          xlim=[0, 7], ylim=[-1, 1], yticks=[-1.0, -0.5, 0., 0.5, 1.0])
 
   sns.despine()
   fig.tight_layout()
+  fig.text(0.02, 0.97, '(a)')
+  fig.text(0.02, 0.5, '(b)')
   fig.savefig(figfile)
   print(figfile, end='')
 #+END_SRC

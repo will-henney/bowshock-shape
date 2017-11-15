@@ -55,6 +55,10 @@ frequency-averaged optical depth between the source and the grain.
 For simplicity, we will consider only the optically thin case,
 \(\tau \to 0\).
 
+\subsection{Gas-free bow wave}
+\label{sec:gas-free-bow}
+
+
 If \(\frad\) is the only force experienced by the grain, then it will
 move on a \textit{ballistic} trajectory, determined by its initial
 speed at large distance, \(v_\infty\), and its impact parameter, \(b\).
@@ -101,9 +105,9 @@ This is the polar form of the equation for the confocal parabola,
 which we have already discussed in detail in \S~\ref{sec:conic} and
 Appendix~\ref{app:parabola}.
 
-The length scale, \(R_0\), of the bow wave depends on the grain
-properties via the combination \(\xsec \Qp / m\grain\).  For grains of
-size \(a\grain\) and internal density \(\rho\grain\), we have
+The apex stagnation radius, \(R_0\), of the bow wave depends on the
+grain properties via the combination \(\xsec \Qp / m\grain\).  For
+grains of size \(a\grain\) and internal density \(\rho\grain\), we have
 \(\xsec / m\grain \approx (a\grain \rho\grain)^{-1}\).  For radiation with
 wavelength smaller than the grain size, \(\lambda < a\grain\), the
 efficiency is \(\Qp \sim 1\), whereas for \(\lambda > a\grain\) it is
@@ -114,6 +118,24 @@ to the peak wavelength of the radiation source.  In principle, a
 polydisperse population of grains could produce a blurring of the
 observed bow wave, but only if large grains contribute significantly
 to the dust emission.
+
+
+\newcommand\drag{\ensuremath{_{\text{drag}}}}
+\newcommand{\gas}{\ensuremath{_{\text{gas}}}}
+\newcommand{\drift}{\ensuremath{_{\text{drift}}}}
+\newcommand\soundspeed{\ensuremath{c_{\text{s,gas}}}}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/dust-coupling-1d}
+  \caption{Dust-gas coupling for an on-axis (purely radial) trajectory
+    with \(\alpha\drag = 0.5\). (a)~Grain velocity (in units of
+    \(v_\infty\)) and radius (in units of \(R_0\)) versus time. (b)~Phase
+    space trajectory. Grain spirals in on point
+    \((x, u) = (\alpha\drag^{-1}, 0)\).}
+  \label{fig:dust-coupling-1d}
+\end{figure}
 
 \begin{figure*}
   \centering
@@ -130,33 +152,61 @@ to the dust emission.
   \label{fig:dust-wave-coupling}
 \end{figure*}
 
-\newcommand\fdrag{\ensuremath{f_{\text{drag}}}}
-\newcommand{\gas}{\ensuremath{_{\text{gas}}}}
-\newcommand\Qdrag{\ensuremath{Q_{\text{drag}}}}
-\newcommand\soundspeed{\ensuremath{c_{\text{s,gas}}}}
+
+\subsection{Bow wave with gas drag}
+\label{sec:bow-wave-drag}
 
 More realistically, a grain will also be subject to a drag force,
-\(\fdrag\), due to its relative motion with respect to gas or plasma
+\(f\drag\), due to its relative motion with respect to gas or plasma
 particles. If the gas density, velocity, and sound speed are
 \(\rho\gas\), \(v\gas\), and \(\soundspeed\), then a grain with velocity
-\(v\grain\) will experience a drag force
+\(v\grain\) will experience a drag force that is directed opposite to
+the relative velocity, \(w = v\grain - v\gas\).  In the supersonic
+limit, \(\abs{w} \gg \soundspeed\), the magnitude of the force is
 \begin{equation}
   \label{eq:dust-fdrag}
-  \fdrag \approx \Qdrag \xsec \rho\gas (v\grain - v\gas)^2 
+  \abs{f\drag} \approx Q\drag \xsec \rho\gas w^2 \ ,
 \end{equation}
-so long as the relative speed, \(w = v\grain - v\gas\), is supersonic:
-\(\abs{w} > \soundspeed\).  If the grain is charged and immersed in an
-ionized plasma, then the interaction cross section is boosted by a
-factor \(\Qdrag\) with respect to the geometric one due to long-range
-Coulomb interactions \citep{Draine:1979a}.  We neglect the back
+where \(Q\drag\) is a boost factor to account for the increase in
+cross section due to the Coulomb force when a charged grain interacts
+with an ionized plasma \citep{Draine:1979a}.  We neglect the back
 reaction of the dust on the gas motion and assume a uniform background
-gas flow with \(v\gas = -v_\infty\).  We can define a characteristic
-asymptotic drift speed, \(w_0\), to be the value of \(w\) that gives
-\(\fdrag = \frad\) at \(R = R_0\), so that
+gas flow with \(v\gas = -v_\infty\).
+
+
+
+Considering the incoming flow on the symmetry axis, at each radius
+there is an asymptotic gas--grain drift speed, \(w\drift\), for which
+the radiative and drag forces exactly cancel, \(f\drag = -\frad\),
+yielding
 \begin{equation}
-  \label{eq:dust-w0}
-  w_0 = \left( \frac{\Qp L} {4\pi c \Qdrag \rho\gas R_0^2} \right)^{1/2}
+  \label{eq:dust-wdrift}
+  w\drift = \left( \frac{\Qp L} {4\pi c Q\drag \rho\gas R^2} \right)^{1/2} \ .
 \end{equation}
+Any deviation of \(w\) from \(w\drift\) produces unbalanced forces
+that tend to restore \(w \to w\drift\).  We define a dimensionless
+coupling coefficient, \(\alpha\drag\), to be the speed of the incoming
+stream in units of the drift velocity at the radiative stagnation
+radius:
+\begin{equation}
+  \label{eq:dust-alpha}
+  \alpha\drag \equiv \frac{v_\infty} {w\drift(R_0)} = \left(
+    Q\drag \frac{R_0 / a\grain} {\rho\grain / \rho\gas}
+  \right)^{1/2} \ ,
+\end{equation}
+where we have used equation~\eqref{eq:dust-r0} and suppressed a
+grain-shape dependent geometric factor of order unity.  If
+\(\alpha\drag \ll 1\), then \(w\drift \gg v_\infty\) out to several times the
+stagnation radius, so the radiation field has no difficulty in
+effectively decoupling the grain from the gas and producing the
+velocity difference, \(w = 2 v_\infty\), that is required to turn the grain
+around and expel it towards the direction whence it came.  However,
+for non-zero \(\alpha\drag\) the \(R^{-1}\) dependence of \(w\drift\)
+(eq.~\eqref{eq:dust-wdrift}) means that the grain will
+\textit{re-couple} to the inflowing gas stream around a radius
+\(\approx R_0 / \alpha\drag \) and be swept in again for another try.  This
+behavior is illustrated in Figure~\ref{fig:dust-coupling-1d}, where it can be seen that 
+
 
 
 \begin{figure}
