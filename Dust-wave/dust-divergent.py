@@ -6,9 +6,9 @@ import seaborn as sns
 figfile = sys.argv[0].replace('.py', '.pdf')
 NTH = 4001
 MU = 1./10.
-sns.set_style('white')
+sns.set_style('ticks')
 sns.set_color_codes('dark')
-fig, ax = plt.subplots(figsize=(7, 3))
+fig, ax = plt.subplots(figsize=(4, 4))
 blist = np.linspace(0.0, 6.0) + 0.01
 thmlist = np.arccos(1./np.sqrt(1.0 + 4.0*blist**2))
 for thm, b in zip(thmlist, blist):
@@ -28,16 +28,22 @@ for thm, b in zip(thmlist, blist):
     ax.plot(x[m_out], y[m_out], '-', color='r', alpha=0.8, lw=0.5)
 thm_grid = np.linspace(0.0, np.pi, 200)
 rm = 2.0/(1.0 + np.cos(thm_grid))
+ecc = 1.0/(1.0 - (3/2)*MU)**(4/3)
+rmh = (1.0 + ecc)/(1.0 + ecc*np.cos(thm_grid))
+rmh[rmh < 0.0] = np.nan
 xlocus = rm*np.cos(thm_grid)
 ylocus = rm*np.sin(thm_grid)
 ax.plot(xlocus, ylocus, '-', color='k', alpha=0.2, lw=3)
+xlocus = rmh*np.cos(thm_grid)
+ylocus = rmh*np.sin(thm_grid)
+ax.plot(xlocus, ylocus, '-', color='k', alpha=0.2, lw=3)
 
 ax.plot([0.0], [0.0], '*', color='r')
-ax.set(xlim=[-3, 11], ylim=[-0.1, 5.9],
+ax.set(xlim=[-3.1, 3.9], ylim=[-0.1, 6.9],
        xlabel="$x / R_0$",
        ylabel="$y / R_0$")
 ax.set_aspect('equal')
-sns.despine()
+sns.despine(trim=True)
 fig.tight_layout()
 fig.savefig(figfile)
 print(figfile, end='')

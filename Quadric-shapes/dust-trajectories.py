@@ -5,9 +5,9 @@ import seaborn as sns
 
 figfile = sys.argv[0].replace('.py', '.pdf')
 NTH = 4001
-sns.set_style('white')
+sns.set_style('ticks')
 sns.set_color_codes('dark')
-fig, ax = plt.subplots(figsize=(5, 5))
+fig, ax = plt.subplots(figsize=(4, 4))
 blist = np.linspace(0.0, 6.0) + 0.01
 thmlist = np.arccos(1./np.sqrt(1.0 + 4.0*blist**2))
 for thm in thmlist:
@@ -30,10 +30,10 @@ ylocus = rm*np.sin(thm_grid)
 ax.plot(xlocus, ylocus, '-', color='k', alpha=0.2, lw=3)
 
 ax.plot([0.0], [0.0], '*', color='r')
-ax.set(xlim=[-3, 3], ylim=[-0.1, 5.9],
+ax.set(xlim=[-3.1, 3.9], ylim=[-0.1, 6.9],
        xlabel="$x / R_0$",
        ylabel="$y / R_0$")
-sns.despine()
+sns.despine(trim=True)
 fig.tight_layout()
 fig.savefig(figfile)
 print(figfile, end='')
