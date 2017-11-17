@@ -15,7 +15,7 @@ class Dragoid(object):
         astring += '.tab'
         self.label = fr"$\alpha_\mathrm{{drag}} =  {alpha:.02f}$"
         if mu is not None:
-            self.label += '\n' + fr"$\mu =  {mu:.02f}$"
+            self.label += ', ' + fr"$\mu =  {mu:.02f}$"
         t = Table.read(astring, format='ascii.tab')
         dth = np.pi/len(t)
         self.thgrid = t['theta'] + 0.5*dth
@@ -43,8 +43,10 @@ if __name__ == "__main__":
     th = np.linspace(-np.pi, np.pi, 1001)
     th_dg = np.degrees(th)
 
-    for alpha in [0.25, 0.5, 1.0, 2.0]:
-        shape = Dragoid(alpha=alpha)
+    alphas = [0.25, 0.5, 1.0, 2.0] + [4.0, 4.0]
+    mus = [None]*4 + [0.2, 0.8]
+    for alpha, mu in zip(alphas, mus):
+        shape = Dragoid(alpha=alpha, mu=mu)
         ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
                 color='b', alpha=0.2, lw=2, label='_nolabel_')
         ax.plot(th_dg, shape(th), lw=0.8, label=shape.label)

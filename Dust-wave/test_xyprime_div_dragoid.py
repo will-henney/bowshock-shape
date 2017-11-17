@@ -16,8 +16,10 @@ inclinations = [0.0, 15.0, 30.01, 45.0, 60.0, 75.01]
 linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
 colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
+# alphas = [1.0, 1.0, 2.0, 2.0]
+# mus = [0.05, 0.2, 0.05, 0.2]
 alphas = [1.0, 1.0, 4.0, 4.0]
-mus = [0.05, 0.2, 0.05, 0.2]
+mus = [0.05, 0.2, 0.2, 0.8]
 for alpha, mu, ax in zip(alphas, mus, axes.flat):
     shape = Dragoid(alpha=alpha, mu=mu)
     th_inf = theta_infinity(shape)

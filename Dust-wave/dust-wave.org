@@ -311,8 +311,15 @@ python dust-couple-stream.py
 
 + I will now annotate this figure with Graphic.app
   + PDF export in [[file:dust-couple-stream-annotate.pdf]]
-
 + Now repeat for a divergent incident stream
+  + We have problems with the large \alpha_drag models because the bow gets
+    small.  So what I will do is to scale the lengths by 1/(1 +
+    \alpha_drag), which should make the stand-off distances be the same in
+    all cases.
+  + Except the factor isn't exactly that.
+    + Maybe just try 1/\alpha_drag since that is the stagnation radius,
+    + which is close to the inner edge for \alpha_drag \gg 1
+    + But not for \alpha_drag < 1
 
 #+BEGIN_SRC python :eval no :tangle dust-couple-div-stream.py
   import sys
@@ -328,7 +335,7 @@ python dust-couple-stream.py
   sns.set_color_codes()
   fig, axes = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 4))
   alphas = [1.0, 1.0, 4.0, 4.0]
-  mus = [0.05, 0.2, 0.05, 0.2]
+  mus = [0.05, 0.2, 0.2, 0.8]
   nb = 501
   bgrid = 0.001 + np.linspace(0.0, 5.0, 1001)
   ibspecial = [5, 20, 50, 100, 200, 300]
@@ -337,14 +344,18 @@ python dust-couple-stream.py
   dth = np.pi/nth
 
 
-  xmin, xmax = [-3.99, 3.99]
-  ymin, ymax = [0.0, 4.99]
+  xmin, xmax = [-4.1, 4.1]
+  ymin, ymax = [0.0, 5.1]
   for alpha, mu, ax in zip(alphas, mus, axes.flat):
       xx, yy, ww = [], [], []
       xs, ys = [], []
+
+      # zoom in on the alpha > 1 models since they get small
+      zoom = alpha if alpha > 1.0 else 1.0
+
       # Launch grains on a uniform grid of th1
       # Make sure it fills the plot
-      th1max = np.arctan2(ymax, 1.0/mu - xmax)
+      th1max = np.arctan2(ymax/zoom, 1.0/mu - xmax/zoom)
       th1grid = 0.001*mu + np.linspace(0.0, th1max, 1001)
       bgrid = np.sin(th1grid)/mu
 
@@ -358,7 +369,7 @@ python dust-couple-stream.py
 
       for ib, (th1, b) in enumerate(zip(th1grid, bgrid)):
           # Start from a circle just outside the plot window
-          Rlaunch = 1/mu - xmax
+          Rlaunch = 1/mu - xmax/zoom
           assert Rlaunch > 0.0
           X0 = 1./mu - Rlaunch*np.cos(th1)
           Y0 = Rlaunch*np.sin(th1)
@@ -377,16 +388,16 @@ python dust-couple-stream.py
               ys.append(s['y'])
       # Plot a density histogram of all the (x, y) points we accumulated
       H, xe, ye = np.histogram2d(xx, yy, bins=(80/1, 50/1), weights=ww,
-                                 range=[[xmin, xmax], [ymin, ymax]])
+                                 range=[[xmin/zoom, xmax/zoom], [ymin/zoom, ymax/zoom]])
       rho_m = np.median(H[H != 0.0])
       rho_m = H[-1, -1]
       ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
                 vmin=0.0, vmax=2.0*rho_m, cmap='gray_r')
       # Plot the streamlines that we saved earlier
       for x, y in zip(xs, ys):
-          ax.plot(x, y, '-', color='w', lw=0.8, alpha=0.5)
-          ax.plot(x, y, '-', color='k', lw=0.5)
-      ax.plot(xlocus, ylocus, ':', color='w', alpha=0.5, lw=2)
+          ax.plot(x*zoom, y*zoom, '-', color='w', lw=0.8, alpha=0.5)
+          ax.plot(x*zoom, y*zoom, '-', color='k', lw=0.5)
+      ax.plot(xlocus*zoom, ylocus*zoom, ':', color='w', alpha=0.5, lw=2)
       ax.axvline(0.0, ls='--', color='w', lw=0.5)
       label = fr"$\alpha_\mathrm{{drag}} = {alpha:.1f}$"
       label += '\n' + fr"$\mu = {mu:.2f}$"
@@ -409,12 +420,20 @@ python dust-couple-stream.py
       suffix = f'-alpha{int(100*alpha):03d}'
       suffix += f'-mu{int(100*mu):03d}'
       tabfilename = sys.argv[0].replace('.py', suffix + '.tab')
-      Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab')
+      Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab', overwrite=True)
 
   for ax in axes[:, 0]:
-      ax.set(ylabel='$y/R_{0}$', ylim=[ymin, ymax])
+      ax.set(
+          ylabel=r'$\alpha_\mathrm{{drag}} \,Y$',
+          ylim=[ymin, ymax],
+          yticks=range(5),
+      )
   for ax in axes[-1, :]:
-      ax.set(xlabel='$x/R_{0}$', xlim=[xmin, xmax])
+      ax.set(
+          xlabel=r'$\alpha_\mathrm{{drag}} \,X$',
+          xlim=[xmin, xmax],
+          xticks=range(-4,5),
+      )
 
   sns.despine()
   fig.tight_layout()
@@ -768,7 +787,8 @@ python dust-wave-Rc-R90.py
 
 
 
-** TODO Diverging stream trajectories
+** DONE Diverging stream trajectories
+CLOSED: [2017-11-17 Fri 09:15]
 :LOGBOOK:
 - Note taken on [2017-11-15 Wed 11:14] \\
   This is a new thing that has occurred to me.  What if the grains stream from a point source?
@@ -1718,7 +1738,7 @@ python test_xyprime_spline.py
           astring += '.tab'
           self.label = fr"$\alpha_\mathrm{{drag}} =  {alpha:.02f}$"
           if mu is not None:
-              self.label += '\n' + fr"$\mu =  {mu:.02f}$"
+              self.label += ', ' + fr"$\mu =  {mu:.02f}$"
           t = Table.read(astring, format='ascii.tab')
           dth = np.pi/len(t)
           self.thgrid = t['theta'] + 0.5*dth
@@ -1746,8 +1766,10 @@ python test_xyprime_spline.py
       th = np.linspace(-np.pi, np.pi, 1001)
       th_dg = np.degrees(th)
 
-      for alpha in [0.25, 0.5, 1.0, 2.0]:
-          shape = Dragoid(alpha=alpha)
+      alphas = [0.25, 0.5, 1.0, 2.0] + [4.0, 4.0]
+      mus = [None]*4 + [0.2, 0.8]
+      for alpha, mu in zip(alphas, mus):
+          shape = Dragoid(alpha=alpha, mu=mu)
           ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
                   color='b', alpha=0.2, lw=2, label='_nolabel_')
           ax.plot(th_dg, shape(th), lw=0.8, label=shape.label)
@@ -1852,14 +1874,16 @@ python test_xyprime_dragoid.py
 
   sns.set_style('ticks')
   fig, axes = plt.subplots(2, 2, figsize=(8, 8))
-  
+
   # For some reason, exactly 30.0 had problems with R0p
   inclinations = [0.0, 15.0, 30.01, 45.0, 60.0, 75.01]
   linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
   colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
+  # alphas = [1.0, 1.0, 2.0, 2.0]
+  # mus = [0.05, 0.2, 0.05, 0.2]
   alphas = [1.0, 1.0, 4.0, 4.0]
-  mus = [0.05, 0.2, 0.05, 0.2]
+  mus = [0.05, 0.2, 0.2, 0.8]
   for alpha, mu, ax in zip(alphas, mus, axes.flat):
       shape = Dragoid(alpha=alpha, mu=mu)
       th_inf = theta_infinity(shape)
@@ -1902,6 +1926,7 @@ python test_xyprime_div_dragoid.py
 #+END_SRC
 
 #+RESULTS:
+[[file:test_xyprime_div_dragoid.pdf]]
 
 ** Ancantoid application of ~bow_projection~ library
 

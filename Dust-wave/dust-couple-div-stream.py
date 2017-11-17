@@ -11,7 +11,7 @@ sns.set_style('ticks')
 sns.set_color_codes()
 fig, axes = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 4))
 alphas = [1.0, 1.0, 4.0, 4.0]
-mus = [0.05, 0.2, 0.05, 0.2]
+mus = [0.05, 0.2, 0.2, 0.8]
 nb = 501
 bgrid = 0.001 + np.linspace(0.0, 5.0, 1001)
 ibspecial = [5, 20, 50, 100, 200, 300]
@@ -20,14 +20,18 @@ thm_grid = np.linspace(0.0, np.pi, nth)
 dth = np.pi/nth
 
 
-xmin, xmax = [-3.99, 3.99]
-ymin, ymax = [0.0, 4.99]
+xmin, xmax = [-4.1, 4.1]
+ymin, ymax = [0.0, 5.1]
 for alpha, mu, ax in zip(alphas, mus, axes.flat):
     xx, yy, ww = [], [], []
     xs, ys = [], []
+
+    # zoom in on the alpha > 1 models since they get small
+    zoom = alpha if alpha > 1.0 else 1.0
+
     # Launch grains on a uniform grid of th1
     # Make sure it fills the plot
-    th1max = np.arctan2(ymax, 1.0/mu - xmax)
+    th1max = np.arctan2(ymax/zoom, 1.0/mu - xmax/zoom)
     th1grid = 0.001*mu + np.linspace(0.0, th1max, 1001)
     bgrid = np.sin(th1grid)/mu
 
@@ -41,7 +45,7 @@ for alpha, mu, ax in zip(alphas, mus, axes.flat):
 
     for ib, (th1, b) in enumerate(zip(th1grid, bgrid)):
         # Start from a circle just outside the plot window
-        Rlaunch = 1/mu - xmax
+        Rlaunch = 1/mu - xmax/zoom
         assert Rlaunch > 0.0
         X0 = 1./mu - Rlaunch*np.cos(th1)
         Y0 = Rlaunch*np.sin(th1)
@@ -60,16 +64,16 @@ for alpha, mu, ax in zip(alphas, mus, axes.flat):
             ys.append(s['y'])
     # Plot a density histogram of all the (x, y) points we accumulated
     H, xe, ye = np.histogram2d(xx, yy, bins=(80/1, 50/1), weights=ww,
-                               range=[[xmin, xmax], [ymin, ymax]])
+                               range=[[xmin/zoom, xmax/zoom], [ymin/zoom, ymax/zoom]])
     rho_m = np.median(H[H != 0.0])
     rho_m = H[-1, -1]
     ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
               vmin=0.0, vmax=2.0*rho_m, cmap='gray_r')
     # Plot the streamlines that we saved earlier
     for x, y in zip(xs, ys):
-        ax.plot(x, y, '-', color='w', lw=0.8, alpha=0.5)
-        ax.plot(x, y, '-', color='k', lw=0.5)
-    ax.plot(xlocus, ylocus, ':', color='w', alpha=0.5, lw=2)
+        ax.plot(x*zoom, y*zoom, '-', color='w', lw=0.8, alpha=0.5)
+        ax.plot(x*zoom, y*zoom, '-', color='k', lw=0.5)
+    ax.plot(xlocus*zoom, ylocus*zoom, ':', color='w', alpha=0.5, lw=2)
     ax.axvline(0.0, ls='--', color='w', lw=0.5)
     label = fr"$\alpha_\mathrm{{drag}} = {alpha:.1f}$"
     label += '\n' + fr"$\mu = {mu:.2f}$"
@@ -92,12 +96,20 @@ for alpha, mu, ax in zip(alphas, mus, axes.flat):
     suffix = f'-alpha{int(100*alpha):03d}'
     suffix += f'-mu{int(100*mu):03d}'
     tabfilename = sys.argv[0].replace('.py', suffix + '.tab')
-    Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab')
+    Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab', overwrite=True)
 
 for ax in axes[:, 0]:
-    ax.set(ylabel='$y/R_{0}$', ylim=[ymin, ymax])
+    ax.set(
+        ylabel=r'$\alpha_\mathrm{{drag}} \,Y$',
+        ylim=[ymin, ymax],
+        yticks=range(5),
+    )
 for ax in axes[-1, :]:
-    ax.set(xlabel='$x/R_{0}$', xlim=[xmin, xmax])
+    ax.set(
+        xlabel=r'$\alpha_\mathrm{{drag}} \,X$',
+        xlim=[xmin, xmax],
+        xticks=range(-4,5),
+    )
 
 sns.despine()
 fig.tight_layout()
