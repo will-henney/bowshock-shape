@@ -3,7 +3,7 @@
 + So, I am moving it here to give it room to grow
 ** Copy dust wave figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf dust-coupling-1d.pdf dust-divergent.pdf'
+  FIGFILES='dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf dust-coupling-1d.pdf dust-divergent.pdf dust-couple-div-stream.jpg'
   date
   pwd
   for f in $FIGFILES; do
@@ -12,17 +12,18 @@
 #+END_SRC
 
 #+RESULTS:
-: Wed Nov 15 18:02:30 CST 2017
+: Thu Nov 16 13:39:07 CST 2017
 : /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 : dust-couple-stream-annotate.pdf -> ../papers/Paper1/figs/dust-couple-stream-annotate.pdf
 : dust-wave-Rc-R90-error.pdf -> ../papers/Paper1/figs/dust-wave-Rc-R90-error.pdf
 : dust-wave-Rc-R90.pdf -> ../papers/Paper1/figs/dust-wave-Rc-R90.pdf
 : dust-coupling-1d.pdf -> ../papers/Paper1/figs/dust-coupling-1d.pdf
 : dust-divergent.pdf -> ../papers/Paper1/figs/dust-divergent.pdf
+: dust-couple-div-stream.jpg -> ../papers/Paper1/figs/dust-couple-div-stream.jpg
 
 ** Dust grain trajectories
 + The figure of these in the case of zero gas-grain coupling is done in [[id:8EC004CA-32CC-4B41-830C-535FF79B0544][Dust grain trajectories in a central force]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Quadric-shapes/quadric-projected-2017.org][../Quadric-shapes/quadric-projected-2017.org]]
-+ [ ] I would like to do some sort of n-body code coupled with a gas code to allow a more realistic model
++ [X] I would like to do some sort of n-body code coupled with a gas code to allow a more realistic model
   + A first approach would be a test-particle approximation, which would avoid the need for the gas code
   + We would have a uniform background gas flow to provide drag, but would ignore the back reaction of the grains on the gas (valid for sufficiently low dust-gas ratio)
   + We could solve this using ~scipy.integrate.odeint~ or ~scipy.integrate.ode~
@@ -122,15 +123,46 @@ python dust-coupling-1d.py
       dVdt = 0.5*(np.sin(theta)/R2 - alpha**2 * V)
       return [dXdt, dUdt, dYdt, dVdt]
 
+  def dydt_div(y, t, alpha, mu):
+      """Derivatives for ODE in divergent case"""
+      X, U, Y, V = y
+      dXdt = U
+      dYdt = V
+      R2 = X**2 + Y**2
+      # Gas flow diverges from point (X1, Y1) = (1/mu, 0)
+      X1, Y1 = 1.0/mu, 0.0
+      # Gas flow is radial from that point
+      R1 = np.hypot(X - X1, Y - Y1)
+      U1 = (X - X1)/R1
+      V1 = (Y - Y1)/R1
+      theta = np.arctan2(Y, X)
+      dUdt = 0.5*(np.cos(theta)/R2 - alpha**2 * (U - U1))
+      dVdt = 0.5*(np.sin(theta)/R2 - alpha**2 * (V - V1))
+      return [dXdt, dUdt, dYdt, dVdt]
+
 
   def streamline(alpha=1.0/3.0, X0=10.0, Y0=0.0,
-                 tstop=60.0, n=201):
-      # Vector of initial conditions
-      y0 = [X0, -1.0, Y0, 0.0]
+                 tstop=60.0, n=201, mu=None):
       # Time grid
       t = np.linspace(0.0, tstop, n)
-      soln = odeint(dydt, y0, t, args=(alpha,))
-      return {'t': t, 'b': Y0, 'alpha': alpha,
+      if mu is None:
+          # parallel stream
+          # Vector of initial conditions
+          y0 = [X0, -1.0, Y0, 0.0]
+          soln = odeint(dydt, y0, t, args=(alpha,))
+      else:          # Vector of initial conditions
+
+          # divergent stream
+          X1, Y1 = 1.0/mu, 0.0
+          assert X0 < X1, 'Start point must be to left of wind source'
+          R1 = np.hypot(X0 - X1, Y0 - Y1)
+          U0 = (X0 - X1)/R1
+          V0 = (Y0 - Y1)/R1
+          # Vector of initial conditions
+          y0 = [X0, U0, Y0, V0]
+          soln = odeint(dydt_div, y0, t, args=(alpha, mu))
+        
+      return {'t': t, 'b': Y0, 'alpha': alpha, 'mu': mu, 
               'x': soln[:, 0], 'u': soln[:, 1],
               'y': soln[:, 2], 'v': soln[:, 3],}
 
@@ -146,25 +178,28 @@ python dust-coupling-1d.py
 
   # Impact parameter
   b = 0.001
-  stream = streamline(Y0=b, alpha=1.0/2.0, tstop=90, X0=15., n=501)
+  stream = streamline(Y0=b, alpha=1.0/2.0, tstop=70, X0=20., n=501, mu=0.01)
   sns.set_style('white')
   sns.set_color_codes()
   fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
-  ax.plot(stream['t'], stream['u'], label='$u$')
-  ax.plot(stream['t'], stream['v'], label='$v$')
-  ax.plot(stream['t'], stream['x'], label='$x$')
-  ax.plot(stream['t'], stream['y'], label='$y$')
+  ax.plot(stream['t'], stream['u'], label='$U$')
+  ax.plot(stream['t'], stream['v'], label='$V$')
+  ax.plot(stream['t'], stream['x'], label='$X$')
+  ax.plot(stream['t'], stream['y'], label='$Y$')
   ax.axhspan(0.0, 1.0, color='k', alpha=0.1)
-  ax.legend(title=(fr"$\alpha = {stream['alpha']:.3f}$, "
-                   f"$b = {b:.3f}$"), ncol=2)
-  ax.set(xlabel='Time', ylim=[-3, 5])
+  label = fr"$\alpha = {stream['alpha']:.2f}$, "
+  if stream['mu'] is not None:
+      label += fr"$\mu = {stream['mu']:.2f}$, "
+  label += f"$b = {b:.3f}$"
+  ax.legend(title=label, ncol=2)
+  ax.set(xlabel='Time', ylim=[-6, 8])
 
-  axp.plot(stream['x'], stream['u'], label='$(x, u)$')
-  axp.plot(stream['y'], stream['v'], label='$(y, v)$')
+  axp.plot(stream['x'], stream['u'], label='$(X, U)$')
+  axp.plot(stream['y'], stream['v'], label='$(Y, V)$')
   axp.axhline(0, color='k', lw=0.5)
   axp.legend(title='Phase space')
-  axp.set(xlabel='$x$, $y$', ylabel='$u$, $v$',
-          xlim=[-13, 15], ylim=[-1.1, 1.1])
+  axp.set(xlabel='$X$, $Y$', ylabel='$U$, $V$',
+          xlim=[-7, 9], ylim=[-1.1, 1.1])
 
   sns.despine(trim=True)
   fig.tight_layout()
@@ -276,6 +311,121 @@ python dust-couple-stream.py
 
 + I will now annotate this figure with Graphic.app
   + PDF export in [[file:dust-couple-stream-annotate.pdf]]
+
++ Now repeat for a divergent incident stream
+
+#+BEGIN_SRC python :eval no :tangle dust-couple-div-stream.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from astropy.table import Table
+  from dust_couple_ode import streamline
+
+  figfile = sys.argv[0].replace('.py', '.jpg')
+
+  sns.set_style('ticks')
+  sns.set_color_codes()
+  fig, axes = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 4))
+  alphas = [1.0, 1.0, 4.0, 4.0]
+  mus = [0.05, 0.2, 0.05, 0.2]
+  nb = 501
+  bgrid = 0.001 + np.linspace(0.0, 5.0, 1001)
+  ibspecial = [5, 20, 50, 100, 200, 300]
+  nth = 200
+  thm_grid = np.linspace(0.0, np.pi, nth)
+  dth = np.pi/nth
+
+
+  xmin, xmax = [-3.99, 3.99]
+  ymin, ymax = [0.0, 4.99]
+  for alpha, mu, ax in zip(alphas, mus, axes.flat):
+      xx, yy, ww = [], [], []
+      xs, ys = [], []
+      # Launch grains on a uniform grid of th1
+      # Make sure it fills the plot
+      th1max = np.arctan2(ymax, 1.0/mu - xmax)
+      th1grid = 0.001*mu + np.linspace(0.0, th1max, 1001)
+      bgrid = np.sin(th1grid)/mu
+
+      # Hyperbola solution for drag-free case
+      ecc = 1.0 / (1.0 - 2*mu)
+      rm = (1.0 + ecc)/(1.0 + ecc*np.cos(thm_grid))
+      rm[rm < 0.0] = np.nan
+      xlocus = rm*np.cos(thm_grid)
+      ylocus = rm*np.sin(thm_grid)
+
+
+      for ib, (th1, b) in enumerate(zip(th1grid, bgrid)):
+          # Start from a circle just outside the plot window
+          Rlaunch = 1/mu - xmax
+          assert Rlaunch > 0.0
+          X0 = 1./mu - Rlaunch*np.cos(th1)
+          Y0 = Rlaunch*np.sin(th1)
+          s = streamline(X0=X0, Y0=Y0, tstop=30, alpha=alpha, mu=mu, n=10001)
+          # ax.plot(s['x'], s['y'], color='k', lw=0.5)
+          # Accumulate (x, y) points in a long list
+          xx.extend(s['x'])
+          yy.extend(s['y'])
+          # Weights proportional to b/r
+          ww.extend(s['b']/s['y'])
+          # ax.plot(s['x'], s['y'], '.',
+          #         mec='none', mfc='r', ms=3, alpha=0.02)
+          if ib in ibspecial:
+              # Save streamlines for selected impact parameters
+              xs.append(s['x'])
+              ys.append(s['y'])
+      # Plot a density histogram of all the (x, y) points we accumulated
+      H, xe, ye = np.histogram2d(xx, yy, bins=(80/1, 50/1), weights=ww,
+                                 range=[[xmin, xmax], [ymin, ymax]])
+      rho_m = np.median(H[H != 0.0])
+      rho_m = H[-1, -1]
+      ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
+                vmin=0.0, vmax=2.0*rho_m, cmap='gray_r')
+      # Plot the streamlines that we saved earlier
+      for x, y in zip(xs, ys):
+          ax.plot(x, y, '-', color='w', lw=0.8, alpha=0.5)
+          ax.plot(x, y, '-', color='k', lw=0.5)
+      ax.plot(xlocus, ylocus, ':', color='w', alpha=0.5, lw=2)
+      ax.axvline(0.0, ls='--', color='w', lw=0.5)
+      label = fr"$\alpha_\mathrm{{drag}} = {alpha:.1f}$"
+      label += '\n' + fr"$\mu = {mu:.2f}$"
+      ax.text(1.0, 4.0, label, color='k')
+      ax.set_aspect('equal', adjustable='box-forced')
+
+      # Save the minimum radius as a function of theta
+      rr = np.hypot(xx, yy)
+      theta = np.arctan2(yy, xx)
+      rrm_grid = np.empty_like(thm_grid)
+      for j, th0 in enumerate(thm_grid):
+          # Mask to select points with theta between th0 -> th0 + dth
+          m = np.abs(theta - (th0 + 0.5*dth)) <= 0.5*dth
+          try:
+              rrm_grid[j] = rr[m].min()
+          except:
+              # Sometimes mask may be empty
+              rrm_grid[j] = np.nan
+
+      suffix = f'-alpha{int(100*alpha):03d}'
+      suffix += f'-mu{int(100*mu):03d}'
+      tabfilename = sys.argv[0].replace('.py', suffix + '.tab')
+      Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab')
+
+  for ax in axes[:, 0]:
+      ax.set(ylabel='$y/R_{0}$', ylim=[ymin, ymax])
+  for ax in axes[-1, :]:
+      ax.set(xlabel='$x/R_{0}$', xlim=[xmin, xmax])
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile, dpi=600)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python dust-couple-div-stream.py
+#+END_SRC
+
 *** Shape parameters as function of drag parameter
 + We have written tables of R(\theta) for the inner edge of the dust shells
   + [[file:dust-couple-stream-alpha025.tab]]
