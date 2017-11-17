@@ -9,7 +9,7 @@ from dragoid_shape import Dragoid
 figfile = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('ticks')
-fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+fig, axes = plt.subplots(2, 2, figsize=(6, 6), sharex=True, sharey=True)
 
 # For some reason, exactly 30.0 had problems with R0p
 inclinations = [0.0, 15.0, 30.01, 45.0, 60.0, 75.01]
@@ -38,16 +38,20 @@ for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
 
     ax.plot([0], [0], 'o', color='k')
 
-    ax.legend(title="Dragoid " + shape.label, ncol=2, loc="center left")
-    ax.set(
-        xlabel=r"$x' / R_0'$",
-        ylabel=r"$y' / R_0'$",
-        xlim=[-7, 3],
-        ylim=[-5, 5],
-    )
-    ax.set_aspect('equal', adjustable='box')
+    ax.legend(title="Dragoid " + shape.label,
+              fontsize='small',
+              handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
+              ncol=2, loc="center left")
+    ax.set_aspect('equal', adjustable='box-forced')
+
+axes[-1,0].set(
+    xlabel=r"$x' / R_0'$",
+    ylabel=r"$y' / R_0'$",
+    xlim=[-7, 3],
+    ylim=[-5, 5],
+)
 
 sns.despine()
-fig.tight_layout()
+fig.tight_layout(pad=0.3, h_pad=0.1, w_pad=0.1)
 fig.savefig(figfile)
 print(figfile, end='')

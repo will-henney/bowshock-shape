@@ -35,9 +35,10 @@ for alpha, mu, ax in zip(alphas, mus, axes.flat):
     th1grid = 0.001*mu + np.linspace(0.0, th1max, 1001)
     bgrid = np.sin(th1grid)/mu
 
-    # Hyperbola solution for drag-free case
-    ecc = 1.0 / (1.0 - 2*mu)
-    rm = (1.0 + ecc)/(1.0 + ecc*np.cos(thm_grid))
+    # Hyperbola solution for drag-free case, but scaling mu by alpha
+    ecc = 1.0 / (1.0 - 2*mu/alpha)
+    # And scale radius by alpha too
+    rm = (1.0 + ecc)/(1.0 + ecc*np.cos(thm_grid))/alpha
     rm[rm < 0.0] = np.nan
     xlocus = rm*np.cos(thm_grid)
     ylocus = rm*np.sin(thm_grid)
