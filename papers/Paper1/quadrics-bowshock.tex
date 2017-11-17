@@ -102,6 +102,13 @@
 \newcommand\C{\ensuremath{\mathrm{c}}}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\Abs}[1]{\left\lvert#1\right\rvert}
+\newcommand\TODO[1]{%
+  \begin{center}
+    \framebox{\parbox{0.8\linewidth}{
+        \texttt{\footnotesize\color{red} #1}}}
+  \end{center}}
+
+
 
 \begin{document}
 \label{firstpage}
@@ -149,6 +156,7 @@
 \input{app-parabola}
 \input{app-ancantoid}
 \input{app-shape-parameters}
+\input{app-dust-equations}
 %\input{app-rcurv}
 %\input{app-r90}
 %\input{app-wilkinoid}
