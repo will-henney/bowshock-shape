@@ -61,7 +61,9 @@ where
 is the distance from the second source, located at
 \((X, Y) = (\mu^{-1}, 0)\).
 
-Equations~\eqref{eq:dust-motion} are integrated 
+Equations~\eqref{eq:dust-motion} are integrated using the python
+wrapper \texttt{scipy.integrate.odeint} to the Fortran ODEPACK library
+\citep{Hindmarsh:1983a, Jones:2001a}.
 
 %%% Local Variables:
 %%% mode: latex

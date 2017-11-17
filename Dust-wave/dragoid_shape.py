@@ -4,10 +4,19 @@ from astropy.table import Table
 from bow_projection import Spline_R_theta_from_grid
 
 class Dragoid(object):
-    def __init__(self, alpha):
-        astring = f'-alpha{int(100*alpha):03d}.tab'
+    def __init__(self, alpha, mu=None):
+        if mu is None:
+            astring = 'dust-couple-stream'
+        else:
+            astring = 'dust-couple-div-stream'
+        astring += f'-alpha{int(100*alpha):03d}'
+        if mu is not None:
+            astring += f'-mu{int(100*mu):03d}'
+        astring += '.tab'
         self.label = fr"$\alpha_\mathrm{{drag}} =  {alpha:.02f}$"
-        t = Table.read('dust-couple-stream' + astring, format='ascii.tab')
+        if mu is not None:
+            self.label += '\n' + fr"$\mu =  {mu:.02f}$"
+        t = Table.read(astring, format='ascii.tab')
         dth = np.pi/len(t)
         self.thgrid = t['theta'] + 0.5*dth
         self.Rgrid = t['R']/t['R'][0]
