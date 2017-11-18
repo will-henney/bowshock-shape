@@ -11,9 +11,9 @@ sns.set_style('white')
 sns.set_color_codes()
 fig, axes = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 4))
 alphas = [1.0/4.0, 1.0/2.0, 1.0, 2.0]
-nb = 501
-bgrid = 0.001 + np.linspace(0.0, 5.0, 1001)
-ibspecial = [5, 20, 50, 100, 200, 300]
+nb = 25*200 + 1
+bgrid = 0.001 + np.linspace(0.0, 5.0, nb)
+ibspecial = 25*np.array([1, 4, 10, 20, 40, 60])
 nth = 200
 thm_grid = np.linspace(0.0, np.pi, nth)
 dth = np.pi/nth
@@ -27,7 +27,7 @@ for alpha, ax in zip(alphas, axes.flat):
     xx, yy, ww = [], [], []
     xs, ys = [], []
     for ib, b in enumerate(bgrid):
-        s = streamline(X0=5, Y0=b, tstop=30, alpha=alpha, n=10001)
+        s = streamline(X0=5, Y0=b, tstop=30, alpha=alpha, n=30001)
         # ax.plot(s['x'], s['y'], color='k', lw=0.5)
         # Accumulate (x, y) points in a long list
         xx.extend(s['x'])

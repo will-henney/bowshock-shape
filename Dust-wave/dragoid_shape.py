@@ -1,10 +1,11 @@
 import sys
 import numpy as np
 from astropy.table import Table
+import statsmodels.api as sm
 from bow_projection import Spline_R_theta_from_grid
 
 class Dragoid(object):
-    def __init__(self, alpha, mu=None):
+    def __init__(self, alpha, mu=None, lowess_frac=None):
         if mu is None:
             astring = 'dust-couple-stream'
         else:
@@ -22,6 +23,11 @@ class Dragoid(object):
         self.Rgrid = t['R']/t['R'][0]
         self.thgrid = np.concatenate([-self.thgrid[::-1], self.thgrid])
         self.Rgrid = np.concatenate([self.Rgrid[::-1], self.Rgrid])
+        if lowess_frac is not None:
+            # Optionally smooth the shape before fitting spline
+            self.Rgrid = sm.nonparametric.lowess(
+                self.Rgrid, self.thgrid, frac=lowess_frac,
+                is_sorted=True, return_sorted=False)
         self.splinefit = Spline_R_theta_from_grid(
               theta_grid=self.thgrid, R_grid=self.Rgrid)
 
@@ -46,7 +52,7 @@ if __name__ == "__main__":
     alphas = [0.25, 0.5, 1.0, 2.0] + [4.0, 4.0]
     mus = [None]*4 + [0.2, 0.8]
     for alpha, mu in zip(alphas, mus):
-        shape = Dragoid(alpha=alpha, mu=mu)
+        shape = Dragoid(alpha=alpha, mu=mu, lowess_frac=None)
         ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
                 color='b', alpha=0.2, lw=2, label='_nolabel_')
         ax.plot(th_dg, shape(th), lw=0.8, label=shape.label)

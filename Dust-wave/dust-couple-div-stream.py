@@ -12,9 +12,9 @@ sns.set_color_codes()
 fig, axes = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 4))
 alphas = [1.0, 1.0, 4.0, 4.0]
 mus = [0.05, 0.2, 0.2, 0.8]
-nb = 501
-bgrid = 0.001 + np.linspace(0.0, 5.0, 1001)
-ibspecial = [5, 20, 50, 100, 200, 300]
+nb = 25*200 + 1
+bgrid = 0.001 + np.linspace(0.0, 5.0, nb)
+ibspecial = 25*np.array([1, 4, 10, 20, 40, 60])
 nth = 200
 thm_grid = np.linspace(0.0, np.pi, nth)
 dth = np.pi/nth
@@ -32,7 +32,7 @@ for alpha, mu, ax in zip(alphas, mus, axes.flat):
     # Launch grains on a uniform grid of th1
     # Make sure it fills the plot
     th1max = np.arctan2(ymax/zoom, 1.0/mu - xmax/zoom)
-    th1grid = 0.001*mu + np.linspace(0.0, th1max, 1001)
+    th1grid = 0.001*mu + np.linspace(0.0, th1max, nb)
     bgrid = np.sin(th1grid)/mu
 
     # Hyperbola solution for drag-free case, but scaling mu by alpha
@@ -50,7 +50,7 @@ for alpha, mu, ax in zip(alphas, mus, axes.flat):
         assert Rlaunch > 0.0
         X0 = 1./mu - Rlaunch*np.cos(th1)
         Y0 = Rlaunch*np.sin(th1)
-        s = streamline(X0=X0, Y0=Y0, tstop=30, alpha=alpha, mu=mu, n=10001)
+        s = streamline(X0=X0, Y0=Y0, tstop=30, alpha=alpha, mu=mu, n=30001)
         # ax.plot(s['x'], s['y'], color='k', lw=0.5)
         # Accumulate (x, y) points in a long list
         xx.extend(s['x'])
