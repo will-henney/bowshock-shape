@@ -1,0 +1,116 @@
+\documentclass[useAMS, usenatbib, a4paper]{mnras}
+\pdfsuppresswarningpagegroup=1
+
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{fixltx2e}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{hyperref}
+
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+
+% Fonts 
+\usepackage{newtxtext}
+% Note: newtxmath must come AFTER newtxtext
+\usepackage[varvw,smallerops]{newtxmath}
+
+\hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
+  urlcolor=blue!50!black}
+
+\usepackage{etoolbox}
+\robustify\bfseries
+\robustify\itshape
+
+%% Bold italic
+\newcommand\hmmax{0}            % we don't need heavy fonts
+\newcommand\bmmax{1}            % reduce use of math alphabets for bold
+\usepackage{bm}
+
+%% Bundled custom packages
+\usepackage{aastex-compat}
+
+\title[Bow wave shapes]{True versus apparent shapes of dusty radiative bow waves}
+
+\newcommand\AddressCRyA{Instituto de Radioastronom\'{\i}a y Astrof\'{\i}sica,
+  Universidad Nacional Aut\'onoma de M\'exico, Apartado Postal 3-72,
+  58090 Morelia, Michoac\'an, M\'exico}
+\author[Henney \& Tarango Yong]{
+  William J. Henney \& Jorge A. Tarango Yong\\
+  \AddressCRyA
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2017}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Sin}{\mathcal{S}}
+\DeclareMathOperator{\Cos}{\mathcal{C}}
+\DeclareMathOperator{\Cot}{\mathcal{T}}
+\DeclareMathOperator{\GammaFunc}{\Gamma}
+\newcommand\w{\ensuremath{\mathrm{w}}}
+\newcommand\C{\ensuremath{\mathrm{c}}}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\Abs}[1]{\left\lvert#1\right\rvert}
+\newcommand\TODO[1]{%
+  \begin{center}
+    \framebox{\parbox{0.8\linewidth}{
+        \texttt{\footnotesize\color{red} #1}}}
+  \end{center}}
+
+\newcommand\uvec[1]{\bm{\hat{#1}}}
+\newcommand\T{_{\mathrm{\scriptscriptstyle T}}}
+
+
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+\begin{abstract}
+  Dusty stellar bow waves result from the action of a star's radiation
+  pressure on a stream of dust grains that is flowing past it.  They
+  are an alternative mechanism to hydrodynamic bow shocks for
+  explaining the curved arcs of infrared emission seen around some
+  stars.  We develop simple cylindrically symmetric models for the
+  dust grain dynamics under the influence of radiation and gas--grain
+  drag forces, which produce bow shapes that we call dragoids.  Using
+  our recently developed two-dimensional classification scheme for
+  projected bow shapes, we then analyze the inclination-dependent
+  tracks of the dragoids in the planitude--alatude plane, finding
+  interesting differences from the wilkinoid, cantoid, and ancantoid
+  shapes of hydrodynamic bow shock models.  We analyze the prospects
+  of using shape analysis of observational datasets to discriminate
+  between different bow models, finding that sample sizes of order 100
+  are required.
+\end{abstract}
+
+\begin{keywords}
+  hydrodynamics -- stars: winds, outflows
+\end{keywords}
+
+\input{sec-dust-bow-intro}
+\input{app-dust-wave}
+\input{sec-standing-wave}
+\bibliographystyle{mnras}
+\bibliography{bowshocks-biblio}
+\appendix
+\input{app-dust-equations}
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
