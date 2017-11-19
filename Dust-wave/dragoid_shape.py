@@ -25,9 +25,13 @@ class Dragoid(object):
         self.Rgrid = np.concatenate([self.Rgrid[::-1], self.Rgrid])
         if lowess_frac is not None:
             # Optionally smooth the shape before fitting spline
-            self.Rgrid = sm.nonparametric.lowess(
+            Rsmooth = sm.nonparametric.lowess(
                 self.Rgrid, self.thgrid, frac=lowess_frac,
                 is_sorted=True, return_sorted=False)
+            # Gradually transition between smooth version for low
+            # theta and the original version for theta > 60.0 deg
+            smooth_mix = np.exp(-(self.thgrid/np.radians(45.0))**2)
+            self.Rgrid = self.Rgrid*(1. - smooth_mix) + Rsmooth*smooth_mix
         self.splinefit = Spline_R_theta_from_grid(
               theta_grid=self.thgrid, R_grid=self.Rgrid)
 
@@ -52,7 +56,7 @@ if __name__ == "__main__":
     alphas = [0.25, 0.5, 1.0, 2.0] + [4.0, 4.0]
     mus = [None]*4 + [0.2, 0.8]
     for alpha, mu in zip(alphas, mus):
-        shape = Dragoid(alpha=alpha, mu=mu, lowess_frac=None)
+        shape = Dragoid(alpha=alpha, mu=mu, lowess_frac=0.1)
         ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
                 color='b', alpha=0.2, lw=2, label='_nolabel_')
         ax.plot(th_dg, shape(th), lw=0.8, label=shape.label)

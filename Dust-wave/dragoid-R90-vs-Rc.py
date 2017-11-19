@@ -41,7 +41,7 @@ inc = np.linspace(0.0, th_inf - np.pi/2, 50)
 tab = bow_diagnostic.parameter_table(inc, shape)
 Rc, R90 = tab['tilde R_c prime'], tab['tilde R_90 prime']
 ax.plot(Rc, R90, '-', c='w', label="_nolabel_", lw=0.6, alpha=0.9)
-sini = np.linspace(0.0, 1.0, 20)
+sini = (0.5 + np.arange(20))/20
 inc_e = np.arcsin(sini)
 tab_e = bow_diagnostic.parameter_table(inc_e, shape)
 Rc_e, R90_e = tab_e['tilde R_c prime'], tab_e['tilde R_90 prime']
@@ -50,14 +50,15 @@ ax.scatter(Rc_e, R90_e, marker='|', s=3**2,
            c='w', alpha=0.5, label="_nolabel_")
 
 # For dragoids, widen the region for fitting R_c
-bp.SCALE_NEIGHBORHOOD = 0.08
+bp.DEGREE_POLY_NEIGHBORHOOD = 2
+bp.SCALE_NEIGHBORHOOD = 0.03
 
 ALPHA_LIST = [0.25, 1.0, 1.0, 1.0, 4.0, 4.0]
 MU_LIST = [None, None, 0.05, 0.2, 0.2, 0.8]
 nalpha = len(ALPHA_LIST)
 cols = sns.color_palette(n_colors=nalpha)
 for alpha, mu, col in list(zip(ALPHA_LIST, MU_LIST, cols))[::-1]:
-    shape = dragoid_shape.Dragoid(alpha=alpha, mu=mu)
+    shape = dragoid_shape.Dragoid(alpha=alpha, mu=mu, lowess_frac=0.1)
     th_inf = bp.theta_infinity(shape)
     inc = np.linspace(0.0, th_inf - np.pi/2, 50)
     tab = bow_diagnostic.parameter_table(inc, shape)
@@ -65,12 +66,12 @@ for alpha, mu, col in list(zip(ALPHA_LIST, MU_LIST, cols))[::-1]:
 
     Rcs = sm.nonparametric.lowess(Rc, inc, frac=0.3,
                                   is_sorted=True, return_sorted=False)
-    # Rcs = Rc
+    #Rcs = Rc
     Rcs[0] = Rc[0]
     ax.plot(Rcs, R90, '-', c=col, label=shape.label, lw=0.7, alpha=0.9)
 
     # Get points evenly spaced in sin i
-    sini = np.linspace(0.0, 1.0, 20)
+    sini = (0.5 + np.arange(20))/20
     inc_e = np.arcsin(sini)
     inc_e = inc_e[inc_e < th_inf - np.pi/2]
     # Interpolate to get the even probability points
@@ -88,10 +89,9 @@ for alpha, mu, col in list(zip(ALPHA_LIST, MU_LIST, cols))[::-1]:
 ax.legend(ncol=1, fontsize='small', title='Dragoids',
           frameon=True, loc="lower right")
 ax.set(
-    yscale='linear',
-    xscale='linear',
     xlim=[0.9, 2.7],
     ylim=[0.9, 2.7],
+    yticks=[1.0, 1.5, 2.0, 2.5],
 #    ylim=[-3.0, 1.1],
     xlabel=r"Projected planitude: $\Pi'$",
     ylabel=r"Projected alatude: $\Lambda'$",

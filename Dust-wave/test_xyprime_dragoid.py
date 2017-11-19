@@ -17,7 +17,7 @@ linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
 colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
 for alpha, ax in zip([0.25, 0.5, 1.0, 2.0], axes.flat):
-    shape = Dragoid(alpha=alpha)
+    shape = Dragoid(alpha=alpha, lowess_frac=0.1)
     th_inf = theta_infinity(shape)
     for inc_dg, color, lw in zip(inclinations, colors, linewidths):
         inc = np.radians(inc_dg)

@@ -42,6 +42,17 @@ Note that theta may be an array. Any extra arguments are passed to
                       dx=DX_FOR_NUMERICAL_DERIVATIVE, args=args_for_func_R)
 
 
+def alpha(theta, func_R, *args_for_func_R):
+    """Find alpha = tan^{-1} |dy/dx|, the slope angle
+
+Note that theta may be an array. Any extra arguments are passed on to omega
+
+    """
+    om = omega(theta, func_R, *args_for_func_R)
+    tan_theta = np.tan(theta)
+    return np.arctan((1 + om*tan_theta)/(tan_theta - om))
+
+
 def sin_phi_t(theta, inc, func_R, *args_for_func_R):
     """Returns sin(phi_t), where phi_t is azimuth along tangent line"""
     if np.tan(inc) == 0.0:
