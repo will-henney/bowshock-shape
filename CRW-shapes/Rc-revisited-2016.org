@@ -2277,3 +2277,20 @@ cp -v conic-head-tail-residuals.pdf ../papers/Paper1/figs
 
 #+RESULTS:
 [[file:conic-tail-fit-vs-beta.pdf]]
+
+
+* TODO Doing the wilkinoid analytically
++ This should be do-able
++ R(\theta) = sqrt(3 (1 - x cot(x))) / sin(x)
++ Cubic limit in the far wings
+  + r = R sin \theta
+  + z = R cos \theta
+  + => r^2 = 3 (1 - \theta cot \theta)
+  + For \theta \to \pi
+    + \theta cot \theta \to \pi (-1) / 0
+** omega
++ This is \omega = (1/R) dR/d\theta = d (ln R) / d \theta
++ Wolfram alpha has
+  + (cot(x) - x csc^2(x))/(2 x cot(x) - 2) - cot(x)
+
+** 
