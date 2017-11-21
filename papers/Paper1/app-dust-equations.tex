@@ -35,10 +35,10 @@ coupled differential equations:
     \frac{d X}{d t} &= U \quad\quad
     \frac{d Y}{d t} = V \\
     \frac{d U}{d t} &= \frac12 \left[  
-      X \left(X^2 + Y^2\right)^{-3/2} - \alpha\drag^2 \left(U - U_1\right)
+      X \left(X^2 + Y^2\right)^{-3/2} - \alpha\drag^2 D_1 \left(U - U_1\right)
     \right] \\
     \frac{d V}{d t} &= \frac12 \left[  
-      Y \left(X^2 + Y^2\right)^{-3/2} - \alpha\drag^2 \left(V - V_1\right)
+      Y \left(X^2 + Y^2\right)^{-3/2} - \alpha\drag^2 D_1 \left(V - V_1\right)
     \right] \ ,
   \end{aligned}
 \end{gather}
@@ -59,7 +59,16 @@ where
   R_1 = \left( \bigl(X - \mu^{-1}\bigr)^2 + Y^2 \right)^{1/2}
 \end{equation}
 is the distance from the second source, located at
-\((X, Y) = (\mu^{-1}, 0)\).
+\((X, Y) = (\mu^{-1}, 0)\).  The dimensionless gas density, \(D_1\),
+normalized by the value at \((X, Y) = (1, 0)\), is
+\begin{equation}
+  \label{eq:dust-gas-density}
+  D_1 = 
+  \begin{cases}
+    \text{parallel stream} & 1\\
+    \text{divergent stream} & \dfrac{\bigl(\mu^{-1} - 1\bigr)^2} {R_1^{2}} \ .
+  \end{cases}
+\end{equation}
 
 Equations~\eqref{eq:dust-motion} are integrated using the python
 wrapper \texttt{scipy.integrate.odeint} to the Fortran ODEPACK library
@@ -69,5 +78,5 @@ Figure~\ref{fig:divergent-dragoids} for divergent-stream cases.
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "quadrics-bowshock"
+%%% TeX-master: "dusty-bow-wave"
 %%% End:
