@@ -11,4 +11,201 @@
   done
 #+END_SRC
 ** Measure arcs on FITS images
-+ E.g., [[file:A16-20mic-i00.reg]]
++ Acreman figure
+  + E.g., [[file:A16-20mic-i00-forma.reg]]
+** Add a WCS to the FITS files
++ It turns out that =find-xy-shell.py= requires one
+  + And it is easier to provide one than to re-write the program
+#+BEGIN_SRC python
+  from astropy.io import fits
+  from astropy.wcs import WCS
+  channels = ['red', 'green', 'blue']
+  for channel in channels:
+      hdulist = fits.open(f"Acreman-2016-maps-{channel}.fits", mode="update")
+      w = WCS(naxis=2)
+      w.wcs.crpix = [0, 0]
+      w.wcs.cdelt = [1.0/3600, 1.0/3600]
+      w.wcs.crval = [30, -60]
+      w.wcs.ctype = ["RA---AIR", "DEC--AIR"]
+      hdulist[0].header = w.to_header()
+      hdulist.flush()
+      hdulist.close()
+    
+#+END_SRC
+
+#+RESULTS:
+: None
+
++ [ ] Then we have to load each of the =.reg= files back in to ds9 and write them out again in wcs format
+
+** Fit the arcs
++ Do it like in [[id:4BC292AA-F2EB-4031-94AB-E6A36B22FD21][Circle fits to second batch of sources]]
+
+#+BEGIN_SRC sh :results silent
+  D=../read-shapes-LL
+  for wav in 20mic 12mic Halpha; do
+      for inc in i00 i30 i60; do
+          python $D/find-xy-shell.py A16-${wav}-${inc} --pa0 0
+      done
+  done
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  python $D/fit-circle-shell.py --help
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+usage: fit-circle-shell.py [-h] [--savefig] [--debug] [--thmax THMAX] source
+
+Fit circles to all the arcs and save as ds9 region file
+
+positional arguments:
+  source         Name of source
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --savefig      Save a figure showing the fit
+  --debug        Print out verbose debugging info
+  --thmax THMAX  Maximum angle from axis for points to include in circle fit
+#+end_example
+
+
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  for wav in 20mic 12mic Halpha; do
+      for inc in i00 i30 i60; do
+          python $D/fit-circle-shell.py A16-${wav}-${inc} --thmax 60 --savefig
+      done
+  done
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 9
+    # variables        = 2
+    chi-square         = 1.514
+    reduced chi-square = 0.216
+    Akaike info crit   = -12.045
+    Bayesian info crit = -11.650
+[[Variables]]
+    xc:  -1.19402645 +/- 0.575943 (48.24%) (init= 7.441861)
+    yc:  -37.2659822 +/- 2.915745 (7.82%) (init=-40.45196)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.619 
+outer : -1.19402645091 -37.2659822589 78.3880611639
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 9
+    # variables        = 2
+    chi-square         = 0.952
+    reduced chi-square = 0.136
+    Akaike info crit   = -16.222
+    Bayesian info crit = -15.828
+[[Variables]]
+    xc:   0.26327015 +/- 0.440482 (167.31%) (init=-0.3214639)
+    yc:  -56.6615456 +/- 3.378266 (5.96%) (init=-40.73935)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 0.263270152309 -56.6615455996 97.2688415175
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 11
+    # variables        = 2
+    chi-square         = 20.816
+    reduced chi-square = 2.313
+    Akaike info crit   = 11.016
+    Bayesian info crit = 11.812
+[[Variables]]
+    xc:   0.76057423 +/- 2.179434 (286.55%) (init= 1.472534)
+    yc:  -107.004697 +/- 23.26966 (21.75%) (init=-40.89619)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.416 
+outer : 0.760574238518 -107.004697677 153.094855575
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 29
+    # variables        = 2
+    chi-square         = 7.017
+    reduced chi-square = 0.260
+    Akaike info crit   = -37.152
+    Bayesian info crit = -34.417
+[[Variables]]
+    xc:  -2.09501694 +/- 0.325159 (15.52%) (init=-5.566827)
+    yc:  -67.2709528 +/- 2.776351 (4.13%) (init=-43.9113)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.416 
+outer : -2.09501694508 -67.2709528252 111.595469151
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 22
+    # variables        = 2
+    chi-square         = 9.569
+    reduced chi-square = 0.478
+    Akaike info crit   = -14.316
+    Bayesian info crit = -12.134
+[[Variables]]
+    xc:  -2.02239751 +/- 0.530815 (26.25%) (init= 0.2380588)
+    yc:  -77.6627655 +/- 5.505584 (7.09%) (init=-41.66018)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : -2.02239751141 -77.6627655557 120.486053051
+[[Fit Statistics]]
+    # function evals   = 12
+    # data points      = 12
+    # variables        = 2
+    chi-square         = 9.543
+    reduced chi-square = 0.954
+    Akaike info crit   = 1.251
+    Bayesian info crit = 2.221
+[[Variables]]
+    xc:  -3.19001202 +/- 0.650613 (20.40%) (init= 0.6827128)
+    yc:  -48.1391397 +/- 6.357236 (13.21%) (init=-51.15712)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.151 
+outer : -3.19001201961 -48.1391397647 102.461628081
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 13
+    # variables        = 2
+    chi-square         = 37.641
+    reduced chi-square = 3.422
+    Akaike info crit   = 17.821
+    Bayesian info crit = 18.951
+[[Variables]]
+    xc:   0.55145930 +/- 1.806736 (327.63%) (init=-0.8379232)
+    yc:  -89.0893371 +/- 16.63433 (18.67%) (init=-45.61221)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 0.551459307748 -89.0893371329 135.61359871
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 12
+    # variables        = 2
+    chi-square         = 12.204
+    reduced chi-square = 1.220
+    Akaike info crit   = 4.202
+    Bayesian info crit = 5.172
+[[Variables]]
+    xc:   1.20377567 +/- 1.157828 (96.18%) (init= 7.19575)
+    yc:  -68.3133429 +/- 6.794446 (9.95%) (init=-59.66923)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.502 
+outer : 1.20377567223 -68.3133429761 128.38457749
+[[Fit Statistics]]
+    # function evals   = 22
+    # data points      = 12
+    # variables        = 2
+    chi-square         = 6.341
+    reduced chi-square = 0.634
+    Akaike info crit   = -3.655
+    Bayesian info crit = -2.685
+[[Variables]]
+    xc:   0.49269373 +/- 0.473361 (96.08%) (init=-0.05993926)
+    yc:  -15.1021875 +/- 2.052525 (13.59%) (init=-76.01005)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.222 
+outer : 0.492693736756 -15.1021875904 91.3070708815
+#+end_example

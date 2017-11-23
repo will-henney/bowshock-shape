@@ -7180,6 +7180,9 @@ sqrt(xc**2 + yc**2) =  24.7943471462
 #+end_example
 **** DONE Circle fits to second batch of sources
 CLOSED: [2017-07-05 Wed 19:07]
+:PROPERTIES:
+:ID:       4BC292AA-F2EB-4031-94AB-E6A36B22FD21
+:END:
 
 #+name: second-batch-sources
 | name   | pa0 |

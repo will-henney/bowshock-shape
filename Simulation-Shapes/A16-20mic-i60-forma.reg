@@ -1,0 +1,27 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+line(2:00:07.656,-59:43:50.91,2:00:41.089,-59:39:37.08) # line=0 0 color=black width=3 dash=1
+line(2:00:07.377,-59:39:36.76,2:00:41.333,-59:43:53.24) # line=0 0 color=black width=3 dash=1
+line(2:01:36.260,-59:42:15.40,2:01:36.260,-59:42:15.40) # line=0 0
+point(2:00:24.296,-59:41:44.75) # point=circle color=blue text={20 micron, i = 60}
+point(2:00:27.531,-59:41:00.04) # point=x color=cyan
+point(2:00:26.496,-59:41:00.45) # point=x color=cyan
+point(2:00:22.047,-59:41:02.24) # point=x color=cyan
+point(2:00:19.266,-59:41:01.92) # point=x color=cyan
+point(2:00:16.554,-59:41:12.54) # point=x color=cyan
+point(2:00:14.516,-59:41:37.19) # point=x color=cyan
+point(2:00:14.047,-59:41:46.67) # point=x color=cyan
+point(2:00:13.489,-59:41:58.03) # point=x color=cyan
+point(2:00:29.134,-59:41:01.44) # point=x color=cyan
+point(2:00:31.950,-59:41:12.86) # point=x color=cyan
+point(2:00:33.947,-59:41:36.08) # point=x color=cyan
+point(2:00:34.809,-59:41:44.27) # point=x color=cyan
+point(2:00:35.341,-59:41:56.17) # point=x color=cyan
+point(2:00:21.091,-59:41:01.04) # point=x color=cyan
+point(2:00:28.165,-59:41:00.88) # point=x color=cyan
+point(2:00:20.428,-59:41:01.05) # point=x color=cyan
+point(2:00:18.013,-59:41:04.45) # point=x color=cyan
+point(2:00:15.634,-59:41:22.31) # point=x color=cyan
+point(2:00:30.462,-59:41:06.72) # point=x color=cyan
+point(2:00:33.058,-59:41:20.94) # point=x color=cyan

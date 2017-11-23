@@ -1,0 +1,64 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+line(2:01:39.572,-59:48:28.63,2:02:12.887,-59:44:13.35) # line=0 0 color=black width=3 dash=1
+line(2:01:39.098,-59:44:14.50,2:02:13.328,-59:48:29.49) # line=0 0 color=black width=3 dash=1
+line(2:03:08.305,-59:46:49.25,2:03:08.305,-59:46:49.25) # line=0 0
+point(2:01:56.154,-59:46:21.75) # point=circle color=blue text={12 micron, i = 0}
+point(2:01:57.391,-59:45:38.29) # point=x color=cyan
+point(2:01:55.917,-59:45:36.81) # point=x color=cyan
+point(2:01:49.248,-59:45:50.66) # point=x color=cyan
+point(2:01:50.241,-59:45:45.56) # point=x color=cyan
+point(2:01:48.070,-59:45:59.01) # point=x color=cyan
+point(2:01:44.992,-59:46:29.94) # point=x color=cyan
+point(2:01:44.781,-59:46:34.58) # point=x color=cyan
+point(2:01:48.400,-59:45:56.42) # point=x color=cyan
+point(2:01:59.642,-59:45:41.23) # point=x color=cyan
+point(2:02:03.392,-59:45:54.83) # point=x color=cyan
+point(2:02:04.079,-59:46:04.47) # point=x color=cyan
+point(2:02:04.309,-59:46:08.43) # point=x color=cyan
+point(2:02:05.103,-59:46:15.93) # point=x color=cyan
+point(2:01:48.989,-59:45:52.24) # point=x color=cyan
+point(2:01:58.638,-59:45:39.27) # point=x color=cyan
+point(2:01:50.637,-59:45:44.67) # point=x color=cyan
+point(2:01:48.688,-59:45:54.00) # point=x color=cyan
+point(2:01:45.300,-59:46:27.43) # point=x color=cyan
+point(2:01:58.856,-59:45:39.55) # point=x color=cyan
+point(2:02:03.627,-59:45:59.08) # point=x color=cyan
+point(2:01:45.550,-59:46:24.54) # point=x color=cyan
+point(2:01:45.861,-59:46:21.84) # point=x color=cyan
+point(2:01:46.424,-59:46:17.96) # point=x color=cyan
+point(2:01:46.822,-59:46:15.20) # point=x color=cyan
+point(2:01:47.284,-59:46:07.81) # point=x color=cyan
+point(2:01:47.601,-59:46:05.05) # point=x color=cyan
+point(2:01:51.169,-59:45:43.64) # point=x color=cyan
+point(2:01:52.081,-59:45:41.26) # point=x color=cyan
+point(2:01:52.584,-59:45:40.07) # point=x color=cyan
+point(2:01:53.062,-59:45:39.34) # point=x color=cyan
+point(2:01:52.869,-59:45:39.58) # point=x color=cyan
+point(2:01:54.482,-59:45:38.49) # point=x color=cyan
+point(2:02:00.112,-59:45:42.37) # point=x color=cyan
+point(2:02:00.524,-59:45:43.46) # point=x color=cyan
+point(2:02:00.855,-59:45:44.52) # point=x color=cyan
+point(2:02:01.059,-59:45:45.17) # point=x color=cyan
+point(2:02:01.790,-59:45:46.29) # point=x color=cyan
+point(2:02:01.460,-59:45:45.35) # point=x color=cyan
+point(2:02:02.589,-59:45:48.68) # point=x color=cyan
+point(2:02:02.904,-59:45:49.63) # point=x color=cyan
+point(2:02:05.400,-59:46:18.50) # point=x color=cyan
+point(2:02:05.809,-59:46:21.80) # point=x color=cyan
+point(2:02:06.116,-59:46:24.46) # point=x color=cyan
+point(2:02:06.381,-59:46:27.14) # point=x color=cyan
+point(2:02:06.640,-59:46:29.79) # point=x color=cyan
+point(2:02:06.954,-59:46:33.56) # point=x color=cyan
+point(2:01:49.453,-59:45:48.70) # point=x color=cyan
+point(2:01:49.761,-59:45:47.44) # point=x color=cyan
+point(2:01:50.069,-59:45:46.41) # point=x color=cyan
+point(2:01:50.447,-59:45:45.16) # point=x color=cyan
+point(2:01:50.812,-59:45:44.28) # point=x color=cyan
+point(2:01:51.560,-59:45:42.29) # point=x color=cyan
+point(2:01:59.110,-59:45:40.10) # point=x color=cyan
+point(2:02:02.251,-59:45:47.79) # point=x color=cyan
+point(2:02:03.160,-59:45:51.83) # point=x color=cyan
+point(2:02:07.345,-59:46:37.92) # point=x color=cyan
+point(2:02:07.707,-59:46:40.82) # point=x color=cyan
