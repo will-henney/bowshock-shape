@@ -1,0 +1,14 @@
+* Bow shock shapes from simulations
++ We will analyze some published synthetic observations from simulations
++ Do it exactly the same as for the real observations
+  + Trace arc in ds9
+  + Fit to find R0, R90 and Rc
+  + Determine \Pi and \Lambda
+** Convert screenshots to FITS
+#+BEGIN_SRC sh :results silent
+  for file in *-maps.png; do
+      python ~/Work/Image2FITS/image2fits.py $file
+  done
+#+END_SRC
+** Measure arcs on FITS images
++ E.g., [[file:A16-20mic-i00.reg]]

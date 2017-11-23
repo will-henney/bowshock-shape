@@ -1,0 +1,30 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+image
+line(745.56448,969.10528,999.00448,1222.5453) # line=0 0 color=black width=3 dash=1
+line(743.57115,1223.2586,1000.1915,966.38362) # line=0 0 color=black width=3 dash=1
+line(1416.0712,1062.4253,1416.0712,1062.4253) # line=0 0
+point(871.57115,1095.1412) # point=circle color=blue text={20 micron, i = 0}
+point(871.34454,1137) # point=x color=cyan
+point(850,1133.5) # point=x color=cyan
+point(883.62413,1134.5) # point=x color=cyan
+point(863.53025,1135.5) # point=x color=cyan
+point(895,1132.5464) # point=x color=cyan
+point(839.3949,1130.151) # point=x color=cyan
+point(830.46428,1125.9648) # point=x color=cyan
+point(821.81275,1119.2668) # point=x color=cyan
+point(812.60306,1110.8944) # point=x color=cyan
+point(803.67245,1101.9638) # point=x color=cyan
+point(796.41632,1093.3122) # point=x color=cyan
+point(789.1602,1086.8934) # point=x color=cyan
+point(782.74132,1079.9163) # point=x color=cyan
+point(777.43877,1074.0556) # point=x color=cyan
+point(901.97704,1129.4765) # point=x color=cyan
+point(911.18674,1125.8485) # point=x color=cyan
+point(920.11735,1119.4296) # point=x color=cyan
+point(930.16429,1110.7781) # point=x color=cyan
+point(938.81582,1100.452) # point=x color=cyan
+point(946.35102,1093.475) # point=x color=cyan
+point(953.60715,1086.2189) # point=x color=cyan
+point(958.9097,1079.5209) # point=x color=cyan
+point(963.65409,1073.6602) # point=x color=cyan
