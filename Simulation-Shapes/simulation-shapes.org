@@ -257,6 +257,74 @@ outer : -47.9081712238 -2.14965635401 142.082194775
 #+end_example
 
 
+
+** New way of plotting bow shape
++ Plot 1/R against cos \theta
++ That should be a straight line for a confocal conic
+#+BEGIN_SRC python :eval no :tangle shape-conic-plot.py
+  import sys
+  import json
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  try:
+      prefix = sys.argv[1]
+  except:
+      print(f"Usage: {sys.argv[0]} PREFIX")
+
+  jfile = f'{prefix}-arcdata.json'
+  data = json.load(open(jfile))
+  plotfile = sys.argv[0].replace('.py', f'-{prefix}.pdf')
+
+  R0 = np.array(data['outer']['R0'])
+  R = np.array(data['outer']['R'])
+  th = np.radians(data['outer']['theta'])
+
+  sns.set_style('ticks')
+  fig, ax = plt.subplots()
+  ax.plot(np.cos(th), R0/R, 'o')
+  ax.plot([-1, 1], [0, 1], '-', c='k', lw=0.5)
+  ax.set(
+      xlim=[-1.05, 1.05],
+      ylim=[-0.05, 1.05],
+      xlabel=r"$\cos \,\theta$",
+      ylabel="$R_{0} / R$",
+  )
+  sns.despine(trim=True)
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python shape-conic-plot.py R97-Halpha-i00
+#+END_SRC
+
+#+RESULTS:
+[[file:shape-conic-plot-R97-Halpha-i00.pdf]]
+
+#+BEGIN_SRC sh :results file
+python shape-conic-plot.py A16-Halpha-i00
+#+END_SRC
+
+#+RESULTS:
+[[file:shape-conic-plot-A16-Halpha-i00.pdf]]
+
+#+BEGIN_SRC sh :results file
+python shape-conic-plot.py A16-20mic-i00
+#+END_SRC
+
+#+RESULTS:
+[[file:shape-conic-plot-A16-20mic-i00.pdf]]
+
+#+BEGIN_SRC sh :results file
+python shape-conic-plot.py A16-12mic-i00
+#+END_SRC
+
+#+RESULTS:
+[[file:shape-conic-plot-A16-12mic-i00.pdf]]
+
 ** Plot the planitude--alatude
 
 *** Harvest the shape parameters from the JSON files
