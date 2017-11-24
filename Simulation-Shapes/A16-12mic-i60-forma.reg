@@ -10,14 +10,14 @@ point(2:00:26.218,-59:45:32.46) # point=x color=cyan
 point(2:00:17.104,-59:45:36.80) # point=x color=cyan
 point(2:00:17.863,-59:45:34.78) # point=x color=cyan
 point(2:00:14.518,-59:45:49.02) # point=x color=cyan
-point(2:00:12.806,-59:46:07.81) # point=x color=cyan
-point(2:00:12.078,-59:46:23.15) # point=x color=cyan
+point(2:00:12.898,-59:46:09.20) # point=x color=cyan
+point(2:00:12.538,-59:46:25.93) # point=x color=cyan
 point(2:00:15.172,-59:45:44.25) # point=x color=cyan
 point(2:00:29.640,-59:45:44.32) # point=x color=cyan
 point(2:00:30.207,-59:45:47.68) # point=x color=cyan
 point(2:00:31.835,-59:45:57.50) # point=x color=cyan
-point(2:00:32.958,-59:46:06.53) # point=x color=cyan
-point(2:00:33.197,-59:46:24.02) # point=x color=cyan
+point(2:00:32.775,-59:46:11.39) # point=x color=cyan
+point(2:00:33.106,-59:46:27.49) # point=x color=cyan
 point(2:00:16.443,-59:45:39.22) # point=x color=cyan
 point(2:00:28.298,-59:45:36.79) # point=x color=cyan
 point(2:00:18.917,-59:45:33.90) # point=x color=cyan
@@ -25,3 +25,5 @@ point(2:00:15.832,-59:45:41.21) # point=x color=cyan
 point(2:00:13.669,-59:45:59.07) # point=x color=cyan
 point(2:00:29.085,-59:45:40.14) # point=x color=cyan
 point(2:00:30.836,-59:45:52.14) # point=x color=cyan
+point(2:00:12.724,-59:46:48.15) # point=x color=cyan
+point(2:00:32.284,-59:46:47.65) # point=x color=cyan

@@ -6,7 +6,7 @@
 *** Cox et al 2012
 + Have a reasonably sane discussion of the projection of the /Wilkinoid/ shape
 + Consider R_0 and R_90
-+ 
+  + 
 ** Observations of O star bow shocks 
 + Use Kubulnicky (2016), who have 709 objects!
 + Best observations are 24 micron Spitzer MIPSGAL images

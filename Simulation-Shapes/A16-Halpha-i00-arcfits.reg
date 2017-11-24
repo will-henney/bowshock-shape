@@ -1,5 +1,5 @@
 # Region file format: DS9 version 4.1
 global color=red dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 fk5
-circle(2:01:55.2674,-59:52:15.9513,128.44962765419893") # color=green text={}
-point(2:01:55.2674,-59:52:15.9513) # point=diamond color=green text={outer}
+circle(2:01:55.5346,-59:51:41.4512,95.25883411792061") # color=green text={}
+point(2:01:55.5346,-59:51:41.4512) # point=diamond color=green text={outer}

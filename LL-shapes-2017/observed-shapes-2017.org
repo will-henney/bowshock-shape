@@ -397,6 +397,9 @@ python ../read-shapes-LL/plot-image.py 042-628 --image Bally_16
 
 
 * The red supergiants and AGB stars 
+:PROPERTIES:
+:ID:       A3F62646-04B8-448B-91FF-8E1DC04A9C41
+:END:
 + Observational data done in [[id:94EECFDB-B61E-4242-89C2-09BD3B36D587][RSG stars (and AGB)]]
 
 #+name: harvest-radii-rc-rsg

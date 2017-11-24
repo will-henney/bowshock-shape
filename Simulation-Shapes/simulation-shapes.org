@@ -45,13 +45,35 @@
   D=../read-shapes-LL
   for wav in 20mic 12mic Halpha; do
       for inc in i00 i30 i60; do
-          python $D/find-xy-shell.py A16-${wav}-${inc} --pa0 0
+          python $D/find-xy-shell.py A16-${wav}-${inc} --pa0 0 --window 9
       done
   done
 #+END_SRC
 
 
 
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  python $D/find-xy-shell.py --help
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+usage: find-xy-shell.py [-h] [--debug] [--pa0 PA0] [--window WINDOW] source
+
+Find (X, Y) positions of shell boundaries from a DS9 region file
+
+positional arguments:
+  source           Name of source, taken as prefix for region file containing
+                   shell and star positions
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --debug          Print out verbose debugging info about each line in region
+                   file
+  --pa0 PA0        Optionally over-ride guess at PA of bow shock axis
+  --window WINDOW  Number of points to use when searching for min R
+#+end_example
 
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
@@ -87,19 +109,18 @@ optional arguments:
 #+RESULTS:
 #+begin_example
 [[Fit Statistics]]
-    # function evals   = 15
+    # function evals   = 12
     # data points      = 9
     # variables        = 2
-    chi-square         = 1.514
-    reduced chi-square = 0.216
-    Akaike info crit   = -12.045
-    Bayesian info crit = -11.650
+    chi-square         = 1.500
+    reduced chi-square = 0.214
+    Akaike info crit   = -12.125
+    Bayesian info crit = -11.731
 [[Variables]]
-    xc:  -1.19402645 +/- 0.575943 (48.24%) (init= 7.441861)
-    yc:  -37.2659822 +/- 2.915745 (7.82%) (init=-40.45196)
+    xc:  -0.86827844 +/- 0.484223 (55.77%) (init=-1.415982)
+    yc:  -43.0169955 +/- 3.451873 (8.02%) (init=-40.94287)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    = -0.619 
-outer : -1.19402645091 -37.2659822589 78.3880611639
+outer : -0.868278445549 -43.0169955505 83.9520885522
 [[Fit Statistics]]
     # function evals   = 15
     # data points      = 9
@@ -109,38 +130,37 @@ outer : -1.19402645091 -37.2659822589 78.3880611639
     Akaike info crit   = -16.222
     Bayesian info crit = -15.828
 [[Variables]]
-    xc:   0.26327015 +/- 0.440482 (167.31%) (init=-0.3214639)
-    yc:  -56.6615456 +/- 3.378266 (5.96%) (init=-40.73935)
+    xc:   0.26327242 +/- 0.440482 (167.31%) (init= 0.1885513)
+    yc:  -56.6615451 +/- 3.378267 (5.96%) (init=-40.43253)
 [[Correlations]] (unreported correlations are <  0.100)
-outer : 0.263270152309 -56.6615455996 97.2688415175
+outer : 0.263272420544 -56.6615451113 97.2688410428
 [[Fit Statistics]]
-    # function evals   = 18
-    # data points      = 11
+    # function evals   = 21
+    # data points      = 10
     # variables        = 2
-    chi-square         = 20.816
-    reduced chi-square = 2.313
-    Akaike info crit   = 11.016
-    Bayesian info crit = 11.812
+    chi-square         = 12.096
+    reduced chi-square = 1.512
+    Akaike info crit   = 5.903
+    Bayesian info crit = 6.508
 [[Variables]]
-    xc:   0.76057423 +/- 2.179434 (286.55%) (init= 1.472534)
-    yc:  -107.004697 +/- 23.26966 (21.75%) (init=-40.89619)
+    xc:  -0.94112604 +/- 2.550386 (270.99%) (init= 0.64284)
+    yc:  -169.000042 +/- 51.30050 (30.36%) (init=-43.32933)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    = -0.416 
-outer : 0.760574238518 -107.004697677 153.094855575
+outer : -0.941126046004 -169.000042284 214.24326031
 [[Fit Statistics]]
     # function evals   = 15
-    # data points      = 29
+    # data points      = 30
     # variables        = 2
-    chi-square         = 7.017
-    reduced chi-square = 0.260
-    Akaike info crit   = -37.152
-    Bayesian info crit = -34.417
+    chi-square         = 3.663
+    reduced chi-square = 0.131
+    Akaike info crit   = -59.089
+    Bayesian info crit = -56.287
 [[Variables]]
-    xc:  -2.09501694 +/- 0.325159 (15.52%) (init=-5.566827)
-    yc:  -67.2709528 +/- 2.776351 (4.13%) (init=-43.9113)
+    xc:  -1.88017148 +/- 0.211841 (11.27%) (init=-1.455069)
+    yc:  -70.7512435 +/- 2.054985 (2.90%) (init=-44.26959)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    =  0.416 
-outer : -2.09501694508 -67.2709528252 111.595469151
+    C(xc, yc)                    =  0.181 
+outer : -1.88017148162 -70.7512435821 114.932519062
 [[Fit Statistics]]
     # function evals   = 15
     # data points      = 22
@@ -150,10 +170,10 @@ outer : -2.09501694508 -67.2709528252 111.595469151
     Akaike info crit   = -14.316
     Bayesian info crit = -12.134
 [[Variables]]
-    xc:  -2.02239751 +/- 0.530815 (26.25%) (init= 0.2380588)
-    yc:  -77.6627655 +/- 5.505584 (7.09%) (init=-41.66018)
+    xc:  -2.02239761 +/- 0.530814 (26.25%) (init= 0.1877718)
+    yc:  -77.6627673 +/- 5.505573 (7.09%) (init=-41.52165)
 [[Correlations]] (unreported correlations are <  0.100)
-outer : -2.02239751141 -77.6627655557 120.486053051
+outer : -2.02239761853 -77.6627673223 120.48605475
 [[Fit Statistics]]
     # function evals   = 12
     # data points      = 12
@@ -163,25 +183,24 @@ outer : -2.02239751141 -77.6627655557 120.486053051
     Akaike info crit   = 1.251
     Bayesian info crit = 2.221
 [[Variables]]
-    xc:  -3.19001202 +/- 0.650613 (20.40%) (init= 0.6827128)
-    yc:  -48.1391397 +/- 6.357236 (13.21%) (init=-51.15712)
+    xc:  -3.19000930 +/- 0.650585 (20.39%) (init=-2.587487)
+    yc:  -48.1391239 +/- 6.356706 (13.20%) (init=-53.83477)
 [[Correlations]] (unreported correlations are <  0.100)
     C(xc, yc)                    =  0.151 
-outer : -3.19001201961 -48.1391397647 102.461628081
+outer : -3.19000930802 -48.1391239766 102.461613882
 [[Fit Statistics]]
     # function evals   = 15
     # data points      = 15
     # variables        = 2
-    chi-square         = 58.562
-    reduced chi-square = 4.505
-    Akaike info crit   = 24.431
-    Bayesian info crit = 25.847
+    chi-square         = 75.590
+    reduced chi-square = 5.815
+    Akaike info crit   = 28.259
+    Bayesian info crit = 29.675
 [[Variables]]
-    xc:  -2.92046976 +/- 2.457735 (84.16%) (init=-10.14069)
-    yc:  -76.7413482 +/- 13.69561 (17.85%) (init=-51.30011)
+    xc:  -0.90720240 +/- 1.526846 (168.30%) (init=-1.735478)
+    yc:  -42.2411966 +/- 9.675294 (22.90%) (init=-52.12203)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    =  0.681 
-outer : -2.92046976508 -76.7413482799 128.449627654
+outer : -0.907202408862 -42.241196604 95.2588341179
 [[Fit Statistics]]
     # function evals   = 15
     # data points      = 12
@@ -191,39 +210,38 @@ outer : -2.92046976508 -76.7413482799 128.449627654
     Akaike info crit   = -14.140
     Bayesian info crit = -13.170
 [[Variables]]
-    xc:  -0.49692863 +/- 0.510309 (102.69%) (init=-0.8434308)
-    yc:  -77.9597977 +/- 3.784122 (4.85%) (init=-62.86886)
+    xc:  -0.49692657 +/- 0.510309 (102.69%) (init=-0.8667289)
+    yc:  -77.9597925 +/- 3.784126 (4.85%) (init=-62.6494)
 [[Correlations]] (unreported correlations are <  0.100)
     C(xc, yc)                    =  0.260 
-outer : -0.496928633555 -77.9597977471 141.013747579
+outer : -0.496926576525 -77.9597925915 141.013742592
 [[Fit Statistics]]
     # function evals   = 18
-    # data points      = 13
+    # data points      = 12
     # variables        = 2
-    chi-square         = 14.927
-    reduced chi-square = 1.357
-    Akaike info crit   = 5.797
-    Bayesian info crit = 6.927
+    chi-square         = 19.731
+    reduced chi-square = 1.973
+    Akaike info crit   = 9.968
+    Bayesian info crit = 10.937
 [[Variables]]
-    xc:   1.65754742 +/- 0.808979 (48.81%) (init=-14.69156)
-    yc:  -29.1574800 +/- 3.044719 (10.44%) (init=-79.10057)
+    xc:   0.03098664 +/- 0.915668 (2955.04%) (init=-1.467732)
+    yc:  -29.9301989 +/- 4.449084 (14.86%) (init=-80.68895)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    =  0.548 
-outer : 1.65754742805 -29.1574800437 109.498702332
+    C(xc, yc)                    = -0.104 
+outer : 0.0309866408166 -29.930198911 110.304078185
 #+end_example
 
 
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
-  python $D/find-xy-shell.py R97-Halpha-i00 --pa0 270
+  python $D/find-xy-shell.py R97-Halpha-i00 --pa0 90 --window 9
   python $D/fit-circle-shell.py R97-Halpha-i00 --thmax 60 --savefig --figscale 300
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
-Warning: Closest point of outer arc is at one end, using all points in parabola fit
 [[Fit Statistics]]
-    # function evals   = 15
+    # function evals   = 18
     # data points      = 7
     # variables        = 2
     chi-square         = 140.998
@@ -231,9 +249,96 @@ Warning: Closest point of outer arc is at one end, using all points in parabola 
     Akaike info crit   = 25.020
     Bayesian info crit = 24.912
 [[Variables]]
-    xc:  -47.9080520 +/- 27.37815 (57.15%) (init=-75.07669)
-    yc:  -2.14965479 +/- 4.968275 (231.12%) (init= 0.2354172)
+    xc:  -47.9081712 +/- 27.37979 (57.15%) (init=-91.68763)
+    yc:  -2.14965635 +/- 4.968434 (231.13%) (init=-1.367659)
 [[Correlations]] (unreported correlations are <  0.100)
     C(xc, yc)                    =  0.267 
-outer : -47.9080520939 -2.14965479165 142.082087008
+outer : -47.9081712238 -2.14965635401 142.082194775
 #+end_example
+
+
+** Plot the planitude--alatude
+
+*** Harvest the shape parameters from the JSON files
++ Do it like in [[id:A3F62646-04B8-448B-91FF-8E1DC04A9C41][The red supergiants and AGB stars]]
+
+#+BEGIN_SRC sh :results verbatim
+ls *.json |cut -d'-' -f1-3
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+A16-12mic-i00
+A16-12mic-i30
+A16-12mic-i60
+A16-20mic-i00
+A16-20mic-i30
+A16-20mic-i60
+A16-Halpha-i00
+A16-Halpha-i30
+A16-Halpha-i60
+R97-Halpha-i00
+#+end_example
+
+#+name: harvest-radii-sims
+#+BEGIN_SRC python :return table
+  import json
+
+  SOURCES = [
+      "A16-12mic-i00", 
+      "A16-12mic-i30", 
+      "A16-12mic-i60", 
+      "A16-20mic-i00", 
+      "A16-20mic-i30", 
+      "A16-20mic-i60", 
+      "A16-Halpha-i00", 
+      "A16-Halpha-i30", 
+      "A16-Halpha-i60", 
+      "R97-Halpha-i00", 
+  ]
+
+  radii_header = ['R0/100', 'Rc/R0', 'R90/R0', 'Rm90/R0']
+  header = [['Source', *radii_header], None]
+  INVALID = -999.00
+  body = []
+  for source in SOURCES:
+      jfile = f'{source}-arcdata.json'
+      data = json.load(open(jfile))
+      assert source == data['star']['id']
+      D = data['star']['D']
+      row = [source]
+      arc = 'outer'
+      if arc in data:
+          R0 = data[arc]['R0']
+          Rc = data[arc]['Rc'] / R0
+          if 'R90' in data[arc]:
+              Rm90, R90 = data[arc]['R90']
+              if Rm90 > 0.0:
+                  Rm90 /= R0
+              if R90 > 0.0:
+                  R90 /= R0
+          else:
+              Rm90, R90 = INVALID, INVALID
+          row += [f'{_:.2f}' for _ in [R0/100.0, Rc, Rm90, R90]]
+      else:
+          row += [f'{_:.2f}' for _ in [INVALID, INVALID, INVALID, INVALID]]
+      body.append(row)
+
+  #body.sort(key=lambda x: x[0])
+  table = header + body
+
+#+END_SRC
+
+#+RESULTS: harvest-radii-sims
+| Source         | R0/100 | Rc/R0 | R90/R0 | Rm90/R0 |
+|----------------+--------+-------+--------+---------|
+| A16-12mic-i00  |   0.44 |  2.59 |   1.69 |    1.69 |
+| A16-12mic-i30  |   0.42 |  2.90 |   1.97 |    1.88 |
+| A16-12mic-i60  |   0.54 |  1.90 |   1.45 |    1.42 |
+| A16-20mic-i00  |   0.41 |  2.05 |   1.75 |    1.87 |
+| A16-20mic-i30  |   0.40 |  2.41 |   1.96 |    1.97 |
+| A16-20mic-i60  |   0.43 |  4.94 |   1.78 |    1.82 |
+| A16-Halpha-i00 |   0.52 |  1.83 |   1.57 |    1.79 |
+| A16-Halpha-i30 |   0.63 |  2.25 |   1.53 |    1.54 |
+| A16-Halpha-i60 |   0.81 |  1.37 |   1.38 |    1.38 |
+| R97-Halpha-i00 |   0.92 |  1.55 |   2.16 |    2.09 |
