@@ -21,7 +21,7 @@
   from astropy.wcs import WCS
   channels = ['red', 'green', 'blue']
   for channel in channels:
-      hdulist = fits.open(f"Acreman-2016-maps-{channel}.fits", mode="update")
+      hdulist = fits.open(f"Raga-1997-maps-{channel}.fits", mode="update")
       w = WCS(naxis=2)
       w.wcs.crpix = [0, 0]
       w.wcs.cdelt = [1.0/3600, 1.0/3600]
@@ -36,7 +36,7 @@
 #+RESULTS:
 : None
 
-+ [ ] Then we have to load each of the =.reg= files back in to ds9 and write them out again in wcs format
++ [X] Then we have to load each of the =.reg= files back in to ds9 and write them out again in wcs format
 
 ** Fit the arcs
 + Do it like in [[id:4BC292AA-F2EB-4031-94AB-E6A36B22FD21][Circle fits to second batch of sources]]
@@ -50,7 +50,8 @@
   done
 #+END_SRC
 
-#+RESULTS:
+
+
 
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
@@ -78,7 +79,7 @@ optional arguments:
   D=../read-shapes-LL
   for wav in 20mic 12mic Halpha; do
       for inc in i00 i30 i60; do
-          python $D/fit-circle-shell.py A16-${wav}-${inc} --thmax 60 --savefig
+          python $D/fit-circle-shell.py A16-${wav}-${inc} --thmax 60 --savefig --figscale 150
       done
   done
 #+END_SRC
@@ -168,44 +169,71 @@ outer : -2.02239751141 -77.6627655557 120.486053051
     C(xc, yc)                    =  0.151 
 outer : -3.19001201961 -48.1391397647 102.461628081
 [[Fit Statistics]]
-    # function evals   = 18
-    # data points      = 13
+    # function evals   = 15
+    # data points      = 15
     # variables        = 2
-    chi-square         = 37.641
-    reduced chi-square = 3.422
-    Akaike info crit   = 17.821
-    Bayesian info crit = 18.951
+    chi-square         = 58.562
+    reduced chi-square = 4.505
+    Akaike info crit   = 24.431
+    Bayesian info crit = 25.847
 [[Variables]]
-    xc:   0.55145930 +/- 1.806736 (327.63%) (init=-0.8379232)
-    yc:  -89.0893371 +/- 16.63433 (18.67%) (init=-45.61221)
+    xc:  -2.92046976 +/- 2.457735 (84.16%) (init=-10.14069)
+    yc:  -76.7413482 +/- 13.69561 (17.85%) (init=-51.30011)
 [[Correlations]] (unreported correlations are <  0.100)
-outer : 0.551459307748 -89.0893371329 135.61359871
+    C(xc, yc)                    =  0.681 
+outer : -2.92046976508 -76.7413482799 128.449627654
 [[Fit Statistics]]
     # function evals   = 15
     # data points      = 12
     # variables        = 2
-    chi-square         = 12.204
-    reduced chi-square = 1.220
-    Akaike info crit   = 4.202
-    Bayesian info crit = 5.172
+    chi-square         = 2.646
+    reduced chi-square = 0.265
+    Akaike info crit   = -14.140
+    Bayesian info crit = -13.170
 [[Variables]]
-    xc:   1.20377567 +/- 1.157828 (96.18%) (init= 7.19575)
-    yc:  -68.3133429 +/- 6.794446 (9.95%) (init=-59.66923)
+    xc:  -0.49692863 +/- 0.510309 (102.69%) (init=-0.8434308)
+    yc:  -77.9597977 +/- 3.784122 (4.85%) (init=-62.86886)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    = -0.502 
-outer : 1.20377567223 -68.3133429761 128.38457749
+    C(xc, yc)                    =  0.260 
+outer : -0.496928633555 -77.9597977471 141.013747579
 [[Fit Statistics]]
-    # function evals   = 22
-    # data points      = 12
+    # function evals   = 18
+    # data points      = 13
     # variables        = 2
-    chi-square         = 6.341
-    reduced chi-square = 0.634
-    Akaike info crit   = -3.655
-    Bayesian info crit = -2.685
+    chi-square         = 14.927
+    reduced chi-square = 1.357
+    Akaike info crit   = 5.797
+    Bayesian info crit = 6.927
 [[Variables]]
-    xc:   0.49269373 +/- 0.473361 (96.08%) (init=-0.05993926)
-    yc:  -15.1021875 +/- 2.052525 (13.59%) (init=-76.01005)
+    xc:   1.65754742 +/- 0.808979 (48.81%) (init=-14.69156)
+    yc:  -29.1574800 +/- 3.044719 (10.44%) (init=-79.10057)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    =  0.222 
-outer : 0.492693736756 -15.1021875904 91.3070708815
+    C(xc, yc)                    =  0.548 
+outer : 1.65754742805 -29.1574800437 109.498702332
+#+end_example
+
+
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  python $D/find-xy-shell.py R97-Halpha-i00 --pa0 270
+  python $D/fit-circle-shell.py R97-Halpha-i00 --thmax 60 --savefig --figscale 300
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Warning: Closest point of outer arc is at one end, using all points in parabola fit
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 7
+    # variables        = 2
+    chi-square         = 140.998
+    reduced chi-square = 28.200
+    Akaike info crit   = 25.020
+    Bayesian info crit = 24.912
+[[Variables]]
+    xc:  -47.9080520 +/- 27.37815 (57.15%) (init=-75.07669)
+    yc:  -2.14965479 +/- 4.968275 (231.12%) (init= 0.2354172)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.267 
+outer : -47.9080520939 -2.14965479165 142.082087008
 #+end_example

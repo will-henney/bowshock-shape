@@ -139,6 +139,8 @@ parser.add_argument("--debug", action="store_true",
                     help="Print out verbose debugging info")
 parser.add_argument("--thmax", type=float, default=90.0,
                     help="Maximum angle from axis for points to include in circle fit")
+parser.add_argument("--figscale", type=float, default=0.0,
+                    help="Scale for figure in arcseconds")
 
 cmd_args = parser.parse_args()
 dbfile = cmd_args.source + "-arcdata.json"
@@ -160,7 +162,12 @@ with open(region_file, "w") as f:
 if cmd_args.savefig:
     plotfile = dbfile.replace("-arcdata.json", "-arcfits.pdf")
     plt.plot(0.0, 0.0, 'o')
-    plt.axis("equal")
+    if cmd_args.figscale > 0.0:
+        plt.gca().set(
+            xlim=[-cmd_args.figscale, cmd_args.figscale],
+            ylim=[-cmd_args.figscale, cmd_args.figscale],
+        )
+    plt.gca().set_aspect("equal")
     plt.savefig(plotfile)
 
 
