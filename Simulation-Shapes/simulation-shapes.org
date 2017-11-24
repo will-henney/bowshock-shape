@@ -4,6 +4,23 @@
   + Trace arc in ds9
   + Fit to find R0, R90 and Rc
   + Determine \Pi and \Lambda
+** Get more simulations
++ [X] We have Acreman 2016
+  + One model in 3 bands (Ha, 12 \mu{}m, 20 \mu{}m) for 3 angles (0, 30, 60)
++ [X] We have Raga 1997
+  + One model in 1 band (H\alpha) for i=0 only
++ [ ] Potentially we have Meyer 2014
+  + Many models in 2 bands (H\alpha and generic dust) for i=0 only
++ [ ] And there is Meyer 2016
+  + 3 models (n = 0.1, 1, 10 for 20 Msun and 70 km/s), two bands (H\alpha and [O III]), five angles (0, 30, 45, 60, 90), where first comes from density map, and 90 is useless obviously.
+  + This looks the best bet
+    + We can get the full shape from the density maps, which extend out to \theta = 140 or so
+    + The fit some conics and do predicted projection and actual projection for 30, 45, 60
+  + *But* there is a flaw
+    + Their projected maps have only been calculated using that part of the grid with \theta < 90
+    + This means that we cannot find \Lambda' because they are forcing that R_90' = R_90 for all i, which means that \Lambda' will appear to fall because R_0' is increasing.
+    + Whereas in reality, \Lambda' will come from shell at \theta_90(i), which is > 90 deg
+    + Still we could show this as a warning
 ** Convert screenshots to FITS
 #+BEGIN_SRC sh :results silent
   for file in *-maps.png; do
