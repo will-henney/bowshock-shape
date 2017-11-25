@@ -27,18 +27,33 @@
       python ~/Work/Image2FITS/image2fits.py $file
   done
 #+END_SRC
+
+New ones from Meyer(2014)
+#+BEGIN_SRC sh :results silent
+  for file in Meyer-2016-MS2070*.png; do
+      python ~/Work/Image2FITS/image2fits.py $file
+  done
+#+END_SRC
+
 ** Measure arcs on FITS images
 + Acreman figure
   + E.g., [[file:A16-20mic-i00-forma.reg]]
 ** Add a WCS to the FITS files
 + It turns out that =find-xy-shell.py= requires one
   + And it is easier to provide one than to re-write the program
-#+BEGIN_SRC python
+#+BEGIN_SRC python :eval no :tangle add-wcs-to-screenshot.py
+  import sys
   from astropy.io import fits
   from astropy.wcs import WCS
+
+  try: 
+      prefix = sys.argv[1]
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} PREFIX")
+
   channels = ['red', 'green', 'blue']
   for channel in channels:
-      hdulist = fits.open(f"Raga-1997-maps-{channel}.fits", mode="update")
+      hdulist = fits.open(f"{prefix}-{channel}.fits", mode="update")
       w = WCS(naxis=2)
       w.wcs.crpix = [0, 0]
       w.wcs.cdelt = [1.0/3600, 1.0/3600]
@@ -47,11 +62,16 @@
       hdulist[0].header = w.to_header()
       hdulist.flush()
       hdulist.close()
-    
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+  for file in Meyer-2016-MS2070*.png; do
+      python add-wcs-to-screenshot.py ${file%%.png}
+  done
 #+END_SRC
 
 #+RESULTS:
-: None
 
 + [X] Then we have to load each of the =.reg= files back in to ds9 and write them out again in wcs format
 
@@ -273,40 +293,140 @@ outer : 0.0309866408166 -29.930198911 110.304078185
 outer : -47.9081712238 -2.14965635401 142.082194775
 #+end_example
 
+** Fit arcs to Meyer 2016 shapes
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  python $D/find-xy-shell.py M16-MS2070n00p10-CD --pa0 0 --window 9
+  python $D/fit-circle-shell.py M16-MS2070n00p10-CD --thmax 45 --savefig --figscale 400
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 20
+    # variables        = 2
+    chi-square         = 2.710
+    reduced chi-square = 0.151
+    Akaike info crit   = -35.975
+    Bayesian info crit = -33.983
+[[Variables]]
+    xc:   0.33132693 +/- 0.328603 (99.18%) (init= 1.654683)
+    yc:  -90.3086757 +/- 2.550880 (2.82%) (init=-129.5469)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.109 
+outer : 0.331326935361 -90.3086757514 219.628141348
+#+end_example
+
+
+#+BEGIN_SRC sh :results silent
+open M16-MS2070n00p10-*-arcfits.pdf
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  python $D/find-xy-shell.py M16-MS2070n00p10-BS --pa0 0 --window 9
+  python $D/fit-circle-shell.py M16-MS2070n00p10-BS --thmax 45 --savefig --figscale 400
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 23
+    # variables        = 2
+    chi-square         = 3.442
+    reduced chi-square = 0.164
+    Akaike info crit   = -39.685
+    Bayesian info crit = -37.414
+[[Variables]]
+    xc:   0.97394196 +/- 0.352750 (36.22%) (init= 0.4950382)
+    yc:  -129.062380 +/- 3.048129 (2.36%) (init=-149.6037)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.100 
+outer : 0.973941961957 -129.062380349 278.408680128
+#+end_example
+
+
+#+BEGIN_SRC sh :results file
+python shape-conic-plot.py M16-MS2070n00p10
+#+END_SRC
+
+#+RESULTS:
+[[file:shape-conic-plot-M16-MS2070n00p10.pdf]]
+
 
 
 ** New way of plotting bow shape
 + Plot 1/R against cos \theta
 + That should be a straight line for a confocal conic
++ If we take (1/R) - (1 + cos \theta)/2, then that is even better
+  + Parabola is flat at 0, so we have compensated for the main slope
+  + And we can see the variations more clearly
 #+BEGIN_SRC python :eval no :tangle shape-conic-plot.py
   import sys
   import json
   import numpy as np
   from matplotlib import pyplot as plt
   import seaborn as sns
+  sys.path.append("../Dust-wave")
+  import bow_projection as bp
 
   try:
       prefix = sys.argv[1]
   except:
       print(f"Usage: {sys.argv[0]} PREFIX")
 
-  jfile = f'{prefix}-arcdata.json'
-  data = json.load(open(jfile))
   plotfile = sys.argv[0].replace('.py', f'-{prefix}.pdf')
 
-  R0 = np.array(data['outer']['R0'])
-  R = np.array(data['outer']['R'])
-  th = np.radians(data['outer']['theta'])
+  def compensate(R, theta):
+      """Compensated inversion of R(theta)"""
+      return 1.0/R - 0.5*(1 + np.cos(theta))
+
+  def load_R_th(arc_prefix):
+      jfile = f'{arc_prefix}-arcdata.json'
+      data = json.load(open(jfile))
+      R0 = np.array(data['outer']['R0'])
+      R = np.array(data['outer']['R'])
+      th = np.radians(data['outer']['theta'])
+      return th, R/R0
+
 
   sns.set_style('ticks')
   fig, ax = plt.subplots()
-  ax.plot(np.cos(th), R0/R, 'o')
-  ax.plot([-1, 1], [0, 1], '-', c='k', lw=0.5)
+
+  # Plot confocal parabola
+  ax.axhline(0.0, ls='-', c='k', lw=0.5)
+
+  # Plot wilkinoid
+  mugrid = np.linspace(-1.0, 1.0, 200)
+  thgrid = np.arccos(mugrid)
+  ax.plot(mugrid, compensate(bp.wilkinoid_R_theta(thgrid), thgrid),
+          '-', c='k', lw=1.5)
+
+  # Plot cantoids
+  for beta in 0.3, 0.1, 0.03, 0.01, 0.003, 0.001, 0.0003, 0.0001:
+      ax.plot(mugrid, compensate(bp.cantoid_R_theta(thgrid, beta), thgrid),
+              '-', c='k', lw=0.5)
+
+  # Fill in forbidden zone
+  ax.fill_between(mugrid, -0.5*(1.0 + mugrid), -1.0, color='k', alpha=0.4)
+
+  # Plot traced arcs
+  th, R = load_R_th(prefix + '-CD')
+  ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='CD')
+  th, R = load_R_th(prefix + '-BS')
+  ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='BS')
+
+
+
+  ax.legend(title=prefix)
+
   ax.set(
-      xlim=[-1.05, 1.05],
-      ylim=[-0.05, 1.05],
+      xlim=[-1.02, 1.02],
+      ylim=[-0.155, 0.155],
       xlabel=r"$\cos \,\theta$",
-      ylabel="$R_{0} / R$",
+      ylabel=r"$(R_{0} / R) - 0.5 (1 + \cos \,\theta) $",
   )
   sns.despine(trim=True)
   fig.tight_layout()
