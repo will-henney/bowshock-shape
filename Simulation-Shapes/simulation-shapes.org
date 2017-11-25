@@ -296,7 +296,7 @@ outer : -47.9081712238 -2.14965635401 142.082194775
 ** Fit arcs to Meyer 2016 shapes
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
-  python $D/find-xy-shell.py M16-MS2070n00p10-CD --pa0 0 --window 9
+  python $D/find-xy-shell.py M16-MS2070n00p10-CD --pa0 0 --window 11
   python $D/fit-circle-shell.py M16-MS2070n00p10-CD --thmax 45 --savefig --figscale 400
 #+END_SRC
 
@@ -311,11 +311,11 @@ outer : -47.9081712238 -2.14965635401 142.082194775
     Akaike info crit   = -35.975
     Bayesian info crit = -33.983
 [[Variables]]
-    xc:   0.33132693 +/- 0.328603 (99.18%) (init= 1.654683)
-    yc:  -90.3086757 +/- 2.550880 (2.82%) (init=-129.5469)
+    xc:   0.33132410 +/- 0.328603 (99.18%) (init= 0.3099345)
+    yc:  -90.3086796 +/- 2.550881 (2.82%) (init=-129.4369)
 [[Correlations]] (unreported correlations are <  0.100)
     C(xc, yc)                    =  0.109 
-outer : 0.331326935361 -90.3086757514 219.628141348
+outer : 0.331324102216 -90.308679631 219.628145297
 #+end_example
 
 
@@ -325,7 +325,7 @@ open M16-MS2070n00p10-*-arcfits.pdf
 
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
-  python $D/find-xy-shell.py M16-MS2070n00p10-BS --pa0 0 --window 9
+  python $D/find-xy-shell.py M16-MS2070n00p10-BS --pa0 0 --window 10
   python $D/fit-circle-shell.py M16-MS2070n00p10-BS --thmax 45 --savefig --figscale 400
 #+END_SRC
 
@@ -363,6 +363,15 @@ python shape-conic-plot.py M16-MS2070n00p10
 + If we take (1/R) - (1 + cos \theta)/2, then that is even better
   + Parabola is flat at 0, so we have compensated for the main slope
   + And we can see the variations more clearly
++ Big question is, what do we call this function?
+  + *Compensated inversion* is a possibility
+    + "/Inversion/" because 1/R is the circle inversion of the arc
+    + "/Compensated/" because we subtract off a "typical" slope, as in a compensated power spectrum
+  + *Departure function* is even better I think
+    + It is the "/departure/" from a confocal parabola
+    + less "clever"
+    + We can call it \(\mathcal{D}\) or maybe \Delta
+      \[ \Delta(\cos \theta) = \frac {R_{0}} {R(\theta)} - \frac12 (1 + \cos \theta)\]
 #+BEGIN_SRC python :eval no :tangle shape-conic-plot.py
   import sys
   import json
