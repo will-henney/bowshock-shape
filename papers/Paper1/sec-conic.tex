@@ -211,6 +211,38 @@ different quadric types, with varying alatude, \(\Lambda\), that increases
 from oblate, through prolate and paraboloid, to hyperboloid, as
 illustrated in Figure~\ref{fig:conics-family}.
 
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/conic-departure}
+  \caption[]{Parabolic departure function for conic sections.}
+  \label{fig:conic-departure}
+\end{figure}
+
+\subsection{Parabolic departure function}
+\label{sec:parab-depart-funct}
+
+The special case of confocal conic sections
+(\(\Lambda = \Pi\)) can be written in polar form as
+\begin{equation}
+  \label{eq:confocal-polar}
+  R(\theta) = R_0 \frac {1 + \ecc} {1 + \ecc \cos \theta}
+\end{equation}
+where \(\ecc = (1 - \Q)^{1/2}\) is the \textit{conic eccentricity}.
+For the confocal parabola (\(\ecc = 1\)), the dimensionless reciprocal
+radius is therefore \(R_0/R(\theta) = \tfrac12 (1 + \cos \theta)\), which
+suggests the following form for a \textit{departure function} that
+measures the difference between a given shape \(R(\theta)\) and the
+parabola:
+\begin{equation}
+  \label{eq:departure-function}
+  \Depart\bigl(\cos \theta\bigr) = \frac{R_0} {R(\theta)} - \tfrac12 \left( 1 + \cos \theta \right). 
+\end{equation}
+From equations~\eqref{eq:confocal-polar} and
+\eqref{eq:departure-function} it is clear that \(\Depart\) is a linear
+function of \(\cos \theta\) for other confocal conics, being positive for
+ellipses (\(\ecc < 1\)) and negative for hyperbolae (\(\ecc > 1\)).
+
+
 % We have set a whole family of curves with a singular parameter denoted as:
 % \begin{align}
 %   \tan\theta_c \equiv \pm\frac{b}{a}\label{eq:Thc}
