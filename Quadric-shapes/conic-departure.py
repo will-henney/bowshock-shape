@@ -63,6 +63,10 @@ ax.annotate(r"$\Lambda = \frac{3}{2}$", (0.05, 0.18), va='bottom')
 ax.annotate(r"$\Lambda = 2$", (0.0, 0.02), va='bottom', ha='center')
 ax.annotate(r"$\Lambda = \frac{8}{3}$", (0.05, -0.14), va='top')
 
+ax.annotate(r"Apex", (1.0, 0.1), fontsize='small', va='bottom', ha='center')
+ax.annotate(r"Wing", (0.0, 0.3), fontsize='small', va='bottom', ha='center')
+ax.annotate(r"Far wing", (-0.6, 0.05), fontsize='small', va='bottom', ha='center')
+
 ax.set(
     xlim=[-1.02, 1.14],
     ylim=[-0.255, 0.455],

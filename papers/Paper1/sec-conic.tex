@@ -144,6 +144,19 @@ is \(\theta_\infty = \pi + \thetaQ\) (note that \(\thetaQ < 0\) in this case), a
 the minimum slope angle is \(\alpha_{\mathrm{min}} = \abs{\thetaQ}\), see
 discussion following equation~\eqref{eq:thetapar}.
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/conic-departure}
+  \caption[]{Parabolic departure function, \(\Depart(\cos\theta)\), for
+    conic sections with different planitude and alatude, centered on
+    that of the confocal parabola, \((\Pi, \Lambda) = (2, 2)\), which has
+    \(\Depart(\cos\theta) = 0\).  Planitude (shown by different line
+    colors) determines the slope of \(\Depart\) at the apex,
+    \(\cos\theta = 1\).  Alatude (shown by different line widths)
+    determines the value of \(\Depart\) at \(\cos\theta = 0\).  All conics
+    with \(\Pi = \Lambda\) have departure functions that are straight lines.}
+  \label{fig:conic-departure}
+\end{figure}
+
 \begin{figure*}
   \centering
   \setkeys{Gin}{width=0.48\linewidth}
@@ -212,12 +225,6 @@ from oblate, through prolate and paraboloid, to hyperboloid, as
 illustrated in Figure~\ref{fig:conics-family}.
 
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figs/conic-departure}
-  \caption[]{Parabolic departure function for conic sections.}
-  \label{fig:conic-departure}
-\end{figure}
-
 \subsection{Parabolic departure function}
 \label{sec:parab-depart-funct}
 
@@ -241,6 +248,16 @@ From equations~\eqref{eq:confocal-polar} and
 \eqref{eq:departure-function} it is clear that \(\Depart\) is a linear
 function of \(\cos \theta\) for other confocal conics, being positive for
 ellipses (\(\ecc < 1\)) and negative for hyperbolae (\(\ecc > 1\)).
+Examples are shown in Figure~\ref{fig:conic-departure} for a grid of 9
+conics centered on the confocal parabola, with \((\Pi, \Lambda)\) ranging from
+\(3/4\) to \(4/3\) of \((2, 2)\).  The hyperbolae have negative values
+of \(\Depart\) in the far wings, with tracks that end at \(\cos \theta_\infty\).
+
+Strictly speaking, the departure function is redundant if one is
+interested in only conic sections, since they are fully determined by
+\(\Pi\) and \(\Lambda\).  Nonetheless, as we will show in following sections,
+it is a useful tool for studying general \(R(\theta)\), being very
+sensitive to small variations in the shape.
 
 
 % We have set a whole family of curves with a singular parameter denoted as:
