@@ -1,5 +1,7 @@
-* Departure function for quadrics
-+ We want to look at the 
+* DONE Departure function for quadrics
+CLOSED: [2017-11-25 Sat 22:25]
++ We want to look at the values around (2, 2)
++ Use 3/2 and 8/3
 
 #+BEGIN_SRC python :eval no :tangle conic-departure.py
   import sys
