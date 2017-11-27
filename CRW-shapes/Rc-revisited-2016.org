@@ -541,6 +541,7 @@ python ancantoid-Pi-Lambda-true.py
 
   # Plot confocal parabola
   ax.axhline(0.0, ls=':', c='k', lw=0.5)
+  ax.axvline(0.0, ls=':', c='k', lw=0.5)
 
   gray = '0.6'
 
@@ -602,26 +603,93 @@ python crw-departure.py
 #+RESULTS:
 [[file:crw-departure.pdf]]
 
+Same for the k=3 and k=8 ancantoids
+#+BEGIN_SRC python :eval no :tangle crw-departure-k38.py
+  import sys
+  import json
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from equation6 import Shell
+  sys.path.append("../Dust-wave")
+  import bow_projection as bp
+  import ancantoid_shape
+
+  plotfile = sys.argv[0].replace('.py', '.pdf')
+
+  def compensate(R, theta):
+      """Compensated inversion of R(theta)"""
+      return 1.0/R - 0.5*(1 + np.cos(theta))
+
+  sns.set_style('ticks')
+  sns.set_color_codes(palette='deep')
+  fig, ax = plt.subplots(figsize=(4, 4))
+
+  # Plot confocal parabola
+  ax.axhline(0.0, ls=':', c='k', lw=0.5)
+  ax.axvline(0.0, ls=':', c='k', lw=0.5)
+
+  gray = '0.6'
+
+  # Plot wilkinoid
+  mugrid = np.linspace(-1.0, 1.0, 100)[::-1]
+  thgrid = np.arccos(mugrid)
+  ax.plot(mugrid, compensate(bp.wilkinoid_R_theta(thgrid), thgrid),
+          '-', c=gray, lw=2)
+
+  betas = [0.1, 0.01, 0.001, 0.0001, 1e-7]
+
+  ks = [None, 3.0, 8.0]
+  colors = gray, 'm', 'b'
+
+  # Plot cantoids
+  for k, color in zip(ks, colors):
+      for beta in betas:
+          if k is None:
+              R = bp.cantoid_R_theta(thgrid, beta)
+              shape_label = fr"Cantoid/Wilkinoid"
+          else:
+              xi = 2.0 / (k + 2.0)
+              shape = ancantoid_shape.Ancantoid(xi=xi, beta=beta, n=301)
+              R = shape(thgrid)
+              shape_label = fr"Ancantoid $k = {k:.1f}$"
+          label = shape_label if beta == betas[-1] else "_nolabel_"
+          lw = 1.5 if beta == betas[-1] else 0.5
+          ax.plot(mugrid, compensate(R, thgrid),
+                  '-', c=color, lw=lw, label=label)
+
+  # Fill in forbidden zone
+  #ax.fill_between(mugrid, -0.5*(1.0 + mugrid), -1.0, color='k', alpha=0.4)
+
+  ax.annotate(r"$\beta = 0.1$", (0.1, 0.48), color='b', fontsize='small', ha='right')
+  ax.annotate(r"$\beta = 0.01$", (0.0, 0.7),  color='b', fontsize='small', ha='right')
+  ax.annotate(r"$\beta = 0$", (-0.1, 0.83),  color='b', fontsize='small', ha='right')
+
+  ax.annotate(r"$\beta = 0.1$", (0.0, 0.18), color='m', fontsize='small', ha='right')
+  ax.annotate(r"$\beta = 0.01$", (-0.1, 0.35),  color='m', fontsize='small', ha='right')
+  ax.annotate(r"$\beta = 0$", (-0.4, 0.45),  color='m', fontsize='small', ha='right')
+
+  ax.legend()
+
+  ax.set(
+      xlim=[-1.02, 1.02],
+      ylim=[-0.375, 0.9],
+      xlabel=r"$\cos \,\theta$",
+      ylabel=r"Departure function, $\Delta(\cos\theta)$",
+  )
+  sns.despine(trim=True)
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+#+END_SRC
+
 #+BEGIN_SRC sh :results file
-python crw-departure.py 0
+python crw-departure-k38.py
 #+END_SRC
 
 #+RESULTS:
-[[file:crw-departure-00.pdf]]
+[[file:crw-departure-k38.pdf]]
 
-#+BEGIN_SRC sh :results file
-python crw-departure.py 0.5
-#+END_SRC
-
-#+RESULTS:
-[[file:crw-departure-05.pdf]]
-
-#+BEGIN_SRC sh :results file
-python crw-departure.py 3
-#+END_SRC
-
-#+RESULTS:
-[[file:crw-departure-30.pdf]]
 
 * DONE Reproduce figure originally made by [[file:~/Work/Bowshocks/Jorge/bowshock-shape/papers/Paper1/shape_beta.py][shape_beta.py]]
 CLOSED: [2017-11-08 Wed 22:25]
@@ -822,17 +890,24 @@ python ancantoid-angles.py
 * Copy figures to paper directory
 
 #+BEGIN_SRC sh :results verbatim
-FIGS="ancantoid-*.pdf crw-departure.pdf"
+FIGS="ancantoid-*.pdf crw-departure*.pdf"
 date
 cp -av $FIGS ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Sun Nov 26 11:40:14 CST 2017
-: ancantoid-Pi-Lambda-true.pdf -> ../papers/Paper1/figs/ancantoid-Pi-Lambda-true.pdf
-: ancantoid-angles.pdf -> ../papers/Paper1/figs/ancantoid-angles.pdf
-: ancantoid-shape.pdf -> ../papers/Paper1/figs/ancantoid-shape.pdf
-: crw-departure.pdf -> ../papers/Paper1/figs/crw-departure.pdf
+#+begin_example
+Sun Nov 26 18:36:09 CST 2017
+ancantoid-Pi-Lambda-true.pdf -> ../papers/Paper1/figs/ancantoid-Pi-Lambda-true.pdf
+ancantoid-angles.pdf -> ../papers/Paper1/figs/ancantoid-angles.pdf
+ancantoid-shape.pdf -> ../papers/Paper1/figs/ancantoid-shape.pdf
+crw-departure-00.pdf -> ../papers/Paper1/figs/crw-departure-00.pdf
+crw-departure-05.pdf -> ../papers/Paper1/figs/crw-departure-05.pdf
+crw-departure-30.pdf -> ../papers/Paper1/figs/crw-departure-30.pdf
+crw-departure-CRW.pdf -> ../papers/Paper1/figs/crw-departure-CRW.pdf
+crw-departure-k38.pdf -> ../papers/Paper1/figs/crw-departure-k38.pdf
+crw-departure.pdf -> ../papers/Paper1/figs/crw-departure.pdf
+#+end_example
 
 * The fit to the tail
 + We have determined the \theta_c = -\theta_{1,\infty} for the tail

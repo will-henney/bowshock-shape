@@ -244,9 +244,23 @@ the resultant bow shapes as \textit{ancantoids}.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{figs/crw-departure}
-  \caption[]{Departure function, \(\Depart(\cos\theta)\), for ancantoids
-    and cantoids.}
+  \setkeys{Gin}{width=\linewidth}
+  \begin{tabular}{@{}l@{}}
+    (a) \\
+    \includegraphics{figs/crw-departure} \\
+    (b) \\
+    \includegraphics{figs/crw-departure-k38}
+  \end{tabular}
+  \caption[]{Parabolic departure function, \(\Depart(\cos\theta)\), for
+    ancantoids and cantoids.  Heavy lines show the \(\beta = 0\) parallel
+    stream case (Wilkinoid in the isotropic case).  Light lines show
+    increasing values of \(\beta = \num{e-4}\), \num{0.001}, \num{0.01},
+    \num{0.1}, as marked.  (a)~Cantoids (gray) and moderately
+    anisotropic ancantoids: hemispheric, \(k = 0\) (black), and
+    proplyd-like, \(k = 0.5\) (red). (b)~Cantoids (gray) and extremely
+    anisotropic, jet-like ancantoids: \(k = 3\) (purple) and \(k = 8\)
+    (blue).}
+  \label{fig:ancantoid-departure}
 \end{figure}
 
 
@@ -358,6 +372,23 @@ tension between the shape of the head and the shape of the far wings
 has important implications for the projected shapes (as we will see in
 the next section), since the far wings influence the projected
 planitude and alatude when the inclination is large.
+
+Figure~\ref{fig:ancantoid-departure} shows the parabolic departure
+function (see \S~\ref{sec:parab-depart-funct}) for the thin-shell
+models. This provides an alternative perspective on the resultant bow
+shapes, with two different types of behavior being apparent.  Models
+with high \(\beta\) and low anisotropy behave similarly to the
+hyperboloids, such as the
+\((\Pi, \Lambda) = (\nicefrac32, \nicefrac83)\), \((2, \nicefrac83)\),
+\((\nicefrac83, \nicefrac83)\), and \((\nicefrac32, 2)\) cases from
+Figure~\ref{fig:conic-departure}.  This is the case for the
+\(\beta \ge 0.01\) models in Figure~\ref{fig:ancantoid-departure}a, which
+all show departure functions that become negative in the far wings
+(more open than parabola) and terminate at a
+\(\theta_\infty < 180^\circ\).  The second type of behavior is shown by models with
+low \(\beta\) or high anisotropy, which behave like spheroids for positive
+and mildly negative values of \(\cos \theta\), but, unlike the spheroids,
+all tend towards \(\Depart = 0\) in the far tail as \(\cos\theta \to -1\).
 
 
 % \subsection{Characteristic Radii}

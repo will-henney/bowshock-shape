@@ -32,8 +32,8 @@ ax.plot(mugrid, compensate(bp.wilkinoid_R_theta(thgrid), thgrid),
 
 betas = [0.1, 0.01, 0.001, 0.0001, 1e-7]
 
-ks = [None, 0.0, 0.5]
-colors = gray, 'k', 'r'
+ks = [None, 3.0, 8.0]
+colors = gray, 'm', 'b'
 
 # Plot cantoids
 for k, color in zip(ks, colors):
@@ -54,18 +54,19 @@ for k, color in zip(ks, colors):
 # Fill in forbidden zone
 #ax.fill_between(mugrid, -0.5*(1.0 + mugrid), -1.0, color='k', alpha=0.4)
 
-ax.annotate(r"$\beta = 0.1$", (-0.6, -0.15), fontsize='small', ha='right')
-ax.annotate(r"$\beta = 0.01$", (-0.63, -0.04), fontsize='small', ha='right')
-#ax.annotate(r"$\beta = 0.001$", (-0.6, -0.2), fontsize='small', ha='right')
+ax.annotate(r"$\beta = 0.1$", (0.1, 0.48), color='b', fontsize='small', ha='right')
+ax.annotate(r"$\beta = 0.01$", (0.0, 0.7),  color='b', fontsize='small', ha='right')
+ax.annotate(r"$\beta = 0$", (-0.1, 0.83),  color='b', fontsize='small', ha='right')
 
-ax.annotate(r"$\beta = 0$", (-0.48, 0.185), color='r', fontsize='small', ha='center')
-ax.annotate(r"$\beta = 0$", (-0.56, 0.12), fontsize='small', ha='center')
+ax.annotate(r"$\beta = 0.1$", (0.0, 0.18), color='m', fontsize='small', ha='right')
+ax.annotate(r"$\beta = 0.01$", (-0.1, 0.35),  color='m', fontsize='small', ha='right')
+ax.annotate(r"$\beta = 0$", (-0.4, 0.45),  color='m', fontsize='small', ha='right')
 
 ax.legend()
 
 ax.set(
     xlim=[-1.02, 1.02],
-    ylim=[-0.255, 0.255],
+    ylim=[-0.375, 0.9],
     xlabel=r"$\cos \,\theta$",
     ylabel=r"Departure function, $\Delta(\cos\theta)$",
 )
