@@ -1,6 +1,7 @@
 import sys
 import json
 import numpy as np
+from astropy.coordinates import Longitude
 from matplotlib import pyplot as plt
 import seaborn as sns
 sys.path.append("../Dust-wave")
@@ -22,8 +23,9 @@ def load_R_th(arc_prefix):
     data = json.load(open(jfile))
     R0 = np.array(data['outer']['R0'])
     R = np.array(data['outer']['R'])
-    th = np.radians(data['outer']['theta'])
-    return th, R/R0
+    th = Longitude(data['outer']['theta'], unit='deg')
+    th += Longitude(data['outer']['PA0'], unit='deg')
+    return th.rad, R/R0
 
 
 sns.set_style('ticks')

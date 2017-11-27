@@ -497,8 +497,8 @@
     "info": {
         "description": "JSON data file for stationary bowshock arcs",
         "history": [
-            "Initially created by find-xy-shell.py: <will@mac> 2017-11-27 10:27",
-            "Circle fits added by fit-circle-shell.py: <will@mac> 2017-11-27 10:27"
+            "Initially created by find-xy-shell.py: <will@mac> 2017-11-27 12:22",
+            "Circle fits added by fit-circle-shell.py: <will@mac> 2017-11-27 12:22"
         ],
         "region": "M17-HD2040-forma.reg"
     }

@@ -21,6 +21,8 @@ parser.add_argument("--pa0", type=float, default=None,
                     help="Optionally over-ride guess at PA of bow shock axis")
 parser.add_argument("--window", type=int, default=3,
                     help="Number of points to use when searching for min R")
+parser.add_argument("--mirror", action="store_true",
+                    help="Mirror all shell points about midline (assumed PA=0)")
 
 cmd_args = parser.parse_args()
 regionfile = cmd_args.source + "-forma.reg"
@@ -102,6 +104,22 @@ with open(regionfile) as f:
             outer_c.append(c)
 
 assert star_c is not None, "Central star position not found - sorry!"
+
+def reflect(c, c0):
+    """Reflect point in RA about c0"""
+    return coord.SkyCoord(c.ra + 2*(c0.ra - c.ra), c.dec)
+
+
+def symmetrize(coords, c0):
+    """Double a list of coords by adding the reflection of each about c0"""
+    return coords + [reflect(c, c0) for c in coords]
+
+
+if cmd_args.mirror:
+    if inner_c:
+        inner_c = symmetrize(inner_c, star_c)
+    if outer_c:
+        outer_c = symmetrize(outer_c, star_c)
 
 inner_x, inner_y = [], []
 for c in inner_c:

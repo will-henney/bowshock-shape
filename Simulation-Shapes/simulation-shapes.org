@@ -402,6 +402,62 @@ python shape-conic-plot.py M17-HD2040
 [[file:shape-conic-plot-M17-HD2040.pdf]]
 
 
+
+*** Reflect the one-sided arcs to make symmetrical
++ The dust emission images show only one side, but we need the make it symmetric so that ~find-xy-shell.py~ will work
++ Easiest to add an argument to [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/find-xy-shell.py]]
+  
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  for inc in i30 i60 i45; do
+      python $D/find-xy-shell.py M17-MHD2040-AllB7-60mic-$inc --mirror --pa0 0 --window 11
+      python $D/fit-circle-shell.py M17-MHD2040-AllB7-60mic-$inc --thmax 45 --savefig --figscale 60
+  done
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 12
+    # data points      = 16
+    # variables        = 2
+    chi-square         = 0.320
+    reduced chi-square = 0.023
+    Akaike info crit   = -58.588
+    Bayesian info crit = -57.043
+[[Variables]]
+    xc:   1.7002e-07 +/- 0.157869 (92855293.03%) (init= 0.1209432)
+    yc:  -20.3658004 +/- 1.409050 (6.92%) (init=-19.93934)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 1.70016462762e-07 -20.3658003969 40.4268868961
+[[Fit Statistics]]
+    # function evals   = 35
+    # data points      = 20
+    # variables        = 2
+    chi-square         = 0.073
+    reduced chi-square = 0.004
+    Akaike info crit   = -108.311
+    Bayesian info crit = -106.320
+[[Variables]]
+    xc:   5.3740e-05 +/- 0.046507 (86541.47%) (init= 0.2651148)
+    yc:  -14.9839294 +/- 0.330729 (2.21%) (init=-27.47579)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 5.37402163237e-05 -14.9839294597 42.4449923846
+[[Fit Statistics]]
+    # function evals   = 17
+    # data points      = 18
+    # variables        = 2
+    chi-square         = 0.261
+    reduced chi-square = 0.016
+    Akaike info crit   = -72.226
+    Bayesian info crit = -70.445
+[[Variables]]
+    xc:   0.00014379 +/- 0.107214 (74561.91%) (init=-0.2295599)
+    yc:  -15.6864090 +/- 0.824942 (5.26%) (init=-23.30099)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 0.000143793094275 -15.6864090423 39.0810382057
+#+end_example
+
 ** Fit arcs to Meyer 2016 shapes
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
@@ -485,6 +541,7 @@ python shape-conic-plot.py M16-MS2070n00p10
   import sys
   import json
   import numpy as np
+  from astropy.coordinates import Longitude
   from matplotlib import pyplot as plt
   import seaborn as sns
   sys.path.append("../Dust-wave")
@@ -506,8 +563,9 @@ python shape-conic-plot.py M16-MS2070n00p10
       data = json.load(open(jfile))
       R0 = np.array(data['outer']['R0'])
       R = np.array(data['outer']['R'])
-      th = np.radians(data['outer']['theta'])
-      return th, R/R0
+      th = Longitude(data['outer']['theta'], unit='deg')
+      th += Longitude(data['outer']['PA0'], unit='deg')
+      return th.rad, R/R0
 
 
   sns.set_style('ticks')
@@ -539,7 +597,7 @@ python shape-conic-plot.py M16-MS2070n00p10
   except:
       th, R = load_R_th(prefix)
       ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label=prefix)
-    
+
 
 
   ax.legend(title=prefix)
