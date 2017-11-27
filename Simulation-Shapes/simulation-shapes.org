@@ -1,3 +1,16 @@
+* Copy figures to paper folder
+#+BEGIN_SRC sh :results verbatim
+date
+cp -v shape-conic-plot-M16-MS2070n00p10.pdf ../papers/Paper1/figs
+#+END_SRC
+
+#+RESULTS:
+: Sun Nov 26 22:16:04 CST 2017
+: shape-conic-plot-M16-MS2070n00p10.pdf -> ../papers/Paper1/figs/shape-conic-plot-M16-MS2070n00p10.pdf
+
+
+
+
 * Bow shock shapes from simulations
 + We will analyze some published synthetic observations from simulations
 + Do it exactly the same as for the real observations
@@ -11,7 +24,7 @@
   + One model in 1 band (H\alpha) for i=0 only
 + [ ] Potentially we have Meyer 2014
   + Many models in 2 bands (H\alpha and generic dust) for i=0 only
-+ [ ] And there is Meyer 2016
++ [X] And there is Meyer 2016
   + 3 models (n = 0.1, 1, 10 for 20 Msun and 70 km/s), two bands (H\alpha and [O III]), five angles (0, 30, 45, 60, 90), where first comes from density map, and 90 is useless obviously.
   + This looks the best bet
     + We can get the full shape from the density maps, which extend out to \theta = 140 or so
@@ -21,6 +34,22 @@
     + This means that we cannot find \Lambda' because they are forcing that R_90' = R_90 for all i, which means that \Lambda' will appear to fall because R_0' is increasing.
     + Whereas in reality, \Lambda' will come from shell at \theta_90(i), which is > 90 deg
     + Still we could show this as a warning
++ [ ] Finally there is Meyer 2017 with magnetic fields
+  + This eliminates the conduction rubbish
+  + And also gives a wider variety of shapes
+  + Thirdly, they fix the flaw in the 2016 paper of only considering \theta < 90, so we should be able to really compare the \Pi' and \Lambda' from the simulated maps at different inclinations with the predictions from the shape
+  + Their Fig 10 compares MHD and HD simulations of the same star with emission maps of dust in various FIR wave bands, for i = 30, 45, 60, 90
+    + The Ha and [O III] emission for the same models are given in Fig 7 for i = 0
+    + The density structure is given in Fig 3
+  + So plan is
+    1. [ ] Trace the CD from the density images, following a contour
+       - This gives the R(\theta), which can be plotted as \Delta(\mu)
+       - Extrapolate to give a full shape
+       - Use that to predict \Pi', \Lambda' as function of inclination
+    2. [ ] Trace the 60 micron images to find \Pi', \Lambda' for the inclinations 30, 45, 60
+       - Compare with the previous
+
+
 ** Convert screenshots to FITS
 #+BEGIN_SRC sh :results silent
   for file in *-maps.png; do
@@ -28,9 +57,16 @@
   done
 #+END_SRC
 
-New ones from Meyer(2014)
+New ones from Meyer (2016)
 #+BEGIN_SRC sh :results silent
   for file in Meyer-2016-MS2070*.png; do
+      python ~/Work/Image2FITS/image2fits.py $file
+  done
+#+END_SRC
+
+New ones from Meyer (2017)
+#+BEGIN_SRC sh :results silent
+  for file in Meyer-2017-*.png; do
       python ~/Work/Image2FITS/image2fits.py $file
   done
 #+END_SRC
@@ -67,6 +103,12 @@ New ones from Meyer(2014)
 
 #+BEGIN_SRC sh :results verbatim
   for file in Meyer-2016-MS2070*.png; do
+      python add-wcs-to-screenshot.py ${file%%.png}
+  done
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+  for file in Meyer-2017-*.png; do
       python add-wcs-to-screenshot.py ${file%%.png}
   done
 #+END_SRC
