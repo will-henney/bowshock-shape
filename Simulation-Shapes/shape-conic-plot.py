@@ -47,10 +47,14 @@ for beta in 0.3, 0.1, 0.03, 0.01, 0.003, 0.001, 0.0003, 0.0001:
 ax.fill_between(mugrid, -0.5*(1.0 + mugrid), -1.0, color='k', alpha=0.4)
 
 # Plot traced arcs
-th, R = load_R_th(prefix + '-CD')
-ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='CD')
-th, R = load_R_th(prefix + '-BS')
-ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='BS')
+try:
+    th, R = load_R_th(prefix + '-CD')
+    ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='CD')
+    th, R = load_R_th(prefix + '-BS')
+    ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='BS')
+except:
+    th, R = load_R_th(prefix)
+    ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label=prefix)
 
 
 

@@ -600,7 +600,8 @@
         "description": "JSON data file for stationary bowshock arcs",
         "history": [
             "Initially created by find-xy-shell.py: <will@mac> 2017-11-25 00:41",
-            "Circle fits added by fit-circle-shell.py: <will@mac> 2017-11-25 00:41"
+            "Circle fits added by fit-circle-shell.py: <will@mac> 2017-11-25 00:41",
+            "Circle fits added by fit-circle-shell.py: <will@mac> 2017-11-27 09:40"
         ],
         "region": "M16-MS2070n00p10-CD-forma.reg"
     }

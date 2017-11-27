@@ -42,11 +42,11 @@ cp -v shape-conic-plot-M16-MS2070n00p10.pdf ../papers/Paper1/figs
     + The Ha and [O III] emission for the same models are given in Fig 7 for i = 0
     + The density structure is given in Fig 3
   + So plan is
-    1. [ ] Trace the CD from the density images, following a contour
+    1. [X] Trace the CD from the density images, following a contour
        - This gives the R(\theta), which can be plotted as \Delta(\mu)
-       - Extrapolate to give a full shape
+    2. [ ] Extrapolate to give a full shape
        - Use that to predict \Pi', \Lambda' as function of inclination
-    2. [ ] Trace the 60 micron images to find \Pi', \Lambda' for the inclinations 30, 45, 60
+    3. [ ] Trace the 60 micron images to find \Pi', \Lambda' for the inclinations 30, 45, 60
        - Compare with the previous
 
 
@@ -335,6 +335,73 @@ outer : 0.0309866408166 -29.930198911 110.304078185
 outer : -47.9081712238 -2.14965635401 142.082194775
 #+end_example
 
+** Fit arcs to Meyer 2017 shapes
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  python $D/find-xy-shell.py M17-MHD2040-AllB7 --pa0 0 --window 11
+  python $D/fit-circle-shell.py M17-MHD2040-AllB7 --thmax 60 --savefig --figscale 200
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 18
+    # data points      = 23
+    # variables        = 2
+    chi-square         = 17.024
+    reduced chi-square = 0.811
+    Akaike info crit   = -2.921
+    Bayesian info crit = -0.650
+[[Variables]]
+    xc:   0.87844247 +/- 1.139105 (129.67%) (init= 1.09081)
+    yc:  -122.078095 +/- 11.38874 (9.33%) (init=-47.69958)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 0.878442476821 -122.078095702 170.417646989
+#+end_example
+
+#+BEGIN_SRC sh :results silent
+open M17-*-arcfits.pdf
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python shape-conic-plot.py M17-MHD2040-AllB7 
+#+END_SRC
+
+#+RESULTS:
+[[file:shape-conic-plot-M17-MHD2040-AllB7.pdf]]
+
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  python $D/find-xy-shell.py M17-HD2040 --pa0 0 --window 11
+  python $D/fit-circle-shell.py M17-HD2040 --thmax 60 --savefig --figscale 250
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 30
+    # variables        = 2
+    chi-square         = 11.414
+    reduced chi-square = 0.408
+    Akaike info crit   = -24.991
+    Bayesian info crit = -22.188
+[[Variables]]
+    xc:   0.22707331 +/- 0.389464 (171.52%) (init= 0.2886785)
+    yc:  -65.0888304 +/- 1.950807 (3.00%) (init=-84.06985)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.160 
+outer : 0.227073314289 -65.0888304071 149.803410692
+#+end_example
+
+#+BEGIN_SRC sh :results file
+python shape-conic-plot.py M17-HD2040 
+#+END_SRC
+
+#+RESULTS:
+[[file:shape-conic-plot-M17-HD2040.pdf]]
+
+
 ** Fit arcs to Meyer 2016 shapes
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
@@ -464,11 +531,15 @@ python shape-conic-plot.py M16-MS2070n00p10
   ax.fill_between(mugrid, -0.5*(1.0 + mugrid), -1.0, color='k', alpha=0.4)
 
   # Plot traced arcs
-  th, R = load_R_th(prefix + '-CD')
-  ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='CD')
-  th, R = load_R_th(prefix + '-BS')
-  ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='BS')
-
+  try:
+      th, R = load_R_th(prefix + '-CD')
+      ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='CD')
+      th, R = load_R_th(prefix + '-BS')
+      ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label='BS')
+  except:
+      th, R = load_R_th(prefix)
+      ax.plot(np.cos(th), compensate(R, th), '.', alpha=0.6, label=prefix)
+    
 
 
   ax.legend(title=prefix)
