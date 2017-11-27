@@ -458,6 +458,60 @@ outer : 5.37402163237e-05 -14.9839294597 42.4449923846
 outer : 0.000143793094275 -15.6864090423 39.0810382057
 #+end_example
 
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  for inc in i30 i60 i45; do
+      python $D/find-xy-shell.py M17-HD2040-60mic-$inc --mirror --pa0 0 --window 11
+      python $D/fit-circle-shell.py M17-HD2040-60mic-$inc --thmax 45 --savefig --figscale 120
+  done
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 22
+    # data points      = 26
+    # variables        = 2
+    chi-square         = 7.130
+    reduced chi-square = 0.297
+    Akaike info crit   = -29.639
+    Bayesian info crit = -27.123
+[[Variables]]
+    xc:   2.6445e-05 +/- 0.470628 (1779632.42%) (init= 0.1526615)
+    yc:  -44.2965721 +/- 3.871329 (8.74%) (init=-48.36428)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 2.64452882579e-05 -44.2965721088 92.7918595185
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 35
+    # variables        = 2
+    chi-square         = 6.252
+    reduced chi-square = 0.189
+    Akaike info crit   = -56.283
+    Bayesian info crit = -53.172
+[[Variables]]
+    xc:   0.04032478 +/- 0.286020 (709.29%) (init=-1.559587)
+    yc:  -45.4624617 +/- 2.046981 (4.50%) (init=-70.0189)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.141 
+outer : 0.0403247881747 -45.4624617231 115.235543069
+[[Fit Statistics]]
+    # function evals   = 15
+    # data points      = 28
+    # variables        = 2
+    chi-square         = 4.024
+    reduced chi-square = 0.155
+    Akaike info crit   = -50.318
+    Bayesian info crit = -47.653
+[[Variables]]
+    xc:  -0.00981840 +/- 0.387521 (3946.89%) (init= 6.938018)
+    yc:  -48.6468558 +/- 2.543392 (5.23%) (init=-55.76348)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    = -0.565 
+outer : -0.00981840102467 -48.6468558088 104.627515957
+#+end_example
+
+
 ** Fit arcs to Meyer 2016 shapes
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
