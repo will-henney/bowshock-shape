@@ -411,106 +411,173 @@ python shape-conic-plot.py M17-HD2040
   D=../read-shapes-LL
   for inc in i30 i60 i45; do
       python $D/find-xy-shell.py M17-MHD2040-AllB7-60mic-$inc --mirror --pa0 0 --window 11
-      python $D/fit-circle-shell.py M17-MHD2040-AllB7-60mic-$inc --thmax 45 --savefig --figscale 60
+      python $D/fit-circle-shell.py M17-MHD2040-AllB7-60mic-$inc --thmax 60 --savefig --figscale 60
   done
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
 [[Fit Statistics]]
-    # function evals   = 12
-    # data points      = 16
+    # function evals   = 27
+    # data points      = 22
     # variables        = 2
-    chi-square         = 0.320
-    reduced chi-square = 0.023
-    Akaike info crit   = -58.588
-    Bayesian info crit = -57.043
+    chi-square         = 0.438
+    reduced chi-square = 0.022
+    Akaike info crit   = -82.154
+    Bayesian info crit = -79.972
 [[Variables]]
-    xc:   1.7002e-07 +/- 0.157869 (92855293.03%) (init= 0.1209432)
-    yc:  -20.3658004 +/- 1.409050 (6.92%) (init=-19.93934)
+    xc:  -1.2970e-05 +/- 0.101708 (784188.97%) (init= 0.1209432)
+    yc:  -22.7386327 +/- 0.703891 (3.10%) (init=-19.93934)
 [[Correlations]] (unreported correlations are <  0.100)
-outer : 1.70016462762e-07 -20.3658003969 40.4268868961
+outer : -1.29698792652e-05 -22.7386327356 42.7447694992
 [[Fit Statistics]]
-    # function evals   = 35
-    # data points      = 20
+    # function evals   = 21
+    # data points      = 28
     # variables        = 2
-    chi-square         = 0.073
-    reduced chi-square = 0.004
-    Akaike info crit   = -108.311
-    Bayesian info crit = -106.320
+    chi-square         = 0.138
+    reduced chi-square = 0.005
+    Akaike info crit   = -144.795
+    Bayesian info crit = -142.130
 [[Variables]]
-    xc:   5.3740e-05 +/- 0.046507 (86541.47%) (init= 0.2651148)
-    yc:  -14.9839294 +/- 0.330729 (2.21%) (init=-27.47579)
+    xc:   5.8569e-05 +/- 0.032565 (55602.00%) (init= 0.2651148)
+    yc:  -14.0758912 +/- 0.165202 (1.17%) (init=-27.47579)
 [[Correlations]] (unreported correlations are <  0.100)
-outer : 5.37402163237e-05 -14.9839294597 42.4449923846
+outer : 5.85687233641e-05 -14.0758912464 41.5707665446
 [[Fit Statistics]]
-    # function evals   = 17
-    # data points      = 18
+    # function evals   = 15
+    # data points      = 25
     # variables        = 2
-    chi-square         = 0.261
-    reduced chi-square = 0.016
-    Akaike info crit   = -72.226
-    Bayesian info crit = -70.445
+    chi-square         = 0.300
+    reduced chi-square = 0.013
+    Akaike info crit   = -106.545
+    Bayesian info crit = -104.107
 [[Variables]]
-    xc:   0.00014379 +/- 0.107214 (74561.91%) (init=-0.2295599)
-    yc:  -15.6864090 +/- 0.824942 (5.26%) (init=-23.30099)
+    xc:   0.01421278 +/- 0.061255 (430.99%) (init=-0.2295599)
+    yc:  -16.3314669 +/- 0.336181 (2.06%) (init=-23.30099)
 [[Correlations]] (unreported correlations are <  0.100)
-outer : 0.000143793094275 -15.6864090423 39.0810382057
+    C(xc, yc)                    =  0.138 
+outer : 0.0142127841643 -16.3314669423 39.7077872798
 #+end_example
 
 #+BEGIN_SRC sh :results verbatim
   D=../read-shapes-LL
   for inc in i30 i60 i45; do
       python $D/find-xy-shell.py M17-HD2040-60mic-$inc --mirror --pa0 0 --window 11
-      python $D/fit-circle-shell.py M17-HD2040-60mic-$inc --thmax 45 --savefig --figscale 120
+      python $D/fit-circle-shell.py M17-HD2040-60mic-$inc --thmax 60 --savefig --figscale 120
   done
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
 [[Fit Statistics]]
-    # function evals   = 22
-    # data points      = 26
+    # function evals   = 15
+    # data points      = 32
     # variables        = 2
-    chi-square         = 7.130
-    reduced chi-square = 0.297
-    Akaike info crit   = -29.639
-    Bayesian info crit = -27.123
+    chi-square         = 8.233
+    reduced chi-square = 0.274
+    Akaike info crit   = -39.442
+    Bayesian info crit = -36.510
 [[Variables]]
-    xc:   2.6445e-05 +/- 0.470628 (1779632.42%) (init= 0.1526615)
-    yc:  -44.2965721 +/- 3.871329 (8.74%) (init=-48.36428)
+    xc:  -0.00030196 +/- 0.304693 (100906.07%) (init= 0.1526615)
+    yc:  -42.8230678 +/- 1.771714 (4.14%) (init=-48.36428)
 [[Correlations]] (unreported correlations are <  0.100)
-outer : 2.64452882579e-05 -44.2965721088 92.7918595185
+outer : -0.000301957199037 -42.8230678902 91.3310510027
 [[Fit Statistics]]
     # function evals   = 15
-    # data points      = 35
+    # data points      = 39
     # variables        = 2
-    chi-square         = 6.252
-    reduced chi-square = 0.189
-    Akaike info crit   = -56.283
-    Bayesian info crit = -53.172
+    chi-square         = 6.376
+    reduced chi-square = 0.172
+    Akaike info crit   = -66.632
+    Bayesian info crit = -63.305
 [[Variables]]
-    xc:   0.04032478 +/- 0.286020 (709.29%) (init=-1.559587)
-    yc:  -45.4624617 +/- 2.046981 (4.50%) (init=-70.0189)
+    xc:   0.04778295 +/- 0.222363 (465.36%) (init=-1.559587)
+    yc:  -46.3992588 +/- 1.226260 (2.64%) (init=-70.0189)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    =  0.141 
-outer : 0.0403247881747 -45.4624617231 115.235543069
+    C(xc, yc)                    =  0.166 
+outer : 0.0477829592257 -46.399258795 116.146909206
 [[Fit Statistics]]
     # function evals   = 15
-    # data points      = 28
+    # data points      = 36
     # variables        = 2
-    chi-square         = 4.024
-    reduced chi-square = 0.155
-    Akaike info crit   = -50.318
-    Bayesian info crit = -47.653
+    chi-square         = 4.781
+    reduced chi-square = 0.141
+    Akaike info crit   = -68.677
+    Bayesian info crit = -65.510
 [[Variables]]
-    xc:  -0.00981840 +/- 0.387521 (3946.89%) (init= 6.938018)
-    yc:  -48.6468558 +/- 2.543392 (5.23%) (init=-55.76348)
+    xc:  -0.00943907 +/- 0.221300 (2344.52%) (init= 6.938018)
+    yc:  -49.0033081 +/- 1.117650 (2.28%) (init=-55.76348)
 [[Correlations]] (unreported correlations are <  0.100)
-    C(xc, yc)                    = -0.565 
-outer : -0.00981840102467 -48.6468558088 104.627515957
+    C(xc, yc)                    = -0.456 
+outer : -0.00943907485149 -49.003308165 104.97190652
 #+end_example
 
+#+BEGIN_SRC sh :results verbatim
+  D=../read-shapes-LL
+  for suff in Halpha-i00 Halpha-i00-BS Halpha-i00-CD; do
+      python $D/find-xy-shell.py M17-HD2040-$suff --mirror --pa0 0 --window 11
+      python $D/fit-circle-shell.py M17-HD2040-$suff --thmax 60 --savefig --figscale 400
+  done
+  python $D/find-xy-shell.py  M17-MHD2040-AllB7-Halpha-i00 --mirror --pa0 0 --window 11
+  python $D/fit-circle-shell.py M17-MHD2040-AllB7-Halpha-i00 --thmax 60 --savefig --figscale 300
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[Fit Statistics]]
+    # function evals   = 21
+    # data points      = 58
+    # variables        = 2
+    chi-square         = 15408.678
+    reduced chi-square = 275.155
+    Akaike info crit   = 327.770
+    Bayesian info crit = 331.891
+[[Variables]]
+    xc:   0.00586830 +/- 10.45830 (178216.68%) (init= 3.196789)
+    yc:  -249.522490 +/- 99.82762 (40.01%) (init=-123.2418)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 0.00586830732259 -249.522490891 362.179923057
+[[Fit Statistics]]
+    # function evals   = 23
+    # data points      = 30
+    # variables        = 2
+    chi-square         = 6.015
+    reduced chi-square = 0.215
+    Akaike info crit   = -44.211
+    Bayesian info crit = -41.408
+[[Variables]]
+    xc:  -0.00011207 +/- 0.280072 (249901.49%) (init=-0.08722588)
+    yc:  -150.816486 +/- 1.915869 (1.27%) (init=-131.3879)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : -0.000112072966344 -150.816486465 282.263586833
+[[Fit Statistics]]
+    # function evals   = 21
+    # data points      = 28
+    # variables        = 2
+    chi-square         = 89.901
+    reduced chi-square = 3.458
+    Akaike info crit   = 36.662
+    Bayesian info crit = 39.327
+[[Variables]]
+    xc:   8.2207e-07 +/- 1.023625 (124517821.61%) (init= 0.1989897)
+    yc:  -92.7969269 +/- 6.603755 (7.12%) (init=-99.17076)
+[[Correlations]] (unreported correlations are <  0.100)
+outer : 8.22071275621e-07 -92.7969269403 193.944678758
+[[Fit Statistics]]
+    # function evals   = 33
+    # data points      = 26
+    # variables        = 2
+    chi-square         = 20.523
+    reduced chi-square = 0.855
+    Akaike info crit   = -2.150
+    Bayesian info crit = 0.366
+[[Variables]]
+    xc:  -3.5984e-05 +/- 1.326028 (3685052.33%) (init=-0.005741513)
+    yc:  -234.403509 +/- 21.90155 (9.34%) (init=-62.3199)
+[[Correlations]] (unreported correlations are <  0.100)
+    C(xc, yc)                    =  0.131 
+outer : -3.59839760123e-05 -234.403509502 297.923251224
+#+end_example
 
 ** Fit arcs to Meyer 2016 shapes
 #+BEGIN_SRC sh :results verbatim

@@ -1,0 +1,35 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(2:02:07.403,-59:38:59.40) # point=circle color=red text={M17 HD2040}
+point(2:02:00.505,-59:37:23.36) # point=x color=red
+point(2:02:01.800,-59:37:22.08) # point=x color=red
+point(2:02:02.587,-59:37:21.74) # point=x color=red
+point(2:02:03.362,-59:37:20.95) # point=x color=red
+point(2:02:04.079,-59:37:20.68) # point=x color=red
+point(2:02:04.753,-59:37:20.59) # point=x color=red
+point(2:02:05.262,-59:37:20.52) # point=x color=red
+point(2:02:06.193,-59:37:20.30) # point=x color=red
+point(2:01:54.575,-59:37:46.40) # point=x color=red
+point(2:01:57.230,-59:37:30.81) # point=x color=red
+point(2:01:58.487,-59:37:26.48) # point=x color=red
+point(2:01:56.545,-59:37:35.84) # point=x color=red
+point(2:01:55.640,-59:37:42.36) # point=x color=red
+point(2:01:51.719,-59:37:57.55) # point=x color=red
+point(2:01:49.683,-59:38:07.40) # point=x color=red
+point(2:01:53.318,-59:37:51.13) # point=x color=red
+point(2:01:48.215,-59:38:14.34) # point=x color=red
+point(2:01:46.793,-59:38:20.69) # point=x color=red
+point(2:01:44.100,-59:38:33.72) # point=x color=red
+point(2:01:37.656,-59:39:16.96) # point=x color=red
+point(2:01:35.277,-59:39:39.70) # point=x color=red
+point(2:01:31.453,-59:40:14.94) # point=x color=red
+point(2:01:24.343,-59:42:08.86) # point=x color=red
+point(2:01:26.634,-59:41:22.92) # point=x color=red
+point(2:01:29.512,-59:40:37.26) # point=x color=red
+point(2:01:33.461,-59:39:53.32) # point=x color=red
+point(2:01:39.726,-59:39:01.87) # point=x color=red
+point(2:01:41.663,-59:38:48.73) # point=x color=red
+point(2:01:22.543,-59:43:00.32) # point=x color=red
+point(2:01:21.020,-59:43:56.63) # point=x color=red
+point(2:01:21.651,-59:43:39.25) # point=x color=red

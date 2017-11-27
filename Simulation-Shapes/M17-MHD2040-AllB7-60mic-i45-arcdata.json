@@ -359,10 +359,10 @@
             120.30626113526598,
             130.84481335686442
         ],
-        "Rc": 39.081038205721796,
-        "xc": 0.00014379309427527522,
-        "yc": -15.686409042264,
-        "PAc": -0.0005252150063581524,
+        "Rc": 39.70778727977831,
+        "xc": 0.014212784164278586,
+        "yc": -16.33146694231508,
+        "PAc": -0.04986277993497812,
         "R90": [
             37.035570647903796,
             37.46529078806467
@@ -401,8 +401,8 @@
     "info": {
         "description": "JSON data file for stationary bowshock arcs",
         "history": [
-            "Initially created by find-xy-shell.py: <will@mac> 2017-11-27 12:25",
-            "Circle fits added by fit-circle-shell.py: <will@mac> 2017-11-27 12:25"
+            "Initially created by find-xy-shell.py: <will@mac> 2017-11-27 17:51",
+            "Circle fits added by fit-circle-shell.py: <will@mac> 2017-11-27 17:51"
         ],
         "region": "M17-MHD2040-AllB7-60mic-i45-forma.reg"
     }
