@@ -8,16 +8,26 @@ figfile = sys.argv[0].replace('.py', '.pdf')
 
 
 sns.set_style('ticks')
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(4, 4))
 
 th = np.linspace(-np.pi, np.pi, 1001)
 th_dg = np.degrees(th)
 
-for sim in ["M17-MHD2040-AllB7", "M17-HD2040"]:
-    shape = Simulation(name=sim)
+Simulation.lowess_frac = 0.1
+mode = "negative"
+for label, shape in [
+        ["MHD open",
+         Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode)],
+        ["MHD closed",
+         Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode)],
+        ["HD open",
+         Simulation(name="M17-HD2040", force_open=True, mode=mode)],
+        ["HD closed",
+         Simulation(name="M17-HD2040", force_open=False, mode=mode)],
+]:
     ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
             color='b', alpha=0.2, lw=2, label='_nolabel_')
-    ax.plot(th_dg, shape(th), lw=0.8, label=sim)
+    ax.plot(th_dg, shape(th), lw=0.8, label=label)
 
 ax.legend(title=r"Simulation shapes")
 ax.set(
@@ -25,7 +35,7 @@ ax.set(
     ylabel=r"$R$",
     xlim=[0, 180],
     yscale='log',
-    ylim=[0.9, 200.0],
+    ylim=[0.9, 30.0],
     xticks=[0, 30, 60, 90, 120, 150, 180],
 )
 sns.despine()

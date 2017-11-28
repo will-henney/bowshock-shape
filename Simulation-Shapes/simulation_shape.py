@@ -1,6 +1,7 @@
 import sys
 import json
 import numpy as np
+import statsmodels.api as sm
 sys.path.append("../Dust-wave")
 from bow_projection import Spline_R_theta_from_grid
 
@@ -33,20 +34,41 @@ class Simulation(object):
     Callable as function of theta
     """
     json_suffix = "-arcdata.json"
+    lowess_frac = 0.2
 
-    def __init__(self, name, npoly=2, force_open=False):
+    def __init__(self, name, npoly=2, force_open=False, mode="all"):
         self.name = name
         with open(self.name + self.json_suffix) as f:
             data = json.load(f)
-        self.thgrid = np.abs(np.radians(data['outer']['theta']))
+        # self.thgrid = np.abs(np.radians(data['outer']['theta']))
+        self.thgrid = np.radians(data['outer']['theta'])
         self.Rgrid = np.array(data['outer']['R']) / data['outer']['R0']
 
-        # Make sure arrays are sorted and with th > 0
+        if mode == "all":
+            # Use all points but take absolute value of theta
+            self.thgrid = np.abs(self.thgrid)
+            # And do some lowess smoothing
+            smooth = sm.nonparametric.lowess(self.Rgrid, self.thgrid,
+                                             frac=self.lowess_frac)
+            self.thgrid = smooth[:, 0]
+            self.Rgrid = smooth[:, 1]
+        elif mode == "positive":
+            # Use only points with positive theta
+            m = self.thgrid > 0.0
+            self.thgrid = self.thgrid[m]
+            self.Rgrid = self.Rgrid[m]
+        elif mode == "negative":
+            # Use only points with negative theta
+            m = self.thgrid < 0.0
+            self.thgrid = -self.thgrid[m]
+            self.Rgrid = self.Rgrid[m]
+
+        # Make sure arrays are sorted 
         sort_order = self.thgrid.argsort()
         self.thgrid = self.thgrid[sort_order]
         self.Rgrid = self.Rgrid[sort_order]
-        # Extrapolate to theta = pi
 
+        # Extrapolate to theta = pi
         mu = np.cos(self.thgrid)
         Delta = departure(self.Rgrid, self.thgrid)
         mu_x, Delta_x = extrapolate(mu, Delta, deg=npoly, force_open=force_open)

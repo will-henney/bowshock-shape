@@ -954,6 +954,7 @@ python depart-extrapolate.py M17-HD2040 1
   import sys
   import json
   import numpy as np
+  import statsmodels.api as sm
   sys.path.append("../Dust-wave")
   from bow_projection import Spline_R_theta_from_grid
 
@@ -968,7 +969,7 @@ python depart-extrapolate.py M17-HD2040 1
               return np.abs(-1.0 - mu)**0.5
           else:
               return 1.0
-  
+
       # Only fit mu < mu0
       mask = mu <= mu0
       p = np.poly1d(np.polyfit(mu[mask], Delta[mask]/factor(mu[mask]), deg=deg))
@@ -986,20 +987,41 @@ python depart-extrapolate.py M17-HD2040 1
       Callable as function of theta
       """
       json_suffix = "-arcdata.json"
+      lowess_frac = 0.2
 
-      def __init__(self, name, npoly=2, force_open=False):
+      def __init__(self, name, npoly=2, force_open=False, mode="all"):
           self.name = name
           with open(self.name + self.json_suffix) as f:
               data = json.load(f)
-          self.thgrid = np.abs(np.radians(data['outer']['theta']))
+          # self.thgrid = np.abs(np.radians(data['outer']['theta']))
+          self.thgrid = np.radians(data['outer']['theta'])
           self.Rgrid = np.array(data['outer']['R']) / data['outer']['R0']
 
-          # Make sure arrays are sorted and with th > 0
+          if mode == "all":
+              # Use all points but take absolute value of theta
+              self.thgrid = np.abs(self.thgrid)
+              # And do some lowess smoothing
+              smooth = sm.nonparametric.lowess(self.Rgrid, self.thgrid,
+                                               frac=self.lowess_frac)
+              self.thgrid = smooth[:, 0]
+              self.Rgrid = smooth[:, 1]
+          elif mode == "positive":
+              # Use only points with positive theta
+              m = self.thgrid > 0.0
+              self.thgrid = self.thgrid[m]
+              self.Rgrid = self.Rgrid[m]
+          elif mode == "negative":
+              # Use only points with negative theta
+              m = self.thgrid < 0.0
+              self.thgrid = -self.thgrid[m]
+              self.Rgrid = self.Rgrid[m]
+
+          # Make sure arrays are sorted 
           sort_order = self.thgrid.argsort()
           self.thgrid = self.thgrid[sort_order]
           self.Rgrid = self.Rgrid[sort_order]
-          # Extrapolate to theta = pi
 
+          # Extrapolate to theta = pi
           mu = np.cos(self.thgrid)
           Delta = departure(self.Rgrid, self.thgrid)
           mu_x, Delta_x = extrapolate(mu, Delta, deg=npoly, force_open=force_open)
@@ -1023,7 +1045,7 @@ python depart-extrapolate.py M17-HD2040 1
           return self.splinefit(theta)
 
 
-    
+
 #+END_SRC
 
 
@@ -1039,16 +1061,26 @@ python depart-extrapolate.py M17-HD2040 1
 
 
   sns.set_style('ticks')
-  fig, ax = plt.subplots()
+  fig, ax = plt.subplots(figsize=(4, 4))
 
   th = np.linspace(-np.pi, np.pi, 1001)
   th_dg = np.degrees(th)
 
-  for sim in ["M17-MHD2040-AllB7", "M17-HD2040"]:
-      shape = Simulation(name=sim)
+  Simulation.lowess_frac = 0.1
+  mode = "negative"
+  for label, shape in [
+          ["MHD open",
+           Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode)],
+          ["MHD closed",
+           Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode)],
+          ["HD open",
+           Simulation(name="M17-HD2040", force_open=True, mode=mode)],
+          ["HD closed",
+           Simulation(name="M17-HD2040", force_open=False, mode=mode)],
+  ]:
       ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
               color='b', alpha=0.2, lw=2, label='_nolabel_')
-      ax.plot(th_dg, shape(th), lw=0.8, label=sim)
+      ax.plot(th_dg, shape(th), lw=0.8, label=label)
 
   ax.legend(title=r"Simulation shapes")
   ax.set(
@@ -1056,7 +1088,7 @@ python depart-extrapolate.py M17-HD2040 1
       ylabel=r"$R$",
       xlim=[0, 180],
       yscale='log',
-      ylim=[0.9, 200.0],
+      ylim=[0.9, 30.0],
       xticks=[0, 30, 60, 90, 120, 150, 180],
   )
   sns.despine()
