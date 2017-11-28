@@ -41,13 +41,16 @@ cp -v shape-conic-plot-M16-MS2070n00p10.pdf ../papers/Paper1/figs
   + Their Fig 10 compares MHD and HD simulations of the same star with emission maps of dust in various FIR wave bands, for i = 30, 45, 60, 90
     + The Ha and [O III] emission for the same models are given in Fig 7 for i = 0
     + The density structure is given in Fig 3
-  + So plan is
+  + [2/4] So plan is
     1. [X] Trace the CD from the density images, following a contour
        - This gives the R(\theta), which can be plotted as \Delta(\mu)
-    2. [ ] Extrapolate to give a full shape
+    2. [-] Extrapolate to give a full shape
+       - We can either take an ellipse extrapolation (\Delta \to constant as \mu \to -1) or an "open" extrapolation (\Delta \to 0 as \mu \to -1)
        - Use that to predict \Pi', \Lambda' as function of inclination
-    3. [ ] Trace the 60 micron images to find \Pi', \Lambda' for the inclinations 30, 45, 60
-       - Compare with the previous
+    3. [X] Trace the 60 micron images to find \Pi', \Lambda' for the inclinations 30, 45, 60
+       - And the H\alpha image for i=0 for completeness
+         - [ ] For the HD model we might want to average the BS and the CD curves
+    4. [ ] Compare (1) with (3)
 
 
 ** Convert screenshots to FITS
@@ -763,7 +766,436 @@ python shape-conic-plot.py A16-12mic-i00
 #+RESULTS:
 [[file:shape-conic-plot-A16-12mic-i00.pdf]]
 
-** Plot the planitude--alatude
+
+
+*** Extrapolating into the far wings with the departure function
+#+BEGIN_SRC python :eval no :tangle depart-extrapolate.py
+  import sys
+  import json
+  import numpy as np
+  from astropy.coordinates import Longitude
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  sys.path.append("../Dust-wave")
+  import bow_projection as bp
+
+  try:
+      prefix = sys.argv[1]
+  except:
+      print(f"Usage: {sys.argv[0]} PREFIX")
+
+  try:
+      npoly = int(sys.argv[2])
+  except:
+      npoly = 2
+
+  plotfile = sys.argv[0].replace('.py', f'-{prefix}.pdf')
+
+  def load_R_th(arc_prefix):
+      jfile = f'{arc_prefix}-arcdata.json'
+      data = json.load(open(jfile))
+      R0 = np.array(data['outer']['R0'])
+      R = np.array(data['outer']['R'])
+      th = Longitude(data['outer']['theta'], unit='deg')
+      th += Longitude(data['outer']['PA0'], unit='deg')
+      return th.rad, R/R0
+
+
+  def departure(R, theta):
+      """Parabolic departure of R(theta)"""
+      return 1.0/R - 0.5*(1 + np.cos(theta))
+
+  def extrapolate(mu, Delta, mu0=-0.5, force_open=False, deg=2):
+      def factor(mu):
+          if force_open:
+              return np.abs(-1.0 - mu)**0.5
+          else:
+              return 1.0
+    
+      # Only fit mu < mu0
+      mask = mu <= mu0
+      p = np.poly1d(np.polyfit(mu[mask], Delta[mask]/factor(mu[mask]), deg=deg))
+      mu_x = np.linspace(-1.0, mu0)
+      return mu_x, factor(mu_x)*p(mu_x)
+
+
+  sns.set_style('ticks')
+  fig, ax = plt.subplots()
+
+  # Plot confocal parabola
+  ax.axhline(0.0, ls='-', c='k', lw=0.5)
+
+  # Plot wilkinoid
+  mugrid = np.linspace(-1.0, 1.0, 200)
+  thgrid = np.arccos(mugrid)
+  ax.plot(mugrid, departure(bp.wilkinoid_R_theta(thgrid), thgrid),
+          '-', c='k', lw=1.5)
+
+  # Plot cantoids
+  for beta in 0.3, 0.1, 0.03, 0.01, 0.003, 0.001, 0.0003, 0.0001:
+      ax.plot(mugrid, departure(bp.cantoid_R_theta(thgrid, beta), thgrid),
+              '-', c='k', lw=0.5)
+
+  # Fill in forbidden zone
+  ax.fill_between(mugrid, -0.5*(1.0 + mugrid), -1.0, color='k', alpha=0.4)
+
+  # Plot traced arcs
+  th, R = load_R_th(prefix)
+  Delta = departure(R, th)
+  mu = np.cos(th)
+  ax.plot(mu, Delta, '.', alpha=0.6, label=prefix)
+  mux, Deltax = extrapolate(mu, Delta, deg=npoly, force_open=False)
+  ax.plot(mux, Deltax, '-', alpha=0.6, label='_nolabel_')
+  mux, Deltax = extrapolate(mu, Delta, deg=npoly, force_open=True)
+  ax.plot(mux, Deltax, '-', alpha=0.6, label='_nolabel_')
+
+
+  ax.legend(title=prefix)
+
+  ax.set(
+      xlim=[-1.02, 1.02],
+      ylim=[-0.155, 0.155],
+      xlabel=r"$\cos \,\theta$",
+      ylabel=r"Parabolic departure function, $\Delta(\cos\theta)$",
+  )
+  sns.despine(trim=True)
+  fig.tight_layout()
+  fig.savefig(plotfile)
+  print(plotfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python depart-extrapolate.py M17-MHD2040-AllB7 
+#+END_SRC
+
+#+RESULTS:
+[[file:depart-extrapolate-M17-MHD2040-AllB7.pdf]]
+
+#+BEGIN_SRC sh :results file
+python depart-extrapolate.py M17-HD2040 1
+#+END_SRC
+
+#+RESULTS:
+[[file:depart-extrapolate-M17-HD2040.pdf]]
+
+
+** Plot planitude--alatude for Meyers (2017)
+
+*** Harvest shape parameters
+#+name: harvest-radii-m17
+#+BEGIN_SRC python :return table
+  import json
+
+  SOURCES = [
+      "M17-MHD2040-AllB7",
+      "M17-MHD2040-AllB7-Halpha-i00",
+      "M17-MHD2040-AllB7-60mic-i30",
+      "M17-MHD2040-AllB7-60mic-i45",
+      "M17-MHD2040-AllB7-60mic-i60",
+      "M17-HD2040",
+      "M17-HD2040-Halpha-i00-CD",
+      "M17-HD2040-60mic-i30",
+      "M17-HD2040-60mic-i45",
+      "M17-HD2040-60mic-i60",
+  ]
+
+  radii_header = ['R0/100', 'Rc/R0', 'R90/R0', 'Rm90/R0']
+  header = [['Source', *radii_header], None]
+  INVALID = -999.00
+  body = []
+  for source in SOURCES:
+      jfile = f'{source}-arcdata.json'
+      data = json.load(open(jfile))
+      assert source == data['star']['id']
+      D = data['star']['D']
+      row = [source]
+      arc = 'outer'
+      if arc in data:
+          R0 = data[arc]['R0']
+          Rc = data[arc]['Rc'] / R0
+          if 'R90' in data[arc]:
+              Rm90, R90 = data[arc]['R90']
+              if Rm90 > 0.0:
+                  Rm90 /= R0
+              if R90 > 0.0:
+                  R90 /= R0
+          else:
+              Rm90, R90 = INVALID, INVALID
+          row += [f'{_:.2f}' for _ in [R0/100.0, Rc, Rm90, R90]]
+      else:
+          row += [f'{_:.2f}' for _ in [INVALID, INVALID, INVALID, INVALID]]
+      body.append(row)
+
+  #body.sort(key=lambda x: x[0])
+  table = header + body
+
+#+END_SRC
+
+#+RESULTS: harvest-radii-m17
+| Source                       | R0/100 | Rc/R0 | R90/R0 | Rm90/R0 |
+|------------------------------+--------+-------+--------+---------|
+| M17-MHD2040-AllB7            |   0.48 |  3.57 |   1.95 |    1.92 |
+| M17-MHD2040-AllB7-Halpha-i00 |   0.62 |  4.78 |   2.21 |    2.21 |
+| M17-MHD2040-AllB7-60mic-i30  |   0.20 |  2.14 |   1.74 |    1.73 |
+| M17-MHD2040-AllB7-60mic-i45  |   0.23 |  1.70 |   1.59 |    1.61 |
+| M17-MHD2040-AllB7-60mic-i60  |   0.27 |  1.51 |   1.47 |    1.46 |
+| M17-HD2040                   |   0.84 |  1.78 |   1.75 |    1.75 |
+| M17-HD2040-Halpha-i00-CD     |   0.99 |  1.96 |   2.09 |    2.08 |
+| M17-HD2040-60mic-i30         |   0.48 |  1.89 |   1.80 |    1.79 |
+| M17-HD2040-60mic-i45         |   0.56 |  1.87 |   1.90 |    1.59 |
+| M17-HD2040-60mic-i60         |   0.70 |  1.66 |   1.55 |    1.59 |
+
+
+
+*** Predict the projected planitude--alatude from the shape
++ [ ] Work out how to extrapolate the shape from 150 \to 180 degrees 
+
+#+BEGIN_SRC python :eval no :tangle simulation_shape.py
+  import sys
+  import json
+  import numpy as np
+  sys.path.append("../Dust-wave")
+  from bow_projection import Spline_R_theta_from_grid
+
+
+  def departure(R, theta):
+      """Parabolic departure of R(theta)"""
+      return 1.0/R - 0.5*(1 + np.cos(theta))
+
+  def extrapolate(mu, Delta, mu0=-0.5, force_open=False, deg=2):
+      def factor(mu):
+          if force_open:
+              return np.abs(-1.0 - mu)**0.5
+          else:
+              return 1.0
+  
+      # Only fit mu < mu0
+      mask = mu <= mu0
+      p = np.poly1d(np.polyfit(mu[mask], Delta[mask]/factor(mu[mask]), deg=deg))
+      mu_x = np.linspace(-1.0, mu0)
+      return mu_x, factor(mu_x)*p(mu_x)
+
+  def R_from_Delta(mu, Delta):
+      """Get radius back from departure coefficient"""
+      return 1.0/(Delta + 0.5*(1.0 + mu))
+
+  class Simulation(object):
+      """
+      Bow shape from simulation - defined on grid and fit with splines
+
+      Callable as function of theta
+      """
+      json_suffix = "-arcdata.json"
+
+      def __init__(self, name, npoly=2, force_open=False):
+          self.name = name
+          with open(self.name + self.json_suffix) as f:
+              data = json.load(f)
+          self.thgrid = np.abs(np.radians(data['outer']['theta']))
+          self.Rgrid = np.array(data['outer']['R']) / data['outer']['R0']
+
+          # Make sure arrays are sorted and with th > 0
+          sort_order = self.thgrid.argsort()
+          self.thgrid = self.thgrid[sort_order]
+          self.Rgrid = self.Rgrid[sort_order]
+          # Extrapolate to theta = pi
+
+          mu = np.cos(self.thgrid)
+          Delta = departure(self.Rgrid, self.thgrid)
+          mu_x, Delta_x = extrapolate(mu, Delta, deg=npoly, force_open=force_open)
+          th_x = np.arccos(mu_x)
+          R_x = R_from_Delta(mu_x, Delta_x)
+
+          # Add on the extrapolated points
+          self.thgrid = np.concatenate((self.thgrid, th_x))
+          self.Rgrid = np.concatenate((self.Rgrid, R_x))
+          # And sort again just in case
+          sort_order = self.thgrid.argsort()
+          self.thgrid = self.thgrid[sort_order]
+          self.Rgrid = self.Rgrid[sort_order]
+
+          # Finally do the spline fit
+          self.splinefit = Spline_R_theta_from_grid(
+              theta_grid=self.thgrid, R_grid=self.Rgrid)
+
+      def __call__(self, theta):
+          # When called as a function, give the spline fitted result
+          return self.splinefit(theta)
+
+
+    
+#+END_SRC
+
+
+**** Test R(\theta) spline fit for Meyer (2017) shapes
+#+BEGIN_SRC python :eval no :tangle test_simulation_shape.py
+  import sys
+  import numpy as np
+  from simulation_shape import Simulation
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+
+  sns.set_style('ticks')
+  fig, ax = plt.subplots()
+
+  th = np.linspace(-np.pi, np.pi, 1001)
+  th_dg = np.degrees(th)
+
+  for sim in ["M17-MHD2040-AllB7", "M17-HD2040"]:
+      shape = Simulation(name=sim)
+      ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
+              color='b', alpha=0.2, lw=2, label='_nolabel_')
+      ax.plot(th_dg, shape(th), lw=0.8, label=sim)
+
+  ax.legend(title=r"Simulation shapes")
+  ax.set(
+      xlabel=r"Polar angle: $\theta$, degrees",
+      ylabel=r"$R$",
+      xlim=[0, 180],
+      yscale='log',
+      ylim=[0.9, 200.0],
+      xticks=[0, 30, 60, 90, 120, 150, 180],
+  )
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python test_simulation_shape.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_simulation_shape.pdf]]
+
+
+**** Test \omega from simulation
+This looks a bit ropey
+#+BEGIN_SRC python :eval no :tangle test_simulation_omega.py
+  import sys
+  import numpy as np
+  from simulation_shape import Simulation
+  sys.path.append("../Dust-wave")
+  from bow_projection import omega
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+
+  sns.set_style('ticks')
+  fig, ax = plt.subplots()
+
+  th = np.linspace(-np.pi, np.pi, 1001)
+  th_dg = np.degrees(th)
+
+  for sim in ["M17-MHD2040-AllB7", "M17-HD2040"]:
+      shape = Simulation(name=sim)
+      ax.plot(th_dg, omega(th, shape), label=sim)
+
+  ax.legend(title=r"Simulation shapes")
+  ax.axhline(1.0, xmin=0.35, xmax=0.65, color='white', lw=4, zorder=100)
+  ax.axhline(1.0, xmin=0.35, xmax=0.65, color='k', lw=1, ls=':', zorder=101)
+  ax.axhspan(0.0, 1.0, color='k', alpha=0.05, ec='none')
+  ax.set_yscale('symlog', linthreshy=1.0, linscaley=0.5)
+  ax.set(
+      xlabel=r"Polar angle: $\theta$, degrees",
+      ylabel=r"$\omega \equiv R^{-1} d R / d \theta$",
+      xlim=[0, 180],
+      ylim=[0.0, 2e2],
+      xticks=[0, 30, 60, 90, 120, 150, 180],
+  )
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python test_simulation_omega.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_simulation_omega.pdf]]
+
+
+**** Test (x_t’, y_t’) for simulations
+#+BEGIN_SRC python :eval no :tangle test_xyprime_simulation.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  sys.path.append("../Dust-wave")
+  from bow_projection import (xyprime_t, theta_infinity, theta_0_90,
+                              characteristic_radii_projected)
+  from simulation_shape import Simulation
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_style('ticks')
+  fig, axes = plt.subplots(2, 2, figsize=(6, 6), sharex=True, sharey=True)
+
+  # For some reason, exactly 30.0 had problems with R0p
+  inclinations = [0.0, 15.0, 30.01, 45.0, 60.0, 75.01]
+  linewidths = [2.4, 2.0, 1.6, 1.2, 0.8, 0.4]
+  colors = sns.color_palette('magma_r', n_colors=len(inclinations))
+
+  sims = ["M17-MHD2040-AllB7", "M17-HD2040", "M17-MHD2040-AllB7", "M17-HD2040"]
+
+  for sim, ax in zip(sims, axes.flat):
+      shape = Simulation(name=sim)
+      th_inf = theta_infinity(shape)
+      for inc_dg, color, lw in zip(inclinations, colors, linewidths):
+          inc = np.radians(inc_dg)
+          th0, th90 = theta_0_90(inc, shape)
+          th = np.linspace(th0, th_inf, 301)
+          xp, yp = xyprime_t(th, inc, shape)
+          m = np.isfinite(xp) & np.isfinite(yp)
+          if m.sum() == 0:
+              # Case of no tangent line at all at this inclination
+              continue
+          xxp = np.concatenate((xp[m][::-1], xp[m]))
+          yyp = np.concatenate((-yp[m][::-1], yp[m]))
+          radii = characteristic_radii_projected(inc, shape)        
+          R0p = radii['R_0 prime']
+          ax.plot(xxp/R0p, yyp/R0p,
+                  label=fr"$i = {inc_dg:.0f}^\circ$",
+                  color=color, lw=1.5*lw)
+
+      ax.plot([0], [0], 'o', color='k')
+
+      ax.legend(title=sim,
+                fontsize='small',
+                handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
+                ncol=2, loc="center left")
+      ax.set_aspect('equal', adjustable='box-forced')
+
+  axes[-1,0].set(
+      xlabel=r"$x' / R_0'$",
+      ylabel=r"$y' / R_0'$",
+      xlim=[-7, 3],
+      ylim=[-5, 5],
+  )
+
+  sns.despine()
+  fig.tight_layout(pad=0.3, h_pad=0.1, w_pad=0.1)
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python test_xyprime_simulation.py
+#+END_SRC
+
+#+RESULTS:
+[[file:test_xyprime_simulation.pdf]]
+
+
+** Original version --- Plot the planitude--alatude
 
 *** Harvest the shape parameters from the JSON files
 + Do it like in [[id:A3F62646-04B8-448B-91FF-8E1DC04A9C41][The red supergiants and AGB stars]]
