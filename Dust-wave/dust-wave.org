@@ -1379,6 +1379,10 @@ wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf -> ../papers/Paper1/figs/wa
               raise ValueError("Both theta_grid and R_grid must be specified")
 
 
+
+  class _
+
+
   # * Basic tests of functionality
   #
 
