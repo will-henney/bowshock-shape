@@ -1076,13 +1076,15 @@ python depart-cheby.py M17-HD2040 10 1
 
 
 *** Predict the projected planitude--alatude from the shape
-+ [ ] Work out how to extrapolate the shape from 150 \to 180 degrees 
++ [X] Work out how to extrapolate the shape from 150 \to 180 degrees 
 
 #+BEGIN_SRC python :eval no :tangle simulation_shape.py
   import sys
   import json
   import numpy as np
   import statsmodels.api as sm
+  from astropy.coordinates import Longitude
+  from astropy.modeling import models, fitting
   sys.path.append("../Dust-wave")
   from bow_projection import Spline_R_theta_from_grid
 
@@ -1091,22 +1093,24 @@ python depart-cheby.py M17-HD2040 10 1
       """Parabolic departure of R(theta)"""
       return 1.0/R - 0.5*(1 + np.cos(theta))
 
-  def extrapolate(mu, Delta, mu0=-0.5, force_open=False, deg=2):
-      def factor(mu):
-          if force_open:
-              return np.abs(-1.0 - mu)**0.5
-          else:
-              return 1.0
-
-      # Only fit mu < mu0
-      mask = mu <= mu0
-      p = np.poly1d(np.polyfit(mu[mask], Delta[mask]/factor(mu[mask]), deg=deg))
-      mu_x = np.linspace(-1.0, mu0)
-      return mu_x, factor(mu_x)*p(mu_x)
 
   def R_from_Delta(mu, Delta):
       """Get radius back from departure coefficient"""
       return 1.0/(Delta + 0.5*(1.0 + mu))
+
+
+  JSON_SUFFIX = "-arcdata.json"
+
+  def load_R_th(arc_prefix):
+      jfile = arc_prefix + JSON_SUFFIX
+      data = json.load(open(jfile))
+      R0 = np.array(data['outer']['R0'])
+      R = np.array(data['outer']['R'])
+      th = np.radians(data['outer']['theta'])
+  #    th = Longitude(data['outer']['theta'], unit='deg')
+  #    th += Longitude(data['outer']['PA0'], unit='deg')
+      return th, R/R0
+
 
   class Simulation(object):
       """
@@ -1114,63 +1118,89 @@ python depart-cheby.py M17-HD2040 10 1
 
       Callable as function of theta
       """
-      json_suffix = "-arcdata.json"
       lowess_frac = 0.2
 
-      def __init__(self, name, npoly=2, force_open=False, mode="all"):
+      def extrapolation_factor(self, mu):
+          if self.force_open:
+              return np.abs(-1.0 - mu)**0.5
+          else:
+              return 1.0
+
+      def extrapolation(self, mu):
+          return self.extrapolation_factor(mu)*self.extrap_polyfit(mu)
+
+      def __init__(self, name, extrap_degree=2, mu0=-0.5,
+                   cheby_degree=10, force_open=False, mode="all"):
           self.name = name
-          with open(self.name + self.json_suffix) as f:
-              data = json.load(f)
-          # self.thgrid = np.abs(np.radians(data['outer']['theta']))
-          self.thgrid = np.radians(data['outer']['theta'])
-          self.Rgrid = np.array(data['outer']['R']) / data['outer']['R0']
+          self.force_open = force_open
+          self.thgrid, self.Rgrid = load_R_th(name)
+          self.thmax = self.thgrid.max()
 
-          if mode == "all":
-              # Use all points but take absolute value of theta
-              self.thgrid = np.abs(self.thgrid)
-              # And do some lowess smoothing
-              smooth = sm.nonparametric.lowess(self.Rgrid, self.thgrid,
-                                               frac=self.lowess_frac)
-              self.thgrid = smooth[:, 0]
-              self.Rgrid = smooth[:, 1]
-          elif mode == "positive":
-              # Use only points with positive theta
-              m = self.thgrid > 0.0
-              self.thgrid = self.thgrid[m]
-              self.Rgrid = self.Rgrid[m]
-          elif mode == "negative":
-              # Use only points with negative theta
-              m = self.thgrid < 0.0
-              self.thgrid = -self.thgrid[m]
-              self.Rgrid = self.Rgrid[m]
-
-          # Make sure arrays are sorted 
-          sort_order = self.thgrid.argsort()
-          self.thgrid = self.thgrid[sort_order]
-          self.Rgrid = self.Rgrid[sort_order]
-
-          # Extrapolate to theta = pi
-          mu = np.cos(self.thgrid)
+          # Set up grid of departure function vs mu
           Delta = departure(self.Rgrid, self.thgrid)
-          mu_x, Delta_x = extrapolate(mu, Delta, deg=npoly, force_open=force_open)
-          th_x = np.arccos(mu_x)
-          R_x = R_from_Delta(mu_x, Delta_x)
+          mu = np.cos(self.thgrid)
 
-          # Add on the extrapolated points
-          self.thgrid = np.concatenate((self.thgrid, th_x))
-          self.Rgrid = np.concatenate((self.Rgrid, R_x))
-          # And sort again just in case
-          sort_order = self.thgrid.argsort()
-          self.thgrid = self.thgrid[sort_order]
-          self.Rgrid = self.Rgrid[sort_order]
+          # Set up Chebyshev fit to grid data (theta < thmax)
+          self.chebyfit = models.Chebyshev1D(degree=cheby_degree)
+          fitter = fitting.LevMarLSQFitter()
+          self.chebyfit = fitter(self.chebyfit, mu, Delta)
 
-          # Finally do the spline fit
-          self.splinefit = Spline_R_theta_from_grid(
-              theta_grid=self.thgrid, R_grid=self.Rgrid)
+          # Set up extrapolation fit for theta > thmax
+          # Only fit mu < mu0
+          mask = mu <= mu0
+          self.extrap_polyfit = np.poly1d(np.polyfit(
+              mu[mask], Delta[mask]/self.extrapolation_factor(mu[mask]),
+              deg=extrap_degree))
+
+          # if mode == "all":
+          #     # Use all points but take absolute value of theta
+          #     self.thgrid = np.abs(self.thgrid)
+          #     # And do some lowess smoothing
+          #     smooth = sm.nonparametric.lowess(self.Rgrid, self.thgrid,
+          #                                      frac=self.lowess_frac)
+          #     self.thgrid = smooth[:, 0]
+          #     self.Rgrid = smooth[:, 1]
+          # elif mode == "positive":
+          #     # Use only points with positive theta
+          #     m = self.thgrid > 0.0
+          #     self.thgrid = self.thgrid[m]
+          #     self.Rgrid = self.Rgrid[m]
+          # elif mode == "negative":
+          #     # Use only points with negative theta
+          #     m = self.thgrid < 0.0
+          #     self.thgrid = -self.thgrid[m]
+          #     self.Rgrid = self.Rgrid[m]
+
+          # # Make sure arrays are sorted 
+          # sort_order = self.thgrid.argsort()
+          # self.thgrid = self.thgrid[sort_order]
+          # self.Rgrid = self.Rgrid[sort_order]
+
+          # th_x = np.arccos(mu_x)
+          # R_x = R_from_Delta(mu_x, Delta_x)
+
+          # # Add on the extrapolated points
+          # self.thgrid = np.concatenate((self.thgrid, th_x))
+          # self.Rgrid = np.concatenate((self.Rgrid, R_x))
+          # # And sort again just in case
+          # sort_order = self.thgrid.argsort()
+          # self.thgrid = self.thgrid[sort_order]
+          # self.Rgrid = self.Rgrid[sort_order]
+
+          # # Finally do the spline fit
+          # self.splinefit = Spline_R_theta_from_grid(
+          #     theta_grid=self.thgrid, R_grid=self.Rgrid)
 
       def __call__(self, theta):
-          # When called as a function, give the spline fitted result
-          return self.splinefit(theta)
+          # When called as a function, give the fitted result
+          mu = np.cos(theta)
+          # Use Chebyshev for the range of the grid data
+          # and use extrapolation for larger angles
+          mask = np.cos(theta) >= np.cos(self.thmax)
+          Delta = np.empty_like(mu)
+          Delta[mask] = self.chebyfit(mu[mask])
+          Delta[~mask] = self.extrapolation(mu[~mask])
+          return R_from_Delta(mu, Delta)
 
 
 
@@ -1194,17 +1224,19 @@ python depart-cheby.py M17-HD2040 10 1
   th = np.linspace(-np.pi, np.pi, 1001)
   th_dg = np.degrees(th)
 
-  Simulation.lowess_frac = 0.1
-  mode = "negative"
   for label, shape in [
           ["MHD open",
-           Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode)],
+           Simulation(name="M17-MHD2040-AllB7",
+                      force_open=True, extrap_degree=2)],
           ["MHD closed",
-           Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode)],
+           Simulation(name="M17-MHD2040-AllB7",
+                      force_open=False, extrap_degree=2)],
           ["HD open",
-           Simulation(name="M17-HD2040", force_open=True, mode=mode)],
+           Simulation(name="M17-HD2040",
+                      force_open=True, extrap_degree=1)],
           ["HD closed",
-           Simulation(name="M17-HD2040", force_open=False, mode=mode)],
+           Simulation(name="M17-HD2040",
+                      force_open=False, extrap_degree=1)],
   ]:
       ax.plot(np.degrees(shape.thgrid), shape.Rgrid,
               color='b', alpha=0.2, lw=2, label='_nolabel_')
@@ -1214,7 +1246,7 @@ python depart-cheby.py M17-HD2040 10 1
   ax.set(
       xlabel=r"Polar angle: $\theta$, degrees",
       ylabel=r"$R$",
-      xlim=[0, 180],
+      xlim=[-180, 180],
       yscale='log',
       ylim=[0.9, 30.0],
       xticks=[0, 30, 60, 90, 120, 150, 180],
@@ -1253,17 +1285,19 @@ This looks a bit ropey
   th = np.linspace(-np.pi, np.pi, 1001)
   th_dg = np.degrees(th)
 
-  Simulation.lowess_frac = 0.1
-  mode = "positive"
   for label, shape in [
            ["MHD open",
-            Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode)],
+            Simulation(name="M17-MHD2040-AllB7",
+                       force_open=True, cheby_degree=12)],
            ["MHD closed",
-            Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode)],
+            Simulation(name="M17-MHD2040-AllB7",
+                       force_open=False, cheby_degree=12)],
            ["HD open",
-            Simulation(name="M17-HD2040", force_open=True, mode=mode)],
+            Simulation(name="M17-HD2040",
+                       force_open=True, cheby_degree=12, extrap_degree=1)],
            ["HD closed",
-            Simulation(name="M17-HD2040", force_open=False, mode=mode)],
+            Simulation(name="M17-HD2040",
+                       force_open=False, cheby_degree=12, extrap_degree=1)],
    ]:
       ax.plot(th_dg, omega(th, shape), label=label)
 
@@ -1319,22 +1353,25 @@ python test_simulation_omega.py
   labels = ["MHD open", "MHD closed", "HD open", "HD closed"]
   mode = "negative"
   shapes = [
-      Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode),
-      Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode),
-      Simulation(name="M17-HD2040", force_open=True, mode="positive"),
-      Simulation(name="M17-HD2040", force_open=False, mode="positive")]
+      Simulation(name="M17-MHD2040-AllB7", force_open=True, cheby_degree=12),
+      Simulation(name="M17-MHD2040-AllB7", force_open=False, cheby_degree=12),
+      Simulation(name="M17-HD2040", force_open=True, cheby_degree=12, extrap_degree=1),
+      Simulation(name="M17-HD2040", force_open=False, cheby_degree=12, extrap_degree=1)]
 
   for label, shape, ax in zip(labels, shapes, axes.flat):
       th_inf = theta_infinity(shape)
+      th_inf = max(th_inf, np.pi)
       for inc_dg, color, lw in zip(inclinations, colors, linewidths):
           inc = np.radians(inc_dg)
           th0, th90 = theta_0_90(inc, shape)
+          if not np.isfinite(th0):
+              th0 = 0.0
           th = np.linspace(th0, th_inf, 301)
           xp, yp = xyprime_t(th, inc, shape)
           m = np.isfinite(xp) & np.isfinite(yp)
-          if m.sum() == 0:
-              # Case of no tangent line at all at this inclination
-              continue
+          # if m.sum() == 0:
+          #     # Case of no tangent line at all at this inclination
+          #     continue
           xxp = np.concatenate((xp[m][::-1], xp[m]))
           yyp = np.concatenate((-yp[m][::-1], yp[m]))
           radii = characteristic_radii_projected(inc, shape)        

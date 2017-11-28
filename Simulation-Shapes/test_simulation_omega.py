@@ -15,18 +15,20 @@ fig, ax = plt.subplots()
 th = np.linspace(-np.pi, np.pi, 1001)
 th_dg = np.degrees(th)
 
-Simulation.lowess_frac = 0.1
-mode = "positive"
 for label, shape in [
-        ["MHD open",
-         Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode)],
-        ["MHD closed",
-         Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode)],
-        ["HD open",
-         Simulation(name="M17-HD2040", force_open=True, mode=mode)],
-        ["HD closed",
-         Simulation(name="M17-HD2040", force_open=False, mode=mode)],
-]:
+         ["MHD open",
+          Simulation(name="M17-MHD2040-AllB7",
+                     force_open=True, cheby_degree=12)],
+         ["MHD closed",
+          Simulation(name="M17-MHD2040-AllB7",
+                     force_open=False, cheby_degree=12)],
+         ["HD open",
+          Simulation(name="M17-HD2040",
+                     force_open=True, cheby_degree=12, extrap_degree=1)],
+         ["HD closed",
+          Simulation(name="M17-HD2040",
+                     force_open=False, cheby_degree=12, extrap_degree=1)],
+ ]:
     ax.plot(th_dg, omega(th, shape), label=label)
 
 ax.legend(title=r"Simulation shapes")

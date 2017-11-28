@@ -22,22 +22,25 @@ sims = ["M17-MHD2040-AllB7", "M17-HD2040", "M17-MHD2040-AllB7", "M17-HD2040"]
 labels = ["MHD open", "MHD closed", "HD open", "HD closed"]
 mode = "negative"
 shapes = [
-    Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode),
-    Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode),
-    Simulation(name="M17-HD2040", force_open=True, mode="positive"),
-    Simulation(name="M17-HD2040", force_open=False, mode="positive")]
+    Simulation(name="M17-MHD2040-AllB7", force_open=True, cheby_degree=12),
+    Simulation(name="M17-MHD2040-AllB7", force_open=False, cheby_degree=12),
+    Simulation(name="M17-HD2040", force_open=True, cheby_degree=12, extrap_degree=1),
+    Simulation(name="M17-HD2040", force_open=False, cheby_degree=12, extrap_degree=1)]
 
 for label, shape, ax in zip(labels, shapes, axes.flat):
     th_inf = theta_infinity(shape)
+    th_inf = max(th_inf, np.pi)
     for inc_dg, color, lw in zip(inclinations, colors, linewidths):
         inc = np.radians(inc_dg)
         th0, th90 = theta_0_90(inc, shape)
+        if not np.isfinite(th0):
+            th0 = 0.0
         th = np.linspace(th0, th_inf, 301)
         xp, yp = xyprime_t(th, inc, shape)
         m = np.isfinite(xp) & np.isfinite(yp)
-        if m.sum() == 0:
-            # Case of no tangent line at all at this inclination
-            continue
+        # if m.sum() == 0:
+        #     # Case of no tangent line at all at this inclination
+        #     continue
         xxp = np.concatenate((xp[m][::-1], xp[m]))
         yyp = np.concatenate((-yp[m][::-1], yp[m]))
         radii = characteristic_radii_projected(inc, shape)        
