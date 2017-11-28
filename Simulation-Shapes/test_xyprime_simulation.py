@@ -19,8 +19,15 @@ colors = sns.color_palette('magma_r', n_colors=len(inclinations))
 
 sims = ["M17-MHD2040-AllB7", "M17-HD2040", "M17-MHD2040-AllB7", "M17-HD2040"]
 
-for sim, ax in zip(sims, axes.flat):
-    shape = Simulation(name=sim)
+labels = ["MHD open", "MHD closed", "HD open", "HD closed"]
+mode = "negative"
+shapes = [
+    Simulation(name="M17-MHD2040-AllB7", force_open=True, mode=mode),
+    Simulation(name="M17-MHD2040-AllB7", force_open=False, mode=mode),
+    Simulation(name="M17-HD2040", force_open=True, mode="positive"),
+    Simulation(name="M17-HD2040", force_open=False, mode="positive")]
+
+for label, shape, ax in zip(labels, shapes, axes.flat):
     th_inf = theta_infinity(shape)
     for inc_dg, color, lw in zip(inclinations, colors, linewidths):
         inc = np.radians(inc_dg)
@@ -41,7 +48,7 @@ for sim, ax in zip(sims, axes.flat):
 
     ax.plot([0], [0], 'o', color='k')
 
-    ax.legend(title=sim,
+    ax.legend(title=label,
               fontsize='small',
               handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
               ncol=2, loc="center left")

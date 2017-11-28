@@ -1007,6 +1007,7 @@ wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf -> ../papers/Paper1/figs/wa
       xx = cos_theta*np.cos(inc) - sin_theta*sphi_t*np.sin(inc)
       with np.errstate(all='ignore'):
           yy = sin_theta*np.sqrt(1.0 - sphi_t**2)
+      R[R < 0.0] = np.nan
       return R*xx, R*yy
 
 
@@ -1086,7 +1087,7 @@ wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf -> ../papers/Paper1/figs/wa
       th_inf = theta_infinity(func_R, *args_for_func_R)
       # If the inclination is too high, then there may be no solution
       if np.abs(inc) > th_inf - np.pi/2:
-          return np.nan
+          return np.nan, np.nan
 
       # The theta_0 value could be anywhere in range 0 -> th_inf, but we
       # set the lower limit higher than that to avoid some rare errors.
@@ -1094,14 +1095,18 @@ wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf -> ../papers/Paper1/figs/wa
       # for any of the models I am interested in
       th1, th2 = 0.1*inc, th_inf
       # Make sure we do indeed bracket the root
-      assert _f0(th1)*_f0(th2) <= 0.0, f"Unbracketed th0 root: {_f0(th1)}, {_f0(th2)}"
-      # And use Brent's method to find the root
-      th0 = brentq(_f0, th1, th2)
+      if _f0(th1)*_f0(th2) <= 0.0:
+          # And use Brent's method to find the root
+          th0 = brentq(_f0, th1, th2)
+      else:
+          th0 = np.nan
 
       # Repeat for the theta_90 value, which must be higher than theta_0
       th1, th2 = th0, th_inf
-      assert _f90(th1)*_f90(th2) <= 0.0, f"Unbracketed th90 root: {_f90(th1)}, {_f90(th2)}"
-      th90 = brentq(_f90, th1, th2)
+      if _f90(th1)*_f90(th2) <= 0.0:
+          th90 = brentq(_f90, th1, th2)
+      else:
+          th90 = np.nan
 
       return th0, th90
 
