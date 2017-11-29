@@ -177,19 +177,77 @@ def theta_0_90(inc, func_R, *args_for_func_R):
 
     return th0, th90
 
+# Maximum angle used in fitting Rc'
+DELTA_THETA_RC = np.radians(30.0)
+# Degree of theta'^2 polynomial used in fitting R'(theta') @ theta' = 0
+DEGREE_POLY_NEIGHBORHOOD = 1
+
+# Maximum angle used in fitting R90'
+DELTA_THETA_R90 = np.radians(5.0)
+# Same for around theta' = 90.  These need to be different since we
+# are fitting a polynomial in just theta' instead of theta'^2
+DEGREE_POLY_NEIGHBORHOOD_90 = 2
+
+def characteristic_radii_projected_new(inc, func_R, *args_for_func_R):
+    """Return all the characteristic radii for projected bow shock
+
+    Returns dict of 'R_0 prime', 'tilde R_c prime', 'theta_0', 'tilde
+    R_90 prime', 'theta_90'.  This is a new implementation, since I am
+    getting fed up with the previous implementation (see
+    'characteristic_radii_projected').  Tha main difference is
+    that we define the neighborhood in terms of th-prime instead of
+    th.
+    """
+    # Zeroth step, check that we do have a tangent line
+    th_inf = theta_infinity(func_R, *args_for_func_R)
+
+    # What to return when there is no solution 
+    no_solution = {'R_0 prime': np.nan, 'theta_inf': th_inf,
+                   'tilde R_c prime': np.nan, 'theta_0': np.nan,
+                   'tilde R_90 prime': np.nan, 'theta_90': np.nan}
+
+    if np.abs(inc) > th_inf - np.pi/2:
+        # No tangent line, so return all NaNs
+        return no_solution
+
+    th0, th90 = theta_0_90(inc, func_R, *args_for_func_R)
+    th = np.linspace(th0, th_inf, 1001)
+    xp, yp = xyprime_t(th, inc, func_R, *args_for_func_R)
+    m = np.isfinite(xp) & np.isfinite(yp)
+    # Reflect to give full projected bow
+    xxp = np.concatenate((xp[m][::-1], xp[m]))
+    yyp = np.concatenate((-yp[m][::-1], yp[m]))
+
+    # Polar coordinates on plane of sky
+    Rp = np.hypot(xxp, yyp)
+    thp = np.arctan2(yyp, xxp)
+
+    # Now fit R'(th') around th' = 0 to determine R_0' and R_c'
+    m = np.isfinite(Rp*thp) & (np.abs(thp) < DELTA_THETA_RC)
+    if m.sum() <= 3*DEGREE_POLY_NEIGHBORHOOD:
+        # If not enough good points, then give up
+        return no_solution
+
+    # Fit R' with a polynomial in (theta')^2, and use the constant and
+    # linear coefficients to find the projected R_0 and R_c
+    coeffs = np.polyfit(thp[m]**2, Rp[m],
+                        deg=DEGREE_POLY_NEIGHBORHOOD)
+    R0_prime = coeffs[-1]
+    gamma = coeffs[-2]/coeffs[-1]
+    Rc_prime = 1./(1. - 2*gamma)
+
+    # Next, R90'
+    m = np.isfinite(Rp*thp) & (np.abs(thp - 0.5*np.pi) < DELTA_THETA_R90)
+
+    # **************** 29 Nov 2017: TO FINISH ****************
+    pass
 
 # Number of neighborhood points to use when fitting around projected
 # axes (theta' = 0 and theta' = 90)
 N_NEIGHBORHOOD = 50
-# Theta scale of neighborhood around theta' = 0 in units of (pi - th0)
+# Theta scale of neighborhood around theta' = 0 in units of (th90 - th0)
 SCALE_NEIGHBORHOOD = 0.2
-# Degree of theta'^2 polynomial used in fitting R'(theta') @ theta' = 0
-DEGREE_POLY_NEIGHBORHOOD = 1
-
-# Same for around theta' = 90.  These need to be different since we
-# are fitting a polynomial in just theta' instead of theta'^2
 SCALE_NEIGHBORHOOD_90 = 0.03
-DEGREE_POLY_NEIGHBORHOOD_90 = 2
 
 def characteristic_radii_projected(inc, func_R, *args_for_func_R):
     """Return all the characteristic radii for projected bow shock
@@ -216,7 +274,13 @@ prime', 'theta_90'
     th0, th90 = theta_0_90(inc, func_R, *args_for_func_R)
 
     # Make a grid of theta in the neighborhood of th0
-    dth = SCALE_NEIGHBORHOOD*(np.pi - th0)
+    #
+    # Earlier, I was using (pi - th0), which I am now (29 Nov 2017)
+    # changing to (th90 - th0), so I multiply by 2 to maintain the
+    # same scale in the case of i=0.  So if we want dtheta interval,
+    # we need to put SCALE_NEIGHBORHOOD = dtheta/180, so 0.33 is 60
+    # degrees
+    dth = 2*SCALE_NEIGHBORHOOD*(th90 - th0)
     th = np.linspace(th0, th0 + dth, N_NEIGHBORHOOD)
     if DEBUG:
         print("theta", th, file=sys.stderr)
