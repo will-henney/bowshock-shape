@@ -51,10 +51,11 @@ for label, shape, ax in zip(labels, shapes, axes.flat):
 
     ax.plot([0], [0], 'o', color='k')
 
-    ax.legend(title=label,
-              fontsize='small',
-              handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
-              ncol=2, loc="center left")
+    if "open" in label:
+        ax.legend(fontsize='small',
+                  handlelength=1.0, handletextpad=0.5, columnspacing=0.3,
+                  ncol=2, loc="center left")
+    ax.text(0, 4, label, ha='right', va='top')
     ax.set_aspect('equal', adjustable='box-forced')
 
 axes[-1,0].set(

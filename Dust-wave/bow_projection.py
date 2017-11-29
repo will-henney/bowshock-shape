@@ -100,12 +100,13 @@ TOLERANCE_THETA_INFINITY = 1.e-6
 def theta_infinity(func_R, *args_for_func_R):
     """Return maximum theta where R its derivative are still finite"""
     th0, dth = 0.0, np.pi
+    thinf_m = np.pi - TOLERANCE_THETA_INFINITY
     with np.errstate(all='ignore'):
         # Keep repeating on a finer and finer grid until we get to within
         # the required tolerance
         while dth > TOLERANCE_THETA_INFINITY:
             # This will divide dth by 50 on each iteration
-            th, dth = np.linspace(th0, th0 + dth, retstep=True)
+            th, dth = np.linspace(th0, min(thinf_m, th0 + dth), retstep=True)
             # It is more stringent to insist that omega must be
             # finite, since that needs to be an extra distance (=
             # DX_FOR_NUMERICAL_DERIVATIVE) away from the asymptote in
@@ -113,7 +114,8 @@ def theta_infinity(func_R, *args_for_func_R):
             om = omega(th, func_R, *args_for_func_R)
             # The largest th for which omega is finite must be within at most
             # (dth + DX_FOR_NUMERICAL_DERIVATIVE) of the true asymptote
-            th0 = th[np.isfinite(om)].max()
+            if np.isfinite(om).sum() > 0:
+                th0 = th[np.isfinite(om)].max()
 
     return th0
 
@@ -158,7 +160,7 @@ def theta_0_90(inc, func_R, *args_for_func_R):
     # set the lower limit higher than that to avoid some rare errors.
     # This should be alright unless R_c/R_0 < 0.1, which is not true
     # for any of the models I am interested in
-    th1, th2 = 0.1*inc, th_inf
+    th1, th2 = 0.001*inc, th_inf
     # Make sure we do indeed bracket the root
     if _f0(th1)*_f0(th2) <= 0.0:
         # And use Brent's method to find the root
@@ -167,7 +169,7 @@ def theta_0_90(inc, func_R, *args_for_func_R):
         th0 = np.nan
 
     # Repeat for the theta_90 value, which must be higher than theta_0
-    th1, th2 = th0, th_inf
+    th1, th2 = 1.001*th0, th_inf
     if _f90(th1)*_f90(th2) <= 0.0:
         th90 = brentq(_f90, th1, th2)
     else:
