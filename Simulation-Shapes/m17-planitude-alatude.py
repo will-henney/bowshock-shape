@@ -60,6 +60,8 @@ ax.fill_between(Rc_grid, R90_T0_grid, 0.5, color='k', alpha=0.1)
 ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
 ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+ax.axhline(2.0, ls=':', lw=0.5, alpha=0.5, color='k', zorder=-1)
+ax.axvline(2.0, ls=':', lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.plot([0.9, 10.0], [0.9, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
 # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
@@ -165,7 +167,7 @@ for model, label, color in zip(models, labels, colors):
 
 
 ax.legend(ncol=1, fontsize='small',
-          title='Simulations\n(Meyer et al. 2017)',
+          title='Simulation\ncontact discontinuity\n(Meyer et al. 2017)',
           frameon=True, loc="upper left").get_title().set_size('small')
 ax.set(
     xlim=[0.93, 6.1],

@@ -1,12 +1,16 @@
 * Copy figures to paper folder
 #+BEGIN_SRC sh :results verbatim
+FILES="depart-cheby-M17-*.pdf test_xyprime_simulation.pdf m17-planitude-alatude.pdf"
 date
-cp -v shape-conic-plot-M16-MS2070n00p10.pdf ../papers/Paper1/figs
+cp -v $FILES ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Sun Nov 26 22:16:04 CST 2017
-: shape-conic-plot-M16-MS2070n00p10.pdf -> ../papers/Paper1/figs/shape-conic-plot-M16-MS2070n00p10.pdf
+: Wed Nov 29 21:01:02 CST 2017
+: depart-cheby-M17-HD2040.pdf -> ../papers/Paper1/figs/depart-cheby-M17-HD2040.pdf
+: depart-cheby-M17-MHD2040-AllB7.pdf -> ../papers/Paper1/figs/depart-cheby-M17-MHD2040-AllB7.pdf
+: test_xyprime_simulation.pdf -> ../papers/Paper1/figs/test_xyprime_simulation.pdf
+: m17-planitude-alatude.pdf -> ../papers/Paper1/figs/m17-planitude-alatude.pdf
 
 
 
@@ -1726,6 +1730,8 @@ python test_xyprime_simulation.py
   ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
   ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
   ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axhline(2.0, ls=':', lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(2.0, ls=':', lw=0.5, alpha=0.5, color='k', zorder=-1)
   ax.plot([0.9, 10.0], [0.9, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
@@ -1831,7 +1837,7 @@ python test_xyprime_simulation.py
 
 
   ax.legend(ncol=1, fontsize='small',
-            title='Simulations\n(Meyer et al. 2017)',
+            title='Simulation\ncontact discontinuity\n(Meyer et al. 2017)',
             frameon=True, loc="upper left").get_title().set_size('small')
   ax.set(
       xlim=[0.93, 6.1],

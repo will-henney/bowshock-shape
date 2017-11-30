@@ -2,14 +2,50 @@
 \label{sec:more-realistic-bow}
 
 \begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/shape-conic-plot-M16-MS2070n00p10}
-  \caption{Departure function for simulation}
+  (a)\\
+  \includegraphics[width=\linewidth]
+  {figs/depart-cheby-M17-MHD2040-AllB7}\\[-\baselineskip]
+  (b)\\
+  \includegraphics[width=\linewidth]
+  {figs/depart-cheby-M17-HD2040}\\[-\baselineskip]
+  \caption{Departure function for the shape of the contact
+    discontinuity, measured from two numerical simulations of a
+    \(20\,M_\odot\) main-sequence star, moving at \SI{40}{km.s^{-1}}
+    through a uniform medium of density \SI{0.57}{cm^{-3}}
+    \citep{Meyer:2017a}. (a)~Magnetohydrodynamic simulation with
+    ambient magnetic field of strength \SI{7}{\micro G}, oriented
+    parallel to the stellar velocity. (b)~Hydrodynamic simulation with
+    zero magnetic field.  Blue dots show the measured shape, while the
+    thick, pale-red line shows a 12th-order Chebyshev polynomial fit.
+    The published shapes only extend to
+    \(\theta \approx 130\)--\(150^\circ\), so we extrapolate the shapes out to
+    \(\theta = 180^\circ\). Two different extrapolations are shown,
+    corresponding to bows that are asymptotically closed (dashed red
+    line) or open (solid red line).  For comparison, black lines show
+    the departure function for wilkinoid (thick line) and cantoids
+    (thin lines).}
   \label{fig:sim-depart}
 \end{figure}
 
 The assumptions underlying the models of the previous section may
-break down in various ways.  Most importantly, the shocked shell may not be thin.  
+break down in various ways.  To test whether 
+
+
+Most importantly, the shocked shell may not be thin.  
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/test_xyprime_simulation}
+  \caption{Projected shapes of contact discontinuity from simulations.}
+  \label{fig:sim-xyp}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/m17-planitude-alatude}
+  \caption{Apparent projected shapes of simulations.}
+  \label{fig:sim-Pi-Lambda}
+\end{figure}
 
 
 \section{Summary and discussion}
