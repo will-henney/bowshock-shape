@@ -6,7 +6,7 @@ cp -v $FILES ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Wed Nov 29 21:01:02 CST 2017
+: Thu Nov 30 19:08:12 CST 2017
 : depart-cheby-M17-HD2040.pdf -> ../papers/Paper1/figs/depart-cheby-M17-HD2040.pdf
 : depart-cheby-M17-MHD2040-AllB7.pdf -> ../papers/Paper1/figs/depart-cheby-M17-MHD2040-AllB7.pdf
 : test_xyprime_simulation.pdf -> ../papers/Paper1/figs/test_xyprime_simulation.pdf
@@ -1403,6 +1403,8 @@ python test_simulation_omega.py
   )
 
   sns.despine()
+  for ax in axes.flat:
+      ax.label_outer()
   fig.tight_layout(pad=0.3, h_pad=0.1, w_pad=0.1)
   fig.savefig(figfile)
   print(figfile, end='')

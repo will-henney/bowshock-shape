@@ -66,6 +66,8 @@ axes[-1,0].set(
 )
 
 sns.despine()
+for ax in axes.flat:
+    ax.label_outer()
 fig.tight_layout(pad=0.3, h_pad=0.1, w_pad=0.1)
 fig.savefig(figfile)
 print(figfile, end='')
