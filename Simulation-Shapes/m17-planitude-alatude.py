@@ -1,4 +1,4 @@
-T=[["Source", "R0/100", "Rc/R0", "R90/R0", "Rm90/R0"], ["M17-MHD2040-AllB7", "0.48", "3.57", "1.95", "1.92"], ["M17-MHD2040-AllB7-Halpha-i00", "0.62", "4.78", "2.21", "2.21"], ["M17-MHD2040-AllB7-60mic-i30", "0.20", "2.14", "1.74", "1.73"], ["M17-MHD2040-AllB7-60mic-i45", "0.23", "1.70", "1.59", "1.61"], ["M17-MHD2040-AllB7-60mic-i60", "0.27", "1.51", "1.47", "1.46"], ["M17-HD2040", "0.84", "1.78", "1.75", "1.75"], ["M17-HD2040-Halpha-i00-CD", "0.99", "1.96", "2.09", "2.08"], ["M17-HD2040-Halpha-i00-BS", "1.31", "2.15", "1.95", "1.96"], ["M17-HD2040-60mic-i30", "0.48", "1.89", "1.80", "1.79"], ["M17-HD2040-60mic-i45", "0.56", "1.87", "1.90", "1.59"], ["M17-HD2040-60mic-i60", "0.70", "1.66", "1.55", "1.59"]]
+T=[["Source", "R0/pc", "Rc/R0", "R90/R0", "Rm90/R0"], ["M17-MHD2040-AllB7", "0.38", "3.57", "1.95", "1.92"], ["M17-MHD2040-AllB7-Halpha-i00", "0.41", "2.74", "1.89", "1.89"], ["M17-MHD2040-AllB7-60mic-i30", "0.48", "2.14", "1.74", "1.73"], ["M17-MHD2040-AllB7-60mic-i45", "0.56", "1.70", "1.59", "1.61"], ["M17-MHD2040-AllB7-60mic-i60", "0.67", "1.51", "1.47", "1.46"], ["M17-HD2040", "0.66", "1.78", "1.75", "1.75"], ["M17-HD2040-Halpha-i00", "0.71", "2.33", "1.84", "1.83"], ["M17-HD2040-Halpha-i00-CD", "0.59", "1.68", "1.93", "1.92"], ["M17-HD2040-Halpha-i00-BS", "0.75", "1.90", "1.83", "1.83"], ["M17-HD2040-60mic-i30", "1.17", "1.89", "1.80", "1.79"], ["M17-HD2040-60mic-i45", "1.36", "1.87", "1.90", "1.59"], ["M17-HD2040-60mic-i60", "1.70", "1.66", "1.55", "1.59"], ["M17-MHD2040-AllB7-60mic-i90", 1.05, -999.0, -999.0, -999.0]]
 import sys
 import numpy as np
 from scipy.interpolate import interp1d
@@ -152,7 +152,7 @@ for model, label, color in zip(models, labels, colors):
                     color=color, fontsize="x-small")
 
 
-    mask = [s.startswith(model) for s in table['Source']]
+    mask = [s.startswith(model) and '60mic' in s for s in table['Source']]
     data = table[mask]
 
     for row in data:
@@ -162,7 +162,7 @@ for model, label, color in zip(models, labels, colors):
                    c=color, alpha=0.9, edgecolors='none')
         ax.scatter(row['Rc/R0'], row['R90'],
                    marker=row['marker style'],
-                   s=0.5*row['marker size']**2, zorder=100,
+                   s=(row['marker size'] - 1.1)**2, zorder=100,
                    c='w', alpha=1.0, edgecolors='none')
 
 

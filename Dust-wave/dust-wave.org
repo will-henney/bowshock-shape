@@ -1109,7 +1109,7 @@ wave_xyprime-A005-N20-ancantoid-xi080-beta000500.pdf -> ../papers/Paper1/figs/wa
           th90 = brentq(_f90, th1, th2)
       else:
           th90 = np.nan
-
+          
       return th0, th90
 
   # Maximum angle used in fitting Rc'

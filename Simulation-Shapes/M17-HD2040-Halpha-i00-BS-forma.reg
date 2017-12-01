@@ -1,7 +1,7 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 fk5
-point(2:02:07.403,-59:38:59.40) # point=circle color=red text={M17 HD2040}
+point(2:02:07.422,-59:39:17.05) # point=circle color=red text={M17 HD2040}
 point(2:01:57.518,-59:36:57.52) # point=x color=red
 point(2:01:58.813,-59:36:56.25) # point=x color=red
 point(2:01:59.968,-59:36:53.47) # point=x color=red
