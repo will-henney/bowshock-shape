@@ -10,7 +10,7 @@
   {figs/depart-cheby-M17-HD2040}\\[-\baselineskip]
   \caption[]{Departure function for the shape of the contact
     discontinuity, measured from two numerical simulations of a
-    \(20\,M_\odot\) main-sequence star, moving at \SI{40}{km.s^{-1}}
+    \SI{20}{M_\odot} main-sequence star, moving at \SI{40}{km.s^{-1}}
     through a uniform medium of density \SI{0.57}{cm^{-3}}
     \citep{Meyer:2017a}. (a)~Magnetohydrodynamic simulation with
     ambient magnetic field of strength \SI{7}{\micro G}, oriented
@@ -18,8 +18,8 @@
     zero magnetic field.  Blue dots show the measured shape, while the
     thick, pale-red line shows a 12th-order Chebyshev polynomial fit.
     The published shapes only extend to
-    \(\theta \approx 130\)--\(150^\circ\), so we extrapolate the shapes out to
-    \(\theta = 180^\circ\). Two different extrapolations are shown,
+    \(\theta \approx 130\)--\ang{150}, so we extrapolate the shapes out to
+    \(\theta = \ang{180}\). Two different extrapolations are shown,
     corresponding to bows that are asymptotically closed (dashed red
     line) or open (solid red line).  For comparison, black lines show
     the departure function for wilkinoid (thick line) and cantoids
@@ -28,10 +28,69 @@
 \end{figure}
 
 The assumptions underlying the models of the previous section may
-break down in various ways.  To test whether 
+break down in various ways.  To test whether the planitude--alatude
+analysis is still useful in less ``ideal'' situations, we here apply
+it to more realistic simulations of stellar bow shocks.  We choose a
+pair of hydromagnetic (HD) and magnetohydrodynamic (MHD) moving-star
+simulations from \citet{Meyer:2017a}, in which the only difference is
+the presence (MHD case) or absence (HD case) of an ambient magnetic
+field with strength \(B = \SI{7}{\micro G}\), oriented parallel to the
+stellar velocity.  In each case, the inner wind comes from a
+\(20\,M_\odot\) main-sequence star, with mass loss rate and terminal
+velocity that are roughly constant with time at
+\(\dot{M}_{\w} \approx \SI{4e-7}{M_\odot.y^{-1}}\) and
+\(V_{\w} \approx \SI{1200}{km.s^{-1}}\), while the outer wind is a
+parallel stream due to the star's own motion at \SI{40}{km.s^{-1}}
+through a uniform medium of density \SI{0.57}{cm^{-3}}.
 
-
-Most importantly, the shocked shell may not be thin.  
+For these parameters, the radiative cooling distance for shocked
+ambient gas in the bow is a significant fraction (\(\approx 10\%\)) of the
+bow shock size, \(R_0\), tending to increase towards the wings, and
+the radiative cooling in the shocked stellar wind is even less
+efficient.  This represents a gross violation of the assumptions
+behind the thin-shell models, since the total shocked shell thickness
+is of the same order as \(R_0\).  The parabolic departure function
+(see \S~\ref{sec:parab-depart-funct}) for the shape of the contact
+discontinuity\footnote{%
+  Note that, in the non-magnetic HD models, efficient thermal
+  conduction leads to a thick layer of hot, thermally evaporated
+  ambient material that separates the shocked stellar wind from the
+  cool, dense shell of shocked ambient gas \citep[see \S~3.3
+  of][]{Meyer:2014b}.  In this case, the contact discontinuity is
+  taken to be the boundary between hot and cold ambient gas, as
+  opposed to the \textit{material discontinuity} between shocked
+  ambient gas and shocked wind gas.  In the MHD models, the thermal
+  conduction is almost completely suppressed, so that the material and
+  contact discontinuities coincide. } %
+in the two models is shown in Figure~\ref{fig:sim-depart} as blue
+symbols.\footnote{%
+  Measured from Figure~3 of \citet{Meyer:2017a} by tracing the
+  \SI{0.4}{cm^{-3}} density contour.} %
+The MHD simulation shows a strongly negative dip in the departure
+function close to the apex (\(\cos \theta = 1\)), indicating a very flat
+shape.\footnote{%
+  \citet{Meyer:2017a} speculate that this flatness may be the
+  signature of the formation of a complex multiple-shock topology at
+  the apex \citep{de-Sterck:1999a}.  For our purposes, the reason does
+  not matter, merely that the magnetic and non-magnetic models predict
+  markedly different shapes. } %
+The HD simulation shows only a small negative dip in the departure
+function at the apex, but otherwise approximately follows the
+wilkinoid curve in the forward hemisphere.  In both cases the
+departure function is more positive than the wilkinoid in the far
+wings (\(\cos \theta < -0.5\)), but we do not have data for the full range
+of \(\theta\), and so two different extrapolations for
+\(\theta \to \ang{180}\) are shown.  In the first (dashed red line in
+figure), we fit a low-order polynomial of \(\cos \theta\) to the points
+with \(\cos \theta < -0.5\) and extend it to \(\cos \theta = -1\), which gives
+an asymptotically closed shape.  In the second extrapolation (solid
+red line in figure), we fit a polynomial that is multiplied by
+\((1 + \cos\theta)^{1/2}\), which forces the departure function to zero at
+\(\cos \theta = -1\), giving an asymptotically open shape, as with the
+wilkinoid.  In a true steady state, the far wings should be
+asymptotically open, but as \(\theta \to \ang{180}\) the flow times become
+longer and longer, so that a bow shock with a finite age will be
+closed.
 
 \begin{figure}
   \centering
@@ -47,10 +106,27 @@ Most importantly, the shocked shell may not be thin.
   \label{fig:sim-xyp}
 \end{figure}
 
+Using a 12th-order Chebyshev fit to the traced shapes, we show the
+apparent shape of the contact discontinuity at a series of inclination
+angles, \(\abs{i}\), in Figure~\ref{fig:sim-xyp}.  The four panels
+show the two simulations for each of the two far-wing extrapolations.
+Comparison with Figures~\ref{fig:xyprime}
+and~\ref{fig:xyprime-ancantoid} shows the general tendency is the same
+as with the wilkinoid: that the apex becomes less flat and the wings
+less open as the inclination angle is increased.  There is no sign of
+the sudden increase in openness at high inclination, as seen in the
+cantoids and ancantoids that are asymptotically hyperbolic.  On the
+other hand, the projected shapes of both simulations vary much more
+strongly with \(\abs{i}\) than the wilkinoid does.  For the HD
+simulation, this is mainly apparent for \(\abs{i} > \ang{30}\), but
+for the MHD simulation it occurs at all angles.
+
+
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/m17-planitude-alatude}
-  \caption[]{Apparent projected shapes of simulations.}
+  \caption[]{Apparent projected shapes of simulations in the
+    \(\Pi'\)--\(\Lambda'\) plane.}
   \label{fig:sim-Pi-Lambda}
 \end{figure}
 
@@ -77,17 +153,17 @@ general method for finding the projected shape,
 where the emission shell is idealized as a cylindrically symmetric
 surface.
 
-We first apply this method to find inclination-dependent tracks
-on the projected planitude--alatude plane for the special case of
+We first apply this method to find inclination-dependent tracks on the
+projected planitude--alatude plane for the special case of
 \textit{quadric} surfaces, such as hyperboloids, paraboloids, and
 spheroids, where the tangent line is a conic section.  The spheroids
 and hyperboloids occupy distinct regions of the plane, with the
 paraboloids defining the boundary between the two.  As the inclination
-is increased from \(\abs{i} = 0\) (side-on) to \(\abs{i} = 90^\circ\)
+is increased from \(\abs{i} = 0\) (side-on) to \(\abs{i} = \ang{90}\)
 (end-on), the tracks first tend to approach the diagonal
 \(\Lambda' = \Pi'\), corresponding to confocal conics, always remaining within
 their own region.  At the highest inclinations, the spheroids all
-converge at \(\abs{i} = 90^\circ\) on the point
+converge at \(\abs{i} = \ang{90}\) on the point
 \((\Pi', \Lambda') = (1, 1)\) and the paraboloids on the point
 \((\Pi', \Lambda') = (2, 2)\).  The hyperboloids, on the other hand diverge as
 \((\Pi', \Lambda') \to (\infty, \infty)\) for a finite

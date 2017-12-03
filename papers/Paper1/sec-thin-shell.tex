@@ -72,8 +72,8 @@ origin, the wind mass density is given by
   \label{eq:ancantoid-density}
   \rho(R_0, \theta) =
   \begin{cases}
-    \rho_0 \cos^k \theta & \text{for \(\theta \le 90^\circ\)} \\
-    0 & \text{for \(\theta > 90^\circ\)}
+    \rho_0 \cos^k \theta & \text{for \(\theta \le \ang{90}\)} \\
+    0 & \text{for \(\theta > \ang{90}\)}
   \end{cases}
   \ ,
 \end{equation}
@@ -309,15 +309,15 @@ equation~\eqref{eq:Lambda-approx} scales as \((\beta / (k + 2))^2\), so
 the approximation is even better for smaller \(\beta\) and larger \(k\).
 
 It is apparent from Figure~\ref{fig:r-beta} that the \(k=0\) ancantoid
-is identical to the cantoid for \(\theta \le 90^\circ\) (\(z > 0\), to the right
+is identical to the cantoid for \(\theta \le \ang{90}\) (\(z > 0\), to the right
 of vertical dotted line in Fig.~\ref{fig:r-beta}), but is slightly
 more swept back in the far wings.\footnote{%
   \label{fn:discontinuity}
   Due to the discontinuity in the inner wind density at
-  \(\theta = 90^\circ\) (see Fig.~\ref{fig:anisotropic-arrows}), there is a
+  \(\theta = \ang{90}\) (see Fig.~\ref{fig:anisotropic-arrows}), there is a
   discontinuity in the second derivative of the bow shape.} %
 Since the true planitude and alatude depend on \(R(\theta)\) only in the
-range \(\theta = [0, 90^\circ]\), the cantoid and the \(k = 0\) ancantoid
+range \(\theta = [0, \ang{90}]\), the cantoid and the \(k = 0\) ancantoid
 behave identically in Figure~\ref{fig:ancantoid-Pi-lambda-true}.
 There is a general tendency for the bows to be flatter and more open
 with increasing \(\beta\) and decreasing \(k\), with the cantoid being
@@ -357,7 +357,7 @@ which follows from equations~\eqref{eq:Tq}, \eqref{eq:thetaQ}, and
 opening angle of the wings, \(\theta_\infty\) (Fig.~\ref{fig:characteristic-radii}):
 \begin{equation}
   \label{eq:thetaQ-tail}
-  \theta_{\Q}\tail = \theta_\infty - 180^\circ \ , 
+  \theta_{\Q}\tail = \theta_\infty - \ang{180} \ , 
 \end{equation}
 where \(\theta_\infty\) is calculated from
 equation~\eqref{eq:ancantoid-theta-inf} for ancantoids, or
@@ -385,7 +385,7 @@ Figure~\ref{fig:conic-departure}.  This is the case for the
 \(\beta \ge 0.01\) models in Figure~\ref{fig:ancantoid-departure}a, which
 all show departure functions that become negative in the far wings
 (more open than parabola) and terminate at a
-\(\theta_\infty < 180^\circ\).  The second type of behavior is shown by models with
+\(\theta_\infty < \ang{180}\).  The second type of behavior is shown by models with
 low \(\beta\) or high anisotropy, which behave like spheroids for positive
 and mildly negative values of \(\cos \theta\), but, unlike the spheroids,
 all tend towards \(\Depart = 0\) in the far tail as \(\cos\theta \to -1\).
@@ -624,12 +624,12 @@ shows only subtle changes, with the wings becoming slightly more swept
 back as the inclination increases.  The cantoids
 (Fig.~\ref{fig:xyprime}c and d) behave in the opposite way, with the
 wings becoming markedly more open once \(\abs{i}\) exceeds
-\(60^\circ\) (for \(\beta = 0.001\)), or \(45^\circ\) (for
+\(\ang{60}\) (for \(\beta = 0.001\)), or \(\ang{45}\) (for
 \(\beta = 0.01\)).  The ancantoids (Fig.~\ref{fig:xyprime-ancantoid}) can
 show more complex behavior.  For instance, in the \(k = 0.5\),
 \(\beta = 0.001\) ancantoid (Fig.~\ref{fig:xyprime-ancantoid}a) the near
 wings begin to become more closed with increasing inclination up to
-\(\abs{i} = 60^\circ\), at which point they open up again, whereas the
+\(\abs{i} = \ang{60}\), at which point they open up again, whereas the
 opening angle of the far wings increases monotonically with
 \(\abs{i}\).
 
@@ -656,7 +656,7 @@ in Figure~\ref{fig:thin-shell-R90-Rc}b.  In all cases, the tracks
 follow hyperboloid-like behavior at high inclinations, tending to
 populate the region just above the diagonal \(\Lambda' = \Pi'\).  The
 \(k = 0\) ancantoids show a kink in their tracks at the point where
-the projected apex passes through \(\theta = 90^\circ\), due to the
+the projected apex passes through \(\theta = \ang{90}\), due to the
 discontinuity in the second derivative of \(R(\theta)\) there (see
 footnote~\ref{fn:discontinuity}).  The wilkinoid has a much less
 interesting track, most clearly seen in the zoomed
@@ -664,7 +664,7 @@ Figure~\ref{fig:convergence-cantoid-wilkinoid}, simply moving the
 short distance from \((\nicefrac53, \sqrt3)\) to
 \((\nicefrac32, \smash{\sqrt{\nicefrac83}})\).  Despite its location
 in the ellipsoid region of the plane, the fact that it has
-\(\theta_\infty = 180^\circ\) means that it behaves more like a parabola at high
+\(\theta_\infty = \ang{180}\) means that it behaves more like a parabola at high
 inclination, but converges on
 \((\nicefrac32, \smash{\sqrt{\nicefrac83}})\) instead of \((2, 2)\)
 since the far wings are asymptotically cubic, rather than quadratic.
