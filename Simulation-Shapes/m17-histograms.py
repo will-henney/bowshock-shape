@@ -49,13 +49,16 @@ axes[1].legend(ncol=1, fontsize='small',
 axes[0].set(
     xlabel=r"Projected planitude: $\Pi'$",
     yticks=[0, 1],
+    ylim=[-0.05, None],
 )
 axes[1].set(
     xlabel=r"Projected alatude: $\Lambda'$",
     ylabel="Probability density",
+    ylim=[-0.05*3, None],
 )
 axes[2].set(
     xlabel=r"Projected apex distance: $R_{0}'/R_{0}$",
+    ylim=[-0.05*2, None],
 )
 
 sns.despine(trim=True)

@@ -177,15 +177,18 @@ case at the highest inclinations.
   \caption[]{Apparent projected apex distance of simulations.  Line
     and symbol meanings are as in Figure~\ref{fig:sim-Pi-Lambda}.  In
     addition, triangle symbols at \(\abs{i} = \ang{0}\) denote radius
-    measured on H\(\alpha\) optical emission maps.}
+    measured on H\(\alpha\) optical emission maps.  Note that the distances
+    for the blue square symbols have been adjusted for the correction
+    factor discussed in footnote~\ref{fn:meyer-correction}.}
   \label{fig:sim-R0-prime}
 \end{figure}
 
-Finally, Figure~\ref{fig:sim-R0-prime} shows the inclination
+Figure~\ref{fig:sim-R0-prime} shows the inclination
 dependence of the projected apex distance, \(R_0'\).  As in the
 previous figure, the lines show the prediction based on the shape of
 the contact discontinuity, while the square symbols show the results
 from the \SI{60}{\um} dust continuum maps.\footnote{%
+  \label{fn:meyer-correction}
   There is an apparent error in the spatial scales for the HD
   simulations in Figs.~10 and 11 of \citet{Meyer:2017a}, with the dust
   emission peaks occurring at radii that are clearly too large.  The
@@ -209,11 +212,43 @@ derived from the shape of the contact discontinuity and those derived
 from the surface brightness maps. The greatest discrepancy is seen
 with the H\(\alpha\) maps and the intermediate inclination dust maps, with
 \(R_0'\) being overestimated by a few percent in both cases.  The
-differences in behavior between the two simulation are much larger
+differences in behavior between the two simulations are much larger
 than this.  The larger true planitude of the MHD simulation means that
 the relative increase of \(R_0'\) with \(\abs{i}\) is much stronger
 than in the HD simulation for \(\abs{i} < \ang{45}\), as expected from
 Figure~\ref{fig:quadric-projection}b.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/m17-histograms}
+  \caption[]{Histograms of (top to bottom) projected planitude,
+    alatude, and bow shock size for the shape of the contact
+    discontinuity in the \citet{Meyer:2017a} simulations. The \(y\)
+    axis gives the probability density (per unit \(x\)-axis quantity),
+    assuming a uniform distribution of viewing directions.}
+  \label{fig:sim-histograms}
+\end{figure}
+
+The probability densities\footnote{%
+  The probability density is defined so that its integral over the
+  full range of the histogrammed variable is unity, making it
+  independent of the histogram bin widths.  This means that the
+  characteristic width of an approximately unimodal distribution is
+  one over the maximum probability density.} %
+of the apparent shape and size of the simulation bows (measured at the
+contact discontinuity) are shown in Figure~\ref{fig:sim-histograms},
+assuming that the viewing direction is uniformly distributed in solid
+angle.  The modal value of the projected planitude is similar at
+\(\Pi' \approx 1.8\) for both simulations, but the distribution is much
+broader in the MHD case, which has a low-level wing extending out to
+\(\Pi' \approx 6\).  The projected alatude distributions are both narrower
+than the planitude (note the different scale of the histogram axis),
+with the MHD case again being the broader of the two and peaking at a
+slightly lower value (\(\Lambda' \approx 1.7\) as opposed to
+\(\approx 1.8\) for the HD case).  Finally, the distribution of
+projected-over-true apex distance is also broader for the MHD case. 
+
+
 
 \section{Summary and discussion}
 \label{sec:conc}
@@ -221,58 +256,74 @@ Figure~\ref{fig:quadric-projection}b.
 We have shown that the shapes of stellar bow shocks can be usefully
 characterized by two dimensionless numbers: the \textit{planitude},
 \(\Pi\), or flatness of the bow's apex, and the \textit{alatude},
-\(\Lambda\), or openness of the bow's wings.  The planitude and alatude can
-be estimated from ratios of lengths that can be straightforwardly
-measured from observations or theoretical models.  We develop a
-general method for finding the projected shape,
-\((\Pi', \Lambda')\), of a bow shock's limb-brightened edge, or
-\textit{tangent line}, as a function of inclination angle, \(i\),
-where the emission shell is idealized as a cylindrically symmetric
-surface.
+\(\Lambda\), or openness of the bow's wings (\S~\ref{sec:plan-alat-bow}).
+The planitude and alatude can be estimated from ratios of lengths that
+can be straightforwardly measured from observations or theoretical
+models.  We develop a general method (\S~\ref{sec:projection}) for
+finding the projected shape, \((\Pi', \Lambda')\), of a bow shock's
+limb-brightened edge, or \textit{tangent line}, as a function of
+inclination angle, \(i\), where the emission shell is idealized as a
+cylindrically symmetric surface.
 
 We first apply this method to find inclination-dependent tracks on the
 projected planitude--alatude plane for the special case of
-\textit{quadric} surfaces, such as hyperboloids, paraboloids, and
-spheroids, where the tangent line is a conic section.  The spheroids
-and hyperboloids occupy distinct regions of the plane, with the
-paraboloids defining the boundary between the two.  As the inclination
-is increased from \(\abs{i} = 0\) (side-on) to \(\abs{i} = \ang{90}\)
-(end-on), the tracks first tend to approach the diagonal
-\(\Lambda' = \Pi'\), corresponding to confocal conics, always remaining within
-their own region.  At the highest inclinations, the spheroids all
-converge at \(\abs{i} = \ang{90}\) on the point
+\textit{quadric} surfaces (\S~\ref{sec:conic}), such as hyperboloids,
+paraboloids, and spheroids, where the tangent line is a conic section.
+The spheroids and hyperboloids occupy distinct regions of the plane,
+with the paraboloids defining the boundary between the two.  As the
+inclination is increased from \(\abs{i} = 0\) (side-on) to
+\(\abs{i} = \ang{90}\) (end-on), the tracks first tend to approach the
+diagonal \(\Lambda' = \Pi'\), corresponding to confocal conics, always
+remaining within their own region.  At the highest inclinations, the
+spheroids all converge at \(\abs{i} = \ang{90}\) on the point
 \((\Pi', \Lambda') = (1, 1)\) and the paraboloids on the point
 \((\Pi', \Lambda') = (2, 2)\).  The hyperboloids, on the other hand diverge as
 \((\Pi', \Lambda') \to (\infty, \infty)\) for a finite
 \(i_{\mathrm{crit}}\), which depends on the asymptotic opening angle
 of the tail.  For \(\abs{i} > i_{\mathrm{crit}}\), the tangent line no
-longer exists for the hyperbola, and it no would longer appear to be a
-bow shock.
+longer exists for the hyperboloid, and it would no longer appear to be
+a curved bow shock.  We introduce the parabolic departure function
+(\S~\ref{sec:parab-depart-funct}) as tool for visualizing differences
+in bow shapes, \(R(\theta)\), over the full range,
+\(\theta = [\ang{0}, \ang{180}]\).
 
 We then apply the projection method to a set of thin-shell
-hydrodynamic models of bow shocks: the \textit{wilkinoid} from a
-wind-parallel stream interaction and the \textit{cantoids} from
-wind-wind interactions.  We generalize the latter to the
-\textit{ancantoids}, where one of the winds is anisotropic.  We find
-that the wilkinoid is confined to a small region of the
-\(\Pi'\)--\(\Lambda'\) plane, with projected planitude and alatude varying with
-inclination by \(< 15\%\).  The cantoids and ancantoids with
-sufficiently small values of \(\beta\), the wind momentum ratio, have more
-interesting behavior, with tracks that pass from the spheroid region
-at low inclinations to the hyperboloid region at high inclinations.  
+hydrodynamic models of bow shocks (\S~\ref{sec:crw-scenario}): the
+\textit{wilkinoid} from a wind-parallel stream interaction and the
+\textit{cantoids} from wind-wind interactions.  We generalize the
+latter to the \textit{ancantoids}, where one of the winds is
+anisotropic.  We find that the wilkinoid is confined to a small region
+of the \(\Pi'\)--\(\Lambda'\) plane, with projected planitude and alatude
+varying with inclination by \(< 15\%\).  The cantoids and ancantoids
+with sufficiently small values of \(\beta\), the wind momentum ratio, have
+more interesting behavior, with tracks that pass from the spheroid
+region at low inclinations to the hyperboloid region at high
+inclinations.
+
+Finally (\S~\ref{sec:more-realistic-bow}), we test the projected shape
+analysis methods against the results of computational fluid dynamic
+simulations of magnetized and non-magnetized bow shocks from
+\citet{Meyer:2017a} of a runaway OB main-sequence star.  We find that
+measurements made on maps of infrared dust emission can be accurate
+diagnostics of the projected shape of the contact discontinuity for
+this type of bow shock (Fig.~\ref{fig:sim-Pi-Lambda}).  The
+distributions of projected planitude and alatude for a population of
+randomly oriented bow shocks shows systematic differences between the
+different simulations.
 
 This paper is the first of a series that will apply our shape analysis
 to a wide variety of models and observations of stellar bow shocks.
-In a second paper \citep{Henney:2018a}, we consider the alternative
-model of dusty radiation-driven bow wave, instead of a hydrodynamic
-bow shock, and also calculate the signature in the planitude--alatude
-plane of oscillations in the bow shape, which may be due to
-instabilities or a time-varying source.  In a third paper
-\citep{Henney:2018b}, we apply our techniques to observational
-datasets for three different classes of stellar bow shocks: OB stars,
-cool giants/supergiants, and young stars in the extended Orion Nebula.
-In a fourth paper \citep{Tarango-Yong:2018b}, we analyze the proplyd
-bow shocks in the core of the Orion Nebula.
+In a second paper, % \citep{Henney:2018a}
+we consider the alternative model of dusty radiation-driven bow wave,
+instead of a hydrodynamic bow shock, and also calculate the signature
+in the planitude--alatude plane of oscillations in the bow shape, which
+may be due to instabilities or a time-varying source.  In a third
+paper, % \citep{Henney:2018b},
+we apply our techniques to observational datasets for three different
+classes of stellar bow shocks: OB stars, cool giants/supergiants, and
+young stars in the extended Orion Nebula.  In a fourth paper,
+% \citep{Tarango-Yong:2018b},
+we analyze the proplyd bow shocks in the core of the Orion Nebula.
 
 
 %and was applied to the proplyds in the core of the ONC.
