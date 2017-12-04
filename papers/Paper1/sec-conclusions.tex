@@ -160,10 +160,10 @@ two is good.  In particular, the \SI{60}{\um}-derived shapes are
 always very close to the tracks derived from the contact discontinuity
 shape. Also, the ordering of the three inclinations along the tracks
 corresponds to what is predicted, although quantitatively there are
-some slight deviations.  This close agreement stems for the fact that
-the long-wavelength dust emission from hot-star bow shocks tends to be
-dominated by material just outside the contact discontinuity, as
-emphasized by \citet{Meyer:2014b}.  Note that there is almost no
+some slight deviations.  This close agreement stems from the fact,
+emphasized by \citet{Meyer:2014b}, that the long-wavelength dust
+emission from hot-star bow shocks tends to be dominated by material
+just outside the contact discontinuity.  Note that there is almost no
 difference in the planitude--alatude tracks between the closed and open
 extrapolations.  This is because \(\Pi'\) and \(\Lambda'\) only depend on the
 portion of \(R(\theta)\) between \(\theta_0\) (eq.~[\ref{eq:thetapar}]) and
@@ -174,14 +174,46 @@ case at the highest inclinations.
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/m17-r0-prime}
-  \caption[]{Apparent projected apex distance of simulations.}
+  \caption[]{Apparent projected apex distance of simulations.  Line
+    and symbol meanings are as in Figure~\ref{fig:sim-Pi-Lambda}.  In
+    addition, triangle symbols at \(\abs{i} = \ang{0}\) denote radius
+    measured on H\(\alpha\) optical emission maps.}
   \label{fig:sim-R0-prime}
 \end{figure}
 
 Finally, Figure~\ref{fig:sim-R0-prime} shows the inclination
-dependence of the projected apex distance, \(R_0'\).  Again, the lines
-show the prediction based on the shape of the contact discontinuity,
-while the square symbols show the results from the \SI{60}{\um} dust continuum maps.  In addition, triangle symbols show results from H\(\alpha\) optical emission line maps, which are given for \(i = 0\) in 
+dependence of the projected apex distance, \(R_0'\).  As in the
+previous figure, the lines show the prediction based on the shape of
+the contact discontinuity, while the square symbols show the results
+from the \SI{60}{\um} dust continuum maps.\footnote{%
+  There is an apparent error in the spatial scales for the HD
+  simulations in Figs.~10 and 11 of \citet{Meyer:2017a}, with the dust
+  emission peaks occurring at radii that are clearly too large.  The
+  stated apex distance for the contact discontinuity in this
+  simulation is \SI{0.69}{pc} from Table~2 of \citet{Meyer:2014b}, and
+  the position of the peak in dust column density is \SI{0.70}{pc}
+  from Fig.~17a of \citet{Meyer:2014b}.  These are consistent with
+  Figs.~3, 4, and 7 of \citet{Meyer:2017a}, but not with Figs.~10 and
+  11.  Luckily, the position of the true apex is clearly visible in
+  the \SI{25}{\um} maps of Fig.~10 at inclinations of \ang{45} and
+  \ang{60}.  The projected separation of the true apex is
+  \(R_0 \cos i\), independent of the bow shape, which allows a
+  correction factor of \num{0.65} to be found, assuming that the
+  on-axis peak in the \SI{25}{\um} emission coincides with the peak in
+  dust column density.  This correction has been applied to the blue
+  square symbols shown in our Fig.~\ref{fig:sim-R0-prime}.} %
+In addition, triangle symbols show results from H\(\alpha\) optical
+emission line maps, which are given for \(i = 0\) in Fig.~7 of
+\citet{Meyer:2017a}.  Again, the agreement is good between the values
+derived from the shape of the contact discontinuity and those derived
+from the surface brightness maps. The greatest discrepancy is seen
+with the H\(\alpha\) maps and the intermediate inclination dust maps, with
+\(R_0'\) being overestimated by a few percent in both cases.  The
+differences in behavior between the two simulation are much larger
+than this.  The larger true planitude of the MHD simulation means that
+the relative increase of \(R_0'\) with \(\abs{i}\) is much stronger
+than in the HD simulation for \(\abs{i} < \ang{45}\), as expected from
+Figure~\ref{fig:quadric-projection}b.
 
 \section{Summary and discussion}
 \label{sec:conc}

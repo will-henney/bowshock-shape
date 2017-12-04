@@ -6,7 +6,7 @@ cp -v $FILES ../papers/Paper1/figs
 #+END_SRC
 
 #+RESULTS:
-: Fri Dec  1 11:43:37 CST 2017
+: Sun Dec  3 20:10:02 CST 2017
 : depart-cheby-M17-HD2040.pdf -> ../papers/Paper1/figs/depart-cheby-M17-HD2040.pdf
 : depart-cheby-M17-MHD2040-AllB7.pdf -> ../papers/Paper1/figs/depart-cheby-M17-MHD2040-AllB7.pdf
 : test_xyprime_simulation.pdf -> ../papers/Paper1/figs/test_xyprime_simulation.pdf
@@ -2010,13 +2010,19 @@ python m17-planitude-alatude.py
       R0 = 0.378 if 'MHD' in model else 0.661
       ax.axhline(R0, ls=':', lw=0.5, color=color)
 
+      inc = np.linspace(0.0, np.pi/2, 100)
+
       # First do the "theoretical" tracks
       shape = Simulation(name=model, force_open=True, cheby_degree=12)
-      th_inf = bp.theta_infinity(shape)
-      inc = np.linspace(0.0, np.pi/2, 100)
       tab = bow_diagnostic.parameter_table(inc, shape)
       R0p = tab['R_0 prime']
       ax.plot(np.degrees(inc), R0*R0p, c=color, label=label, lw=2.5, alpha=0.5)
+
+      # Repeat for the closed shape, but with a thin line
+      shape = Simulation(name=model, force_open=False, cheby_degree=12)
+      tab = bow_diagnostic.parameter_table(inc, shape)
+      R0pp = tab['R_0 prime']
+      ax.plot(np.degrees(inc), R0*R0pp, '-', c=color, label="_nolabel_", lw=0.5, alpha=1.0)
 
       mask = [s.startswith(model) and not (s.endswith('BS') or s.endswith('CD')) 
               for s in table['Source']]
