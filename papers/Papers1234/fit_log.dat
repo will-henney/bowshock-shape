@@ -1,0 +1,203 @@
+Proplyd  LV2
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.295535673053
+Fit results:
+Circle x, y, r =  0.0688329247549 -0.0508483594482 0.230185934799
+Covariance matrix:  [[  9.09619324e-04   6.65602701e-06  -7.97478379e-04]
+ [  6.65602701e-06   2.86314289e-05  -6.83332430e-06]
+ [ -7.97478379e-04  -6.83332430e-06   7.05587343e-04]]
+Deviations between model and data:
+Max, rms:  0.00674521726662 0.00447452279045
+
+Proplyd  LV2
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.295535673053
+Fit results:
+Circle x, y, r =  -0.290135744429 0.0 0.573371016882
+Covariance matrix:  [[ 0.15256704 -0.14913022]
+ [-0.14913022  0.14583677]]
+Deviations between model and data:
+Max, rms:  0.0274503453788 0.0165733510944
+
+Proplyd  LV2b
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.109351710212
+Fit results:
+Circle x, y, r =  -0.0822912010515 -0.0488199568211 0.19152184266
+Covariance matrix:  [[  2.43574153e-04   9.08179643e-05  -2.39225157e-04]
+ [  9.08179643e-05   4.44938592e-05  -9.29585231e-05]
+ [ -2.39225157e-04  -9.29585231e-05   2.37650871e-04]]
+Deviations between model and data:
+Max, rms:  0.00433323902079 0.0024611773593
+
+Proplyd  LV2b
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.109351710212
+Fit results:
+Circle x, y, r =  -0.00622544366672 0.0 0.114001287813
+Covariance matrix:  [[ 0.0006559  -0.00049647]
+ [-0.00049647  0.00041413]]
+Deviations between model and data:
+Max, rms:  0.0322941643536 0.0138535880544
+
+Proplyd  LV3
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.378263194795
+Fit results:
+Circle x, y, r =  -0.272774384673 -0.0463511768029 0.610602504053
+Covariance matrix:  [[  2.90891881e-04   4.36790624e-05  -2.63341729e-04]
+ [  4.36790624e-05   2.07890035e-05  -4.16937553e-05]
+ [ -2.63341729e-04  -4.16937553e-05   2.41358167e-04]]
+Deviations between model and data:
+Max, rms:  0.00976478145714 0.00536447808516
+
+Proplyd  LV3
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.378263194795
+Fit results:
+Circle x, y, r =  -0.200097136818 0.0 0.540756921859
+Covariance matrix:  [[ 0.0019583  -0.0016913 ]
+ [-0.0016913   0.00149379]]
+Deviations between model and data:
+Max, rms:  0.0341890695841 0.0196492061706
+
+Proplyd  LV4
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.216542127481
+Fit results:
+Circle x, y, r =  -0.309487764755 -0.032213449415 0.496261599504
+Covariance matrix:  [[  7.36036013e-04   9.49263821e-05  -7.02778792e-04]
+ [  9.49263821e-05   3.67526523e-05  -9.27442492e-05]
+ [ -7.02778792e-04  -9.27442492e-05   6.73586205e-04]]
+Deviations between model and data:
+Max, rms:  0.00952645781347 0.00529007528872
+
+Proplyd  LV4
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.216542127481
+Fit results:
+Circle x, y, r =  -0.245042867361 0.0 0.433531646508
+Covariance matrix:  [[ 0.0015537  -0.00144987]
+ [-0.00144987  0.00136285]]
+Deviations between model and data:
+Max, rms:  0.030413047892 0.0110870859849
+
+Proplyd  LV5
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.238853090239
+Fit results:
+Circle x, y, r =  -0.118951784378 0.0272743829838 0.335551489146
+Covariance matrix:  [[  2.98091839e-04   3.23938497e-05  -2.71588376e-04]
+ [  3.23938497e-05   1.52691237e-05  -3.10560719e-05]
+ [ -2.71588376e-04  -3.10560719e-05   2.49638515e-04]]
+Deviations between model and data:
+Max, rms:  0.00853150527986 0.00482386792221
+
+Proplyd  LV5
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.238853090239
+Fit results:
+Circle x, y, r =  -0.202225063785 0.0 0.415405432795
+Covariance matrix:  [[ 0.00141192 -0.0013023 ]
+ [-0.0013023   0.00120879]]
+Deviations between model and data:
+Max, rms:  0.0176891171477 0.00999509251254
+
+Proplyd  168-328
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.173701836667
+Fit results:
+Circle x, y, r =  -0.0706410925175 0.00988627561432 0.223701433893
+Covariance matrix:  [[  3.84009913e-05   6.65633995e-06  -3.11365898e-05]
+ [  6.65633995e-06   5.09076061e-06  -5.94388587e-06]
+ [ -3.11365898e-05  -5.94388587e-06   2.65797615e-05]]
+Deviations between model and data:
+Max, rms:  0.00375235417474 0.00230255864404
+
+Proplyd  168-328
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.173701836667
+Fit results:
+Circle x, y, r =  -0.0853385263397 0.0 0.236838383893
+Covariance matrix:  [[  1.46397485e-04  -1.17503200e-04]
+ [ -1.17503200e-04   9.97515019e-05]]
+Deviations between model and data:
+Max, rms:  0.00842403891302 0.0053932903656
+
+Proplyd  177-341
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.148992314346
+Fit results:
+Circle x, y, r =  -0.0315056853592 -0.0048093454155 0.175721636902
+Covariance matrix:  [[  6.13526596e-06  -5.28474187e-07  -5.49251296e-06]
+ [ -5.28474187e-07   4.64841234e-07   5.14907418e-07]
+ [ -5.49251296e-06   5.14907418e-07   5.00074724e-06]]
+Deviations between model and data:
+Max, rms:  0.00158945924906 0.0010602085898
+
+Proplyd  177-341
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.148992314346
+Fit results:
+Circle x, y, r =  -0.0379959262817 0.0 0.18201096528
+Covariance matrix:  [[  2.46734546e-05  -2.19927949e-05]
+ [ -2.19927949e-05   1.99293619e-05]]
+Deviations between model and data:
+Max, rms:  0.00597857616402 0.00222434153943
+
+Proplyd  180-331
+theta cutoff 180.0
+On axis False
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.0741077991296
+Fit results:
+Circle x, y, r =  -0.0189281016437 0.00405648192667 0.084738270207
+Covariance matrix:  [[  3.00883285e-05   1.51140362e-05  -2.89201627e-05]
+ [  1.51140362e-05   1.06171290e-05  -1.59647577e-05]
+ [ -2.89201627e-05  -1.59647577e-05   2.90444315e-05]]
+Deviations between model and data:
+Max, rms:  0.00303746164373 0.00186932569197
+
+Proplyd  180-331
+theta cutoff 180.0
+On axis True
+Initial parameter:
+Circle x, y, r =  0.0 0.0 0.0741077991296
+Fit results:
+Circle x, y, r =  -0.0247921092711 0.0 0.0909662235541
+Covariance matrix:  [[  1.00943005e-05  -7.42206222e-06]
+ [ -7.42206222e-06   6.04401453e-06]]
+Deviations between model and data:
+Max, rms:  0.00333639034298 0.00206755429336
+
+
+
+

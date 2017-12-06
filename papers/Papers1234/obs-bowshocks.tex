@@ -1,0 +1,125 @@
+%\RequirePackage{amsmath}
+\documentclass[useAMS, usenatbib, a4paper]{mnras}
+\pdfsuppresswarningpagegroup=1
+
+% The following is needed to fix the margins if using Letter-size paper
+% REMOVE if your LaTeX uses A4 paper by default
+%\addtolength\topmargin{-1.8cm}
+
+% Standard LaTeX packages
+% \usepackage[varg]{txfonts}
+\usepackage[varg]{newtxmath}
+\usepackage{newtxtext}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{fixltx2e}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{hyperref}
+
+% Define a fermata symbol for use inline with text
+% 04 Jul 2017 WJH
+% Based on info in Secs 18.4.1 and 24.1 of musixdoc.pdf
+\usepackage{musixtex}
+\makeatletter
+\newcommand\textfermata{%
+  {\let\extractline\relax
+    \setlines10\smallmusicsize \nobarnumbers \nostartrule
+    \staffbotmarg0pt \setclefsymbol1\empty \global\clef@skip0pt
+    \raisebox{0ex}[0ex][0ex]{
+      \startextract\addspace{-\afterruleskip}%
+      \notes\fermataup{-2}\en
+      \zendextract}}}
+\makeatother
+
+% % The \eye command is in the dingbat package, but we need to take care
+% % of a naming conflict with the AMS package
+% \usepackage{savesym}
+% \savesymbol{checkmark}
+% \usepackage{dingbat}
+
+% The "eye" symbol is drawn with the \faEye command of the fontawesome
+% package
+\usepackage{fontawesome}
+% The ``irregular'' symbol is drawn from the Icelandic Sorcery and Witchcraft 
+\usepackage{staves}
+
+\hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
+  urlcolor=blue!50!black}
+
+\usepackage{etoolbox}
+\robustify\bfseries
+\robustify\itshape
+
+
+%% Bold italic
+\newcommand\hmmax{0}            % we don't need heavy fonts
+\newcommand\bmmax{1}            % reduce use of math alphabets for bold
+\usepackage{bm}
+
+%% Bundled custom packages
+\usepackage{aastex-compat}
+
+% Definitions needed in abstract
+\newcommand\hii{\ion{H}{ii}}
+
+
+
+\title[Stellar bow shocks]{Weather vanes and runaways: Bow
+  shocks across the HR diagram}
+
+\newcommand\AddressCRyA{Instituto de Radioastronom\'{\i}a y Astrof\'{\i}sica,
+  Universidad Nacional Aut\'onoma de M\'exico, Apartado Postal 3-72,
+  58090 Morelia, Michoac\'an, M\'exico}
+\author[Henney \& Tarango Yong]{
+  William J. Henney \& Jorge A. Tarango Yong \\
+  \AddressCRyA
+}
+\begin{document}
+\maketitle
+\begin{abstract}
+  Stellar bow shocks are the result of the supersonic interaction
+  between a stellar wind and its environment.  Some of these are
+  "runaways": high-velocity stars that have been ejected from a star
+  cluster.  Others are "weather vanes", where it is the local
+  interstellar medium itself that is moving, perhaps as the result of
+  a champagne flow of ionized gas from a nearby \hii{} region.
+  We recently proposed a new two-dimensional classification scheme for
+  the shape of such bow shocks, which we here apply to three very
+  different observational datasets: (1)~mid-infrared arcs
+  around hot main-sequence stars (\(N = 227\)); (2)~far-infrared arcs
+  around luminous cool stars (\(N = 7\)); and (3)~emission-line arcs
+  around proplyds and other young stars in the Orion Nebula
+  (\(N = 18\)).  We find significant differences between the three
+  datasets: cool star bow shocks have markedly more closed wings than
+  hot star bow shocks, while differences in the shape of the apex
+  region are only marginally significant.  The Orion Nebula arcs, on
+  the other hand, have both significantly more open wings and
+  significantly flatter apices than the hot star bow shocks.  We
+  discuss the implications of these differences for understanding the
+  physics of the bow shock interaction in the three classes of
+  sources.
+\end{abstract}
+
+\input{sec-obs-intro}
+\clearpage
+\input{sec-quadrics-observations}
+\input{sec-obs-conclusions}
+\clearpage
+\bibliographystyle{mnras}
+%% All references should be put in the BibTeX file bowshocks-biblio.bib
+\bibliography{bowshocks-biblio}
+\appendix
+\input{app-p-values}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

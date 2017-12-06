@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: dusty-bow-wave.aux
+The style file: mnras.bst
+Database file #1: bowshocks-biblio.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 15 entries,
+            2881 wiz_defined-function locations,
+            822 strings with 8299 characters,
+and the built_in function-call counts, 7032 in all, are:
+= -- 500
+> -- 571
+< -- 51
++ -- 260
+- -- 84
+* -- 793
+:= -- 1169
+add.period$ -- 0
+call.type$ -- 15
+change.case$ -- 31
+chr.to.int$ -- 14
+cite$ -- 15
+duplicate$ -- 351
+empty$ -- 361
+format.name$ -- 142
+if$ -- 1190
+int.to.chr$ -- 2
+int.to.str$ -- 0
+missing$ -- 17
+newline$ -- 61
+num.names$ -- 114
+pop$ -- 91
+preamble$ -- 1
+purify$ -- 60
+quote$ -- 0
+skip$ -- 205
+stack$ -- 0
+substring$ -- 286
+swap$ -- 187
+text.length$ -- 61
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 126
+warning$ -- 0
+while$ -- 110
+width$ -- 0
+write$ -- 164

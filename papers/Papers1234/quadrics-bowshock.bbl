@@ -1,0 +1,192 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
+  Collaboration} et~al.}{2013}]{Astropy-Collaboration:2013a}
+{Astropy Collaboration} et~al., 2013, \aap, 558, A33
+
+\bibitem[\protect\citeauthoryear{{Canto}, {Raga}  \& {Wilkin}}{{Canto}
+  et~al.}{1996}]{Canto:1996}
+{Canto} J.,  {Raga} A.~C.,   {Wilkin} F.~P.,  1996, \mn@doi [\apj]
+  {10.1086/177820}, \href {http://adsabs.harvard.edu/abs/1996ApJ...469..729C}
+  {469, 729}
+
+\bibitem[\protect\citeauthoryear{{Cox} et~al.,}{{Cox} et~al.}{2012}]{Cox:2012a}
+{Cox} N.~L.~J.,  et~al., 2012, \aap, 537, A35
+
+\bibitem[\protect\citeauthoryear{{Garc{\'{\i}}a-Arredondo}, {Henney}  \&
+  {Arthur}}{{Garc{\'{\i}}a-Arredondo} et~al.}{2001}]{Garcia-Arredondo:2001a}
+{Garc{\'{\i}}a-Arredondo} F.,  {Henney} W.~J.,   {Arthur} S.~J.,  2001, \apj,
+  561, 830
+
+\bibitem[\protect\citeauthoryear{{Gayley}}{{Gayley}}{2009}]{Gayley:2009a}
+{Gayley} K.~G.,  2009, \apj, 703, 89
+
+\bibitem[\protect\citeauthoryear{Gfrerrer \& Zsombor-Murray}{Gfrerrer \&
+  Zsombor-Murray}{2009}]{Gfrerrer:2009a}
+Gfrerrer A.,  Zsombor-Murray P.,  2009, Journal for Geometry and Graphics, 13,
+  131
+
+\bibitem[\protect\citeauthoryear{Goldman}{Goldman}{1983}]{Goldman:1983a}
+Goldman R.,  1983, \mn@doi [IEEE Computer Graphics and Applications]
+  {http://doi.ieeecomputersociety.org/10.1109/MCG.1983.263025}, 3, 68
+
+\bibitem[\protect\citeauthoryear{{Graham}, {Meaburn}, {Garrington}, {O'Brien},
+  {Henney}  \& {O'Dell}}{{Graham} et~al.}{2002}]{Graham:2002a}
+{Graham} M.~F.,  {Meaburn} J.,  {Garrington} S.~T.,  {O'Brien} T.~J.,  {Henney}
+  W.~J.,   {O'Dell} C.~R.,  2002, \apj, 570, 222
+
+\bibitem[\protect\citeauthoryear{{Hartigan}, {Raymond}  \&
+  {Hartmann}}{{Hartigan} et~al.}{1987}]{Hartigan:1987a}
+{Hartigan} P.,  {Raymond} J.,   {Hartmann} L.,  1987, \apj, 316, 323
+
+\bibitem[\protect\citeauthoryear{{Hayward}, {Houck}  \& {Miles}}{{Hayward}
+  et~al.}{1994}]{Hayward:1994a}
+{Hayward} T.~L.,  {Houck} J.~R.,   {Miles} J.~W.,  1994, \apj, 433, 157
+
+\bibitem[\protect\citeauthoryear{{Henney}}{{Henney}}{2002}]{Henney:2002a}
+{Henney} W.~J.,  2002, Revista Mexicana de Astronomia y Astrofisica, 38, 71
+
+\bibitem[\protect\citeauthoryear{{Henney}, {Garc{\'{\i}}a-D{\'{\i}}az},
+  {O'Dell}  \& {Rubin}}{{Henney} et~al.}{2013}]{Henney:2013a}
+{Henney} W.~J.,  {Garc{\'{\i}}a-D{\'{\i}}az} M.~T.,  {O'Dell} C.~R.,   {Rubin}
+  R.~H.,  2013, \mnras, 428, 691
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky}, {Gilbert}  \&
+  {Kiminki}}{{Kobulnicky} et~al.}{2010}]{Kobulnicky:2010a}
+{Kobulnicky} H.~A.,  {Gilbert} I.~J.,   {Kiminki} D.~C.,  2010, \apj, 710, 549
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky} et~al.,}{{Kobulnicky}
+  et~al.}{2016}]{Kobulnicky:2016a}
+{Kobulnicky} H.~A.,  et~al., 2016, \apjs, 227, 18
+
+\bibitem[\protect\citeauthoryear{{Mackey}, {Mohamed}, {Neilson}, {Langer}  \&
+  {Meyer}}{{Mackey} et~al.}{2012}]{Mackey:2012b}
+{Mackey} J.,  {Mohamed} S.,  {Neilson} H.~R.,  {Langer} N.,   {Meyer} D.~M.-A.,
+   2012, \apjl, 751, L10
+
+\bibitem[\protect\citeauthoryear{{Mackey}, {Gvaramadze}, {Mohamed}  \&
+  {Langer}}{{Mackey} et~al.}{2015}]{Mackey:2015a}
+{Mackey} J.,  {Gvaramadze} V.~V.,  {Mohamed} S.,   {Langer} N.,  2015, \aap,
+  573, A10
+
+\bibitem[\protect\citeauthoryear{{Markevitch}, {Gonzalez}, {David},
+  {Vikhlinin}, {Murray}, {Forman}, {Jones}  \& {Tucker}}{{Markevitch}
+  et~al.}{2002}]{Markevitch:2002a}
+{Markevitch} M.,  {Gonzalez} A.~H.,  {David} L.,  {Vikhlinin} A.,  {Murray} S.,
+   {Forman} W.,  {Jones} C.,   {Tucker} W.,  2002, \apjl, 567, L27
+
+\bibitem[\protect\citeauthoryear{{Meaburn}, {Boumis}  \& {Akras}}{{Meaburn}
+  et~al.}{2013}]{Meaburn:2013a}
+{Meaburn} J.,  {Boumis} P.,   {Akras} S.,  2013, \mnras, 435, 3462
+
+\bibitem[\protect\citeauthoryear{{Medina}, {Arthur}, {Henney}, {Mellema}  \&
+  {Gazol}}{{Medina} et~al.}{2014}]{Medina:2014a}
+{Medina} S.-N.~X.,  {Arthur} S.~J.,  {Henney} W.~J.,  {Mellema} G.,   {Gazol}
+  A.,  2014, \mnras, 445, 1797
+
+\bibitem[\protect\citeauthoryear{{Meyer}, {Mackey}, {Langer}, {Gvaramadze},
+  {Mignone}, {Izzard}  \& {Kaper}}{{Meyer} et~al.}{2014}]{Meyer:2014b}
+{Meyer} D.~M.-A.,  {Mackey} J.,  {Langer} N.,  {Gvaramadze} V.~V.,  {Mignone}
+  A.,  {Izzard} R.~G.,   {Kaper} L.,  2014, \mnras, 444, 2754
+
+\bibitem[\protect\citeauthoryear{{Meyer}, {van Marle}, {Kuiper}  \&
+  {Kley}}{{Meyer} et~al.}{2016}]{Meyer:2016a}
+{Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
+  459, 1146
+
+\bibitem[\protect\citeauthoryear{{Meyer}, {Mignone}, {Kuiper}, {Raga}  \&
+  {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
+{Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
+  2017, \mnras, 464, 3229
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf}, {Verdolini}, {Cox}, {Bern{\'e}},
+  {Kaper}  \& {Tielens}}{{Ochsendorf} et~al.}{2014}]{Ochsendorf:2014a}
+{Ochsendorf} B.~B.,  {Verdolini} S.,  {Cox} N.~L.~J.,  {Bern{\'e}} O.,  {Kaper}
+  L.,   {Tielens} A.~G.~G.~M.,  2014, \aap, 566, A75
+
+\bibitem[\protect\citeauthoryear{{Phillips}, {Cuesta}  \&
+  {Ramos-Larios}}{{Phillips} et~al.}{2010}]{Phillips:2010a}
+{Phillips} J.~P.,  {Cuesta} L.~C.,   {Ramos-Larios} G.,  2010, \mnras, 409, 881
+
+\bibitem[\protect\citeauthoryear{{Raga}, {Binette}, {Canto}  \&
+  {Calvet}}{{Raga} et~al.}{1990}]{Raga:1990a}
+{Raga} A.~C.,  {Binette} L.,  {Canto} J.,   {Calvet} N.,  1990, \apj, 364, 601
+
+\bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
+  et~al.}{2005}]{Robberto:2005}
+{Robberto} M.,  et~al., 2005, \mn@doi [\aj] {10.1086/428000}, \href
+  {http://adsabs.harvard.edu/abs/2005AJ....129.1534R} {129, 1534}
+
+\bibitem[\protect\citeauthoryear{{Scherer} \& {Fichtner}}{{Scherer} \&
+  {Fichtner}}{2014}]{Scherer:2014a}
+{Scherer} K.,  {Fichtner} H.,  2014, \apj, 782, 25
+
+\bibitem[\protect\citeauthoryear{{Schwartz}}{{Schwartz}}{1978}]{Schwartz:1978b}
+{Schwartz} R.~D.,  1978, \apj, 223, 884
+
+\bibitem[\protect\citeauthoryear{{Shu}, {Lizano}, {Galli}, {Cant{\'o}}  \&
+  {Laughlin}}{{Shu} et~al.}{2002}]{Shu:2002a}
+{Shu} F.~H.,  {Lizano} S.,  {Galli} D.,  {Cant{\'o}} J.,   {Laughlin} G.,
+  2002, \apj, 580, 969
+
+\bibitem[\protect\citeauthoryear{{Smith}, {Bally}, {Shuping}, {Morris}  \&
+  {Kassis}}{{Smith} et~al.}{2005}]{Smith:2005a}
+{Smith} N.,  {Bally} J.,  {Shuping} R.~Y.,  {Morris} M.,   {Kassis} M.,  2005,
+  \aj, 130, 1763
+
+\bibitem[\protect\citeauthoryear{{Stevens}, {Blondin}  \& {Pollock}}{{Stevens}
+  et~al.}{1992}]{Stevens:1992a}
+{Stevens} I.~R.,  {Blondin} J.~M.,   {Pollock} A.~M.~T.,  1992, \apj, 386, 265
+
+\bibitem[\protect\citeauthoryear{{Tenorio-Tagle}}{{Tenorio-Tagle}}{1979}]{Tenorio-Tagle:1979a}
+{Tenorio-Tagle} G.,  1979, \aap, 71, 59
+
+\bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
+{Wilkin} F.~P.,  1996, \apjl, 459, L31
+
+\bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{2000}]{Wilkin:2000a}
+{Wilkin} F.~P.,  2000, \apj, 532, 400
+
+\bibitem[\protect\citeauthoryear{{Wilson} \& {Ulvestad}}{{Wilson} \&
+  {Ulvestad}}{1987}]{Wilson:1987a}
+{Wilson} A.~S.,  {Ulvestad} J.~S.,  1987, \apj, 319, 105
+
+\bibitem[\protect\citeauthoryear{{Zank}}{{Zank}}{1999}]{Zank:1999a}
+{Zank} G.~P.,  1999, \ssr, 89, 413
+
+\bibitem[\protect\citeauthoryear{{de Sterck} \& {Poedts}}{{de Sterck} \&
+  {Poedts}}{1999}]{de-Sterck:1999a}
+{de Sterck} H.,  {Poedts} S.,  1999, \aap, 343, 641
+
+\bibitem[\protect\citeauthoryear{{van Buren} \& {McCray}}{{van Buren} \&
+  {McCray}}{1988}]{van-Buren:1988a}
+{van Buren} D.,  {McCray} R.,  1988, \apjl, 329, L93
+
+\bibitem[\protect\citeauthoryear{{van Dyke}}{{van Dyke}}{1982}]{van-Dyke:1982a}
+{van Dyke} M.,  1982, {An album of fluid motion}.
+Parabolic Press, Stanford, CA
+
+\bibitem[\protect\citeauthoryear{{van Marle}, {Meliani}, {Keppens}  \&
+  {Decin}}{{van Marle} et~al.}{2011}]{van-Marle:2011a}
+{van Marle} A.~J.,  {Meliani} Z.,  {Keppens} R.,   {Decin} L.,  2011, \apjl,
+  734, L26
+
+\makeatother
+\end{thebibliography}

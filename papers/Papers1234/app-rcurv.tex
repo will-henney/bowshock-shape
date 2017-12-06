@@ -1,0 +1,94 @@
+\section{Analytic derivation of the radius of curvature in the Thin Shell model}
+\label{app:rc-analytic}
+
+For small $\theta$ we may do a polynomial expansion for the shell shape such as:
+
+\begin{align}
+R \simeq R_0\left(1+\gamma\theta^2 + \Gamma\theta^4\right) \label{eq:R-exp}
+\end{align}
+
+The radius of curvature at the axis for $R$ is given by:
+
+\begin{align}
+R_c = R_0\left(1-2\gamma\right)^{-1}
+\end{align}
+
+The coefficient gamma may be derived by an expansion at small angles of equation
+(\ref{eq:th1th}), as follows:
+
+From the first term of the right side we get:
+
+\begin{align}
+\cot\theta &\simeq \theta^{-1}\left[1-\frac{1}{3}\theta^2\right] \\
+\cos^k\theta\sin^2\theta &\simeq \theta^2 - \left(\frac{1}{3} + \frac{k}{2}\right)\theta^4 \\
+\implies I_k(\theta) &\simeq \frac{1}{3}\theta^3\left[ 1 - \frac{1}{10}(3k+2)\theta^2\right]\\
+\implies 2\beta I_k(\theta)\cot\theta &\simeq \frac{2}{3}\beta\theta^2\left[1-\frac{1}{30}
+(9k+16)\theta^2\right]\label{eq:AR1} 
+\end{align}
+
+For the second term we get:
+
+\begin{align}
+-\frac{2\beta}{k+2}\left(1-\cos^{k+2}\theta\right) & \simeq -\beta\theta^2\left[1-\frac{1}{12}
+(3k+4)\theta^2\right] \label{eq:AR2}
+\end{align}
+
+For the left side we use equation (25) from \CRW{}. Then, equation (\ref{eq:th1th}) results
+as follows:
+
+\begin{align}
+\theta_1^2\left(1+\frac{1}{15}\theta_1^2\right) = \beta\theta^2\left[1+\frac{1}{60}(4-9k)
+\theta^2\right] \label{eq:th1th-app}
+\end{align}
+
+And we can use the approximation $\theta_1 \approx \beta\theta^2$ for the correction term in
+the left side of (\ref{eq:th1th-app}):
+
+\begin{align}
+\theta_1^2 &= \beta\theta^2\left[1+\frac{1}{60}(4-9k)\theta^2\right]
+\left(1-\frac{\beta}{15}\theta^2\right) \\
+\implies \theta_1^2 &= \beta\theta^2\left[1+ 2C_{k\beta}\theta^2\right]
+\label{eq:th1th-small}\\
+\mathrm{where:~} C_{k\beta} &\equiv \frac{1}{2}\left(A_k-\frac{\beta}{15}\right) \\
+A_k &\equiv \frac{1}{15}-\frac{3k}{20}
+\end{align}
+
+Now, using equation (23) from \CRW{} we may estimate $R$ at low angles. To do this, we need to
+expand each term as follows (neglecting terms of order four or higher):
+
+\begin{align}
+\theta_1 = &= \beta^{1/2}\theta\left[1+ 2C_{k\beta}\theta^2\right]^{1/2} \\
+\theta + \theta_1 &= \theta\left[1+\beta^{1/2}\left(1+2C_{k\beta}\theta^2\right)\right]\\
+\sin\theta_1 &= \theta_1\left[1-\frac{\theta_1^2}{6}\right] \\
+ &= \beta^{1/2}\theta\left[1+\left(C_{k\beta}-\frac{1}{6}\beta\right)\theta^2\right] \\
+ \sin(\theta+\theta_1) &= \left[\theta+\theta_1\right]\left[1-\frac{\left(\theta+\theta_1
+ \right)^2}{6}\right] \\
+ &= \theta\left(1+\beta^{1/2}\right)\left\lbrace 1+\left[\frac{C_{k\beta}\beta^{1/2}}
+ {1+\beta^{1/2}}-\frac{1}{6}\left(1+\beta^{1/2}\right)^2\right]\theta^2\right\rbrace
+\end{align}
+
+
+So, combining these terms with equation (23) from \CRW{} we found the final expression for $R$:
+
+\begin{align}
+\frac{R}{D}\equiv \frac{\sin\theta_1}{\sin(\theta+\theta_1)} = \frac{\beta^{1/2}}{1+\beta^{1/2}}
+\left\lbrace 1 + \theta^2\left[\frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}
+\right)\right] \right\rbrace \label{eq:r-small-theta}
+\end{align}
+
+Returning to equation (\ref{eq:R-exp}) we see the following:
+
+\begin{align}
+R_0 &= \frac{\beta^{1/2}}{1+\beta^{1/2}} \\
+\gamma &= \frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{6}\left(1+2\beta^{1/2}\right)
+\label{eq:app-gamma}
+\end{align}
+
+We recover equation (27) of \CRW{} for $R_0$ and equation (\ref{eq:app-gamma}) is the
+needed term to calculate the radius of curvature at the axis.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "quadrics-bowshock"
+%%% End:

@@ -1,0 +1,90 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{Bohren \& Huffman}{Bohren \&
+  Huffman}{1983}]{Bohren:1983a}
+Bohren C.~F.,  Huffman D.,  1983, Absorption and scattering of light by small
+  particles.
+Wiley-VCH
+
+\bibitem[\protect\citeauthoryear{{Canto}, {Raga}  \& {Wilkin}}{{Canto}
+  et~al.}{1996}]{Canto:1996}
+{Canto} J.,  {Raga} A.~C.,   {Wilkin} F.~P.,  1996, \mn@doi [\apj]
+  {10.1086/177820}, \href {http://adsabs.harvard.edu/abs/1996ApJ...469..729C}
+  {469, 729}
+
+\bibitem[\protect\citeauthoryear{{Draine} \& {Salpeter}}{{Draine} \&
+  {Salpeter}}{1979}]{Draine:1979a}
+{Draine} B.~T.,  {Salpeter} E.~E.,  1979, \apj, 231, 77
+
+\bibitem[\protect\citeauthoryear{{Gull} \& {Sofia}}{{Gull} \&
+  {Sofia}}{1979}]{Gull:1979a}
+{Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
+
+\bibitem[\protect\citeauthoryear{Hindmarsh}{Hindmarsh}{1983}]{Hindmarsh:1983a}
+Hindmarsh A.~C.,  1983, IMACS Transactions on Scientific Computation, 1, 55
+
+\bibitem[\protect\citeauthoryear{Jones, Oliphant, Peterson  et~al.}{Jones
+  et~al.}{2017}]{Jones:2001a}
+Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2017, {SciPy}: Open
+  source scientific tools for {Python}, \url {http://www.scipy.org/}
+
+\bibitem[\protect\citeauthoryear{Landau \& Lifshitz}{Landau \&
+  Lifshitz}{1976}]{Landau:1976a}
+Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
+ Course of Theoretical Physics S Vol. 1, Butterworth-Heinemann
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
+  {Tielens}}{2015}]{Ochsendorf:2015a}
+{Ochsendorf} B.~B.,  {Tielens} A.~G.~G.~M.,  2015, \aap, 576, A2
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf}, {Cox}, {Krijt}, {Salgado},
+  {Bern{\'e}}, {Bernard}, {Kaper}  \& {Tielens}}{{Ochsendorf}
+  et~al.}{2014a}]{Ochsendorf:2014b}
+{Ochsendorf} B.~B.,  {Cox} N.~L.~J.,  {Krijt} S.,  {Salgado} F.,  {Bern{\'e}}
+  O.,  {Bernard} J.~P.,  {Kaper} L.,   {Tielens} A.~G.~G.~M.,  2014a, \aap,
+  563, A65
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf}, {Verdolini}, {Cox}, {Bern{\'e}},
+  {Kaper}  \& {Tielens}}{{Ochsendorf} et~al.}{2014b}]{Ochsendorf:2014a}
+{Ochsendorf} B.~B.,  {Verdolini} S.,  {Cox} N.~L.~J.,  {Bern{\'e}} O.,  {Kaper}
+  L.,   {Tielens} A.~G.~G.~M.,  2014b, \aap, 566, A75
+
+\bibitem[\protect\citeauthoryear{{Spitzer}}{{Spitzer}}{1978}]{Spitzer:1978a}
+{Spitzer} L.,  1978, {Physical processes in the interstellar medium}.
+New York: Wiley-Interscience
+
+\bibitem[\protect\citeauthoryear{{Tarango Yong} \& {Henney}}{{Tarango Yong} \&
+  {Henney}}{2018}]{Tarango-Yong:2018a}
+{Tarango Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, in preparation
+
+\bibitem[\protect\citeauthoryear{{Tenorio-Tagle}}{{Tenorio-Tagle}}{1979}]{Tenorio-Tagle:1979a}
+{Tenorio-Tagle} G.,  1979, \aap, 71, 59
+
+\bibitem[\protect\citeauthoryear{{van Buren} \& {McCray}}{{van Buren} \&
+  {McCray}}{1988}]{van-Buren:1988a}
+{van Buren} D.,  {McCray} R.,  1988, \apjl, 329, L93
+
+\bibitem[\protect\citeauthoryear{{van Marle}, {Meliani}, {Keppens}  \&
+  {Decin}}{{van Marle} et~al.}{2011}]{van-Marle:2011a}
+{van Marle} A.~J.,  {Meliani} Z.,  {Keppens} R.,   {Decin} L.,  2011, \apjl,
+  734, L26
+
+\makeatother
+\end{thebibliography}

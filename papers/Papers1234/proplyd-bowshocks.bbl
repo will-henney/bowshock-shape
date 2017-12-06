@@ -1,0 +1,40 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
+  {Arthur}}{1998}]{HA:1998}
+{Henney} W.~J.,  {Arthur} S.~J.,  1998, \mn@doi [\aj] {10.1086/300433}, \href
+  {http://adsabs.harvard.edu/abs/1998AJ....116..322H} {116, 322}
+
+\bibitem[\protect\citeauthoryear{{Johnstone}, {Hollenbach}  \&
+  {Bally}}{{Johnstone} et~al.}{1998}]{Johnstone:1998}
+{Johnstone} D.,  {Hollenbach} D.,   {Bally} J.,  1998, \apj, \href
+  {http://adsabs.harvard.edu/abs/1998ApJ...499..758J} {499, 758}
+
+\bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
+  {Wen}}{1994}]{ODell:1994a}
+{O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
+
+\bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
+  et~al.}{2005}]{Robberto:2005}
+{Robberto} M.,  et~al., 2005, \mn@doi [\aj] {10.1086/428000}, \href
+  {http://adsabs.harvard.edu/abs/2005AJ....129.1534R} {129, 1534}
+
+\makeatother
+\end{thebibliography}

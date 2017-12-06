@@ -1,0 +1,187 @@
+\section{Analytic derivation of thin-shell bow shape parameters}
+\label{sec:thin-shell-shapes}
+
+In this appendix, we provide analytic calculations of the planitude,
+alatude, and asymptotic opening angle for the wilkinoid, cantoids, and
+ancantoids.  We first consider the most general case of the
+ancantoids, and then show how results for cantoids and the wilkinoid
+follow as special cases.
+
+\subsection{Planitude of ancantoids}
+\label{sec:ancantoid-planitude}
+
+From equations~\eqref{eq:radius-curvature} and~\eqref{eq:planitude},
+the planitude depends on the apex second derivative,
+\(R_{\theta\theta,0}\), as
+\begin{equation}
+  \label{eq:planitude-from-2nd-derivative}
+  \Pi = \left(  1 - R_{\theta\theta,0} / R_0\right)^{-1} \ .
+\end{equation}
+From equation~\eqref{eq:taylor-R-theta}, the second derivative can be
+found from the coefficient of \(\theta^2\) in the Taylor expansion
+of \(R(\theta)\).  Since we do not have \(R(\theta)\) in explicit analytic form,
+we proceed via a Taylor expansion of the implicit
+equations~\eqref{eq:crw-angles}
+and~\eqref{eq:ancantoid-theta-theta1-implicit}, retaining terms up to
+\(\theta^4\) to obtain from
+equation~\eqref{eq:ancantoid-theta-theta1-implicit}:
+\begin{equation}
+  \label{eq:taylor-expansion-implicit}
+  \theta_1^2 = \beta \theta^2 \left( 1 + C_{k\beta} \theta^2\right) + \mathcal{O}(\theta^6)\ , 
+\end{equation}
+with the coefficient \(C_{k\beta}\) given by
+\begin{equation}
+  \label{eq:C-k-beta}
+  C_{k\beta} = \frac{1}{15} - \frac{3k}{20} - \frac{\beta}{15}  \ .
+\end{equation}
+Note that it is necessary to include the \(\theta^4\) term in the expansion
+of \(\theta_1^2\) so that \(\theta_1/\theta\) is accurate to order
+\(\theta^2\).  Then, from equation~\eqref{eq:crw-angles} we find
+\begin{align}
+  \label{eq:taylor-R-over-D}
+  \frac{R}{D} & = \frac{\sin \theta_1} {\sin (\theta + \theta_1)} \nonumber \\
+              & = \frac{\beta^{1/2}}{1+\beta^{1/2}}
+                \left\lbrace 1 + \theta^2
+                \left[ \frac{C_{k\beta}} {2 \left(1+\beta^{1/2}\right)}
+                + \frac{1}{6} \left(1+2\beta^{1/2} \right)
+                \right]
+                \right\rbrace + \mathcal{O}(\theta^4) \ ,
+\end{align}
+where in the second line we have carried out a Taylor expansion of the
+two \(\sin\) terms and substituted
+\eqref{eq:taylor-expansion-implicit}.  Comparing coefficients of unity
+and \(\theta^2\) between equations~\eqref{eq:taylor-R-theta} and
+\eqref{eq:taylor-R-over-D} we find
+\begin{align}
+  \label{eq:again-R0-over-D}
+  \frac{R_0} {D} &= \frac{\beta^{1/2}}{1+\beta^{1/2}} \\
+  \label{eq:final-second-derivative}
+  \frac{R_{\theta\theta,0}} {R_0} &= \frac{C_{k\beta}}{1+\beta^{1/2}}+\frac{1}{3}\left(1+2\beta^{1/2}\right) \ ,
+\end{align}
+so that the final result for the planitude, from~\eqref{eq:planitude-from-2nd-derivative}, is
+\begin{equation}
+  \label{eq:final-planitude}
+  \text{ancantoid} \quad
+  \Pi = \left[ {1 - \frac{C_{k\beta}}{1+\beta^{1/2}} - \frac{1}{3}\left(1+2\beta^{1/2}\right)}
+  \right]^{-1} \ .
+\end{equation}
+
+\subsection{Alatude of ancantoids}
+\label{sec:ancantoid-alatude}
+
+To find the alatude, \(\Lambda = R_{90} / R_0\), we use
+equation~\eqref{eq:crw-angles} at \(\theta = \ang{90}\) to write
+\begin{equation}
+  \label{eq:Lambda-from-theta-1-90}
+  \Lambda = \frac{D} {R_0} \tan \theta_{1,90} \ , 
+\end{equation}
+where \(\theta_{1,90} = \theta_1(\theta = \ang{90})\), which, following
+equation~\eqref{eq:ancantoid-theta-theta1-implicit}, must satisfy
+\begin{equation}
+  \label{eq:theta-1-90-implicit}
+  \theta_{1,90} \cot \theta_{1,90}  = 1 - \frac{2 \beta}{k + 2} \ . 
+\end{equation}
+Combining \eqref{eq:Lambda-from-theta-1-90} and
+\eqref{eq:theta-1-90-implicit} with \eqref{eq:again-R0-over-D} yields
+\begin{equation}
+  \label{eq:Lambda-beta-xi-theta-1-90}
+  \Lambda = \frac{ \left(1 + \beta^{1/2}\right) \,\theta_{1,90}} {\beta^{1/2} \left(1 - \xi_k \beta\right)} \ ,
+\end{equation}
+where
+\begin{equation}
+  \label{eq:xi-k}
+  \xi_k = \frac{2} {k +2} \ .
+\end{equation}
+We now take the Taylor expansion of equation~\eqref{eq:theta-1-90-implicit} to find
+\begin{equation}
+  \label{eq:theta-1-90-Taylor}
+  \theta_{1,90}^2 + \tfrac{1}{15}  \theta_{1,90}^4 + \mathcal{O}(\theta_{1,90}^6)
+  = 3 \xi_k \beta \ , 
+\end{equation}
+which, if \(\theta_{1,90}\) is small, has the approximate solution
+\begin{equation}
+  \label{eq:theta-1-90-approx}
+  \theta_{1,90} \approx \left( \frac{3 \xi_k \beta} {1 + \tfrac15 \xi_k \beta} \right) \ .
+\end{equation}
+Substituting back into equation~\eqref{eq:Lambda-from-theta-1-90}
+yields an approximate value for the alatude of
+\begin{equation}
+  \label{eq:Lambda-approx}
+  \text{ancantoid} \quad
+  \Lambda \approx \frac {(3 \xi_k)^{1/2} \left( 1 + \beta^{1/2} \right)}
+  { \left( 1 + \tfrac15 \xi_k \beta \right)^{1/2} \left( 1 - \xi_k \beta \right)} \ .
+\end{equation}
+This approximation is surprisingly accurate, with a relative error of
+order \(1\%\) even for \(\beta\) as large as \(0.5\) with \(k = 0\).  
+
+\subsection{Planitude and alatude of cantoids and wilkinoid}
+\label{sec:cantoid-wilkinoid-shapes}
+
+Since \(\Pi\) and \(\Lambda\) depend on only that portion of the inner wind
+emitted in the forward hemisphere, \(\theta \le \ang{90}\), the results for the
+cantoids can be found by taking \(k = 0\), in which case
+equations~(\ref{eq:C-k-beta}, \ref{eq:final-planitude}, \ref{eq:xi-k},
+\ref{eq:Lambda-approx}) yield
+\begin{gather}
+  \label{eq:cantoid-Pi-Lambda}
+  \text{cantoid} \quad
+  \begin{cases}
+    \quad \Pi &= \dfrac {5} {3 \left( 1 - \beta^{1/2} \right)}\\[12pt]
+    \quad \Lambda &= \dfrac { \sqrt 3} {\left( 1 + \tfrac15 \beta \right)^{1/2} \left( 1 - \beta^{1/2} \right)} \ .
+  \end{cases}
+\end{gather}
+The wilkinoid shape is equal to the \(\beta \to 0\) limit of the cantoid, so
+its planitude and alatude are given by:
+\begin{gather}
+  \label{eq:wilkinoid-Pi-Lambda}
+  \text{wilkinoid} \quad
+  \begin{cases}
+    \quad \Pi &= \dfrac {5} {3}\\[10pt]
+    \quad \Lambda &= \sqrt 3 \ .
+  \end{cases}
+\end{gather}
+The wilkinoid results can also be obtained directly from
+equation~\eqref{eq:wilkinoid-R-theta}, and in the case of \(\Lambda\) this
+has already been noted by several authors \citep{Cox:2012a,
+  Meyer:2016a}.
+
+\subsection{Asymptotic opening angle}
+\label{sec:asympt-open-angle}
+
+The asymptotic opening angle
+of the far wings, \(\theta_\infty\), can be found from
+equation~\eqref{eq:ancantoid-theta-theta1-implicit} for the
+ancantoids, together with the condition that
+\(\theta_\infty + \theta_{1\infty} = \pi\).  These yield the implicit equation
+\begin{equation}
+  \label{eq:ancantoid-theta-inf}
+  \theta_\infty - \left( \frac {k + 2 (1 - \beta)} {k + 2} \right) \tan \theta_\infty
+  = \pi + 2 \beta I_k(\pi/2) \ ,
+\end{equation}
+where
+\begin{equation}
+  I_k(\pi/2) = \frac{\sqrt \pi}{4} \,
+      \frac{  \GammaFunc\left( \frac{k+1}{2} \right)} {\GammaFunc\left(\frac{k+4}{2}\right)}
+\end{equation}
+and \(\GammaFunc\) is the usual Gamma function.  This can be compared with the equivalent result obtained by \CRW{} for the cantoids:
+\begin{equation}
+  \label{eq:cantoid-theta-inf}
+  \theta_\infty - \tan \theta_\infty = \frac{\pi}{1 - \beta} \ .
+\end{equation}
+Note that, unlike in the cases of \(\Pi\) and \(\Lambda\),
+equation~\eqref{eq:ancantoid-theta-inf} does \emph{not} reduce to
+equation~\eqref{eq:cantoid-theta-inf} in the limit \(k \to 0\).  This is
+because, for \(\theta > \ang{90}\), the \(k = 0\) ancantoid differs from the
+cantoid since the former has no wind in the backward hemisphere (see
+Figure~\ref{fig:anisotropic-arrows}).  Therefore there is less inner
+support for the far wings of the bow, and so \(\theta_\infty\) is smaller than
+in the cantoid case.  The wilkinoid result again follows from
+\(\beta \to 0\), implying that \(\theta_\infty = \pi\), or, in other words, that the far
+wings are asymptotically parallel to the symmetry axis, as is the case
+for the paraboloid (App.~\ref{app:parabola}).  In the case of the
+wilkinoid, however, the behavior is cubic in the wings,
+\(z \sim r^3\), as opposed to quadratic as in the paraboloid.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "quadrics-bowshock"
+%%% End:

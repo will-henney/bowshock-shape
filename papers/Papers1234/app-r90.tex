@@ -1,0 +1,44 @@
+\section{Analytic derivation of \texorpdfstring{\boldmath $R_{90}$}{R\_90} in the thin shell model}
+\label{app:r90-analytic}
+
+To derive $R_{90}$ we need to evaluate equations (23) from \CRW{} and (\ref{eq:th1th})
+at $\theta=\frac{\pi}{2}$:
+
+\begin{align}
+R_{90} = D\tan\theta_{1,90} \\
+\theta_{1,90}\cot\theta_{1,90} -1 = -\frac{2\beta}{k+2} \label{eq:th190}
+\end{align}
+Where $\theta_{1,90}\equiv \theta_1(\frac{\pi}{2})$. Combining both equations and  introducing
+the parameter $\xi\equiv \frac{2}{k+2}$ we have:
+\begin{align}
+R_{90} &= D\frac{\theta_{1,90}}{1-\xi\beta} \label{eq:r90-incomplete}
+\end{align}
+
+Expanding the left side of (\ref{eq:th190}) until fourth order, equation (\ref{eq:th190})
+becomes:
+
+\begin{align}
+\theta_{1,90}^2\left(1+\frac{\theta_{1,90}^2}{15}\right) \simeq 3\xi\beta
+\end{align}
+
+Applying the approximation $\theta_1^2 \approx 3\xi\beta$ we found a solution
+for $\theta_{1,90}$:
+
+\begin{align}
+\theta_{1,90} = \left(\frac{3\xi\beta}{1+\frac{1}{5}\xi\beta}\right)^{1/2}
+\end{align}
+
+And substituting into (\ref{eq:r90-incomplete}) we find the solution for $R_{90}$:
+
+\begin{align}
+R_{90} &= \frac{\left(3\xi\beta\right)^{1/2}}{\left(1+\frac{1}{5}\xi\beta\right)^{1/2}
+\left(1-\xi\beta\right)} \\
+\implies \tilde{R}_{90} &\equiv \frac{R_{90}}{R_0} = \frac{\sqrt{3\xi}\left(1+\beta^{1/2}\right)}
+{\left(1+\frac{1}{5}\xi\beta\right)^{1/2}\left(1-\xi\beta\right)}
+\end{align}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "quadrics-bowshock"
+%%% End:
