@@ -254,3 +254,17 @@ CLOSED: [2017-12-06 Wed 12:05]
   used to discriminate between different physical models.
 
 #+END_EXAMPLE
+** Authors
+#+BEGIN_EXAMPLE
+  Instituto de Radioastronomía y Astrofísica, Universidad Nacional Autónoma de México, Apartado Postal 3-72, 58090 Morelia, Michoacán, México
+#+END_EXAMPLE
+* Revised version
+** Unsolicited comments on arxiv paper
+*** Frank Wilkin
++ The projection section was already done in his PhD thesis appendix
+  + \citep{Wilkin:1997a}
++ [ ] Should mention that at end of our sec 3.3
+*** Stephen Ng
++ Derived shape of wilkinoid in recent paper \citep{Ng:2017a}
+  + http://adsabs.harvard.edu/abs/2017ApJ...842..100N
++ [ ] Can maybe cite them in section 5.3 first para, and cite Cox as well, together with Wilkin's thesis again.
