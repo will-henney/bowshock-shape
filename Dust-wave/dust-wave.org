@@ -1,3 +1,106 @@
+* Bow waves vs dust waves vs bow shocks
++ For the dust wave case, we have distance of closest approach
+  \[
+  R_{0} = (\sigma Q / m) (L / 2 \pi c v^{2})
+  \]
++ For the bow shock case, we have
+  \[
+  \dot{M} V / 4 \pi R_{0}^{2} = \rho v^{2} \Rightarrow R_{0} = \left( \frac{\dot{M} V} {4\pi \rho v^{2}}\right)^{1/2}
+  \]
++ Difference is that with dust wave, we have an extra R_0 in the \tau, which gives the fraction of the radiation pressure absorbed in the bow
++ The ratio of ram pressure to radiation pressure is \(\eta_\mathrm{mom} = \dot{M} V / (L / c)\)
++ I have solved the general case (see iPad notes)
+  + Characteristic radius for opaque radiative bow shock \(R_{*}^{2} = L / 4\pi c \rho v^{2}\)
+  + Characteristic optical depth \(\tau_{*} = \rho \kappa R_{*}\)
+  + Define \(x = R_{0} / R_{*}\) for actual radius in terms of fiducial one
+  + Then we have the following transcendental equation for x
+    \[
+    x^{2} - \left( 1 - e^{-2\tau_{*} x} \right) - \eta = 0
+    \]
+    + For \(\tau_* \gg 1\), the solution is \(x = (1 + \eta)^{1/2}\)
+      + /Radiation bow shock/ 
+    + For \(x \tau_{*} \ll 1\), the solution is \(x = \tau_{*} + (\tau_{*}^{2} + \eta)^{1/2}\)
+      + \(\eta \ll \tau_{*}^{2}\) then \(x = 2 \tau_{*}\)
+        + /Radiation bow wave/ 
+      + \(\eta \gg \tau_{*}^{2}\) then \(x = \eta^{1/2}\)
+        + /Wind bow shock/
+  + Also, we have the following in fiducial units
+    + \(\eta = 0.5 \dot{M}_{-7} V_{3} / L_4\)
+    + \(R_* = \SI{2.21}{pc}\ L_{4}^{1/2} n^{-1/2} v_{10}^{-1}\)
+    + \(\tau_{*} = 0.0089 \kappa_{600} L_{4}^{1/2} n^{1/2} v_{10}^{-1}\)
++ Table of stars from Meyer 2016
+  |  M |   L_4 | \dot{M}_{-7} |    V_{3} |      \eta |
+  |----+------+-----------+-------+--------|
+  | 10 | 0.63 |     0.003 | 1.082 | 0.0026 |
+  | 20 |  5.5 |      0.42 | 1.167 | 0.0446 |
+  | 40 |   22 |       5.1 | 1.451 | 0.1682 |
+  #+TBLFM: $5=0.5 $3 $4 / $2 ;f4
+  + So looks like I forgot the factor of 0.5 when I did it by hand
+** Diagrams of v--n plane
+#+BEGIN_SRC python :eval no :tangle zones-v-n-plane.py 
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from vec_root import chandrupatla
+
+  figname = sys.argv[0].replace('.py', '.pdf')
+
+  fig, axes = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(8, 4))
+  stardata = [
+      [10.0, 0.63, 0.0026, axes[0]],
+      [20.0, 5.5, 0.0446, axes[1]],
+      [40.0, 22.0, 0.1682, axes[2]],
+  ]
+
+  # Velocities in units of km/s (10 km/s -> 100 km/s)
+  vgrid = np.linspace(10.0, 100.0, 200)
+  # Densities in units of 1 pcc  (0.01 -> 1e5)
+  logngrid = np.linspace(-3.0, 6.0, 200)
+  # 2d versions of velocity and density grids
+  vv, nn = np.meshgrid(vgrid, 10**logngrid)
+
+  def rstar(v10, n, L4):
+      """Characteristic radius in pc"""
+      return 2.21*np.sqrt(L4/n)/v10
+
+  def taustar(v10, n, L4, kappa600=1.0):
+      """Characteristic optical depth"""
+      return 0.0089*kappa600*np.sqrt(L4*n)/v10
+
+  def xfunc(x, ts, eta):
+      """Function to be zeroed to find x"""
+      return x**2 - (1.0 - np.exp(-2*ts*x)) - eta
+
+  R0s = (0.0001, 0.0003, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0)
+  for M, L4, eta, ax in stardata:
+      Rs = rstar(vv/10, nn, L4)
+      ts = taustar(vv/10, nn, L4)
+      a, b = 0.0, 2*np.sqrt(1.0 + eta)
+      x = chandrupatla(xfunc, a, b, args=(ts, eta))
+      R0 = x*Rs
+      tau = 2*x*ts
+      ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
+      ax.contour(vv, nn, tau, (1.0, 3.0), colors='m')
+      ax.contour(vv, nn, R0, R0s, colors='b')
+      ax.set(yscale='log')
+
+  axes[0].set(xlabel=r"$v$, km/s", ylabel=r"$n$, pcc")
+  fig.tight_layout()
+  fig.savefig(figname)
+
+  print(figname, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python zones-v-n-plane.py
+#+END_SRC
+
+#+RESULTS:
+[[file:zones-v-n-plane.pdf]]
+
+
+
 * Bow waves formed by radiation pressure on dust grains
 + This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]
 + So, I am moving it here to give it room to grow
