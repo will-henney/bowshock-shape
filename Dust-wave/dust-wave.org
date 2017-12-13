@@ -328,12 +328,12 @@ python decouple-v-n-plane.py
 
   sns.set_style('ticks')
   sns.set_color_codes('dark')
-  fig, ax = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(4, 3))
+  fig, ax = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(4, 3.5))
 
   # Velocities in units of km/s (10 km/s -> 100 km/s)
   vv = 40.0
   # Densities in units of 1 pcc  (0.01 -> 1e5)
-  logngrid = np.linspace(-3.3, 6.3, 600)
+  logngrid = np.linspace(-4.3, 7.3, 600)
   nn = 10**logngrid
 
   def rstar(v10, n, L4, c10=0.0):
@@ -368,9 +368,8 @@ python decouple-v-n-plane.py
 
   M, L4, eta = 10.0, 0.63, 0.0026
 
-  Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$",
-                      rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^"),
-                      rf"$\eta = {eta}$"])
+  Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$   $\eta = {eta}$",
+                      rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^")])
   Rs = rstar(vv/10, nn, L4)
   ts = taustar(vv/10, nn, L4, kappa600=kappa/600.0)
   a, b = 0.0, 2*np.sqrt(1.0 + eta)
@@ -404,18 +403,21 @@ python decouple-v-n-plane.py
   Ribs[m] = np.nan 
 
   # Choose only the R0 where there is not also a dust wave
+  ax.plot(nn[~m], R0[~m], color="k", lw=0.1)
   R0[~m] = np.nan
 
   m = tau <= eta
   ax.plot(nn[m], R0[m], label="Wind bow shock")
   ax.plot(nn, Rdw, ls="--", label="Dust wave")
-  ax.plot(nn, Ribs, ls=":", label="Inner bow shock")
+  ax.plot(nn, Ribs, ls=":", label="Dust-free bow shock")
   m = (tau > eta) & (tau < 1.0)
   ax.plot(nn[m], R0[m], ls="-.", label="Bow wave")
   m = tau >= 1.0
   ax.plot(nn[m], R0[m], label="Radiation bow shock")
 
-
+  m = nn < 10.0
+  ax.plot(nn[m], Rstarstar[m], color='k', lw=0.1)
+  ax.plot(nn[~m], Rstarstar[~m]*Zd, color='k', lw=0.1)
   # ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.2)
   # ax.contourf(vv, nn, (~m)*np.ones_like(m).astype(float), (0.5, 1.5), colors='c', alpha=0.2)
   # if np.any(~m):
@@ -444,13 +446,31 @@ python decouple-v-n-plane.py
   #           fontsize='xx-small', fmt=cformats, alpha=0.5, 
   #           inline=True, inline_spacing=0.2, use_clabeltext=True)
 
-  ax.text(1e-3, 4e-4, Mlabel, fontsize='small', bbox=box_params)
-  ax.text(1e-3, 7e-3, "Relative speed:\n$v = 40$ km/s", fontsize='small', bbox=box_params)
-  leg = ax.legend(fontsize="small")
+  ax.text(3e-5, 9e-5, "Stellar parameters:\n" + Mlabel,
+          linespacing=1.5, fontsize='small', bbox=box_params)
+  ax.text(1e6, 9e-3, "Relative speed:\n$v = 40$ km/s", ha="right",
+          linespacing=1.5, fontsize='small', bbox=box_params)
+  ax.text(5.0, 0.15, "$R_{_{**}}$",
+          fontsize='small', ha="center", va="center", bbox=box_params)
+  ax.text(1e6, 0.15/100, "$Z_\mathrm{d}\,R_{_{**}} $",
+          fontsize='small', ha="center", va="center", bbox=box_params)
+
+  ax.text(3e-5, 1.2e-3,
+          "Dust parameters:\n" + f"$Z_\mathrm{{d}} = {Zd}$"
+          + fr"     $\xi = {xi}$" + "\n"
+          + f"$\kappa_\mathrm{{d}} = {kappa}$ cm$^2$/g",
+          linespacing=1.5, fontsize='small', bbox=box_params)
+
+
+  leg = ax.legend(loc="upper right", frameon=True, fontsize="small")
 
   ax.set(xscale='log', yscale='log')
 
-  ax.set(ylabel=r"Radius: $R$, pc", xlabel=r"Ambient density: $n$, cm$^{-3}$")
+  ax.set(
+      ylabel=r"Bow radius: $R$, pc",
+      xlabel=r"Ambient density: $n$, cm$^{-3}$",
+      #ylim=[1.5e-4, 3.0],
+  )
   sns.despine()
   fig.tight_layout()
   fig.savefig(figname)
