@@ -39,13 +39,25 @@
   + So looks like I forgot the factor of 0.5 when I did it by hand
 ** Diagrams of v--n plane
 *** Strong coupling case
-+ [ ] Add in the i-front trapping
++ [X] Add in the i-front trapping
   + Column density of shell: \(R n\)
   + Shell thickness: \(h = \frac38 R (c_{s} / v)^{2} \simeq \frac38 R v_{10}^{-2}\)
   + Shell EM: \( (R n)^{2} / h = \frac83 v_{10}^{2} n^{2} R\)
   + Compare recombinations in shell with ionizing flux: \( f = \alpha_{B} . EM . 4\pi r^{2} / S_{*}\)
   + \( f = \frac{32\pi}{3} v_{10}^{2} n^{2} R^{3} (\alpha_{B} /  S_{*})\)
+  + Find ionization parameter \(U\) in shell
+    + At inner edge
+    + And at outer edge, after post-shock cooling
+  + Then find ionization fraction \(y^{2} / (1 - y) = (c \sigma / \alpha_{B}) U\)
+    + Red contour at y_out = 0.5 for outer shell (y_out = 0 or 0.9 would be at the same place)
+      + to show the ionization front trapping by the bow
+      + This is caused by gas opacity always, even when it is in a zone with dust \tau > 1
+    + Various green contours of y_in = 0.99 ... 0.999 ... 0.9999 for the inside of shell
+      + I am not too happy with the placement of the labels in the green contours, but I am fed up with fiddling with them
+    + y_in seems not to vary in the bits that are pure bow shock - there must be a reason for this
+      + Add text showing the minimum and maximum y_in
 + [ ] Also the rad pressure in the gas
++ [ ] And the cooling length
 
 #+BEGIN_SRC python :eval no :tangle zones-v-n-plane.py 
   import sys
@@ -66,9 +78,9 @@
   ]
 
   # Velocities in units of km/s (10 km/s -> 100 km/s)
-  vgrid = np.linspace(10.0, 100.0, 200)
+  vgrid = np.linspace(10.0, 100.0, 800)
   # Densities in units of 1 pcc  (0.01 -> 1e5)
-  logngrid = np.linspace(-3.3, 6.3, 200)
+  logngrid = np.linspace(-3.3, 6.3, 800)
   # 2d versions of velocity and density grids
   vv, nn = np.meshgrid(vgrid, 10**logngrid)
 
@@ -114,13 +126,17 @@
       # Ionization fraction in shell
       ysh = 1.0 - 1.0/(3.5e5*Ush)
 
-      cs = ax.contour(vv, nn, 1.0 - ysh,
-                      np.logspace(-5.0, -1.0, 17),
-                      linewidths=np.linspace(0.5, 2.5, 17),
+      cs = ax.contour(vv, nn, ysh,
+                      (0.9, 0.99, 0.999, 0.9999, 0.99999),
+                      linewidths=1.0,
                       colors='g', alpha=0.5)
       ax.clabel(cs,
-                fontsize='xx-small', colors='g', fmt='%.5f', 
+                fontsize=5, colors='g', fmt='$%.5f$', 
                 inline=True, inline_spacing=1, use_clabeltext=True)
+      ax.text(75, 6e-3, fr"$y_\mathrm{{in}} = {ysh.max():.5f}$",
+              fontsize=5, color='g', alpha=0.5)
+      ax.text(12, 1.3e6, fr"$y_\mathrm{{in}} = {ysh.min():.5f}$",
+              fontsize=5, color='g', alpha=0.5)
 
       # Fraction of ionizing photons absorbed in shell
       absfrac = 2.56e-5 * (vv/10)**2 * nn**2 * R0**3 / S49
@@ -131,13 +147,16 @@
       # Ionization parameter just outside the shell
       Uout = U*np.exp(-(tau + tau_gas))
       Uout[~np.isfinite(Uout)] = 0.0
+      Ushout = Uout/(vv/10)**2
 
       # y^2 / (1 - y) = CU
-      # => y^2 + CU y - CU = 0
-      # => a = 1, b = CU, c = -CU
-      # => y =  [sqrt((CU/2 + 2) CU/2) - CU/2] 
-      # => y = CU/2 [sqrt((1 + 4/CU)) - 1]
+      # y = 0.1 => y^2 / (1 - y) = 0.0111111111111
+      # y = 0.5 => y^2 / (1 - y) = 0.5
+      # y = 0.9 => y^2 / (1 - y) = 8.1
+      # y = 0.99 => y^2 / (1 - y) = 98.1
+
       # cu = 3.5e5*Uout
+
       # y_out = 0.5*cu * (np.sqrt(1.0 + 4/cu) - 1.0)
       # cs = ax.contour(vv, nn, Uout,
       #                 np.logspace(-7.0, 1.0, 9),
@@ -147,7 +166,12 @@
       #           fontsize='xx-small', colors='r', fmt='%.0e', 
       #           inline=True, inline_spacing=1, use_clabeltext=True)
 
-      ax.contourf(vv, nn, Uout, (1e-4, 1e-2), colors='r', alpha=0.15)
+      #ax.contour(vv, nn, 3.5e5*Uout, (0.5, 98.1), colors='r', alpha=0.5)
+      cs = ax.contour(vv, nn, 3.5e5*Ushout, (0.5,), linewidths=2, colors='r', alpha=0.5)
+      ax.clabel(cs, (0.5,),
+                manual=((80, 1e4),),
+                fontsize='xx-small', colors='r', fmt='$y_\mathrm{out} = 0.5$', 
+                inline=True, inline_spacing=3, use_clabeltext=True)
 
       ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.15)
       # ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
@@ -157,10 +181,10 @@
       ax.clabel(cs, clevs,
                 fontsize='small', fmt=cformats,
                 inline=True, inline_spacing=2, use_clabeltext=True)
-      ax.text(30.0, 1e-2, Mlabel, fontsize='small', bbox=box_params)
-      ax.text(18.0, 4000.0, RBW_label, rotation=15, fontsize='small', bbox={**box_params, **dict(fc='0.8', ec='0.6')})
-      ax.text(18.0, 2e6, RBS_label, rotation=15, fontsize='small', bbox=box_params)
-      ax.text(18.0, 30.0, WBS_label, rotation=15, fontsize='small', bbox=box_params)
+      ax.text(30.0, 1e-2, Mlabel, zorder=100, fontsize='small', bbox=box_params)
+      ax.text(18.0, 4000.0, RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.8', ec='0.6')})
+      ax.text(18.0, 2e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+      ax.text(18.0, 30.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
 
 
 
@@ -172,7 +196,7 @@
       ax.label_outer()
   fig.tight_layout()
   fig.savefig(figname)
-
+  
   print(figname, end='')
 #+END_SRC
 
