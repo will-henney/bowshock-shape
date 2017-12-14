@@ -46,6 +46,7 @@ RBW_label = r"Radiation bow wave, $\eta < \tau < 1$"
 RBS_label = r"Radiation bow shock, $\tau > 1$"
 WBS_label = r"Wind bow shock, $\tau < \eta$"
 
+T0 = 8000
 for M, L4, eta, S49, ax in stardata:
     Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$",
                         rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^"),
@@ -119,11 +120,50 @@ for M, L4, eta, S49, ax in stardata:
     ax.clabel(cs, clevs,
               fontsize='small', fmt=cformats,
               inline=True, inline_spacing=2, use_clabeltext=True)
-    ax.text(30.0, 1e-2, Mlabel, zorder=100, fontsize='small', bbox=box_params)
+    ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='small', bbox=box_params)
     ax.text(18.0, 4000.0, RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.8', ec='0.6')})
     ax.text(18.0, 2e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
     ax.text(18.0, 30.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
 
+
+    #
+    # Now do the cooling length
+    #
+    # pre-shock Mach number
+    M0 = vv/10.0
+    # post-shock Mach number
+    M1 = np.sqrt((M0**2 + 3)/(5*M0**2 - 1))
+    # post-shock temperature in units of T0
+    T1 = (5*M0**2 - 1)*(1 + 3/M0**2) / 16
+    # post-shock density
+    n1 = nn*4*M0**2 / (M0**2 + 3)
+    # post-shock velocity
+    v1 = vv*nn/n1
+    # Cooling rate
+    Lam1 = 3.3e-24 * T1**2.3
+    Lam2 = 1e-20 / T1
+    k = 3
+    Lambda = (Lam1**(-k) + Lam2**(-k))**(-1/k)
+    # Cooling length in parsec
+    dcool = 3*(1e5*v1)*(1.3806503e-16 * T1*T0) / (n1*Lambda) / 3.085677582e18
+
+    # Ratio with respect to adiabatic shell thickness
+    h1 = 0.177*R0
+    cool_ratio1 = dcool / R0
+    # Ratio with respect to isothermal shell thickness
+    h2 = 3*R0/(4*M0**2) * (2 / (1 + np.sqrt(1 + (18/M0**2)) ))
+    cool_ratio2 = dcool / h2
+
+    cs = ax.contour(vv, nn, cool_ratio1, (1.0,),
+                    linewidths=2, colors='b', alpha=0.5)
+    ax.clabel(cs, 
+              fontsize='xx-small', fmt=r"$d_\mathrm{cool} = R_0$",
+              inline=True, inline_spacing=2, use_clabeltext=True)
+    cs = ax.contour(vv, nn, cool_ratio2, (1.0,),
+                    linewidths=1, colors='b', alpha=0.5)
+    ax.clabel(cs, 
+              fontsize='xx-small', fmt=r"$d_\mathrm{cool} = h_0$",
+              inline=True, inline_spacing=2, use_clabeltext=True)
 
 
     ax.set(yscale='log')
