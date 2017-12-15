@@ -137,6 +137,12 @@
   RBS_label = r"Radiation bow shock, $\tau > 1$"
   WBS_label = r"Wind bow shock, $\tau < \eta$"
 
+  # Miscellaneous panel-dependent plot params
+  d = {
+      "trapped y": {10.0: 1.6e4, 20.0: 4.0e4, 40.0: 3.0e4},
+      "trapped bg": {10.0: '0.85', 20.0: 'w', 40.0: 'w'},
+  }
+
   T0 = 8000
   for M, L4, eta, S49, ax in stardata:
       Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$",
@@ -156,17 +162,17 @@
       # Ionization fraction in shell
       ysh = 1.0 - 1.0/(3.5e5*Ush)
 
-      cs = ax.contour(vv, nn, ysh,
-                      (0.9, 0.99, 0.999, 0.9999, 0.99999),
-                      linewidths=1.0,
-                      colors='g', alpha=0.5)
-      ax.clabel(cs,
-                fontsize=5, colors='g', fmt='$%.5f$', 
-                inline=True, inline_spacing=1, use_clabeltext=True)
-      ax.text(75, 6e-3, fr"$y_\mathrm{{in}} = {ysh.max():.5f}$",
-              fontsize=5, color='g', alpha=0.5)
-      ax.text(12, 1.3e6, fr"$y_\mathrm{{in}} = {ysh.min():.5f}$",
-              fontsize=5, color='g', alpha=0.5)
+      # cs = ax.contour(vv, nn, ysh,
+      #                 (0.9, 0.99, 0.999, 0.9999, 0.99999),
+      #                 linewidths=1.0,
+      #                 colors='g', alpha=0.5)
+      # ax.clabel(cs,
+      #           fontsize=5, colors='g', fmt='$%.5f$', 
+      #           inline=True, inline_spacing=1, use_clabeltext=True)
+      # ax.text(75, 6e-3, fr"$y_\mathrm{{in}} = {ysh.max():.5f}$",
+      #         fontsize=5, color='g', alpha=0.5)
+      # ax.text(12, 1.3e6, fr"$y_\mathrm{{in}} = {ysh.min():.5f}$",
+      #         fontsize=5, color='g', alpha=0.5)
 
       # Fraction of ionizing photons absorbed in shell
       absfrac = 2.56e-5 * (vv/10)**2 * nn**2 * R0**3 / S49
@@ -198,10 +204,17 @@
 
       #ax.contour(vv, nn, 3.5e5*Uout, (0.5, 98.1), colors='r', alpha=0.5)
       cs = ax.contour(vv, nn, 3.5e5*Ushout, (0.5,), linewidths=2, colors='r', alpha=0.5)
-      ax.clabel(cs, (0.5,),
-                manual=((80, 1e4),),
-                fontsize='xx-small', colors='r', fmt='$y_\mathrm{out} = 0.5$', 
-                inline=True, inline_spacing=3, use_clabeltext=True)
+      ax.text(60, d["trapped y"][M],
+              r'$\uparrow\uparrow$ Trapped i-front $\uparrow\uparrow$',
+              ha='center', va='center',
+              fontsize='xx-small', color='r', alpha=0.5, rotation=10,
+              bbox=dict(fc=d["trapped bg"][M], ec='none', pad=1)
+      )
+      # ax.clabel(cs, (0.5,),
+      #           manual=((60, 1e4),),
+      #           fontsize='xx-small', colors='r',
+      #           fmt=r'$\uparrow\uparrow$ Trapped i-front $\uparrow\uparrow$', 
+      #           inline=True, inline_spacing=10, use_clabeltext=True)
 
       ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.15)
       # ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
@@ -209,12 +222,12 @@
       cs = ax.contour(vv, nn, R0, R0s, linewidths=lws, colors='k')
       clevs = [level for level in clevs_to_label if level in cs.levels]
       ax.clabel(cs, clevs,
-                fontsize='small', fmt=cformats,
+                fontsize='x-small', fmt=cformats,
                 inline=True, inline_spacing=2, use_clabeltext=True)
-      ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='small', bbox=box_params)
-      ax.text(18.0, 4000.0, RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.8', ec='0.6')})
-      ax.text(18.0, 2e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
-      ax.text(18.0, 30.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+      ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='x-small', bbox=box_params)
+      ax.text(18.0, 2000.0, RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.85', ec='0.6')})
+      ax.text(16.0, 1e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+      ax.text(20.0, 15.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
 
 
       #
@@ -309,11 +322,9 @@ python zones-v-n-plane.py
 
   sns.set_style('ticks')
   sns.set_color_codes('dark')
-  fig, axes = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(8, 4))
+  fig, ax = plt.subplots(1, 1, figsize=(3, 4))
   stardata = [
-      [10.0, 0.63, 0.0026, axes[0]],
-      [20.0, 5.5, 0.0446, axes[1]],
-      [40.0, 22.0, 0.1682, axes[2]],
+      [10.0, 0.63, 0.0026, ax],
   ]
 
   # Velocities in units of km/s (10 km/s -> 100 km/s)
@@ -397,19 +408,20 @@ python zones-v-n-plane.py
       if np.any(~m):
           alpha[m] = np.nan
           #ax.contourf(vv, nn, alpha, (0.5, 2.0), colors='m', alpha=0.2)
-          cs = ax.contour(vv, nn, alpha, (0.25, 0.5, 1.0, 2.0, 4.0, 20.0, 50.0),
+          cs = ax.contour(vv, nn, alpha, (0.5, 1.0, 2.0, 20.0, 80.0),
                           linewidths=0.3,
                           colors='m', alpha=0.5)
           ax.clabel(cs,
-                    fontsize='x-small', fmt=r"$\alpha = %.2f$",
-                    inline=True, inline_spacing=0.2, use_clabeltext=True)
+                    fontsize='xx-small', fmt=r"$\alpha = %.2f$",
+                    inline=True, inline_spacing=2, use_clabeltext=True)
       # ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
       # ax.contour(vv, nn, tau, (1.0, 3.0), colors='m')
       cs = ax.contour(vv, nn, R0, R0s, linewidths=lws, colors='k')
       clevs = [level for level in clevs_to_label if level in cs.levels]
-      ax.clabel(cs, clevs,
+      ax.clabel(cs, (0.001, 0.01, 0.1, 1.0),
+                manual=((25, 5e5), (15, 3e3), (85, 1.2e-2), (20, 2e-3)),
                 fontsize='xx-small', fmt=cformats,
-                inline=True, inline_spacing=0.2, use_clabeltext=True)
+                inline=True, inline_spacing=8, use_clabeltext=False)
 
 
       # cs = ax.contour(vv, nn, Rstarstar, R0s, linewidths=lws, colors='m', alpha=0.5)
@@ -419,14 +431,14 @@ python zones-v-n-plane.py
       #           inline=True, inline_spacing=2, use_clabeltext=True, alpha=0.5, colors='m')
       cs = ax.contour(vv, nn, Rdw, R0s, linewidths=lws, linestyles='dashed', colors='y')
       clevs = [level for level in clevs_to_label if level in cs.levels]
-      ax.clabel(cs, clevs,
+      ax.clabel(cs, (0.001, 0.01, 0.1),
                 fontsize='xx-small', fmt=cformats, colors='y',
                 inline=True, inline_spacing=0.2, use_clabeltext=True)
       cs = ax.contour(vv, nn, Ribs, R0s, linewidths=lws, colors='k', alpha=0.5)
-      clevs = [level for level in clevs_to_label if level in cs.levels]
-      ax.clabel(cs, clevs,
+      ax.clabel(cs, (0.001, 0.01),
+                manual=((73, 2e2), (82, 2e0)),
                 fontsize='xx-small', fmt=cformats, alpha=0.5, 
-                inline=True, inline_spacing=0.2, use_clabeltext=True)
+                inline=True, inline_spacing=8, use_clabeltext=False)
 
       ax.text(30.0, 1.5e-3, Mlabel, fontsize='small', bbox=box_params)
       # ax.text(18.0, 4000.0, RBW_label, rotation=15, fontsize='small', bbox={**box_params, **dict(fc='0.8', ec='0.6')})
@@ -437,10 +449,8 @@ python zones-v-n-plane.py
 
       ax.set(yscale='log')
 
-  axes[0].set(xlabel=r"$v$, km s$^{-1}$", ylabel=r"$n$, cm$^{-3}$")
+  ax.set(xlabel=r"$v$, km s$^{-1}$", ylabel=r"$n$, cm$^{-3}$")
   sns.despine()
-  for ax in axes:
-      ax.label_outer()
   fig.tight_layout()
   fig.savefig(figname)
 
@@ -633,23 +643,28 @@ python decouple-v40-versus-n.py
 + So, I am moving it here to give it room to grow
 ** Copy dust wave figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES='dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf dust-coupling-1d.pdf dust-divergent.pdf dust-couple-div-stream.jpg'
+  FIGFILES='dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf dust-coupling-1d.pdf dust-divergent.pdf dust-couple-div-stream.jpg decouple-v-n-plane.pdf zones-v-n-plane.pdf decouple-v40-versus-n.pdf'
   date
   pwd
   for f in $FIGFILES; do
-      cp -av $f ../papers/Paper1/figs 
+      cp -av $f ../papers/Papers1234/figs 
   done
 #+END_SRC
 
 #+RESULTS:
-: Fri Nov 17 18:27:25 CST 2017
-: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
-: dust-couple-stream-annotate.pdf -> ../papers/Paper1/figs/dust-couple-stream-annotate.pdf
-: dust-wave-Rc-R90-error.pdf -> ../papers/Paper1/figs/dust-wave-Rc-R90-error.pdf
-: dust-wave-Rc-R90.pdf -> ../papers/Paper1/figs/dust-wave-Rc-R90.pdf
-: dust-coupling-1d.pdf -> ../papers/Paper1/figs/dust-coupling-1d.pdf
-: dust-divergent.pdf -> ../papers/Paper1/figs/dust-divergent.pdf
-: dust-couple-div-stream.jpg -> ../papers/Paper1/figs/dust-couple-div-stream.jpg
+#+begin_example
+Fri Dec 15 08:43:49 CST 2017
+/Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
+dust-couple-stream-annotate.pdf -> ../papers/Papers1234/figs/dust-couple-stream-annotate.pdf
+dust-wave-Rc-R90-error.pdf -> ../papers/Papers1234/figs/dust-wave-Rc-R90-error.pdf
+dust-wave-Rc-R90.pdf -> ../papers/Papers1234/figs/dust-wave-Rc-R90.pdf
+dust-coupling-1d.pdf -> ../papers/Papers1234/figs/dust-coupling-1d.pdf
+dust-divergent.pdf -> ../papers/Papers1234/figs/dust-divergent.pdf
+dust-couple-div-stream.jpg -> ../papers/Papers1234/figs/dust-couple-div-stream.jpg
+decouple-v-n-plane.pdf -> ../papers/Papers1234/figs/decouple-v-n-plane.pdf
+zones-v-n-plane.pdf -> ../papers/Papers1234/figs/zones-v-n-plane.pdf
+decouple-v40-versus-n.pdf -> ../papers/Papers1234/figs/decouple-v40-versus-n.pdf
+#+end_example
 
 ** Dust grain trajectories
 + The figure of these in the case of zero gas-grain coupling is done in [[id:8EC004CA-32CC-4B41-830C-535FF79B0544][Dust grain trajectories in a central force]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Quadric-shapes/quadric-projected-2017.org][../Quadric-shapes/quadric-projected-2017.org]]

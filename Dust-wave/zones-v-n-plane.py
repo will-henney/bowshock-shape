@@ -46,6 +46,12 @@ RBW_label = r"Radiation bow wave, $\eta < \tau < 1$"
 RBS_label = r"Radiation bow shock, $\tau > 1$"
 WBS_label = r"Wind bow shock, $\tau < \eta$"
 
+# Miscellaneous panel-dependent plot params
+d = {
+    "trapped y": {10.0: 1.6e4, 20.0: 4.0e4, 40.0: 3.0e4},
+    "trapped bg": {10.0: '0.85', 20.0: 'w', 40.0: 'w'},
+}
+
 T0 = 8000
 for M, L4, eta, S49, ax in stardata:
     Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$",
@@ -65,17 +71,17 @@ for M, L4, eta, S49, ax in stardata:
     # Ionization fraction in shell
     ysh = 1.0 - 1.0/(3.5e5*Ush)
 
-    cs = ax.contour(vv, nn, ysh,
-                    (0.9, 0.99, 0.999, 0.9999, 0.99999),
-                    linewidths=1.0,
-                    colors='g', alpha=0.5)
-    ax.clabel(cs,
-              fontsize=5, colors='g', fmt='$%.5f$', 
-              inline=True, inline_spacing=1, use_clabeltext=True)
-    ax.text(75, 6e-3, fr"$y_\mathrm{{in}} = {ysh.max():.5f}$",
-            fontsize=5, color='g', alpha=0.5)
-    ax.text(12, 1.3e6, fr"$y_\mathrm{{in}} = {ysh.min():.5f}$",
-            fontsize=5, color='g', alpha=0.5)
+    # cs = ax.contour(vv, nn, ysh,
+    #                 (0.9, 0.99, 0.999, 0.9999, 0.99999),
+    #                 linewidths=1.0,
+    #                 colors='g', alpha=0.5)
+    # ax.clabel(cs,
+    #           fontsize=5, colors='g', fmt='$%.5f$', 
+    #           inline=True, inline_spacing=1, use_clabeltext=True)
+    # ax.text(75, 6e-3, fr"$y_\mathrm{{in}} = {ysh.max():.5f}$",
+    #         fontsize=5, color='g', alpha=0.5)
+    # ax.text(12, 1.3e6, fr"$y_\mathrm{{in}} = {ysh.min():.5f}$",
+    #         fontsize=5, color='g', alpha=0.5)
 
     # Fraction of ionizing photons absorbed in shell
     absfrac = 2.56e-5 * (vv/10)**2 * nn**2 * R0**3 / S49
@@ -107,10 +113,17 @@ for M, L4, eta, S49, ax in stardata:
 
     #ax.contour(vv, nn, 3.5e5*Uout, (0.5, 98.1), colors='r', alpha=0.5)
     cs = ax.contour(vv, nn, 3.5e5*Ushout, (0.5,), linewidths=2, colors='r', alpha=0.5)
-    ax.clabel(cs, (0.5,),
-              manual=((80, 1e4),),
-              fontsize='xx-small', colors='r', fmt='$y_\mathrm{out} = 0.5$', 
-              inline=True, inline_spacing=3, use_clabeltext=True)
+    ax.text(60, d["trapped y"][M],
+            r'$\uparrow\uparrow$ Trapped i-front $\uparrow\uparrow$',
+            ha='center', va='center',
+            fontsize='xx-small', color='r', alpha=0.5, rotation=10,
+            bbox=dict(fc=d["trapped bg"][M], ec='none', pad=1)
+    )
+    # ax.clabel(cs, (0.5,),
+    #           manual=((60, 1e4),),
+    #           fontsize='xx-small', colors='r',
+    #           fmt=r'$\uparrow\uparrow$ Trapped i-front $\uparrow\uparrow$', 
+    #           inline=True, inline_spacing=10, use_clabeltext=True)
 
     ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.15)
     # ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
@@ -118,12 +131,12 @@ for M, L4, eta, S49, ax in stardata:
     cs = ax.contour(vv, nn, R0, R0s, linewidths=lws, colors='k')
     clevs = [level for level in clevs_to_label if level in cs.levels]
     ax.clabel(cs, clevs,
-              fontsize='small', fmt=cformats,
+              fontsize='x-small', fmt=cformats,
               inline=True, inline_spacing=2, use_clabeltext=True)
-    ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='small', bbox=box_params)
-    ax.text(18.0, 4000.0, RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.8', ec='0.6')})
-    ax.text(18.0, 2e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
-    ax.text(18.0, 30.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+    ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='x-small', bbox=box_params)
+    ax.text(18.0, 2000.0, RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.85', ec='0.6')})
+    ax.text(16.0, 1e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+    ax.text(20.0, 15.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
 
 
     #

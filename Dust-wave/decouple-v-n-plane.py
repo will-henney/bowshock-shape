@@ -8,11 +8,9 @@ figname = sys.argv[0].replace('.py', '.pdf')
 
 sns.set_style('ticks')
 sns.set_color_codes('dark')
-fig, axes = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(8, 4))
+fig, ax = plt.subplots(1, 1, figsize=(3, 4))
 stardata = [
-    [10.0, 0.63, 0.0026, axes[0]],
-    [20.0, 5.5, 0.0446, axes[1]],
-    [40.0, 22.0, 0.1682, axes[2]],
+    [10.0, 0.63, 0.0026, ax],
 ]
 
 # Velocities in units of km/s (10 km/s -> 100 km/s)
@@ -96,19 +94,20 @@ for M, L4, eta, ax in stardata:
     if np.any(~m):
         alpha[m] = np.nan
         #ax.contourf(vv, nn, alpha, (0.5, 2.0), colors='m', alpha=0.2)
-        cs = ax.contour(vv, nn, alpha, (0.25, 0.5, 1.0, 2.0, 4.0, 20.0, 50.0),
+        cs = ax.contour(vv, nn, alpha, (0.5, 1.0, 2.0, 20.0, 80.0),
                         linewidths=0.3,
                         colors='m', alpha=0.5)
         ax.clabel(cs,
-                  fontsize='x-small', fmt=r"$\alpha = %.2f$",
-                  inline=True, inline_spacing=0.2, use_clabeltext=True)
+                  fontsize='xx-small', fmt=r"$\alpha = %.2f$",
+                  inline=True, inline_spacing=2, use_clabeltext=True)
     # ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
     # ax.contour(vv, nn, tau, (1.0, 3.0), colors='m')
     cs = ax.contour(vv, nn, R0, R0s, linewidths=lws, colors='k')
     clevs = [level for level in clevs_to_label if level in cs.levels]
-    ax.clabel(cs, clevs,
+    ax.clabel(cs, (0.001, 0.01, 0.1, 1.0),
+              manual=((25, 5e5), (15, 3e3), (85, 1.2e-2), (20, 2e-3)),
               fontsize='xx-small', fmt=cformats,
-              inline=True, inline_spacing=0.2, use_clabeltext=True)
+              inline=True, inline_spacing=8, use_clabeltext=False)
 
 
     # cs = ax.contour(vv, nn, Rstarstar, R0s, linewidths=lws, colors='m', alpha=0.5)
@@ -118,14 +117,14 @@ for M, L4, eta, ax in stardata:
     #           inline=True, inline_spacing=2, use_clabeltext=True, alpha=0.5, colors='m')
     cs = ax.contour(vv, nn, Rdw, R0s, linewidths=lws, linestyles='dashed', colors='y')
     clevs = [level for level in clevs_to_label if level in cs.levels]
-    ax.clabel(cs, clevs,
+    ax.clabel(cs, (0.001, 0.01, 0.1),
               fontsize='xx-small', fmt=cformats, colors='y',
               inline=True, inline_spacing=0.2, use_clabeltext=True)
     cs = ax.contour(vv, nn, Ribs, R0s, linewidths=lws, colors='k', alpha=0.5)
-    clevs = [level for level in clevs_to_label if level in cs.levels]
-    ax.clabel(cs, clevs,
+    ax.clabel(cs, (0.001, 0.01),
+              manual=((73, 2e2), (82, 2e0)),
               fontsize='xx-small', fmt=cformats, alpha=0.5, 
-              inline=True, inline_spacing=0.2, use_clabeltext=True)
+              inline=True, inline_spacing=8, use_clabeltext=False)
 
     ax.text(30.0, 1.5e-3, Mlabel, fontsize='small', bbox=box_params)
     # ax.text(18.0, 4000.0, RBW_label, rotation=15, fontsize='small', bbox={**box_params, **dict(fc='0.8', ec='0.6')})
@@ -136,10 +135,8 @@ for M, L4, eta, ax in stardata:
 
     ax.set(yscale='log')
 
-axes[0].set(xlabel=r"$v$, km s$^{-1}$", ylabel=r"$n$, cm$^{-3}$")
+ax.set(xlabel=r"$v$, km s$^{-1}$", ylabel=r"$n$, cm$^{-3}$")
 sns.despine()
-for ax in axes:
-    ax.label_outer()
 fig.tight_layout()
 fig.savefig(figname)
 
