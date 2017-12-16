@@ -92,6 +92,7 @@
     "Ochsendorf:2015a"
     "de-Sterck:1999a"
     "Astropy-Collaboration:2013a"
-    "Henney:2013a"))
+    "Henney:2013a"
+    "Lamers:1999b"))
  :bibtex)
 

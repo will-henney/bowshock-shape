@@ -45,6 +45,12 @@ Hindmarsh A.~C.,  1983, IMACS Transactions on Scientific Computation, 1, 55
 Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2017, {SciPy}: Open
   source scientific tools for {Python}, \url {http://www.scipy.org/}
 
+\bibitem[\protect\citeauthoryear{{Lamers} \& {Cassinelli}}{{Lamers} \&
+  {Cassinelli}}{1999}]{Lamers:1999b}
+{Lamers} H.~J.~G.~L.~M.,  {Cassinelli} J.~P.,  1999, {Introduction to Stellar
+  Winds}.
+Cambridge, UK: Cambridge University Press
+
 \bibitem[\protect\citeauthoryear{Landau \& Lifshitz}{Landau \&
   Lifshitz}{1976}]{Landau:1976a}
 Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
