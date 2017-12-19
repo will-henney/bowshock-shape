@@ -46,7 +46,7 @@ kappa = 600.0
 # Decoupling efficiency: 2 Q_p / Q_drag
 xi = 0.07
 
-M, L4, eta = 10.0, 0.63, 0.0026
+M, L4, eta = 10.0, 0.63, 0.0066
 
 Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$   $\eta = {eta}$",
                     rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^")])

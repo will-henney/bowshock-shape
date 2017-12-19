@@ -332,7 +332,7 @@ python zones-v-n-plane.py
   sns.set_color_codes('dark')
   fig, ax = plt.subplots(1, 1, figsize=(3, 4))
   stardata = [
-      [10.0, 0.63, 0.0026, ax],
+      [10.0, 0.63, 0.0066, ax],
   ]
 
   # Velocities in units of km/s (10 km/s -> 100 km/s)
@@ -396,7 +396,7 @@ python zones-v-n-plane.py
       Rwbs = eta**0.5 * Rs
 
       # Gas deceleration through dust wave Delta v/v
-      dv_v = 0.82*(1.0 + alpha)*Zd
+      dv_v = 0.75*(1.0 + alpha)*Zd
       # Inner bow shock radius inside a dust wave
       Ribs = eta**0.5 * rstar((1.0 - dv_v)*vv/10, nn, L4)
       # Don't let it be bigger than dust wave
@@ -525,7 +525,7 @@ python decouple-v-n-plane.py
   # Decoupling efficiency: 2 Q_p / Q_drag
   xi = 0.07
 
-  M, L4, eta = 10.0, 0.63, 0.0026
+  M, L4, eta = 10.0, 0.63, 0.0066
 
   Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$   $\eta = {eta}$",
                       rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^")])
@@ -626,7 +626,7 @@ python decouple-v-n-plane.py
   ax.set(xscale='log', yscale='log')
 
   ax.set(
- ylabel=r"Bow radius: $R$, pc",
+      ylabel=r"Bow radius: $R$, pc",
       xlabel=r"Ambient density: $n$, cm$^{-3}$",
       #ylim=[1.5e-4, 3.0],
   )
@@ -709,6 +709,9 @@ python decouple-v40-versus-n.py
 | 3.4095e5 | 40 | 36290 | -5.890 |   607 |    0.24 |  886. |     2304. | 1.032 |
 #+TBLFM: $4=-6.697 + 2.195 log10($1/1e5) - 1.313 log10($2/30) - 1.226 log10(2.6/2) + 0.933 log10($3/40000) - 10.92 (log10($3/40000))**2 ; f3::$7=1070 ($3/1e4) ($2*(1 - $6))**0.5 / $1**0.25 ; f0::$8=2.6 $-1 ; f0::$9=$7/$5 sqrt(2) ; f3
 
++ *Conclusion is that the Meyer velocities are all too small by a factor of 2 to 2.5*
+
+** Directly use the 
 
 * Bow waves formed by radiation pressure on dust grains
 + This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]
@@ -725,7 +728,7 @@ python decouple-v40-versus-n.py
 
 #+RESULTS:
 #+begin_example
-Fri Dec 15 08:43:49 CST 2017
+Tue Dec 19 16:42:18 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 dust-couple-stream-annotate.pdf -> ../papers/Papers1234/figs/dust-couple-stream-annotate.pdf
 dust-wave-Rc-R90-error.pdf -> ../papers/Papers1234/figs/dust-wave-Rc-R90-error.pdf

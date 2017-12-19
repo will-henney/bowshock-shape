@@ -10,7 +10,7 @@ sns.set_style('ticks')
 sns.set_color_codes('dark')
 fig, ax = plt.subplots(1, 1, figsize=(3, 4))
 stardata = [
-    [10.0, 0.63, 0.0026, ax],
+    [10.0, 0.63, 0.0066, ax],
 ]
 
 # Velocities in units of km/s (10 km/s -> 100 km/s)
@@ -74,7 +74,7 @@ for M, L4, eta, ax in stardata:
     Rwbs = eta**0.5 * Rs
 
     # Gas deceleration through dust wave Delta v/v
-    dv_v = 0.82*(1.0 + alpha)*Zd
+    dv_v = 0.75*(1.0 + alpha)*Zd
     # Inner bow shock radius inside a dust wave
     Ribs = eta**0.5 * rstar((1.0 - dv_v)*vv/10, nn, L4)
     # Don't let it be bigger than dust wave

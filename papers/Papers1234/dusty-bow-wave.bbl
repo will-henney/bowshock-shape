@@ -41,9 +41,23 @@ Wiley-VCH
   {Salpeter}}{1979}]{Draine:1979a}
 {Draine} B.~T.,  {Salpeter} E.~E.,  1979, \apj, 231, 77
 
+\bibitem[\protect\citeauthoryear{{Garc{\'{\i}}a-Arredondo}, {Henney}  \&
+  {Arthur}}{{Garc{\'{\i}}a-Arredondo} et~al.}{2001}]{Garcia-Arredondo:2001a}
+{Garc{\'{\i}}a-Arredondo} F.,  {Henney} W.~J.,   {Arthur} S.~J.,  2001, \apj,
+  561, 830
+
 \bibitem[\protect\citeauthoryear{{Gull} \& {Sofia}}{{Gull} \&
   {Sofia}}{1979}]{Gull:1979a}
 {Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
+  {Arthur}}{1998}]{HA:1998}
+{Henney} W.~J.,  {Arthur} S.~J.,  1998, \mn@doi [\aj] {10.1086/300433}, \href
+  {http://adsabs.harvard.edu/abs/1998AJ....116..322H} {116, 322}
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {O'Dell}}{{Henney} \&
+  {O'Dell}}{1999}]{Henney:1999a}
+{Henney} W.~J.,  {O'Dell} C.~R.,  1999, \aj, 118, 2350
 
 \bibitem[\protect\citeauthoryear{Hindmarsh}{Hindmarsh}{1983}]{Hindmarsh:1983a}
 Hindmarsh A.~C.,  1983, IMACS Transactions on Scientific Computation, 1, 55
@@ -78,6 +92,10 @@ Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
   {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
 {Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
   2017, \mnras, 464, 3229
+
+\bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
+  {Wen}}{1994}]{ODell:1994a}
+{O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
 
 \bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
   {Tielens}}{2015}]{Ochsendorf:2015a}
