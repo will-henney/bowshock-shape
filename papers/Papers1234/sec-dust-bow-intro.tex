@@ -90,7 +90,9 @@ size and shape of the bow is determined by a generalized balance of
 pressure (or, equivalently, momentum) between internal and external
 sources.  We assume that the stream is supersonic and super-alfvenic,
 so that the external pressure is dominated by the ram pressure:
-\(\rho v^2\).
+\(\rho v^2\). We first consider the case where the dust grains and gas
+are perfectly coupled by collisions (although this assumption is
+relaxed below in \S~\ref{sec:imperf-coupl-betw}).
 
 The internal pressure is the sum of wind ram pressure and the
 effective radiation pressure that acts on the bow shell.  The
@@ -106,18 +108,107 @@ all of the stellar radiative momentum, emitted with rate \(L/c\), is
 trapped by the bow shell.  In the single scattering
 limit,\footnote{Why multiple scattering is not important.} and
 temporarily neglecting the wind, then pressure balance at the bow
-apex, a distance \(R\) along the symmetry axis from the star is given by
+apex, a distance \(R_0\) along the symmetry axis from the star is given by
 \begin{equation}
-  \label{eq:2}
-  \frac{L}{4 \pi c R^2} = \rho v^2 \ ,
+  \label{eq:rad-press-balance-thick}
+  \frac{L}{4 \pi c R_0^2} = \rho v^2 \ ,
 \end{equation}
-which gives a fiducial bow shock radius in this limit as
+which gives a fiducial bow shock radius in this optically thick limit
+as
 \begin{equation}
   \label{eq:Rstar}
   R_* = \left(\frac{L}{4\pi c \rho v^2}\right)^{1/2} \ .
 \end{equation}
 
+We now consider the opposite, optically thin limit.  Although dust
+grains typically constitute only a small fraction
+\(Z\grain \sim 0.01\) of the mass of the external stream, they
+nevertheless dominate the broad-band opacity at FUV, optical and IR
+wavelengths if they are present.\footnote{%
+  At EUV wavelengths (\(\lambda < \SI{912}{\angstrom}\)), gas opacity
+  dominates if the hydrogen neutral fraction is larger than
+  \(\approx 0.001\), see discussion of ionization front trapping
+  below.} %
+If the total opacity (gas plus dust) per total mass (gas plus dust) is
+\(\kappa\) (with units of \si{cm^2.g^{-1}}), then the radiative
+acceleration in the optically thin limit is
+\begin{equation}
+  \label{eq:rad-accel}
+  a_{\text{rad}} = \frac{\kappa L}{4 \pi c R^2} \ , 
+\end{equation}
+so that an incoming stream with initial velocity, \(v_\infty\), can be
+brought to rest by radiation alone\footnote{%
+  For simplicity, we here ignore the effects of pressure gradients and
+  shocks, which are important as the velocity approaches the sound
+  speed, \(\sound\). In \S~XX below, we show that the resultant
+  corrections to \(R_0\) are of order \(\sound / v_\infty\).} %
+at a distance \(R_0\) where
+\begin{equation}
+  \label{eq:rad-poten}
+  \int_{R_0}^\infty a_{\text{rad}} \, dr = \tfrac12 v^2 \ , 
+\end{equation}
+yielding
+\begin{equation}
+  \label{eq:rad:R0}
+  R_0 = \frac{\kappa L}{2\pi c v_\infty^2} \ .
+\end{equation}
+On the other hand, we can also employ a similar argument to the
+optically thick case above by approximating the bow shell as a
+surface, and balancing stellar radiation pressure against the ram
+pressure of the incoming stream.  The important difference when the
+shell is not optically thick is that only a fraction \(1 - e^{-\tau}\) of
+the radiative momentum is absorbed by the bow, so that equation~\eqref{eq:rad-press-balance-thick} is replaced with 
+\begin{equation}
+  \label{eq:rad-press-balance-tau}
+  \frac{L (1 - e^{-\tau})}{4 \pi c R_0^2} = \rho v^2 \ .
+\end{equation}
+In the optically thin limit, \(1 - e^{-\tau} \approx \tau\), so these two
+descriptions can be seen to agree so long as
+\(\tau = 2 \kappa \rho R_0\), which we will assume to be generally valid.
 
+Then, defining a fiducial optical depth, \(\tau_* = \rho \kappa R_*\), and adding
+in the stellar wind ram pressure\footnote{%
+  We implicitly assume that the interaction of the stellar wind with
+  the external stream can always be treated in the continuum limit.
+  This will be true if either the collisional mean free path or the
+  ion Larmor radius is much smaller than \(R_0\), which is almost
+  always the case.} %
+from equation~\eqref{eq:wind-efficiency}, we find that the general bow
+radius can be written in terms of the fiducial radius as
+\(R_0 = x R_*\), where \(x\) is the solution of
+\begin{equation}
+  \label{eq:rad-full-x}
+  x^2 - \bigl(1 - e^{-2 \tau_* x} \bigr) - \eta = 0 \ .
+\end{equation}
+Since this is a transcendental equation, \(x\) must be found
+numerically, but we can write explicit expressions for three limiting
+cases:
+\begin{equation}
+  \label{eq:x-cases}
+  x \approx
+  \begin{cases}
+    \text{if \(\tau_* \gg 1\):} & (1 + \eta)^{1/2} \\
+    \text{if \(\tau_*^2 \ll 1\):} & \tau_* + \bigl( \tau_*^2 + \eta \bigr)^{1/2} \approx
+    \begin{cases}
+      \text{if \(\tau_*^2 \gg \eta\):} & 2 \tau_* \\
+      \text{if \(\tau_*^2 \ll \eta\):} & \eta^{1/2} 
+    \end{cases}
+  \end{cases}
+\end{equation}
+The first case, \(x \approx (1 + \eta)^{1/2}\), corresponds to a
+\textit{radiation bow shock}; the second case,
+\(x \approx 2 \tau_* \), corresponds to a \textit{radiation bow wave}; and the
+third case, \(x \approx \eta^{1/2}\), corresponds to a \textit{wind bow shock}.
+The two bow shock cases are similar in that the external stream is
+oblivious to the presence of the star until it suddenly hits the bow
+shock shell, differing only in whether it is radiation or wind that is
+providing the internal pressure.  In the intermediate bow wave case,
+on the other hand, the external stream is gradually decelerated by
+absorption of photons as it approaches the bow.\footnote{A shock does
+  still form in this case, but shocked material constitutes a small
+  fraction of the total column density of the shell, see \S~XX.}
+
+We now consider the application to bow shocks around main sequence OB stars. 
 
 \subsection{Imperfect coupling between gas and dust}
 \label{sec:imperf-coupl-betw}

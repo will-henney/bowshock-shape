@@ -55,7 +55,13 @@
     "GammaFunc"
     "w"
     "C"
-    "T")
+    "T"
+    "Qp"
+    "grain"
+    "xsec"
+    "frad"
+    "thm"
+    "sound")
    (LaTeX-add-labels
     "firstpage"
     "lastpage")
