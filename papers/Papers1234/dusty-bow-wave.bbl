@@ -17,6 +17,10 @@
   {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
   mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
 
+\bibitem[\protect\citeauthoryear{{Bertoldi} \& {Draine}}{{Bertoldi} \&
+  {Draine}}{1996}]{Bertoldi:1996a}
+{Bertoldi} F.,  {Draine} B.~T.,  1996, \apj, 458, 222
+
 \bibitem[\protect\citeauthoryear{Bohren \& Huffman}{Bohren \&
   Huffman}{1983}]{Bohren:1983a}
 Bohren C.~F.,  Huffman D.,  1983, Absorption and scattering of light by small

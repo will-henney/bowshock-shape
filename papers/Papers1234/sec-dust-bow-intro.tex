@@ -208,8 +208,36 @@ absorption of photons as it approaches the bow.\footnote{A shock does
   still form in this case, but shocked material constitutes a small
   fraction of the total column density of the shell, see \S~XX.}
 
-We now consider the application to bow shocks around main sequence OB stars. 
-
+We now consider the application to bow shocks around main sequence OB
+stars, expressing stellar and ambient parameters in terms of typical
+values as follows:
+\begin{gather*}
+  \label{eq:stellar-parameters}
+  \dot{M}_{-7} = \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
+  V_3 = V / \bigl(\SI{1000}{km.s^{-1}}\bigr) \\
+  L_4 = L / \bigl(\SI{e4}{L_\odot}\bigr) \\
+  v_{10} = v_\infty / \bigl( \SI{10}{km.s^{-1}} \bigr) \\
+  n = (\rho / \bar{m}) / \bigl( \SI{1}{cm^{-3}} \bigr) \\
+  \kappa_{600} = \kappa / \bigl( \SI{600}{cm^2.g^{-1}} \bigr) \ ,
+\end{gather*}
+where \(\bar{m}\) is the mean mass per hydrogen nucleon
+(\(\bar{m} \approx 1.3 m_{\text{p}} \approx \SI{2.17e-24}{g}\) for solar
+abundances).  Note that \(\kappa = \SI{600}{cm^2.g^{-1}}\) corresponds to a
+cross section of \(\approx \SI{e-21}{cm^2}\) per hydrogen nucleon, which is
+typical for interstellar medium dust \citep{Bertoldi:1996a} at far
+ultraviolet wavelengths, where OB stars emit most of their radiation.
+In terms of these parameters, we can express the stellar wind momentum
+efficiency as
+\begin{equation}
+  \label{eq:wind-eta-typical}
+  \eta = \num{0.495} \,\dot{M}_{-7} \,V_3  \,L_4^{-1}
+\end{equation}
+and the fiducial radius and optical depth as
+\begin{align}
+  \label{eq:fiducial-typical}
+  R_* / \si{pc} &= \num{2.21} \, (L_4 / n)^{1/2} \,v_{10}^{-1} \\
+  \tau_* &= \num{0.0089} \,\kappa_{600} \, (L_4 \,n)^{1/2} \,v_{10}^{-1}
+\end{align}
 \subsection{Imperfect coupling between gas and dust}
 \label{sec:imperf-coupl-betw}
 
