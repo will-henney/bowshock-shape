@@ -27,6 +27,10 @@ Bohren C.~F.,  Huffman D.,  1983, Absorption and scattering of light by small
   particles.
 Wiley-VCH
 
+\bibitem[\protect\citeauthoryear{{Brott} et~al.,}{{Brott}
+  et~al.}{2011}]{Brott:2011a}
+{Brott} I.,  et~al., 2011, \aap, 530, A115
+
 \bibitem[\protect\citeauthoryear{{Canto}, {Raga}  \& {Wilkin}}{{Canto}
   et~al.}{1996}]{Canto:1996}
 {Canto} J.,  {Raga} A.~C.,   {Wilkin} F.~P.,  1996, \mn@doi [\apj]
@@ -60,10 +64,20 @@ Cambridge, UK: Cambridge University Press
 Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
  Course of Theoretical Physics S Vol. 1, Butterworth-Heinemann
 
+\bibitem[\protect\citeauthoryear{{Meyer}, {Mackey}, {Langer}, {Gvaramadze},
+  {Mignone}, {Izzard}  \& {Kaper}}{{Meyer} et~al.}{2014}]{Meyer:2014b}
+{Meyer} D.~M.-A.,  {Mackey} J.,  {Langer} N.,  {Gvaramadze} V.~V.,  {Mignone}
+  A.,  {Izzard} R.~G.,   {Kaper} L.,  2014, \mnras, 444, 2754
+
 \bibitem[\protect\citeauthoryear{{Meyer}, {van Marle}, {Kuiper}  \&
   {Kley}}{{Meyer} et~al.}{2016}]{Meyer:2016a}
 {Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
   459, 1146
+
+\bibitem[\protect\citeauthoryear{{Meyer}, {Mignone}, {Kuiper}, {Raga}  \&
+  {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
+{Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
+  2017, \mnras, 464, 3229
 
 \bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
   {Tielens}}{2015}]{Ochsendorf:2015a}
@@ -91,6 +105,15 @@ New York: Wiley-Interscience
 
 \bibitem[\protect\citeauthoryear{{Tenorio-Tagle}}{{Tenorio-Tagle}}{1979}]{Tenorio-Tagle:1979a}
 {Tenorio-Tagle} G.,  1979, \aap, 71, 59
+
+\bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
+  et~al.}{2000}]{Vink:2000a}
+{Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  2000, \aap, 362, 295
+
+\bibitem[\protect\citeauthoryear{{de Jager}, {Nieuwenhuijzen}  \& {van der
+  Hucht}}{{de Jager} et~al.}{1988}]{de-Jager:1988a}
+{de Jager} C.,  {Nieuwenhuijzen} H.,   {van der Hucht} K.~A.,  1988, \aaps, 72,
+  259
 
 \bibitem[\protect\citeauthoryear{{van Buren} \& {McCray}}{{van Buren} \&
   {McCray}}{1988}]{van-Buren:1988a}

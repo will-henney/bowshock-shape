@@ -37,8 +37,16 @@
   | 40 |   22 |       5.1 | 1.451 | 0.1682 |
   #+TBLFM: $5=0.5 $3 $4 / $2 ;f4
   + So looks like I forgot the factor of 0.5 when I did it by hand
++ Corrected Table of stars wit the good velocities
+  |  M |   L_4 | \dot{M}_{-7} | V_{3} |   \eta |
+  |----+-------+-----------+-------+--------|
+  | 10 |  0.63 | 3.3884e-3 | 2.467 | 0.0066 |
+  | 20 | 5.453 |     0.492 | 2.657 | 0.1199 |
+  | 40 | 22.19 |         6 | 3.305 | 0.4468 |
+  #+TBLFM: $5=0.5 $3 $4 / $2 ;f4
+
 ** Diagrams of v--n plane
-*** Strong coupling case
+*** COMMENT Strong coupling case
 + [X] Add in the i-front trapping
   + Column density of shell: \(R n\)
   + Shell thickness: \(h = \frac38 R (c_{s} / v)^{2} \simeq \frac38 R v_{10}^{-2}\)
@@ -101,9 +109,9 @@
   sns.set_color_codes('dark')
   fig, axes = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(8, 4))
   stardata = [
-      [10.0, 0.63, 0.0026, 1e-4, axes[0]],
-      [20.0, 5.5, 0.0446, 0.1, axes[1]],
-      [40.0, 22.0, 0.1682, 1.0, axes[2]],
+      [10.0, 0.63, 0.0066, 1e-4, axes[0]],
+      [20.0, 5.453, 0.1199, 0.1, axes[1]],
+      [40.0, 22.19, 0.4468, 1.0, axes[2]],
   ]
 
   # Velocities in units of km/s (10 km/s -> 100 km/s)
@@ -680,6 +688,26 @@ python decouple-v40-versus-n.py
   |  0.001 |      3.45 |      0.86 |       0.14 |
   | 0.0005 |      3.80 |      0.95 |       0.15 |
   #+TBLFM: $2=$1**2 - (1/2**2) ln($1**2);f2::$3=$1**2 - (1/4**2) ln($1**2);f2::$4=$1**2 - (1/10**2) ln($1**2);f2
+
+
+** Checking the stellar wind parameters
++ First try the equation from Vink (2000)
++ Mdot column is log10 and from Vink's eq (12)
++ V_esc is calculated from
+  + L = 4 pi R^2 sigma T^4
+    + R = (L / 4 pi sigma)^{1/2} / T^2
+  + 0.5 v^2 = G M / R
+    + => v = (2 G M / R)^{1/2}
+    + => v = T (2 G M)^{1/2} (4 pi sigma / L)^{1/4}
+    + for 1 Msun, 1 Lsun, and T = 1e4 this gives 1070 km/s
+    + So we have 1070 (T/1e4) M^{1/2} / L^{1/4} km/s 
+|        L |  M |     T |   Mdot | Vcrit | Gamma_e | V_esc | 2.6 V_esc | Check |
+|----------+----+-------+--------+-------+---------+-------+-----------+-------|
+|    6.3e3 | 10 | 25200 | -9.473 |   670 |   0.017 |  949. |     2467. | 1.002 |
+|  5.453e4 | 20 | 33872 | -7.308 |   721 | 0.07246 | 1022. |     2657. | 1.002 |
+|  2.219e5 | 40 | 44124 | -6.221 |   898 |   0.147 | 1271. |     3305. | 1.001 |
+| 3.4095e5 | 40 | 36290 | -5.890 |   607 |    0.24 |  886. |     2304. | 1.032 |
+#+TBLFM: $4=-6.697 + 2.195 log10($1/1e5) - 1.313 log10($2/30) - 1.226 log10(2.6/2) + 0.933 log10($3/40000) - 10.92 (log10($3/40000))**2 ; f3::$7=1070 ($3/1e4) ($2*(1 - $6))**0.5 / $1**0.25 ; f0::$8=2.6 $-1 ; f0::$9=$7/$5 sqrt(2) ; f3
 
 
 * Bow waves formed by radiation pressure on dust grains

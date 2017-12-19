@@ -94,6 +94,9 @@
     "Astropy-Collaboration:2013a"
     "Henney:2013a"
     "Lamers:1999b"
-    "Bertoldi:1996a"))
+    "Bertoldi:1996a"
+    "Brott:2011a"
+    "Vink:2000a"
+    "de-Jager:1988a"))
  :bibtex)
 

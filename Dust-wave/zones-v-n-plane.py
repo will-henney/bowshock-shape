@@ -10,9 +10,9 @@ sns.set_style('ticks')
 sns.set_color_codes('dark')
 fig, axes = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(8, 4))
 stardata = [
-    [10.0, 0.63, 0.0026, 1e-4, axes[0]],
-    [20.0, 5.5, 0.0446, 0.1, axes[1]],
-    [40.0, 22.0, 0.1682, 1.0, axes[2]],
+    [10.0, 0.63, 0.0066, 1e-4, axes[0]],
+    [20.0, 5.453, 0.1199, 0.1, axes[1]],
+    [40.0, 22.19, 0.4468, 1.0, axes[2]],
 ]
 
 # Velocities in units of km/s (10 km/s -> 100 km/s)
