@@ -711,7 +711,9 @@ python decouple-v40-versus-n.py
 
 + *Conclusion is that the Meyer velocities are all too small by a factor of 2 to 2.5*
 
-** Directly use the 
+** TODO Directly use the Brott (2011) evo tracks to synthesise \eta distribution
++ We could make histograms of (L, \eta) for different masses, then combine them according to an IMF
++ Either weight by time, or weight by stellar energy radiated
 
 * Bow waves formed by radiation pressure on dust grains
 + This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]

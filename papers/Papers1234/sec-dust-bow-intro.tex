@@ -75,9 +75,21 @@ shape.
 
 \begin{figure*}
   \includegraphics[width=\linewidth]{figs/zones-v-n-plane}
-  \caption{Bow regimes of parameter space (\(v, n\)) of the external
+  \caption{Bow regimes in parameter space (\(v, n\)) of the external
     stream for main-sequence OB stars of different masses:
-    (a)~\SI{10}{M_\odot}, (b)~\SI{20}{M_\odot}, (c)~\SI{40}{M_\odot}. }
+    (a)~\SI{10}{M_\odot}, (b)~\SI{20}{M_\odot}, (c)~\SI{40}{M_\odot}.  In all
+    cases, \(\kappa = \SI{600}{cm^2.g^{-1}}\) and efficient gas-grain
+    coupling is assumed. Solid black lines of varying width show the
+    bow size (star-apex separation, \(R_0\)), while gray shading shows
+    the radiation bow wave regime, with lower border \(\tau = \eta\) and
+    upper border \(\tau = 1\), where \(\tau = 2 \kappa \rho R_0\) is the optical
+    depth through the bow.  For bows above the red solid line, the
+    ionization front is trapped inside the bow.  Blue lines delineate
+    different cooling regimes.  Above the thin blue line
+    (\(d_{\text{cool}} = h_0\)), the bow shock radiates efficiently,
+    forming a thin shocked shell.  Below the thick blue line
+    (\(d_{\text{cool}} = R_0\)), the bow shock is essentially
+    non-radiative.}
   \label{fig:zones-v-n-plane}
 \end{figure*}
 
@@ -205,10 +217,10 @@ cases:
   \label{eq:x-cases}
   x \approx
   \begin{cases}
-    \text{if \(\tau_* \gg 1\):} & (1 + \eta)^{1/2} \\
+    \text{if \(\tau_* \gg 1\):} & (1 + \eta)^{1/2}  \\
     \text{if \(\tau_*^2 \ll 1\):} & \tau_* + \bigl( \tau_*^2 + \eta \bigr)^{1/2} \approx
     \begin{cases}
-      \text{if \(\tau_*^2 \gg \eta\):} & 2 \tau_* \\
+      \text{if \(\tau_*^2 \gg \eta\):} & 2 \tau_*  \\
       \text{if \(\tau_*^2 \ll \eta\):} & \eta^{1/2} 
     \end{cases}
   \end{cases}
@@ -318,7 +330,15 @@ during the main-sequence lifetime of several million years.\footnote{%
   anomalously weak winds \citep{Puls:2008a}, which in some cases is
   related to the presence of strong (\(\sim \SI{1}{kG}\)) magnetic fields
   \citep{Oskinova:2011b}.} %
-
+The three examples are an early B~star (\SI{10}{M_\odot}), a late O~star
+(\SI{20}{M_\odot}), and an early O~star (\SI{40}{M_\odot}), which cover the
+range of luminosities and wind strengths expected from bow-producing
+hot main sequence stars.  The luminosity is a steep function of
+stellar mass (\(L \sim M^{2.5}\)) and the wind mass-loss rate is a steep
+function of luminosity (\(\dot{M} \sim L^{2.2}\)), which means that the
+wind momentum efficiency is also a steep function of mass
+(\(\eta \sim M^3\)), approaching unity for early O~stars, but falling to
+less than 1\% for B~stars.
 
 
 \subsection{Imperfect coupling between gas and dust}
