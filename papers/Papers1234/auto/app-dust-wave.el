@@ -8,11 +8,6 @@
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
-   (TeX-add-symbols
-    "drag"
-    "gas"
-    "drift"
-    "soundspeed")
    (LaTeX-add-labels
     "sec:shape-dust-wave"
     "fig:dust-trajectories"
@@ -34,6 +29,7 @@
     "sec:dust-wave-apparent"
     "fig:dragoid-xy-prime"
     "fig:dragoid-div-xy-prime"
-    "fig:dragoid-Rc-R90"))
+    "fig:dragoid-Rc-R90"
+    "sec:shape-bow-wave"))
  :latex)
 

@@ -67,11 +67,20 @@ Hindmarsh A.~C.,  1983, IMACS Transactions on Scientific Computation, 1, 55
 Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2017, {SciPy}: Open
   source scientific tools for {Python}, \url {http://www.scipy.org/}
 
+\bibitem[\protect\citeauthoryear{{Krti{\v c}ka}}{{Krti{\v
+  c}ka}}{2014}]{Krticka:2014a}
+{Krti{\v c}ka} J.,  2014, \aap, 564, A70
+
 \bibitem[\protect\citeauthoryear{{Lamers} \& {Cassinelli}}{{Lamers} \&
   {Cassinelli}}{1999}]{Lamers:1999b}
 {Lamers} H.~J.~G.~L.~M.,  {Cassinelli} J.~P.,  1999, {Introduction to Stellar
   Winds}.
 Cambridge, UK: Cambridge University Press
+
+\bibitem[\protect\citeauthoryear{{Lamers}, {Snow}  \& {Lindholm}}{{Lamers}
+  et~al.}{1995}]{Lamers:1995a}
+{Lamers} H.~J.~G.~L.~M.,  {Snow} T.~P.,   {Lindholm} D.~M.,  1995, \apj, 455,
+  269
 
 \bibitem[\protect\citeauthoryear{Landau \& Lifshitz}{Landau \&
   Lifshitz}{1976}]{Landau:1976a}
@@ -113,6 +122,23 @@ Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
 {Ochsendorf} B.~B.,  {Verdolini} S.,  {Cox} N.~L.~J.,  {Bern{\'e}} O.,  {Kaper}
   L.,   {Tielens} A.~G.~G.~M.,  2014b, \aap, 566, A75
 
+\bibitem[\protect\citeauthoryear{{Oskinova}, {Todt}, {Ignace}, {Brown},
+  {Cassinelli}  \& {Hamann}}{{Oskinova} et~al.}{2011}]{Oskinova:2011b}
+{Oskinova} L.~M.,  {Todt} H.,  {Ignace} R.,  {Brown} J.~C.,  {Cassinelli}
+  J.~P.,   {Hamann} W.-R.,  2011, \mnras, 416, 1456
+
+\bibitem[\protect\citeauthoryear{{Prinja}}{{Prinja}}{1989}]{Prinja:1989a}
+{Prinja} R.~K.,  1989, \mnras, 241, 721
+
+\bibitem[\protect\citeauthoryear{{Puls}, {Vink}  \& {Najarro}}{{Puls}
+  et~al.}{2008}]{Puls:2008a}
+{Puls} J.,  {Vink} J.~S.,   {Najarro} F.,  2008, \aapr, 16, 209
+
+\bibitem[\protect\citeauthoryear{{Sexton}, {Povich}, {Smith}, {Babler}, {Meade}
+   \& {Rudolph}}{{Sexton} et~al.}{2015}]{Sexton:2015b}
+{Sexton} R.~O.,  {Povich} M.~S.,  {Smith} N.,  {Babler} B.~L.,  {Meade} M.~R.,
+   {Rudolph} A.~L.,  2015, \mnras, 446, 1047
+
 \bibitem[\protect\citeauthoryear{{Spitzer}}{{Spitzer}}{1978}]{Spitzer:1978a}
 {Spitzer} L.,  1978, {Physical processes in the interstellar medium}.
 New York: Wiley-Interscience
@@ -123,6 +149,10 @@ New York: Wiley-Interscience
 
 \bibitem[\protect\citeauthoryear{{Tenorio-Tagle}}{{Tenorio-Tagle}}{1979}]{Tenorio-Tagle:1979a}
 {Tenorio-Tagle} G.,  1979, \aap, 71, 59
+
+\bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
+  et~al.}{1999}]{Vink:1999a}
+{Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  1999, \aap, 350, 181
 
 \bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
   et~al.}{2000}]{Vink:2000a}

@@ -98,6 +98,12 @@
     "Bertoldi:1996a"
     "Brott:2011a"
     "Vink:2000a"
-    "de-Jager:1988a"))
+    "de-Jager:1988a"
+    "Lamers:1995a"
+    "Vink:1999a"
+    "Sexton:2015b"
+    "Prinja:1989a"
+    "Krticka:2014a"
+    "Oskinova:2011b"))
  :bibtex)
 

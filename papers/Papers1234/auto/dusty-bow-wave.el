@@ -17,6 +17,7 @@
     "sec-dust-bow-intro"
     "app-dust-wave"
     "sec-standing-wave"
+    "sec-dust-case-studies"
     "sec-dust-bow-discuss"
     "app-dust-equations"
     "mnras"
@@ -61,7 +62,11 @@
     "xsec"
     "frad"
     "thm"
-    "sound")
+    "drag"
+    "gas"
+    "drift"
+    "sound"
+    "soundspeed")
    (LaTeX-add-labels
     "firstpage"
     "lastpage")

@@ -30,6 +30,7 @@
     "eq:stellar-parameters"
     "eq:wind-eta-typical"
     "eq:fiducial-typical"
+    "fn:meyer-velocities-too-low"
     "sec:imperf-coupl-betw"
     "fig:decouple-v-n-plane"
     "fig:decouple-v40-versus-n"

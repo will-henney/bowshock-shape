@@ -83,16 +83,16 @@ shape.
 
 In this section, we investigate the different types of bow interaction
 that will occur in different regions of parameter space. We will
-mainly treat the canonical case of a bow around a star of bolometric
-luminosity, \(L\), with a radiatively driven wind,\footnote{%
-  In \S~\ref{sec:case-inside-out} we consider the case of an external
-  luminous source.} %
-which is immersed in an external stream of gas and dust with density,
-\(\rho\), and velocity, \(v\).  The size and shape of the bow is
-determined by a generalized balance of pressure (or, equivalently,
-momentum) between internal and external sources.  We assume that the
-stream is supersonic and super-alfvenic, so that the external pressure
-is dominated by the ram pressure: \(\rho v^2\).
+mainly treat the canonical case\footnote{%
+  Variant cases with differing arrangements of dust and radiation
+  sources are treated in \S~\ref{sec:case-inside-out}.} %
+of a bow around a star of bolometric luminosity, \(L\), with a
+radiatively driven wind, which is immersed in an external stream of
+gas and dust with density, \(\rho\), and velocity, \(v\).  The size and
+shape of the bow is determined by a generalized balance of pressure
+(or, equivalently, momentum) between internal and external sources.
+We assume that the stream is supersonic and super-alfvenic, so that
+the external pressure is dominated by the ram pressure: \(\rho v^2\).
 
 \subsection{Strong gas-grain coupling}
 \label{sec:strong-gas-grain}
@@ -169,12 +169,12 @@ yielding
   \label{eq:rad:R0}
   R_0 = \frac{\kappa L}{2\pi c v_\infty^2} \ .
 \end{equation}
-On the other hand, we can also employ a similar argument to the
-optically thick case above by approximating the bow shell as a
-surface, and balancing stellar radiation pressure against the ram
-pressure of the incoming stream.  The important difference when the
-shell is not optically thick is that only a fraction \(1 - e^{-\tau}\) of
-the radiative momentum is absorbed by the bow, so that
+On the other hand, we can also argue as in the optically thick case
+above by approximating the bow shell as a surface, and balancing
+stellar radiation pressure against the ram pressure of the incoming
+stream.  The important difference when the shell is not optically
+thick is that only a fraction \(1 - e^{-\tau}\) of the radiative momentum
+is absorbed by the bow, so that
 equation~\eqref{eq:rad-press-balance-thick} is replaced with
 \begin{equation}
   \label{eq:rad-press-balance-tau}
@@ -224,7 +224,8 @@ providing the internal pressure.  In the intermediate bow wave case,
 on the other hand, the external stream is gradually decelerated by
 absorption of photons as it approaches the bow.\footnote{A shock does
   still form in this case, but shocked material constitutes a small
-  fraction of the total column density of the shell, see \S~XX.}
+  fraction of the total column density of the shell, see
+  \S~\ref{sec:shape-bow-wave}.}
 
 \begin{table*}
   \centering
@@ -290,10 +291,33 @@ In Figure~\ref{fig:zones-v-n-plane}, we show results for the bow size
 relative velocity, \(v_\infty\), of the external stream, with each panel
 corresponding to a particular star, with parameters as shown in
 Table~\ref{tab:stars}.  To facilitate comparison with previous work,
-we choose to use the stellar parameters given in \citet{Meyer:2014b,
-  Meyer:2016a, Meyer:2017a}, based on stellar evolution tracks for
-stars of \SIlist{10;20;40}{M_\odot} \citep{Brott:2011a} and 
-theoretical wind prescriptions \citep{de-Jager:1988a, Vink:2000a}.
+we choose stellar parameters similar to those used in the
+hydrodynamical simulations of \citet{Meyer:2014b, Meyer:2016a,
+  Meyer:2017a}, based on stellar evolution tracks for stars of
+\SIlist{10;20;40}{M_\odot} \citep{Brott:2011a} and theoretical wind
+prescriptions \citep{de-Jager:1988a, Vink:2000a}.  Although the
+stellar parameters do evolve with time, they change relatively little
+during the main-sequence lifetime of several million years.\footnote{%
+  \label{fn:meyer-velocities-too-low}
+  Note that we have recalculated the stellar wind terminal velocities,
+  since the values given in the \citeauthor{Meyer:2014b} papers are
+  troublingly low.  We have used the prescription
+  \(V = 2.6 V_{\text{esc}}\), where
+  \(V_{\text{esc}} = \left( 2 G M (1 - \Gamma_e)/ R \right)^{1/2}\) is the
+  photospheric escape velocity, which is appropriate for strong
+  line-driven winds with \(T_{\text{eff}} > \SI{21 000}{K}\)
+  \citep{Lamers:1995a}.  We find velocities of
+  \SIrange{2500}{3300}{km.s^{-1}}, which are consistent with
+  observations and theory \citep{Vink:1999a} for O~stars, but at least
+  two times higher than those cited by \citet{Meyer:2014b}. For
+  main-sequence B~stars, wind column densities are too low to reliably
+  measure the terminal velocity from near ultraviolet P~Cygni profiles
+  \citep{Prinja:1989a}, and so the values are theory-dependent
+  \citep{Krticka:2014a} and hence more uncertain.  A further
+  complication is the existence of a subset of OB stars with
+  anomalously weak winds \citep{Puls:2008a}, which in some cases is
+  related to the presence of strong (\(\sim \SI{1}{kG}\)) magnetic fields
+  \citep{Oskinova:2011b}.} %
 
 
 
