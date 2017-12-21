@@ -10,7 +10,9 @@
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-add-symbols
     "PaperI"
-    "hii")
+    "hii"
+    "alphaB"
+    "shell")
    (LaTeX-add-labels
     "sec:introduction"
     "fig:3-types-bow"
@@ -31,6 +33,10 @@
     "eq:wind-eta-typical"
     "eq:fiducial-typical"
     "fn:meyer-velocities-too-low"
+    "sec:radi-cool-lengths"
+    "sec:trapp-ioniz-front"
+    "eq:ion-tau-gas"
+    "eq:shocked-shell-column"
     "sec:imperf-coupl-betw"
     "fig:decouple-v-n-plane"
     "fig:decouple-v40-versus-n"
