@@ -87,7 +87,8 @@ for M, L4, eta, S49, ax in stardata:
     #         fontsize=5, color='g', alpha=0.5)
 
     # Fraction of ionizing photons absorbed in shell
-    absfrac0 = 3*np.pi*(3.085677582e18)**3 * 2.6e-13 / 1e49
+    alphaB = 2.6e-13*(T0/1e4)**(-0.7)
+    absfrac0 = 3*np.pi*(3.085677582e18)**3 * alphaB / 1e49
     absfrac = absfrac0 * (vv/10)**2 * nn**2 * R0**3 / S49
     # Equivalent optical depth
     tau_gas = -np.log(1.0 - absfrac)
@@ -117,7 +118,7 @@ for M, L4, eta, S49, ax in stardata:
     #           inline=True, inline_spacing=1, use_clabeltext=True)
 
     #ax.contour(vv, nn, 3.5e5*Uout, (0.5, 98.1), colors='r', alpha=0.5)
-    c_sig_over_alpha = 2.99792458e10*3e-18 / 2.6e-13
+    c_sig_over_alpha = 2.99792458e10*3e-18 / alphaB
     c_sig_over_alpha *= (1 - absfrac)**(1./3.)
     y_IF = 0.5
     y1, y2 = 0.01, 0.99
@@ -135,7 +136,7 @@ for M, L4, eta, S49, ax in stardata:
     #            colors='y', linewidths=0.4)
     arrows = r"$\uparrow\!\!\!\!\uparrow$"
     ax.text(60, d["trapped y"][M],
-            rf"{arrows} Trapped i-front, $\tau = {tau_dust_IF:.1f}$, $\tau_\mathrm{{gas}} = {tau_gas_IF:.1f}$ {arrows}",
+            rf"{arrows} Trapped i-front, $\tau_\mathrm{{d}} = {tau_dust_IF:.1f}$, $\tau_\mathrm{{gas}} = {tau_gas_IF:.1f}$ {arrows}",
             ha='center', va='center',
             fontsize='xx-small', color='r', alpha=0.5, rotation=10,
             bbox=dict(fc=d["trapped bg"][M], ec='none', pad=0.1)

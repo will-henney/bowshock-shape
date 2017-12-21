@@ -194,7 +194,11 @@ equation~\eqref{eq:rad-press-balance-thick} is replaced with
 \end{equation}
 In the optically thin limit, \(1 - e^{-\tau} \approx \tau\), so these two
 descriptions can be seen to agree so long as
-\(\tau = 2 \kappa \rho R_0\), which we will assume to hold generally.
+\begin{equation}
+  \label{eq:tau-thin}
+  \tau = 2 \kappa \rho R_0 \ ,
+\end{equation}
+which we will assume to hold generally.
 
 Then, defining a fiducial optical depth, \(\tau_* = \rho \kappa R_*\), and adding
 in the stellar wind ram pressure\footnote{%
@@ -235,7 +239,7 @@ shock shell, differing only in whether it is radiation or wind that is
 providing the internal pressure.  In the intermediate bow wave case,
 on the other hand, the external stream is gradually decelerated by
 absorption of photons as it approaches the bow.\footnote{A shock does
-  still form in this case, but shocked material constitutes a small
+  still form in this case, but shocked material constitutes only a
   fraction of the total column density of the shell, see
   \S~\ref{sec:shape-bow-wave}.}
 
@@ -271,15 +275,15 @@ absorption of photons as it approaches the bow.\footnote{A shock does
 We now consider the application to bow shocks around main sequence OB
 stars, expressing stellar and ambient parameters in terms of typical
 values as follows:
-\begin{gather*}
+\begin{align*}
   \label{eq:stellar-parameters}
-  \dot{M}_{-7} = \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
-  V_3 = V / \bigl(\SI{1000}{km.s^{-1}}\bigr) \\
-  L_4 = L / \bigl(\SI{e4}{L_\odot}\bigr) \\
-  v_{10} = v_\infty / \bigl( \SI{10}{km.s^{-1}} \bigr) \\
-  n = (\rho / \bar{m}) / \bigl( \SI{1}{cm^{-3}} \bigr) \\
-  \kappa_{600} = \kappa / \bigl( \SI{600}{cm^2.g^{-1}} \bigr) \ ,
-\end{gather*}
+  \dot{M}_{-7} &= \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
+  V_3 &= V / \bigl(\SI{1000}{km.s^{-1}}\bigr) \\
+  L_4 &= L / \bigl(\SI{e4}{L_\odot}\bigr) \\
+  v_{10} &= v_\infty / \bigl( \SI{10}{km.s^{-1}} \bigr) \\
+  n &= (\rho / \bar{m}) / \bigl( \SI{1}{cm^{-3}} \bigr) \\
+  \kappa_{600} &= \kappa / \bigl( \SI{600}{cm^2.g^{-1}} \bigr) \ ,
+\end{align*}
 where \(\bar{m}\) is the mean mass per hydrogen nucleon
 (\(\bar{m} \approx 1.3 m_{\text{p}} \approx \SI{2.17e-24}{g}\) for solar
 abundances).  Note that \(\kappa = \SI{600}{cm^2.g^{-1}}\) corresponds to a
@@ -341,9 +345,6 @@ wind momentum efficiency is also a steep function of mass
 less than 1\% for B~stars.
 
 
-\subsection{Radiative cooling lengths}
-\label{sec:radi-cool-lengths}
-
 \subsection{Ionization state of the bow shell}
 \label{sec:trapp-ioniz-front}
 
@@ -351,20 +352,70 @@ less than 1\% for B~stars.
 \newcommand\shell{\ensuremath{_{\text{sh}}}}
 
 We wish to calculate whether the star is capable of photoionizing the
-entire bow shock shell, or whether the ionization front will be trapped
-within it.  The number of hydrogen recombinations per unit time per
-unit area in a fully ionized shell is \(\mathcal{R} = \alphaB n\shell^2 h\shell\),
-while the flux of ionizing photons incident on the inner edge of the
-shell is \(\mathcal{F} = S / 4 \pi R_0^2\).  Assuming photoionization equilibrium, the hydrogen photoabsorption optical depth of the shell is
+entire bow shock shell, or whether the ionization front will be
+trapped within it.  The number of hydrogen recombinations\footnote{%
+  The diffuse field is treated in the on-the-spot approximation,
+  assuming all emitted Lyman continuum photons are immediately
+  re-absorbed locally, so the case~B recombination co-efficient,
+  \(\alphaB = \num{2.6e-13}\, (T/\SI{e4}{K})\, \si{cm^3.s^{-1}}\), is
+  used.} %
+per unit time per unit area in a fully ionized shell is
+\(\mathcal{R} = \alphaB n\shell^2 h\shell\), while the flux of
+hydrogen-ionizing photons (\(h \nu > \SI{13.6}{eV}\)) incident on the
+inner edge of the shell is \(\mathcal{F} = S / 4 \pi R_0^2\), where
+\(S\) is the ionizing photon luminosity of the star.  Assuming
+photoionization equilibrium, the hydrogen photoabsorption optical
+depth of the shell is
 \begin{equation}
   \label{eq:ion-tau-gas}
-  \tau\gas = - \ln(1 - \mathcal{R} / \mathcal{F}) \ .
+  \tau\gas = - \ln(1 - \mathcal{R} / \mathcal{F}) \ ,
 \end{equation}
-The column density of the shocked shell can be found, for example, from equations~(10) and~(12) of \citet{Wilkin:1996a} in the limit \(v/V \to 0\) (Wilkin's parameter \(\alpha\)) and \(\theta \to 0\).  This yields
+so long as \(\mathcal{R} < \mathcal{F}\).  The column density of the
+shocked shell can be found, for example, from equations~(10) and~(12)
+of \citet{Wilkin:1996a} in the limit \(v/V \to 0\) (Wilkin's parameter
+\(\alpha\)) and \(\theta \to 0\).  This yields
 \begin{equation}
   \label{eq:shocked-shell-column}
   n\shell h\shell = \tfrac34 n R_0 \ .
 \end{equation}
+Assuming strong cooling behind the shock,\footnote{%
+  This is shown to be justified in \S~\ref{sec:radi-cool-lengths}.
+} %
+the shell density is \(n\shell = M_0^2 n\), where \(M_0 = v / \sound\)
+is the isothermal Mach number of the external stream.  We will assume
+a typical photoionized temperature of \SI{8000}{K}, so that
+\(\sound \approx \SI{10}{km.s^{-1}}\) and \(M_0 = v_{10}\), yielding
+\begin{equation}
+  \label{eq:ion-tau-gas-expanded}
+  \tau\gas = -\ln\bigl(1 -
+  \num{8.42e-6}\, v_{10}^2 n^2 R_{0,\text{pc}}^3 S_{49}^{-1}\bigr) \ , 
+\end{equation}
+where 
+\begin{align*}
+  R_{0,\text{pc}} &= R_0 / \bigl( \SI{1}{pc} \bigr) \\
+  S_{49} &= S / \bigl( \SI{e49}{s^{-1}} \bigr) \ . 
+\end{align*}
+Numerical values of \(S_{49}\) for our three example stars are given
+in Table~\ref{tab:stars}.  The dust opacity is approximately constant
+at FUV to EUV wavelengths, so the dust optical depth of the shocked
+shell to ionizing photons follows from equations~\eqref{eq:tau-thin}
+and~\eqref{eq:shocked-shell-column} as \(\tau\grain = \tfrac38 \tau\).
+
+The hydrogen ionization fraction, \(y\), at the outer edge of the shocked
+shell then follows as
+\begin{equation}
+  \label{eq:outer-shell-ionization-balance}
+  \frac{y^2}{1 - y} = \frac{\sigma \mathcal{F}}{\alphaB n} e^{-(\tau\grain + \tau\gas)} \ ,
+\end{equation}
+where \(\sigma\) is the effective hydrogen photoionization cross section.
+\begin{equation}
+  \label{eq:sigma-vs-tau}
+  \sigma = 0.5 \sigma_0 e^{-\tau\gas/3}
+\end{equation}
+where \(\sigma_0 = \SI{6e-18}{cm^2}\) is the threshold cross-section.
+
+\subsection{Radiative cooling lengths}
+\label{sec:radi-cool-lengths}
 
 
 \subsection{Imperfect coupling between gas and dust}
