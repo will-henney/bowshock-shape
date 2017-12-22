@@ -360,19 +360,35 @@ trapped within it.  The number of hydrogen recombinations\footnote{%
   \(\alphaB = \num{2.6e-13}\, (T/\SI{e4}{K})\, \si{cm^3.s^{-1}}\), is
   used.} %
 per unit time per unit area in a fully ionized shell is
-\(\mathcal{R} = \alphaB n\shell^2 h\shell\), while the flux of
-hydrogen-ionizing photons (\(h \nu > \SI{13.6}{eV}\)) incident on the
-inner edge of the shell is \(\mathcal{F} = S / 4 \pi R_0^2\), where
-\(S\) is the ionizing photon luminosity of the star.  Assuming
-photoionization equilibrium, the hydrogen photoabsorption optical
-depth of the shell is
+\begin{equation}
+  \label{eq:shell-recombination-rate}
+  \mathcal{R} = \alphaB n\shell^2 h\shell \ ,
+\end{equation}
+while the flux of hydrogen-ionizing photons
+(\(h \nu > \SI{13.6}{eV}\)) incident on the inner edge of the shell is
+\begin{equation}
+  \label{eq:shell-ionizing-flux}
+  \mathcal{F} = \frac{S} {4 \pi R_0^2} \ , 
+\end{equation}
+where \(S\) is the ionizing photon luminosity of the star.  Any shell
+with \(\mathcal{R} > \mathcal{F}\) cannot be entirely photoionized by
+the star, and so must have trapped the ionization front.  This simple
+criterion is shown by the dark red line in
+Figure~\ref{fig:zones-v-n-plane}.  If 
+\(n / v_{10}^2 > \text{\numrange{1000}{5000}}\), depending
+only weakly on the stellar parameters, then the outer parts of the
+shocked shell are neutral, instead of ionized. 
+
+
+Assuming photoionization equilibrium, the
+hydrogen photoabsorption optical depth of the shell is
 \begin{equation}
   \label{eq:ion-tau-gas}
   \tau\gas = - \ln(1 - \mathcal{R} / \mathcal{F}) \ ,
 \end{equation}
 so long as \(\mathcal{R} < \mathcal{F}\).  The column density of the
 shocked shell can be found, for example, from equations~(10) and~(12)
-of \citet{Wilkin:1996a} in the limit \(v/V \to 0\) (Wilkin's parameter
+of \citet{Wilkin:1996a} in the limit \(v_\infty/V \to 0\) (Wilkin's parameter
 \(\alpha\)) and \(\theta \to 0\).  This yields
 \begin{equation}
   \label{eq:shocked-shell-column}
@@ -407,12 +423,21 @@ shell then follows as
   \label{eq:outer-shell-ionization-balance}
   \frac{y^2}{1 - y} = \frac{\sigma \mathcal{F}}{\alphaB n} e^{-(\tau\grain + \tau\gas)} \ ,
 \end{equation}
-where \(\sigma\) is the effective hydrogen photoionization cross section.
+where \(\sigma\) is the effective hydrogen photoionization cross section,
+averaged over the local ionizing spectrum.  Since the
+frequency-dependent cross section, \(\sigma_\nu \sim \nu^{-3}\), is strongly
+peaked at the threshold, the local EUV spectrum becomes harder with
+increasing \(\tau\gas\), as the lower frequency photons are selectively
+absorbed,\footnote{} leading to a reduction in the effective
+\(\sigma\).  An approximate fit to the results in Appendix~A of
+\citet{Henney:2005b} is
 \begin{equation}
   \label{eq:sigma-vs-tau}
   \sigma = 0.5 \sigma_0 e^{-\tau\gas/3}
 \end{equation}
 where \(\sigma_0 = \SI{6e-18}{cm^2}\) is the threshold cross-section.
+Although this was derived for a particular ionizing spectrum (\SI{40
+  000}{K} black body), we adopt it for all our hot stars.
 
 \subsection{Radiative cooling lengths}
 \label{sec:radi-cool-lengths}

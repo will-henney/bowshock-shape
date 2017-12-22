@@ -35,6 +35,8 @@
     "eq:fiducial-typical"
     "fn:meyer-velocities-too-low"
     "sec:trapp-ioniz-front"
+    "eq:shell-recombination-rate"
+    "eq:shell-ionizing-flux"
     "eq:ion-tau-gas"
     "eq:shocked-shell-column"
     "eq:ion-tau-gas-expanded"

@@ -53,7 +53,23 @@
   + Shell EM: \( (\frac34 R n)^{2} / h = \frac34 v_{10}^{2} n^{2} R\)
   + Compare recombinations in shell with ionizing flux: \( f = \alpha_{B} . EM . 4\pi r^{2} / S_{*}\)
   + \( f = 3\pi v_{10}^{2} n^{2} R^{3} (\alpha_{B} /  S_{*})\) 
-  + => \( f = 8.42\times 10^{-6} v_{10}^{2} n^{2} R_{pc}^{3} /  S_{49}\) 
+    + => \( f = 8.42\times 10^{-6} v_{10}^{2} n^{2} R_{pc}^{3} /  S_{49}\)
+  + Alternatively, write
+    + \(\mathcal{R} = \alpha \frac34 n^{2} R_{0} \mathcal{M}_{0}^{2}\)
+    + \(\mathcal{F} = S / 4 \pi R_{0}^{2}\)
+    + \(\mathcal{R}/\mathcal{F} = 3\pi \mathcal{M}_{0}^{2} n^{2} R_{0}^{3} \alpha / S \)
+    + Where \(R_0  = x R_{*}\) and \(R_{*}^{2} = L / 4 \pi c n m \mathcal{M}_{0}^{2} c_{s}^{2}\)
+    + So \(\mathcal{R}/\mathcal{F} = \frac34 x^{3} n R_{*} \alpha L / m c_{s}^{2} c S = \frac34 x^{3} \tau_{*} \alpha L / m^{2} \kappa c_{s}^{2} c S \)
+      + where \(\alpha = 2.6\times 10^{-13} (T/10^{4}\,\mathrm{K})^{-0.7}\)
+    + So, the ratio term is \(\alpha L / m^{2} \kappa c_{s}^{2} c S = 0.01365 L_{4} / S_{49} \kappa_{600} T_{8k}^{1.7}\)
+    + Whereas \(\tau_{*} = 0.0089 \kappa_{600} L_{4}^{1/2} n^{1/2} / v_{10}\)
+    + So for \(\mathcal{R} / \mathcal{F} \ge 1\) we have
+      + \(9.111 \times 10^{-5}\, x^{3} \, L_{4}^{3/2} n^{1/2} / v_{10} S_{49} T_{8k}^{1.7} \ge 1\)
+      + => \( n \ge 1.2046 \times 10^{8} v_{10}^{2} S_{49}^{2} T_{8k}^{3.4} / x^{6} L_{4}^{3} \)
+      + Note the steep dependence on x
+    + Value of x depends on the regime
+      + RBS :: \(x^6 = (1 + \eta)^{3}\) which is 3 for the 40 Msun star
+      + RBW :: \(x^6 = 64 \tau_{*}^{6}\) - but \(\tau_{*}\) depends on n, so we need to do more work to get n on the LHS again
   + Find ionization parameter \(U\) in shell
     + At inner edge
     + And at outer edge, after post-shock cooling
@@ -169,12 +185,13 @@
   }
 
   T0 = 8000
+  kappa = 600.0
   for M, L4, eta, S49, ax in stardata:
       Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$",
                           rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^"),
                           rf"$\eta = {eta}$"])
       Rs = rstar(vv/10, nn, L4)
-      ts = taustar(vv/10, nn, L4)
+      ts = taustar(vv/10, nn, L4, kappa600=kappa/600.0)
       a, b = 0.0, 2*np.sqrt(1.0 + eta)
       x = chandrupatla(xfunc, a, b, args=(ts, eta))
       R0 = x*Rs
@@ -233,7 +250,7 @@
       #ax.contour(vv, nn, 3.5e5*Uout, (0.5, 98.1), colors='r', alpha=0.5)
       c_sig_over_alpha = 2.99792458e10*3e-18 / alphaB
       c_sig_over_alpha *= (1 - absfrac)**(1./3.)
-      y_IF = 0.5
+      y_IF = 0.1
       y1, y2 = 0.01, 0.99
       LHS_IF = y_IF**2 / (1 - y_IF)
       LHS1, LHS2 = y1**2/(1 - y1), y2**2/(1 - y2)
@@ -241,8 +258,9 @@
       m = (c_sig_over_alpha*Ushout >= LHS1) & (c_sig_over_alpha*Ushout <= LHS2)
       tau_gas_IF = np.nanmean(tau_gas[m])
       tau_dust_IF = np.nanmean(tau_dust[m])
-      cs = ax.contourf(vv, nn, tau_dust, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.5)
-      
+      cs = ax.contourf(vv, nn, tau_dust, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.3)
+      ax.contour(vv, nn, absfrac, 1.0, linewidths=0.7, colors='r')
+
       # ax.contour(vv, nn, tau, tau_dust_IF,
       #            colors='k', linestyles='--', linewidths=0.8)
       # ax.contour(vv, nn, tau_gas, tau_gas_IF,
@@ -766,7 +784,7 @@ python decouple-v40-versus-n.py
 
 #+RESULTS:
 #+begin_example
-Thu Dec 21 00:07:30 CST 2017
+Thu Dec 21 17:42:12 CST 2017
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 dust-couple-stream-annotate.pdf -> ../papers/Papers1234/figs/dust-couple-stream-annotate.pdf
 dust-wave-Rc-R90-error.pdf -> ../papers/Papers1234/figs/dust-wave-Rc-R90-error.pdf

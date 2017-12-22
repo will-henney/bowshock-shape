@@ -56,12 +56,13 @@ d = {
 }
 
 T0 = 8000
+kappa = 600.0
 for M, L4, eta, S49, ax in stardata:
     Mlabel = "\n".join([rf"$M = {M:.0f}\, M_\odot$",
                         rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^"),
                         rf"$\eta = {eta}$"])
     Rs = rstar(vv/10, nn, L4)
-    ts = taustar(vv/10, nn, L4)
+    ts = taustar(vv/10, nn, L4, kappa600=kappa/600.0)
     a, b = 0.0, 2*np.sqrt(1.0 + eta)
     x = chandrupatla(xfunc, a, b, args=(ts, eta))
     R0 = x*Rs
@@ -120,7 +121,7 @@ for M, L4, eta, S49, ax in stardata:
     #ax.contour(vv, nn, 3.5e5*Uout, (0.5, 98.1), colors='r', alpha=0.5)
     c_sig_over_alpha = 2.99792458e10*3e-18 / alphaB
     c_sig_over_alpha *= (1 - absfrac)**(1./3.)
-    y_IF = 0.5
+    y_IF = 0.1
     y1, y2 = 0.01, 0.99
     LHS_IF = y_IF**2 / (1 - y_IF)
     LHS1, LHS2 = y1**2/(1 - y1), y2**2/(1 - y2)
@@ -128,7 +129,8 @@ for M, L4, eta, S49, ax in stardata:
     m = (c_sig_over_alpha*Ushout >= LHS1) & (c_sig_over_alpha*Ushout <= LHS2)
     tau_gas_IF = np.nanmean(tau_gas[m])
     tau_dust_IF = np.nanmean(tau_dust[m])
-    cs = ax.contourf(vv, nn, tau_dust, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.5)
+    cs = ax.contourf(vv, nn, tau_dust, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.3)
+    ax.contour(vv, nn, absfrac, 1.0, linewidths=0.7, colors='r')
 
     # ax.contour(vv, nn, tau, tau_dust_IF,
     #            colors='k', linestyles='--', linewidths=0.8)
