@@ -5,12 +5,12 @@
                      '(("mnras" "useAMS" "usenatbib" "a4paper")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("fontenc" "T1") ("inputenc" "utf8") ("newtxmath" "varvw" "smallerops")))
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-run-style-hooks
     "latex2e"
@@ -20,6 +20,7 @@
     "sec-dust-case-studies"
     "sec-dust-bow-discuss"
     "app-dust-equations"
+    "app-dust-ifront-trap"
     "mnras"
     "mnras10"
     "graphicx"
@@ -49,11 +50,6 @@
     "hmmax"
     "bmmax"
     "AddressCRyA"
-    "sgn"
-    "Sin"
-    "Cos"
-    "Cot"
-    "GammaFunc"
     "w"
     "C"
     "T"
