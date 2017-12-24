@@ -356,9 +356,10 @@ less than 1\% for B~stars.
 \newcommand\alphaB{\ensuremath{\alpha_{\text{B}}}}
 \newcommand\shell{\ensuremath{_{\text{sh}}}}
 
-We wish to calculate whether the star is capable of photoionizing the
-entire bow shock shell, or whether the ionization front will be
-trapped within it.  The number of hydrogen recombinations\footnote{%
+In this section we calculate whether the star is capable of
+photoionizing the entire bow shock shell, or whether the ionization
+front will be trapped within it.  The number of hydrogen
+recombinations\footnote{%
   The diffuse field is treated in the on-the-spot approximation,
   assuming all emitted Lyman continuum photons are immediately
   re-absorbed locally, so the case~B recombination co-efficient,
@@ -424,16 +425,52 @@ Numerical values of \(S_{49}\) for our three example stars are given
 in Table~\ref{tab:stars}.  In the radiation bow wave case,
 \(x = 2\tau_*\), and the condition can be written:
 \begin{equation}
-  \label{eq:ifront-trap-taustar-bow-shock}
-  \frac{n}{v_{10}^2} > \num{5.36e4} \, \frac{S_{49}^{1/2} T_4^{0.85} }{\kappa_{600}^{3/2} L_4^{3/2}} \ , 
+  \label{eq:ifront-trap-taustar-RBW}
+  \frac{n}{v_{10}^2} > \num{5.36e4} \, \frac{S_{49}^{1/2} T_4^{0.85} }{\kappa_{600}^{3/2} L_4^{3/2}} \ . 
 \end{equation}
-
+In the wind bow shock case, the result is the same as
+equation~\eqref{eq:ifront-trap-density-RBS}, but changing the factor
+\((1 + \eta)^3\) to \(\eta^3\).  For the example hot stars in
+Table~\ref{tab:stars}, and assuming \(\kappa_{600} = 1\),
+\(T_4 = 0.8\), the resulting density threshold is
+\(n > (\text{\numrange{1000}{5000}})\, v_{10}^2\), depending only
+weakly on the stellar parameters, which is shown by the red lines in
+Figure~\ref{fig:zones-v-n-plane}.  For the \SI{10}{M_\odot} star, this is
+in the radiation bow wave regime, whereas for the higher mass stars it
+is in the radiation bow shock regime.  When the external stream is
+denser than this, then the outer parts of the shocked shell may be
+neutral instead of ionized, giving rise to a cometary compact \hii{}
+region \citep{Mac-Low:1991a, Arthur:2006a}.  This is only necessarily
+true, however, when the star is isolated.  If the star is in a cluster
+environment, then the contribution of other nearby massive stars to
+the ionizing radiation field must be considered.
 
 
 
 \subsection{Radiative cooling lengths}
 \label{sec:radi-cool-lengths}
-
+\newcommand\M{\ensuremath{\mathcal{M}}}
+In this section, we calculate whether the radiative cooling is
+sufficiently rapid behind the bow shock to allow the formation of a
+thin, dense shell.  Since cooling is least efficient at low densities,
+we will assume that the wind bow shock regime applies unless otherwise
+specified. We label quantities just outside the shock by the subscript
+``0'', quantities just inside the shock (after thermalization, but
+before any radiative cooling) by the subscript ``1'', and quantities
+after the gas has cooled back to the photoionization equilibrium
+temperature by the subscript ``2''.  Assuming a ratio of specific
+heats, \(\gamma = 5/3\), the relation between the pre-shock and immediate
+post-shock quantities is
+\begin{align}
+  % \M_1 &= \left(\frac{\M_0^2 + 3} {5\M_0^2 - 1}\right)^{1/2} \\
+  \label{eq:shock-n-jump}
+  \frac{n_1}{n_0} &= \frac{4 \M_0^2} {\M_0^2 + 3} \\
+  \label{eq:shock-T-jump}
+  \frac{T_1}{T_0} &= \tfrac1{16} \bigl( 5\M_0^2 - 1 \bigr) \bigl( 1 + 3/\M_0^2 \bigr) \\
+  \label{eq:shock-v-jump}
+  \frac{v_1}{v_0} &= \left(\frac{n_1}{n_0}\right)^{-1} \ ,
+\end{align}
+where \(\M_0 = v_0 / \sound\). 
 
 \subsection{Imperfect coupling between gas and dust}
 \label{sec:imperf-coupl-betw}

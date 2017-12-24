@@ -46,7 +46,7 @@
   #+TBLFM: $5=0.5 $3 $4 / $2 ;f4
 
 ** Diagrams of v--n plane
-*** COMMENT Strong coupling case
+*** Strong coupling case
 + [X] Add in the i-front trapping
   + Column density of shell: \(\frac34 R n\)
   + Shell thickness: \(h = \frac34 R (c_{s} / v)^{2} \simeq \frac34 R v_{10}^{-2}\)

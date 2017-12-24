@@ -17,6 +17,10 @@
   {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
   mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
 
+\bibitem[\protect\citeauthoryear{{Arthur} \& {Hoare}}{{Arthur} \&
+  {Hoare}}{2006}]{Arthur:2006a}
+{Arthur} S.~J.,  {Hoare} M.~G.,  2006, \apjs, 165, 283
+
 \bibitem[\protect\citeauthoryear{{Bertoldi} \& {Draine}}{{Bertoldi} \&
   {Draine}}{1996}]{Bertoldi:1996a}
 {Bertoldi} F.,  {Draine} B.~T.,  1996, \apj, 458, 222
@@ -91,6 +95,11 @@ Cambridge, UK: Cambridge University Press
   Lifshitz}{1976}]{Landau:1976a}
 Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
  Course of Theoretical Physics S Vol. 1, Butterworth-Heinemann
+
+\bibitem[\protect\citeauthoryear{{Mac Low}, {van Buren}, {Wood}  \&
+  {Churchwell}}{{Mac Low} et~al.}{1991}]{Mac-Low:1991a}
+{Mac Low} M.-M.,  {van Buren} D.,  {Wood} D.~O.~S.,   {Churchwell} E.,  1991,
+  \apj, 369, 395
 
 \bibitem[\protect\citeauthoryear{{Meyer}, {Mackey}, {Langer}, {Gvaramadze},
   {Mignone}, {Izzard}  \& {Kaper}}{{Meyer} et~al.}{2014}]{Meyer:2014b}

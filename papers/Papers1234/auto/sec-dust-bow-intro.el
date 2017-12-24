@@ -12,7 +12,8 @@
     "PaperI"
     "hii"
     "alphaB"
-    "shell")
+    "shell"
+    "M")
    (LaTeX-add-labels
     "sec:introduction"
     "fig:3-types-bow"
@@ -43,8 +44,11 @@
     "fn:temperature-dependence"
     "eq:ifront-trap-x-cubed-taustar"
     "eq:ifront-trap-density-RBS"
-    "eq:ifront-trap-taustar-bow-shock"
+    "eq:ifront-trap-taustar-RBW"
     "sec:radi-cool-lengths"
+    "eq:shock-n-jump"
+    "eq:shock-T-jump"
+    "eq:shock-v-jump"
     "sec:imperf-coupl-betw"
     "fig:decouple-v-n-plane"
     "fig:decouple-v40-versus-n"

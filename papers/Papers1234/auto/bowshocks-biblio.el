@@ -105,6 +105,8 @@
     "Prinja:1989a"
     "Krticka:2014a"
     "Oskinova:2011b"
-    "Henney:2005b"))
+    "Henney:2005b"
+    "Mac-Low:1991a"
+    "Arthur:2006a"))
  :bibtex)
 
