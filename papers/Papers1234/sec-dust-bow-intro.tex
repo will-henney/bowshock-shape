@@ -200,8 +200,12 @@ descriptions can be seen to agree so long as
 \end{equation}
 which we will assume to hold generally.
 
-Then, defining a fiducial optical depth, \(\tau_* = \rho \kappa R_*\), and adding
-in the stellar wind ram pressure\footnote{%
+Then, defining a fiducial optical depth,
+\begin{equation}
+  \label{eq:tau-star}
+  \tau_* = \rho \kappa R_* \ ,
+\end{equation}
+and adding in the stellar wind ram pressure\footnote{%
   We implicitly assume that the interaction of the stellar wind with
   the external stream can always be treated in the continuum limit.
   This will be true if either the collisional mean free path or the
@@ -357,8 +361,8 @@ trapped within it.  The number of hydrogen recombinations\footnote{%
   The diffuse field is treated in the on-the-spot approximation,
   assuming all emitted Lyman continuum photons are immediately
   re-absorbed locally, so the case~B recombination co-efficient,
-  \(\alphaB = \num{2.6e-13}\, (T/\SI{e4}{K})\, \si{cm^3.s^{-1}}\), is
-  used.} %
+  \(\alphaB = \num{2.6e-13}\, T_4^{-0.7}\, \si{cm^3.s^{-1}}\), is
+  used, where \(T_4 = T/\SI{e4}{K}\).} %
 per unit time per unit area in a fully ionized shell is
 \begin{equation}
   \label{eq:shell-recombination-rate}
@@ -372,7 +376,61 @@ while the flux of hydrogen-ionizing photons
 \end{equation}
 where \(S\) is the ionizing photon luminosity of the star.  Any shell
 with \(\mathcal{R} > \mathcal{F}\) cannot be entirely photoionized by
-the star, and so must have trapped the ionization front.  This simple
+the star, and so must have trapped the ionization front.  The column
+density of the shocked shell can be found, for example, from
+equations~(10) and~(12) of \citet{Wilkin:1996a} in the limit
+\(v_\infty/V \to 0\) (Wilkin's parameter \(\alpha\)) and \(\theta \to 0\).  This yields
+\begin{equation}
+  \label{eq:shocked-shell-column}
+  n\shell h\shell = \tfrac34 n R_0 \ .
+\end{equation}
+Assuming strong cooling behind the shock,\footnote{%
+  This is shown to be justified in \S~\ref{sec:radi-cool-lengths}.
+} %
+the shell density is \(n\shell = \mathcal{M}_0^2 n\), where
+\(\mathcal{M}_0 = v_\infty / \sound\) is the isothermal Mach number of the
+external stream.\footnote{%
+  \label{fn:temperature-dependence}
+  The sound speed depends on the temperature and hydrogen and helium
+  ionization fractions, \(y\) and \(y_{\text{He}}\) as
+  \(\sound^2 = (1 + y + z_{\text{He}} y_{\text{He}}) (k T /
+  \bar{m})\), where \(z_{\text{He}}\) is the helium nucleon abundance
+  by number relative to hydrogen and
+  \(k = \SI{1.3806503e-16}{erg.K^{-1}}\) is Boltzmann's constant.  We
+  assume \(y = 1\), \(y_{\text{He}} = 0.5\), \(z_{\text{He}} = 0.09\),
+  so that \(\sound = \num{11.4}\, T_4^{1/2}\, \si{km.s^{-1}}\). } %
+Putting these together with equations~\eqref{eq:Rstar} and
+~\eqref{eq:tau-star}, one finds that \(\mathcal{R} > \mathcal{F}\)
+implies
+\begin{equation}
+  \label{eq:ifront-trap-x-cubed-taustar}
+  x^3 \tau_* > \frac{4 S c \sound \bar{m}^2 \kappa}{3 \alpha L} \ .
+\end{equation}
+From equation~\eqref{eq:rad-full-x}, it can be seen that \(x\) depends
+on the external stream parameters, \(n\), \(v_\infty\) only via
+\(\tau_*\), and so equation~\eqref{eq:ifront-trap-x-cubed-taustar} is a
+condition for \(\tau_*\).  In the radiation bow shock case,
+\(x = (1 + \eta)^{1/2}\), and the condition can be written:
+\begin{equation}
+  \label{eq:ifront-trap-taustar-bow-shock}
+  \tau_* > 145.0 \frac{S_{49} T_4^{1.7} \kappa_{600}}{L_4 (1 + \eta)^{3/2}} \ , 
+\end{equation}
+where
+\begin{equation*}
+  S_{49} = S / \bigl( \SI{e49}{s^{-1}} \bigr) \ .
+\end{equation*}
+Numerical values of \(S_{49}\) for our three example stars are given
+in Table~\ref{tab:stars}.  In the radiation bow wave case,
+\(x = 2\tau_*\), and the condition can be written:
+\begin{equation}
+  \label{eq:ifront-trap-taustar-bow-shock}
+  \tau_* > \left(  18.1 \frac{S_{49} T_4^{1.7} \kappa_{600}}{L_4}\right)^{1/4} \ , 
+\end{equation}
+
+
+
+\(\tau_* \sim n^{1/2} / v_\infty\) 
+This simple
 criterion is shown by the dark red line in
 Figure~\ref{fig:zones-v-n-plane}.  If 
 \(n / v_{10}^2 > \text{\numrange{1000}{5000}}\), depending
@@ -386,19 +444,9 @@ hydrogen photoabsorption optical depth of the shell is
   \label{eq:ion-tau-gas}
   \tau\gas = - \ln(1 - \mathcal{R} / \mathcal{F}) \ ,
 \end{equation}
-so long as \(\mathcal{R} < \mathcal{F}\).  The column density of the
-shocked shell can be found, for example, from equations~(10) and~(12)
-of \citet{Wilkin:1996a} in the limit \(v_\infty/V \to 0\) (Wilkin's parameter
-\(\alpha\)) and \(\theta \to 0\).  This yields
-\begin{equation}
-  \label{eq:shocked-shell-column}
-  n\shell h\shell = \tfrac34 n R_0 \ .
-\end{equation}
-Assuming strong cooling behind the shock,\footnote{%
-  This is shown to be justified in \S~\ref{sec:radi-cool-lengths}.
-} %
-the shell density is \(n\shell = M_0^2 n\), where \(M_0 = v / \sound\)
-is the isothermal Mach number of the external stream.  We will assume
+so long as \(\mathcal{R} < \mathcal{F}\).
+
+We will assume
 a typical photoionized temperature of \SI{8000}{K}, so that
 \(\sound \approx \SI{10}{km.s^{-1}}\) and \(M_0 = v_{10}\), yielding
 \begin{equation}
@@ -408,11 +456,9 @@ a typical photoionized temperature of \SI{8000}{K}, so that
 \end{equation}
 where 
 \begin{align*}
-  R_{0,\text{pc}} &= R_0 / \bigl( \SI{1}{pc} \bigr) \\
-  S_{49} &= S / \bigl( \SI{e49}{s^{-1}} \bigr) \ . 
+  R_{0,\text{pc}} &= R_0 / \bigl( \SI{1}{pc} \bigr)
 \end{align*}
-Numerical values of \(S_{49}\) for our three example stars are given
-in Table~\ref{tab:stars}.  The dust opacity is approximately constant
+The dust opacity is approximately constant
 at FUV to EUV wavelengths, so the dust optical depth of the shocked
 shell to ionizing photons follows from equations~\eqref{eq:tau-thin}
 and~\eqref{eq:shocked-shell-column} as \(\tau\grain = \tfrac38 \tau\).

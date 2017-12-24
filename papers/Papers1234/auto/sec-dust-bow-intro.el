@@ -1,12 +1,12 @@
 (TeX-add-style-hook
  "sec-dust-bow-intro"
  (lambda ()
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-add-symbols
     "PaperI"
@@ -27,6 +27,7 @@
     "eq:rad:R0"
     "eq:rad-press-balance-tau"
     "eq:tau-thin"
+    "eq:tau-star"
     "eq:rad-full-x"
     "eq:x-cases"
     "tab:stars"
@@ -37,8 +38,11 @@
     "sec:trapp-ioniz-front"
     "eq:shell-recombination-rate"
     "eq:shell-ionizing-flux"
-    "eq:ion-tau-gas"
     "eq:shocked-shell-column"
+    "fn:temperature-dependence"
+    "eq:ifront-trap-x-cubed-taustar"
+    "eq:ifront-trap-taustar-bow-shock"
+    "eq:ion-tau-gas"
     "eq:ion-tau-gas-expanded"
     "eq:outer-shell-ionization-balance"
     "eq:sigma-vs-tau"
