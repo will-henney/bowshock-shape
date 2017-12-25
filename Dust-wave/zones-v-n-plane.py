@@ -166,8 +166,10 @@ for M, L4, eta, S49, ax in stardata:
     #
     # Now do the cooling length
     #
+    # Sound speed:
+    cs = 11.4*np.sqrt(T0/1e4)
     # pre-shock Mach number
-    M0 = vv/10.0
+    M0 = vv/cs
     # post-shock Mach number
     M1 = np.sqrt((M0**2 + 3)/(5*M0**2 - 1))
     # post-shock temperature in units of T0
@@ -177,12 +179,19 @@ for M, L4, eta, S49, ax in stardata:
     # post-shock velocity
     v1 = vv*nn/n1
     # Cooling rate
-    Lam1 = 3.3e-24 * T1**2.3
-    Lam2 = 1e-20 / T1
+    Lam1 = 3.3e-24 * (T1*T0/1e4)**2.3
+    Lam2 = 1e-20 / (T1*T0/1e4)
+
     k = 3
     Lambda = (Lam1**(-k) + Lam2**(-k))**(-1/k)
+
+    # Heating rate
+    Gamma = (T0/1e4)**2.8 * 3.3e-24 /np.sqrt(T1*T0/1e4)
+
     # Cooling length in parsec
-    dcool = 3*(1e5*v1)*(1.3806503e-16 * T1*T0) / (n1*Lambda) / 3.085677582e18
+    dcool = 3*(1e5*v1)*(1.3806503e-16 * T1*T0) / (n1*(Lambda - Gamma)) / 3.085677582e18
+
+    dcool[vv < cs] = np.nan
 
     # Ratio with respect to adiabatic shell thickness
     h1 = 0.177*R0

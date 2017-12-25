@@ -470,7 +470,42 @@ post-shock quantities is
   \label{eq:shock-v-jump}
   \frac{v_1}{v_0} &= \left(\frac{n_1}{n_0}\right)^{-1} \ ,
 \end{align}
-where \(\M_0 = v_0 / \sound\). 
+where \(\M_0 = v_0 / \sound\).  The cooling length of the post-shock
+gas can be written as
+\newcommand\cool{\ensuremath{_{\text{cool}}}}
+\begin{equation}
+  \label{eq:dcool}
+  d\cool = \frac{P_1 v_1} { (\gamma - 1) \bigl(  \mathcal{L}_1 - \mathcal{G}_1 \bigr) }\ ,  
+\end{equation}
+where \(P_1\) is the thermal pressure and \(\mathcal{L}_1\),
+\(\mathcal{G}_1\) are the volumetric radiative cooling and heating
+rates.  For fully photoionized gas, we have
+\(P_1 \approx 2 n_1 k T_1\), \(\mathcal{L}_1 = n_1^2 \Lambda(T_1)\), and
+\(\mathcal{G}_1 = n_1^2 \Gamma(T_1)\), where \(\Lambda(T)\) is the cooling
+coefficient, which is dominated by metal emission lines that are
+excited by electron collisions, and \(\Gamma(T)\) is the heating
+coefficient, which is dominated by hydrogen photo-electrons
+\citep{Osterbrock:2006a}. The cooling coefficient has a maximum around
+\SI{e5}{K}, and for typical ISM abundances can be approximated as
+follows:
+\begin{align}
+  \label{eq:cooling-coefficient}
+  \Lambda_{\text{warm}} &= \num{3.3e-24} \, T_4^{2.3} \, \si{erg.cm^{-3}.s^{-1}}\\
+  \Lambda_{\text{hot}} &= \num{e-20} \, T_4^{-1}\, \si{erg.cm^{-3}.s^{-1}} \\
+  \Lambda &= \left( \Lambda_{\text{warm}}^{-k} +  \Lambda_{\text{hot}}^{-k} \right)^{-1/k}
+      \quad \text{with} \quad k = 3 \ ,
+\end{align}
+which is valid in the range \(0.7 < T_4 < 1000\).  We approximate the heating coefficient as
+\begin{equation}
+  \label{eq:heating-coefficient}
+  \Gamma = \num{1.77e-24} \, T_4^{-1/2} \, \si{erg.cm^{-3}.s^{-1}} \ ,
+\end{equation}
+where the coefficient is chosen so as to give \(\Gamma = \Lambda\) at
+an equilibrium temperature of \(T_4 = 0.8\).
+
+In Figure~\ref{fig:zones-v-n-plane} we show curves corresponding to
+\(d\cool = R_0\) and \(d\cool = h_0\), where \(h_0\) is the shell
+thickness in the efficient cooling case.  
 
 \subsection{Imperfect coupling between gas and dust}
 \label{sec:imperf-coupl-betw}

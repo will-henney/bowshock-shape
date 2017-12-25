@@ -13,7 +13,8 @@
     "hii"
     "alphaB"
     "shell"
-    "M")
+    "M"
+    "cool")
    (LaTeX-add-labels
     "sec:introduction"
     "fig:3-types-bow"
@@ -49,6 +50,9 @@
     "eq:shock-n-jump"
     "eq:shock-T-jump"
     "eq:shock-v-jump"
+    "eq:dcool"
+    "eq:cooling-coefficient"
+    "eq:heating-coefficient"
     "sec:imperf-coupl-betw"
     "fig:decouple-v-n-plane"
     "fig:decouple-v40-versus-n"
