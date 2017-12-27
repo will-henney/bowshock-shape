@@ -450,7 +450,23 @@ true, however, when the star is isolated.  If the star is in a cluster
 environment, then the contribution of other nearby massive stars to
 the ionizing radiation field must be considered.
 
-
+In principle, when the ionization front trapping occurs in the bow
+wave regime, then the curves for \(R_0\) will be modified in the
+region above the red line because all of the ionizing radiation is
+trapped in the shell due to gas opacity, which is not included in
+equation~\eqref{eq:tau-thin}.  However, this only happens for our
+\SI{10}{M_\odot} star, which has a relatively soft spectrum.
+Table~\ref{tab:stars} gives the peak wavelength of the stellar
+spectrum for this star as \(\lambda_{\text{eff}} = \SI{0.115}{\um}\), which
+is significantly larger than the hydrogen ionization threshold at
+\SI{0.0912}{\um}, meaning that only a small fraction of the total
+stellar luminosity is in the EUV band and affected by the gas opacity.
+The effect on \(R_0\) is therefore small.  For the higher mass stars,
+\(\lambda_{\text{eff}} < \SI{0.0912}{\um}\), so the majority of the
+luminosity is in the EUV band, but in these cases the ionization front
+trapping occurs well inside the radiation bow shock zone, where the
+dust optical depth is already sufficient to trap all of the radiative
+momentum.
 
 \subsection{Radiative cooling lengths}
 \label{sec:radi-cool-lengths}
@@ -480,7 +496,7 @@ gas can be written as
 \newcommand\cool{\ensuremath{_{\text{cool}}}}
 \begin{equation}
   \label{eq:dcool}
-  d\cool = \frac{P_1 v_1} { (\gamma - 1) \bigl(  \mathcal{L}_1 - \mathcal{G}_1 \bigr) }\ ,  
+  d\cool = \frac{3 P_1 v_1} { 2 \bigl(  \mathcal{L}_1 - \mathcal{G}_1 \bigr) }\ ,  
 \end{equation}
 where \(P_1\) is the thermal pressure and \(\mathcal{L}_1\),
 \(\mathcal{G}_1\) are the volumetric radiative cooling and heating
