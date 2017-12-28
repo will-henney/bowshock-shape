@@ -77,10 +77,16 @@ Ribs = eta**0.5 * rstar((1.0 - dv_v)*vv/10, nn, L4)
 m = Ribs > Rdw
 Ribs[m] = Rdw[m]
 
-# Remove cases where dust wave will not exist
+# Make a copy for the inner dust wave
+Ridw = Rdw.copy()
+
+# Remove cases where dust wave is inside the bow shock
 m = Rdw < R0
 Rdw[m] = np.nan 
 Ribs[m] = np.nan 
+# Trim unphysical zones for inner dust wave
+Ridw[~m] = np.nan
+Ridw[nn > 10.0] = np.nan
 
 # Choose only the R0 where there is not also a dust wave
 ax.plot(nn[~m], R0[~m], color="k", lw=0.1)
@@ -94,6 +100,9 @@ m = (tau > eta) & (tau < 1.0)
 ax.plot(nn[m], R0[m], ls="-.", label="Bow wave")
 m = tau >= 1.0
 ax.plot(nn[m], R0[m], label="Radiation bow shock")
+
+# Go back and plot the internal dust wave
+ax.plot(nn, Ridw, ls="--", c="orange", lw=0.5, label="_nolabel_")
 
 m = nn < 10.0
 ax.plot(nn[m], Rstarstar[m], color='k', lw=0.1)

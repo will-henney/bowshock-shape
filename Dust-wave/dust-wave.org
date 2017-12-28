@@ -573,6 +573,12 @@ python decouple-v-n-plane.py
 
 **** Radii versus density for fixed velocity
 
++ [-] [2017-12-28 Thu] Add in the inner dust wave
+  + This is when the dust sails through the hydro bow shock, but then gets stopped by the radiation at a smaller radius 
+  + [X] Do just by extending the dust wave curve
+  + [ ] More realistic: decoupling occurs at hydro BS, and dust is given an impulse by gas-drag there. This modifies velocity used to find R_{**}
+  + [ ] Even more realistic: take into account Lorentz force at decoupling also
+
 #+BEGIN_SRC python :eval no :tangle decouple-v40-versus-n.py 
   import sys
   import numpy as np
@@ -653,10 +659,16 @@ python decouple-v-n-plane.py
   m = Ribs > Rdw
   Ribs[m] = Rdw[m]
 
-  # Remove cases where dust wave will not exist
+  # Make a copy for the inner dust wave
+  Ridw = Rdw.copy()
+
+  # Remove cases where dust wave is inside the bow shock
   m = Rdw < R0
   Rdw[m] = np.nan 
   Ribs[m] = np.nan 
+  # Trim unphysical zones for inner dust wave
+  Ridw[~m] = np.nan
+  Ridw[nn > 10.0] = np.nan
 
   # Choose only the R0 where there is not also a dust wave
   ax.plot(nn[~m], R0[~m], color="k", lw=0.1)
@@ -670,6 +682,9 @@ python decouple-v-n-plane.py
   ax.plot(nn[m], R0[m], ls="-.", label="Bow wave")
   m = tau >= 1.0
   ax.plot(nn[m], R0[m], label="Radiation bow shock")
+
+  # Go back and plot the internal dust wave
+  ax.plot(nn, Ridw, ls="--", c="orange", lw=0.5, label="_nolabel_")
 
   m = nn < 10.0
   ax.plot(nn[m], Rstarstar[m], color='k', lw=0.1)
