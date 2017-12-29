@@ -39,6 +39,7 @@
     "inputenc"
     "newtxtext"
     "newtxmath"
+    "chemgreek"
     "etoolbox"
     "bm"
     "aastex-compat")

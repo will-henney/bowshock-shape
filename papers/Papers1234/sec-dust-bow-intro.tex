@@ -271,10 +271,10 @@ absorption of photons as it approaches the bow.\footnote{A shock does
                    & \ref{fig:zones-v-n-plane}c\\[\smallskipamount]
     Blue supergiant star
     & 33 & 30.2 & 20.2 & 0.93 & 0.3079 & {B0.7\,Ia} & 23.5 & 0.123 & 0.016
-                   & \\[\smallskipamount]
+                   & \ref{fig:B-supergiant} \\[\smallskipamount]
     Red supergiant star
     & 20 & 15.6 & 100 & 0.015 & 0.0476 & {M1\,Ia} & 3.6 & 0.805 & 0
-                   & \\ 
+                   & \ref{fig:M-supergiant} \\ 
     \bottomrule
   \end{tabular}
 \end{table*}
@@ -352,12 +352,55 @@ wind momentum efficiency is also a steep function of mass
 (\(\eta \sim M^3\)), approaching unity for early O~stars, but falling to
 less than 1\% for B~stars.
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/zones-v-n-plane-RSG}
+  \caption{As Fig.~\ref{fig:zones-v-n-plane}, but for a cool M-type
+    supergiant instead of hot main sequence stars.  A smaller dust
+    opacity is used, \(\kappa = \SI{60}{cm^2.g^{-1}}\), because of the
+    reduced extinction efficiency at the optical/infrared wavelengths
+    emitted by this star.}
+  \label{fig:M-supergiant}
+\end{figure}
+
+It can be seen from Figure~\ref{fig:zones-v-n-plane} that the onset of
+the radiation bow wave regime is very similar for the three
+main-sequence stars, occurring at
+\(n > \text{\numrange{20}{40}} \, v_{10}^2\).  An important
+difference, however, is that for the \SI{40}{M_\odot} star, which has a
+powerful wind, the radiation bow wave regime only occurs for a very
+narrow range of densities, whereas for the \SI{10}{M_\odot} star, with a
+much weaker wind, the regime is much broader, extending to
+\(n < \num{e4} \, v_{10}^2\).  Another difference is the size scale of
+the bows in this regime, which is
+\(R_0 = \text{\SIrange{0.001}{0.003}{pc}}\) for the \SI{10}{M_\odot} star
+if \(v_\infty = \SI{40}{km.s^{-1}}\), but \(R_0 \approx \SI{0.1}{pc}\) for the
+\SI{40}{M_\odot} star, assuming the same inflow velocity.
+
+Figure~\ref{fig:M-supergiant} shows results for a cool M-type
+super-giant star with stellar parameters inspired by Betelgeuse
+(\chemalpha~Orionis), as listed in Table~\ref{tab:stars}.  Unlike the
+UV-dominated spectrum of the hot stars, this star emits predominantly
+in the near-infrared, where the dust extinction efficiency is lower,
+so we adopt a lower opacity of \SI{60}{cm^2.g^{-1}}.  This has the
+effect of shifting the radiation bow wave regime to higher densities:
+\(n = \text{\numrange{1000}{30 000}}\, v_{10}^2\) in this case.
+
 
 \subsubsection{Ionization state of the bow shell}
 \label{sec:trapp-ioniz-front}
 
 \newcommand\alphaB{\ensuremath{\alpha_{\text{B}}}}
 \newcommand\shell{\ensuremath{_{\text{sh}}}}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/zones-v-n-plane-BSG}
+  \caption{As Fig.~\ref{fig:zones-v-n-plane}, but for an evolved
+    B-type supergiant instead of main sequence stars.  This is similar
+    to Fig.~\ref{fig:zones-v-n-plane} in all respects, except the
+    trapping of the ionization front, which occurs for much lower
+    outer stream densities.}
+  \label{fig:B-supergiant}
+\end{figure}
 
 In this section we calculate whether the star is capable of
 photoionizing the entire bow shock shell, or whether the ionization

@@ -137,8 +137,9 @@ for M, L4, eta, S49, ax in stardata:
     # ax.contour(vv, nn, tau_gas, tau_gas_IF,
     #            colors='y', linewidths=0.4)
     arrows = r"$\uparrow\!\!\!\!\uparrow$"
+    trap_text = rf"{arrows} Trapped i-front {arrows}"
     ax.text(60, d["trapped y"][M],
-            rf"{arrows} Trapped i-front, $\tau_\mathrm{{d}} = {tau_dust_IF:.1f}$, $\tau_\mathrm{{gas}} = {tau_gas_IF:.1f}$ {arrows}",
+            trap_text,
             ha='center', va='center',
             fontsize='xx-small', color='r', alpha=0.5, rotation=10,
             bbox=dict(fc=d["trapped bg"][M], ec='none', pad=0.1)

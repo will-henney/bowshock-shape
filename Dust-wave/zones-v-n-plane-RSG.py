@@ -10,7 +10,7 @@ sns.set_style('ticks')
 sns.set_color_codes('dark')
 fig, axes = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(3.3, 4))
 stardata = [
-    [33.0, 30.2, 0.3079, 0.016, axes],
+    [20.0, 15.6, 0.0476, 0.0, axes],
 ]
 
 # Velocities in units of km/s (10 km/s -> 100 km/s)
@@ -46,18 +46,18 @@ WBS_label = r"Wind bow shock, $\tau < \eta$"
 
 # Miscellaneous panel-dependent plot params
 d = {
-    "RBW y": {33.0: 1500.0, 20.0: 5000.0, 40.0: 2500.0},
+    "RBW y": {33.0: 1500.0, 20.0: 1e5, 40.0: 2500.0},
     "trapped y": {33.0: 250, 20.0: 2.5e5, 40.0: 1.5e5},
     "trapped bg": {33.0: 'w', 20.0: 'w', 40.0: 'w'},
     "IF tau": {33.0: 0.2, 20.0: 3.7, 40.0: 6.4},
     "IF tau gas": {33.0: 5.0, 20.0: 5.0, 40.0: 5.0},
 }
 
-T0 = 8000
-kappa = 600.0
+T0 = 1000
+kappa = 60.0
 for M, L4, eta, S49, ax in stardata:
     Mlabel = "\n".join([
-        "B supergiant", "",
+        "M supergiant", "",
         rf"$M = {M:.0f}\, M_\odot$",
         rf"$L = {1e4*L4:.1e}\, L_\odot$".replace("e+0", r"\times 10^"),
         rf"$\eta = {eta}$"])
@@ -68,88 +68,6 @@ for M, L4, eta, S49, ax in stardata:
     R0 = x*Rs
     tau = 2*x*ts
 
-    # Ionization parameter - fiducial
-    U = 2.789*S49 / (R0**2 * nn)
-    # Shell ionization parameter - assume compression by M^2
-    Ush = U/(vv/10)**2
-    # Ionization fraction in shell
-    ysh = 1.0 - 1.0/(3.5e5*Ush)
-
-    # cs = ax.contour(vv, nn, ysh,
-    #                 (0.9, 0.99, 0.999, 0.9999, 0.99999),
-    #                 linewidths=1.0,
-    #                 colors='g', alpha=0.5)
-    # ax.clabel(cs,
-    #           fontsize=5, colors='g', fmt='$%.5f$', 
-    #           inline=True, inline_spacing=1, use_clabeltext=True)
-    # ax.text(75, 6e-3, fr"$y_\mathrm{{in}} = {ysh.max():.5f}$",
-    #         fontsize=5, color='g', alpha=0.5)
-    # ax.text(12, 1.3e6, fr"$y_\mathrm{{in}} = {ysh.min():.5f}$",
-    #         fontsize=5, color='g', alpha=0.5)
-
-    # Fraction of ionizing photons absorbed in shell
-    alphaB = 2.6e-13*(T0/1e4)**(-0.7)
-    absfrac0 = 3*np.pi*(3.085677582e18)**3 * alphaB / 1e49
-    absfrac = absfrac0 * (vv/10)**2 * nn**2 * R0**3 / S49
-    # Equivalent optical depth
-    tau_gas = -np.log(1.0 - absfrac)
-    #absfrac = 2.76e-4 * (vv/10)**-1 * nn**0.5 * (L4)**1.5 / S49
-
-    tau_dust = (3/8)*tau
-    # Ionization parameter just outside the shell
-    Uout = U*np.exp(-(tau_dust + tau_gas))
-    Uout[~np.isfinite(Uout)] = 0.0
-    Ushout = Uout/(vv/10)**2
-
-    # y^2 / (1 - y) = CU
-    # y = 0.1 => y^2 / (1 - y) = 0.0111111111111
-    # y = 0.5 => y^2 / (1 - y) = 0.5
-    # y = 0.9 => y^2 / (1 - y) = 8.1
-    # y = 0.99 => y^2 / (1 - y) = 98.1
-
-    # cu = 3.5e5*Uout
-
-    # y_out = 0.5*cu * (np.sqrt(1.0 + 4/cu) - 1.0)
-    # cs = ax.contour(vv, nn, Uout,
-    #                 np.logspace(-7.0, 1.0, 9),
-    #                 linewidths=np.linspace(0.2, 1.5, 9),
-    #                 colors='r', alpha=0.5)
-    # ax.clabel(cs,x
-    #           fontsize='xx-small', colors='r', fmt='%.0e', 
-    #           inline=True, inline_spacing=1, use_clabeltext=True)
-
-    #ax.contour(vv, nn, 3.5e5*Uout, (0.5, 98.1), colors='r', alpha=0.5)
-    c_sig_over_alpha = 2.99792458e10*3e-18 / alphaB
-    c_sig_over_alpha *= (1 - absfrac)**(1./3.)
-    y_IF = 0.1
-    y1, y2 = 0.01, 0.99
-    LHS_IF = y_IF**2 / (1 - y_IF)
-    LHS1, LHS2 = y1**2/(1 - y1), y2**2/(1 - y2)
-    #cs = ax.contour(vv, nn, c_sig_over_alpha*Ushout, (LHS_IF,), linewidths=2, colors='r', alpha=0.5)
-    m = (c_sig_over_alpha*Ushout >= LHS1) & (c_sig_over_alpha*Ushout <= LHS2)
-    tau_gas_IF = np.nanmean(tau_gas[m])
-    tau_dust_IF = np.nanmean(tau_dust[m])
-    cs = ax.contourf(vv, nn, tau_dust, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.3)
-    ax.contour(vv, nn, absfrac, 1.0, linewidths=0.7, colors='r')
-
-    # ax.contour(vv, nn, tau, tau_dust_IF,
-    #            colors='k', linestyles='--', linewidths=0.8)
-    # ax.contour(vv, nn, tau_gas, tau_gas_IF,
-    #            colors='y', linewidths=0.4)
-    arrows = r"$\uparrow\!\!\!\!\uparrow$"
-    # trap_text = rf"{arrows} Trapped i-front, $\tau_\mathrm{{d}} = {tau_dust_IF:.1f}$, $\tau_\mathrm{{gas}} = {tau_gas_IF:.1f}$ {arrows}"
-    trap_text = rf"{arrows} Trapped i-front {arrows}"
-    ax.text(60, d["trapped y"][M],
-            trap_text,
-            ha='center', va='center',
-            fontsize='xx-small', color='r', alpha=0.5, rotation=10,
-            bbox=dict(fc=d["trapped bg"][M], ec='none', pad=0.1)
-    )
-    # ax.clabel(cs, (0.5,),
-    #           manual=((60, 1e4),),
-    #           fontsize='xx-small', colors='r',
-    #           fmt=r'$\uparrow\uparrow$ Trapped i-front $\uparrow\uparrow$', 
-    #           inline=True, inline_spacing=10, use_clabeltext=True)
 
     ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.15)
     # ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
@@ -161,8 +79,8 @@ for M, L4, eta, S49, ax in stardata:
               inline=True, inline_spacing=2, use_clabeltext=True)
     ax.text(62.0, 1e-2, Mlabel, zorder=100, fontsize='x-small', bbox=box_params)
     ax.text(18.0, d["RBW y"][M], RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.85', ec='0.6')})
-    ax.text(16.0, 1e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
-    ax.text(20.0, 15.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+    ax.text(16.0, 2e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+    ax.text(20.0, 300.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
 
 
     #
@@ -188,7 +106,7 @@ for M, L4, eta, S49, ax in stardata:
     Lambda = (Lam1**(-k) + Lam2**(-k))**(-1/k)
 
     # Heating rate
-    Gamma = (T0/1e4)**2.8 * 3.3e-24 /np.sqrt(T1*T0/1e4)
+    Gamma = 1e-26
 
     # Cooling length in parsec
     dcool = 3*(1e5*v1)*(1.3806503e-16 * T1*T0) / (n1*(Lambda - Gamma)) / 3.085677582e18
