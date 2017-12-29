@@ -109,6 +109,7 @@
     "Mac-Low:1991a"
     "Arthur:2006a"
     "Osterbrock:2006a"
-    "Sternberg:2003a"))
+    "Sternberg:2003a"
+    "Rodriguez-Ramirez:2016b"))
  :bibtex)
 

@@ -11,6 +11,7 @@
    (TeX-add-symbols
     "PaperI"
     "hii"
+    "Edd"
     "alphaB"
     "shell"
     "M"
@@ -39,6 +40,9 @@
     "eq:taustar-typical"
     "fn:meyer-velocities-too-low"
     "fig:M-supergiant"
+    "sec:effects-gravity"
+    "eq:effective-luminosity"
+    "eq:eddington-factor"
     "sec:trapp-ioniz-front"
     "fig:B-supergiant"
     "eq:shell-recombination-rate"

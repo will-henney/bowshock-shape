@@ -163,14 +163,16 @@ opacity (gas plus dust) per total mass (gas plus dust) is \(\kappa\) (with
 units of \si{cm^2.g^{-1}}), then the radiative acceleration is
 \begin{equation}
   \label{eq:rad-accel}
-  a_{\text{rad}} = \frac{\kappa L}{4 \pi c R^2} \ , 
+  a_{\text{rad}} = \frac{\kappa L}{4 \pi c R^2} \ .
 \end{equation}
-so that an incoming stream with initial velocity, \(v_\infty\), can be
+Therefore, an incoming stream with initial velocity, \(v_\infty\), can be
 brought to rest by radiation alone\footnote{%
-  For simplicity, we here ignore the effects of pressure gradients and
+  For simplicity, we here ignore the effects of gravity, which are
+  important for low ratios of \(\kappa L / M\), see
+  \S~\ref{sec:effects-gravity}.  We also ignore pressure gradients and
   shocks, which are important as the velocity approaches the sound
-  speed, \(\sound\). In \S~XX below, we show that the resultant
-  corrections to \(R_0\) are of order \(\sound / v_\infty\).} %
+  speed, \(\sound\) (in \S~XX below, we show that the resultant
+  corrections to \(R_0\) are of order \(\sound / v_\infty\)).} %
 at a distance \(R_0\) where
 \begin{equation}
   \label{eq:rad-poten}
@@ -384,6 +386,32 @@ in the near-infrared, where the dust extinction efficiency is lower,
 so we adopt a lower opacity of \SI{60}{cm^2.g^{-1}}.  This has the
 effect of shifting the radiation bow wave regime to higher densities:
 \(n = \text{\numrange{1000}{30 000}}\, v_{10}^2\) in this case.
+
+
+\subsubsection{Effects of stellar gravity}
+\label{sec:effects-gravity}
+
+In principle, gravitational attraction from the star, of mass \(M\),
+will partially counteract the radiative acceleration.  This can be
+accounted for by replacing \(L\) with an effective luminosity
+\newcommand\Edd{\ensuremath{_{\text{E}}}}
+\begin{equation}
+  \label{eq:effective-luminosity}
+  L_{\text{eff}} = L \bigl(1 - \Gamma\Edd^{-1}\bigr) \ ,
+\end{equation}
+in which \(\Gamma\Edd\) is the Eddington factor:
+\begin{equation}
+  \label{eq:eddington-factor}
+  \Gamma\Edd = \frac{\kappa L}{4\pi c G M} = 458.5 \, \frac{\kappa_{600} L_4}{ M } \ ,
+\end{equation}
+where, in the last expression, \(M\) is measured in solar masses.  For
+the stars in Table~\ref{tab:stars}, we find
+\(\Gamma\Edd \approx \text{\numrange{30}{400}}\), so gravity can be safely
+ignored.  The only exception is when the optical depth of the bow is
+very large: \(\tau > \ln\Gamma\Edd \sim 5\), in which case gravity may be
+important in the outer parts of the shell (see
+\citealt{Rodriguez-Ramirez:2016b}).
+
 
 
 \subsubsection{Ionization state of the bow shell}
