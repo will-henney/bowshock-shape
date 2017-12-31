@@ -2034,7 +2034,10 @@ python dust-wave-Rc-R90.py
 [[file:three-quadric-dragoid-R90-vs-Rc.pdf]]
 
 
-** Comparing Coulomb (electrostatic) and collisional (hard sphere) drag terms
+** Dust waves revisited 
++ We need to more fully understand the coulomb collisional cross section and the grain charging
++ And we need to take into account the Lorentz force 
+*** Comparing Coulomb (electrostatic) and collisional (hard sphere) drag terms
 + From Draine & Salpeter (1979) this is (for collision with protons)
   \[
   \frac{F_{es}}{F_{c}} = \phi^{2} \ln\Lambda \frac{G_{2}(s)}{G_{0}(s)}
@@ -2043,6 +2046,10 @@ python dust-wave-Rc-R90.py
   + This is of order unity for H II regions if \(k T \approx 1 eV\) and \(U \approx 1 V\)
 + \(\Lambda\) is the plasma parameter, the number of particles in a Debye sphere: \(\Lambda \approx n r_{D}^{3}\)
   + This is \(\ln\Lambda \sim 20\), except that I am not sure if we need to include the grain charge in the equation for \(\Lambda\). If we do, then it would reduce it a bit.
+    + To more like \(\ln\Lambda \sim 10\) maybe
+  + We can use: \(\Lambda = \dfrac{3}{2 a e |\phi|} \left(\dfrac{k T}{\pi n}\right)^{1/2}\) (from D&S - I am assuming e is in esu)
+  + => \(\ln\Lambda = 19.04 - 0.434 \log_{10} a_{0.1} \phi - 0.217 \log_{10} n\)
+  + So going from n = 1 to n = 1e5 only changes this by 5%
 + \(G_{0}(s) \approx \frac{8 s}{3 \pi^{1/2}} \left(1 + \frac{9\pi}{64} s^{2}\right)^{1/2} = \frac{s}{a} \left(1 + a^{2} s^{2}\right)^{1/2} \) where \(a = 3 \pi^{1/2} / 8\)  = 0.665
 + \(G_{2}(s) \approx \frac{s}{\frac34\pi^{1/2} + s^{3}} = s / (2 a + s^{3})\)
 + So \(\dfrac{G_{2}(s)}{G_{0}(s)} = \dfrac{1}{(2 + s^{3}/a) (1 + a^{2} s^{2})^{1/2}} \)
@@ -2063,11 +2070,88 @@ python dust-wave-Rc-R90.py
   #+TBLFM: $2=(erf($1)/$1**2 - 2exp(-$1**2)/sqrt($pi) $1) / (($1^2 + 1 - 1/4 $1**2) erf($1) + ($1 + 1 / 2 $1) exp(-$1**2) / sqrt($pi)) ;f3::$3=1/(2 + ($1**3)/0.665) sqrt(1 + 0.665**2 $1**2);f3::$4=1/(2 + $1**2 + $1**4);f3::$5=100 ($4 - $2)/$2 ;f2::$6=100 ($3 - $2)/$2 ;f2
 + Yep, that has even better agreement than the D&S approx
   + In the above table, I show
-    + The exact solution with the erfs
+    + The exact solution with the erf and exp
     + the D&S approx with the a
     + My approx
   + Then I show percentage relative errors
     + Turns out that mine (A-E) is better than theirs (D-E) by almost a factor of 2
++ Conclusion:
+  \[
+  \frac{F_{es}}{F_{c}} = \frac{\phi^{2} \ln\Lambda}{2 + s^{2} + s^{4}}
+  \]
+
+
+**** Grain potential \phi 
++ \phi = e U / k T
+  + k T = 0.69 eV @ 8000 K
++ U = Z e / a
++ e = 4.8032e-10 esu
++ 300 Volt = 1 esu (statV)
++ Examples from Akimkin 2015
+  + E.g., Large Si grain @ 1 pc has charge of +100 on a grain of 0.3 micron = 3e-5 cm
+    + U = 1.60106666667e-3 esu = 0.48 V => \phi = 0.7
+    + At 0.1 pc this increases to +1000 => 5 V => \phi = 7.2
+  + Or, Intermediate graphite grain 0.02 micron = 2e-6 cm
+    + Z = +100 @ 0.1 pc => 7.2 V => \phi = 10
+  + Or, very small grains graphite 30 \AA = 3e-7 cm
+    + Z = +20 @ 0.1 pc => 9.6 V => \phi = 14
+  + These are all for a model of RCW 120
+    + T_* = 35 000 K
+    + R_* = 6 R_\odot
+    + n = 86 cm^-3 (although their model has only 40)
+    + R = 1.5 pc
++ Material from Weingartner papers
+  + Weingartner & Draine (2001)
+    + Dust charge in soft-ish radiation fields
+    + Mainly concentrates on interstellar field, but does do an example of H II regions
+    + Everything is in terms of Habing field.  Important parameter is G T^{1/2} / n_e
+    + 
+  + Weingartner et al. (2006)
+    + Updated yields for high energies. Deviate from previous for h\nu > 20 eV or so
+    + This is important for harder spectra
+    + Give examples of PNe and quasars
+    + Quasar results depend on ionization parameter U = 0.1 \to 100 and T = 1e4 \to 1e6 K
+      + Potential reaches 5 V for U = 0.1 and 15 V for U = 1, both at 1e4 K
+      + Calculate U_in for our models, which is value at inner edge of shell:
+        + U_in = S / 4 \pi R^2 c n_{sh}
+        + R = x R_* where R_*^2 = L / 4 \pi c \rho v^2
+        + n_sh = v^2 n / c_s^2 if cooling is strong
+          + But if it is not?
+          + Then, we have partial or no cooling.
+          + In no-cooling case, we have n_sh = n_1 = (2-4) n (assuming M_0 > 2)
+          + Partial cooling case, we could work out how far it would cool in the h \approx 0.2 R_0 thickness, and find the density accordingly.
+        + Strong cooling case: U = S m c_s^2 / x^2 L
+          + m c_s^2 = 2 k T
+          + => U_in = (S / L) 2 k T / x^2
+          + Normalize to 8000 K, 1e49 s^-1 and 1e4 L_\odot
+          + => U_in = 0.578 S_49 T_8000 / x^2 L_4
+          + Table
+            |  M |   L_4 |     S_49 |      \eta |    U_in | U_in(rbs) |
+            |----+------+---------+--------+--------+----------|
+            | 10 | 0.63 | 0.00013 | 0.0066 | 0.0181 |   0.0001 |
+            | 20 | 5.45 |    0.16 | 0.1199 | 0.1415 |   0.0152 |
+            | 40 | 22.2 |    1.41 | 0.4468 | 0.0822 |   0.0254 |
+            | 33 | 30.2 |   0.016 | 0.3079 | 0.0010 |   0.0002 |
+            #+TBLFM: $5=0.578 $3 / $4 $2;f4::$6=0.578 $3 / (1 + $4) $2;f4
+        + No cooling case
+          + n_sh = n_1 = 4 v^2 / (v^2 + 3 c_s^2)
+          + So the c_s^2 in the previous case is replaced with
+            + \frac34 c_s^2 + \frac14 v^2 = \frac14 (3 + M_0^2) c_s^2
+            + U_in = (S / L) \frac12 (3 + M_0^2) k T / x^2
+            + So this is (1/4) (3 + M_0^2) times the strong cooling version, where M_0 \approx v_10
+              |   v | (1/4) (3 + M_0^2) |
+              |-----+-----------------|
+              |  20 |            1.75 |
+              |  40 |            4.75 |
+              |  70 |           13.00 |
+              | 100 |           25.75 |
+              #+TBLFM: $2=(1/4) (3 + ($1/10)**2);f2
+          + 
+
+              
+
+
+
 
 
 ** DONE Diverging stream trajectories
