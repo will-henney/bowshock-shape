@@ -1238,6 +1238,78 @@ python decouple-v40-versus-n.py
 + We could make histograms of (L, \eta) for different masses, then combine them according to an IMF
 + Either weight by time, or weight by stellar energy radiated
 
+* The nature of dust particles
++ Do we really have separate C and silicate grains?
+  + Mostly, it is assumed that we have
+    1. Power-law silicate grains
+    2. Power-law carbon grains
+    3. Small PAHs
+  + Alternative (Jones at el 2013, 2016)
+    + Silicate cores with aromatic carbonaceous mantles
+    + Model originally proposed by Mayo Greenberg
+
+
+** Which grains contribute most to the extinction
++ *Conclusion*
+  + 0.02 micron grains dominate in FUV
+  + 0.2 micron grains dominate in NIR
++ In the FUV, Q ~ 1 for all grain sizes
++ Some grain models have roughly equal contributions from the 3 dust varieties (see above) to the FUV extinction (e.g., Guilet 2017 Fig 8)
+  + Silicates dominate the mass by a factor of about 3:1
++ Power law size distribution (following Weingartner & Draine 2001)
+  + Volume of carbonaceous dust \approx 1/2 that of silicates
+  + Density is also smaller: 2.2 g/cm³ versus 3.5 g/cm³
+  + MRN distribution was \( \dfrac{d\,n}{d\,a} = C\, n_{H}\, a^{-3.5}\) from 50 \AA to 0.5 \mu{}m (5000 \AA)
+    + n = \int_{a-}^{a+} a^-3.5 d a
+    + mass of dust: \int_{a-}^{a+} a^3 a^-3.5 da = (1/2) [a_{+}^{1/2} - a_{-}^{1/2}]
+    + opacity of dust, assuming Q constant:
+      \int_{a-}^{a+} a^2 a^-3.5 da = (1/2) [a_{-}^{-1/2} - a_{+}^{-1/2}]
+    + Opacity of dust, assuming Q ~ a: same as mass
+    + Hence, if a_{-} \ll a_{+} then we have
+      + mass ~ a_{+}^{1/2}
+      + opacity (\lambda < a): \sim a_{-}^{-1/2}
+      + opacity (\lambda > a): ~ a_{+}^{1/2}
+  + Other distributions have smaller q, apparently, so general results are:
+    + mass
+      + q < 4 :: a_{+}^{4-q}
+      + q = 4 :: ln(a_{+}/a_{-})
+      + q > 4 :: a_{-}^{q-4}
+    + opacity (a > \lambda)
+      + q < 3 :: a_{+}^{3-q}
+      + q = 3 :: ln(a_{+}/a_{-})
+      + q > 3 :: a_{-}^{q-3}
+    + opacity (a < \lambda)
+      + same as mass
+  + Hence, simple conclusion:
+    + Extinction at each wavelength is dominated by grains with a \approx \lambda
+      + Unless \lambda > a_{+}, in which case it is a = a_{+}
+      + OR unless q > 4 (*never happens*, except at large sizes), in which case it is a = a_{-}
+      + OR unless q < 3 (/rarely happens/), in which case it is a = a_{+}
+  + Cross-check with Weingartner eq (7)
+    + A(\lambda) ~ \int (dn/da) a^3 Q d(ln a)
+    + d(ln a) = a^-1 da, so we are in agreement
+  + Kim, Martin & Hendry (1994) has a clear presentation
+    + They plot in terms of mass-per-decade: a m(a), which is sort of like a SED
+      + This is basically the same as the a^4 dn/da in other papers
+      + So q < 3 case looks steeper than linear increase on this graph
+      + And the q > 4 is falling rather than rising
+    + Their binned solutions look like the sum of 3 log-normals
+      + Also, Hirashita (2015) show that even just two log-normals can approximate the extinction law
+    + The general slope is similar to MRN for R = 3
+    + But is steeper for R = 5
+      + For silicates, it is roughly linear in mass-per-decade, which is q = 3
+      + For carbon it just has a big peak around 0.1 micron (also there for R=3 case)
+    + And for R = 5, it is carbon that dominates the FUV opacity (equal silicate and carbon for R=3)
+    + They make the point that extinction in range 0.1 \to 5 \mu{}m only constrains the shape of n(a) in the range 0.02 \to 1 \mu{}m
+      + Grains smaller than 0.02 microns, contribute according to their mass, so there can be no constraint on the mass distribution
+      + Grains larger than 1 micron have gray-ish opacity over entire wavelength range
+  + Actually, the a ~ \lambda argument might need tweaking
+    + From Figs 3 and 4 of Guillet (2017), it looks like grains as small as 0.02 micron, still have Q \approx 2 at 1000 \AA
+    + And, more generally it looks like 5 a = \lambda is more like turnover from constant to a/\lambda
+    + A better plot is Fig 8 of Weingartner & Draine (2001).  This is versus a, rather than \lambda, which is what we actually want.  It shows that the turnover occurs around 200 - 300 \AA, which is 0.02 - 0.03 micron.
+      + There is slight variation with stellar T in range 20 to 50,000, but not much
+      + For the interstellar radiation field (dominated by stars I think), the turnover is at 1 micron for silicates, or 0.2 micron for carbon grains
+
 * Bow waves formed by radiation pressure on dust grains
 + This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]
 + So, I am moving it here to give it room to grow
@@ -2126,12 +2198,12 @@ python dust-wave-Rc-R90.py
           + Normalize to 8000 K, 1e49 s^-1 and 1e4 L_\odot
           + => U_in = 0.578 S_49 T_8000 / x^2 L_4
           + Table
-            |  M |   L_4 |     S_49 |      \eta |    U_in | U_in(rbs) |
-            |----+------+---------+--------+--------+----------|
-            | 10 | 0.63 | 0.00013 | 0.0066 | 0.0181 |   0.0001 |
-            | 20 | 5.45 |    0.16 | 0.1199 | 0.1415 |   0.0152 |
-            | 40 | 22.2 |    1.41 | 0.4468 | 0.0822 |   0.0254 |
-            | 33 | 30.2 |   0.016 | 0.3079 | 0.0010 |   0.0002 |
+            | M/M_\odot |   L_4 |     S_49 |      \eta |    U_in | U_in(rbs) |
+            |------+------+---------+--------+--------+----------|
+            |   10 | 0.63 | 0.00013 | 0.0066 | 0.0181 |   0.0001 |
+            |   20 | 5.45 |    0.16 | 0.1199 | 0.1415 |   0.0152 |
+            |   40 | 22.2 |    1.41 | 0.4468 | 0.0822 |   0.0254 |
+            |   33 | 30.2 |   0.016 | 0.3079 | 0.0010 |   0.0002 |
             #+TBLFM: $5=0.578 $3 / $4 $2;f4::$6=0.578 $3 / (1 + $4) $2;f4
         + No cooling case
           + n_sh = n_1 = 4 v^2 / (v^2 + 3 c_s^2)
@@ -2146,7 +2218,12 @@ python dust-wave-Rc-R90.py
               |  70 |           13.00 |
               | 100 |           25.75 |
               #+TBLFM: $2=(1/4) (3 + ($1/10)**2);f2
-          + 
+      + Calculate U_out for the models, which is U just outside the bow shock
+        + We can think of U_in as being U_0 n / n_sh, which is U_0 M_0^-2 for the strong cooling case
+          + => U_0 = 0.578 S_49 T_8000 M_0^2 / x^2 L_4
+        + In the same vein, the outer ionization parameter is U_out = U_0 e^{-(\tau_d + \tau_g)}
+          + Where \tau_g is the gas optical depth: τ_g = -ln(1 - 𝓡/𝓕)
+          + And τ_d is the dust optical depth of the bow shock shell: τ_d = (3/8) τ
 
               
 
