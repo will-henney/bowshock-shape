@@ -1349,7 +1349,68 @@ CLOSED: [2018-01-01 Mon 23:05]
   + E.g., neutral density = 10 => ionized density = 1 pcc
     + Neutral B-field = 4.96 \mu G, Ionized B field: 0.855 micro Gauss
   + Or, to be more like the Rosette: n_0 = 100, n = 10
-    + B_0 = 15.7 micro G => B = 3.3 micto G
+    + B_0 = 15.7 micro G => B = 3.3 micro G
+
+
+** Observations of B fields in H II regions 
++ Lots of work on Rosette
+  + *Conclusions*
+    + Alfvén speed of 2 km/s, B = 3 micro G, n = 10 pcc
+    + Ambient density is 23 pcc, v_A = 3.6 km/s, B = 9 micro G
+  + Costa et al (2016)
+    + Dense sampling of points
+    + Model is completely misguided: compressed field in thin shell, like it were a Weaver model
+    + Thankfully, they find no evidence for their silly model - instead the evidence weakly prefers a model of unchanged B over the environment
+    + But it is very hard to work out what they have actually measured in terms of B, since it is all tangled up with their model
+    + In particular, the mean electron density for each line of sight does not seem to be measured directly, even in their "empirical" model - it comes from using their model
+    + It might be possible to disentangle something more useful from their data, but it would be some effort
+    + Anyway, find evidence for local variations
+  + Planck collaboration (2016)
+    + Model is actually surprisingly good
+      + Takes into account H II region and compressed neutral shell
+    + They do actually give the electron densities, derived directly from EM/L
+      + Assuming filling factor unity
+      + And with L from a spherical shell model with inner, outer radii of 7, 19 pc
+    + Find B(los) = 1 to 5 \micro G
+    + Variations in B are much larger than variations in n_e
+      | Source |     n | B_par |
+      |--------+-------+------|
+      | I6     |     9 |    5 |
+      | I7     |    12 |  2.3 |
+      | I8     |    12 |  1.1 |
+      | I10    |    10 |    5 |
+      | I12    |    13 |  2.1 |
+      | I15    |     8 |    4 |
+      |--------+-------+------|
+      | mean   | 10.67 | 3.25 |
+      | sigma  |  1.80 | 1.50 |
+      | % sig  |  16.9 | 46.2 |
+      #+TBLFM: @8$2..@8$3=vmean(@I..@II);f2::@9$2..@9$3=vpsdev(@I..@II);f2::@10$2..@10$3=100 @-1/@-2;f1
+      + Density is 11 +/- 17%
+      + B is 3 +/- 46%
+      + This means that either there are +/- 50% variations in |B|, or that there are significant variations in direction
+    + They have a model (a quite reasonable one) which has the following field strengths
+      + Unperturbed ISM: 9 micro G
+      + Compressed dust shell: 21.4 micro G
+        + Mass: M = 8.6e4 Msun
+        + Radius: R = 20 pc = 6.17e19 cm
+        + Thickness: h = 4 pc = 1.23e19
+        + \rho = M / 4 \pi R^2 h = 2.9e-22 g/cm^3
+        + => n = 134 pcc
+      + H II region: 3.2 micro G, n = 11 pcc
+    + Density of unperturbed ISM
+      + Total mass: H II + shell = 1.2e4 + 8.6e4
+        + = 9.8e4 Msun
+      + R_out = 22 pc
+      + \rho = 3 M / 4 pi R^3 = 4.96e-23 g/cm^3
+      + n = 22.8 cm^-3
+    + Resultant Alfvén speeds
+      + H II region: v_A = 1.85 km/s
+      + Compressed shell: v_A = 3.5 km/s
+      + Ambient medium: v_A = 3.6 km/s
+    
+
+
  
 * Bow waves formed by radiation pressure on dust grains
 + This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]
