@@ -1249,7 +1249,8 @@ python decouple-v40-versus-n.py
     + Model originally proposed by Mayo Greenberg
 
 
-** Which grains contribute most to the extinction
+** DONE Which grains contribute most to the extinction
+CLOSED: [2018-01-01 Mon 14:55]
 + *Conclusion*
   + 0.02 micron grains dominate in FUV
   + 0.2 micron grains dominate in NIR
@@ -1310,6 +1311,46 @@ python decouple-v40-versus-n.py
       + There is slight variation with stellar T in range 20 to 50,000, but not much
       + For the interstellar radiation field (dominated by stars I think), the turnover is at 1 micron for silicates, or 0.2 micron for carbon grains
 
+
+** Which grains contribute most to MIR and FIR emission
++ [ ] I think it has to be the biggest ones, but need to check
+
+* DONE Magnetic fields in the ISM: magnitude and turbulence 
+CLOSED: [2018-01-01 Mon 23:05]
++ It is important to understand the B fields, because of the Lorentz force on the grains, which may dominate in many cases
++ Uniform and turbulent B fields
+  + Haverkorn et al (2008) find flat structure functions for rotation measure
+    + Interpretation:
+      1. Outer scale for turbulence in B fields is a only few parsecs in the spiral arms, conveniently below their smallest separations! 
+      2. B fluctuations must be approx Kolmogorov below these scales because otherwise there would be inconsistent with microwave polarization of dust
+      3. Outer scale is larger in the inter-arm regions
+      4. Total magnetic field strength is around 6 \mu G at the solar radius; regular component is around 2 \micro G
+      5. These are with densities of about 0.07 pcc, which gives Alfvén speeds of
+         - Total: 43 km/s
+         - Regular: 14 km/s
+         - So these are both quite high, just because of the low density
+  + *However* Xu & Zhang (2016) pour cold water on this and claim that the RM structure functions are dominated by density fluctuations, not B fluctuations
+    + The density structure function is flat because of compressible turbulence
+    + The B field fluctuations do have an outer scale of 100 pc or so, as previously expected
+    + Han (2017) have a E ~ k^{-2/3} law above 3 pc, and E ~ k^{-5/3} law below that
+      + If the fluctuating B component follows B ~ r^{1/3} then going from 100 pc to 1 pc, it would be reduced by a factor of 5 or so
++ Meyer (2017) had
+  + n = 0.59
+  + B = 7 \mu G
+  + => v_A = 17.4 km/s
+  + This is very high if the bow is supposed to be in an H II region
++ Argument for Alfvén speed in H II regions
+  + Alfvén speed in molecular clouds ~ 3 km/s
+  + As region expands spherically, v_A ~ n^{1/6}
+  + Stops expanding spherically when n c_s^2 ~ n_0 v_{A,0}^2
+    + => v_A/v_{A,0} = (v_{A,0}/c_s)^{1/3} =  0.669
+    + => v_A =  2 km/s
+  + So, density has fallen by 0.3^2 = 0.09
+  + E.g., neutral density = 10 => ionized density = 1 pcc
+    + Neutral B-field = 4.96 \mu G, Ionized B field: 0.855 micro Gauss
+  + Or, to be more like the Rosette: n_0 = 100, n = 10
+    + B_0 = 15.7 micro G => B = 3.3 micto G
+ 
 * Bow waves formed by radiation pressure on dust grains
 + This mini-project has outgrown its original home, which was in [[id:5493D03D-24D5-479B-8C7B-0BE2FCA576EF][Multifactor pair plot of the non-shape parameters]] in [[file:~/Work/Bowshocks/Jorge/bowshock-shape/Stellar-Bowshocks-2017/stellar-bowshocks.org][../Stellar-Bowshocks-2017/stellar-bowshocks.org]]
 + So, I am moving it here to give it room to grow
