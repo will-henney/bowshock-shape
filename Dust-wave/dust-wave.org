@@ -2210,6 +2210,175 @@ python dust-wave-Rc-R90.py
 [[file:three-quadric-dragoid-R90-vs-Rc.pdf]]
 
 
+
+** Dust grain trajectories with magnetic field
+#+BEGIN_SRC python :eval no :tangle dust_bfield_ode.py
+  import numpy as np
+  from scipy.integrate import odeint
+
+  def dydt(y, t, angle):
+      """Derivatives for ODE: x'' = 0.5 (x^{-2} - alpha^2 (x' + 1))"""
+      X, U, Y, V = y
+      dXdt = U
+      dYdt = V
+      R2 = X**2 + Y**2
+      theta = np.arctan2(Y, X)
+      dUdt = 0.0
+      dVdt = 0.5*np.sin(theta)/R2
+      return [dXdt, dUdt, dYdt, dVdt]
+
+
+  def streamline(angle=90.0, X0=10.0, Y0=0.0,
+                 tstop=60.0, n=201):
+      # Time grid
+      t = np.linspace(0.0, tstop, n)
+      # parallel stream
+      # Vector of initial conditions
+      y0 = [X0, -1.0, Y0, 0.0]
+      soln = odeint(dydt, y0, t, args=(angle,))
+        
+      return {'t': t, 'b': Y0, 
+              'x': soln[:, 0], 'u': soln[:, 1],
+              'y': soln[:, 2], 'v': soln[:, 3],}
+
+#+END_SRC
+
+#+BEGIN_SRC python :eval no :tangle dust-bfield-2d.py
+  import sys
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from dust_bfield_ode import streamline
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  # Impact parameter
+  b = 1.0
+  stream = streamline(Y0=b, tstop=70, X0=10., n=2001)
+  sns.set_style('white')
+  sns.set_color_codes()
+  fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
+  ax.plot(stream['t'], stream['u'], label='$U$')
+  ax.plot(stream['t'], stream['v'], label='$V$')
+  ax.plot(stream['t'], stream['x'], label='$X$')
+  ax.plot(stream['t'], stream['y'], label='$Y$')
+  ax.axhspan(0.0, 1.0, color='k', alpha=0.1)
+  label = fr"Perp field, "
+  label += f"$b = {b:.3f}$"
+  ax.legend(title=label, ncol=2)
+  ax.set(xlabel='Time', ylim=[-1.5, 2.5], xlim=[8, 12])
+
+  axp.plot(stream['x'], stream['u'], label='$(X, U)$')
+  axp.plot(stream['y'], stream['v'], label='$(Y, V)$')
+  axp.axhline(0, color='k', lw=0.5)
+  axp.legend(title='Phase space')
+  axp.set(xlabel='$X$, $Y$', ylabel='$U$, $V$',
+          xlim=[-7, 9], ylim=[-1.1, 1.1])
+
+  sns.despine(trim=True)
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-2d.py
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-2d.pdf]]
+
+
+#+BEGIN_SRC python :eval no :tangle dust-bfield-stream.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+  from astropy.table import Table
+  from dust_bfield_ode import streamline
+
+  figfile = sys.argv[0].replace('.py', '.jpg')
+
+  sns.set_style('white')
+  sns.set_color_codes()
+  fig, ax = plt.subplots(figsize=(6, 4))
+  nb = 5*200 + 1
+  bgrid = 0.001 + np.linspace(0.0, 5.0, nb)
+  ibspecial = 5*np.array([1, 4, 10, 20, 40, 60, 100, 150])
+  nth = 200
+  thm_grid = np.linspace(0.0, np.pi, nth)
+  dth = np.pi/nth
+
+  rm = 2.0/(1.0 + np.cos(thm_grid))
+  xlocus = rm*np.cos(thm_grid)
+  ylocus = rm*np.sin(thm_grid)
+  xmin, xmax = [-3.99, 3.99]
+  ymin, ymax = [0.0, 4.99]
+  xx, yy, ww = [], [], []
+  xs, ys = [], []
+  for ib, b in enumerate(bgrid):
+      s = streamline(X0=5, Y0=b, tstop=10, n=6001)
+      # ax.plot(s['x'], s['y'], color='k', lw=0.5)
+      # Accumulate (x, y) points in a long list
+      xx.extend(s['x'])
+      yy.extend(s['y'])
+      # Weights proportional to b/r
+      ww.extend(s['b']/s['y'])
+      # ax.plot(s['x'], s['y'], '.',
+      #         mec='none', mfc='r', ms=3, alpha=0.02)
+      if ib in ibspecial:
+          # Save streamlines for selected impact parameters
+          xs.append(s['x'])
+          ys.append(s['y'])
+  # Plot a density histogram of all the (x, y) points we accumulated
+  H, xe, ye = np.histogram2d(xx, yy, bins=(80/1, 50/1), weights=ww,
+                             range=[[xmin, xmax], [ymin, ymax]])
+  rho_m = np.median(H)
+  ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
+            vmin=0.0, vmax=2.0*rho_m, cmap='gray_r')
+  # Plot the streamlines that we saved earlier
+  for x, y in zip(xs, ys):
+      ax.plot(x, y, '-', color='w', lw=0.8, alpha=0.5)
+      ax.plot(x, y, '-', color='k', lw=0.5)
+  ax.plot(xlocus, ylocus, ':', color='w', alpha=0.5, lw=2)
+  ax.axvline(0.0, ls='--', color='w', lw=0.5)
+  ax.set_aspect('equal', adjustable='box-forced')
+
+  # Save the minimum radius as a function of theta
+  rr = np.hypot(xx, yy)
+  theta = np.arctan2(yy, xx)
+  rrm_grid = np.empty_like(thm_grid)
+  for j, th0 in enumerate(thm_grid):
+      # Mask to select points with theta between th0 -> th0 + dth
+      m = np.abs(theta - (th0 + 0.5*dth)) <= 0.5*dth
+      try:
+          rrm_grid[j] = rr[m].min()
+      except:
+          # Sometimes mask may be empty
+          rrm_grid[j] = np.nan
+
+  tabfilename = sys.argv[0].replace('.py', f'.tab')
+  Table({'theta': thm_grid, 'R': rrm_grid}).write(tabfilename, format='ascii.tab')
+
+  ax.set(
+      ylabel='$y/R_{0}$',
+      ylim=[ymin, ymax],
+      xlabel='$x/R_{0}$',
+      xlim=[xmin, xmax])
+
+  sns.despine()
+  fig.tight_layout()
+  fig.savefig(figfile, dpi=600)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream.jpg]]
+
+
 ** Dust waves revisited 
 + We need to more fully understand the coulomb collisional cross section and the grain charging
 + And we need to take into account the Lorentz force 
