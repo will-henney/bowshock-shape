@@ -444,18 +444,33 @@ per unit time per unit area in a fully ionized shell is
   \label{eq:shell-recombination-rate}
   \mathcal{R} = \alphaB n\shell^2 h\shell \ ,
 \end{equation}
-while the flux of hydrogen-ionizing photons
+while the advective flux of hydrogen nuclei through the shock is 
+\begin{equation}
+  \label{eq:shell-advective-flux}
+  \mathcal{A} = n v \ ,
+\end{equation}
+and the flux of hydrogen-ionizing photons
 (\(h \nu > \SI{13.6}{eV}\)) incident on the inner edge of the shell is
 \begin{equation}
   \label{eq:shell-ionizing-flux}
   \mathcal{F} = \frac{S} {4 \pi R_0^2} \ , 
 \end{equation}
 where \(S\) is the ionizing photon luminosity of the star.  Any shell
-with \(\mathcal{R} > \mathcal{F}\) cannot be entirely photoionized by
-the star, and so must have trapped the ionization front.  The column
-density of the shocked shell can be found, for example, from
-equations~(10) and~(12) of \citet{Wilkin:1996a} in the limit
-\(v_\infty/V \to 0\) (Wilkin's parameter \(\alpha\)) and \(\theta \to 0\).  This yields
+with \(\mathcal{R} + \mathcal{A} > \mathcal{F}\) cannot be entirely
+photoionized by the star, and so must have trapped the ionization
+front.
+
+The ratio of advective particle flux to ionizing flux is, from equations~\eqref{eq:Rstar}, \eqref{eq:shell-advective-flux}, \eqref{eq:shell-ionizing-flux},
+\begin{equation}
+  \label{eq:advective-over-ionizing-flux}
+  \frac{\mathcal{A}}{\mathcal{F}} = \num{5.86e-5} \frac{x^2 L_4}{v_{10} S_{49}} \ , 
+\end{equation}
+which is nearly always small.  For clarity of exposition, we therefore
+ignore \(\mathcal{A}\) in the following discussion, although it is
+included in quantitative calculations.  The column density of the
+shocked shell can be found, for example, from equations~(10) and~(12)
+of \citet{Wilkin:1996a} in the limit \(v_\infty/V \to 0\) (Wilkin's parameter
+\(\alpha\)) and \(\theta \to 0\).  This yields
 \begin{equation}
   \label{eq:shocked-shell-column}
   n\shell h\shell = \tfrac34 n R_0 \ .
@@ -524,6 +539,18 @@ region \citep{Mac-Low:1991a, Arthur:2006a}.  This is only necessarily
 true, however, when the star is isolated.  If the star is in a cluster
 environment, then the contribution of other nearby massive stars to
 the ionizing radiation field must be considered.
+
+Quite different results are obtained for a B-type supergiant star (see
+Tab.~\ref{tab:stars} and Fig.~\ref{fig:B-supergiant}), which has a
+similar bolometric luminosity and wind strength to the \SI{40}{M_\odot}
+main-sequence star, but a hundred times lower ionizing luminosity.
+This results in a far lower threshold for trapping the ionization
+front of \(n > 40 v_{10}^2\).  The advective flux, \(\mathcal{A}\), is
+relatively stronger for this star tan for the main-sequence stars, but
+even for \(v_{10} < 2\), where the effect is strongest, the change is
+only of order the width of the red line in
+Figure~\ref{fig:B-supergiant}.
+
 
 In principle, when the ionization front trapping occurs in the bow
 wave regime, then the curves for \(R_0\) will be modified in the

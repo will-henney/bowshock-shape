@@ -91,6 +91,8 @@ for M, L4, eta, S49, ax in stardata:
     alphaB = 2.6e-13*(T0/1e4)**(-0.7)
     absfrac0 = 3*np.pi*(3.085677582e18)**3 * alphaB / 1e49
     absfrac = absfrac0 * (vv/10)**2 * nn**2 * R0**3 / S49
+    # Advection contribution
+    advecfrac = 4*np.pi*(3.085677582e18*R0)**2 *nn*vv*1e5 / (1e49*S49) 
     # Equivalent optical depth
     tau_gas = -np.log(1.0 - absfrac)
     #absfrac = 2.76e-4 * (vv/10)**-1 * nn**0.5 * (L4)**1.5 / S49
@@ -130,7 +132,7 @@ for M, L4, eta, S49, ax in stardata:
     tau_gas_IF = np.nanmean(tau_gas[m])
     tau_dust_IF = np.nanmean(tau_dust[m])
     cs = ax.contourf(vv, nn, tau_dust, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.3)
-    ax.contour(vv, nn, absfrac, 1.0, linewidths=0.7, colors='r')
+    ax.contour(vv, nn, absfrac+advecfrac, 1.0, linewidths=0.7, colors='r')
 
     # ax.contour(vv, nn, tau, tau_dust_IF,
     #            colors='k', linestyles='--', linewidths=0.8)
