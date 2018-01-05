@@ -5,7 +5,15 @@ import seaborn as sns
 from astropy.table import Table
 from dust_bfield_ode import streamline
 
-figfile = sys.argv[0].replace('.py', '.jpg')
+try:
+    thB_degrees = float(sys.argv[1])
+    Z0 = float(sys.argv[2])
+except:
+    sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE Z0")
+
+
+suffix = f"b{int(thB_degrees):02d}-z{int(100*Z0):04d}"
+figfile = sys.argv[0].replace('.py', f'-{suffix}.jpg')
 
 sns.set_style('white')
 sns.set_color_codes()
@@ -23,8 +31,6 @@ xmin, xmax = [-4.99, 4.99]
 ymin, ymax = [-4.99, 4.99]
 xx, yy, ww = [], [], []
 xs, ys = [], []
-Z0 = 0.0
-thB_degrees = 10.0
 for iy0, y0 in enumerate(y0grid):
     s = streamline(X0=20, Y0=y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=60, n=3001)
     # ax.plot(s['x'], s['y'], color='k', lw=0.5)
@@ -41,6 +47,12 @@ for iy0, y0 in enumerate(y0grid):
 # Plot a density histogram of all the (x, y) points we accumulated
 H, xe, ye = np.histogram2d(xx, yy, bins=(100, 100), weights=ww,
                            range=[[xmin, xmax], [ymin, ymax]])
+# Do another one with uniform weights for just the density
+Hd, _, _ = np.histogram2d(xx, yy, bins=(100, 100), 
+                           range=[[xmin, xmax], [ymin, ymax]])
+np.savez(figfile.replace('.jpg', ''),
+         rho=Hd, x=0.5*(xe[1:]+xe[:-1]), y=0.5*(ye[1:]+ye[:-1]))
+
 rho_m = np.median(H)
 ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
           vmin=0.0, vmax=20.0*rho_m, cmap='gray_r')

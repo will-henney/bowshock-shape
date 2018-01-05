@@ -2307,7 +2307,15 @@ python dust-bfield-2d.py
   from astropy.table import Table
   from dust_bfield_ode import streamline
 
-  figfile = sys.argv[0].replace('.py', '.jpg')
+  try:
+      thB_degrees = float(sys.argv[1])
+      Z0 = float(sys.argv[2])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE Z0")
+
+
+  suffix = f"b{int(thB_degrees):02d}-z{int(100*Z0):04d}"
+  figfile = sys.argv[0].replace('.py', f'-{suffix}.jpg')
 
   sns.set_style('white')
   sns.set_color_codes()
@@ -2325,8 +2333,6 @@ python dust-bfield-2d.py
   ymin, ymax = [-4.99, 4.99]
   xx, yy, ww = [], [], []
   xs, ys = [], []
-  Z0 = 0.0
-  thB_degrees = 10.0
   for iy0, y0 in enumerate(y0grid):
       s = streamline(X0=20, Y0=y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=60, n=3001)
       # ax.plot(s['x'], s['y'], color='k', lw=0.5)
@@ -2343,6 +2349,12 @@ python dust-bfield-2d.py
   # Plot a density histogram of all the (x, y) points we accumulated
   H, xe, ye = np.histogram2d(xx, yy, bins=(100, 100), weights=ww,
                              range=[[xmin, xmax], [ymin, ymax]])
+  # Do another one with uniform weights for just the density
+  Hd, _, _ = np.histogram2d(xx, yy, bins=(100, 100), 
+                             range=[[xmin, xmax], [ymin, ymax]])
+  np.savez(figfile.replace('.jpg', ''),
+           rho=Hd, x=0.5*(xe[1:]+xe[:-1]), y=0.5*(ye[1:]+ye[:-1]))
+
   rho_m = np.median(H)
   ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
             vmin=0.0, vmax=20.0*rho_m, cmap='gray_r')
@@ -2396,12 +2408,130 @@ python dust-bfield-2d.py
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
-python dust-bfield-stream.py
+python dust-bfield-stream.py 10.0 0.0 
 #+END_SRC
 
 #+RESULTS:
-[[file:dust-bfield-stream.jpg]]
+[[file:dust-bfield-stream-b10-z0000.jpg]]
 
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.1 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0010.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.2 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0020.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.3 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0030.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.4 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0040.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.5 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0050.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.6 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0060.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.7 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0070.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.8 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0080.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 0.9 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0090.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.0 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0100.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.1 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0110.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.2 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0120.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.3 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0130.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.4
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0140.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.5
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0150.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.6
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0160.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 10.0 1.7
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b10-z0170.jpg]]
 
 ** Dust waves revisited 
 + We need to more fully understand the coulomb collisional cross section and the grain charging
