@@ -2408,6 +2408,44 @@ python dust-bfield-2d.py
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 30.0 0.0 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b30-z0000.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 45.0 0.0 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b45-z0000.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 60.0 0.0 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b60-z0000.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-bfield-stream.py 75.0 0.0 
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-stream-b75-z0000.jpg]]
+
+
+#+BEGIN_SRC sh :eval no :
+angle=$1
+for z in $(seq 0.0 0.1 4.5); do
+    python dust-bfield-stream.py $angle $z 
+done
+#+END_SRC
+
+
+*** \theta_B = 10 degrees
+#+BEGIN_SRC sh :results file
 python dust-bfield-stream.py 10.0 0.0 
 #+END_SRC
 
@@ -2532,6 +2570,140 @@ python dust-bfield-stream.py 10.0 1.7
 
 #+RESULTS:
 [[file:dust-bfield-stream-b10-z0170.jpg]]
+
+*** DONE Animation of field-frozen trajectories
+CLOSED: [2018-01-05 Fri 14:16]
++ [X] This will be the same as ~dust-bfield-stream.py~ but showing an animation of the guiding-center trajectories
+  + This is mainly to convince myself that the trajectories are correct
+  + If all is well, then a point should remain on the same field line as it moves across
+  + The animation machinery is based on [[id:CAB16D0A-7B6A-4E49-AAB6-41A0955E55E2][Animate the waves @ inc = 0]]
+
+#+BEGIN_SRC python :eval no :tangle animate-dust-bfield-stream.py
+  import sys
+  import numpy as np
+  from matplotlib import pyplot as plt
+  from matplotlib import animation
+  import seaborn as sns
+  from astropy.table import Table
+  from dust_bfield_ode import streamline
+
+  try:
+      thB_degrees = float(sys.argv[1])
+      Z0 = float(sys.argv[2])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE Z0")
+
+
+  suffix = f"b{int(thB_degrees):02d}-z{int(100*Z0):04d}"
+  fileroot = sys.argv[0].replace('.py', f'-{suffix}')
+
+  sns.set_style('white')
+  sns.set_color_codes()
+  fig, ax = plt.subplots(figsize=(5, 5))
+  ny0 = 5*400 + 1
+  y0grid = 0.001 + np.linspace(-5.0, 5.0, ny0)
+  nth = 200
+  thm_grid = np.linspace(0.0, np.pi, nth)
+  dth = np.pi/nth
+
+  rm = 2.0/(1.0 + np.cos(thm_grid))
+  xlocus = rm*np.cos(thm_grid)
+  ylocus = rm*np.sin(thm_grid)
+  xmin, xmax = [-4.99, 4.99]
+  ymin, ymax = [-4.99, 4.99]
+  xx, yy, ww = [], [], []
+  xs, ys = [], []
+  tstop = 60
+  nt = 3001
+  X0 = 20
+  for iy0, y0 in enumerate(y0grid):
+      s = streamline(X0=X0, Y0=y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=tstop, n=nt)
+      # ax.plot(s['x'], s['y'], color='k', lw=0.5)
+      # Accumulate (x, y) points in a long list
+      xx.extend(s['x'])
+      yy.extend(s['y'])
+      ww.extend(1.0 / (Z0**2 + s['x']**2 + s['y']**2)**0.5)
+      # ax.plot(s['x'], s['y'], '.',
+      #         mec='none', mfc='r', ms=3, alpha=0.02)
+      if iy0 % 30 == 15:
+          # Save streamlines for selected impact parameters
+          xs.append(s['x'])
+          ys.append(s['y'])
+
+  # Artist to use for animation of streamlines
+  point_artists = [ax.plot([], [], '.', color='r')[0] for _ in xs]
+  nB = 30
+  line_artists = [ax.plot([], [], lw=2, alpha=0.5, color='c')[0] for _ in range(nB)]
+  xxBs = np.linspace(2*xmin, 2*xmax, nB)
+
+  def animate_points_and_lines(itime):
+      """Update time along all plotted streamline points and lines"""
+      # Update the lines
+      for xx, artist in zip(xxBs, line_artists):
+          yy1, yy2 = 3*ymin, 3*ymax
+          x1 = -xx*sthB + yy1*cthB  + X0 - tstop*itime/nt
+          x2 = -xx*sthB + yy2*cthB  + X0 - tstop*itime/nt
+          y1 = xx*cthB + yy1*sthB
+          y2 = xx*cthB + yy2*sthB
+          artist.set_data([x1, x2], [y1, y2])
+      # Update the points
+      for x, y, artist in zip(xs, ys, point_artists):
+          artist.set_data(x[itime-10:itime+20:10], y[itime-10:itime+20:10])
+      return point_artists + line_artists
+
+  # Plot a density histogram of all the (x, y) points we accumulated
+  H, xe, ye = np.histogram2d(xx, yy, bins=(100, 100), weights=ww,
+                             range=[[xmin, xmax], [ymin, ymax]])
+  rho_m = np.median(H)
+  ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
+            vmin=0.0, vmax=20.0*rho_m, cmap='gray_r')
+  # Plot the streamlines that we saved earlier
+  for x, y in zip(xs, ys):
+      ax.plot(x, y, '-', color='w', lw=0.8, alpha=0.5)
+      ax.plot(x, y, '-', color='k', lw=0.5)
+  ax.plot(xlocus, ylocus, ':', color='y', alpha=0.7, lw=2)
+  ax.plot(xlocus, -ylocus, ':', color='y', alpha=0.7, lw=2)
+  cthB = np.cos(np.radians(thB_degrees))
+  sthB = np.sin(np.radians(thB_degrees))
+  ax.axvline(0.0, ls='--', color='0.5', lw=0.5)
+  ax.axhline(0.0, ls='--', color='0.5', lw=0.5)
+  ax.plot([0.0], [0.0], '+', color='k')
+  ax.plot([0.0], [0.0], '.', color='k')
+  ax.set_aspect('equal', adjustable='box-forced')
+
+  ax.set(
+      ylabel='$y/R_{0}$',
+      ylim=[ymin, ymax],
+      xlabel='$x/R_{0}$',
+      xlim=[xmin, xmax])
+
+  sns.despine()
+  fig.tight_layout()
+
+  anim = animation.FuncAnimation(fig, animate_points_and_lines,
+                                 frames=range(700, 1501, 2),
+                                 blit=True)
+  moviefile = fileroot + '.mp4'
+  anim.save(moviefile, writer='ffmpeg', fps=60, dpi=200)
+  print(moviefile, end='')
+
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python animate-dust-bfield-stream.py 5.0 0.0 
+#+END_SRC
+
+#+RESULTS:
+[[file:animate-dust-bfield-stream-b30-z0000.mp4]]
+
+Run this in a shell
+#+BEGIN_SRC sh :eval no :tangle multi-animate-bfield.sh
+  for th in 0 5 15 30 45 60 75 90; do
+      time python animate-dust-bfield-stream.py $th 0.0
+      echo
+  done
+#+END_SRC
+
 
 ** Dust waves revisited 
 + We need to more fully understand the coulomb collisional cross section and the grain charging
@@ -6067,6 +6239,9 @@ python compare_xyprime_wave.py cantoid-beta010000
 
 
 *** Animate the waves @ inc = 0
+:PROPERTIES:
+:ID:       CAB16D0A-7B6A-4E49-AAB6-41A0955E55E2
+:END:
 #+BEGIN_SRC python :eval no :tangle animate_xyprime_wave.py
   import sys
   import scanf
@@ -6129,7 +6304,7 @@ python compare_xyprime_wave.py cantoid-beta010000
       line_artists[(amplitude, wavenumber)], = ax.plot([], [],
                                                        lw=2, alpha=0.7,
                                                        color='r', label='perturbed')
-      # plot the bsse shape
+      # plot the base shape
       th = np.linspace(0.0, th_inf, 301)
       xp, yp = bp.xyprime_t(th, inclination, base_shape)
       m = np.isfinite(xp) & np.isfinite(yp)
