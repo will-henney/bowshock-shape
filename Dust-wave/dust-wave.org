@@ -2436,10 +2436,12 @@ python dust-bfield-stream.py 75.0 0.0
 [[file:dust-bfield-stream-b75-z0000.jpg]]
 
 
-#+BEGIN_SRC sh :eval no :
+
+#+BEGIN_SRC sh :eval no :tangle zmulti-bfield-stream.sh
 angle=$1
 for z in $(seq 0.0 0.1 4.5); do
     python dust-bfield-stream.py $angle $z 
+    echo
 done
 #+END_SRC
 
@@ -2570,7 +2572,6 @@ python dust-bfield-stream.py 10.0 1.7
 
 #+RESULTS:
 [[file:dust-bfield-stream-b10-z0170.jpg]]
-
 *** DONE Animation of field-frozen trajectories
 CLOSED: [2018-01-05 Fri 14:16]
 + [X] This will be the same as ~dust-bfield-stream.py~ but showing an animation of the guiding-center trajectories
@@ -2704,6 +2705,74 @@ Run this in a shell
   done
 #+END_SRC
 
+*** TODO [0/3] Apparent shapes of magnetized dust waves
+**** TODO Stitching the z-planes together
++ [ ] Read the ~.npz~ files and write out a ~.fits~ file
+#+BEGIN_SRC python :eval no :tangle stitch-bfield-cube.py
+  import sys
+  import glob
+  import numpy as np
+  from astropy.io import fits
+  from astropy.wcs import WCS
+
+  try:
+      ANGLE = sys.argv[1]
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} ANGLE")
+
+  zfiles = glob.glob(f"dust-bfield-stream-b{ANGLE}-z*.npz")
+
+  x, y = None, None
+  z, zplanes = [], []
+  for zfile in sorted(zfiles):
+      with np.load(zfile) as data:
+          zplanes.append(data['rho'])
+          if x is None:
+              x = data['x']
+              y = data['y']
+          z.append(int(zfile.split('.')[0][-4:])/100)
+  z = np.array(z)
+  # Add on the negative z planes by reflection symmetry about z=0
+  z = np.concatenate([-z[:0:-1], z])
+  zplanes = zplanes[:0:-1] + zplanes
+  cube = np.stack(zplanes)
+
+  xx = x[None, None, :]
+  yy = y[None, :, None]
+  zz = z[:, None, None]
+  rsq = xx**2 + yy**2 + zz**2
+
+
+  # Write out cube of density
+  fits.PrimaryHDU(
+      data=cube
+  ).writeto(f"dust-bfield-b{ANGLE}-cube.fits", overwrite=True)
+  # And cube of density * flux (Assuming ~ 1/R^2)
+  fits.PrimaryHDU(
+      data=cube/rsq
+  ).writeto(f"dust-bfield-b{ANGLE}-cube-F.fits", overwrite=True)
+  # And cube of density * T (Assuming T^4 ~ Flux)
+  fits.PrimaryHDU(
+      data=cube/rsq**0.25
+  ).writeto(f"dust-bfield-b{ANGLE}-cube-T.fits", overwrite=True)
+  # And cube of density * T^2 (Assuming T^4 ~ Flux)
+  fits.PrimaryHDU(
+      data=cube/rsq**0.5
+  ).writeto(f"dust-bfield-b{ANGLE}-cube-T2.fits", overwrite=True)
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent
+python stitch-bfield-cube.py 30
+#+END_SRC
+
+#+BEGIN_SRC sh
+open dust-bfield-b30-cube.fits
+#+END_SRC
+
+#+RESULTS:
+
+**** TODO Projection as function of two angles 
+**** TODO Distribution in planitude-alatude plane
 
 ** Dust waves revisited 
 + We need to more fully understand the coulomb collisional cross section and the grain charging
