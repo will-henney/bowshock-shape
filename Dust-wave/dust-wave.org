@@ -2705,9 +2705,19 @@ Run this in a shell
   done
 #+END_SRC
 
-*** TODO [0/3] Apparent shapes of magnetized dust waves
-**** TODO Stitching the z-planes together
-+ [ ] Read the ~.npz~ files and write out a ~.fits~ file
+*** TODO [1/3] Apparent shapes of magnetized dust waves
+**** DONE Stitching the z-planes together
+CLOSED: [2018-01-06 Sat 09:17]
++ [X] Read the ~.npz~ files and write out a ~.fits~ file
++ [X] We have four different images
+  1. ~.fits~: density
+  2. ~-F.fits~: density * Flux
+     - Appropriate for scattered flux, or bolometric dust emission
+  3. ~-T.fits~: density * Flux**0.25
+     - E.g., Long-wavelength dust emission
+  4. ~-T2.fits~: density * Flux**0.5
+     - Not sure what physical reason for this would be, but it looks best
+     - Good compromise between not being dominated by the stuff close to the star or by the far wings
 #+BEGIN_SRC python :eval no :tangle stitch-bfield-cube.py
   import sys
   import glob
@@ -2742,22 +2752,26 @@ Run this in a shell
   zz = z[:, None, None]
   rsq = xx**2 + yy**2 + zz**2
 
+  w = WCS(naxis=3)
+  w.wcs.crpix = [1, 1, 1]
+  w.wcs.crval = [x[0], y[0], z[0]]
+  w.wcs.cdelt = [x[1] - x[0], y[1] - y[0], z[1] - z[0]]
 
   # Write out cube of density
   fits.PrimaryHDU(
-      data=cube
+      data=cube, header=w.to_header(),
   ).writeto(f"dust-bfield-b{ANGLE}-cube.fits", overwrite=True)
   # And cube of density * flux (Assuming ~ 1/R^2)
   fits.PrimaryHDU(
-      data=cube/rsq
+      data=cube/rsq, header=w.to_header(),
   ).writeto(f"dust-bfield-b{ANGLE}-cube-F.fits", overwrite=True)
   # And cube of density * T (Assuming T^4 ~ Flux)
   fits.PrimaryHDU(
-      data=cube/rsq**0.25
+      data=cube/rsq**0.25, header=w.to_header(),
   ).writeto(f"dust-bfield-b{ANGLE}-cube-T.fits", overwrite=True)
   # And cube of density * T^2 (Assuming T^4 ~ Flux)
   fits.PrimaryHDU(
-      data=cube/rsq**0.5
+      data=cube/rsq**0.5, header=w.to_header(),
   ).writeto(f"dust-bfield-b{ANGLE}-cube-T2.fits", overwrite=True)
 #+END_SRC
 
