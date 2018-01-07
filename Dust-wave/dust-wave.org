@@ -2736,7 +2736,8 @@ CLOSED: [2018-01-06 Sat 09:17]
   z, zplanes = [], []
   for zfile in sorted(zfiles):
       with np.load(zfile) as data:
-          zplanes.append(data['rho'])
+          # Need to take transpose so that x axis is second
+          zplanes.append(data['rho'].T)
           if x is None:
               x = data['x']
               y = data['y']
@@ -2776,7 +2777,9 @@ CLOSED: [2018-01-06 Sat 09:17]
 #+END_SRC
 
 #+BEGIN_SRC sh :results silent
-python stitch-bfield-cube.py 30
+for theta in 05 15 30 45 50 75; do
+    python stitch-bfield-cube.py $theta
+done
 #+END_SRC
 
 #+BEGIN_SRC sh
@@ -2784,6 +2787,7 @@ open dust-bfield-b30-cube.fits
 #+END_SRC
 
 #+RESULTS:
+
 
 **** TODO Projection as function of two angles 
 + This can be done with the ~scipy.interpolate.interpn~ function
@@ -2824,7 +2828,7 @@ open dust-bfield-b30-cube.fits
   jprime = np.array([-np.sin(inc)*np.sin(azi),
                      np.cos(azi),
                      np.cos(inc)*np.sin(azi)])[::-1]
-  kprime = np.array([np.sin(inc)*np.cos(azi),
+  kprime = np.array([-np.sin(inc)*np.cos(azi),
                      -np.sin(azi),
                      np.cos(inc)*np.cos(azi)])[::-1]
 
@@ -2858,7 +2862,7 @@ open dust-bfield-b30-cube.fits
   image = data_samples.sum(axis=0)
 
   outfile = f"{PREFIX}-{int(INC):03d}-{int(AZI):03d}.fits"
-  fits.PrimaryHDU(data=image).writeto(outfile)
+  fits.PrimaryHDU(data=image).writeto(outfile, overwrite=True)
 
   print(outfile, end="")
 
@@ -2872,12 +2876,18 @@ python project-cube-inc-azi.py dust-bfield-b30-cube-T2 0 0
 [[file:dust-bfield-b30-cube-T2-000-000.fits]]
 
 #+BEGIN_SRC sh :results file
-python project-cube-inc-azi.py dust-bfield-b30-cube-T2 0 90
+python project-cube-inc-azi.py dust-bfield-b30-cube-T2 0 60
 #+END_SRC
 
 #+RESULTS:
-[[file:dust-bfield-b30-cube-T2-000-090.fits]]
+[[file:dust-bfield-b30-cube-T2-000-060.fits]]
 
+#+BEGIN_SRC sh :results file
+python project-cube-inc-azi.py dust-bfield-b30-cube-F 60 30
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-bfield-b30-cube-F-060-030.fits]]
 
 **** TODO Distribution in planitude-alatude plane
 
@@ -3066,6 +3076,9 @@ CLOSED: [2017-11-17 Fri 09:15]
   fig.savefig(figfile)
   print(figfile, end='')
 #+END_SRC
+
+#+RESULTS:
+: None
 
 
 #+BEGIN_SRC shell :results file

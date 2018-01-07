@@ -15,7 +15,8 @@ x, y = None, None
 z, zplanes = [], []
 for zfile in sorted(zfiles):
     with np.load(zfile) as data:
-        zplanes.append(data['rho'])
+        # Need to take transpose so that x axis is second
+        zplanes.append(data['rho'].T)
         if x is None:
             x = data['x']
             y = data['y']

@@ -34,7 +34,7 @@ iprime = np.array([np.cos(inc),
 jprime = np.array([-np.sin(inc)*np.sin(azi),
                    np.cos(azi),
                    np.cos(inc)*np.sin(azi)])[::-1]
-kprime = np.array([np.sin(inc)*np.cos(azi),
+kprime = np.array([-np.sin(inc)*np.cos(azi),
                    -np.sin(azi),
                    np.cos(inc)*np.cos(azi)])[::-1]
 
@@ -68,6 +68,6 @@ data_samples = interpn(
 image = data_samples.sum(axis=0)
 
 outfile = f"{PREFIX}-{int(INC):03d}-{int(AZI):03d}.fits"
-fits.PrimaryHDU(data=image).writeto(outfile)
+fits.PrimaryHDU(data=image).writeto(outfile, overwrite=True)
 
 print(outfile, end="")
