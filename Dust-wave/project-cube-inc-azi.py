@@ -66,8 +66,15 @@ data_samples = interpn(
     bounds_error=False, fill_value=0.0)
 
 image = data_samples.sum(axis=0)
+wim = WCS(naxis=2)
+wim.wcs.crpix = [1, 1]
+wim.wcs.crval = [xprime[0, 0, 0], yprime[0, 0, 0]]
+wim.wcs.cdelt = [xprime[0, 0, 1] - xprime[0, 0, 0],
+                 yprime[0, 1, 0] - yprime[0, 0, 0]]
 
 outfile = f"{PREFIX}-{int(INC):03d}-{int(AZI):03d}.fits"
-fits.PrimaryHDU(data=image).writeto(outfile, overwrite=True)
+fits.PrimaryHDU(
+    data=image, header=wim.to_header()
+).writeto(outfile, overwrite=True)
 
 print(outfile, end="")
