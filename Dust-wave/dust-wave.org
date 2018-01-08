@@ -2842,13 +2842,13 @@ python stitch-bfield-cube.py 60
 
   # Unit vectors for observer frame (primed) - again, all reversed to [z, y, x]
   iprime = np.array([np.cos(inc),
-                     0.0,
-                     np.sin(inc)])[::-1]
-  jprime = np.array([-np.sin(inc)*np.sin(azi),
+                     -np.sin(inc)*np.sin(azi),
+                     -np.sin(inc)*np.cos(azi)])[::-1]
+  jprime = np.array([0,
                      np.cos(azi),
-                     np.cos(inc)*np.sin(azi)])[::-1]
-  kprime = np.array([-np.sin(inc)*np.cos(azi),
-                     -np.sin(azi),
+                     -np.sin(azi)])[::-1]
+  kprime = np.array([np.sin(inc),
+                     np.cos(inc)*np.sin(azi),
                      np.cos(inc)*np.cos(azi)])[::-1]
 
 
@@ -2897,36 +2897,18 @@ python stitch-bfield-cube.py 60
 ***** Runs for grid of angles
 + Run things in parallel
   + Output gets a bit messed up, but it seems to work
-#+BEGIN_SRC sh :results verbatim
-  thetas="60"
-  #thetas="05 15 30 45 60 75"
+#+BEGIN_SRC sh :eval no :tangle multi-project-cube.sh
+  theta=$1
   inclinations="07 22 39 61"
   azimuths="15 45 75"
-  for theta in $thetas; do
-      for inc in $inclinations; do
-          for azi in $azimuths; do
-              python project-cube-inc-azi.py dust-bfield-b${theta}-cube-F $inc $azi
-              echo
-          done
+  for inc in $inclinations; do
+      for azi in $azimuths; do
+          python project-cube-inc-azi.py dust-bfield-b${theta}-cube-F $inc $azi
+          echo
       done
   done
 #+END_SRC
 
-#+RESULTS:
-#+begin_example
-dust-bfield-b60-cube-F-007-015.fits
-dust-bfield-b60-cube-F-007-045.fits
-dust-bfield-b60-cube-F-007-075.fits
-dust-bfield-b60-cube-F-022-015.fits
-dust-bfield-b60-cube-F-022-045.fits
-dust-bfield-b60-cube-F-022-075.fits
-dust-bfield-b60-cube-F-039-015.fits
-dust-bfield-b60-cube-F-039-045.fits
-dust-bfield-b60-cube-F-039-075.fits
-dust-bfield-b60-cube-F-061-015.fits
-dust-bfield-b60-cube-F-061-045.fits
-dust-bfield-b60-cube-F-061-075.fits
-#+end_example
 
 ***** Look at a whole bunch at once
 #+BEGIN_SRC sh :results silent
@@ -2950,13 +2932,18 @@ python project-cube-inc-azi.py dust-bfield-b30-cube-T2 0 60
 [[file:dust-bfield-b30-cube-T2-000-060.fits]]
 
 #+BEGIN_SRC sh :results file
-python project-cube-inc-azi.py dust-bfield-b30-cube-F 60 30
+python project-cube-inc-azi.py dust-bfield-b30-cube-F 61 75
 #+END_SRC
 
 #+RESULTS:
-[[file:dust-bfield-b30-cube-F-060-030.fits]]
+[[file:dust-bfield-b30-cube-F-061-075.fits]]
 
-***** Figures of the view angle grids
+***** [2/4] Figures of the view angle grids
++ [X] Basic images
++ [X] Labels with angles
++ [ ] Indicate projected flow direction
+  + Things seem to get rotated at high azimuth 
++ [ ] Indicate projected B direction
 #+BEGIN_SRC python :eval no :tangle multi-view-dust-bfield.py
   import sys
   import numpy as np

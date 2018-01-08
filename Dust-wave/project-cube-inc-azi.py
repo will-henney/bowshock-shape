@@ -29,13 +29,13 @@ kvec = np.array([0.0, 0.0, 1.0])[::-1]
 
 # Unit vectors for observer frame (primed) - again, all reversed to [z, y, x]
 iprime = np.array([np.cos(inc),
-                   0.0,
-                   np.sin(inc)])[::-1]
-jprime = np.array([-np.sin(inc)*np.sin(azi),
+                   -np.sin(inc)*np.sin(azi),
+                   -np.sin(inc)*np.cos(azi)])[::-1]
+jprime = np.array([0,
                    np.cos(azi),
-                   np.cos(inc)*np.sin(azi)])[::-1]
-kprime = np.array([-np.sin(inc)*np.cos(azi),
-                   -np.sin(azi),
+                   -np.sin(azi)])[::-1]
+kprime = np.array([np.sin(inc),
+                   np.cos(inc)*np.sin(azi),
                    np.cos(inc)*np.cos(azi)])[::-1]
 
 
