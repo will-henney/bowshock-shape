@@ -2794,7 +2794,7 @@ python stitch-bfield-cube.py 60
 **** TODO Projection as function of two angles 
 + [X] This can be done with the ~scipy.interpolate.interpn~ function
 + [X] Write out a WCS to the fits images
-+ [ ] Do for various angles
++ [X] Do for various angles
   + Azimuth: 15, 45, 75 should cover everything modulo reflection symmetry
   + Inclination: four equally spaced in sin i
     |     | sin(i) | i, deg |
@@ -2930,7 +2930,7 @@ dust-bfield-b60-cube-F-061-075.fits
 
 ***** Look at a whole bunch at once
 #+BEGIN_SRC sh :results silent
-open dust-bfield-b60-cube-F-0{07,22,39,61}-0{15,45,75}.fits
+open dust-bfield-b30-cube-F-0{07,22,39,61}-0{15,45,75}.fits
 #+END_SRC
 
 
@@ -2955,6 +2955,87 @@ python project-cube-inc-azi.py dust-bfield-b30-cube-F 60 30
 
 #+RESULTS:
 [[file:dust-bfield-b30-cube-F-060-030.fits]]
+
+***** Figures of the view angle grids
+#+BEGIN_SRC python :eval no :tangle multi-view-dust-bfield.py
+  import sys
+  import numpy as np
+  from astropy.io import fits
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+
+  try:
+      ANGLE = int(sys.argv[1])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} ANGLE")
+
+
+  figfile = sys.argv[0].replace('.py', f'-{ANGLE:02d}.pdf')
+  fig, axes = plt.subplots(3, 4, sharex=True, sharey=True, figsize=(8, 6.1))
+
+  xmin, xmax, ymin, ymax = -5.0, 5.0, -5.0, 5.0
+  for j, inc in enumerate([7, 22, 39, 61]):
+      for i, azi in enumerate([15, 45, 75]):
+          fitsfile = f"dust-bfield-b{ANGLE:02d}-cube-F-{inc:03d}-{azi:03d}.fits"
+          hdu, = fits.open(fitsfile)
+
+          ax = axes[i, j]
+          ax.imshow(np.sqrt(hdu.data),
+                    origin='lower', extent=[xmin, xmax, ymin, ymax])
+          thBtext = fr"$\theta_B = {ANGLE}^\circ$"
+          inctext = fr"$i = {inc}^\circ$"
+          azitext = fr"$\phi = {azi}^\circ$"
+          ax.text(-4.2, -4.2, inctext, color="w")
+          ax.text(4.2, -4.2, azitext, color="w", ha='right')
+          ax.text(4.2, 4.2, thBtext, color="w", ha='right', va='top')
+          ax.plot([0], [0], '+', color='orange')
+  axes[-1, 0].set(
+      xlabel="$x' / R_{_{**}}$",
+      ylabel="$y'/ R_{_{**}}$",
+      xlim=[-4.5, 4.5],
+      ylim=[-4.5, 4.5],
+      xticks=[-4, -2, 0, 2, 4],
+      yticks=[-4, -2, 0, 2, 4],
+  )
+  fig.tight_layout(pad=0.5, h_pad=0.03, w_pad=0.03)
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 30
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-30.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 5
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-05.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 60
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-60.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 15
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-15.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 75
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-75.pdf]]
 
 **** TODO Distribution in planitude-alatude plane
 
