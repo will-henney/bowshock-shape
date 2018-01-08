@@ -2786,15 +2786,30 @@ done
 open dust-bfield-b30-cube.fits
 #+END_SRC
 
-#+RESULTS:
+#+BEGIN_SRC sh :results silent
+python stitch-bfield-cube.py 60
+#+END_SRC
 
 
 **** TODO Projection as function of two angles 
 + [X] This can be done with the ~scipy.interpolate.interpn~ function
++ [X] Write out a WCS to the fits images
 + [ ] Do for various angles
   + Azimuth: 15, 45, 75 should cover everything modulo reflection symmetry
-  + Inclination: equally spaced in sin i
-+ [X] Write out a WCS to the fits images
+  + Inclination: four equally spaced in sin i
+    |     | sin(i) | i, deg |
+    |-----+--------+--------|
+    | 0.5 |  0.125 |     7. |
+    | 1.5 |  0.375 |    22. |
+    | 2.5 |  0.625 |    39. |
+    | 3.5 |  0.875 |    61. |
+    #+TBLFM: $2=$1/4;f3::$3=arcsin($2);f0
+    + So, ~inclinations = 7, 22, 39, 61~, ~azimuths = 15, 45, 75~
++ [ ] Make some figures
+  + 4 x 3 grid of inclination x azimuth
+  + show where the star is
+  + show direction of B-field
+
 #+BEGIN_SRC python :eval no :tangle project-cube-inc-azi.py
   import sys
   import numpy as np
@@ -2879,6 +2894,47 @@ open dust-bfield-b30-cube.fits
 
 #+END_SRC
 
+***** Runs for grid of angles
++ Run things in parallel
+  + Output gets a bit messed up, but it seems to work
+#+BEGIN_SRC sh :results verbatim
+  thetas="60"
+  #thetas="05 15 30 45 60 75"
+  inclinations="07 22 39 61"
+  azimuths="15 45 75"
+  for theta in $thetas; do
+      for inc in $inclinations; do
+          for azi in $azimuths; do
+              python project-cube-inc-azi.py dust-bfield-b${theta}-cube-F $inc $azi
+              echo
+          done
+      done
+  done
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+dust-bfield-b60-cube-F-007-015.fits
+dust-bfield-b60-cube-F-007-045.fits
+dust-bfield-b60-cube-F-007-075.fits
+dust-bfield-b60-cube-F-022-015.fits
+dust-bfield-b60-cube-F-022-045.fits
+dust-bfield-b60-cube-F-022-075.fits
+dust-bfield-b60-cube-F-039-015.fits
+dust-bfield-b60-cube-F-039-045.fits
+dust-bfield-b60-cube-F-039-075.fits
+dust-bfield-b60-cube-F-061-015.fits
+dust-bfield-b60-cube-F-061-045.fits
+dust-bfield-b60-cube-F-061-075.fits
+#+end_example
+
+***** Look at a whole bunch at once
+#+BEGIN_SRC sh :results silent
+open dust-bfield-b60-cube-F-0{07,22,39,61}-0{15,45,75}.fits
+#+END_SRC
+
+
+***** Individual runs
 #+BEGIN_SRC sh :results file
 python project-cube-inc-azi.py dust-bfield-b30-cube-F 0 0
 #+END_SRC
