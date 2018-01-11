@@ -31,8 +31,11 @@ xmin, xmax = [-4.99, 4.99]
 ymin, ymax = [-4.99, 4.99]
 xx, yy, ww = [], [], []
 xs, ys = [], []
+nt = 3001
+tstop = 60
+X0 = 20
 for iy0, y0 in enumerate(y0grid):
-    s = streamline(X0=20, Y0=y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=60, n=3001)
+    s = streamline(X0=X0, Y0=y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=tstop, n=nt)
     # ax.plot(s['x'], s['y'], color='k', lw=0.5)
     # Accumulate (x, y) points in a long list
     xx.extend(s['x'])
@@ -57,9 +60,26 @@ rho_m = np.median(H)
 ax.imshow(H.T, origin='lower', extent=[xmin, xmax, ymin, ymax],
           vmin=0.0, vmax=20.0*rho_m, cmap='gray_r')
 # Plot the streamlines that we saved earlier
+x1s = [4, 2, 0, -2, -4]
+# Bespoke collection of colors for the scatter shot grains at each x1 position
+colors = [
+    # First batch at x=4 is separated from rest
+    # Pale yellow
+    (0.8, 0.8, 0.3, 1.0),
+    # Swing towards orange for next two at x=2 and x=0
+    (0.9, 0.7, 0.2, 1.0),
+    (1.0, 0.4, 0.1, 1.0),
+    # Now we need a contrast - go more purple
+    (0.7, 0.1, 0.4, 1.0),
+    # And finally, more blue
+    (0.2, 0.2, 0.5, 1.0)
+]
 for x, y in zip(xs, ys):
     ax.plot(x, y, '-', color='w', lw=0.8, alpha=0.5)
     ax.plot(x, y, '-', color='k', lw=0.5)
+    for x1, color in zip(x1s, colors):
+        itime = int((X0 - x1)*nt/tstop)
+        ax.plot(x[itime-10:itime+20:10], y[itime-10:itime+20:10], '.', ms=4.0, color=color, zorder=20-x1)
 ax.plot(xlocus, ylocus, ':', color='y', alpha=0.7, lw=2)
 ax.plot(xlocus, -ylocus, ':', color='y', alpha=0.7, lw=2)
 cthB = np.cos(np.radians(thB_degrees))
