@@ -9,7 +9,7 @@ figfile = sys.argv[0].replace('.py', '.pdf')
 # Impact parameter
 Y0 = 0.35
 Z0 = 0.1
-thB_degrees = -28.2
+thB_degrees = 28.2
 stream = streamline(Y0=Y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=150, X0=10., n=2001)
 sns.set_style('white')
 sns.set_color_codes()
