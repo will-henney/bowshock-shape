@@ -24,12 +24,13 @@ def dydt(y, t, thB, LORENTZ_FAC):
 
 
 def streamline(thB=np.radians(90), X0=10.0, Y0=0.0, Z0=0.0,
+               U0=-1.0, V0=0.0, W0=0.0,
                tstop=60.0, n=201, LFAC=10.0):
     # Time grid
     t = np.linspace(0.0, tstop, n)
     # parallel stream
     # Vector of initial conditions
-    y0 = [X0, -1.0, Y0, 0.0, Z0, 0.0]
+    y0 = [X0, U0, Y0, V0, Z0, W0]
     soln = odeint(dydt, y0, t, args=(thB, LFAC))
 
     return {'t': t, 'y0': Y0, 'z0': Z0, 'b': np.hypot(Y0, Z0),
