@@ -32,6 +32,8 @@
     "fig:projected-magnetic-dust-waves-15"
     "fig:projected-magnetic-dust-waves-45"
     "fig:projected-magnetic-dust-waves-75"
+    "fig:stream-3d"
+    "sec:resolv-larm-radi"
     "sec:dust-applicability"
     "sec:dust-wave-apparent"
     "fig:dragoid-xy-prime"

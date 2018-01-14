@@ -1419,7 +1419,7 @@ CLOSED: [2018-01-01 Mon 23:05]
 + So, I am moving it here to give it room to grow
 ** Copy dust wave figure files to paper folder
 #+BEGIN_SRC sh :results output
-  FIGFILES="dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf dust-coupling-1d.pdf dust-divergent.pdf dust-couple-div-stream.jpg decouple-v-n-plane.pdf zones-v-n-plane.pdf zones-v-n-plane-?SG.pdf decouple-v40-versus-n.pdf multi-view-dust-bfield-?5.pdf dust-bfield-stream-b?5-z0000.jpg"
+  FIGFILES="dust-couple-stream-annotate.pdf dust-wave-Rc-R90*.pdf dust-coupling-1d.pdf dust-divergent.pdf dust-couple-div-stream.jpg decouple-v-n-plane.pdf zones-v-n-plane.pdf zones-v-n-plane-?SG.pdf decouple-v40-versus-n.pdf multi-view-dust-bfield-?5.pdf dust-bfield-stream-b?5-z0000.jpg dust-lorentz-stream-3d-turb-b90-L2000-Ma0100-Z+000.jpg dust-lorentz-stream-3d-turbz-b90-L2000-Ma0100-Y+000.jpg"
   date
   pwd
   for f in $FIGFILES; do
@@ -1429,7 +1429,7 @@ CLOSED: [2018-01-01 Mon 23:05]
 
 #+RESULTS:
 #+begin_example
-Wed Jan 10 20:17:03 CST 2018
+Sat Jan 13 18:34:14 CST 2018
 /Users/will/Work/Bowshocks/Jorge/bowshock-shape/Dust-wave
 dust-couple-stream-annotate.pdf -> ../papers/Papers1234/figs/dust-couple-stream-annotate.pdf
 dust-wave-Rc-R90-error.pdf -> ../papers/Papers1234/figs/dust-wave-Rc-R90-error.pdf
@@ -1450,6 +1450,8 @@ dust-bfield-stream-b05-z0000.jpg -> ../papers/Papers1234/figs/dust-bfield-stream
 dust-bfield-stream-b15-z0000.jpg -> ../papers/Papers1234/figs/dust-bfield-stream-b15-z0000.jpg
 dust-bfield-stream-b45-z0000.jpg -> ../papers/Papers1234/figs/dust-bfield-stream-b45-z0000.jpg
 dust-bfield-stream-b75-z0000.jpg -> ../papers/Papers1234/figs/dust-bfield-stream-b75-z0000.jpg
+dust-lorentz-stream-3d-turb-b90-L2000-Ma0100-Z+000.jpg -> ../papers/Papers1234/figs/dust-lorentz-stream-3d-turb-b90-L2000-Ma0100-Z+000.jpg
+dust-lorentz-stream-3d-turbz-b90-L2000-Ma0100-Y+000.jpg -> ../papers/Papers1234/figs/dust-lorentz-stream-3d-turbz-b90-L2000-Ma0100-Y+000.jpg
 #+end_example
 
 ** Dust grain trajectories
@@ -3263,7 +3265,7 @@ python dust-bfield-2d.py
   import numpy as np
   from scipy.integrate import odeint
 
-  def dydt(y, t, thB, LORENTZ_FAC):
+  def dydt(y, t, thB, LORENTZ_FAC, ALPHA_DRAG=0.0):
       """Derivatives for ODE: x'' = 0.5 (x^{-2} - alpha^2 (x' + 1))"""
       X, U, Y, V, Z, W = y
       dXdt = U
@@ -3279,21 +3281,52 @@ python dust-bfield-2d.py
       Bx, By, Bz = np.cos(thB), np.sin(thB), 0.0
       # Lorentz acceleration vector
       alorentz = 0.5*LORENTZ_FAC * np.cross([U + 1.0, V, W], [Bx, By, Bz])
-      dUdt = arad[0] + alorentz[0]
-      dVdt = arad[1] + alorentz[1]
-      dWdt = arad[2] + alorentz[2]
+
+      # Drag acceleration vector (assume that gas velocity is [-1, 0, 0])
+      adrag = -0.5*ALPHA_DRAG**2 * np.array([U + 1.0, V, W])
+
+      dUdt = arad[0] + alorentz[0] + adrag[0] 
+      dVdt = arad[1] + alorentz[1] + adrag[1] 
+      dWdt = arad[2] + alorentz[2] + adrag[2] 
       return [dXdt, dUdt, dYdt, dVdt, dZdt, dWdt]
+
+
+  def init_vturb(v_turb_0, mu_p_max, thB):
+      """Turbulent grain velocity at a high pitch angle"""
+      # Pitch angle to field
+      c_p = np.random.uniform(0.0, mu_p_max)
+      s_p = np.sqrt(1.0 - c_p**2) 
+      # Azimuth around field
+      phi_B = np.random.uniform(0.0, 2*np.pi)
+      spB, cpB = np.sin(phi_B), np.cos(phi_B) 
+      # Magnitude and sign
+      v_turb = np.random.normal(loc=0.0, scale=v_turb_0)
+      # Components in frame of B-field
+      vBx = v_turb*c_p
+      vBy = v_turb*s_p*cpB
+      vBz = v_turb*s_p*spB
+      # Now transform to flow frame
+      cthB, sthB = np.cos(thB), np.sin(thB)
+      u0 = vBx*cthB - vBy*sthB
+      v0 = vBx*sthB + vBy*cthB
+      w0 = vBz
+      return u0, v0, w0
 
 
   def streamline(thB=np.radians(90), X0=10.0, Y0=0.0, Z0=0.0,
                  U0=-1.0, V0=0.0, W0=0.0,
-                 tstop=60.0, n=201, LFAC=10.0):
+                 V_TURB_0=0.0, mu_p_max=0.1,
+                 tstop=60.0, n=201, LFAC=10.0, ALPHA_DRAG=0.0):
       # Time grid
       t = np.linspace(0.0, tstop, n)
-      # parallel stream
+      # Turbulent perturbation
+      if V_TURB_0 > 0.0:
+          u0, v0, w0 = init_vturb(V_TURB_0, mu_p_max, thB)
+      else:
+          u0, v0, w0 = 0.0, 0.0, 0.0  
       # Vector of initial conditions
-      y0 = [X0, U0, Y0, V0, Z0, W0]
-      soln = odeint(dydt, y0, t, args=(thB, LFAC))
+      y0 = [X0, U0 + u0, Y0, V0 + v0, Z0, W0 + w0]
+      soln = odeint(dydt, y0, t, args=(thB, LFAC, ALPHA_DRAG))
 
       return {'t': t, 'y0': Y0, 'z0': Z0, 'b': np.hypot(Y0, Z0),
               'x': soln[:, 0], 'u': soln[:, 1],
@@ -3313,10 +3346,11 @@ python dust-bfield-2d.py
   figfile = sys.argv[0].replace('.py', '.pdf')
 
   # Impact parameter
-  Y0 = -0.01
-  Z0 = 0.5
-  thB_degrees = 5
-  stream = streamline(Y0=Y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=150, X0=10., n=2001, LFAC=1.5)
+  Y0 = 0.00
+  Z0 = 0.00
+  thB_degrees = 25
+  MACH_ALFVEN = 4.0
+  stream = streamline(Y0=Y0, Z0=Z0, thB=np.radians(thB_degrees), tstop=150, X0=10., n=2001, LFAC=10, ALPHA_DRAG=0.5, V_TURB_0=1.0/MACH_ALFVEN)
   sns.set_style('white')
   sns.set_color_codes()
   fig, (ax, axp) = plt.subplots(2, 1, figsize=(4, 6))
@@ -3330,7 +3364,7 @@ python dust-bfield-2d.py
   label = fr"$\theta_B = {thB_degrees:.1f}^\circ$, "
   label += f"$y_0 = {Y0:.2f}$, $z_0 = {Z0:.2f}$"
   ax.legend(title=label, ncol=2)
-  ax.set(xlabel='Time', ylim=[-8.5, 8.5], xlim=[0, 50])
+  ax.set(xlabel='Time', ylim=[-2, 3], xlim=[0, 50])
 
   axp.plot(stream['x'], stream['u'], label='$(X, U)$')
   axp.plot(stream['y'], stream['v'], label='$(Y, V)$')
@@ -3338,7 +3372,7 @@ python dust-bfield-2d.py
   axp.axhline(0, color='k', lw=0.5)
   axp.legend(title='Phase space')
   axp.set(xlabel='$X$, $Y$, $Z$', ylabel='$U$, $V$, $W$',
-          xlim=[-7, 9], ylim=[-1.1, 1.1])
+          xlim=[-3, 3], ylim=[-1.5, 1.5])
 
   sns.despine(trim=True)
   fig.tight_layout()
@@ -3658,11 +3692,17 @@ python dust-lorentz-stream-3d.py 90.0 50.0
       LFAC = float(sys.argv[2])
       MACH_ALFVEN = float(sys.argv[3])
       ZPLANE = float(sys.argv[4])
+      try: 
+          ALPHA_DRAG = float(sys.argv[5])
+      except:
+          ALPHA_DRAG = 0.0
   except:
-      sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE MACH_ALFVEN ZPLANE")
+      sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE MACH_ALFVEN ZPLANE [ALPHA_DRAG]")
 
 
   suffix = f"b{int(thB_degrees):02d}-L{int(100*LFAC):04d}-Ma{int(10*MACH_ALFVEN):04d}-Z{int(100*ZPLANE):+04d}"
+  if ALPHA_DRAG > 0.0:
+      suffix += f"-alpha{int(100*ALPHA_DRAG):04d}"
   figfile = sys.argv[0].replace('.py', f'-{suffix}.jpg')
 
   sns.set_style('white')
@@ -3684,6 +3724,22 @@ python dust-lorentz-stream-3d.py 90.0 50.0
   ax.add_patch(p)
   art3d.pathpatch_2d_to_3d(p, z=ZPLANE, zdir="z")
 
+  # Put lines of B on the bottom z plane
+  cthB = np.cos(np.radians(thB_degrees))
+  sthB = np.sin(np.radians(thB_degrees))
+  for xx in np.linspace(-15, 15, 31):
+      yy1, yy2 = -15, 15
+      x1 = -xx*sthB + yy1*cthB
+      x2 = -xx*sthB + yy2*cthB
+      y1 = xx*cthB + yy1*sthB
+      y2 = xx*cthB + yy2*sthB
+      x = np.linspace(x1, x2, 200)
+      y = np.linspace(y1, y2, 200)
+      m = (x >= xmin) & (y >= ymin) & (x <= xmax) & (y <= ymax)
+      x[~m] = np.nan
+      ax.plot(x, y, zs=zmin, zdir='z', lw=2, alpha=0.5, color='c')
+
+
   #nt = 3001
   nt = 3001
   tstop = 60
@@ -3700,27 +3756,10 @@ python dust-lorentz-stream-3d.py 90.0 50.0
   # Find all the trajectories
   trajectories = []
   for y0 in y0grid:
-      # Pitch angle to field
-      c_p = np.random.uniform(0.0, mu_p_max)
-      s_p = np.sqrt(1.0 - c_p**2) 
-      # Azimuth around field
-      phi_B = np.random.uniform(0.0, 2*np.pi)
-      spB, cpB = np.sin(phi_B), np.cos(phi_B) 
-      # Magnitude and sign
-      v_turb = np.random.normal(loc=0.0, scale=v_turb_0)
-      # Components in frame of B-field
-      vBx = v_turb*c_p
-      vBy = v_turb*s_p*cpB
-      vBz = v_turb*s_p*spB
-      # Now transform to flow frame
-      cthB, sthB = np.cos(np.radians(thB_degrees)), np.sin(np.radians(thB_degrees))
-      u0 = vBx*cthB - vBy*sthB - 1.0
-      v0 = vBx*sthB + vBy*cthB
-      w0 = vBz
-
-      s = streamline(X0=X0, Y0=y0, Z0=ZPLANE, U0=u0, V0=v0, W0=w0,
+      s = streamline(X0=X0, Y0=y0, Z0=ZPLANE,
                      thB=np.radians(thB_degrees),
-                     tstop=tstop, n=nt, LFAC=LFAC)
+                     tstop=tstop, n=nt,
+                     V_TURB_0=v_turb_0, LFAC=LFAC, ALPHA_DRAG=ALPHA_DRAG)
       if ymin <= s['y'][it0] <= ymax:
           trajectories.append(s)
 
@@ -3747,19 +3786,6 @@ python dust-lorentz-stream-3d.py 90.0 50.0
       ax.plot(x, y, z, '-', color='w', lw=1.0)
       ax.plot(x, y, z, '-', color=ycolors[iy0], lw=0.7)
 
-  cthB = np.cos(np.radians(thB_degrees))
-  sthB = np.sin(np.radians(thB_degrees))
-  for xx in np.linspace(-15, 15, 31):
-      yy1, yy2 = -15, 15
-      x1 = -xx*sthB + yy1*cthB
-      x2 = -xx*sthB + yy2*cthB
-      y1 = xx*cthB + yy1*sthB
-      y2 = xx*cthB + yy2*sthB
-      x = np.linspace(x1, x2, 200)
-      y = np.linspace(y1, y2, 200)
-      m = (x >= xmin) & (y >= ymin) & (x <= xmax) & (y <= ymax)
-      x[~m] = np.nan
-      ax.plot(x, y, zs=zmin, zdir='z', lw=2, alpha=0.5, color='c')
 
   ax.auto_scale_xyz([xmin, xmax], [ymin, ymax], [zmin, zmax])
   ax.set(
@@ -3781,8 +3807,10 @@ python dust-lorentz-stream-3d.py 90.0 50.0
       fr"\theta_B = {thB_degrees:.0f}^\circ",
       fr"F_B / F_\mathrm{{rad}} = {LFAC:.1f}",
       fr"\mathcal{{M}}_A = {MACH_ALFVEN:.1f}",
-      fr"z_0 = {ZPLANE:.4f}"]) + "$"
-  fig.text(0.1, 0.9, text)
+      fr"\alpha = {ALPHA_DRAG:.2f}",
+      fr"z_0 = {ZPLANE:.2f}", 
+      ]) + "$"
+  fig.text(0.05, 0.9, text)
   fig.tight_layout(rect=[0, 0, 0.95, 1.0])
   fig.savefig(figfile, dpi=600)
   print(figfile, end='')
@@ -3854,11 +3882,18 @@ python dust-lorentz-stream-3d-turb.py 0.0 20.0 10.0 0.0
 [[file:dust-lorentz-stream-3d-turb-b00-L2000-Ma0100-Z+000.jpg]]
 
 #+BEGIN_SRC sh :results file
-python dust-lorentz-stream-3d-turb.py 0.0 10.0 50.0 0.0
+python dust-lorentz-stream-3d-turb.py 0.0 5.0 10.0 0.0
 #+END_SRC
 
 #+RESULTS:
-[[file:dust-lorentz-stream-3d-turb-b00-L1000-Ma0500-Z+000.jpg]]
+[[file:dust-lorentz-stream-3d-turb-b00-L0500-Ma0100-Z+000.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 0.0 5.0 50.0 0.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b00-L0500-Ma0500-Z+000.jpg]]
 
 #+BEGIN_SRC sh :results file
 python dust-lorentz-stream-3d-turb.py 0.0 10.0 50.0 -0.5
@@ -3873,6 +3908,164 @@ The above three are the ones I think we will use:
   + Should give close to the zero Larmor limit for most streamlines
 + M_A = 10
   + For instance, v_A = 2 and v_\infty = 20
++ /Update/ [2018-01-13 Sat] Actually, think that maybe the 0 and 90 degree ones would be best to show
+  + 
+
+
+**** Some runs with non-zero drag
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 90.0 50.0 10.0 0.0 2.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b90-L5000-Ma0100-Z+000-alpha0200.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 0.0 20.0 10.0 0.0 0.25
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b00-L2000-Ma0100-Z+000-alpha0025.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 0.0 20.0 10.0 0.0 0.5
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b00-L2000-Ma0100-Z+000-alpha0050.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 0.0 20.0 10.0 0.0 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b00-L2000-Ma0100-Z+000-alpha0100.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 0.0 20.0 10.0 0.0 2.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b00-L2000-Ma0100-Z+000-alpha0200.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 5.0 20.0 10.0 0.0 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b05-L2000-Ma0100-Z+000-alpha0100.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 5.0 20.0 10.0 0.0 0.5
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b05-L2000-Ma0100-Z+000-alpha0050.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py -5.0 20.0 10.0 0.0 0.5
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b-5-L2000-Ma0100-Z+000-alpha0050.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 5.0 20.0 10.0 0.0 0.75
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b05-L2000-Ma0100-Z+000-alpha0075.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 5.0 50.0 10.0 0.0 0.75
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b05-L5000-Ma0100-Z+000-alpha0075.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 2.0 50.0 10.0 0.0 0.75
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b02-L5000-Ma0100-Z+000-alpha0075.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 182 50.0 10.0 0.0 0.75
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b182-L5000-Ma0100-Z+000-alpha0075.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 15.0 20.0 10.0 0.0 0.75
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b15-L2000-Ma0100-Z+000-alpha0075.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 15.0 50.0 10.0 0.0 0.75
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b15-L5000-Ma0100-Z+000-alpha0075.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 15.0 200.0 10.0 0.0 0.75
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b15-L20000-Ma0100-Z+000-alpha0075.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 15.0 50.0 10.0 0.0 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b15-L5000-Ma0100-Z+000-alpha0100.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 30.0 50.0 10.0 0.0 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b30-L5000-Ma0100-Z+000-alpha0100.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 45.0 50.0 10.0 0.0 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b45-L5000-Ma0100-Z+000-alpha0100.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 45.0 50.0 10.0 0.0 0.5
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b45-L5000-Ma0100-Z+000-alpha0050.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 60.0 50.0 10.0 0.0 1.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b60-L5000-Ma0100-Z+000-alpha0100.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 60.0 50.0 10.0 0.0 2.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b60-L5000-Ma0100-Z+000-alpha0200.jpg]]
+
+#+BEGIN_SRC sh :results file
+python dust-lorentz-stream-3d-turb.py 75.0 50.0 10.0 0.0 2.0
+#+END_SRC
+
+#+RESULTS:
+[[file:dust-lorentz-stream-3d-turb-b75-L5000-Ma0100-Z+000-alpha0200.jpg]]
 
 **** Extra runs that we probably won't use
 
@@ -3881,7 +4074,6 @@ python dust-lorentz-stream-3d-turb.py 75.0 10.0 10.0
 #+END_SRC
 
 #+RESULTS:
-[[file:dust-lorentz-stream-3d-turb-b75-L1000-Ma0100.jpg]]
 
 #+BEGIN_SRC sh :results file
 python dust-lorentz-stream-3d-turb.py 75.0 20.0 1.0 
@@ -3966,7 +4158,7 @@ python dust-lorentz-stream-3d-turb.py 45.0 10.0 10.0
 
   sns.set_style('white')
   sns.set_color_codes()
-  fig, ax = plt.subplots(subplot_kw=dict(projection='3d'), figsize=(6, 3))
+  fig, ax = plt.subplots(subplot_kw=dict(projection='3d'), figsize=(6, 3.3))
 
 
   ny0, nz0 = 31, 1
@@ -4037,7 +4229,7 @@ python dust-lorentz-stream-3d-turb.py 45.0 10.0 10.0
       if ymin <= s['y'][it0] <= ymax:
           trajectories.append(s)
 
-  # Sort according to y coordinate near the star
+  # Sort according to z coordinate near the star
   trajectories.sort(key=lambda s: s['z'][it0], reverse=False)
 
   ycolors = sns.color_palette('magma_r', n_colors=len(trajectories))
@@ -4050,7 +4242,7 @@ python dust-lorentz-stream-3d-turb.py 45.0 10.0 10.0
       m = m & (y >= ymin) & (y <= ymax)
       m = m & (z >= zmin) & (z <= zmax)
       x[~m] = np.nan
-      # Draw the star before we get to the first negative y value
+      # Draw the star before we get to the first positive z value
       if s['z'][it0] > 0.0 and not star_done:
           ax.plot([0, 0], [0, 0], [zmin, zmax], '--', color='k', lw=0.3)
           ax.plot([xmin, xmax], [0, 0], [0, 0], '--', color='k', lw=0.3)
@@ -4081,7 +4273,7 @@ python dust-lorentz-stream-3d-turb.py 45.0 10.0 10.0
       fr"\mathcal{{M}}_A = {MACH_ALFVEN:.1f}",
       fr"y_0 = {YPLANE:.4f}"]) + "$"
   fig.text(0.1, 0.9, text)
-  fig.tight_layout(rect=[0, 0, 0.95, 1.0])
+  fig.tight_layout(rect=[0, 0, 1.05, 1.0])
   fig.savefig(figfile, dpi=600)
   print(figfile, end='')
 

@@ -13,11 +13,17 @@ try:
     LFAC = float(sys.argv[2])
     MACH_ALFVEN = float(sys.argv[3])
     ZPLANE = float(sys.argv[4])
+    try: 
+        ALPHA_DRAG = float(sys.argv[5])
+    except:
+        ALPHA_DRAG = 0.0
 except:
-    sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE MACH_ALFVEN ZPLANE")
+    sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE MACH_ALFVEN ZPLANE [ALPHA_DRAG]")
 
 
 suffix = f"b{int(thB_degrees):02d}-L{int(100*LFAC):04d}-Ma{int(10*MACH_ALFVEN):04d}-Z{int(100*ZPLANE):+04d}"
+if ALPHA_DRAG > 0.0:
+    suffix += f"-alpha{int(100*ALPHA_DRAG):04d}"
 figfile = sys.argv[0].replace('.py', f'-{suffix}.jpg')
 
 sns.set_style('white')
@@ -39,6 +45,22 @@ p = Rectangle((xmin, ymin), xmax - xmin, ymax - ymin,
 ax.add_patch(p)
 art3d.pathpatch_2d_to_3d(p, z=ZPLANE, zdir="z")
 
+# Put lines of B on the bottom z plane
+cthB = np.cos(np.radians(thB_degrees))
+sthB = np.sin(np.radians(thB_degrees))
+for xx in np.linspace(-15, 15, 31):
+    yy1, yy2 = -15, 15
+    x1 = -xx*sthB + yy1*cthB
+    x2 = -xx*sthB + yy2*cthB
+    y1 = xx*cthB + yy1*sthB
+    y2 = xx*cthB + yy2*sthB
+    x = np.linspace(x1, x2, 200)
+    y = np.linspace(y1, y2, 200)
+    m = (x >= xmin) & (y >= ymin) & (x <= xmax) & (y <= ymax)
+    x[~m] = np.nan
+    ax.plot(x, y, zs=zmin, zdir='z', lw=2, alpha=0.5, color='c')
+
+
 #nt = 3001
 nt = 3001
 tstop = 60
@@ -55,27 +77,10 @@ mu_p_max = 0.1
 # Find all the trajectories
 trajectories = []
 for y0 in y0grid:
-    # Pitch angle to field
-    c_p = np.random.uniform(0.0, mu_p_max)
-    s_p = np.sqrt(1.0 - c_p**2) 
-    # Azimuth around field
-    phi_B = np.random.uniform(0.0, 2*np.pi)
-    spB, cpB = np.sin(phi_B), np.cos(phi_B) 
-    # Magnitude and sign
-    v_turb = np.random.normal(loc=0.0, scale=v_turb_0)
-    # Components in frame of B-field
-    vBx = v_turb*c_p
-    vBy = v_turb*s_p*cpB
-    vBz = v_turb*s_p*spB
-    # Now transform to flow frame
-    cthB, sthB = np.cos(np.radians(thB_degrees)), np.sin(np.radians(thB_degrees))
-    u0 = vBx*cthB - vBy*sthB - 1.0
-    v0 = vBx*sthB + vBy*cthB
-    w0 = vBz
-
-    s = streamline(X0=X0, Y0=y0, Z0=ZPLANE, U0=u0, V0=v0, W0=w0,
+    s = streamline(X0=X0, Y0=y0, Z0=ZPLANE,
                    thB=np.radians(thB_degrees),
-                   tstop=tstop, n=nt, LFAC=LFAC)
+                   tstop=tstop, n=nt,
+                   V_TURB_0=v_turb_0, LFAC=LFAC, ALPHA_DRAG=ALPHA_DRAG)
     if ymin <= s['y'][it0] <= ymax:
         trajectories.append(s)
 
@@ -102,19 +107,6 @@ for iy0, s in enumerate(trajectories):
     ax.plot(x, y, z, '-', color='w', lw=1.0)
     ax.plot(x, y, z, '-', color=ycolors[iy0], lw=0.7)
 
-cthB = np.cos(np.radians(thB_degrees))
-sthB = np.sin(np.radians(thB_degrees))
-for xx in np.linspace(-15, 15, 31):
-    yy1, yy2 = -15, 15
-    x1 = -xx*sthB + yy1*cthB
-    x2 = -xx*sthB + yy2*cthB
-    y1 = xx*cthB + yy1*sthB
-    y2 = xx*cthB + yy2*sthB
-    x = np.linspace(x1, x2, 200)
-    y = np.linspace(y1, y2, 200)
-    m = (x >= xmin) & (y >= ymin) & (x <= xmax) & (y <= ymax)
-    x[~m] = np.nan
-    ax.plot(x, y, zs=zmin, zdir='z', lw=2, alpha=0.5, color='c')
 
 ax.auto_scale_xyz([xmin, xmax], [ymin, ymax], [zmin, zmax])
 ax.set(
@@ -136,8 +128,10 @@ text = "$" + r" \quad\quad ".join([
     fr"\theta_B = {thB_degrees:.0f}^\circ",
     fr"F_B / F_\mathrm{{rad}} = {LFAC:.1f}",
     fr"\mathcal{{M}}_A = {MACH_ALFVEN:.1f}",
-    fr"z_0 = {ZPLANE:.4f}"]) + "$"
-fig.text(0.1, 0.9, text)
+    fr"\alpha = {ALPHA_DRAG:.2f}",
+    fr"z_0 = {ZPLANE:.2f}", 
+    ]) + "$"
+fig.text(0.05, 0.9, text)
 fig.tight_layout(rect=[0, 0, 0.95, 1.0])
 fig.savefig(figfile, dpi=600)
 print(figfile, end='')

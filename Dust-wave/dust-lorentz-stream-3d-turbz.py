@@ -22,7 +22,7 @@ figfile = sys.argv[0].replace('.py', f'-{suffix}.jpg')
 
 sns.set_style('white')
 sns.set_color_codes()
-fig, ax = plt.subplots(subplot_kw=dict(projection='3d'), figsize=(6, 3))
+fig, ax = plt.subplots(subplot_kw=dict(projection='3d'), figsize=(6, 3.3))
 
 
 ny0, nz0 = 31, 1
@@ -93,7 +93,7 @@ for y0 in y0grid:
     if ymin <= s['y'][it0] <= ymax:
         trajectories.append(s)
 
-# Sort according to y coordinate near the star
+# Sort according to z coordinate near the star
 trajectories.sort(key=lambda s: s['z'][it0], reverse=False)
 
 ycolors = sns.color_palette('magma_r', n_colors=len(trajectories))
@@ -106,7 +106,7 @@ for iy0, s in enumerate(trajectories):
     m = m & (y >= ymin) & (y <= ymax)
     m = m & (z >= zmin) & (z <= zmax)
     x[~m] = np.nan
-    # Draw the star before we get to the first negative y value
+    # Draw the star before we get to the first positive z value
     if s['z'][it0] > 0.0 and not star_done:
         ax.plot([0, 0], [0, 0], [zmin, zmax], '--', color='k', lw=0.3)
         ax.plot([xmin, xmax], [0, 0], [0, 0], '--', color='k', lw=0.3)
@@ -137,6 +137,6 @@ text = "$" + r" \quad\quad ".join([
     fr"\mathcal{{M}}_A = {MACH_ALFVEN:.1f}",
     fr"y_0 = {YPLANE:.4f}"]) + "$"
 fig.text(0.1, 0.9, text)
-fig.tight_layout(rect=[0, 0, 0.95, 1.0])
+fig.tight_layout(rect=[0, 0, 1.05, 1.0])
 fig.savefig(figfile, dpi=600)
 print(figfile, end='')
