@@ -2937,14 +2937,14 @@ CLOSED: [2018-01-11 Thu 20:20]
 #+END_SRC
 
 ***** Runs for grid of angles
-+ Run in shell for theta = 05, 15, 30, 45, 60, 75
++ Run in shell for id = dust-bfield-b05, b15, b30, b45, b60, b75
 #+BEGIN_SRC sh :eval no :tangle multi-project-cube.sh
-  theta=$1
+  id=$1
   inclinations="07 22 39 61"
   azimuths="15 45 75"
   for inc in $inclinations; do
       for azi in $azimuths; do
-          python project-cube-inc-azi.py dust-bfield-b${theta}-cube-F $inc $azi
+          python project-cube-inc-azi.py ${id}-cube-F $inc $azi
           echo
       done
   done
@@ -2979,7 +2979,7 @@ python project-cube-inc-azi.py dust-bfield-b30-cube-F 61 75
 #+RESULTS:
 [[file:dust-bfield-b30-cube-F-061-075.fits]]
 
-***** [4/4] Figures of the view angle grids
+***** [5/5] Figures of the view angle grids
 + [X] Basic images
 + [X] Labels with angles
 + [X] Indicate projected flow direction
@@ -2987,6 +2987,7 @@ python project-cube-inc-azi.py dust-bfield-b30-cube-F 61 75
   + Fixed that by changing way azimuth is done
 + [X] Indicate projected B direction
   + Have a circle with an arrow
++ [X] [2018-01-15 Mon] Generalize so that we can use it with the finite Larmor runs
 #+BEGIN_SRC python :eval no :tangle multi-view-dust-bfield.py
   import sys
   import numpy as np
@@ -2997,11 +2998,17 @@ python project-cube-inc-azi.py dust-bfield-b30-cube-F 61 75
 
   try:
       ANGLE = int(sys.argv[1])
+      try:
+          PREFIX = sys.argv[2]
+          SUFFIX = sys.argv[3]
+      except:
+          PREFIX = "bfield"
+          SUFFIX = ""
   except:
-      sys.exit(f"Usage: {sys.argv[0]} ANGLE")
+      sys.exit(f"Usage: {sys.argv[0]} ANGLE [PREFIX SUFFIX]")
 
 
-  figfile = sys.argv[0].replace('.py', f'-{ANGLE:02d}.pdf')
+  figfile = sys.argv[0].replace('.py', f'-b{ANGLE:02d}{SUFFIX}.pdf')
   fig, axes = plt.subplots(3, 4, sharex=True, sharey=True, figsize=(8, 6.1))
 
   # Unit vector along B-field in the body-frame basis
@@ -3025,7 +3032,7 @@ python project-cube-inc-azi.py dust-bfield-b30-cube-F 61 75
   xmin, xmax, ymin, ymax = -5.0, 5.0, -5.0, 5.0
   for j, inc in enumerate([7, 22, 39, 61]):
       for i, azi in enumerate([15, 45, 75]):
-          fitsfile = f"dust-bfield-b{ANGLE:02d}-cube-F-{inc:03d}-{azi:03d}.fits"
+          fitsfile = f"dust-{PREFIX}-b{ANGLE:02d}{SUFFIX}-cube-F-{inc:03d}-{azi:03d}.fits"
           hdu, = fits.open(fitsfile)
 
           ax = axes[i, j]
@@ -3167,10 +3174,48 @@ python multi-view-dust-bfield.py 45
 #+RESULTS:
 [[file:multi-view-dust-bfield-45.pdf]]
 
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L0200-Ma0100-alpha0010
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L0200-Ma0100-alpha0010.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L0500-Ma0100-alpha0010
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L0500-Ma0100-alpha0010.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L2000-Ma0100-alpha0010
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L2000-Ma0100-alpha0010.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L2000-Ma0020-alpha0010
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L2000-Ma0020-alpha0010.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L0200-Ma0020-alpha0010
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L0200-Ma0020-alpha0010.pdf]]
+
 **** TODO Distribution in planitude-alatude plane
 + Finding R_c and R_90 can be done much like in the Spitzer dataset
 + 
 ** TODO B-field combined with drag
++ This is the version in the small Larmor radius limit
++ [2018-01-14 Sun 20:10] But I am doing the resolved Larmor radius version first, and then may come back to this
+
 #+BEGIN_SRC python :eval no :tangle dust_bdrag_ode.py
   import numpy as np
   from scipy.integrate import odeint
@@ -3399,11 +3444,18 @@ python dust-lorentz-3d.py
   try:
       thB_degrees = float(sys.argv[1])
       LFAC = float(sys.argv[2])
+      MACH_ALFVEN = float(sys.argv[3])
+      try: 
+          ALPHA_DRAG = float(sys.argv[4])
+      except:
+          ALPHA_DRAG = 0.0
   except:
-      sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE")
+      sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE MACH_ALFVEN [ALPHA_DRAG]")
 
 
-  suffix = f"b{int(thB_degrees):02d}-L{int(100*LFAC):04d}"
+  suffix = f"b{int(thB_degrees):02d}-L{int(100*LFAC):04d}-Ma{int(10*MACH_ALFVEN):04d}"
+  if ALPHA_DRAG > 0.0:
+      suffix += f"-alpha{int(100*ALPHA_DRAG):04d}"
   figfile = sys.argv[0].replace('.py', f'-{suffix}.jpg')
 
   sns.set_style('white')
@@ -3421,10 +3473,12 @@ python dust-lorentz-3d.py
   nt = 3001
   tstop = 60
   X0 = 20
+  v_turb_0 = 1.0/MACH_ALFVEN
   for iy0, y0 in enumerate(y0grid):
       for iz0, z0 in enumerate(z0grid):
           s = streamline(X0=X0, Y0=y0, Z0=z0, thB=np.radians(thB_degrees),
-                         tstop=tstop, n=nt, LFAC=LFAC)
+                         tstop=tstop, n=nt,
+                         V_TURB_0=v_turb_0, LFAC=LFAC, ALPHA_DRAG=ALPHA_DRAG)
           # ax.plot(s['x'], s['y'], color='k', lw=0.5)
           # Accumulate (x, y) points in a long list
           xx.extend(s['x'])
@@ -3442,7 +3496,7 @@ python dust-lorentz-3d.py
   H, xe, ye = np.histogram2d(xx, yy, bins=(100, 100), weights=ww,
                              range=[[xmin, xmax], [ymin, ymax]])
   # Do another 3d one with uniform weights for just the density
-  Hd, [ze, ye, ze] = np.histogramdd(np.stack((xx, yy, zz), axis=1),
+  Hd, [xe, ye, ze] = np.histogramdd(np.stack((xx, yy, zz), axis=1),
                                     bins=(100, 100, 100), 
                                     range=[[xmin, xmax], [ymin, ymax], [zmin, zmax]])
   np.savez(figfile.replace('.jpg', ''), rho=Hd,
@@ -3501,13 +3555,76 @@ python dust-lorentz-3d.py
 
 #+END_SRC
 
-#+BEGIN_SRC sh :results file
-python dust-lorentz-stream.py 15.0 5.0 
+Run this in a terminal because it takes 20 mins!
+
+#+BEGIN_SRC sh :results file :eval no
+python dust-lorentz-stream.py 15.0 20.0 10.0 
 #+END_SRC
 
 #+RESULTS:
-[[file:dust-lorentz-stream-b15-L0500.jpg]]
+[[file:dust-lorentz-stream-b15-L2000-Ma0100.jpg]]
 
+
+*** Convert npz cubes to fits format
+#+BEGIN_SRC python :eval no :tangle convert-npz-cube-to-fits.py
+  import sys
+  import glob
+  import numpy as np
+  from astropy.io import fits
+  from astropy.wcs import WCS
+
+  try:
+      PREFIX = sys.argv[1]
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} PREFIX")
+
+  zfile = PREFIX + ".npz"
+
+  with np.load(zfile) as data:
+      cube = data['rho'].T
+      x = data['x']
+      y = data['y']
+      z = data['z']
+
+  xx = x[None, None, :]
+  yy = y[None, :, None]
+  zz = z[:, None, None]
+  rsq = xx**2 + yy**2 + zz**2
+
+  w = WCS(naxis=3)
+  w.wcs.crpix = [1, 1, 1]
+  w.wcs.crval = [x[0], y[0], z[0]]
+  w.wcs.cdelt = [x[1] - x[0], y[1] - y[0], z[1] - z[0]]
+
+  # Write out cube of density
+  fits.PrimaryHDU(
+      data=cube, header=w.to_header(),
+  ).writeto(f"{PREFIX}-cube.fits", overwrite=True)
+  # And cube of density * flux (Assuming ~ 1/R^2)
+  fits.PrimaryHDU(
+      data=cube/rsq, header=w.to_header(),
+  ).writeto(f"{PREFIX}-cube-F.fits", overwrite=True)
+  # And cube of density * T (Assuming T^4 ~ Flux)
+  fits.PrimaryHDU(
+      data=cube/rsq**0.25, header=w.to_header(),
+  ).writeto(f"{PREFIX}-cube-T.fits", overwrite=True)
+  # And cube of density * T^2 (Assuming T^4 ~ Flux)
+  fits.PrimaryHDU(
+      data=cube/rsq**0.5, header=w.to_header(),
+  ).writeto(f"{PREFIX}-cube-T2.fits", overwrite=True)
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent
+python convert-npz-cube-to-fits.py dust-lorentz-stream-b05-L2000-Ma0100-alpha0100
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent
+python convert-npz-cube-to-fits.py dust-lorentz-stream-b75-L2000-Ma0100-alpha0100
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent
+python convert-npz-cube-to-fits.py dust-lorentz-stream-b45-L0200-Ma0020-alpha0010
+#+END_SRC
 
 
 *** Selected streamlines in 3D

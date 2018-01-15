@@ -7,11 +7,17 @@ import seaborn as sns
 
 try:
     ANGLE = int(sys.argv[1])
+    try:
+        PREFIX = sys.argv[2]
+        SUFFIX = sys.argv[3]
+    except:
+        PREFIX = "bfield"
+        SUFFIX = ""
 except:
-    sys.exit(f"Usage: {sys.argv[0]} ANGLE")
+    sys.exit(f"Usage: {sys.argv[0]} ANGLE [PREFIX SUFFIX]")
 
 
-figfile = sys.argv[0].replace('.py', f'-{ANGLE:02d}.pdf')
+figfile = sys.argv[0].replace('.py', f'-b{ANGLE:02d}{SUFFIX}.pdf')
 fig, axes = plt.subplots(3, 4, sharex=True, sharey=True, figsize=(8, 6.1))
 
 # Unit vector along B-field in the body-frame basis
@@ -35,7 +41,7 @@ def circle(x, y, radius=0.15):
 xmin, xmax, ymin, ymax = -5.0, 5.0, -5.0, 5.0
 for j, inc in enumerate([7, 22, 39, 61]):
     for i, azi in enumerate([15, 45, 75]):
-        fitsfile = f"dust-bfield-b{ANGLE:02d}-cube-F-{inc:03d}-{azi:03d}.fits"
+        fitsfile = f"dust-{PREFIX}-b{ANGLE:02d}{SUFFIX}-cube-F-{inc:03d}-{azi:03d}.fits"
         hdu, = fits.open(fitsfile)
 
         ax = axes[i, j]

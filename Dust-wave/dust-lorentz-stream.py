@@ -8,11 +8,18 @@ from dust_blorentz_ode import streamline
 try:
     thB_degrees = float(sys.argv[1])
     LFAC = float(sys.argv[2])
+    MACH_ALFVEN = float(sys.argv[3])
+    try: 
+        ALPHA_DRAG = float(sys.argv[4])
+    except:
+        ALPHA_DRAG = 0.0
 except:
-    sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE")
+    sys.exit(f"Usage: {sys.argv[0]} FIELD_ANGLE LORENTZ_FORCE MACH_ALFVEN [ALPHA_DRAG]")
 
 
-suffix = f"b{int(thB_degrees):02d}-L{int(100*LFAC):04d}"
+suffix = f"b{int(thB_degrees):02d}-L{int(100*LFAC):04d}-Ma{int(10*MACH_ALFVEN):04d}"
+if ALPHA_DRAG > 0.0:
+    suffix += f"-alpha{int(100*ALPHA_DRAG):04d}"
 figfile = sys.argv[0].replace('.py', f'-{suffix}.jpg')
 
 sns.set_style('white')
@@ -30,10 +37,12 @@ xs, ys, zs = [], [], []
 nt = 3001
 tstop = 60
 X0 = 20
+v_turb_0 = 1.0/MACH_ALFVEN
 for iy0, y0 in enumerate(y0grid):
     for iz0, z0 in enumerate(z0grid):
         s = streamline(X0=X0, Y0=y0, Z0=z0, thB=np.radians(thB_degrees),
-                       tstop=tstop, n=nt, LFAC=LFAC)
+                       tstop=tstop, n=nt,
+                       V_TURB_0=v_turb_0, LFAC=LFAC, ALPHA_DRAG=ALPHA_DRAG)
         # ax.plot(s['x'], s['y'], color='k', lw=0.5)
         # Accumulate (x, y) points in a long list
         xx.extend(s['x'])
