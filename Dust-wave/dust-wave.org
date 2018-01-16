@@ -3209,6 +3209,55 @@ python multi-view-dust-bfield.py 45 lorentz-stream -L0200-Ma0020-alpha0010
 #+RESULTS:
 [[file:multi-view-dust-bfield-b45-L0200-Ma0020-alpha0010.pdf]]
 
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 05 lorentz-stream -L2000-Ma0100-alpha0100
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b05-L2000-Ma0100-alpha0100.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L2000-Ma0100-alpha0100
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L2000-Ma0100-alpha0100.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L2000-Ma0100-alpha0050
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L2000-Ma0100-alpha0050.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L2000-Ma0100-alpha0200
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L2000-Ma0100-alpha0200.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 45 lorentz-stream -L2000-Ma0100-alpha0400
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b45-L2000-Ma0100-alpha0400.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 15 lorentz-stream -L2000-Ma0100-alpha0050
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b15-L2000-Ma0100-alpha0050.pdf]]
+
+#+BEGIN_SRC sh :results file
+python multi-view-dust-bfield.py 75 lorentz-stream -L2000-Ma0100-alpha0100
+#+END_SRC
+
+#+RESULTS:
+[[file:multi-view-dust-bfield-b75-L2000-Ma0100-alpha0100.pdf]]
+
 **** TODO Distribution in planitude-alatude plane
 + Finding R_c and R_90 can be done much like in the Spitzer dataset
 + 
@@ -3624,6 +3673,10 @@ python convert-npz-cube-to-fits.py dust-lorentz-stream-b75-L2000-Ma0100-alpha010
 
 #+BEGIN_SRC sh :results silent
 python convert-npz-cube-to-fits.py dust-lorentz-stream-b45-L0200-Ma0020-alpha0010
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent
+python convert-npz-cube-to-fits.py dust-lorentz-stream-b45-L2000-Ma0100-alpha0400
 #+END_SRC
 
 
