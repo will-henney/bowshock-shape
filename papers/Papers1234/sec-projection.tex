@@ -105,8 +105,28 @@ and \(\omega\) is a dimensionless \textit{local growth factor}:
   \omega(\theta) = \frac{1}{R} \frac{dR}{d\theta} . 
 \end{equation}
 For general \(\phi\), we find \(\uvec{n}\) and \(\uvec{t}\) by rotating
-equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis, and then
-converting to the observer frame by use of equation~(\ref{eq:Trans})
+equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis, as follows:
+
+\begin{align}
+  \uvec{n} &= \mathcal{R}\uvec{n}_0 =
+  \begin{Vector}
+    \sin\alpha \\ \cos\alpha\cos\phi \\ \cos\alpha\sin\phi
+  \end{Vector} \\
+  \uvec{t} &= \mathcal{R}\uvec{t}_0 =
+  \begin{Vector}
+    -\cos\alpha \\ \sin\alpha\cos\phi \\ \sin\alpha\sin\phi
+  \end{Vector}
+\end{align}
+Where $\mathcal{R}$ is the rotation matrix around the $x$-axis:
+\begin{equation}
+  \mathcal{R} =
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 &\cos\phi & -\sin\phi \\
+    0 &\sin\phi & \cos\phi
+  \end{pmatrix}
+\end{equation}
+then converting to the observer frame by use of equation~(\ref{eq:Trans})
 to give
 \begin{gather}
   \label{eq:nprime}
