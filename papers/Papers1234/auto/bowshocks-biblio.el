@@ -110,6 +110,7 @@
     "Arthur:2006a"
     "Osterbrock:2006a"
     "Sternberg:2003a"
-    "Rodriguez-Ramirez:2016b"))
+    "Rodriguez-Ramirez:2016b"
+    "Guggenheimer:2012a"))
  :bibtex)
 

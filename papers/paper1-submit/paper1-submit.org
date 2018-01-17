@@ -259,6 +259,37 @@ CLOSED: [2017-12-06 Wed 12:05]
   Instituto de Radioastronomía y Astrofísica, Universidad Nacional Autónoma de México, Apartado Postal 3-72, 58090 Morelia, Michoacán, México
 #+END_EXAMPLE
 * Revised version
+** Reply to referee
+*** Appendix
+: My main recommendation is to expand the Appendix to show how one can derive all formulae that do not appear too trivial.
+*** Equation 3
+: I confess I had problems already with Eq. 3., possibly related to the fact that the dimensions to not seem quite right (compared to e.g. Eq. 4, where the second derivative is multiplied by the square of the angle theta).
+
+The equation is correct, see for example Guggenheimer:2012a chapter 2.  There is no problem with the dimensions because theta is effectively dimensionless in this context when expressed in radians.   
+
+*** Intermediate steps in Eqs 12, 13, 15, 18
+: Eq. 12 and 13 would benefit from an intermediate step; also the first part of Eq. 15, Eq. 18... et cetera.
+*** Symmetry axis of projected tangent line
+: From a conceptual point of view, my main question is about the possibility of finding the symmetry axis of a projected tangent line. Once the surface has been rotated to account for the observer line of sight, the real vertex gets decoupled from the apparent vertex. The apparent vertex is no more on the x axis, where the star and center of curvature are located and therefore the reuse of Eq. 4 (now Eq. 22) may require some justification.
+*** Meyer comparison 
+: Figure 24 and relative caption must be fixed making it homogeneous with Figure 15; in general, the comparison with the simulations presented by Meyer et al. could be made more transparent. It would be useful to reproduce their images to show directly how the shapes have been drawn. 
+*** Observational comparison
+: The application of the methods to the bow shock presented in Figure 1 would provide a most effective conclusion of the paper.
+
+** Referee report
+Reviewer's Comments:
+
+This paper, the first in a series of 4, sets the groundwork for a refined interpretation of the bow shocks created by wind-wind interactions. The paper largely deals with the geometry of the problem, in particular on how different bow shock shapes appear projected on the sky and how the fundamental parameters can be obtained by an analysis of their projected shapes.
+
+The sections follow a most logical order: shell geometry, projection of a generic surface on the plane of the sky, application to analytical surfaces, application to the shapes predicted by wind-wind models, application to recent  numerical simulations. The depth of the treatment justifies the introduction of new nomenclature (planitude, alatude, wilkinoids, cantoids, alcantoids) that hopefully will be adopted by the community.
+
+The paper is heavy on the mathematical side and the reader who wants to reproduce the results has to brace for an analytical tour-de-force. The authors have added an Appendix to explain how certain results have been obtained. My main recommendation is to expand the Appendix to show how one can derive all formulae that do not appear too trivial.
+
+I confess I had problems already with Eq. 3., possibly related to the fact that the dimensions to not seem quite right (compared to e.g. Eq. 4, where the second derivative is multiplied by the square of the angle theta). Eq. 12 and 13 would benefit from an intermediate step; also the first part of Eq. 15, Eq. 18... et cetera.
+
+From a conceptual point of view, my main question is about the possibility of finding the symmetry axis of a projected tangent line. Once the surface has been rotated to account for the observer line of sight, the real vertex gets decoupled from the apparent vertex. The apparent vertex is no more on the x axis, where the star and center of curvature are located and therefore the reuse of Eq. 4 (now Eq. 22) may require some justification.
+
+Figure 24 and relative caption must be fixed making it homogeneous with Figure 15; in general, the comparison with the simulations presented by Meyer et al. could be made more transparent. It would be useful to reproduce their images to show directly how the shapes have been drawn.  The application of the methods to the bow shock presented in Figure 1 would provide a most effective conclusion of the paper.
 ** Unsolicited comments on arxiv paper
 *** Frank Wilkin
 + The projection section was already done in his PhD thesis appendix
