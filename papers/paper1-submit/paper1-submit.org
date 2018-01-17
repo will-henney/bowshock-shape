@@ -262,15 +262,42 @@ CLOSED: [2017-12-06 Wed 12:05]
 ** Reply to referee
 *** Appendix
 : My main recommendation is to expand the Appendix to show how one can derive all formulae that do not appear too trivial.
+
+We have chosen to add a two new appendices that provides intermediate steps for many of the results in sections 2 and 3. 
+
 *** Equation 3
 : I confess I had problems already with Eq. 3., possibly related to the fact that the dimensions to not seem quite right (compared to e.g. Eq. 4, where the second derivative is multiplied by the square of the angle theta).
 
-The equation is correct, see for example Guggenheimer:2012a chapter 2.  There is no problem with the dimensions because theta is effectively dimensionless in this context when expressed in radians.   
+The equation is correct, but for clarity we have now added an appendix
+that outlines its derivation.  There is no problem with the dimensions
+because theta is effectively dimensionless in this context when
+measured in radians.  To see that this is so, consider the path length
+along a circular arc: s = R * theta (if theta is expressed in
+radians).  Since "s" and "R" both have dimensions of length, it
+follows that theta must be dimensionless.  To quote from Wikipedia:
+"Although the radian is a unit of measure, it is a dimensionless
+quantity."  For more details (and a critique of the previous
+argument), see Mohr & Phillips (2015), which we now cite in the
+paper. [http://iopscience.iop.org/article/10.1088/0026-1394/52/1/40]
+It seems that the situation is actually rather complicated, due to the
+laxness of us scientists in failing to distinguish "theta" from
+"{theta}"!  The paper has many other fascinating insights about units,
+as do some of the more recent papers that cite it, especially Quincey
+& Brown (2017)
+[http://iopscience.iop.org/article/10.1088/1681-7575/aa7160/meta].  We
+are grateful to the referee for leading us to discover this
+literature.
 
 *** Intermediate steps in Eqs 12, 13, 15, 18
 : Eq. 12 and 13 would benefit from an intermediate step; also the first part of Eq. 15, Eq. 18... et cetera.
+
+This is a fair point.  We now introduce explicit rotation matrices
+about the x and y axes: A_x(phi) and A_y(i), which we use in a new
+appendix to fill in the intermediate steps.
+
 *** Symmetry axis of projected tangent line
 : From a conceptual point of view, my main question is about the possibility of finding the symmetry axis of a projected tangent line. Once the surface has been rotated to account for the observer line of sight, the real vertex gets decoupled from the apparent vertex. The apparent vertex is no more on the x axis, where the star and center of curvature are located and therefore the reuse of Eq. 4 (now Eq. 22) may require some justification.
+
 *** Meyer comparison 
 : Figure 24 and relative caption must be fixed making it homogeneous with Figure 15; in general, the comparison with the simulations presented by Meyer et al. could be made more transparent. It would be useful to reproduce their images to show directly how the shapes have been drawn. 
 *** Observational comparison

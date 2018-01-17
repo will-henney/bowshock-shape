@@ -111,6 +111,9 @@
     "Osterbrock:2006a"
     "Sternberg:2003a"
     "Rodriguez-Ramirez:2016b"
-    "Guggenheimer:2012a"))
+    "Guggenheimer:2012a"
+    "Weisstein:2018a"
+    "Mohr:2015a"
+    "Quincey:2017a"))
  :bibtex)
 

@@ -52,6 +52,10 @@ Goldman R.,  1983, \mn@doi [IEEE Computer Graphics and Applications]
 {Graham} M.~F.,  {Meaburn} J.,  {Garrington} S.~T.,  {O'Brien} T.~J.,  {Henney}
   W.~J.,   {O'Dell} C.~R.,  2002, \apj, 570, 222
 
+\bibitem[\protect\citeauthoryear{Guggenheimer}{Guggenheimer}{2012}]{Guggenheimer:2012a}
+Guggenheimer H.,  2012, Differential Geometry.
+Dover Books on Mathematics, Dover Publications
+
 \bibitem[\protect\citeauthoryear{{Hartigan}, {Raymond}  \&
   {Hartmann}}{{Hartigan} et~al.}{1987}]{Hartigan:1987a}
 {Hartigan} P.,  {Raymond} J.,   {Hartmann} L.,  1987, \apj, 316, 323
@@ -116,6 +120,10 @@ Goldman R.,  1983, \mn@doi [IEEE Computer Graphics and Applications]
 {Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
   2017, \mnras, 464, 3229
 
+\bibitem[\protect\citeauthoryear{Mohr \& Phillips}{Mohr \&
+  Phillips}{2015}]{Mohr:2015a}
+Mohr P.~J.,  Phillips W.~D.,  2015, Metrologia, 52, 40
+
 \bibitem[\protect\citeauthoryear{{Ochsendorf}, {Verdolini}, {Cox}, {Bern{\'e}},
   {Kaper}  \& {Tielens}}{{Ochsendorf} et~al.}{2014}]{Ochsendorf:2014a}
 {Ochsendorf} B.~B.,  {Verdolini} S.,  {Cox} N.~L.~J.,  {Bern{\'e}} O.,  {Kaper}
@@ -124,6 +132,10 @@ Goldman R.,  1983, \mn@doi [IEEE Computer Graphics and Applications]
 \bibitem[\protect\citeauthoryear{{Phillips}, {Cuesta}  \&
   {Ramos-Larios}}{{Phillips} et~al.}{2010}]{Phillips:2010a}
 {Phillips} J.~P.,  {Cuesta} L.~C.,   {Ramos-Larios} G.,  2010, \mnras, 409, 881
+
+\bibitem[\protect\citeauthoryear{Quincey \& Brown}{Quincey \&
+  Brown}{2017}]{Quincey:2017a}
+Quincey P.,  Brown R. J.~C.,  2017, Metrologia, 54, 454
 
 \bibitem[\protect\citeauthoryear{{Raga}, {Binette}, {Canto}  \&
   {Calvet}}{{Raga} et~al.}{1990}]{Raga:1990a}
@@ -157,6 +169,10 @@ Goldman R.,  1983, \mn@doi [IEEE Computer Graphics and Applications]
 
 \bibitem[\protect\citeauthoryear{{Tenorio-Tagle}}{{Tenorio-Tagle}}{1979}]{Tenorio-Tagle:1979a}
 {Tenorio-Tagle} G.,  1979, \aap, 71, 59
+
+\bibitem[\protect\citeauthoryear{Weisstein}{Weisstein}{2018}]{Weisstein:2018a}
+Weisstein E.~W.,  1999--2018, Radius of Curvature, From MathWorld -- A Wolfram
+  Web Resource., \url {http://mathworld.wolfram.com/RadiusofCurvature.html}
 
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31

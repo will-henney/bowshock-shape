@@ -83,6 +83,11 @@
 \newcommand\C{\ensuremath{\mathrm{c}}}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\Abs}[1]{\left\lvert#1\right\rvert}
+\newenvironment{Vector}{\left(\begin{array}{c}}{\end{array}\right)}
+\newcommand\uvec[1]{\bm{\hat{#1}}}
+\newcommand\T{_{\mathrm{\scriptscriptstyle T}}}
+
+
 \newcommand\TODO[1]{%
   \begin{center}
     \framebox{\parbox{0.8\linewidth}{
@@ -145,6 +150,7 @@ Mexico.
 %% All references should be put in the BibTeX file bowshocks-biblio.bib
 \bibliography{bowshocks-biblio}
 \appendix
+\input{app-intermediate}
 \input{app-parabola}
 %\input{app-ancantoid}
 \input{app-shape-parameters}

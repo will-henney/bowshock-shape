@@ -206,17 +206,15 @@ shock, but in order to characterize its shape more parameters are
 required.  To efficiently capture the diversity of bow shapes, we
 propose the parameters shown in Figure~\ref{fig:characteristic-radii}.
 The perpendicular radius \(R_{90}\) is the value of \(R(\theta)\) at
-\(\theta = 90^\circ\), whereas \(R_{\C}\) is the radius of curvature of the bow at
-the apex (\(\theta = 0\)), which in cylindrical symmetry simplifies to
+\(\theta = 90^\circ\), whereas \(R_{\C}\) is the radius of curvature of the bow
+at the apex (\(\theta = 0\)).  For a cylindrically symmetric bow, we show
+in Appendix~\ref{sec:radius-curvature} that this is given by
 \begin{equation}
   \label{eq:radius-curvature}
   R_{\C} 
-  % = R_0 \Biggl[ 1
-  % - \frac{1} {R_0} \left.\frac{d^2\! R} {d\,\theta^2}\right|_{\theta = 0} \Biggr]^{-1}
   = \frac{R_0^2}{R_0 - R_{\theta\theta,0}} \ , 
 \end{equation}
-where \(R_{\theta\theta,0}\) is \(d^2 \!R / d\theta^2\) evaluated at
-\(\theta = 0\) (see, for example Chapter~2 of \citealp{Guggenheimer:2012a}).
+where \(R_{\theta\theta,0}\) is \(d^2 \!R / d\theta^2\) evaluated at \(\theta = 0\).
 
 A fourth parameter is the asymptotic opening angle of the far wings,
 \(\theta_\infty\), which is useful in the case that the wings are asymptotically

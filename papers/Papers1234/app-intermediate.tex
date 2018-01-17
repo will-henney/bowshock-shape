@@ -1,0 +1,77 @@
+%% \section{Derivation of selected results from \S\S~2 and 3}
+
+\section{Radius of curvature}
+\label{sec:radius-curvature}
+
+The radius of curvature of a general curve can be written (e.g.,
+eq.~[2-5] of \citealp{Guggenheimer:2012a}):
+\begin{equation}
+  \label{eq:Rcurv-general}
+  R_{\C} \equiv \frac{1}{\abs{\kappa}} = \Abs{\frac{d s}{d \alpha}} \ ,  
+\end{equation}
+where \(\kappa\) is the \textit{curvature}, \(s\) is the path length along
+the curve and \(\alpha\) is the tangent angle (see Fig.~\ref{fig:unitvec}).
+In spherical polar coordinates, this becomes \citep{Weisstein:2018a}:
+\begin{equation}
+  \label{eq:Rcurv-polar}
+  R_{\C} = \frac{\left( R^2 + R_\theta^2 \right)^{3/2}}
+  {\Abs{R^2 + 2 R_\theta^2 - R R_{\theta\theta}}} \ , 
+\end{equation}
+where \(R_\theta = d R / d \theta\) and
+\(R_{\theta\theta} = d^2 R / d \theta^2\).  At the apex,
+\(R_\theta = 0\) by symmetry, which yields
+equation~\eqref{eq:radius-curvature} of
+\S~\ref{sec:plan-alat-bow}. Note that \(\theta\) is dimensionless and
+should be measured in radians \citep{Mohr:2015a, Quincey:2017a}.
+
+
+\section{Rotation matrices and plane of sky projection}
+\label{sec:plane-sky-projection}
+
+The transformation from the body frame (unprimed) to observer-frame
+(primed) coordinates is a rotation about the \(y\) axis by an angle
+\(i\), which is described by the rotation matrix:
+\begin{equation}
+  \label{eq:Rotation-matrix-y}
+  \mathbfss{A}_y(i) = 
+   \begin{pmatrix}
+    \cos i & 0 & -\sin i \\
+    0 & 1 & 0 \\
+    \sin i & 0 &\cos i 
+  \end{pmatrix} \ .
+\end{equation}
+This is used in equation~\eqref{eq:Trans}.
+
+Since we are considering cylindrically symmetric bows, all azimuths
+\(\phi\) are equivalent, so it is sufficient to work with two-dimensional
+curves in the plane \(z = 0\) (which is also \(\phi = 0\)) and then find
+the three-dimensional surface by rotating about the \(x\)-axis via the
+rotation matrix:
+\begin{equation}
+  \label{eq:Rotation-matrix-x}
+  \mathbfss{A}_x(\phi) = 
+   \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 &\cos\phi & -\sin\phi \\
+    0 &\sin\phi & \cos\phi 
+  \end{pmatrix} \ .
+\end{equation}
+This is used in \S~\ref{sec:unit-vectors-normal} to find the general
+form of the body-frame normal and tangent unit vectors:
+\begin{align}
+  \uvec{n} &= \mathbfss{A}_x(\phi) \, \uvec{n}_0 =
+  \begin{Vector}
+    \sin\alpha \\ \cos\alpha\cos\phi \\ \cos\alpha\sin\phi
+  \end{Vector} \\
+  \uvec{t} &= \mathbfss{A}_x(\phi) \, \uvec{t}_0 =
+  \begin{Vector}
+    -\cos\alpha \\ \sin\alpha\cos\phi \\ \sin\alpha\sin\phi
+  \end{Vector} \ . 
+\end{align}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "quadrics-bowshock"
+%%% End:
