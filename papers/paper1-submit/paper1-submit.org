@@ -307,14 +307,21 @@ which helps in the derivation of eq (15).
 
 The referee is correct that the apparent vertex is not on the x axis,
 but it /is/ on the x' axis (for a cylindrically symmetric bow), so
-long as (x', y') is considered as a two-dimensional manifold, and not
-strictly speaking as a geometrical plane in 3D space.  
+long as (x', y') is considered as a projective plane, and not strictly
+speaking as a geometrical plane in 3D Euclidean space.  For a
+projective plane, the "points" are really lines (lines of sight
+passing through the observer) and so the z' coordinate of the apex is
+irrelevant, We have added a short discussion after equation (8) in sec
+3.1 to clarify this point.
 
-Putting it another way: Equation (22) is entirely in terms of primed
-quantities: lengths and angles that are measured on the "plane" of the
-sky.  The tangent line has reflection symmetry about the x' axis, so d
-R' / d theta' = 0 at the apparent apex (\theta' = 0), which again allows
-use of the simplified version of the radius of curvature equation.
+Putting it another way: Equation (22) is entirely in terms of observed
+quantities: lengths and angles that are measured on the "plane of the
+sky".  The star, apparent apex, and apparent center of curvature are
+all on the x' axis. The tangent line has reflection symmetry about the
+axis, and therefore d R' / d theta' = 0 at the apparent apex (\theta' =
+0). This again allows use of the simplified version of the radius of
+curvature equation.  We have expanded the discussion of this equation
+to try and make this all more explicit.
 
 *** Meyer comparison 
 : Figure 24 and relative caption must be fixed making it homogeneous with Figure 15; in general, the comparison with the simulations presented by Meyer et al. could be made more transparent. It would be useful to reproduce their images to show directly how the shapes have been drawn. 
@@ -330,11 +337,16 @@ the point at \Pi' = 6 can be included, while at the same time giving a
 detailed view of the region around \Pi' = 1.5 - 2.  If we were to use a
 linear scale that extended far enough to show the i=0 point on the
 orange track, then the other interesting points would be squashed much
-too close together.  
+too close together.
 
+As to the second part of the comment, we have added another new
+appendix that illustrates the process.
 
 *** Observational comparison
 : The application of the methods to the bow shock presented in Figure 1 would provide a most effective conclusion of the paper.
+
+We were saving the observational comparison for a following paper, but
+we agree that a small preview would be useful here. 
 
 ** Referee report
 Reviewer's Comments:

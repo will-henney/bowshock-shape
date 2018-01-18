@@ -18,7 +18,7 @@ the symmetry axis, and spherical polar coordinates
 symmetric, it is can be specified as $R = R(\theta)$, so that
 cartesian coordinates on the surface are:
 \begin{equation}
-  \bm{R} \equiv
+  \bm{r} \equiv
   \begin{Vector}
     x \\ y \\ z
   \end{Vector} 
@@ -35,11 +35,11 @@ Suppose that the viewing direction makes an angle \(i\) with the
 \((x', y', z')\), which are found by rotating the body-frame
 coordinates about the \(y\)~axis:
 \begin{equation}
-  \bm{R}' \equiv
+  \bm{r}' \equiv
   \begin{Vector}
     x' \\ y' \\ z'
   \end{Vector}
-  = \mathbfss{A}_y(i)\, \bm{R}
+  = \mathbfss{A}_y(i)\, \bm{r}
   =
   \begin{Vector}
     x\cos i - z\sin i\\
@@ -48,23 +48,46 @@ coordinates about the \(y\)~axis:
   \end{Vector} \ ,
   \label{eq:Trans}
 \end{equation}
-where the rotation matrix \(\mathbfss{A}_y(i)\) is given in Appendix~\ref{sec:plane-sky-projection}. 
+where the rotation matrix \(\mathbfss{A}_y(i)\) is given in
+Appendix~\ref{sec:plane-sky-projection}.  The inclination angle \(i\)
+is defined so that \(i = \ang{0}\) when the surface is viewed
+perpendicular to its axis (\textit{side on}) and \(i = \ang{90}\) when
+it is viewed along its axis (\textit{end on}).
+
+
 The relationship between the two frames is illustrated in
 Figure~\ref{fig:projection-pos}.  All quantities in the observer's
 frame are denoted by attaching a prime to the equivalent quantity in
-the body frame.  The celestial coordinates on the ``plane of the sky''
-are given by \((x', y')\) with \(x'\) being the projected symmetry
-axis of the surface, while the line of sight lies along \(-z'\).  The
-inclination angle \(i\) is defined so that \(i = \ang{0}\) when the
-surface is viewed perpendicular to its axis (\textit{side on}) and
-\(i = \ang{90}\) when it is viewed along its axis (\textit{end on}).
+the body frame. There are two ways of interpreting the primed
+coordinates. On the one hand, the 3-vector \((x', y', z')\) specifies
+a point in Euclidean space, \(\mathds{R}^3\), but an alternative
+interpretation is to take the 2-vector \((x', y')\) as specifying a
+point in a \textit{projective space}, \(\mathds{P}^2\) (see, for
+example, \S~15.6 of \citealp{Penrose:2004a}). Each ``point'' in
+\(\mathds{P}^2\) is equivalent to a line in \(\mathds{R}^3\),
+specifically: a line of sight that passes through the observer. Thus,
+\((x', y')\) gives the celestial coordinates on the \textit{plane of
+  the sky}, with \(x'\) being the projected symmetry axis of the
+surface.  We assume that the observer is located at a very large
+distance, relative to the size of the bow, so that all lines of sight
+are effectively parallel to the \(z'\) axis, with the observer at
+\(z' = -\infty\).  But, from the point of view of the plane of the sky, the
+\(z'\) coordinate is strictly irrelevant since it is a projective
+plane, and not a Euclidean plane.  In the following, we will switch
+between the \(\mathds{R}^3\) and \(\mathds{P}^2\) interpretations as
+convenient, resolving ambiguity where necessary via the adjectives
+``Euclidean'' for \(\mathds{R}^3\) and ``plane-of-sky'' or
+``projected'' for \(\mathds{P}^2\).
+
 
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/projection-pos}
   \caption{Relationship between body frame (unprimed coordinates) and
-    observer frame (primed coordinates).}
+    observer frame (primed coordinates).  Note that the plane of the
+    sky is a projective plane, not a geometric plane in Euclidean
+    3-space, see discussion in text.}
   \label{fig:projection-pos}
 \end{figure}
 
@@ -195,17 +218,19 @@ x'\T \\ y'\T \\ z'\T
 \label{eq:tangential}
 \end{equation} 
 Note that, in general, \(z'\T\) is not a linear function of \(x'\T\)
-and \(y'\T\), so that the tangent line is not a plane curve. 
-
-The apparent shape \((x'\T, y'\T)\) of the tangent line on the plane
-of the sky can also be described in polar form as \(R'(\theta')\),
-where
+and \(y'\T\), so that the tangent line \((x'\T, y'\T, z'\T)\) is not a
+plane curve in 3-dimensional Euclidean space, \(\mathds{R}^3\).
+However, for the projected shape \((x'\T, y'\T)\) of the tangent line
+on the plane of the sky, \(\mathds{P}^2\), the value of \(z'\T\) does
+not matter (see above).  The projected shape can also be described in
+polar form as \(R'(\theta')\), where
 \begin{equation}
   \label{eq:R-prime-theta-prime}
   R' = (x'^2\T+ y'^2\T)^{1/2} 
   \quad \text{and} \quad
   \tan\theta' = y'\T / x'\T.
 \end{equation}
+
 Note that equation~(\ref{eq:tanphi}) will not have
 a solution for arbitrary values of $\theta$ and $i$, but only when
 $|\tan i\tan\alpha|<1$. In particular, if $i\neq 0$, then the tangent
@@ -258,6 +283,8 @@ Similarly, the projected planitude is \(\Pi' = R_{\C}' / R_0'\), where
   R_{\C}' 
   = \frac{(R_0')^2}{R_0' - R_{\theta'\theta',0}'} \ .
 \end{equation}
+
+Projective space \(\mathbb{RP}^2\) or \(\mathbbm{RP}^2\) or \(\mathds{RP}^2\)
 
 \subsection{Line-of-sight velocities on the tangent line}
 \label{sec:line-sight-veloc}

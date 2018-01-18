@@ -37,6 +37,8 @@
     "pdflscape"
     "rotating"
     "nicefrac"
+    "dsfont"
+    "bbm"
     "fontenc"
     "inputenc"
     "newtxtext"
