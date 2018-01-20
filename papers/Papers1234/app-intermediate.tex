@@ -40,7 +40,33 @@ The transformation from the body frame (unprimed) to observer-frame
     \sin i & 0 &\cos i 
   \end{pmatrix} \ .
 \end{equation}
-This is used in equation~\eqref{eq:Trans}.
+This is used in equation~\eqref{eq:Trans}.  A further application is
+to find the observer-frame Cartesian basis vectors by rotating the
+body-frame basis:
+\begin{align}
+  \label{eq:xunit-prime}
+  \uvec{x}' &= \mathbfss{A}_y(i)\, \uvec{x}
+              =
+              \begin{Vector}
+              \cos i \\ 0 \\ \sin i  
+              \end{Vector}
+  \\
+  \label{eq:yunit-prime}
+  \uvec{y}' &= \mathbfss{A}_y(i)\, \uvec{y}
+              =
+              \begin{Vector}
+              0 \\ 1 \\ 0
+              \end{Vector}
+  \\
+  \label{eq:zunit-prime}
+  \uvec{z}' &= \mathbfss{A}_y(i)\, \uvec{z}
+              =
+              \begin{Vector}
+              -\sin i \\ 0 \\ \cos i  
+              \end{Vector}
+\end{align}
+
+
 
 Since we are considering cylindrically symmetric bows, all azimuths
 \(\phi\) are equivalent, so it is sufficient to work with two-dimensional
@@ -68,7 +94,12 @@ form of the body-frame normal and tangent unit vectors:
     -\cos\alpha \\ \sin\alpha\cos\phi \\ \sin\alpha\sin\phi
   \end{Vector} \ . 
 \end{align}
+These are then to the observer frame in equations~\eqref{eq:nprime}
+and \eqref{eq:tprime} by use of equation~\eqref{eq:Rotation-matrix-y}.
 
+The first equality in equation~\eqref{eq:tanphi} is found by
+substituting equations~\eqref{eq:nprime} and~\eqref{eq:zunit-prime}
+in~\eqref{eq:tangent-line-condition}, yielding
 
 
 %%% Local Variables:

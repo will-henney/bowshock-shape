@@ -130,10 +130,12 @@ and \(\omega\) is a dimensionless \textit{local growth factor}:
 \end{equation}
 For general \(\phi\), we find \(\uvec{n}\) and \(\uvec{t}\) by rotating
 equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis with the matrix
-\(\mathbfss{A}_x(\phi)\)(see Appendix~\ref{sec:plane-sky-projection}) and
-then converting to the observer frame by use of
+\(\mathbfss{A}_x(\phi)\) and then rotating to the observer frame with
+\(\mathbfss{A}_y(i)\)
+
+by use of
 equation~(\ref{eq:Trans}) to give
-\begin{gather}
+\begin{equation}
   \label{eq:nprime}
   \begin{aligned}
     \uvec{n}' &= \mathbfss{A}_y(i)\, \uvec{n}
@@ -150,7 +152,9 @@ equation~(\ref{eq:Trans}) to give
         + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
       \end{Vector}
     \end{aligned}
-  \end{aligned}\\
+  \end{aligned}
+\end{equation}
+\begin{equation}
   \label{eq:tprime}
   \begin{aligned}
     \uvec{t}' &= \mathbfss{A}_y(i)\, \uvec{t}
@@ -168,7 +172,8 @@ equation~(\ref{eq:Trans}) to give
       \end{Vector} \ .
     \end{aligned}
   \end{aligned}
-\end{gather}
+\end{equation}
+
 \subsection{Tangent line}
 \label{sec:tangent-line}
 
@@ -284,7 +289,6 @@ Similarly, the projected planitude is \(\Pi' = R_{\C}' / R_0'\), where
   = \frac{(R_0')^2}{R_0' - R_{\theta'\theta',0}'} \ .
 \end{equation}
 
-Projective space \(\mathbb{RP}^2\) or \(\mathbbm{RP}^2\) or \(\mathds{RP}^2\)
 
 \subsection{Line-of-sight velocities on the tangent line}
 \label{sec:line-sight-veloc}

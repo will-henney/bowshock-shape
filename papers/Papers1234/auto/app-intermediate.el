@@ -14,6 +14,9 @@
     "eq:Rcurv-polar"
     "sec:plane-sky-projection"
     "eq:Rotation-matrix-y"
+    "eq:xunit-prime"
+    "eq:yunit-prime"
+    "eq:zunit-prime"
     "eq:Rotation-matrix-x"))
  :latex)
 
