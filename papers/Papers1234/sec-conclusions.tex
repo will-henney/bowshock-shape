@@ -2,6 +2,27 @@
 \label{sec:more-realistic-bow}
 
 \begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/M17-composite}
+  \caption[]{Procedure for tracing the contact discontinuity from the
+    \citet{Meyer:2017a} simulations.  The density maps from
+    \citeauthor{Meyer:2017a}'s Fig.~3 are converted to FITS format and
+    displayed using the software \textsc{SAOImage DS9}.  The density
+    contour at \SI{0.4}{cm^{-3}} is displayed (shown in green in the
+    figure) and this is traced by hand by placing ``point regions'' on
+    the image (shown by black ``x'' shapes in the figure).  The zoom
+    facility of the software allows the points to be placed with any
+    required accuracy.  The points are saved to a file in the DS9
+    region file format, which is then read by Python programs for
+    further processing.  For example, the yellow boxes show circle
+    fits and determination of the parameters \(R_0\), \(R_c\), and
+    \(R_{90}\).  In this example, only the points shown in orange
+    (within \ang{60} of axis) are used in the fits.}
+  \label{fig:meyer-trace}
+\end{figure}
+
+
+\begin{figure}
   (a)\\
   \includegraphics[width=\linewidth]
   {figs/depart-cheby-M17-MHD2040-AllB7}\\[-\baselineskip]
@@ -47,9 +68,14 @@ For these parameters, the radiative cooling distance for shocked
 ambient gas in the bow is a significant fraction (\(\approx 10\%\)) of the
 bow shock size, \(R_0\), tending to increase towards the wings, and
 the radiative cooling in the shocked stellar wind is even less
-efficient.  This represents a gross violation of the assumptions
+efficient.  This represents a significant violation of the assumptions
 behind the thin-shell models, since the total shocked shell thickness
-is of the same order as \(R_0\).  The parabolic departure function
+is of the same order as \(R_0\). 
+
+We have traced the the shape of the contact discontinuity in the two
+models, using the procedure outlined in Figure~\ref{fig:meyer-trace}.
+
+The parabolic departure function
 (see \S~\ref{sec:parab-depart-funct}) for the shape of the contact
 discontinuity\footnote{%
   Note that, in the non-magnetic HD models, efficient thermal
