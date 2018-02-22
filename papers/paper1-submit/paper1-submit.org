@@ -339,8 +339,7 @@ linear scale that extended far enough to show the i=0 point on the
 orange track, then the other interesting points would be squashed much
 too close together.
 
-As to the second part of the comment, we have added another new
-appendix that illustrates the process.
+As to the second part of the comment, we have added a new figure with an extensive caption that describes the process.
 
 *** Observational comparison
 : The application of the methods to the bow shock presented in Figure 1 would provide a most effective conclusion of the paper.
