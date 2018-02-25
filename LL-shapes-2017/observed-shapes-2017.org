@@ -303,6 +303,43 @@ python observed-R90-vs-Rc.py
 + We are mainly using the outer boundary of the arcs, but we have also measured the inner edge in some cases
 
 
+** Focus on 000-400 for referee reply
++ I have entirely re-implemented the circle fitting
+  + [[file:~/Dropbox/circle-fit/]]
+  + Follows algorithm described in Appendix E
++ Results using |\theta_c| < 30\deg:
+  | Curve   |               \Pi |              \Lambda- |              \Lambda+ |
+  |---------+-----------------+-----------------+-----------------|
+  | Inner   |           2.692 |           2.795 |           2.021 |
+  | Ridge A |           3.664 |           3.225 |           2.242 |
+  | Ridge B |           3.318 |           3.162 |           2.257 |
+  | Outer   |           2.186 |           2.368 |           2.512 |
+  |---------+-----------------+-----------------+-----------------|
+  |         | 2.965 +/- 0.328 | 2.888 +/- 0.197 | 2.258 +/- 0.100 |
+  #+TBLFM: @6$2..@6$4=vmeane(@I..@II);f3
+  - There are two entries for the Ridge because the iteration converges on a limit cycle between 2 points, rather than a single point
+  - Seems "limit cycle" is not the correct term.  "Periodic point" is better. This is "a pair of period-2 points which together form an attracting sequence"
++ Results using |\theta_c| < 45\deg:
+  | Curve |               \Pi |              \Lambda- |              \Lambda+ |
+  |-------+-----------------+-----------------+-----------------|
+  | Inner |           2.702 |           2.518 |           2.111 |
+  | Ridge |           4.441 |           2.950 |           2.846 |
+  | Outer |           3.111 |           2.460 |           2.582 |
+  |-------+-----------------+-----------------+-----------------|
+  |       | 3.418 +/- 0.525 | 2.643 +/- 0.155 | 2.513 +/- 0.215 |
+  #+TBLFM: @5$2..@5$4=vmeane(@I..@II);f3
+  - This time, all of the arcs converge in 3 or 4 iterations
++ Results using |\theta_c| < 25\deg:
+  | Curve   |               \Pi |              \Lambda- |              \Lambda+ |
+  |---------+-----------------+-----------------+-----------------|
+  | Inner A |           3.164 |           2.918 |           1.999 |
+  | Inner B |           2.692 |           2.795 |           2.021 |
+  | Ridge   |           3.664 |           3.225 |           2.242 |
+  | Outer   |           1.087 |           1.913 |           2.545 |
+  |---------+-----------------+-----------------+-----------------|
+  |         | 2.652 +/- 0.558 | 2.713 +/- 0.281 | 2.202 +/- 0.127 |
+  #+TBLFM: @6$2..@6$4=vmeane(@I..@II);f3
+  - This one is not so good: We have a limit cycle for inner, and outer has not converged and is heading towards a low \Pi
 
 ** TODO Making images of the LL object fits
 Copy region files because we will need them

@@ -1,0 +1,26 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:34:59.566,-5:24:00.14) # point=circle width=3
+point(5:34:59.583,-5:24:04.78) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.644,-5:24:03.04) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.662,-5:24:01.79) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.670,-5:24:00.75) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.657,-5:23:59.47) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.622,-5:23:58.67) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.590,-5:23:58.03) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.531,-5:23:57.19) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.483,-5:23:56.49) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.540,-5:24:05.77) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.615,-5:24:04.24) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.648,-5:24:02.65) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.666,-5:24:01.32) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.669,-5:24:00.13) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.632,-5:23:58.88) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.606,-5:23:58.32) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.566,-5:23:57.70) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.665,-5:23:59.83) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.667,-5:24:00.41) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.646,-5:23:59.20) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.657,-5:24:02.31) # point=x color=black width=3 tag={000-400 outer}
+point(5:34:59.629,-5:24:03.74) # point=x color=black width=3 tag={000-400 outer}
