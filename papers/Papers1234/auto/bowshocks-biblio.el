@@ -115,6 +115,9 @@
     "Weisstein:2018a"
     "Mohr:2015a"
     "Quincey:2017a"
-    "Penrose:2004a"))
+    "Penrose:2004a"
+    "Bally:2000a"
+    "Bally:2006a"
+    "Ricci:2008a"))
  :bibtex)
 
