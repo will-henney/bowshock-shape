@@ -33,17 +33,17 @@ ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
 
 labels = {
     "Inner": 1.7,
-    "Outer": 2.7,
-    "Ridge A": 3.4,
+    "Outer A": 2.8,
+    "Ridge": 3.5,
 }
 for arcid, Pi, Lam_minus, Lam_plus in [
-        ["Inner", 2.692, 2.795, 2.021],
-        ["Ridge A", 3.664, 3.225, 2.242],
-        ["Ridge B", 3.318, 3.162, 2.257],
-        ["Outer", 2.186, 2.368, 2.512],
-        ["Inner 45", 2.702, 2.518, 2.111],
-        ["Ridge 45", 4.441, 2.950, 2.846],
-        ["Outer 45", 3.111, 2.460, 2.582],
+        ["Inner", 2.721, 2.654, 2.069],
+        ["Ridge", 3.318, 3.162, 2.257],
+        ["Outer A", 2.603, 2.439, 2.496],
+        ["Outer B", 2.749, 2.408, 2.558],
+        ["Inner 60", 3.164, 2.918, 1.999],
+        ["Ridge 60", 3.262, 3.378, 2.088],
+        ["Outer 60", 2.186, 2.368, 2.512],
 ]:
 
     if "Ridge" in arcid:
@@ -52,7 +52,7 @@ for arcid, Pi, Lam_minus, Lam_plus in [
         color = 'm'
     elif "Outer" in arcid:
         color = 'c'
-    if "45" in arcid:
+    if "60" in arcid:
         sym = '.'
         lw = 0.7
     else:

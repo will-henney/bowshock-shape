@@ -307,29 +307,29 @@ python observed-R90-vs-Rc.py
 + I have entirely re-implemented the circle fitting
   + [[file:~/Dropbox/circle-fit/]]
   + Follows algorithm described in Appendix E
-+ Results using |\theta_c| < 30\deg:
++ Results using |\theta| < 75\deg:
   | Curve   |               \Pi |              \Lambda- |              \Lambda+ |
   |---------+-----------------+-----------------+-----------------|
-  | Inner   |           2.692 |           2.795 |           2.021 |
-  | Ridge A |           3.664 |           3.225 |           2.242 |
-  | Ridge B |           3.318 |           3.162 |           2.257 |
-  | Outer   |           2.186 |           2.368 |           2.512 |
+  | Inner   |           2.721 |           2.654 |           2.069 |
+  | Ridge   |           3.318 |           3.162 |           2.257 |
+  | Outer A |           2.603 |           2.439 |           2.496 |
+  | Outer B |           2.749 |           2.408 |           2.558 |
   |---------+-----------------+-----------------+-----------------|
-  |         | 2.965 +/- 0.328 | 2.888 +/- 0.197 | 2.258 +/- 0.100 |
+  |         | 2.848 +/- 0.160 | 2.666 +/- 0.174 | 2.345 +/- 0.113 |
   #+TBLFM: @6$2..@6$4=vmeane(@I..@II);f3
-  - There are two entries for the Ridge because the iteration converges on a limit cycle between 2 points, rather than a single point
+  - There are two entries for the Outer because the iteration converges on a limit cycle between 2 points, rather than a single point
   - Seems "limit cycle" is not the correct term.  "Periodic point" is better. This is "a pair of period-2 points which together form an attracting sequence"
-+ Results using |\theta_c| < 45\deg:
++ Results using |\theta| < 60\deg:
   | Curve |               \Pi |              \Lambda- |              \Lambda+ |
   |-------+-----------------+-----------------+-----------------|
-  | Inner |           2.702 |           2.518 |           2.111 |
-  | Ridge |           4.441 |           2.950 |           2.846 |
-  | Outer |           3.111 |           2.460 |           2.582 |
+  | Inner |           3.164 |           2.918 |           1.999 |
+  | Ridge |           3.262 |           3.378 |           2.088 |
+  | Outer |           2.186 |           2.368 |           2.512 |
   |-------+-----------------+-----------------+-----------------|
-  |       | 3.418 +/- 0.525 | 2.643 +/- 0.155 | 2.513 +/- 0.215 |
+  |       | 2.871 +/- 0.344 | 2.888 +/- 0.292 | 2.200 +/- 0.158 |
   #+TBLFM: @5$2..@5$4=vmeane(@I..@II);f3
   - This time, all of the arcs converge in 3 or 4 iterations
-+ Results using |\theta_c| < 25\deg:
++ Old results using |\theta_c| < 25\deg, when we still measured angle at center of curvature, not star:
   | Curve   |               \Pi |              \Lambda- |              \Lambda+ |
   |---------+-----------------+-----------------+-----------------|
   | Inner A |           3.164 |           2.918 |           1.999 |
@@ -378,17 +378,17 @@ Make a graph of it
 
   labels = {
       "Inner": 1.7,
-      "Outer": 2.7,
-      "Ridge A": 3.4,
+      "Outer A": 2.8,
+      "Ridge": 3.5,
   }
   for arcid, Pi, Lam_minus, Lam_plus in [
-          ["Inner", 2.692, 2.795, 2.021],
-          ["Ridge A", 3.664, 3.225, 2.242],
-          ["Ridge B", 3.318, 3.162, 2.257],
-          ["Outer", 2.186, 2.368, 2.512],
-          ["Inner 45", 2.702, 2.518, 2.111],
-          ["Ridge 45", 4.441, 2.950, 2.846],
-          ["Outer 45", 3.111, 2.460, 2.582],
+          ["Inner", 2.721, 2.654, 2.069],
+          ["Ridge", 3.318, 3.162, 2.257],
+          ["Outer A", 2.603, 2.439, 2.496],
+          ["Outer B", 2.749, 2.408, 2.558],
+          ["Inner 60", 3.164, 2.918, 1.999],
+          ["Ridge 60", 3.262, 3.378, 2.088],
+          ["Outer 60", 2.186, 2.368, 2.512],
   ]:
 
       if "Ridge" in arcid:
@@ -397,7 +397,7 @@ Make a graph of it
           color = 'm'
       elif "Outer" in arcid:
           color = 'c'
-      if "45" in arcid:
+      if "60" in arcid:
           sym = '.'
           lw = 0.7
       else:
