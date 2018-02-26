@@ -1,15 +1,6 @@
 \section{Empirical determination of radius of curvature for a bow shock of unknown orientation}
 \label{app:rcurv-empirical}
 
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{figs/new-000-400-multi-fig}
-  \caption{Example empirical determination of planitude and alatude
-    for an observed bow shock}
-  \label{fig:000-400-fit}
-\end{figure*}
-
 Consider a set of \(N\) points on the plane of the sky, with Cartesian
 coordinates \(\bm{r}_k = (x_k, y_k)\) for \(k = 1 \dots N\).  We wish
 to estimate the radius of curvature of the smooth curve that the set
@@ -50,17 +41,17 @@ and the apex distance from the source as\footnote{%
   \label{eq:rcurv-apex-distance}
   R_0 = \Abs{\bm{r}_{\C}^* + R_{\C}^* \uvec{\xi} - \bm{r}_0} \ .
 \end{equation}
-A refinement of the method is then to repeat the circle fit after
-restricting the set of points to those lying within a certain angle
-\(\Delta\theta\) of the bow axis by requiring
+A refinement of the method is then to iteratively repeat the circle
+fit after restricting the set of points to those lying within a
+certain angle \(\Delta\theta_\C\) of the bow axis by requiring
 \begin{equation}
   \label{eq:rcurv-delta-theta}
   \uvec{\xi} \cdot 
   {\left( \bm{r}_k - \bm{r}_{\C}^* \right) }
   \ge   {\Abs{\bm{r}_k - \bm{r}_{\C}^*}}
-  \cos \Delta\theta \ ,
+  \cos \Delta\theta_C \ ,
 \end{equation}
-where we find that best results are obtained with \(\Delta\theta \le \ang{30}\).
+where we find that best results are obtained with \(\Delta\theta_\C \approx \ang{30}\).
 
 If quantitative estimates exist for the uncertainties, \(\epsilon_k\), in the
 measurements of \(\bm{r}_k\), then it is appropriate to incorporate
