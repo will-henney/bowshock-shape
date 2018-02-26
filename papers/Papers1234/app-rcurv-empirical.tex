@@ -11,21 +11,22 @@ given circle, we define a mean radius of the set of points from the
 circle center:
 \begin{equation}
   \label{eq:rcurv-mean-radius}
-  \bar{R}(x_{\C}, y_{\C}) = \frac{1}{N}  \sum_{k = 1}^{N} \Abs{\bm{r}_k - \bm{r}_{\C}}  \ .
+  \bar{R}_\C(x_{\C}, y_{\C}) = \frac{1}{N}  \sum_{k = 1}^{N} \Abs{\bm{r}_k - \bm{r}_{\C}}  \ .
 \end{equation}
-We then optimize\footnote{%
-  For example, using a Levenberg-Marquardt algorithm, such as
-  \texttt{astropy.modeling.fitting.LevMarLSQFitter} from the AstroPy
-  library \citep{Astropy-Collaboration:2013a}.} %
+We then optimize
+% \footnote{%
+%   For example, using a Levenberg-Marquardt algorithm, such as
+%   \texttt{astropy.modeling.fitting.LevMarLSQFitter} from the AstroPy
+%   library \citep{Astropy-Collaboration:2013a}.} %
 to find best-fit values \((x_{\C}^*, y_{\C}^*)\), which minimize the
 objective function
 \begin{equation}
   \label{eq:rcurv-objective-function}
   f(x_{\C}, y_{\C}) = \sum_{k = 1}^{N} \left(
-    \abs{\bm{r}_k - \bm{r}_{\C}}  - \bar{R} (x_{\C}, y_{\C}) \right)^2 \ .
+    \abs{\bm{r}_k - \bm{r}_{\C}}  - \bar{R}_\C (x_{\C}, y_{\C}) \right)^2 \ .
 \end{equation}
 The best-fit radius of curvature is then given by
-\(R_{\C}^* = \bar{R}(x_{\C}^*, y_{\C}^*)\).
+\(R_{\C}^* = \bar{R}_\C(x_{\C}^*, y_{\C}^*)\).
 
 If we also know the position, \(\bm{r}_0 = (x_0, y_0)\), of the bow's
 central source, then we can find the unit vector in the direction of
@@ -43,29 +44,65 @@ and the apex distance from the source as\footnote{%
 \end{equation}
 A refinement of the method is then to iteratively repeat the circle
 fit after restricting the set of points to those lying within a
-certain angle \(\Delta\theta_\C\) of the bow axis by requiring
+certain angle \(\Delta\theta\) of the bow axis, where we find that best results
+are obtained with \(\Delta\theta \approx \ang{60}\) to \ang{75}.  That is, 
 \begin{equation}
   \label{eq:rcurv-delta-theta}
-  \uvec{\xi} \cdot 
-  {\left( \bm{r}_k - \bm{r}_{\C}^* \right) }
-  \ge   {\Abs{\bm{r}_k - \bm{r}_{\C}^*}}
-  \cos \Delta\theta_C \ ,
+  \Abs{\theta_k} < \Delta\theta \ , 
 \end{equation}
-where we find that best results are obtained with \(\Delta\theta_\C \approx \ang{30}\).
+where the angle \(\theta_k\) of each point from the axis, measured at the
+source position \(r_0\), can be calculated\footnote{%
+  Note that the cross product (\(\times\)) of the 2d vectors is assumed to
+  yield the (signed scalar) \(z\) component, also known as the
+  ``perpendicular dot product''.} %
+as
+\begin{equation}
+  \label{eq:rcurv-theta-k}
+  \theta_k = \arctan \left[  
+    \frac{\left( \bm{r}_k - \bm{r}_0 \right) \times \uvec{\xi}}
+    {\left( \bm{r}_k - \bm{r}_0 \right) \cdot \uvec{\xi}}
+  \right] \ .
+\end{equation}
+Two or three iterations are sufficient for convergence in most cases,
+although in some cases it is possible that the process will converge
+to a stable flip-flop oscillation between two different solutions.
+This is due to the dependence of the \(\theta_k\), via \(\uvec{\xi}\), on
+the \(\bm{r}_{\C}^*\) of the previous iteration, which can lead to
+points entering and leaving the fitted set.  We have not found this to
+be a serious problem in practice, since the two solutions tend to be
+very close to one another.  It could be mitigated by averaging
+\(\bm{r}_{\C}^*\) over two previous iterations.  The alternative of
+measuring the angle with respect to the center of curvature,
+\(\bm{r}_{\C}^*\), instead of the source, \(\bm{r}_0\), is found to be
+much less stable.
 
 If quantitative estimates exist for the uncertainties, \(\epsilon_k\), in the
 measurements of \(\bm{r}_k\), then it is appropriate to incorporate
-weights of \(\epsilon_k^{-2}\) in the objective function.  In cases where the
-bow shape is traced by eye, based on real or synthetic observations, a
-more practical approach is to maintain uniform weighting but to place
-a greater density of points \(\bm{r}_k\) in regions where the shape is
-well-determined and to place them more sparsely in regions where the
-shape is less certain.
+weights of \(\epsilon_k^{-2}\) in the objective function.  However, in cases
+where the bow shape is traced by eye, based on real or synthetic
+observations, a more practical approach is to maintain uniform
+weighting but to place a greater density of points \(\bm{r}_k\) in
+regions where the shape is well-determined and to place them more
+sparsely in regions where the shape is less certain.
 
-Note that this method is not necessary if the orientation of the bow
-axis is known a~priori, in which case the Taylor series method
-described in \S~\ref{sec:plan-alat-bow} is more efficient and
-accurate.
+Since there is no guarantee of symmetry about the axis \(\uvec{\xi}\),
+the perpendicular radius will in general be different in the two wings
+of the bow, with values \(R_{90}^+\) and \(R_{90}^-\).  These can be
+estimated by defining
+\begin{equation}
+  \label{eq:rcurv-R-k}
+  R_k = \Abs{\bm{r}_k - \bm{r}_0}
+\end{equation}
+and linearly interpolating between the points \((\theta_k, R_k)\) at
+\(\theta = \pm \ang{90}\).
+
+Our Python language implementation of this algorithm is freely
+available at \url{https://github.com/div-B-equals-0/circle-fit}.  An
+example application to real data is given in \S~\ref{sec:obs} and
+Figure~\ref{fig:000-400-fit}.  Note that this method is not necessary
+if the orientation of the bow axis is known a~priori, in which case
+the Taylor series method described in \S~\ref{sec:plan-alat-bow} is
+more efficient and accurate.
 
 %%% Local Variables:
 %%% mode: latex

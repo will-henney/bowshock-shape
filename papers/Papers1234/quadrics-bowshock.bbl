@@ -17,10 +17,6 @@
   {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
   mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
 
-\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
-  Collaboration} et~al.}{2013}]{Astropy-Collaboration:2013a}
-{Astropy Collaboration} et~al., 2013, \aap, 558, A33
-
 \bibitem[\protect\citeauthoryear{{Bally}, {O'Dell}  \& {McCaughrean}}{{Bally}
   et~al.}{2000}]{Bally:2000a}
 {Bally} J.,  {O'Dell} C.~R.,   {McCaughrean} M.~J.,  2000, \aj, 119, 2919
