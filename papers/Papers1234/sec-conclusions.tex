@@ -294,8 +294,8 @@ projected-over-true apex distance is also broader for the MHD case.
     \(\pm \Delta\theta = \ang{75}\) of the axis.  The subset of points used in
     the final iteration is marked in red.  The perpendicular radii for
     the final iteration are shown by dotted lines. In panels
-    \textit{b} and \textit{c} the iterations converge immediately, but
-    in panel \textit{a} the iterations stably oscillate between two
+    \textit{a} and \textit{b} the iterations converge immediately, but
+    in panel \textit{c} the iterations stably oscillate between two
     slightly different solutions. }
   \label{fig:000-400-fit}
 \end{figure*}
@@ -312,22 +312,30 @@ projected-over-true apex distance is also broader for the MHD case.
   \label{fig:000-400-planitude-alatude}
 \end{figure}
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/000-400-Pi-vs-Dtheta}
+  \caption[]{Sensitivity of fitted planitude to the parameter
+    \(\Delta\theta\), which controls how close a point must be to the axis in
+    order to be included in the circle fit. }
+  \label{fig:000-400-Delta-theta}
+\end{figure}
+
 \section{Example application to observations}
 \label{sec:obs}
 
 
 As an example of measuring the projected planitude and alatude of a
-real bow shock, in Figure~\ref{fig:000-400-fit} we present an analysis
-of the H\(\alpha\) emission arc associated with the proplyd M42~000-400 in
-the west of the Orion Nebula \citep{Bally:2000a},\footnote{%
+real bow shock, we present an analysis of the H\(\alpha\) emission arc
+associated with the proplyd M42~000-400 in the west of the Orion
+Nebula \citep{Bally:2000a},\footnote{%
   The same object is listed as 4596-400 in some catalogs, such as
   \citet{Ricci:2008a}.  } %
 which was used as an archetype of the bow shape in
 Figure~\ref{fig:bow-terminology}.  To give an idea of the systematic
 uncertainties and sensitivity to subjective choices, three different
-tracings of the bow shape are considered: the peak of the emission arc
-(``ridge''), and its inner and outer edges
-(Fig.~\ref{fig:000-400-fit}\textit{a}--\textit{c}).  In all three
+tracings of the bow shape are considered (see
+Fig.~\ref{fig:000-400-fit}): the peak of the emission arc (``ridge''),
+and its inner and outer edges.  In all three
 cases, we placed the points that define the bow by eye, using
 SAOImage~DS9 in a similar fashion to in Figure~\ref{fig:meyer-trace},
 and guided by the image contours.\footnote{%
@@ -339,6 +347,29 @@ this object is the strong and variable nebular background emission,
 which particularly affects the far wing on the right hand side of the
 image, where a bright background filament is superimposed on the bow.
 
+We determine the planitude and alatude by fitting a circle to the
+traced points within \(\pm \Delta\theta = \ang{75}\) bow axis, using the
+iterative algorithm described in Appendix~\ref{app:rcurv-empirical}.
+The fitted circle, when combined with the position of the central
+source, yields the orientation of the bow axis, together with the apex
+distance, \(R_0\), radius of curvature, \(R_\C\), and two
+perpendicular radii (one for each wing), \(R_{90}^+\) and
+\(R_{90}^-\).  These are all indicated on the panels of
+Figure~\ref{fig:000-400-fit} by light-colored lines.\footnote{%
+  For conciseness, we drop the prime symbol from the radii in this
+  section and Appendix~\ref{app:rcurv-empirical}, even though all the
+  quantities are projected ones.} %
+The projected planitude and alatude then follow as \(\Pi = R_\C/R_0\),
+\(\Lambda^+ = R_{90}^+/R_0\), \(\Lambda^- = R_{90}^-/R_0\), which are shown in Figure~\ref{fig:000-400-planitude-alatude}.
+
+The planitude is found to have a moderate dependence on the choice of
+\(\Delta\theta\), as shown in Figure~~\ref{fig:000-400-Dtheta}. The fact that
+the radius of curvature is defined at a point (the projected apex)
+might seem to argue for making \(\Delta\theta\) as small as possible, but that
+leads to an extreme sensitivity of the circle fits to the exact
+positions of the few points that are included in the fit.  A reliable
+fit requires 4 or more points, which span a total separation
+\(\approx R_\C\).
 
 \section{Summary and discussion}
 \label{sec:conc}
