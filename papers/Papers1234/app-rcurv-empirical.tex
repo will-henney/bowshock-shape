@@ -52,14 +52,14 @@ are obtained with \(\Delta\theta \approx \ang{60}\) to \ang{75}.  That is,
 \end{equation}
 where the angle \(\theta_k\) of each point from the axis, measured at the
 source position \(r_0\), can be calculated\footnote{%
-  Note that the cross product (\(\times\)) of the 2d vectors is assumed to
-  yield the (signed scalar) \(z\) component, also known as the
-  ``perpendicular dot product''.} %
+  In equation~\eqref{eq:rcurv-theta-k}, the ``perpendicular'' operator
+  (\(\perp\)) rotates its vector argument counter-clockwise by \ang{90},
+  so that \((x, y)^\perp = (-y, x)\).} %
 as
 \begin{equation}
   \label{eq:rcurv-theta-k}
   \theta_k = \arctan \left[  
-    \frac{\left( \bm{r}_k - \bm{r}_0 \right) \times \uvec{\xi}}
+    \frac{\left( \bm{r}_k - \bm{r}_0 \right) \cdot \uvec{\xi}^\perp}
     {\left( \bm{r}_k - \bm{r}_0 \right) \cdot \uvec{\xi}}
   \right] \ .
 \end{equation}
@@ -78,7 +78,9 @@ much less stable.
 
 If quantitative estimates exist for the uncertainties, \(\epsilon_k\), in the
 measurements of \(\bm{r}_k\), then it is appropriate to incorporate
-weights of \(\epsilon_k^{-2}\) in the objective function.  However, in cases
+weights of \(\epsilon_k^{-2}\) in the objective function.  However, it is
+rare for the \(\epsilon_k\) to be objectively quantifiable, since the
+uncertainties are often systematic and/or subjective.  In cases
 where the bow shape is traced by eye, based on real or synthetic
 observations, a more practical approach is to maintain uniform
 weighting but to place a greater density of points \(\bm{r}_k\) in
