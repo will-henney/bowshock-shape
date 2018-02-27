@@ -432,14 +432,96 @@ python 000-400-planitude-alatude.py
 [[file:000-400-planitude-alatude.pdf]]
 
 #+BEGIN_SRC sh :results verbatim
-FILES="000-400-planitude-alatude.pdf"
+FILES="000-400-planitude-alatude.pdf 000-400-Pi-vs-Dtheta.pdf"
 date
 cp -v $FILES ../papers/Papers1234/figs
 #+END_SRC
 
 #+RESULTS:
-: Mon Feb 26 17:54:50 CST 2018
+: Tue Feb 27 10:50:00 CST 2018
 : 000-400-planitude-alatude.pdf -> ../papers/Papers1234/figs/000-400-planitude-alatude.pdf
+: 000-400-Pi-vs-Dtheta.pdf -> ../papers/Papers1234/figs/000-400-Pi-vs-Dtheta.pdf
+
+
+*** Look at the variation in \Pi' with \Delta\theta
+#+name: planitude-Dtheta
+| D theta | Outer | Ridge | Inner |
+|---------+-------+-------+-------|
+|      45 | 1.775 | 8.342 | 3.312 |
+|      50 | 1.775 | 8.342 | 2.771 |
+|      55 | 2.153 | 4.343 | 3.163 |
+|      60 | 2.186 | 3.262 | 3.163 |
+|      65 | 2.395 | 4.217 | 2.692 |
+|      70 | 2.478 | 3.664 | 2.911 |
+|      75 | 2.749 | 3.318 | 2.721 |
+|      80 | 2.749 | 3.642 | 2.858 |
+|---------+-------+-------+-------|
+|  Median | 2.291 | 3.941 | 2.885 |
+|     MAD | 0.323 | 0.513 | 0.179 |
+#+TBLFM: @10$2..@10$4=vmedian(@I..@II);f3::@11$2..@11$4=vmedian(map(lambda(x, abs(x - @-1)), @I..@II));f3
+
+Test that we can read in the data
+
+#+header: :var INPUT=planitude-Dtheta
+#+BEGIN_SRC python :return tab :results verbatim
+from astropy.table import Table
+tab = Table(rows=INPUT[1:9], names=INPUT[0])
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+D theta Outer Ridge Inner
+------- ----- ----- -----
+     45 1.775 8.342 3.312
+     50 1.775 8.342 2.771
+     55 2.153 4.343 3.163
+     60 2.186 3.262 3.163
+     65 2.395 4.217 2.692
+     70 2.478 3.664 2.911
+     75 2.749 3.318 2.721
+     80 2.749 3.642 2.858
+#+end_example
+
+#+header: :var INPUT=planitude-Dtheta
+#+BEGIN_SRC python :eval no :tangle 000-400-Pi-vs-Dtheta.py 
+  import sys
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  tab = Table(rows=INPUT[1:9], names=INPUT[0])
+
+  figfile = sys.argv[0].replace('.py', '.pdf')
+
+  sns.set_color_codes()
+
+  fig, ax = plt.subplots(figsize=(4, 4))
+  arcs = "Inner", "Outer", "Ridge"
+  colors = 'mcr'
+  m = tab['D theta'] >= 60.0
+  for arc, color in zip(arcs, colors):
+      mean = np.mean(tab[arc][m])
+      sigma = np.std(tab[arc][m])
+      label = fr"{arc}: ${mean:.1f} \pm {sigma:.1f}$"
+      ax.plot(tab['D theta'], tab[arc], 'o', color=color, label=label)
+  ax.legend()
+  ax.set(ylim=[0.0, 9.0],
+         xlabel=r"$\Delta \theta$, degrees",
+         xticks=tab['D theta'],
+         ylabel=r"Fitted $\Pi'$")
+  sns.despine(trim=True)
+  fig.tight_layout()
+  fig.savefig(figfile)
+  print(figfile, end='')
+#+END_SRC
+
+#+BEGIN_SRC sh :results file
+python 000-400-Pi-vs-Dtheta.py 
+#+END_SRC
+
+#+RESULTS:
+[[file:000-400-Pi-vs-Dtheta.pdf]]
 
 ** TODO Making images of the LL object fits
 Copy region files because we will need them

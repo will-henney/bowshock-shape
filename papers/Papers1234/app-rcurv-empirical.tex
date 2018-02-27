@@ -50,12 +50,12 @@ are obtained with \(\Delta\theta \approx \ang{60}\) to \ang{75}.  That is,
   \label{eq:rcurv-delta-theta}
   \Abs{\theta_k} < \Delta\theta \ , 
 \end{equation}
-where the angle \(\theta_k\) of each point from the axis, measured at the
-source position \(r_0\), can be calculated\footnote{%
-  In equation~\eqref{eq:rcurv-theta-k}, the ``perpendicular'' operator
-  (\(\perp\)) rotates its vector argument counter-clockwise by \ang{90},
-  so that \((x, y)^\perp = (-y, x)\).} %
-as
+where the signed angle \(\theta_k\) of each point from the
+axis,\footnote{%
+  Although the sign of \(\theta_k\) is not relevant to
+  equation~\eqref{eq:rcurv-delta-theta}, it is used below in
+  calculating the perpendicular radii.  } %
+measured at the source position \(r_0\), can be calculated as
 \begin{equation}
   \label{eq:rcurv-theta-k}
   \theta_k = \arctan \left[  
@@ -63,6 +63,10 @@ as
     {\left( \bm{r}_k - \bm{r}_0 \right) \cdot \uvec{\xi}}
   \right] \ .
 \end{equation}
+In the preceding equation, the ``perpendicular'' operator (\(\perp\))
+rotates its vector argument counter-clockwise by \ang{90}, so that
+\((x, y)^\perp = (-y, x)\).
+  
 Two or three iterations are sufficient for convergence in most cases,
 although in some cases it is possible that the process will converge
 to a stable flip-flop oscillation between two different solutions.
