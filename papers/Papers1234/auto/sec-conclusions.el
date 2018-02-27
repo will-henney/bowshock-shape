@@ -17,8 +17,9 @@
     "fig:sim-R0-prime"
     "fn:meyer-correction"
     "fig:sim-histograms"
-    "sec:obs"
     "fig:000-400-fit"
+    "fig:000-400-planitude-alatude"
+    "sec:obs"
     "sec:conc"))
  :latex)
 

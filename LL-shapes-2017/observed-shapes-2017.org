@@ -431,6 +431,16 @@ python 000-400-planitude-alatude.py
 #+RESULTS:
 [[file:000-400-planitude-alatude.pdf]]
 
+#+BEGIN_SRC sh :results verbatim
+FILES="000-400-planitude-alatude.pdf"
+date
+cp -v $FILES ../papers/Papers1234/figs
+#+END_SRC
+
+#+RESULTS:
+: Mon Feb 26 17:54:50 CST 2018
+: 000-400-planitude-alatude.pdf -> ../papers/Papers1234/figs/000-400-planitude-alatude.pdf
+
 ** TODO Making images of the LL object fits
 Copy region files because we will need them
 #+BEGIN_SRC sh :results verbatim  :eval no
