@@ -29,4 +29,3 @@ point(5:34:59.622,-5:23:59.10) # point=x color=black width=3 tag={000-400 ridge}
 point(5:34:59.558,-5:23:58.13) # point=x color=black width=3 tag={000-400 ridge}
 point(5:34:59.505,-5:23:57.19) # point=x color=black width=3 tag={000-400 ridge}
 point(5:34:59.382,-5:23:56.56) # point=x color=black width=3 tag={000-400 ridge}
-circle(5:34:59.507,-5:23:57.96,0.334885")

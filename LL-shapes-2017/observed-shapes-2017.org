@@ -303,7 +303,7 @@ python observed-R90-vs-Rc.py
 + We are mainly using the outer boundary of the arcs, but we have also measured the inner edge in some cases
 
 
-** Turns out that it should have been 069-601
+** Turns out that it should have been 069-601 all along
 
 #+BEGIN_SRC python :eval no :tangle new-069-601-circle-fit.py
   import sys 
@@ -652,6 +652,179 @@ python 069-601-planitude-alatude.py
 + I have entirely re-implemented the circle fitting
   + [[file:~/Dropbox/circle-fit/]]
   + Follows algorithm described in Appendix E
+
+
+*** Redo 000-400 images based on experience with 069-601
+#+BEGIN_SRC python :eval no :tangle new-000-400-circle-fit.py
+  import sys 
+  sys.path.append("/Users/will/Dropbox/circle-fit")
+  import circle_fit
+
+  for arc in "inner", "outer", "ridge":
+      for delta_theta in 45, 50, 55, 60, 65, 70, 75, 80:
+          plotfile = f"000-400-{arc}-{delta_theta:02d}.pdf"
+          print('#### '*10)
+          print("Creating", plotfile)
+          circle_fit.plot_solution(
+              f"new-w000-400-{arc}.reg",
+              "w000-400-Bally_09-extract.fits",
+              plotfile,
+              delta_theta=delta_theta)
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+python new-000-400-circle-fit.py
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-45.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.3794880725730363, Alatude = [ 3.05273286  1.88517589])
+CircleFit(Planitude = 3.3124603146097313, Alatude = [ 3.12725338  1.87832095])
+CircleFit(Planitude = 3.3124603146097313, Alatude = [ 3.12725338  1.87832095])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-50.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.3794880725730363, Alatude = [ 3.05273286  1.88517589])
+CircleFit(Planitude = 3.1634871986926125, Alatude = [ 2.91822408  1.99889837])
+CircleFit(Planitude = 2.3794880725730363, Alatude = [ 3.05273286  1.88517589])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-55.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.197402828326022, Alatude = [ 3.05698924  1.86748363])
+CircleFit(Planitude = 3.1634871986926125, Alatude = [ 2.91822408  1.99889837])
+CircleFit(Planitude = 3.1634871986926125, Alatude = [ 2.91822408  1.99889837])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-60.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.6918433824886803, Alatude = [ 2.79468727  2.02103903])
+CircleFit(Planitude = 3.1634871986926125, Alatude = [ 2.91822408  1.99889837])
+CircleFit(Planitude = 3.1634871986926125, Alatude = [ 2.91822408  1.99889837])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-65.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.6918433824886803, Alatude = [ 2.79468727  2.02103903])
+CircleFit(Planitude = 2.6918433824886803, Alatude = [ 2.79468727  2.02103903])
+CircleFit(Planitude = 2.6918433824886803, Alatude = [ 2.79468727  2.02103903])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-70.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.547714082794086, Alatude = [ 2.76943535  2.01536158])
+CircleFit(Planitude = 2.911542081697771, Alatude = [ 2.73912333  2.05740144])
+CircleFit(Planitude = 2.911542081697771, Alatude = [ 2.73912333  2.05740144])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-75.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.7209954367629496, Alatude = [ 2.65410672  2.06889856])
+CircleFit(Planitude = 2.7209954367629496, Alatude = [ 2.65410672  2.06889856])
+CircleFit(Planitude = 2.7209954367629496, Alatude = [ 2.65410672  2.06889856])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-inner-80.pdf
+CircleFit(Planitude = 4.997085219763595, Alatude = [ 2.6393009   2.67011982])
+CircleFit(Planitude = 2.5763354890306305, Alatude = [ 2.60311336  2.06544786])
+CircleFit(Planitude = 2.8582442230742076, Alatude = [ 2.61112006  2.10063207])
+CircleFit(Planitude = 2.8582442230742076, Alatude = [ 2.61112006  2.10063207])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-45.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 1.7751786294607623, Alatude = [ 2.31495185  2.51974258])
+CircleFit(Planitude = 1.7751786294607623, Alatude = [ 2.31495185  2.51974258])
+CircleFit(Planitude = 1.7751786294607623, Alatude = [ 2.31495185  2.51974258])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-50.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 1.7751786294607623, Alatude = [ 2.31495185  2.51974258])
+CircleFit(Planitude = 1.7751786294607623, Alatude = [ 2.31495185  2.51974258])
+CircleFit(Planitude = 1.7751786294607623, Alatude = [ 2.31495185  2.51974258])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-55.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 1.7751786294607623, Alatude = [ 2.31495185  2.51974258])
+CircleFit(Planitude = 2.1530258384323457, Alatude = [ 2.37869351  2.49517412])
+CircleFit(Planitude = 2.1530258384323457, Alatude = [ 2.37869351  2.49517412])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-60.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 2.186326606436131, Alatude = [ 2.36793785  2.51169028])
+CircleFit(Planitude = 2.186326606436131, Alatude = [ 2.36793785  2.51169028])
+CircleFit(Planitude = 2.186326606436131, Alatude = [ 2.36793785  2.51169028])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-65.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 2.3958351503656954, Alatude = [ 2.42306254  2.47884924])
+CircleFit(Planitude = 2.3958351503656954, Alatude = [ 2.42306254  2.47884924])
+CircleFit(Planitude = 2.3958351503656954, Alatude = [ 2.42306254  2.47884924])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-70.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 2.4781225108270877, Alatude = [ 2.40200279  2.51540495])
+CircleFit(Planitude = 2.4781225108270877, Alatude = [ 2.40200279  2.51540495])
+CircleFit(Planitude = 2.4781225108270877, Alatude = [ 2.40200279  2.51540495])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-75.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 2.7491762529760972, Alatude = [ 2.40823872  2.55841308])
+CircleFit(Planitude = 2.602928235369464, Alatude = [ 2.43870218  2.49614324])
+CircleFit(Planitude = 2.7491762529760972, Alatude = [ 2.40823872  2.55841308])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-outer-80.pdf
+CircleFit(Planitude = 4.082748162430154, Alatude = [ 2.61635602  2.6982448 ])
+CircleFit(Planitude = 2.7491762529760972, Alatude = [ 2.40823872  2.55841308])
+CircleFit(Planitude = 2.7491762529760972, Alatude = [ 2.40823872  2.55841308])
+CircleFit(Planitude = 2.7491762529760972, Alatude = [ 2.40823872  2.55841308])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-45.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 6.159477975665889, Alatude = [ 3.49366528  2.10161637])
+CircleFit(Planitude = 8.34245226369428, Alatude = [ 3.41930177  2.15261946])
+CircleFit(Planitude = 8.34245226369428, Alatude = [ 3.41930177  2.15261946])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-50.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 3.6575972905349134, Alatude = [ 3.30546862  2.1581432 ])
+CircleFit(Planitude = 8.34245226369428, Alatude = [ 3.41930177  2.15261946])
+CircleFit(Planitude = 8.34245226369428, Alatude = [ 3.41930177  2.15261946])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-55.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 3.6575972905349134, Alatude = [ 3.30546862  2.1581432 ])
+CircleFit(Planitude = 4.342688070224162, Alatude = [ 3.52014766  2.05143468])
+CircleFit(Planitude = 4.342688070224162, Alatude = [ 3.52014766  2.05143468])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-60.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 2.9889442370073316, Alatude = [ 3.33962553  2.09212458])
+CircleFit(Planitude = 3.2622581791594762, Alatude = [ 3.37769271  2.08824559])
+CircleFit(Planitude = 3.2622581791594762, Alatude = [ 3.37769271  2.08824559])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-65.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 2.9889442370073316, Alatude = [ 3.33962553  2.09212458])
+CircleFit(Planitude = 4.217268850449185, Alatude = [ 3.31945322  2.19582004])
+CircleFit(Planitude = 4.217268850449185, Alatude = [ 3.31945322  2.19582004])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-70.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 3.318260555092649, Alatude = [ 3.16200474  2.25735718])
+CircleFit(Planitude = 3.663809279406942, Alatude = [ 3.22543663  2.24241749])
+CircleFit(Planitude = 3.663809279406942, Alatude = [ 3.22543663  2.24241749])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-75.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 3.318260555092649, Alatude = [ 3.16200474  2.25735718])
+CircleFit(Planitude = 3.318260555092649, Alatude = [ 3.16200474  2.25735718])
+CircleFit(Planitude = 3.318260555092649, Alatude = [ 3.16200474  2.25735718])
+#### #### #### #### #### #### #### #### #### #### 
+Creating 000-400-ridge-80.pdf
+CircleFit(Planitude = 4.967816690867612, Alatude = [ 2.93269813  3.13737686])
+CircleFit(Planitude = 2.9080380001255186, Alatude = [ 3.08578284  2.25119554])
+CircleFit(Planitude = 3.6421288513183048, Alatude = [ 3.13032277  2.32781293])
+CircleFit(Planitude = 3.6421288513183048, Alatude = [ 3.13032277  2.32781293])
+#+end_example
+
+*** Results of fits
 + Results using |\theta| < 75\deg:
   | Curve   |               \Pi |              \Lambda- |              \Lambda+ |
   |---------+-----------------+-----------------+-----------------|

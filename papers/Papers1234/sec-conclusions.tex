@@ -277,31 +277,36 @@ projected-over-true apex distance is also broader for the MHD case.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=\linewidth]{figs/new-000-400-multi-fig}
+  \includegraphics[width=\linewidth]{figs/new-two-arc-multi-fig}
   \caption[]{Example empirical determination of planitude and alatude
-    for an observed bow shock.  Color scale and contours show an
-    \textit{HST} H\(\alpha\) image (ACS F658N filter,
-    \citealp{Bally:2006a}) of M42~000-400. Three different bows have
-    been traced by hand on the image (red and white filled symbols):
-    (\textit{a})~inner edge, (\textit{b})~ridge of maximum emission,
-    and (\textit{c})~outer edge.  For each panel, the dark-colored
-    circle shows the initial fit to the full set of points (white and
-    red), using the algorithm described in
-    Appendix~\ref{app:rcurv-empirical}.  The center of curvature and
-    derived axis are shown by a small filled circle and dashed line in
-    the same color. Lighter colored circles show three subsequent
-    iterations where the fit is restricted to points within
+    for observed bow shocks associated with proplyds in the Orion
+    Nebula.  Color scale and contours show an \textit{HST} H\(\alpha\)
+    image (ACS F658N filter, \citealp{Bally:2006a}) of M42~000-400
+    (panels \textit{a--c}) and M42~069-601 (panels \textit{d--f}). Three
+    different bows have been traced by hand on the image (red and
+    white filled symbols): (\textit{a, d})~inner edge, (\textit{b,
+      e})~ridge of maximum emission, and (\textit{c, f})~outer edge.
+    For each panel, the dark-colored circle shows the initial fit to
+    the full set of points (white and red), using the algorithm
+    described in Appendix~\ref{app:rcurv-empirical}.  The center of
+    curvature and derived axis are shown by a small filled circle and
+    dashed line in the same color. Lighter colored circles show three
+    subsequent iterations where the fit is restricted to points within
     \(\pm \Delta\theta = \ang{75}\) of the axis.  The subset of points used in
     the final iteration is marked in red.  The perpendicular radii for
     the final iteration are shown by dotted lines. In panels
-    \textit{a} and \textit{b} the iterations converge immediately, but
-    in panel \textit{c} the iterations stably oscillate between two
+    \textit{a, b, d--f} the iterations converge immediately, but in
+    panel \textit{c} the iterations stably oscillate between two
     slightly different solutions. }
   \label{fig:000-400-fit}
 \end{figure*}
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figs/000-400-planitude-alatude}
+\begin{figure*}
+  \begin{tabular}{p{0.45\linewidth} p{0.45\linewidth}}
+    (a) & (b) \\
+    \includegraphics[width=\linewidth]{figs/000-400-planitude-alatude}
+    & \includegraphics[width=\linewidth]{figs/069-601-planitude-alatude}
+  \end{tabular}
   \caption[]{Location in the projected planitude--alatude plane of the
     converged circle fits to the M42~000-400 bow.  For each solution,
     the two values of the alatude \(\Lambda'\), corresponding to
@@ -310,15 +315,19 @@ projected-over-true apex distance is also broader for the MHD case.
     Figure~\ref{fig:000-400-fit}, while small symbols show results for
     fits using \(\Delta\theta = \ang{60}\) instead of \ang{75}.}
   \label{fig:000-400-planitude-alatude}
-\end{figure}
+\end{figure*}
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figs/000-400-Pi-vs-Dtheta}
+\begin{figure*}
+  \begin{tabular}{p{0.45\linewidth} p{0.45\linewidth}}
+    (a) & (b) \\
+    \includegraphics[width=\linewidth]{figs/000-400-Pi-vs-Dtheta}
+    & \includegraphics[width=\linewidth]{figs/069-601-Pi-vs-Dtheta}
+  \end{tabular}
   \caption[]{Sensitivity of fitted planitude to the parameter
     \(\Delta\theta\), which controls how close a point must be to the axis in
     order to be included in the circle fit. }
   \label{fig:000-400-Delta-theta}
-\end{figure}
+\end{figure*}
 
 \section{Example application to observations}
 \label{sec:obs}
