@@ -32,18 +32,17 @@ ax.plot([0.9, 10.0], [0.9, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
 
 labels = {
-    "Inner": 1.7,
-    "Outer A": 2.8,
-    "Ridge": 3.5,
+    "Inner": 2.1,
+    "Outer": 2.3,
+    "Ridge": 2.5,
 }
 for arcid, Pi, Lam_minus, Lam_plus in [
-        ["Inner", 2.721, 2.654, 2.069],
-        ["Ridge", 3.318, 3.162, 2.257],
-        ["Outer A", 2.603, 2.439, 2.496],
-        ["Outer B", 2.749, 2.408, 2.558],
-        ["Inner 60", 3.164, 2.918, 1.999],
-        ["Ridge 60", 3.262, 3.378, 2.088],
-        ["Outer 60", 2.186, 2.368, 2.512],
+        ["Inner", 3.728, 3.375, 2.435],
+        ["Ridge", 2.619, 2.241, 2.126],
+        ["Outer", 2.035, 2.115, 2.074],
+        ["Inner 60", 4.209, 3.299, 2.501],
+        ["Ridge 60", 2.355, 2.211, 2.120],
+        ["Outer 60", 2.292, 2.111, 2.115],
 ]:
 
     if "Ridge" in arcid:
@@ -63,7 +62,7 @@ for arcid, Pi, Lam_minus, Lam_plus in [
     if arcid in labels:
         ax.text(Pi, labels[arcid], arcid.split()[0], color=color, ha='center')
 
-ax.text(2.5, 1.2, "M42 000-400")
+ax.text(2.5, 1.2, "M42 069-601")
 ax.set(
     xlim=[0., 5.1],
     ylim=[0., 5.1],

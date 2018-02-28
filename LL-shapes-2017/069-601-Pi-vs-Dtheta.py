@@ -1,4 +1,4 @@
-INPUT=[["D theta", "Outer", "Ridge", "Inner"], [45, 1.775, 8.342, 3.312], [50, 1.775, 8.342, 2.771], [55, 2.153, 4.343, 3.163], [60, 2.186, 3.262, 3.163], [65, 2.395, 4.217, 2.692], [70, 2.478, 3.664, 2.911], [75, 2.749, 3.318, 2.721], [80, 2.749, 3.642, 2.858], ["Median", 2.291, 3.941, 2.885], ["MAD", 0.323, 0.513, 0.179]]
+INPUT=[["D theta", "Outer", "Ridge", "Inner"], [45, 2.358, 4.354, 2.869], [50, 2.19, 4.354, 2.869], [55, 2.19, 3.045, 2.869], [60, 2.035, 2.619, 4.209], [65, 2.144, 2.496, 3.728], [70, 2.214, 2.384, 3.728], [75, 2.292, 2.355, 3.728], [80, 2.403, 2.275, 3.659], ["Median", 2.202, 2.558, 3.694], ["MAD", 0.074, 0.243, 0.275]]
 import sys
 import numpy as np
 from astropy.table import Table
@@ -20,11 +20,11 @@ for arc, color in zip(arcs, colors):
     sigma = np.std(tab[arc][m])
     label = fr"{arc}: ${mean:.1f} \pm {sigma:.1f}$"
     ax.plot(tab['D theta'], tab[arc], 'o', color=color, label=label)
-ax.legend(title="M42 000-400")
+ax.legend(title="M42 069-601")
 ax.set(ylim=[0.0, 9.0],
        xlabel=r"$\Delta \theta$, degrees",
        xticks=tab['D theta'],
-       ylabel=r"Fitted planitude $\Pi$")
+       ylabel=r"Fitted planitude, $\Pi$")
 sns.despine(trim=True)
 fig.tight_layout()
 fig.savefig(figfile)
