@@ -303,6 +303,14 @@ python observed-R90-vs-Rc.py
 + We are mainly using the outer boundary of the arcs, but we have also measured the inner edge in some cases
 
 
+** Turns out that it should have been 069-601
+
+#+BEGIN_SRC python
+  import sys 
+  sys.path.append("/Users/will/Dropbox/circle-fit")
+  import circle_fit
+#+END_SRC
+
 ** Focus on 000-400 for referee reply
 + I have entirely re-implemented the circle fitting
   + [[file:~/Dropbox/circle-fit/]]

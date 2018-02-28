@@ -1,0 +1,38 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:35:06.908,-5:26:00.58) # point=circle
+point(5:35:06.722,-5:25:58.34) # point=x
+point(5:35:06.747,-5:25:58.40) # point=x
+point(5:35:06.832,-5:25:58.75) # point=x
+point(5:35:06.839,-5:25:58.99) # point=x
+point(5:35:06.889,-5:25:59.28) # point=x
+point(5:35:06.897,-5:25:59.40) # point=x
+point(5:35:06.923,-5:25:59.68) # point=x
+point(5:35:06.938,-5:25:59.89) # point=x
+point(5:35:06.943,-5:26:00.09) # point=x
+point(5:35:06.952,-5:26:00.43) # point=x
+point(5:35:06.956,-5:26:00.53) # point=x
+point(5:35:06.958,-5:26:00.84) # point=x
+point(5:35:06.957,-5:26:01.11) # point=x
+point(5:35:06.946,-5:26:01.51) # point=x
+point(5:35:06.946,-5:26:01.79) # point=x
+point(5:35:06.944,-5:26:01.98) # point=x
+point(5:35:06.921,-5:26:02.63) # point=x
+point(5:35:06.900,-5:26:03.02) # point=x
+point(5:35:06.947,-5:26:00.21) # point=x
+point(5:35:06.928,-5:25:59.77) # point=x
+point(5:35:06.907,-5:25:59.52) # point=x
+point(5:35:06.914,-5:25:59.60) # point=x
+point(5:35:06.879,-5:25:59.23) # point=x
+point(5:35:06.855,-5:25:59.03) # point=x
+point(5:35:06.870,-5:25:59.16) # point=x
+point(5:35:06.818,-5:25:58.64) # point=x
+point(5:35:06.797,-5:25:58.57) # point=x
+point(5:35:06.776,-5:25:58.54) # point=x
+point(5:35:06.957,-5:26:00.68) # point=x
+point(5:35:06.960,-5:26:00.95) # point=x
+point(5:35:06.955,-5:26:01.27) # point=x
+point(5:35:06.946,-5:26:01.66) # point=x
+point(5:35:06.939,-5:26:02.15) # point=x
+point(5:35:06.931,-5:26:02.40) # point=x
