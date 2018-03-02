@@ -67,8 +67,8 @@ ax.set(
     xlim=[0., 5.1],
     ylim=[0., 5.1],
     #yticks=range(6),
-    xlabel=r"Fitted planitude: $\Pi$",
-    ylabel=r"Fitted alatude: $\Lambda$",
+    xlabel=r"Fitted planitude: $\Pi'$",
+    ylabel=r"Fitted alatude: $\Lambda'$",
 )        
 sns.despine()
 fig.tight_layout(pad=0.5)

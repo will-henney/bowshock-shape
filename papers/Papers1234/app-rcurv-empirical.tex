@@ -1,14 +1,18 @@
 \section{Empirical determination of radius of curvature for a bow shock of unknown orientation}
 \label{app:rcurv-empirical}
 
-Consider a set of \(N\) points on the plane of the sky, with Cartesian
-coordinates \(\bm{r}_k = (x_k, y_k)\) for \(k = 1 \dots N\).  We wish
-to estimate the radius of curvature of the smooth curve that the set
-of points is presumed to be sampled from.  To do this, we fit a circle
-to the points as follows.  The circle is defined by its center,
-\(\bm{r}_{\C} = (x_{\C}, y_{\C})\), and radius, \(R_{\C}\).  For a
-given circle, we define a mean radius of the set of points from the
-circle center:
+Consider a set of \(N\) points on the plane of the sky,\footnote{%
+  In the main body of the paper, the prime symbol (\('\)) is used to
+  distinguish projected from ``true'' quantities.  In this Appendix,
+  for simplicity, we omit the primes since \emph{all} quantities are
+  projected.} %
+with Cartesian coordinates \(\bm{r}_k = (x_k, y_k)\) for
+\(k = 1 \dots N\).  We wish to estimate the radius of curvature of the
+smooth curve that the set of points is presumed to be sampled from.
+To do this, we fit a circle to the points as follows.  The circle is
+defined by its center, \(\bm{r}_{\C} = (x_{\C}, y_{\C})\), and radius,
+\(R_{\C}\).  For a given circle, we define a mean radius of the set of
+points from the circle center:
 \begin{equation}
   \label{eq:rcurv-mean-radius}
   \bar{R}_\C(x_{\C}, y_{\C}) = \frac{1}{N}  \sum_{k = 1}^{N} \Abs{\bm{r}_k - \bm{r}_{\C}}  \ .
@@ -93,7 +97,7 @@ sparsely in regions where the shape is less certain.
 
 Since there is no guarantee of symmetry about the axis \(\uvec{\xi}\),
 the perpendicular radius will in general be different in the two wings
-of the bow, with values \(R_{90}^+\) and \(R_{90}^-\).  These can be
+of the bow, with values \(R_{90+}\) and \(R_{90-}\).  These can be
 estimated by defining
 \begin{equation}
   \label{eq:rcurv-R-k}

@@ -118,6 +118,7 @@
     "Penrose:2004a"
     "Bally:2000a"
     "Bally:2006a"
-    "Ricci:2008a"))
+    "Ricci:2008a"
+    "Gutierrez-Soto:2015a"))
  :bibtex)
 

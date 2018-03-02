@@ -21,10 +21,11 @@ for arc, color in zip(arcs, colors):
     label = fr"{arc}: ${mean:.1f} \pm {sigma:.1f}$"
     ax.plot(tab['D theta'], tab[arc], 'o', color=color, label=label)
 ax.legend(title="M42 069-601")
+ax.axvspan(60.0, 80.0, color='0.9')
 ax.set(ylim=[0.0, 9.0],
        xlabel=r"$\Delta \theta$, degrees",
        xticks=tab['D theta'],
-       ylabel=r"Fitted planitude, $\Pi$")
+       ylabel=r"Fitted planitude, $\Pi'$")
 sns.despine(trim=True)
 fig.tight_layout()
 fig.savefig(figfile)

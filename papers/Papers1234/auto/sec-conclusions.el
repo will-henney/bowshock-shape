@@ -21,6 +21,7 @@
     "fig:000-400-planitude-alatude"
     "fig:000-400-Delta-theta"
     "sec:obs"
+    "tab:m42-fit"
     "sec:conc"))
  :latex)
 

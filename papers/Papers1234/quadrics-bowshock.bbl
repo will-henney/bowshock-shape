@@ -60,6 +60,10 @@ Goldman R.,  1983, \mn@doi [IEEE Computer Graphics and Applications]
 Guggenheimer H.,  2012, Differential Geometry.
 Dover Books on Mathematics, Dover Publications
 
+\bibitem[\protect\citeauthoryear{Guti{\'e}rrez-Soto}{Guti{\'e}rrez-Soto}{2015}]{Gutierrez-Soto:2015a}
+Guti{\'e}rrez-Soto L.~{\'A}.,  2015, Master's thesis, Universidad Nacional
+  Aut{\'o}noma de M{\'e}xico
+
 \bibitem[\protect\citeauthoryear{{Hartigan}, {Raymond}  \&
   {Hartmann}}{{Hartigan} et~al.}{1987}]{Hartigan:1987a}
 {Hartigan} P.,  {Raymond} J.,   {Hartmann} L.,  1987, \apj, 316, 323
@@ -127,6 +131,10 @@ Dover Books on Mathematics, Dover Publications
 \bibitem[\protect\citeauthoryear{Mohr \& Phillips}{Mohr \&
   Phillips}{2015}]{Mohr:2015a}
 Mohr P.~J.,  Phillips W.~D.,  2015, Metrologia, 52, 40
+
+\bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
+  {Wen}}{1994}]{ODell:1994a}
+{O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
 
 \bibitem[\protect\citeauthoryear{{Ochsendorf}, {Verdolini}, {Cox}, {Bern{\'e}},
   {Kaper}  \& {Tielens}}{{Ochsendorf} et~al.}{2014}]{Ochsendorf:2014a}
