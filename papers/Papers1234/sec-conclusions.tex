@@ -377,6 +377,10 @@ in the west of the Orion Nebula (M42).  An image of one of these arcs
 (M42~069-601) was used in the illustration of bow shock terminology in
 Figure~\ref{fig:bow-terminology}.
 
+
+\subsection{Empirical determination of bow shock shape}
+\label{sec:empir-determ-bow}
+
 We consider three different tracings of the bow shape (see
 Fig.~\ref{fig:000-400-fit}): the peak of the emission arc (``ridge''),
 and its inner and outer edges.  In all three cases, we placed by eye
@@ -388,7 +392,7 @@ contours.\footnote{%
   paper. } %
 
 We determine the planitude and alatude by fitting a circle to the
-traced points within \(\pm \Delta\theta = \ang{75}\) bow axis, using the
+traced points within \(\pm \Delta\theta = \ang{75}\) of the bow axis, using the
 iterative algorithm described in Appendix~\ref{app:rcurv-empirical}.
 The fitted circle, when combined with the position of the central
 source, yields the orientation of the bow axis, together with the apex
@@ -399,9 +403,13 @@ by light-colored lines.\footnote{%
   For conciseness, we drop the prime symbol from the radii, both in
   this section and in Appendix~\ref{app:rcurv-empirical}, even though
   they are all projected quantities.} %
-The projected planitude and alatude then follow as \(\Pi' = R_\C/R_0\),
-\(\Lambda_+ = R_{90+}/R_0\), \(\Lambda_- = R_{90-}/R_0\), which are shown in
+The projected planitude and alatude then follow as
+\(\Pi' = R_\C/R_0\), \(\Lambda_+ = R_{90+}/R_0\),
+\(\Lambda_- = R_{90-}/R_0\), which are shown in
 Figure~\ref{fig:000-400-planitude-alatude}.
+
+\subsection{Analysis of sources of systematic uncertainty}
+\label{sec:analys-sourc-syst}
 
 The planitude is found to have a moderate dependence on the choice of
 \(\Delta\theta\), as shown in Figure~\ref{fig:000-400-Delta-theta}, where it can
@@ -414,7 +422,7 @@ circle fits that were extremely sensitive to the exact positions of
 the few points included in the fit.  A reliable fit requires 4 or more
 points, ideally spanning a total separation that is a substantial
 fraction of \(R_\C\), which would argue for \(\Delta\theta\) larger than about
-\(\Pi'/2\) radians, or \ang{60}--\ang{90}.  On the other hand, if
+\(\Pi'/2\) radians, or \ang{60} to \ang{90}.  On the other hand, if
 \(\Delta\theta \ge \ang{90}\) then the planitude and alatude would no longer be
 independent since the bow would be forced to lie on the ``sphere''
 line, \(\Lambda' = (2 \Pi' - 1)^{1/2}\) (see \S~\ref{sec:conic}).  Balancing
@@ -426,18 +434,55 @@ Figure~\ref{fig:000-400-planitude-alatude} we show results for both
 Unlike all the models considered in \S~\ref{sec:crw-scenario} and
 \S~\ref{sec:more-realistic-bow}, the observed bows are not necessarily
 symmetrical and so the alatude for the two wings, \(\Lambda_-'\) and
-\(\Lambda_+'\), may be different.  We calculate an average alatude,
-\(\langle\Lambda'\rangle\), and an alatude asymmetry, \(\Delta\Lambda'\):
+\(\Lambda_+'\), may be different.  We therefore calculate an average
+alatude, \(\langle\Lambda'\rangle\), and an alatude asymmetry, \(\Delta\Lambda'\):
 \begin{equation}
   \label{eq:alatude-average-and-asym}
   \langle\Lambda'\rangle = \tfrac12 \left( \Lambda_+' + \Lambda_-' \right)
   \quad\quad \Delta\Lambda' = \tfrac12 \left( \Lambda_+' - \Lambda_-' \right)
 \end{equation}
-The results for these and the planitude are shown in Table~\ref{tab:m42-fit}
+The results for these two quantities, together with the planitude, are
+shown in Table~\ref{tab:m42-fit}.  For each object and for each tracing
+(inner, ridge, outer, see Fig.~\ref{fig:000-400-fit}), the
+\(\text{mean} \pm \text{standard\ deviation}\) is listed for circle
+fits using \(\Delta\theta = \ang{60}\) to \ang{80} (see
+Fig.~\ref{fig:000-400-Delta-theta}).  Additionally, the row ``All''
+for each object gives the global mean and standard deviation over all
+three tracings.
 
+It can be seen from Table~\ref{tab:m42-fit} that the uncertainty in
+the fitted parameters is dominated by the variations between the
+different traced shapes.  For example, the one-sigma relative
+variation of planitude \(\Pi'\) is \(< 10\%\) within the individual
+tracings, but \(\approx 20\%\) between tracings.  For the mean alatude
+\(\langle\Lambda'\rangle\), the variation within individual tracings is extremely
+small\footnote{%
+  This is because the only way that variation in the circle fit
+  parameters affect the alatudes is through the axis orientation
+  vector, and changing the orientation induces roughly opposite
+  effects on \(\Lambda_+'\) and \(\Lambda_-'\), which cancel out in \(\langle\Lambda'\rangle\).
+} %
+at \(\approx 1\%\), but is \(\approx 10\%\) between tracings.  The alatude
+asymmetry, \(\Delta\Lambda'\), is best interpreted as a difference between the
+symmetry axis of the apex region and the symmetry axis of the wings.
+In relative terms, this is \(0\)--\(20\%\), but with large systematic
+variations between tracings (for instance, in both objects it is very
+small for the outer arcs).
 
+It could be argued that much of the between-tracing variations in
+\(\Pi'\) and \(\langle\Lambda'\rangle\) are due to real differences in the shape of the
+inner and outer boundaries of the emission arc.  Although this may be
+true, in the absence of a robust theory as to exactly what feature of
+the observed images constitutes \emph{the} bow shock, such variations
+nevertheless serve to limit the precision with which the bow shock
+shape can be measured.  We therefore conclude that conservative
+estimates of \(20\%\) precision for \(\Pi'\) and \(10\%\) precision for
+\(\Lambda'\) are appropriate when analyzing observations of a similar
+quality to those presented in Figure~\ref{fig:000-400-fit}.
 
-\(\Pi' = 2.9 \pm 0.2 \pm 0.3\)
+\subsection{Derived shape of M42 arcs}
+\label{sec:derived-shape-m42}
+
 
 The principal hindrance to an accurate tracing of the bow shape in
 this object is the strong and variable nebular background emission,

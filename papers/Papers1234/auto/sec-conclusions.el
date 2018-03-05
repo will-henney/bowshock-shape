@@ -22,7 +22,10 @@
     "fig:000-400-Delta-theta"
     "tab:m42-fit"
     "sec:obs"
+    "sec:empir-determ-bow"
+    "sec:analys-sourc-syst"
     "eq:alatude-average-and-asym"
+    "sec:derived-shape-m42"
     "sec:conc"))
  :latex)
 
