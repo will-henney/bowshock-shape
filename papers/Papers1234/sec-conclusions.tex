@@ -341,9 +341,28 @@ projected-over-true apex distance is also broader for the MHD case.
   \label{fig:000-400-Delta-theta}
 \end{figure*}
 
+\begin{table}
+  \caption[]{Fitted planitude and alatude for M42 bows}
+  \label{tab:m42-fit}
+  \centering
+  \begin{tabular}{ll rrr}
+    \toprule
+    Source & Bow & \(\Pi'\) & \(\langle \Lambda' \rangle\)& \(\Delta\Lambda'\) \\
+    \midrule
+    000-400 & Inner & \(2.87 \pm 0.19\) & \(2.40 \pm 0.04\) & \(0.35 \pm 0.08\) \\
+           &  Ridge & \(3.62 \pm 0.38\) & \(2.73 \pm 0.02\) & \(0.51 \pm 0.10\) \\
+           & Outer & \(2.51 \pm 0.24\) & \(2.46 \pm 0.02\) & \(-0.06 \pm 0.02\) \\[\smallskipamount]
+           & All & \(3.00 \pm 0.54\) & \(2.53 \pm 0.15\) & \(0.16 \pm 0.16\) \\[\bigskipamount]
+    069-601 & Inner & \(3.81 \pm 0.23\) & \(2.90 \pm 0.01\) & \(0.44 \pm 0.05\) \\
+           & Ridge & \(2.43 \pm 0.13\) & \(2.17 \pm 0.01\) & \(0.07 \pm 0.02\) \\
+           & Outer & \(2.22 \pm 0.15\) & \(2.11 \pm 0.01\) & \(0.01 \pm 0.01\) \\[\smallskipamount]
+           & All & \(2.82 \pm 0.75\) & \(2.39 \pm 0.37\) & \(0.17 \pm 0.20\)\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \section{Example application to observations}
 \label{sec:obs}
-
 
 As an example of measuring the projected planitude and alatude of real
 bow shocks, we present an analysis of M42~000-400 and M42~069-601,
@@ -404,26 +423,17 @@ shown in Figure~\ref{fig:000-400-fit}, whereas in
 Figure~\ref{fig:000-400-planitude-alatude} we show results for both
 \ang{75} (thick lines) and \ang{60} (thin lines).
 
-
-\begin{table}
-  \caption[x]{Fitted planitude and alatude for M42 bows}
-  \label{tab:m42-fit}
-  \centering
-  \begin{tabular}{ll lll}
-    \toprule
-    Source & Bow & \(\Pi'\) & \(\Lambda'\)& \(\Delta\Lambda'\) \\
-    \midrule
-    000-400 & Inner & \(2.87 \pm 0.19\) & \(2.40 \pm 0.04\) & \(0.35 \pm 0.08\) \\
-           &  Ridge & \(3.62 \pm 0.38\) & \(2.73 \pm 0.02\) & \(0.51 \pm 0.10\) \\
-           & Outer & \(2.51 \pm 0.24\) & \(2.46 \pm 0.02\) & \(-0.06 \pm 0.02\) \\[\smallskipamount]
-           & All & \(3.00 \pm 0.54\) & \(2.53 \pm 0.15\) & \(0.16 \pm 0.16\) \\[\bigskipamount]
-    069-601 & Inner & \(3.81 \pm 0.23\) & \(2.90 \pm 0.01\) & \(0.44 \pm 0.05\) \\
-           & Ridge & \(2.43 \pm 0.13\) & \(2.17 \pm 0.01\) & \(0.07 \pm 0.02\) \\
-           & Outer & \(2.22 \pm 0.15\) & \(2.11 \pm 0.01\) & \(0.01 \pm 0.01\) \\[\smallskipamount]
-           & All & \(2.82 \pm 0.75\) & \(2.39 \pm 0.37\) & \(0.17 \pm 0.20\)\\
-    \bottomrule
-  \end{tabular}
-\end{table}
+Unlike all the models considered in \S~\ref{sec:crw-scenario} and
+\S~\ref{sec:more-realistic-bow}, the observed bows are not necessarily
+symmetrical and so the alatude for the two wings, \(\Lambda_-'\) and
+\(\Lambda_+'\), may be different.  We calculate an average alatude,
+\(\langle\Lambda'\rangle\), and an alatude asymmetry, \(\Delta\Lambda'\):
+\begin{equation}
+  \label{eq:alatude-average-and-asym}
+  \langle\Lambda'\rangle = \tfrac12 \left( \Lambda_+' + \Lambda_-' \right)
+  \quad\quad \Delta\Lambda' = \tfrac12 \left( \Lambda_+' - \Lambda_-' \right)
+\end{equation}
+The results for these and the planitude are shown in Table~\ref{tab:m42-fit}
 
 
 

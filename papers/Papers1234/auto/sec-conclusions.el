@@ -20,8 +20,9 @@
     "fig:000-400-fit"
     "fig:000-400-planitude-alatude"
     "fig:000-400-Delta-theta"
-    "sec:obs"
     "tab:m42-fit"
+    "sec:obs"
+    "eq:alatude-average-and-asym"
     "sec:conc"))
  :latex)
 
