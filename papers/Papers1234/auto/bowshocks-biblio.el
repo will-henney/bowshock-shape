@@ -119,6 +119,7 @@
     "Bally:2000a"
     "Bally:2006a"
     "Ricci:2008a"
-    "Gutierrez-Soto:2015a"))
+    "Gutierrez-Soto:2015a"
+    "Astropy-Collaboration:2018a"))
  :bibtex)
 

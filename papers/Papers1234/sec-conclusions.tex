@@ -279,8 +279,8 @@ projected-over-true apex distance is also broader for the MHD case.
   \centering
   \includegraphics[width=\linewidth]{figs/new-two-arc-multi-fig}
   \caption[]{Example empirical determination of planitude and alatude
-    for observed bow shocks associated with proplyds in the Orion
-    Nebula (M42).  Color scale and contours show an \textit{HST}
+    for observed bow shocks associated with proplyds in the outer
+    Orion Nebula (M42).  Color scale and contours show an \textit{HST}
     H\(\alpha\) image (ACS F658N filter, \citealp{Bally:2006a}) of
     M42~000-400 (panels \textit{a--c}) and M42~069-601 (panels
     \textit{d--f}).  The image scale and orientation are indicated on
@@ -373,8 +373,10 @@ which are two H\(\alpha\) emission arcs \citep{Bally:2000a,
   right ascension, but we use it here for consistency with previous
   papers. The associated proplyd is listed with the more correct
   designation 4596-400 in catalogs such as \citet{Ricci:2008a}.  } %
-in the west of the Orion Nebula (M42).  An image of one of these arcs
-(M42~069-601) was used in the illustration of bow shock terminology in
+in the west of the Orion Nebula (M42) at a distance of roughly
+\SI{0.5}{pc} from the high-mass Trapezium stars that ionize the
+nebula.  An image of one of these arcs (M42~069-601) was used in the
+illustration of bow shock terminology in
 Figure~\ref{fig:bow-terminology}.
 
 
@@ -404,8 +406,8 @@ by light-colored lines.\footnote{%
   this section and in Appendix~\ref{app:rcurv-empirical}, even though
   they are all projected quantities.} %
 The projected planitude and alatude then follow as
-\(\Pi' = R_\C/R_0\), \(\Lambda_+ = R_{90+}/R_0\),
-\(\Lambda_- = R_{90-}/R_0\), which are shown in
+\(\Pi' = R_\C/R_0\), \(\Lambda_+' = R_{90+}/R_0\),
+\(\Lambda_-' = R_{90-}/R_0\), which are shown in
 Figure~\ref{fig:000-400-planitude-alatude}.
 
 \subsection{Analysis of sources of systematic uncertainty}
@@ -470,15 +472,15 @@ variations between tracings (for instance, in both objects it is very
 small for the outer arcs).
 
 It could be argued that much of the between-tracing variations in
-\(\Pi'\) and \(\langle\Lambda'\rangle\) are due to real differences in the shape of the
-inner and outer boundaries of the emission arc.  Although this may be
-true, in the absence of a robust theory as to exactly what feature of
-the observed images constitutes \emph{the} bow shock, such variations
-nevertheless serve to limit the precision with which the bow shock
-shape can be measured.  We therefore conclude that conservative
-estimates of \(20\%\) precision for \(\Pi'\) and \(10\%\) precision for
-\(\Lambda'\) are appropriate when analyzing observations of a similar or
-better quality\footnote{%
+\(\Pi'\) and \(\langle\Lambda'\rangle\) are due to real differences between the shapes of
+the inner and outer boundaries of the emission arc.  Although this may
+be true, in the absence of a robust theory as to exactly what feature
+of the observed images constitutes \emph{the} bow shock, such
+variations nevertheless serve to limit the precision with which the
+bow shock shape can be measured.  We therefore conclude that
+conservative estimates of \(20\%\) precision for \(\Pi'\) and \(10\%\)
+precision for \(\Lambda'\) are appropriate when analyzing observations of a
+similar or better quality\footnote{%
   Since the uncertainties are systematic and due to unavoidably
   subjective decisions, it is unlikely that better quality
   observations would improve the situation, although poorer quality
@@ -488,7 +490,7 @@ important limitation when comparing the statistics of the shapes of
 different bow shock populations, as we will present in a following
 paper.
 
-\subsection{Derived shape of M42 arcs}
+\subsection{Derived shape of the M42 arcs}
 \label{sec:derived-shape-m42}
 
 From a casual inspection of Figure~\ref{fig:000-400-fit}, it is
@@ -497,21 +499,35 @@ this is confirmed by the numbers in Table~\ref{tab:m42-fit}. Both
 000-400 and 069-601 are consistent with
 \((\Pi', \Lambda') \approx (3.0, 2.5)\), and if we take the absolute minimum over
 all the different tracings and reasonable variations in the
-\(\Delta\theta\) fit parameter, we find firm lower limits of
-\((\Pi', \Lambda') > (2.1, 2.1)\).  In the rest of this section
+\(\Delta\theta\) fit parameter, we find unassailable lower limits of
+\((\Pi', \Lambda') > (2.1, 2.1)\).  In the rest of this section, we consider
+only these lower limits, since they are already sufficient for drawing
+interesting conclusions.
 
-
-If we compare th
-
-
-
-The principal hindrance to an accurate tracing of the bow shape in
-this object is the strong and variable nebular background emission,
-which particularly affects the far wing on the right hand side of the
-image, where a bright background filament is superimposed on the bow.
-
-These give an idea of the systematic uncertainties and sensitivity to
-subjective choices,
+Comparison with Figure~\ref{fig:sim-Pi-Lambda} shows that both the MHD
+and HD simulations of \citet{Meyer:2016a} are inconsistent with the
+observations.  Although \(\Pi' > 2.1\) can be satisfied,\footnote{%
+  Either by the MHD simulations at low inclinations
+  (\(\abs{i} = \ang{0}\)--\ang{20}) or by the HD simulation at
+  intermediate inclinations (\(\abs{i} = \ang{30}\)--\ang{40}).} %
+the simulations' projected alatude is \(\Lambda' < 1.9\) for all
+inclinations, which is significantly less than the observed lower
+limit of \(2.1\).  This is not particularly surprising since the
+simulations were not tailored to the situation of these proplyd bow
+shocks in M42, in which the mildly supersonic photoevaporation flow
+from an externally irradiated protoplanetary disk interacts with the
+mildly supersonic champagne flow from the core of the Orion Nebula.
+The proplyd case has at least four important differences from the
+runaway O-star case modeled by \citet{Meyer:2016a}: (1)~The velocity
+of the outer wind is \(\le \SI{20}{km.s^{-1}}\) instead of
+\SI{40}{km.s^{-1}}; (2)~The outer wind is slightly divergent, rather
+than plane-parallel; (3)~Both inner and outer shocks are strongly
+radiative, so both shells (see Fig.~\ref{fig:2-winds}) contribute to
+the observed emission; (4)~The inner wind is not isotropic, but
+instead corresponds to the \(k = 0.5\) case of
+equation~\eqref{eq:ancantoid-density}.  The ways in which these
+differences may account for the discrepancy with the observations will
+be explored in detail in a subsequent paper.
 
 \section{Summary and discussion}
 \label{sec:conc}
@@ -563,16 +579,27 @@ more interesting behavior, with tracks that pass from the spheroid
 region at low inclinations to the hyperboloid region at high
 inclinations.
 
-Finally (\S~\ref{sec:more-realistic-bow}), we test the projected shape
-analysis methods against the results of computational fluid dynamic
-simulations of magnetized and non-magnetized bow shocks from
-\citet{Meyer:2017a} of a runaway OB main-sequence star.  We find that
-measurements made on maps of infrared dust emission can be accurate
-diagnostics of the projected shape of the contact discontinuity for
-this type of bow shock (Fig.~\ref{fig:sim-Pi-Lambda}).  The
-distributions of projected planitude and alatude for a population of
-randomly oriented bow shocks shows systematic differences between the
-different simulations.
+In the following section (\S~\ref{sec:more-realistic-bow}), we test the
+projected shape analysis methods against the results of computational
+fluid dynamic simulations of magnetized and non-magnetized bow shocks
+from \citet{Meyer:2017a} of a runaway OB main-sequence star.  We find
+that measurements made on maps of infrared dust emission can be
+accurate diagnostics of the projected shape of the contact
+discontinuity for this type of bow shock
+(Fig.~\ref{fig:sim-Pi-Lambda}).  The distributions of projected
+planitude and alatude for a population of randomly oriented bow shocks
+shows systematic differences between the different simulations.
+
+Finally (\S~\ref{sec:obs}), we give an example of the application of
+our methods to observed emission maps of bow shocks, describing a
+robust algorithm for empirically determining the projected planitude
+and alatude from imperfect real data.  We investigate the sensitivity
+of the results to systematic errors due to both observational
+uncertainties and subjective choices in the application of the
+algorithm.  We find that the projected planitude and alatude can be
+determined with precisions of 20\% and 10\%, respectively.  For our
+illustrative observations, we show that this is more than sufficient
+to rule out certain models.
 
 This paper is the first of a series that will apply our shape analysis
 to a wide variety of models and observations of stellar bow shocks.

@@ -17,6 +17,16 @@
   {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
   mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
 
+\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
+  Collaboration} et~al.}{2013}]{Astropy-Collaboration:2013a}
+{Astropy Collaboration} et~al., 2013, \aap, 558, A33
+
+\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
+  Collaboration} et~al.}{2018}]{Astropy-Collaboration:2018a}
+{Astropy Collaboration} et~al., 2018, preprint, \href
+  {http://adsabs.harvard.edu/abs/2018arXiv180102634T} {} (\mn@eprint {arXiv}
+  {1801.02634})
+
 \bibitem[\protect\citeauthoryear{{Bally}, {O'Dell}  \& {McCaughrean}}{{Bally}
   et~al.}{2000}]{Bally:2000a}
 {Bally} J.,  {O'Dell} C.~R.,   {McCaughrean} M.~J.,  2000, \aj, 119, 2919
@@ -79,6 +89,11 @@ Guti{\'e}rrez-Soto L.~{\'A}.,  2015, Master's thesis, Universidad Nacional
   {O'Dell}  \& {Rubin}}{{Henney} et~al.}{2013}]{Henney:2013a}
 {Henney} W.~J.,  {Garc{\'{\i}}a-D{\'{\i}}az} M.~T.,  {O'Dell} C.~R.,   {Rubin}
   R.~H.,  2013, \mnras, 428, 691
+
+\bibitem[\protect\citeauthoryear{Jones, Oliphant, Peterson  et~al.}{Jones
+  et~al.}{2018}]{Jones:2001a}
+Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2018, {SciPy}: Open
+  source scientific tools for {Python}, \url {http://www.scipy.org/}
 
 \bibitem[\protect\citeauthoryear{{Joye} \& {Mandel}}{{Joye} \&
   {Mandel}}{2003}]{Joye:2003a}
