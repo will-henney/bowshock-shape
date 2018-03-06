@@ -7,17 +7,17 @@
   \caption[]{Procedure for tracing the contact discontinuity from the
     \citet{Meyer:2017a} simulations.  The density maps from
     \citeauthor{Meyer:2017a}'s Fig.~3 are converted to FITS format and
-    displayed using the software \textsc{SAOImage DS9}.  The density
-    contour at \SI{0.4}{cm^{-3}} is displayed (shown in green in the
-    figure) and this is traced by hand by placing ``point regions'' on
-    the image (shown by black ``x'' shapes in the figure).  The zoom
-    facility of the software allows the points to be placed with any
-    required accuracy.  The points are saved to a file in the DS9
-    region file format, which is then read by Python programs for
-    further processing.  For example, the yellow boxes show circle
-    fits and determination of the parameters \(R_0\), \(R_c\), and
-    \(R_{90}\).  In this example, only the points shown in orange
-    (within \ang{60} of axis) are used in the fits.}
+    displayed using the software SAOImage~DS9 \citep{Joye:2003a}.  The
+    density contour at \SI{0.4}{cm^{-3}} is displayed (shown in green
+    in the figure) and this is traced by hand by placing ``point
+    regions'' on the image (shown by black ``x'' shapes in the
+    figure).  The zoom facility of the software allows the points to
+    be placed with any required accuracy.  The points are saved to a
+    file in the DS9 region file format, which is then read by Python
+    programs for further processing.  For example, the yellow boxes
+    show circle fits and determination of the parameters \(R_0\),
+    \(R_c\), and \(R_{90}\).  In this example, only the points shown
+    in orange (within \ang{60} of axis) are used in the fits.}
   \label{fig:meyer-trace}
 \end{figure}
 
@@ -384,9 +384,9 @@ Figure~\ref{fig:bow-terminology}.
 We consider three different tracings of the bow shape (see
 Fig.~\ref{fig:000-400-fit}): the peak of the emission arc (``ridge''),
 and its inner and outer edges.  In all three cases, we placed by eye
-the points that define the bow, using SAOImage~DS9 in a similar
-fashion to in Figure~\ref{fig:meyer-trace}, and guided by the image
-contours.\footnote{%
+the points that define the bow, using SAOImage~DS9 \citep{Joye:2003a}
+in a similar fashion to in Figure~\ref{fig:meyer-trace}, and guided by
+the image contours.\footnote{%
   In the case of the ``ridge'' method at least, it is possible to
   automate this step, which we will discuss in detail in a following
   paper. } %
@@ -453,15 +453,15 @@ three tracings.
 It can be seen from Table~\ref{tab:m42-fit} that the uncertainty in
 the fitted parameters is dominated by the variations between the
 different traced shapes.  For example, the one-sigma relative
-variation of planitude \(\Pi'\) is \(< 10\%\) within the individual
-tracings, but \(\approx 20\%\) between tracings.  For the mean alatude
+variation of planitude, \(\Pi'\), is \(< 10\%\) within the individual
+tracings, but \(\approx 20\%\) between tracings.  For the mean alatude,
 \(\langle\Lambda'\rangle\), the variation within individual tracings is extremely
 small\footnote{%
   This is because the only way that variation in the circle fit
   parameters affect the alatudes is through the axis orientation
   vector, and changing the orientation induces roughly opposite
-  effects on \(\Lambda_+'\) and \(\Lambda_-'\), which cancel out in \(\langle\Lambda'\rangle\).
-} %
+  effects on \(\Lambda_+'\) and \(\Lambda_-'\), which approximately cancel out in
+  \(\langle\Lambda'\rangle\).  } %
 at \(\approx 1\%\), but is \(\approx 10\%\) between tracings.  The alatude
 asymmetry, \(\Delta\Lambda'\), is best interpreted as a difference between the
 symmetry axis of the apex region and the symmetry axis of the wings.
@@ -477,11 +477,32 @@ the observed images constitutes \emph{the} bow shock, such variations
 nevertheless serve to limit the precision with which the bow shock
 shape can be measured.  We therefore conclude that conservative
 estimates of \(20\%\) precision for \(\Pi'\) and \(10\%\) precision for
-\(\Lambda'\) are appropriate when analyzing observations of a similar
-quality to those presented in Figure~\ref{fig:000-400-fit}.
+\(\Lambda'\) are appropriate when analyzing observations of a similar or
+better quality\footnote{%
+  Since the uncertainties are systematic and due to unavoidably
+  subjective decisions, it is unlikely that better quality
+  observations would improve the situation, although poorer quality
+  observations could make things worse.  } %
+to those presented in Figure~\ref{fig:000-400-fit}.  This will be an
+important limitation when comparing the statistics of the shapes of
+different bow shock populations, as we will present in a following
+paper.
 
 \subsection{Derived shape of M42 arcs}
 \label{sec:derived-shape-m42}
+
+From a casual inspection of Figure~\ref{fig:000-400-fit}, it is
+apparent that the shapes of the two M42 arcs are closely similar, and
+this is confirmed by the numbers in Table~\ref{tab:m42-fit}. Both
+000-400 and 069-601 are consistent with
+\((\Pi', \Lambda') \approx (3.0, 2.5)\), and if we take the absolute minimum over
+all the different tracings and reasonable variations in the
+\(\Delta\theta\) fit parameter, we find firm lower limits of
+\((\Pi', \Lambda') > (2.1, 2.1)\).  In the rest of this section
+
+
+If we compare th
+
 
 
 The principal hindrance to an accurate tracing of the bow shape in

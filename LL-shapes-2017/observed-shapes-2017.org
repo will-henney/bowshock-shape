@@ -758,6 +758,13 @@ Finding relative uncertainties
 #+TBLFM: $5=100 $-1/$-2;f1::$8=100 $-1/$-2;f1::$11=100 $-1/$-5;f1::$12=100 $-3/$-6;f1
 
 
+Table of parameters from Luis Angel paper
+|  Source |      D |  Rin | Rout | Rc,in | Rc,out | \Pi,in | \Pi,out |    R/D |
+|---------+--------+------+------+-------+--------+------+-------+--------|
+| 000-400 | 254.03 | 0.80 | 1.47 |  2.43 |   4.37 |  3.0 |   3.0 | 0.0045 |
+| 069-601 | 212.19 | 0.45 | 0.81 |  1.77 |   2.72 |  3.9 |   3.4 | 0.0030 |
+#+TBLFM: $7=$5/$3;f1::$8=$6/$4;f1::$9=($3 + $4) / 2 $2;f4
+
 ** Focus on 000-400 for referee reply
 + I have entirely re-implemented the circle fitting
   + [[file:~/Dropbox/circle-fit/]]
