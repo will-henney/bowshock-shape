@@ -153,6 +153,11 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2018, {SciPy}: Open
   Phillips}{2015}]{Mohr:2015a}
 Mohr P.~J.,  Phillips W.~D.,  2015, Metrologia, 52, 40
 
+\bibitem[\protect\citeauthoryear{{Ng}, {Bandiera}, {Hunstead}  \&
+  {Johnston}}{{Ng} et~al.}{2017}]{Ng:2017a}
+{Ng} C.-Y.,  {Bandiera} R.,  {Hunstead} R.~W.,   {Johnston} S.,  2017, \apj,
+  842, 100
+
 \bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
   {Wen}}{1994}]{ODell:1994a}
 {O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
@@ -184,9 +189,8 @@ Quincey P.,  Brown R. J.~C.,  2017, Metrologia, 54, 454
 {Ricci} L.,  {Robberto} M.,   {Soderblom} D.~R.,  2008, \aj, 136, 2136
 
 \bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
-  et~al.}{2005}]{Robberto:2005}
-{Robberto} M.,  et~al., 2005, \mn@doi [\aj] {10.1086/428000}, \href
-  {http://adsabs.harvard.edu/abs/2005AJ....129.1534R} {129, 1534}
+  et~al.}{2005}]{Robberto:2005a}
+{Robberto} M.,  et~al., 2005, \aj, 129, 1534
 
 \bibitem[\protect\citeauthoryear{{Scherer} \& {Fichtner}}{{Scherer} \&
   {Fichtner}}{2014}]{Scherer:2014a}
@@ -218,6 +222,9 @@ Weisstein E.~W.,  1999--2018, Radius of Curvature, From MathWorld -- A Wolfram
 
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31
+
+\bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1997}]{Wilkin:1997a}
+{Wilkin} F.~P.,  1997, PhD thesis, University of California, Berkeley
 
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{2000}]{Wilkin:2000a}
 {Wilkin} F.~P.,  2000, \apj, 532, 400

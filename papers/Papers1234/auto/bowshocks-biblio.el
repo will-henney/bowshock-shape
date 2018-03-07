@@ -26,7 +26,7 @@
     "Markevitch:2002a"
     "Brownsberger:2014a"
     "Cordes:1993a"
-    "Robberto:2005"
+    "Robberto:2005a"
     "Gfrerrer:2009a"
     "Goldman:1983a"
     "Wilkin:1996a"
@@ -120,6 +120,8 @@
     "Bally:2006a"
     "Ricci:2008a"
     "Gutierrez-Soto:2015a"
-    "Astropy-Collaboration:2018a"))
+    "Astropy-Collaboration:2018a"
+    "Wilkin:1997a"
+    "Ng:2017a"))
  :bibtex)
 

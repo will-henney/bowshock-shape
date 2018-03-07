@@ -259,7 +259,7 @@ CLOSED: [2017-12-06 Wed 12:05]
   Instituto de Radioastronomía y Astrofísica, Universidad Nacional Autónoma de México, Apartado Postal 3-72, 58090 Morelia, Michoacán, México
 #+END_EXAMPLE
 * Revised version
-** Using latexdiff to hilight changes
+** Using latexdiff to highlight changes
 
 First of all, we expand out all the included files
 
@@ -305,12 +305,28 @@ First of all, we expand out all the included files
   echo $FILE_DIFF
 #+END_SRC
 
-This is where we actually run it
++ This is where we actually run it
 
 #+call: run-latexdiff(OPTIONS="--preamble=wjh-latexdiff-preamble.tex --append-context2cmd='label' --packages=amsmath,hyperref,siunitx --verbose --ignore-warnings --math-markup=0 --allow-spaces") :results output verbatim :eval yes
 
 #+RESULTS:
 : ms-bows-diff-0102.tex
+
++ It worked fine, once I decided to skip the displayed math
+
+#+BEGIN_SRC sh
+cd latexdiff
+pdflatex ms-bows-diff-0102
+pdflatex ms-bows-diff-0102
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh
+open latexdiff/ms-bows-diff-0102.pdf
+#+END_SRC
+
+#+RESULTS:
 
 *** Extracts from latexdiff man page
 
@@ -426,10 +442,10 @@ As to the second part of the comment, we have added a new figure with an extensi
 *** Observational comparison
 : The application of the methods to the bow shock presented in Figure 1 would provide a most effective conclusion of the paper.
 
-We were saving the observational comparison for a following paper, but
-we agree that a small preview would be useful here.  So we have added
-a new section where we apply the methods to that bow shock and another
-similar one.
+We had been saving the observational comparison for a following paper,
+but we agree that a small preview would be useful here.  So we have
+added a new section where we apply the methods to that bow shock and
+another similar one.
 
 ** Referee report
 Reviewer's Comments:
@@ -449,8 +465,8 @@ Figure 24 and relative caption must be fixed making it homogeneous with Figure 1
 *** Frank Wilkin
 + The projection section was already done in his PhD thesis appendix
   + \citep{Wilkin:1997a}
-+ [ ] Should mention that at end of our sec 3.3
++ [X] Should mention that at end of our sec 3.3
 *** Stephen Ng
 + Derived shape of wilkinoid in recent paper \citep{Ng:2017a}
   + http://adsabs.harvard.edu/abs/2017ApJ...842..100N
-+ [ ] Can maybe cite them in section 5.3 first para, and cite Cox as well, together with Wilkin's thesis again.
++ [X] Can maybe cite them in section 5.3 first para, and cite Cox as well, together with Wilkin's thesis again.

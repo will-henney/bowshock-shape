@@ -1,7 +1,7 @@
 %\RequirePackage{amsmath}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL ms-bows01-expand.tex   Wed Mar  7 11:05:01 2018
-%DIF ADD ms-bows02-expand.tex   Wed Mar  7 11:05:01 2018
+%DIF DEL ms-bows01-expand.tex   Wed Mar  7 12:48:13 2018
+%DIF ADD ms-bows02-expand.tex   Wed Mar  7 12:48:13 2018
 \documentclass[useAMS, usenatbib, a4paper]{mnras}
 \pdfsuppresswarningpagegroup=1
 
@@ -446,9 +446,18 @@ latin \textit{ala} for ``wing''.
 
 Several previous studies have discussed the relation between
 \(R_{90}\) and \(R_0\) as a diagnostic of bow shape (for example
-\citealp{Robberto:2005, Cox:2012a, Meyer:2016a}), but as far as we
-know, we are the first to include \(R_{\C}\).  \citet{Robberto:2005}
-\S~4.2 use the ratios \(R_0/D\) and \(R_{90}/D\) in analyzing proplyd
+\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\citealp{Robberto:2005, Cox:2012a, Meyer:2016a}}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citealp{Robberto:2005a, Cox:2012a, Meyer:2016a}}%DIFAUXCMD
+}\DIFaddend ), but as far as we
+know, we are the first to include \(R_{\C}\).  \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\citet{Robberto:2005}
+}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citet{Robberto:2005a}
+}%DIFAUXCMD
+}\DIFaddend \S~4.2 use the ratios \(R_0/D\) and \(R_{90}/D\) in analyzing proplyd
 bow shapes in the Trapezium cluster in the center of the Orion Nebula
 \citep{Hayward:1994a, Garcia-Arredondo:2001a, Smith:2005a}.  In that
 case, the source of the outer wind is known, and so \(D\) is
@@ -795,9 +804,9 @@ polar form as \(R'(\theta')\), where
   \quad \text{and} \quad
   \tan\theta' = y'\T / x'\T.
 \end{equation}
-\DIFaddbegin 
+\DIFdelbegin \DIFdel{Note that equation}\DIFdelend \DIFaddbegin 
 
-\DIFaddend Note that equation~(\ref{eq:tanphi}) will not have a solution for
+\DIFadd{Equation}\DIFaddend ~(\ref{eq:tanphi}) will not have a solution for
 arbitrary values of $\theta$ and $i$, but only when
 $|\tan i\tan\alpha|<1$. In particular, if $i\neq 0$, then the tangent line
 only exists for \(\theta > \theta_{0}\) where \(\theta_{0}\) is the value of
@@ -819,7 +828,16 @@ for any value of \(\theta\).  In other words, when the viewing angle is
 sufficiently close to face-on, the projected surface has no ``edge''
 and will no longer look like a bow shock to the observer.
 
-\subsection{Characteristic radii on the plane of the sky}
+\DIFaddbegin \DIFadd{After completing this work, it was brought to our attention that the
+principal results of this section had already been derived in
+Appendix~B of the PhD thesis \mbox{%DIFAUXCMD
+\citet{Wilkin:1997a}}%DIFAUXCMD
+.  For instance,
+Wilkin's equation~(8) is equivalent (apart from differences in
+notation) to our equation~}\eqref{eq:tanphi}\DIFadd{.
+}
+
+\DIFaddend \subsection{Characteristic radii on the plane of the sky}
 
 % Considering further applications to bow shocks, we will consider open shells.
 In order to compare the shell shape given by $R(\theta)$ with observations,
@@ -2083,9 +2101,17 @@ all tend towards \(\Depart = 0\) in the far tail as \(\cos\theta \to -1\).
 
 Figures~\ref{fig:xyprime} and~\ref{fig:xyprime-ancantoid} show the
 apparent bow shapes of various thin shell models (wilkinoid, cantoids,
-ancantoids) for different inclination angles \(\abs{i}\).  For
-comparison, Figure~\ref{fig:xyprime}a shows the confocal paraboloid,
-whose apparent shape is independent of inclination (see
+ancantoids)\DIFaddbegin \footnote{%DIF > 
+  \DIFadd{See also previous studies of the projected shape of the wilkinoid
+  \mbox{%DIFAUXCMD
+\citep{Wilkin:1997a, Cox:2012a, Ng:2017a} }%DIFAUXCMD
+and the cantoids
+  \mbox{%DIFAUXCMD
+\citep{Robberto:2005a}}%DIFAUXCMD
+.}} %DIF > 
+\DIFaddend for different inclination angles \(\abs{i}\).  For comparison,
+Figure~\ref{fig:xyprime}a shows the confocal paraboloid, whose
+apparent shape is independent of inclination (see
 Appendix~\ref{app:parabola}).  The wilkinoid (Fig.~\ref{fig:xyprime}b)
 shows only subtle changes, with the wings becoming slightly more swept
 back as the inclination increases.  The cantoids
@@ -3072,6 +3098,12 @@ Dover Books on Mathematics, Dover Publications
 \DIFadd{Mohr P.~J.,  Phillips W.~D.,  2015, Metrologia, 52, 40
 }
 
+\bibitem[\protect\citeauthoryear{{Ng}, {Bandiera}, {Hunstead}  \&
+  {Johnston}}{{Ng} et~al.}{2017}]{Ng:2017a}
+{Ng} \DIFadd{C.-Y.,  }{\DIFadd{Bandiera}} \DIFadd{R.,  }{\DIFadd{Hunstead}} \DIFadd{R.~W.,   }{\DIFadd{Johnston}} \DIFadd{S.,  2017, }\apj\DIFadd{,
+  842, 100
+}
+
 \bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
   {Wen}}{1994}]{ODell:1994a}
 {O'Dell} \DIFadd{C.~R.,  }{\DIFadd{Wen}} \DIFadd{Z.,  1994, }\apj\DIFadd{, 436, 194
@@ -3101,15 +3133,25 @@ Jonathan Cape, London
   {Calvet}}{{Raga} et~al.}{1990}]{Raga:1990a}
 {Raga} A.~C.,  {Binette} L.,  {Canto} J.,   {Calvet} N.,  1990, \apj, 364, 601
 
-\DIFaddbegin \bibitem[\protect\citeauthoryear{{Ricci}, {Robberto}  \& {Soderblom}}{{Ricci}
+\DIFdelbegin %DIFDELCMD < \bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
+%DIFDELCMD <   et~al.}{2005}]{Robberto:2005}
+%DIFDELCMD < {Robberto} %%%
+\DIFdelend \DIFaddbegin \bibitem[\protect\citeauthoryear{{Ricci}, {Robberto}  \& {Soderblom}}{{Ricci}
   et~al.}{2008}]{Ricci:2008a}
-{Ricci} \DIFadd{L.,  }{\DIFadd{Robberto}} \DIFadd{M.,   }{\DIFadd{Soderblom}} \DIFadd{D.~R.,  2008, }\aj\DIFadd{, 136, 2136
+{Ricci} \DIFadd{L.,  }{\DIFadd{Robberto}} \DIFaddend M.,   \DIFaddbegin {\DIFadd{Soderblom}} \DIFadd{D.~R.,  2008, }\aj\DIFadd{, 136, 2136
 }
 
-\DIFaddend \bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
-  et~al.}{2005}]{Robberto:2005}
-{Robberto} M.,  et~al., 2005, \mn@doi [\aj] {10.1086/428000}, \href
-  {http://adsabs.harvard.edu/abs/2005AJ....129.1534R} {129, 1534}
+\bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
+  et~al.}{2005}]{Robberto:2005a}
+{Robberto} \DIFadd{M.,  }\DIFaddend et~al., 2005, \DIFdelbegin %DIFDELCMD < \mn%%%
+\DIFdel{@doi }%DIFDELCMD < [%%%
+\DIFdelend \aj\DIFdelbegin %DIFDELCMD < ] {%%%
+\DIFdel{10.1086/428000}%DIFDELCMD < }%%%
+\DIFdel{, }%DIFDELCMD < \href
+%DIFDELCMD <   {http://adsabs.harvard.edu/abs/2005AJ....129.1534R} {129, 1534}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{, 129, 1534
+}\DIFaddend 
 
 \bibitem[\protect\citeauthoryear{{Scherer} \& {Fichtner}}{{Scherer} \&
   {Fichtner}}{2014}]{Scherer:2014a}
@@ -3142,7 +3184,11 @@ Jonathan Cape, London
 \DIFaddend \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31
 
-\bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{2000}]{Wilkin:2000a}
+\DIFaddbegin \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1997}]{Wilkin:1997a}
+{Wilkin} \DIFadd{F.~P.,  1997, PhD thesis, University of California, Berkeley
+}
+
+\DIFaddend \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{2000}]{Wilkin:2000a}
 {Wilkin} F.~P.,  2000, \apj, 532, 400
 
 \bibitem[\protect\citeauthoryear{{Wilson} \& {Ulvestad}}{{Wilson} \&
