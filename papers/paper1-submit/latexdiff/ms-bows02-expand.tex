@@ -53,61 +53,8 @@
 \newcommand\bmmax{1}            % reduce use of math alphabets for bold
 \usepackage{bm}
 
-\makeatletter
 %% Bundled custom packages
-\newlength{\table@note@skip}
-\setlength{\table@note@skip}{0.5ex}
-\def\@eapj@cap@font{\bfseries}
-\gdef\tblnote@list{}
-\gdef\tblref@list{}
-\newcommand\tablecomments[1]{\@tablecom{#1}}% 
-\newcommand\tablerefs[1]{\@tableref{#1}}% 
-\def\@tablecom#1{% 
- \vspace*{\table@note@skip}
-\par 
-{\parbox{\linewidth}{\hskip1em\rmfamily {\@eapj@cap@font Note}. --- #1}\par}% 
-}% 
-\def\@tableref#1{% 
- \vspace*{\table@note@skip}
-\par 
-{\parbox{\linewidth}{\hskip1em\rmfamily {\@eapj@cap@font References}. --- #1}\par}% 
-}% 
-\def\spew@tblnotes{% 
- \@ifx@empty\tblref@list{}{% 
-  \@tablenotes{\tblref@list}%
-  \vspace*{\table@note@skip}%
-  \global\let\tblref@list\@empty 
- }% 
- \@ifx@empty\tblnote@list{}{% 
-  \@tablenotes{\tblnote@list}% 
-  \vspace*{\table@note@skip}%
-  \global\let\tblnote@list\@empty
- }
- \the\DT@p@ftn%
-}% 
-\def\@tablenotes#1{% 
- \par 
-% \footnoterule% 
- {\@table@type@size#1}% 
-}% 
-
-
-\def\tabletypesize#1{\def\table@hook{#1}\gdef\@table@type@size{#1}}
-\tabletypesize{\footnotesize}
-
-\global\let\tablenotemark\relax
-\global\def\tablenotemark#1{{\normalfont\textsuperscript{#1}}}
-\global\let\tablenotetext\relax
-% \global\def\tablenotetext#1#2{\footnotetext[#1]{\@table@type@size#2}} 
-\global\def\tablenotetext#1#2{\noindent\textsuperscript{#1}{\@table@type@size#2}} 
-
-\newcommand\nodata{ ~$\cdots$~ }% 
-
-\newcommand\phn{\phantom{0}}% 
-\newcommand\phd{\phantom{.}}% 
-\newcommand\phs{\phantom{$-$}}% 
-\newcommand\phm[1]{\phantom{#1}}% 
-\makeatother
+\usepackage{aastex-compat}
 
 % Definitions needed in abstract
 \newcommand\hii{\ion{H}{ii}}
@@ -364,9 +311,14 @@ results of more realistic numerical simulations of bow shocks,
 including the derivation of the shape parameters from maps of infrared
 dust emission.
 %
+In \S~\ref{sec:obs} we apply our methods to example observations of
+proplyd bow shocks in the Orion Nebula, paying close attention to the
+systematic uncertainties that arise when our algorithms are applied to
+real data.
+%
 In \S~\ref{sec:conc} we summarise our results and outline how
-following papers will apply these ideas to observations and to a more
-extensive set of models and numerical simulations.
+following papers will apply these ideas to a more extensive set of
+observations, models and numerical simulations.
 
 
 % The bow shocks we consider are originated by a source located at the
@@ -2740,8 +2692,10 @@ Mexico.  This work has made extensive use of Python language libraries
 from the SciPy \citep{Jones:2001a} and AstroPy
 \citep{Astropy-Collaboration:2013a, Astropy-Collaboration:2018a}
 projects.  We appreciate the thoughtful comments of the anonymous
-referee, which were led us to clarify the presentation of our results
-and prompted the addition of \S~\ref{sec:obs}.
+referee, which led us to clarify the presentation of our results and
+prompted the addition of \S~\ref{sec:obs} and
+Appendices~\ref{sec:radius-curvature}
+and~\ref{sec:plane-sky-projection}.
 
 \bibliographystyle{mnras}
 %% All references should be put in the BibTeX file bowshocks-biblio.bib

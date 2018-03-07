@@ -263,18 +263,18 @@ CLOSED: [2017-12-06 Wed 12:05]
 
 First of all, we expand out all the included files
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC sh :results verbatim
   # Target output directory
   D=$PWD/latexdiff
 
   # Expand version 2 from the working directory
   cd ../Papers1234
   ln -svf $PWD/figs $D 
+  cp -fv aastex-compat.sty $D
   latexpand quadrics-bowshock.tex \
             --verbose --keep-comments --explain \
             --expand-bbl quadrics-bowshock.bbl \
-            --expand-usepackage \
-            --makeatletter --show-graphics \
+            --show-graphics \
             -o $D/ms-bows02-expand.tex
 
   # Expand version 1 from the tar file (run block above to populate TMPDIR first)
@@ -283,30 +283,31 @@ First of all, we expand out all the included files
   latexpand quadrics-bowshock.tex \
             --verbose --keep-comments --explain \
             --expand-bbl quadrics-bowshock.bbl \
-            --expand-usepackage \
-            --makeatletter --show-graphics \
+            --show-graphics \
             -o $D/ms-bows01-expand.tex
 
 #+END_SRC
 
 #+RESULTS:
 : /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/paper1-submit/latexdiff/figs -> /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/Papers1234/figs
+: aastex-compat.sty -> /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/paper1-submit/latexdiff/aastex-compat.sty
 
-+ I had to edit the individual files to put ~\makeatletter~ ... ~\makeatother~ around the expanded .sty files.
-+ But after that, they both compile with no problems
++ They both compile with no problems
 
 #+name: run-latexdiff
 #+header: :var FILE_A="ms-bows01-expand.tex"
 #+header: :var FILE_B="ms-bows02-expand.tex"
 #+header: :var FILE_DIFF="ms-bows-diff-0102.tex"
 #+header: :var OPTIONS="--type=CFONT --ignore-warnings --math-markup=off"
-#+BEGIN_SRC sh 
+#+BEGIN_SRC sh :eval no 
   cd latexdiff
   latexdiff $OPTIONS --verbose $FILE_A $FILE_B > $FILE_DIFF 2> latexdiff.log
   echo $FILE_DIFF
 #+END_SRC
 
-#+call: run-latexdiff(OPTIONS="--preamble=wjh-latexdiff-preamble.tex --append-context2cmd='label' --packages=amsmath,hyperref,siunitx --verbose --ignore-warnings --math-markup=0 --allow-spaces") :results output verbatim
+This is where we actually run it
+
+#+call: run-latexdiff(OPTIONS="--preamble=wjh-latexdiff-preamble.tex --append-context2cmd='label' --packages=amsmath,hyperref,siunitx --verbose --ignore-warnings --math-markup=0 --allow-spaces") :results output verbatim :eval yes
 
 #+RESULTS:
 : ms-bows-diff-0102.tex
