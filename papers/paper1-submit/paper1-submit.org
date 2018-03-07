@@ -151,7 +151,7 @@ CLOSED: [2017-12-06 Wed 09:59]
 
 #+RESULTS:
 #+begin_example
-/tmp/ms-bows01-test found and removed
+/tmp/ms-bows01-test not found
 /tmp/ms-bows01-test
 total 392
 -rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
@@ -160,7 +160,7 @@ total 392
 -rw-r--r--   1 will  wheel   7.9K Dec  2 22:21 app-shape-parameters.tex
 -rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
 -rw-r--r--   1 will  wheel    35K Dec  4 19:01 bowshocks-biblio.bib
-drwxr-xr-x  34 will  wheel   1.1K Dec  6 10:49 figs
+drwxr-xr-x  34 will  wheel   1.1K Mar  7 09:02 figs
 -rw-r--r--   1 will  wheel   8.5K Dec  4 23:31 quadrics-bowshock.bbl
 -rw-r--r--   1 will  wheel   5.0K Dec  5 22:48 quadrics-bowshock.tex
 -rw-r--r--   1 will  wheel    19K Dec  4 23:34 sec-conclusions.tex
@@ -259,6 +259,86 @@ CLOSED: [2017-12-06 Wed 12:05]
   Instituto de Radioastronomía y Astrofísica, Universidad Nacional Autónoma de México, Apartado Postal 3-72, 58090 Morelia, Michoacán, México
 #+END_EXAMPLE
 * Revised version
+** Using latexdiff to hilight changes
+
+First of all, we expand out all the included files
+
+#+BEGIN_SRC sh
+  # Target output directory
+  D=$PWD/latexdiff
+
+  # Expand version 2 from the working directory
+  cd ../Papers1234
+  ln -svf $PWD/figs $D 
+  latexpand quadrics-bowshock.tex \
+            --verbose --keep-comments --explain \
+            --expand-bbl quadrics-bowshock.bbl \
+            --expand-usepackage \
+            --makeatletter --show-graphics \
+            -o $D/ms-bows02-expand.tex
+
+  # Expand version 1 from the tar file (run block above to populate TMPDIR first)
+  TMPDIR=/tmp/ms-bows01-test
+  cd $TMPDIR
+  latexpand quadrics-bowshock.tex \
+            --verbose --keep-comments --explain \
+            --expand-bbl quadrics-bowshock.bbl \
+            --expand-usepackage \
+            --makeatletter --show-graphics \
+            -o $D/ms-bows01-expand.tex
+
+#+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/paper1-submit/latexdiff/figs -> /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/Papers1234/figs
+
++ I had to edit the individual files to put ~\makeatletter~ ... ~\makeatother~ around the expanded .sty files.
++ But after that, they both compile with no problems
+
+#+name: run-latexdiff
+#+header: :var FILE_A="ms-bows01-expand.tex"
+#+header: :var FILE_B="ms-bows02-expand.tex"
+#+header: :var FILE_DIFF="ms-bows-diff-0102.tex"
+#+header: :var OPTIONS="--type=CFONT --ignore-warnings --math-markup=off"
+#+BEGIN_SRC sh 
+  cd latexdiff
+  latexdiff $OPTIONS --verbose $FILE_A $FILE_B > $FILE_DIFF 2> latexdiff.log
+  echo $FILE_DIFF
+#+END_SRC
+
+#+call: run-latexdiff(OPTIONS="--preamble=wjh-latexdiff-preamble.tex --append-context2cmd='label' --packages=amsmath,hyperref,siunitx --verbose --ignore-warnings --math-markup=0 --allow-spaces") :results output verbatim
+
+#+RESULTS:
+: ms-bows-diff-0102.tex
+
+*** Extracts from latexdiff man page
+
+#+BEGIN_EXAMPLE
+Configuration Variables
+    "ARRENV"  If a match to "ARRENV" is found within an inline math environment within a deleted
+              or added block, then the inlined math is surrounded by "\mbox{"..."}".  This is
+              necessary as underlining does not work within inlined array environments.
+
+              [ Default: "ARRENV"="(?:array|[pbvBV]matrix)"
+
+...
+
+    "MATHENV","MATHREPL"
+              If both \begin and \end for a math environment (environment name matching
+              "MATHENV" or \[ and \]) are within the same deleted block, they are replaced by a
+              \begin and \end commands for "MATHREPL" rather than being commented out.
+
+              [ Default: "MATHENV"="(?:displaymath|equation)" , "MATHREPL"="displaymath" ]
+
+    "MATHARRENV","MATHARRREPL"
+              as "MATHENV","MATHREPL" but for equation arrays
+
+              [ Default: "MATHARRENV"="eqnarray\*?" , "MATHREPL"="eqnarray" ]
+
+
+#+END_EXAMPLE
+
+
 ** Reply to referee
 We thank the referee for a most helpful and thoughtful report.  We
 have followed nearly all of the suggestions, as detailed below.  The
