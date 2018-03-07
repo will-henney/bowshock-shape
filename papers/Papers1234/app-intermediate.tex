@@ -41,31 +41,41 @@ The transformation from the body frame (unprimed) to observer-frame
   \end{pmatrix} \ .
 \end{equation}
 This is used in equation~\eqref{eq:Trans}.  A further application is
-to find the observer-frame Cartesian basis vectors by rotating the
+to express the observer-frame Cartesian basis vectors in terms of the
 body-frame basis:
 \begin{align}
   \label{eq:xunit-prime}
-  \uvec{x}' &= \mathbfss{A}_y(i)\, \uvec{x}
+  \uvec{x}' &= \mathbfss{A}_y(-i)\, %\uvec{x}
+              \begin{Vector}
+              1 \\ 0 \\ 0  
+              \end{Vector}
               =
               \begin{Vector}
-              \cos i \\ 0 \\ \sin i  
-              \end{Vector}
+              \cos i \\ 0 \\ -\sin i  
+              \end{Vector} \ ,
   \\
   \label{eq:yunit-prime}
-  \uvec{y}' &= \mathbfss{A}_y(i)\, \uvec{y}
+  \uvec{y}' &= \mathbfss{A}_y(-i)\, %\uvec{y}
+              \begin{Vector}
+              0 \\ 1 \\ 0  
+              \end{Vector}
               =
               \begin{Vector}
               0 \\ 1 \\ 0
-              \end{Vector}
+              \end{Vector} \ , 
   \\
   \label{eq:zunit-prime}
-  \uvec{z}' &= \mathbfss{A}_y(i)\, \uvec{z}
+  \uvec{z}' &= \mathbfss{A}_y(-i)\, %\uvec{z}
+              \begin{Vector}
+              0 \\ 0 \\ 1  
+              \end{Vector}
               =
               \begin{Vector}
-              -\sin i \\ 0 \\ \cos i  
-              \end{Vector}
+              \sin i \\ 0 \\ \cos i  
+              \end{Vector} \ .
 \end{align}
-
+Note that in this case the sign of \(i\) is reversed because it is the
+inverse operation to that in equation~\eqref{eq:Trans}
 
 
 Since we are considering cylindrically symmetric bows, all azimuths
@@ -80,26 +90,9 @@ rotation matrix:
     1 & 0 & 0 \\
     0 &\cos\phi & -\sin\phi \\
     0 &\sin\phi & \cos\phi 
-  \end{pmatrix} \ .
+  \end{pmatrix} \ ,
 \end{equation}
-This is used in \S~\ref{sec:unit-vectors-normal} to find the general
-form of the body-frame normal and tangent unit vectors:
-\begin{align}
-  \uvec{n} &= \mathbfss{A}_x(\phi) \, \uvec{n}_0 =
-  \begin{Vector}
-    \sin\alpha \\ \cos\alpha\cos\phi \\ \cos\alpha\sin\phi
-  \end{Vector} \\
-  \uvec{t} &= \mathbfss{A}_x(\phi) \, \uvec{t}_0 =
-  \begin{Vector}
-    -\cos\alpha \\ \sin\alpha\cos\phi \\ \sin\alpha\sin\phi
-  \end{Vector} \ . 
-\end{align}
-These are then to the observer frame in equations~\eqref{eq:nprime}
-and \eqref{eq:tprime} by use of equation~\eqref{eq:Rotation-matrix-y}.
-
-The first equality in equation~\eqref{eq:tanphi} is found by
-substituting equations~\eqref{eq:nprime} and~\eqref{eq:zunit-prime}
-in~\eqref{eq:tangent-line-condition}, yielding
+where \(\phi\) takes all values in the interval \([0, 2\pi]\). 
 
 
 %%% Local Variables:

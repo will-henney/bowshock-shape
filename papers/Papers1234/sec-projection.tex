@@ -33,13 +33,16 @@ cartesian coordinates on the surface are:
 Suppose that the viewing direction makes an angle \(i\) with the
 \(z\)~axis, so that we can define observer-frame coordinates
 \((x', y', z')\), which are found by rotating the body-frame
-coordinates about the \(y\)~axis:
+coordinates about the \(y\)~axis.  The same vector, \(\bm{r}\), expressed in the observer frame is then 
 \begin{equation}
-  \bm{r}' \equiv
+  \bm{r} = 
   \begin{Vector}
     x' \\ y' \\ z'
   \end{Vector}
-  = \mathbfss{A}_y(i)\, \bm{r}
+  = \mathbfss{A}_y(i)\,
+  \begin{Vector}
+    x \\ y \\ z
+  \end{Vector}
   =
   \begin{Vector}
     x\cos i - z\sin i\\
@@ -51,8 +54,9 @@ coordinates about the \(y\)~axis:
 where the rotation matrix \(\mathbfss{A}_y(i)\) is given in
 Appendix~\ref{sec:plane-sky-projection}.  The inclination angle \(i\)
 is defined so that \(i = \ang{0}\) when the surface is viewed
-perpendicular to its axis (\textit{side on}) and \(i = \ang{90}\) when
-it is viewed along its axis (\textit{end on}).
+perpendicular to its axis (\textit{side on}) and \(i = \pm\ang{90}\)
+when it is viewed along its axis (\textit{end on}), with positive
+\(i\) when the apex points towards the observer.
 
 
 The relationship between the two frames is illustrated in
@@ -128,51 +132,21 @@ and \(\omega\) is a dimensionless \textit{local growth factor}:
   \label{eq:omega}
   \omega(\theta) = \frac{1}{R} \frac{dR}{d\theta} . 
 \end{equation}
-For general \(\phi\), we find \(\uvec{n}\) and \(\uvec{t}\) by rotating
-equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis with the matrix
-\(\mathbfss{A}_x(\phi)\) and then rotating to the observer frame with
-\(\mathbfss{A}_y(i)\)
-
-by use of
-equation~(\ref{eq:Trans}) to give
-\begin{equation}
-  \label{eq:nprime}
-  \begin{aligned}
-    \uvec{n}' &= \mathbfss{A}_y(i)\, \uvec{n}
-    = \mathbfss{A}_y(i)\, \mathbfss{A}_x(\phi)\, \uvec{n}_0 \\
-    & =
-    \begin{aligned}[t]
-      & \frac{1}{(1+\omega^2)^{1/2}} \\
-      & \times 
-      \begin{Vector}
-        (\cos\theta+\omega\sin\theta)\cos i 
-        - (\sin\theta-\omega\cos\theta) \sin i \sin\phi\\
-        (\sin\theta-\omega\cos\theta)\cos\phi \\
-        (\cos\theta+\omega\sin\theta)\sin i 
-        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
-      \end{Vector}
-    \end{aligned}
-  \end{aligned}
-\end{equation}
-\begin{equation}
-  \label{eq:tprime}
-  \begin{aligned}
-    \uvec{t}' &= \mathbfss{A}_y(i)\, \uvec{t}
-    = \mathbfss{A}_y(i)\, \mathbfss{A}_x(\phi)\, \uvec{t}_0 \\
-    & =
-    \begin{aligned}[t]
-      & \frac{1}{(1+\omega^2)^{1/2}} \\
-      & \times 
-      \begin{Vector}
-        -(\sin\theta-\omega\cos\theta)\cos i
-        - (\cos\theta+\omega\sin\theta)\sin\phi\sin i \\
-        (\cos\theta+\omega\sin\theta)\cos\phi \\
-        -(\cos\theta+\omega\sin\theta)\sin i 
-        + (\sin\theta-\omega\cos\theta)\sin\phi\cos i
-      \end{Vector} \ .
-    \end{aligned}
-  \end{aligned}
-\end{equation}
+For general \(\phi \ne 0\), we find \(\uvec{n}\) and \(\uvec{t}\) by
+rotating equations~(\ref{eq:uvec-phi0}) around the \(x\)-axis with the
+matrix \(\mathbfss{A}_x(\phi)\) (eq.~[\ref{eq:Rotation-matrix-x}]):
+\begin{align}
+  \label{eq:uvec-n-phi}
+  \uvec{n} &= \mathbfss{A}_x(\phi) \, \uvec{n}_0 =
+  \begin{Vector}
+    \sin\alpha \\ \cos\alpha\cos\phi \\ \cos\alpha\sin\phi
+  \end{Vector}  \\
+  \label{eq:uvec-t-phi}
+  \uvec{t} &= \mathbfss{A}_x(\phi) \, \uvec{t}_0 =
+  \begin{Vector}
+    -\cos\alpha \\ \sin\alpha\cos\phi \\ \sin\alpha\sin\phi
+  \end{Vector} \ .
+\end{align}
 
 \subsection{Tangent line}
 \label{sec:tangent-line}
@@ -202,12 +176,14 @@ denote the \textit{tangent line}, and which is defined by the
 condition  
 \begin{equation}
   \label{eq:tangent-line-condition}
-  \uvec{n}'\cdot \uvec{z}' = 0.
+  \uvec{n} \cdot \uvec{z}' = 0.
 \end{equation}
-We denote by \(\phi\T\) that value of $\phi$ that satisfies this
-relation for a given inclination, \(i\), and polar angle, \(\theta\):
+We denote by \(\phi\T\) that value of $\phi$ that satisfies this relation
+for a given inclination, \(i\), and polar angle, \(\theta\).  From
+equations~(\ref{eq:uvec-n-phi}, \ref{eq:tangent-line-condition},
+\ref{eq:zunit-prime}, \ref{eq:alpha}) this is
 \begin{equation}
-\sin\phi\T = -\tan i\tan\alpha = \tan i \frac{1+\omega\tan\theta}{\omega-\tan\theta}
+\sin\phi\T = -\tan i\tan\alpha = \tan i \frac{1+\omega\tan\theta}{\omega-\tan\theta} \ .
 \label{eq:tanphi}
 \end{equation}
 From equations~(\ref{eq:body-frame}, \ref{eq:Trans}) it follows that
@@ -236,11 +212,14 @@ polar form as \(R'(\theta')\), where
   \tan\theta' = y'\T / x'\T.
 \end{equation}
 
-Note that equation~(\ref{eq:tanphi}) will not have
-a solution for arbitrary values of $\theta$ and $i$, but only when
-$|\tan i\tan\alpha|<1$. In particular, if $i\neq 0$, then the tangent
-line only exists for \(\theta > \theta_{0}\) where \(\theta_{0}\) is the value of \(\theta\) on the tangent line's projected symmetry axis (\(\theta' = 0\)), 
-given implicitly by
+Note that equation~(\ref{eq:tanphi}) will not have a solution for
+arbitrary values of $\theta$ and $i$, but only when
+$|\tan i\tan\alpha|<1$. In particular, if $i\neq 0$, then the tangent line
+only exists for \(\theta > \theta_{0}\) where \(\theta_{0}\) is the value of
+\(\theta\) on the tangent line's projected symmetry axis
+(\(\theta' = 0\)).  From equations~(\ref{eq:tangential},
+\ref{eq:R-prime-theta-prime}) it follows that \(\sin^2\phi\T = 1\) at
+\(\theta = \theta_0\), which yields the implicit equation
 \begin{align}
 \tan\theta_{0} = \frac{|\tan i| + \omega(\theta_{0})}{1-\omega(\theta_{0}) |\tan i|} . 
 \label{eq:thetapar}

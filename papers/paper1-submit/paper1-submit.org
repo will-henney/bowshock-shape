@@ -262,8 +262,8 @@ CLOSED: [2017-12-06 Wed 12:05]
 ** Reply to referee
 We thank the referee for a most helpful and thoughtful report.  We
 have followed nearly all of the suggestions, as detailed below.  The
-only exception is the comment about Fig 24, where it us unclear to us what is 
-
+only exception is the comment about Fig 24, where it is unclear to us
+what was meant.
 
 *** Appendix
 : My main recommendation is to expand the Appendix to show how one can derive all formulae that do not appear too trivial.
@@ -298,9 +298,10 @@ literature.
 
 This is a fair point.  We now introduce explicit rotation matrices
 about the x and y axes: A_x(phi) and A_y(i), which we use in a new
-appendix to fill in the intermediate steps.  We also explicitly give
-the relation between the cartesian unit vectors in the two frames,
-which helps in the derivation of eq (15).
+appendix to fill in some intermediate steps.  While looking at this we
+realised that our derivation of equation (15) was needlessly complex.
+We hope that the new version is more transparent.  We have added an
+additional step in the derivation of eq. 18
 
 *** Symmetry axis of projected tangent line
 : From a conceptual point of view, my main question is about the possibility of finding the symmetry axis of a projected tangent line. Once the surface has been rotated to account for the observer line of sight, the real vertex gets decoupled from the apparent vertex. The apparent vertex is no more on the x axis, where the star and center of curvature are located and therefore the reuse of Eq. 4 (now Eq. 22) may require some justification.
@@ -345,7 +346,9 @@ As to the second part of the comment, we have added a new figure with an extensi
 : The application of the methods to the bow shock presented in Figure 1 would provide a most effective conclusion of the paper.
 
 We were saving the observational comparison for a following paper, but
-we agree that a small preview would be useful here. 
+we agree that a small preview would be useful here.  So we have added
+a new section where we apply the methods to that bow shock and another
+similar one.
 
 ** Referee report
 Reviewer's Comments:
