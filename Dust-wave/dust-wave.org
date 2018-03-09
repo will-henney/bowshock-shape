@@ -8864,3 +8864,51 @@ This is something I never got finished for the multi-quadric fits
 |  3.0 |              0.33 |
 #+TBLFM: $2=(1 - cos($1 90))/$1 ; f2
 
+
+
+
+* Jane Conacyt project 2018
+
+** Personal
+#+BEGIN_EXAMPLE
+  1. Informacion Relevante del Participante
+  ,* sugiero que me envien una linea sobre el area en que son expertos y cual seria su papel en el proyecto. *
+
+  2. Logros (3 principales)
+  ,* por favor inventen algo *
+#+END_EXAMPLE
+
+
+** Project 
+
+*** Antecedentes
++ Bow shocks form from the supersonic interaction of a stellar wind with an external stream of dust and plasma
+  + The external stream can be due to the star's own motion, or due to turbulence and champagne flows in the interstellar medium
++ Hundreds of stellar bow shocks, associated with hot OB stars, have
+  recently been discovered in mid-infrared surveys
+  \citep{Kobulnicky:2016a}
++ This adds to dozens known to be associated with cooler red supergiant and AGB stars \citep{Cox:2012a}, and nearly a hundred associated with young stars and proplyds in the Orion Nebula \citep{Gutierrez-Soto:2015a}
++ For many types of bow shocks, the easiest way to observe them is via their dust continuum emission at infrared wavelengths
++ But the dust can also influence the dynamics and structure of the bow:
+  + When the stellar wind is relatively weak, the dust absorption of stellar radiation becomes the dominant force, and, instead of a bow shock, a more gradual bow wave is formed \citep{van-Buren:1988a}
+  + If the collisional gas-grain coupling is sufficiently weak, then the radiation force can separate the dust from the rest of the plasma, forming a gas-free dust wave \citep{Ochsendorf:2014a}
+  + When grains are separated from the gas, magnetic fields nearly always dominate the grain dynamics, even when the magnetic pressure is smaller than the thermal gas pressure.
+*** Meta
++ Study the coupling and uncoupling between dust grains, gas, and magnetic field in the presence of a strong radiation field, and its effect on the shapes and emission properties of stellar bow shocks
+*** Metodología
+1. Delineation of regimes of parameter space
+   - For different types of stars (MS OB stars, B supergiants, M supergiants), find regions of the external stream parameter space (density, velocity) that are occupied by wind bow shocks, radiation bow waves, radiation bow shocks, and decoupled dust waves.
+2. Calculation of dust dynamics in bow shocks and dust waves, subject to radiative, magnetic, and collisional drag forces. 
+   - I. Weak coupling limit: fixed background plasma flow.  Explicit integration of grain equation of motion along streamlines, using generic ODE solver.
+     - A. Guiding center approximation
+     - B. Resolved Larmor radius
+   - II. Strong coupling: back-reaction on plasma. Incorporation of dust dynamics in radiation MHD code \citep{Henney:2009a, Arthur:2011a}
+3. Synthesize maps of dust emission and calculate distributions of bow shape parameters: planarity and alatude \citep{Tarango-Yong:2018a}. 
+4. Comparison with properties of observed bow shocks from Spitzer
+   MIPS, WISE, and Herschel surveys.
+*** Calendario 
++ Year 1: M1, M2-I-A, M2-I-B
++ Year 2: M2, M4
++ Year 3: M2-II
+
+*** Productos
