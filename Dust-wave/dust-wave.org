@@ -8878,8 +8878,13 @@ This is something I never got finished for the multi-quadric fits
   ,* por favor inventen algo *
 #+END_EXAMPLE
 
-
++ William Henney is an expert on radiation transfer, atomic/molecular physics, and magnetohydrodynamics, particularly as applied to photoionized and photodissociated regions.  He has contributed to the inclusion of advection effects and time dependence in the Cloudy microphysics code \citep{Henney:2005b, Henney:2007a, Ferland:2013a}.  He has also worked extensively on theory and observations of bow shocks in the Orion Nebula. 
 ** Project 
+:PROPERTIES:
+:EXPORT_FILE_NAME: conacyt-4-jane
+:EXPORT_OPTIONS: num:nil toc:nil author:nil
+:END:
+
 
 *** Antecedentes
 + Bow shocks form from the supersonic interaction of a stellar wind with an external stream of dust and plasma
