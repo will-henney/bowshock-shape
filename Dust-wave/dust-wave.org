@@ -1226,13 +1226,16 @@ python decouple-v40-versus-n.py
     + => v = T (2 G M)^{1/2} (4 pi sigma / L)^{1/4}
     + for 1 Msun, 1 Lsun, and T = 1e4 this gives 1070 km/s
     + So we have 1070 (T/1e4) M^{1/2} / L^{1/4} km/s 
-|        L |  M |     T |   Mdot | Vcrit |  Gamma_e |  V_esc | 2.6 V_esc | Check |
-|----------+----+-------+--------+-------+---------+-------+----------+-------|
-|    6.3e3 | 10 | 25200 | -9.473 |   670 |   0.017 |  949. |    2467. | 1.002 |
-|  5.453e4 | 20 | 33872 | -7.308 |   721 | 0.07246 | 1022. |    2657. | 1.002 |
-|  2.219e5 | 40 | 44124 | -6.221 |   898 |   0.147 | 1271. |    3305. | 1.001 |
-| 3.4095e5 | 40 | 36290 | -5.890 |   607 |    0.24 |  886. |    2304. | 1.032 |
-#+TBLFM: $4=-6.697 + 2.195 log10($1/1e5) - 1.313 log10($2/30) - 1.226 log10(2.6/2) + 0.933 log10($3/40000) - 10.92 (log10($3/40000))**2 ; f3::$7=1070 ($3/1e4) ($2*(1 - $6))**0.5 / $1**0.25 ; f0::$8=2.6 $-1 ; f0::$9=$7/$5 sqrt(2) ; f3
++ We can also find g = G M / R^2 = G M T^4 4 pi sigma / L
+  + for 1 Msun, 1 Lsun, and T = 1e4 this gives 2.476e5 cm/s^2
+  + So g = 2.476e5 (T/1e4)^4 M / L
+|        L |  M |     T |   Mdot | Vcrit |  Gamma_e |  V_esc | 2.6 V_esc | Check | log g |
+|----------+----+-------+--------+-------+---------+-------+----------+-------+-------|
+|    6.3e3 | 10 | 25200 | -9.473 |   670 |   0.017 |  949. |    2467. | 1.002 |  4.20 |
+|  5.453e4 | 20 | 33872 | -7.308 |   721 | 0.07246 | 1022. |    2657. | 1.002 |  4.08 |
+|  2.219e5 | 40 | 44124 | -6.221 |   898 |   0.147 | 1271. |    3305. | 1.001 |  4.23 |
+| 3.4095e5 | 40 | 36290 | -5.890 |   607 |    0.24 |  886. |    2304. | 1.032 |  3.70 |
+#+TBLFM: $4=-6.697 + 2.195 log10($1/1e5) - 1.313 log10($2/30) - 1.226 log10(2.6/2) + 0.933 log10($3/40000) - 10.92 (log10($3/40000))**2 ; f3::$7=1070 ($3/1e4) ($2*(1 - $6))**0.5 / $1**0.25 ; f0::$8=2.6 $-1 ; f0::$9=$7/$5 sqrt(2) ; f3::$10=log10(2.476e5 ($3/1e4)**4 $2 / $1);f2
 
 + *Conclusion is that the Meyer velocities are all too small by a factor of 2 to 2.5*
 
@@ -1240,6 +1243,96 @@ python decouple-v40-versus-n.py
 + We could make histograms of (L, \eta) for different masses, then combine them according to an IMF
 + Either weight by time, or weight by stellar energy radiated
 
+
+
+* Cloudy models of grain charging
++ We want to find the grain potential as a function of ionization parameter
++ Plan: run some constant-density cloudy models for relevant parameters
++ This is done in [[file:~/Dropbox/cloudy-dust-charging/cloudy-dust-charging.org][file:~/Dropbox/cloudy-dust-charging/cloudy-dust-charging.org]]
+** Dependence on parameters
++ We find two regions of highish drift velocity
+  1. High-ionization region where we have coulomb breakdown
+     - \varphi \approx 10
+     - Radiation force exceeds maximum Coulomb drag => jump to the Rayleigh drag solution, which is at very high drift speed
+     - Although drift speed is not meaningful here, instead should find terminal velocity
+     - This occurs at about 1% of ifront radius and only for the B stars.  Not at all for the O stars
+  2. Low-ionization region where drain potential is low, |\varphi| < 1
+     - Occurs at neutral fraction of 0.001 to 0.01 for the O stars
+     - In the ionization front for the B stars, but only at low density
+     - The drift velocity only gets up to 0.5 \to 1 km/s, so it doesn't decouple much.
++ Ochsendorf gets round this by just saying that the grains are not charged as much as models suggest!
++ So for region 1, we would have decoupled dust waves, with \alpha_drag < 1
++ But for region 2, we would have \alpha_drag \ge 40 or so, which is the regime where we are close to the well-coupled regime, with substantial back-reaction on the gas
+** Analytic calculation of G/n
++ Weingartner & Draine (2001) Fig 5, show that the yields are roughly unity in EUV for small grains, and about 0.1 for larger grains (> 300 Ang = 0.03 micron)
+  + They are smaller in FUV below about 9 eV or 0.66 Ryd
+  + The bulk yield is about 2 times smaller than the 300 Ang value
++ Radiation field is normalized to the Habing value:
+  + energy density u_Hab = 5.33 \times 10^-14 erg cm^-3
+  + mean intensity J_Hab = u c / 4 pi = 1.27e-4 erg cm^-2 s^-1 sr^-1
++ We will normalize to L = 1e4 Lsun and 1 pc
+  + Nominal flux is F_0 = 0.31926 erg cm^-2 s^-1
+  + Mean intensity is F_0 /4 pi for monodirectional radiation
+  + J_0 = 0.0254 erg cm^-2 s^-1 sr^-1
+  + G_0 = J_0 / J_Hab = 200
++ So if f_F and f_E are the fractions of bolometric luminosity in two bands
+  + And \tau_F and \tau_E are the optical depths
+  + Then G = G_0 L_4 R_pc^-2 [f_F exp(-\tau_F) + f_E exp(-\tau_E)]
+  + We could maybe multiply the EUV term by a boost B_E to account for the higher yield
++ [X] Check this is consistent with WD sec 7.1, where they found G/n = 1.0 n^{1/3}
+  + L = 4.4e38 = 1.1e5 Lsun => L_4 = 11
+  + S = 3.6e48 => R_S = 1.4896e20 cm = 48 n^{-2/3} pc
+  + G = 200 11 / (0.8 48)**2 = 1.49 n^{4/3 }
+  + So it is consistent - small difference is probably with the recomb rate
++ So, for MS20 model
+  + L_4 = 5, f_F = 0.64, f_E = 0.16
+  + => G = 200 5 (0.64 + 0.16) R_pc^-2 = 800 R_pc^-2
+  + G T^{1/2}/n = 8e4 R_pc^-2 n^-1 if we ignore extinction
+  + So with n = 1pcc at R = 0.1 pc, we have 8e6
+    + Fig 10 of WD at  G T^{1/2}/n = 1e6 gives U = 5 V for silicate and 8 V for graphite 
+    + dustrad-n00-MS20 gives about the same at 0.1 pc
+    + But at 1 pc grains are negative, despite still having G/n = 800
+    + dustrad-n04-MS20 at 0.001 pc should have charging param = 8e6
+      + That at least is consistent
++ Fig 11 gives the charging parameter G T^{1/2}/n for which grains are neutral
+  + For 1e4 K this is about 1000 for all grains => G/n = 10
+  + That assumes an EUV cutoff - if we add back in the EUV, then it probably goes down to G/n = 1 for neutral grains (based on discussion in 7.1)
+
+
+* Plan for dust wave papers
++ Current plan is to split up the dust wave paper (II + III), but not sure at what point
++ Ingredients
+  + Parameter space in strong coupling limit
+    + Sec 2.1 of Paper II
+  + Breakdown of strong coupling
+    + Decoupling efficiency \xi = 2 Q_p / Q_drag
+    + Parameter space with constant \xi
+    + Dependence of \xi on grain potential \phi
+    + Dependence of \phi on ionization parameter
+  + Magnetic field effects
+    + Larmor radius
+    + Estimates of magnetic field strength - H II regions and diffuse 
+  + Shapes of different bows
+    + Dust waves
+      + Non-magnetic - dragoids - not realistic, but a stepping stone to both bow waves and lorentzoids
+      + Magnetic - lorentzoids - leave until next paper?
+        + Resolved and unresolved Larmor radius
+    + Radiation bow waves
+      + Like dust waves, but with shocks (and without drag)
+      + Numerical solution
+        + Adapt something like pyro http://zingale.github.io/pyro2/intro.html
+    + Radiation bow shocks
+      + Should be Wilkinoid/Cantoid when optically thick - I think
+      + How optical depth varies with \theta
+        + I think it tends to increase, which means that wings become optically thick first
+        + For instance, for Wilkinoid we have
+          + \theta = 0 :: \sigma / (\rho_0 R_0) = 3/4
+          + \theta = 90 :: \sigma / (\rho_0 R_0) = R_90^4 / 2 R_90 [ (\pi/2)^2 + (R_90^2 - 1)^2 ]^{1/2}
+            + where R_90 = 3^{1/2}
+            + => 3 3^{1/2} / 2 ( (\pi/2)^2 + 4 )^{1/2 } = 1.0216
+            + In other words, very little difference: 0.75 \to 1
+            + Wilkin says that this is perpendicular to shell, so would have to be multiplied by sec \alpha_90, but that is only modest 
+** 
 * The nature of dust particles
 + Do we really have separate C and silicate grains?
   + Mostly, it is assumed that we have
@@ -4601,6 +4694,7 @@ python dust-lorentz-stream-3d-turbz.py 0.0 5.0 50.0 0.0
   + Weingartner & Draine (2001)
     + Dust charge in soft-ish radiation fields
     + Mainly concentrates on interstellar field, but does do an example of H II regions
+      + Although does not give charge results - only heating/cooling
     + Everything is in terms of Habing field.  Important parameter is G T^{1/2} / n_e
     + 
   + Weingartner et al. (2006)
@@ -4647,7 +4741,7 @@ python dust-lorentz-stream-3d-turbz.py 0.0 5.0 50.0 0.0
         + We can think of U_in as being U_0 n / n_sh, which is U_0 M_0^-2 for the strong cooling case
           + => U_0 = 0.578 S_49 T_8000 M_0^2 / x^2 L_4
         + In the same vein, the outer ionization parameter is U_out = U_0 e^{-(\tau_d + \tau_g)}
-          + Where \tau_g is the gas optical depth: τ_g = -ln(1 - 𝓡/𝓕)
+          + Where \tau_g  is the gas optical depth: τ_g = -ln(1 - 𝓡/𝓕)
           + And τ_d is the dust optical depth of the bow shock shell: τ_d = (3/8) τ
 
               
@@ -8878,12 +8972,44 @@ This is something I never got finished for the multi-quadric fits
   ,* por favor inventen algo *
 #+END_EXAMPLE
 
-+ William Henney is an expert on radiation transfer, atomic/molecular physics, and magnetohydrodynamics, particularly as applied to photoionized and photodissociated regions.  He has contributed to the inclusion of advection effects and time dependence in the Cloudy microphysics code \citep{Henney:2005b, Henney:2007a, Ferland:2013a}.  He has also worked extensively on theory and observations of bow shocks in the Orion Nebula. 
++ William Henney is an expert on radiation transfer, atomic/molecular physics, and magnetohydrodynamics, particularly as applied to photoionized and photodissociated regions.  He has contributed to the inclusion of advection effects and time dependence in the Cloudy microphysics code \citep{Henney:2005b, Henney:2007a, Ferland:2013a}.  He has also worked extensively on theory and observations of bow shocks in the Orion Nebula.
++ Logros principales
+  1. Dynamics of photoevaporation flows from globules and cirmcumstellar disks
+  2. Structure and dynamics of the Orion Nebula
+  3. Scattering of emission lines by dust
 ** Project 
 :PROPERTIES:
 :EXPORT_FILE_NAME: conacyt-4-jane
 :EXPORT_OPTIONS: num:nil toc:nil author:nil
 :END:
+*** Computer equipment
+**** Macbook Pro (custom config)
++ Laptop 15 inch
++ Intel core i7 quad core 3.1 GHz
++ 16 GB RAM
++ 1 TB SSD
++ 80199 MXN
+
+**** Macbook Pro
++ Laptop 15 inch
++ Intel core i7 quad core 2.9 GHz
++ 16 GB RAM
++ 512 GB SSD
++ 65199 MXN
+**** iMac
++ Desktop all-in-one
++ Intel core i5 quad core 3.5 GHz
++ 32 GB RAM
++ 1 TB SSD
++ Retina 5K screen
++ 61999 MXN
+**** iMac Pro
++ Desktop all-in-one
++ Intel Xeon W 8-core 3.2 GHz
++ 32 GB RAM
++ 1 TB SSD
++ Retina 5K screen
++ 116999 MXN
 
 
 *** Antecedentes
