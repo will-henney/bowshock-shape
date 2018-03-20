@@ -1286,17 +1286,40 @@ python decouple-v40-versus-n.py
   + So it is consistent - small difference is probably with the recomb rate
 + So, for MS20 model
   + L_4 = 5, f_F = 0.64, f_E = 0.16
-  + => G = 200 5 (0.64 + 0.16) R_pc^-2 = 800 R_pc^-2
-  + G T^{1/2}/n = 8e4 R_pc^-2 n^-1 if we ignore extinction
-  + So with n = 1pcc at R = 0.1 pc, we have 8e6
-    + Fig 10 of WD at  G T^{1/2}/n = 1e6 gives U = 5 V for silicate and 8 V for graphite 
-    + dustrad-n00-MS20 gives about the same at 0.1 pc
-    + But at 1 pc grains are negative, despite still having G/n = 800
-    + dustrad-n04-MS20 at 0.001 pc should have charging param = 8e6
+  + => G = 200 5 0.64 R_pc^-2 = 640 R_pc^-2
+  + G T^{1/2}/n = 6.4e4 R_pc^-2 n^-1 if we ignore extinction
+  + So with n = 1pcc at R = 0.1 pc, we have 6.4e6
+    + Fig 10 of WD01 at  G T^{1/2}/n = 1e6 gives U = 5 V for silicate and 8 V for graphite 
+    + dustrad-n00-MS20 gives potential of more like 12 V, but this is probably because we also have the EUV, not counted in G
+    + Assuming \sigma_H = 1.6e-21, then \tau = 0.005 R_pc
+    + But at 50 pc grains are negative
+      + \tau = 0.24, so not so big
+      + G T^{1/2}/n = 6.4e4 exp(-0.24) / 50**2 = 20, or G/n = 0.2
+    + dustrad-n04-MS20 at 0.001 pc should also have charging param = 6.4e6
+      + The 100x smaller radius exactly compensates for the 10,000x higher density
       + That at least is consistent
+      + In this case, we don't go negative near the i-front
+        + R = 0.06 pc => \tau = 1.85
+        + G T^{1/2}/n = 6.4e4 exp(-1.85) / 0.06**2 1e4 = 280
+        + This is 10x bigger than n=1 case, so unsurprising more positive charge 
 + Fig 11 gives the charging parameter G T^{1/2}/n for which grains are neutral
   + For 1e4 K this is about 1000 for all grains => G/n = 10
   + That assumes an EUV cutoff - if we add back in the EUV, then it probably goes down to G/n = 1 for neutral grains (based on discussion in 7.1)
++ [ ] It is still puzzling that the grain charge falls as much as it does in the MMS20 and MS40 models
+  + We can estimate U for these models:
+    + If we gas ionization parameter: X = x^2 / (1 - x), then the radiation ionization parameter: U \equiv F / c n is U = (\alpha_B / c \sigma) X
+    + If we assume 1e4 K and \sigma = 0.5 \sigma_0 = 3e-18 cm^2, then
+      + U = 2.9e-6 X
+    + So we have U \ge 1 at the illuminated face, where X \approx 1e6
+    + For the 40 Msun star f_F = 0.43, f_E = 0.45, L_4 = 22.2
+      + So, G = 200 22.2 0.43 / R_pc^2 = 1910 / R_pc^2 
+      + Inner face :: X = 1e6, U = 3 at R = 0.02 pc for n = 1
+        + => G = 1910 / 0.02**2 = 4.8e6
+          + G T^{1/2 }/ n = 4.8e8 => /far higher than considered in Weingartner 2001/
+        + Potential is U = 10 eV => \phi = 10 / 0.86 = 11.6 => Q_drag = 19 \phi^2 = 2600 
+        + Radiation pressure is L / 4 \pi R^2 c = 5.9e-7 erg/cm^3 
+        + Gas pressure is 2 n k T = 2.761e-12 erg/cm^3 = 2e5 times smaller
+      + 
 
 
 * Plan for dust wave papers
