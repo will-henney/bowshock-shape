@@ -1,3 +1,20 @@
+* Proofs
++ Q1 :: Confirm no colour in printed version. 
++ Q2 :: Please change back to the two emails as given in the manuscript: j.tarango@irya.unam.mx and w.henney@irya.unam.mx.  The one given in the proofs is obsolete (should still work, but has not been canonical for over ten years). 
++ Q3 :: Surnames correct
++ Q4 :: Correct
++ Q5 :: No databases cited
++ Q6 :: Keywords fine
++ Q7 :: Figures fine
++ Q8 :: Notation fine
++ Q9 :: Edits fine
++ Q10 :: All fine
++ Q11 :: All fine
++ Q12 :: ApJ submitted - the authors are currently finalizing their response to the referee report
++ Q13 :: The author list given on the page https://www.scipy.org/citing.html is "Eric Jones and Travis Oliphant and Pearu Peterson and others", so I don't know if it is more than 8
++ Q14 :: The date is given as "2001--", but if that is inconsistent with MNRAS style, you could put "2001--2018".  I think that "2018" on its own is misleading.
++ Q15 :: Again, the date of 2018 is not correct since the web page was originally written in 1999
++ Other :: Why is "sgn" set in italic in equation (62)? All other operators are set in upright roman.
 * Version 2 select files
 #+name: srcfiles2
 #+BEGIN_SRC sh
