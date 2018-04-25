@@ -1270,6 +1270,8 @@ python decouple-v40-versus-n.py
 + Radiation field is normalized to the Habing value:
   + energy density u_Hab = 5.33 \times 10^-14 erg cm^-3
   + mean intensity J_Hab = u c / 4 pi = 1.27e-4 erg cm^-2 s^-1 sr^-1
+  + Flux is F_Hab = 4 \pi J_Hab = 1.6e-3 1.27e-4 erg cm^-2 s^-1
+    + [X] This is consistent with what I wrote in the Adal Carina paper
 + We will normalize to L = 1e4 Lsun and 1 pc
   + Nominal flux is F_0 = 0.31926 erg cm^-2 s^-1
   + Mean intensity is F_0 /4 pi for monodirectional radiation
