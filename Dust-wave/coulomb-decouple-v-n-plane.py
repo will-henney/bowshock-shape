@@ -35,6 +35,21 @@ def xfunc(x, ts, eta):
     """Function to be zeroed to find x"""
     return x**2 - (1.0 - np.exp(-2*ts*x)) - eta
 
+
+def drift_velocity(G_n, Gjump=1.0e5, Gbump=10.0, wbump=2.0, wjump=10.0, jumpfac=30.0):
+    """
+    Fit to Cloudy model results for drift velocity as function of G/n
+    in Habing cm^3.  Results in km/s 
+    """
+    # Linear up to the jump value
+    wdrift = wjump*G_n/Gjump
+    # Then much higher beyond the jump value
+    wdrift[G_n > Gjump] *= jumpfac
+    # Plus a bump for the low charge region
+    wdrift += wbump*np.exp( -(np.log10(G_n) - np.log10(Gbump))**2 )
+    return wdrift
+
+
 R0s = (0.0003, 0.001, 0.003, 0.01, 0.03,
        0.1, 0.3, 1.0, 3.0, 10.0, 30.0)
 lws = np.linspace(0.3, 2.5, len(R0s))
@@ -117,7 +132,8 @@ for M, L4, eta, S49, ax in stardata:
     # FUV excitation parameter - fiducial (at R0 and no extinction)
     # G_n = 1e4*L4*Lsun*frac_fuv[M]*np.exp(-tau_dust) / (4*np.pi * (R0*pc)**2 * Habing * nn)
     G_n = 1e4*L4*Lsun*frac_fuv[M] / (4*np.pi * (Rstarstar*pc)**2 * Habing * nn)
-    print(G_n.min(), G_n.max(), np.median(G_n))
+    G_n_bs = 1e4*L4*Lsun*frac_fuv[M] / (4*np.pi * (R0*pc)**2 * Habing * nn)
+    # print(G_n.min(), G_n.max(), np.median(G_n))
 
     # y^2 / (1 - y) = CU
     # y = 0.1 => y^2 / (1 - y) = 0.0111111111111
@@ -149,17 +165,47 @@ for M, L4, eta, S49, ax in stardata:
     #         bbox=dict(fc=d["trapped bg"][M], ec='none', pad=0.1)
     # )
 
+    wdrift = drift_velocity(G_n, G_n_jump[M])
+    alpha_drag = vv / wdrift
+
+    wdrift_bs = drift_velocity(G_n_bs, G_n_jump[M])
+    alpha_bs = vv / wdrift_bs
+
+    m_bs = alpha_bs < 1.0
+    #alpha_drag[~m] = np.nan
+
+    cs = ax.contourf(vv, nn, alpha_drag, (0.0, 20.0),
+                    linewidths=1, colors='y', alpha=0.05)
+    cs = ax.contourf(vv, nn, alpha_drag, (0.0, 1.0),
+                    linewidths=1, colors='y', alpha=0.3)
+    cs = ax.contourf(vv, nn, alpha_bs, (0.0, 2.0),
+                    linewidths=1, colors='m', alpha=0.05)
+    cs = ax.contourf(vv, nn, alpha_bs, (0.0, 1.0),
+                    linewidths=1, colors='m', alpha=0.2)
+    cs = ax.contourf(vv, nn, alpha_bs, (0.0, 0.5),
+                    linewidths=1, colors='m', alpha=0.3)
+
+    Rdw = Rstarstar / (1.0 + alpha_drag)
+
+    # Remove cases where dust wave is inside bow shock
+    m_dw = (Rdw >= R0) & m_bs
+    Rdw[~m_dw] = np.nan
+    R0[m_dw] = np.nan
+
+
+
     ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.15)
     cs = ax.contour(vv, nn, R0, R0s, linewidths=lws, colors='k')
     clevs = [level for level in clevs_to_label if level in cs.levels]
     ax.clabel(cs, clevs,
               fontsize='x-small', fmt=cformats,
               inline=True, inline_spacing=2, use_clabeltext=True)
-    ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='x-small', bbox=box_params)
-    # ax.text(18.0, d["RBW y"][M], RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.85', ec='0.6')})
-    # ax.text(16.0, 1e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
-    # ax.text(20.0, 15.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
-
+    cs = ax.contour(vv, nn, Rdw, R0s, linewidths=lws, colors='b')
+    # clevs = [level for level in clevs_to_label if level in cs.levels]
+    # ax.clabel(cs, clevs,
+    #           fontsize='x-small', fmt=cformats,
+    #           inline=True, inline_spacing=2, use_clabeltext=True)
+    ax.text(100.0, 1e5, Mlabel, zorder=100, fontsize='x-small', bbox=box_params)
 
     #
     # Now do the cooling length
@@ -169,73 +215,7 @@ for M, L4, eta, S49, ax in stardata:
     # pre-shock Mach number
     M0 = vv/cs
     # post-shock Mach number
-    M1 = np.sqrt((M0**2 + 3)/(5*M0**2 - 1))
-    # post-shock temperature in units of T0
-    T1 = (5*M0**2 - 1)*(1 + 3/M0**2) / 16
-    # post-shock density
-    n1 = nn*4*M0**2 / (M0**2 + 3)
-    # post-shock velocity
-    v1 = vv*nn/n1
-    # Cooling rate
-    Lam1 = 3.3e-24 * (T1*T0/1e4)**2.3
-    Lam2 = 1e-20 / (T1*T0/1e4)
 
-    k = 3
-    Lambda = (Lam1**(-k) + Lam2**(-k))**(-1/k)
-
-    # Heating rate
-    Gamma = (T0/1e4)**2.8 * 3.3e-24 /np.sqrt(T1*T0/1e4)
-
-    # Cooling length in parsec
-    dcool = 3*(1e5*v1)*(1.3806503e-16 * T1*T0) / (n1*(Lambda - Gamma)) / 3.085677582e18
-
-    dcool[vv < cs] = np.nan
-
-    # Ratio with respect to adiabatic shell thickness
-    h1 = 0.177*R0
-    cool_ratio1 = dcool / R0
-    # Ratio with respect to isothermal shell thickness
-    h2 = 3*R0/(4*M0**2) * (2 / (1 + np.sqrt(1 + (18/M0**2)) ))
-    cool_ratio2 = dcool / h2
-
-    # cs = ax.contour(vv, nn, cool_ratio1, (1.0,),
-    #                 linewidths=2, colors='b', alpha=0.5)
-    # ax.clabel(cs, 
-    #           fontsize='xx-small', fmt=r"$d_\mathrm{cool} = R_0$",
-    #           inline=True, inline_spacing=2, use_clabeltext=True)
-    # cs = ax.contour(vv, nn, cool_ratio2, (1.0,),
-    #                 linewidths=1, colors='b', alpha=0.5)
-    # ax.clabel(cs, 
-    #           fontsize='xx-small', fmt=r"$d_\mathrm{cool} = h_0$",
-    #           inline=True, inline_spacing=2, use_clabeltext=True)
-
-
-    wdrift = 10.0*G_n/G_n_jump[M]
-    wdrift += 2.0*np.exp( -(np.log10(G_n) - 1.0)**2 )
-    wdrift[G_n > G_n_jump[M]] *= 30.0
-    alpha_drag = vv / wdrift
-    m = Rstarstar >= R0
-    print(alpha_drag[m].min(), alpha_drag[m].max(), np.median(alpha_drag[m]))
-    alpha_drag[~m] = np.nan
-
-    cs = ax.contourf(vv, nn, alpha_drag, (0.0, 100.0),
-                    linewidths=1, colors='m', alpha=0.03)
-    cs = ax.contourf(vv, nn, alpha_drag, (0.0, 50.0),
-                    linewidths=1, colors='m', alpha=0.05)
-    cs = ax.contourf(vv, nn, alpha_drag, (0.0, 20.0),
-                    linewidths=1, colors='m', alpha=0.1)
-    cs = ax.contourf(vv, nn, alpha_drag, (0.0, 1.0),
-                    linewidths=1, colors='m', alpha=0.2)
-    cs = ax.contourf(vv, nn, alpha_drag, (0.0, 0.5),
-                    linewidths=1, colors='m', alpha=0.3)
-    # cs = ax.contour(vv, nn, alpha_drag, (0.5, 1.0, 2.0, 20.0, 80.0),
-    #                 linewidths=0.3,
-    #                 colors='m', alpha=0.5)
-    # ax.clabel(cs,
-    #           fontsize='xx-small', fmt=r"$\alpha = %.2f$",
-    #           inline=True, inline_spacing=2, use_clabeltext=True)
-
-    Rdw = Rstarstar / (1.0 + alpha_drag)
 
     # Now do the FUV parameter
     # cs = ax.contourf(vv, nn, G_n, (1.0e4, G_n_jump[M]),
