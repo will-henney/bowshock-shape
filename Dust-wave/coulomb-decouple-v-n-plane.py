@@ -158,10 +158,10 @@ for M, L4, eta, S49, ax in stardata:
     ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.2)
 
     for grain, a, color in [
-            ["gra", 0.02, "y"],
-            ["gra", 0.2, "m"],
             ["sil", 0.02, "c"],
             ["sil", 0.2, "b"],
+            ["gra", 0.02, "y"],
+            ["gra", 0.2, "r"],
     ]:
         kappa_d = 3.0*Qp/(4.0*a*MICRON*rho_d[grain])
         mdw = (
@@ -169,7 +169,7 @@ for M, L4, eta, S49, ax in stardata:
             & (ts < 0.5*(vv/10.0)/np.sqrt(Xi_dag[grain][M]))
             & (vv/10 > np.sqrt(eta*Xi_dag[grain][M]))
         ).astype(float)
-        cs = ax.contourf(vv, nn, mdw, [0.5, 1.5], colors=color, alpha=0.3)
+        cs = ax.contourf(vv, nn, mdw, [0.5, 1.5], colors=color, alpha=0.4)
 
     cs = ax.contour(vv, nn, R0, R0s, linewidths=lws, colors='k')
     clevs = [level for level in clevs_to_label if level in cs.levels]
