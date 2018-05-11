@@ -139,6 +139,55 @@ figs/069-601-Pi-vs-Dtheta
 -rw-r--r--  1 will  staff    32K Mar  7 12:12 sec-thin-shell.tex
 #+end_example
 
+** How many words?
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles2>>
+  cd ../Papers1234
+  wc $srcfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+     182     593    5927 quadrics-bowshock.tex
+     314    2151   15180 sec-intro.tex
+     297    1587   12230 sec-projection.tex
+     579    3461   26654 sec-conic.tex
+     718    4231   33136 sec-thin-shell.tex
+     634    4815   35329 sec-conclusions.tex
+     101     405    3314 app-intermediate.tex
+      82     397    3038 app-parabola.tex
+     187     924    8115 app-shape-parameters.tex
+     120     798    5685 app-rcurv-empirical.tex
+     257     930   11621 quadrics-bowshock.bbl
+    1636    6082   48548 bowshocks-biblio.bib
+      52      59    1435 aastex-compat.sty
+     116     329    4530 astrojournals.sty
+    5275   26762  214742 total
+#+end_example
+
+So, not counting the references, about 20,000 words
+
+Now, compare with Jorge thesis:
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  cd ~/Dropbox/JorgeThesis
+  wc *.tex
+#+END_SRC
+
+#+RESULTS:
+:      433    2753   24947 Appendix.tex
+:      326    3734   30536 CRW.tex
+:      468    4182   32858 bow-model.tex
+:        2       6      65 conclusions.tex
+:      259    3732   26234 objects.tex
+:      112    1373   10035 orion-results.tex
+:       93     163    2385 orion_tesis.tex
+:       38      82     745 portada.tex
+:     1731   16025  127805 total
+
+Currently 16,000 words.
+
+I we assume 40 hour weeks, and 40 week working year, then that means 10 words per hour. 
 
 * TODO Make the version 2 tar file to submit
 
