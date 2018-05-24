@@ -663,33 +663,23 @@ is set by \(d\cool\) rather than \(h_0\).
 
 \begin{figure*}
   \includegraphics[width=\linewidth]{figs/gas-grain-drag-photoionized}
-  \caption{Drag force as a function of gas--grain slip velocity,
-    \(w\), for different values of the grain potential,
-    \(\phi = U / k T\).  Contributions from proton and electron Coulomb
-    (electrostatic) drag, as well as Epstein (solid-body) drag are
-    indicated.  Inset shows \(\phi\) as a function of the radiation
-    parameter, \(\Xi = P_{\mathrm{rad}} / P_{\mathrm{gas}}\) on a
-    log--linear scale.}
+  \caption{Dimensionless drag force, \(f\drag / f_*\), as a function
+    of gas--grain slip velocity, \(w\), for different values of the
+    grain potential in thermal units, \(\phi\).  Contributions from
+    proton and electron Coulomb (electrostatic) drag, as well as
+    Epstein (solid-body) drag are indicated.  Examples of subsonic and
+    highly supersonic stable drift velocities are shown (thin dark
+    blue arrows), where the drag force is in equilibrium with the
+    radiation force (thick dark blue dashed lines), while blue shading
+    indicates the unstable, mildly supersonic velocity regime, where
+    no stable drift equilibrium exists.  Inset graph shows \(\phi\) as a
+    function of the radiation parameter,
+    \(\Xi = P_{\mathrm{rad}} / P_{\mathrm{gas}}\) on a log--linear scale
+    for a collection of Cloudy models (see
+    Appendix~\ref{sec:cloudy-models-dust}).}
   \label{fig:gas-grain-drag-photoionized}
 \end{figure*}
 
-\begin{figure*}
-  \includegraphics[width=\linewidth]{figs/multi-dustprops}
-  \caption{Dust properties as a function of radius from star for three
-    selected Cloudy models. (a)~\SI{40}{M_\odot} main-sequence star in
-    medium of density \SI{e4}{cm^{-2}}. (b)~\SI{10}{M_\odot} main-sequence
-    star in medium of density \SI{1}{cm^{-2}}. (c)~Blue supergiant
-    star in medium of density \SI{1}{cm^{-2}}}.
-  \label{fig:multi-dustprops}
-\end{figure*}
-
-\begin{figure*}
-  \includegraphics[width=\linewidth]{figs/drift-pratio-4panel}
-  \caption{Drift velocity versus radiation parameter \(\Xi_P\). Each line
-    represents a model with ambient density and stellar type as
-    indicated in the key.}
-  \label{fig:drift-gn}
-\end{figure*}
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figs/decouple-v-n-plane}
@@ -724,9 +714,19 @@ summing over protons, electrons, and helium ions.\footnote{Helium is
   ionized, which leads to a more significant drag contribution,
   especially around \(w \approx \SI{5}{km.s^{-1}}\).} %
 Results are shown in Figure~\ref{fig:gas-grain-drag-photoionized} for
-different values of \(\phi = e U / kT\), where \(U = e Z\grain / a \) is
-the electrostatic potential of a grain of charge \(Z\grain\) and
-radius \(a\).
+different values of the dimensionless grain potential:
+\(\phi = e^2 Z\grain / a kT\), which is the electrostatic potential
+energy of a unit charge at the surface of a grain of charge
+\(Z\grain\) and radius \(a\), in units of the characteristic thermal
+energy of a gas particle. 
+The drag force \(f\drag\) is put in
+dimensionless units by dividing by a characteristic force:
+\begin{equation}
+  \label{eq:fstar}
+  f_* = 2 n k T \cdot \pi a^2 \ , 
+\end{equation}
+which is approximately the gas pressure multiplied by the grain
+geometric cross section.
 
 
 \subsection{The case of inside-out bows}
