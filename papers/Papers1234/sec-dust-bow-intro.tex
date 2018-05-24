@@ -725,8 +725,55 @@ dimensionless units by dividing by a characteristic force:
   \label{eq:fstar}
   f_* = 2 n k T \cdot \pi a^2 \ , 
 \end{equation}
-which is approximately the gas pressure multiplied by the grain
-geometric cross section.
+which is approximately\footnote{Exact in the case of a fully ionized,
+  pure hydrogen plasma.  For typical ISM abundances, the contribution
+  to the gas pressure of helium and its corresponding electrons gives
+  a correction of order 5\%.} %
+the ionized gas pressure multiplied by the grain geometric cross
+section.
+
+For grains with low electric charge, \(\phi^2 \ll 1\), the drag force is
+dominated by direct collisions of protons with the grain (Epstein
+drag).  This is illustrated by the \(\phi = 0.25\) case (blue line) in
+Figure~\ref{fig:gas-grain-drag-photoionized}. In the subsonic regime,
+\(f\drag\) increases linearly with the relative slip speed, \(w\),
+reaching \(f\drag \approx f_*\) at
+\(w = \sound \approx \SI{10}{km.s^{-1}}\), then transitions to quadratic
+increase, \(f\drag \approx w^2 f_* / \sound^2\), in the supersonic regime.
+As \(\abs{\phi}\) increases, long-range electrostatic interactions with
+protons within the Debye radius (Coulomb drag) become increasingly
+important at subsonic relative velocities, as shown in
+Figure~\ref{fig:gas-grain-drag-photoionized} by the orange
+(\(\phi = 1\)), green (\(\phi = 4\)), and red (\(\phi = 16\)) lines.  However,
+the Coulomb drag has a peak when \(w\) is equal to the thermal
+speed of the colliders, which is \(\approx \SI{10}{km.s^{-1}}\) for protons,
+giving a maximum strength of
+\begin{equation}
+  \label{eq:fdrag-maximum}
+  f_{\mathrm{max}} = 0.5\, (\ln\Lambda)\, \phi^2 f_* \approx 10\, \phi^2 f_* \ , 
+\end{equation}
+where \(\Lambda\) is the plasma parameter (number of particles within a
+Debye volume), such that
+\(\ln\Lambda = 23.267 + 1.5 \ln T_4 - 0.5 \ln n\).  At highly super-thermal
+speeds, the Coulomb drag falls asymptotically as
+\(f\drag \propto 1 / w^{2}\).  The thermal speed of electrons is higher by a
+factor of \((m_p / m_e)^{1/2}\), so that the electron Coulomb drag
+gives a second peak of similar strength, but at
+\(w \approx \SI{430}{km.s^{-1}}\).
+
+% Or \Lambda = (4 pi / 3) n r_D^3?
+% Where Debye length is r_D^2 = k T / 4 pi n e^2
+% => \Lambda = n r_D (4 pi / 3) k T / 4 pi n e^2
+% = k T r_D / 3 e^2
+% This is 9 times less than the other expression
+% Anyway, from kappa notes I have
+% \ln\Lambda = 9.452 + 1.5 ln(T) - 0.5 ln(n)
+
+% If I am going to use log10, then the coefficients get divided by
+% ln(10) = 2.30258509299, and if we use T4, then we add 1.5 ln(1e4) =
+% 13.815.  So we get 23.267 + 0.651 log10(T4) - 0.217 log10(n).  Nope,
+% best with natural log
+
 
 
 \subsection{The case of inside-out bows}
