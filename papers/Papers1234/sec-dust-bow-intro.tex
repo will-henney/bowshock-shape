@@ -718,28 +718,43 @@ different values of the dimensionless grain potential:
 \(\phi = e^2 Z\grain / a kT\), which is the electrostatic potential
 energy of a unit charge at the surface of a grain of charge
 \(Z\grain\) and radius \(a\), in units of the characteristic thermal
-energy of a gas particle. 
-The drag force \(f\drag\) is put in
-dimensionless units by dividing by a characteristic force:
+energy of a gas particle.  The drag force \(f\drag\) is put in dimensionless units by dividing by
+a characteristic force:
 \begin{equation}
   \label{eq:fstar}
   f_* = 2 n k T \cdot \pi a^2 \ , 
 \end{equation}
-which is approximately\footnote{Exact in the case of a fully ionized,
-  pure hydrogen plasma.  For typical ISM abundances, the contribution
-  to the gas pressure of helium and its corresponding electrons gives
-  a correction of order 5\%.} %
+which is approximately\footnote{%
+  To simplify the exposition, the gas pressure in this section is
+  calculated assuming a fully ionized, pure hydrogen plasma, yielding
+  \(P\gas = 2 n k T\). For typical ISM abundances, the contribution of
+  helium and its corresponding electrons gives a correction to this of
+  order 5\%.  The required modifications when the stream is neutral
+  are discussed later.  } %
 the ionized gas pressure multiplied by the grain geometric cross
 section.
 
 For grains with low electric charge, \(\phi^2 \ll 1\), the drag force is
-dominated by direct collisions of protons with the grain (Epstein
-drag).  This is illustrated by the \(\phi = 0.25\) case (blue line) in
-Figure~\ref{fig:gas-grain-drag-photoionized}. In the subsonic regime,
-\(f\drag\) increases linearly with the relative slip speed, \(w\),
-reaching \(f\drag \approx f_*\) at
-\(w = \sound \approx \SI{10}{km.s^{-1}}\), then transitions to quadratic
-increase, \(f\drag \approx w^2 f_* / \sound^2\), in the supersonic regime.
+dominated by direct collisions of protons with the grain.  The gas
+collisional mean free path is much larger than the grain size, so the
+drag is in the Epstein regime \citep{Weidenschilling:1977b}.  This is
+illustrated by the \(\phi = 0.25\) case (blue line) in
+Figure~\ref{fig:gas-grain-drag-photoionized}. As the relative
+gas--grain slip speed, \(w\), increases, \(f\drag\) first increases
+linearly with \(w\) reaching \(f\drag \approx f_*\) at
+\(w = \sound \approx \SI{10}{km.s^{-1}}\), then transitions to a quadratic
+increase in the supersonic regime:
+\begin{equation}
+  \label{eq:fdrag-epstein}
+  f\drag \approx
+  \begin{cases}
+    \text{if \(\phi^2 \ll 1\) and \(w_{10} < 1\):} & w_{10}\, f_* \\
+    \text{if \(\phi^2 \ll 1\) and \(w_{10} > 1\):} & w_{10}^2\, f_* \\
+  \end{cases}
+  \ ,
+\end{equation}
+where \(w_{10} = w / \SI{10}{km.s^{-1}}\).
+
 As \(\abs{\phi}\) increases, long-range electrostatic interactions with
 protons within the Debye radius (Coulomb drag) become increasingly
 important at subsonic relative velocities, as shown in
@@ -756,9 +771,9 @@ where \(\Lambda\) is the plasma parameter (number of particles within a
 Debye volume), such that
 \(\ln\Lambda = 23.267 + 1.5 \ln T_4 - 0.5 \ln n\).  At highly super-thermal
 speeds, the Coulomb drag falls asymptotically as
-\(f\drag \propto 1 / w^{2}\).  The thermal speed of electrons is higher by a
-factor of \((m_p / m_e)^{1/2}\), so that the electron Coulomb drag
-gives a second peak of similar strength, but at
+\(f\drag \propto 1 / w^{2}\).  The thermal speed of electrons is higher than
+that of the protons by a factor of \((m_p / m_e)^{1/2}\), so that the
+electron Coulomb drag gives a second peak of similar strength, but at
 \(w \approx \SI{430}{km.s^{-1}}\).
 
 % Or \Lambda = (4 pi / 3) n r_D^3?
@@ -774,6 +789,42 @@ gives a second peak of similar strength, but at
 % 13.815.  So we get 23.267 + 0.651 log10(T4) - 0.217 log10(n).  Nope,
 % best with natural log
 
+
+In Appendix~\ref{sec:gas-free-bow} we calculate the behaviour of an
+incoming stream of dust grains, subject only to the repulsive
+radiative force from a star.  We are now in a position to see how
+gas--grain drag will modify this picture.  From
+equations~\eqref{eq:dust-rad-force} and~\eqref{eq:fstar}, we can write
+the radiation force acting on a grain as
+\begin{equation}
+  \label{eq:frad-Xi}
+  f\rad = \Qp\, \Xi\, f_* \ ,
+\end{equation}
+where \(\Qp\) is the grain's radiation pressure efficiency (see
+footnote~\ref{fn:Qp} in Appendix~\ref{sec:gas-free-bow}) and \(\Xi\) is
+the local radiation parameter, defined as the ratio of direct stellar
+radiation pressure to gas pressure:
+\begin{equation}
+  \label{eq:Xi-Prad-over-Pgas}
+  \Xi \equiv \frac{P\rad}{P\gas} \approx \frac{L}{4 \pi R^2 c\, (2 n k T)} \ ,
+\end{equation}
+where the last expression corresponds to the optically thin limit and
+pure ionized hydrogen.  The grain potential \(\phi\) is also primarily
+determined by \(\Xi\), as shown in Appendix~\ref{sec:cloudy-models-dust}
+and the inset graph of Figure~\ref{fig:gas-grain-drag-photoionized},
+but with a slow dependence, which can be approximated\footnote{%
+  There is a slight secondary dependence on the grain composition and
+  stellar spectrum.  The relationship given in
+  eq.~\eqref{eq:phi-vs-Xi} is appropriate for graphite grains and for
+  stellar effective temperatures in the range \SIrange{20}{30}{kK}.
+  For hotter stars than this, \(\phi\) should be multiplied by a further
+  factor of \(1.5\), while for silicate grains it should be divided by
+  \(1.5\).  } %
+as
+\begin{equation}
+  \label{eq:phi-vs-Xi}
+  \phi \approx 1.5 \bigl( 2.3 +  \ln \Xi \bigr) \ .
+\end{equation}
 
 
 \subsection{The case of inside-out bows}

@@ -1,10 +1,10 @@
 
-\section{Shape and structure of dust waves}
-\label{sec:shape-dust-wave}
+\section{Dust waves in the drag-free limit}
+\label{sec:gas-free-bow}
 
-As an alternative to hydrodynamic or magnetohydrodynamic bow shocks,
-it is possible that some observed emission arcs may be bow waves due
-to the action of radiation pressure on dust grains.
+% As an alternative to hydrodynamic or magnetohydrodynamic bow shocks,
+% it is possible that some observed emission arcs may be bow waves due
+% to the action of radiation pressure on dust grains.
 
 \begin{figure}
   (a)\\
@@ -24,7 +24,7 @@ to the action of radiation pressure on dust grains.
     parabolic in shape (traced by the thick, light gray line) and this
     constitutes the inner edge of the bow wave.  (b)~The same but for
     a divergent stream of dust grains that originates from a source on
-    the \(x\) axis at a distance \(D = 10 R_0\) from the origin.  In
+    the \(x\) axis at a distance \(D = 10 R\starstar\) from the origin.  In
     this case, the inner edge of the bow wave is hyperbolic and the
     parallel stream result is also shown for comparison.}
   \label{fig:dust-trajectories}
@@ -46,6 +46,7 @@ where \Qp{} is the frequency-averaged\footnote{%
   \(\langle x \rangle_\nu = (L \, e^{-\tau})^{-1} \int_0^\infty x(\nu)\, L_\nu \, e^{-\tau_\nu} \, d\nu
   \).  } %
 radiation pressure efficiency\footnote{%
+  \label{fn:Qp}
   For absorption efficiency \(Q_{\text{abs}}\), scattering efficiency
   \(Q_{\text{scat}}\), and asymmetry parameter (mean scattering
   cosine) \(g\), we have
@@ -56,8 +57,7 @@ frequency-averaged optical depth between the source and the grain.
 For simplicity, we will consider only the optically thin case,
 \(\tau \to 0\).
 
-\subsection{Gas-free dust wave}
-\label{sec:gas-free-bow}
+% \subsection{Gas-free dust wave}
 
 
 If \(\frad\) is the only force experienced by the grain, then it will
@@ -65,10 +65,10 @@ move on a \textit{ballistic} trajectory, determined by its initial
 speed at large distance, \(v_\infty\), and its impact parameter, \(b\).
 For \(b = 0\), the grain radially approaches the source with initial
 radial velocity \(-v_\infty\), which is decelerated to zero at the distance
-of closest approach, \(R_0\), given by energy conservation:
+of closest approach, \(R\starstar\), given by energy conservation:
 \begin{equation}
   \label{eq:dust-r0}
-  R_0 = \frac{\xsec \Qp L} {2 \pi c m\grain v_\infty^2} \ ,
+  R\starstar = \frac{\xsec \Qp L} {2 \pi c m\grain v_\infty^2} \ ,
 \end{equation}
 where \(m\grain\) is the grain mass.  The grain then turns round and
 recedes from the source along the same radius, reaching a velocity of
@@ -80,31 +80,31 @@ recedes from the source along the same radius, reaching a velocity of
   reduction to a 1-dimensional problem) can be found in any classical
   mechanics text \citep[e.g.,][\S~14]{Landau:1976a}.} %
 to be hyperbolic, characterized by an eccentricity,
-\(\varepsilon = \bigl( 1 + 4 b^2 / R_0^2\bigr)^{1/2}\), and polar angle of
+\(\varepsilon = \bigl( 1 + 4 b^2 / R\starstar^2\bigr)^{1/2}\), and polar angle of
 closest approach, \(\thm = \cos^{-1} \varepsilon^{-1}\).  The trajectory is
 symmetrical about \(\thm\) and can be written as
 \begin{equation}
   \label{eq:dust-r-theta}
-  \frac{R\grain(\theta; b)} {R_0} = 
+  \frac{R\grain(\theta; b)} {R\starstar} = 
   \frac{ \tfrac12 \bigl( \varepsilon^2 - 1 \bigr)} {\varepsilon \cos(\theta - \thm) - 1} \ , 
 \end{equation}
 with a total deflection angle of \(2 \thm\), which is equal to
-\ang{90} when \(b = 0.5 R_0\).
+\ang{90} when \(b = 0.5 R\starstar\).
 
-\subsubsection{Parallel dust stream}
+\subsection{Parallel dust stream}
 \label{sec:dust-parallel}
 
 If the incoming dust grains initially travel along parallel
 trajectories with varying \(b\), but the same \(v_\infty\), then deflection
-by the radiative force will form a bow wave around the radiation
-source, as shown in Figure~\ref{fig:dust-trajectories}.  However, the
-inner edge of the bow wave, \(R_{\text{in}}(\theta)\) is not given by the
-closest approach along individual trajectories, \(R\grain(\thm; b)\),
-but instead must found by minimizing \(R\grain(\theta; b)\) over all
-\(b\) for each value of \(\theta\), which yields
+by the radiative force will form a bow-shaped dust wave around the
+radiation source, as shown in Figure~\ref{fig:dust-trajectories}.
+However, the inner edge of the dust wave, \(R_{\text{in}}(\theta)\) is not
+given by the closest approach along individual trajectories,
+\(R\grain(\thm; b)\), but instead must found by minimizing
+\(R\grain(\theta; b)\) over all \(b\) for each value of \(\theta\), which yields
 \begin{equation}
   \label{eq:dust-r-in}
-  \frac{R_{\text{in}}(\theta)} {R_0} = \frac{2}{1 + \cos\theta} \ .
+  \frac{R_{\text{in}}(\theta)} {R\starstar} = \frac{2}{1 + \cos\theta} \ .
 \end{equation}
 This is the polar form of the equation for the confocal parabola,
 which we have already discussed in detail in \PaperI{}'s
@@ -114,7 +114,7 @@ at any inclination.
 
 
 
-\subsubsection{Divergent dust stream}
+\subsection{Divergent dust stream}
 \label{sec:dust-divergent}
 
 If the dust grains are assumed to originate from a second point
@@ -126,13 +126,13 @@ trajectory axes for \(b > 0\) are no longer aligned with the global
 symmetry axis, so we must make the substitution
 \(\theta \to \theta + \theta_1(b)\), where \(\sin \theta_1 = b / D\) (see
 Fig.~\ref{Q-fig:crw-schema} of \PaperI{}). We parametrize the degree
-of divergence as \(\mu = R_0 / D\) and, as before,
+of divergence as \(\mu = R\starstar / D\) and, as before,
 \(R\grain(\theta + \theta_1(b, \mu); b)\) is minimized over all trajectories to
 find the shape of the bow wave's inner edge.  This time, the result is
 a confocal hyperbola:
 \begin{equation}
   \label{eq:dust-divergent-r-in}
-  \frac{R_{\text{in}}(\theta; \mu)} {R_0} = \frac{1 + \varepsilon_\mu}{1 + \varepsilon_\mu\cos\theta} \ ,
+  \frac{R_{\text{in}}(\theta; \mu)} {R\starstar} = \frac{1 + \varepsilon_\mu}{1 + \varepsilon_\mu\cos\theta} \ ,
 \end{equation}
 where the eccentricity is (to first order in \(\mu\))
 \( \varepsilon_\mu = (1 - 2\mu)^{-1}\).  An example is shown in
@@ -147,7 +147,7 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
   \centering
   \includegraphics[width=\linewidth]{figs/dust-coupling-1d}
   \caption{Dust-gas coupling for an on-axis (purely radial)
-    trajectory.  (a)~Grain radial position, \(R/R_0\), gas--grain
+    trajectory.  (a)~Grain radial position, \(R/R\starstar\), gas--grain
     velocity difference, \(w/v_\infty\), and local asymptotic drift
     velocity, \(w\drift/v_\infty\), versus time for
     \(\alpha\drag = 0.5\).  The behavior is typical of the dynamics of a
@@ -177,7 +177,7 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
 \end{figure*}
 
 
-\subsection{Bow wave with gas drag}
+\section{Toy model of dust wave with gas drag}
 \label{sec:bow-wave-drag}
 More realistically, a grain will also be subject to a drag force,
 \(f\drag\), due to its relative motion with respect to gas or plasma
@@ -217,8 +217,8 @@ behind.  We define a dimensionless coupling coefficient,
 drift velocity at the radiative turn-around radius:
 \begin{equation}
   \label{eq:dust-alpha}
-  \alpha\drag \equiv \frac{v_\infty} {w\drift(R_0)} = \left(
-    Q\drag \frac{R_0 / a\grain} {\rho\grain / \rho\gas}
+  \alpha\drag \equiv \frac{v_\infty} {w\drift(R\starstar)} = \left(
+    Q\drag \frac{R\starstar / a\grain} {\rho\grain / \rho\gas}
   \right)^{1/2} \ ,
 \end{equation}
 where we have used equation~\eqref{eq:dust-r0} and suppressed a
@@ -231,14 +231,14 @@ expel it towards the direction whence it came (\(w = 2 v_\infty\)).
 However, for non-zero \(\alpha\drag\) the \(R^{-1}\) dependence of
 \(w\drift\) (eq.~\eqref{eq:dust-wdrift}) means that the grain will
 \textit{re-couple} to the inflowing gas stream around a radius
-\(\approx R_0 / \alpha\drag \) and be swept back in again for another approach to
+\(\approx R\starstar / \alpha\drag \) and be swept back in again for another approach to
 the source.  A further effect of increasing \(\alpha\drag\) is that the
 grain penetrates closer to the star on its initial approach, thanks to
 the tail wind provided by the gas flow.  Both these behaviors are
 illustrated in Figure~\ref{fig:dust-coupling-1d}, where the inertial
 lag of \(w\) behind \(w\drift\) means that the phase space trajectory
 (panel b) is a spiral, which converges on the stagnation point
-\((R, v) = (R_0 / \alpha\drag, 0)\). The cases \(\alpha\drag = 0.5\) and
+\((R, v) = (R\starstar / \alpha\drag, 0)\). The cases \(\alpha\drag = 0.5\) and
 \(\alpha\drag = 2\) are shown, and it can be seen that with larger
 \(\alpha\drag\) the oscillations about the stagnation radius are
 significantly damped.
@@ -263,10 +263,10 @@ eventually, but on length scales larger than shown in the figure. The
 \(\alpha\drag = 0.5\) case shows the oscillating trajectories discussed
 above for those grains that come in with a small initial impact
 parameter.  In the \(\alpha\drag = 1.0\) case, the oscillating trajectories
-are more confined, forming a thick shell around \(R_0\).  In the
+are more confined, forming a thick shell around \(R\starstar\).  In the
 \(\alpha\drag = 2.0\) case, the shell is much thinner and concentrated at
 the inner rim.  As \(\alpha\drag\) increases, the oscillations are damped
-further so that the stagnation radius \(R_0 / \alpha\drag\) becomes a good
+further so that the stagnation radius \(R\starstar / \alpha\drag\) becomes a good
 approximation to the apex radius of the density wave.  All the cases
 illustrated are for a parallel incident stream, but a divergent stream
 gives qualitatively similar behavior, as shown in
@@ -276,7 +276,7 @@ by rotating results such as Figure~\ref{fig:dust-wave-coupling} about
 the symmetry axis.
 
 
-\subsection{Bow wave with magnetic field}
+\section{Dust wave with magnetic field}
 \label{sec:bow-wave-with}
 
 \newcommand\Larmor{\ensuremath{_{\text{L}}}}
@@ -327,23 +327,23 @@ motion are ignored in the first instance (but see \S~XXX below).
   \label{fig:stream-3d}
 \end{figure}
 
-\subsubsection{Resolved Larmor radius}
+\subsection{Resolved Larmor radius}
 \label{sec:resolv-larm-radi}
 
 
 
-\subsection{Applicability of the bow wave models}
+\section{Applicability of the dust wave models}
 \label{sec:dust-applicability}
 
-The apex turn-around radius, \(R_0\), of the bow wave depends on the
+The apex turn-around radius, \(R\starstar\), of the bow wave depends on the
 grain properties via the combination \(\xsec \Qp / m\grain\).  For
 grains of size \(a\grain\) and internal density \(\rho\grain\), we have
 \(\xsec / m\grain \approx (a\grain \rho\grain)^{-1}\).  For radiation with
 wavelength smaller than the grain size, \(\lambda < a\grain\), the
 efficiency is \(\Qp \sim 1\), whereas for \(\lambda > a\grain\) it is
-\(\Qp \sim a\grain/\lambda\).  Therefore, we would expect \(R_0\) to be almost
+\(\Qp \sim a\grain/\lambda\).  Therefore, we would expect \(R\starstar\) to be almost
 independent of grain size for small grains, but to vary as
-\(R_0 \propto a\grain^{-1}\) for large grains, where small/large is relative
+\(R\starstar \propto a\grain^{-1}\) for large grains, where small/large is relative
 to the peak wavelength of the radiation source.  In principle, a
 polydisperse population of grains could produce a blurring of the
 observed bow wave, but only if large grains contribute significantly
@@ -357,7 +357,7 @@ to the dust emission.
 \TODO{Back-reaction on gas, \(\alpha\drag \to \infty\), recovery of drag-free
   result for \(R_0\) but with increased effective grain mass.}
 
-\subsection{Apparent shapes of projected dragoids}
+\section{Apparent shapes of projected dragoids}
 \label{sec:dust-wave-apparent}
 
 \begin{figure}
