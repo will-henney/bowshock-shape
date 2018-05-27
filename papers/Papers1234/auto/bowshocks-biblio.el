@@ -123,6 +123,7 @@
     "Astropy-Collaboration:2018a"
     "Wilkin:1997a"
     "Ng:2017a"
-    "Weidenschilling:1977b"))
+    "Weidenschilling:1977b"
+    "Weingartner:2001b"))
  :bibtex)
 

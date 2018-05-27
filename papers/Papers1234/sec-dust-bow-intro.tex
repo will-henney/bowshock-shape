@@ -661,6 +661,48 @@ is set by \(d\cool\) rather than \(h_0\).
 \subsection{Imperfect coupling between gas and dust}
 \label{sec:imperf-coupl-betw}
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/test-Fdrag-components}
+  \caption{Contributions of different collider species to the
+    dimensionless drag force, \(f\drag / f_*\), as a function of
+    gas--grain slip velocity, \(w\).  Solid lines show the Coulomb
+    (electrostatic) drag, while dashed lines show the Epstein
+    (solid-body) drag.  Results are shown for dimensionless grain
+    potential \(\phi = 10\).  All Coulomb forces scale with
+    \(\phi^2\), while the Epstein forces are independent of \(\phi\).  The
+    species labelled ``CNO++'' represents the combined effect of all
+    metals (total abundance \num{8.5e-4}, effective atomic weight
+    \num{15.3}), which are assumed to be doubly ionized.}
+  \label{fig:drag-components}
+\end{figure}
+
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/test-Fdrag-param-space}
+  \caption{Regimes of gas--grain drag as a function of slip velocity
+    and grain potential.  The different regimes are indicated by bold
+    roman numerals, as explained in
+    Table~\ref{tab:fdrag-regimes}. Blue shading indicates regions
+    dominated by Epstein (solid-body) drag, whereas red and green
+    shading indicate regions dominated by Coulomb drag due to protons
+    and electrons, respectively.  In each case, the saturated color
+    represents a contribution \(> 70\%\) of the relevant component to
+    the total drag force, while progressively lighter shading
+    represents the \(> 60\%\) and \(> 50\%\) levels.  The thick white
+    dotted line indicates the transition between the subthermal and
+    superthermal regimes for protons, while the thin white dotted line
+    indicates the corresponding transition for electrons.  Contours
+    show the total drag force in units of \(f_*\) (see
+    eq.~\eqref{eq:fstar}) in decade intervals from \(0.1\) to
+    \(10^4\), as labelled.  Results are shown for
+    \(T = \SI{8000}{K}\) and \(n = \SI{100}{cm^{-3}}\), but the
+    differences are very slight throughout the ranges
+    \(T = \text{\SIrange{5000}{15000}{K}}\) and
+    \(n = \text{\SIrange{e-3}{e6}{cm^{-3}}}\).}
+  \label{fig:drag-v-phi-plane}
+\end{figure}
+
+
 \begin{figure*}
   \includegraphics[width=\linewidth]{figs/gas-grain-drag-photoionized}
   \caption{Dimensionless drag force, \(f\drag / f_*\), as a function
@@ -703,6 +745,38 @@ calculate the regions of star+stream parameter space where this might
 occur, leading to a separation of the bow into an outer dust wave and
 an inner, dust-free bow shock.
 
+\subsubsection{Drag force on grains}
+\label{sec:drag-force-grains}
+
+\begin{table}
+  \centering
+  \caption{Regimes of drag force as function of grain potential and slip speed}
+  \label{tab:fdrag-regimes}
+  \renewcommand\arraystretch{1.3}
+  \resizebox{\linewidth}{!}{%
+    \begin{tabular}{@{}r l l l@{}}
+    \toprule
+      & Regime & Approximate criteria & \(f\drag / f_*\) \\ \midrule
+      I & Epstein subsonic & \(\phi^2 \ll 1\)
+                             and \(w_{10} < 1\) & \(1.5\, w_{10}\) \\
+      II & Epstein supersonic & \(w_{10} > 1\)
+                                and \(w_{10} > 5\,\abs{\phi}\)& \( w_{10}^2\) \\
+      III & Coulomb p\(^+\) subthermal & \(\phi^2 > 1\)
+                                         and \(w_{10} < 1\) & \((1 + 20\, \phi^2)\,
+                                                              w_{10}\) \\
+    % & Coulomb p\(^+\) peak & \(\phi^2 > 1\)
+    %                          and \(w_{10} \approx 1\) & \(1 + 10\, \phi^2\) \\
+      IV & Coulomb p\(^+\) superthermal & \(\phi^2 > 1\)
+                                          and \(1 < w_{10} < 5\) & \(w_{10}^2
+                                                                   + 10\, \phi^2/w_{10}^2 \) \\
+      V & Coulomb e\(^-\) subthermal & \(\phi^2 > 20\)
+                                 and \(5 < w_{10} < 42\) & \(0.48\, \phi^2 \,
+                                                           w_{10}\) \\
+    \bottomrule
+  \end{tabular}
+  }
+\end{table}
+
 The drag force on a charged dust grain moving at a relative speed
 \(w\) through a plasma has contributions from both direct collisions
 and from electrostatic Coulomb interactions with ions and electrons.
@@ -728,9 +802,9 @@ which is approximately\footnote{%
   To simplify the exposition, the gas pressure in this section is
   calculated assuming a fully ionized, pure hydrogen plasma, yielding
   \(P\gas = 2 n k T\). For typical ISM abundances, the contribution of
-  helium and its corresponding electrons gives a correction to this of
-  order 5\%.  The required modifications when the stream is neutral
-  are discussed later.  } %
+  helium and its corresponding electrons yield a correction to this of
+  order 5\%.  The required modifications when a cool star interacts
+  with a predominantly neutral gas stream are discussed later.  } %
 the ionized gas pressure multiplied by the grain geometric cross
 section.
 
@@ -743,17 +817,7 @@ Figure~\ref{fig:gas-grain-drag-photoionized}. As the relative
 gas--grain slip speed, \(w\), increases, \(f\drag\) first increases
 linearly with \(w\) reaching \(f\drag \approx f_*\) at
 \(w = \sound \approx \SI{10}{km.s^{-1}}\), then transitions to a quadratic
-increase in the supersonic regime:
-\begin{equation}
-  \label{eq:fdrag-epstein}
-  f\drag \approx
-  \begin{cases}
-    \text{if \(\phi^2 \ll 1\) and \(w_{10} < 1\):} & w_{10}\, f_* \\
-    \text{if \(\phi^2 \ll 1\) and \(w_{10} > 1\):} & w_{10}^2\, f_* \\
-  \end{cases}
-  \ ,
-\end{equation}
-where \(w_{10} = w / \SI{10}{km.s^{-1}}\).
+increase in the supersonic regime.
 
 As \(\abs{\phi}\) increases, long-range electrostatic interactions with
 protons within the Debye radius (Coulomb drag) become increasingly
@@ -773,8 +837,30 @@ Debye volume), such that
 speeds, the Coulomb drag falls asymptotically as
 \(f\drag \propto 1 / w^{2}\).  The thermal speed of electrons is higher than
 that of the protons by a factor of \((m_p / m_e)^{1/2}\), so that the
-electron Coulomb drag gives a second peak of similar strength, but at
-\(w \approx \SI{430}{km.s^{-1}}\).
+electron Coulomb drag gives a second peak fof similar strength, but at
+\(w \approx \SI{430}{km.s^{-1}}\).  The behavior of \(f\drag\) in all these
+different regimes is summarised in Table~\ref{tab:fdrag-regimes}, in
+terms of \(\phi\) and \(w_{10} = w / \SI{10}{km.s^{-1}}\).
+
+
+% \begin{equation}
+%   \label{eq:fdrag-regimes}
+%   f\drag \approx
+%   \begin{cases}
+%     \text{Epstein subsonic (\(\phi^2 \ll 1\) and \(w_{10} < 1\)):}
+%     & w_{10}\, f_* \\
+%     \text{Epstein supersonic (\(\phi^2 \ll 1\) and \(w_{10} > 1\)):}
+%     & w_{10}^2\, f_* \\
+%     \text{Coulomb p\(^+\) subthermal (\(\phi^2 > 1\) and \(w_{10} < 1\)):}
+%     & (1 + 20 \phi^2)\, w_{10}\, f_* \\
+%     \text{Coulomb p\(^+\) peak (\(\phi^2 > 1\) and \(w_{10} \approx 1\)):}
+%     & (1 + 10 \phi^2)\, f_* \\
+%     \text{Coulomb p\(^+\) superthermal (\(\phi^2 > 1\) and \(1 < w_{10} < 5\)):}
+%     & (w_{10}^2 + 10 \phi^2/w_{10}^2) \, f_* \\
+%     \text{Coulomb e\(^-\) subthermal (\(\phi^2 > 20\) and \(5 < w_{10} < 42\)):}
+%     & 0.48 \phi^2 \, w_{10}\, f_* \\
+%   \end{cases}
+% \end{equation}
 
 % Or \Lambda = (4 pi / 3) n r_D^3?
 % Where Debye length is r_D^2 = k T / 4 pi n e^2
@@ -788,6 +874,9 @@ electron Coulomb drag gives a second peak of similar strength, but at
 % ln(10) = 2.30258509299, and if we use T4, then we add 1.5 ln(1e4) =
 % 13.815.  So we get 23.267 + 0.651 log10(T4) - 0.217 log10(n).  Nope,
 % best with natural log
+
+\subsubsection{Gas--grain separation: drift and rip}
+\label{sec:gas-grain-separ}
 
 
 In Appendix~\ref{sec:gas-free-bow} we calculate the behaviour of an
@@ -808,11 +897,11 @@ radiation pressure to gas pressure:
   \label{eq:Xi-Prad-over-Pgas}
   \Xi \equiv \frac{P\rad}{P\gas} \approx \frac{L}{4 \pi R^2 c\, (2 n k T)} \ ,
 \end{equation}
-where the last expression corresponds to the optically thin limit and
-pure ionized hydrogen.  The grain potential \(\phi\) is also primarily
-determined by \(\Xi\), as shown in Appendix~\ref{sec:cloudy-models-dust}
-and the inset graph of Figure~\ref{fig:gas-grain-drag-photoionized},
-but with a slow dependence, which can be approximated\footnote{%
+where the last expression corresponds to the optically thin limit.
+The grain potential \(\phi\) is also primarily determined by \(\Xi\), as
+shown in Appendix~\ref{sec:cloudy-models-dust} and the inset graph of
+Figure~\ref{fig:gas-grain-drag-photoionized}, but with a slow
+dependence, which can be approximated\footnote{%
   There is a slight secondary dependence on the grain composition and
   stellar spectrum.  The relationship given in
   eq.~\eqref{eq:phi-vs-Xi} is appropriate for graphite grains and for
@@ -826,6 +915,24 @@ as
   \phi \approx 1.5 \bigl( 2.3 +  \ln \Xi \bigr) \ .
 \end{equation}
 
+In the outer regions of the photoionized volume around an OB star,
+close to the ionization front, the radiation parameter is low, with
+typical value \(\Xi \sim 0.1\).  In this regime, the negative charge
+current at the grain surface due to electron collisions is roughly in
+balance with the positive current due to the ultraviolet photoelectric
+effect \citep{Weingartner:2001b}, leading to a low grain potential,
+\(\abs{\phi} < 1\), which may be positive or negative.  The low
+\(\Xi\) means that the radiative force is also weak:
+\(f\rad \sim 0.1 f_*\) from equation~\eqref{eq:frad-Xi} if
+\(\Qp \sim 1\) at UV wavelengths, which is true for all but the smallest
+grains.  Thus, from equation~\eqref{eq:fdrag-epstein}, the radiative
+force can be balanced by Epstein drag if \(w_{10} \sim 0.1\), leading to
+a small drift velocity, \(w\drift \sim \SI{1}{km.s^{-1}}\), of the grains
+with respect to the gas.
+
+As a dust grain
+approaches a star, the radiation parameter \(\Xi\) will increase as
+\(R^{-2}\)
 
 \subsection{The case of inside-out bows}
 \label{sec:case-inside-out}
