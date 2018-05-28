@@ -840,7 +840,9 @@ that of the protons by a factor of \((m_p / m_e)^{1/2}\), so that the
 electron Coulomb drag gives a second peak fof similar strength, but at
 \(w \approx \SI{430}{km.s^{-1}}\).  The behavior of \(f\drag\) in all these
 different regimes is summarised in Table~\ref{tab:fdrag-regimes}, in
-terms of \(\phi\) and \(w_{10} = w / \SI{10}{km.s^{-1}}\).
+terms of \(\phi\) and \(w_{10} = w / \SI{10}{km.s^{-1}}\).  This is
+further illustrated in Figure~\ref{fig:drag-v-phi-plane}, where the
+drag regimes are located on the \((w, \abs{\phi})\) plane.
 
 
 % \begin{equation}
@@ -878,13 +880,18 @@ terms of \(\phi\) and \(w_{10} = w / \SI{10}{km.s^{-1}}\).
 \subsubsection{Gas--grain separation: drift and rip}
 \label{sec:gas-grain-separ}
 
-
 In Appendix~\ref{sec:gas-free-bow} we calculate the behaviour of an
 incoming stream of dust grains, subject only to the repulsive
-radiative force from a star.  We are now in a position to see how
-gas--grain drag will modify this picture.  From
-equations~\eqref{eq:dust-rad-force} and~\eqref{eq:fstar}, we can write
-the radiation force acting on a grain as
+radiation force from a star.  For an initial inward radial trajectory,
+the dust grain motion is decelerated and turned around, reaching a
+minimum radius \(R\starstar\), given by equation~\eqref{eq:dust-r0}.
+This drag-free radiative turnaround radius, \(R\starstar\), is smaller
+for higher initial inward velocities, but is independent of the
+density of the incoming stream.  We are now in a position to see how
+gas--grain drag will modify this picture.
+
+From equations~\eqref{eq:dust-rad-force} and~\eqref{eq:fstar}, we can
+write the radiation force acting on a grain as
 \begin{equation}
   \label{eq:frad-Xi}
   f\rad = \Qp\, \Xi\, f_* \ ,
@@ -901,19 +908,17 @@ where the last expression corresponds to the optically thin limit.
 The grain potential \(\phi\) is also primarily determined by \(\Xi\), as
 shown in Appendix~\ref{sec:cloudy-models-dust} and the inset graph of
 Figure~\ref{fig:gas-grain-drag-photoionized}, but with a slow
-dependence, which can be approximated\footnote{%
-  There is a slight secondary dependence on the grain composition and
-  stellar spectrum.  The relationship given in
-  eq.~\eqref{eq:phi-vs-Xi} is appropriate for graphite grains and for
-  stellar effective temperatures in the range \SIrange{20}{30}{kK}.
-  For hotter stars than this, \(\phi\) should be multiplied by a further
-  factor of \(1.5\), while for silicate grains it should be divided by
-  \(1.5\).  } %
-as
+dependence, which can be approximated as
 \begin{equation}
   \label{eq:phi-vs-Xi}
   \phi \approx 1.5 \bigl( 2.3 +  \ln \Xi \bigr) \ .
 \end{equation}
+There are also slight secondary dependencies on the grain composition and
+stellar spectrum.  The relationship given in eq.~\eqref{eq:phi-vs-Xi}
+is appropriate for graphite grains and for stellar effective
+temperatures in the range \SIrange{20}{30}{kK}.  For hotter stars than
+this, \(\phi\) should be multiplied by a further factor of \(1.5\), while
+for silicate grains it should be divided by \(1.5\).
 
 In the outer regions of the photoionized volume around an OB star,
 close to the ionization front, the radiation parameter is low, with
@@ -925,14 +930,56 @@ effect \citep{Weingartner:2001b}, leading to a low grain potential,
 \(\Xi\) means that the radiative force is also weak:
 \(f\rad \sim 0.1 f_*\) from equation~\eqref{eq:frad-Xi} if
 \(\Qp \sim 1\) at UV wavelengths, which is true for all but the smallest
-grains.  Thus, from equation~\eqref{eq:fdrag-epstein}, the radiative
-force can be balanced by Epstein drag if \(w_{10} \sim 0.1\), leading to
-a small drift velocity, \(w\drift \sim \SI{1}{km.s^{-1}}\), of the grains
-with respect to the gas.
+grains.  Thus, from the equations for \(f\drag\) given in
+Table~\ref{tab:fdrag-regimes}, the radiative force can be balanced by
+Epstein drag if \(w_{10} \sim 0.1\), leading to a small equilibrium drift
+velocity, \(w\drift < \SI{1}{km.s^{-1}}\), of the grains with respect
+to the gas.  This drift is much smaller than the inward stream
+velocities that we are considering
+(\(v_\infty > \SI{10}{km.s^{-1}}\)), so the dust follows the gas stream at
+a slightly reduced velocity (\(< 10\%\)), and (by mass conservation) a
+slightly increased density.  Each grain exerts an exactly opposite
+force to \(f\drag\) upon the gas, but since the dust-gas mass ratio,
+\(Z\grain\), is small, this produces a negligible acceleration of the
+gas.
 
-As a dust grain
-approaches a star, the radiation parameter \(\Xi\) will increase as
-\(R^{-2}\)
+As the dusty stream approaches the star, the radiation parameter
+\(\Xi\) will increase, with a dependence of \(R^{-2}\) once the stream
+is well away from the ionization front.  This increases \(f\rad\)
+(eq.~\eqref{eq:frad-Xi}), but also increases the grain potential,
+\(\phi\) (eq.~\eqref{eq:phi-vs-Xi}) due to the increasing dominance of
+grain charging by photoelectric ejection.  Initially, this results in
+a lowering of the equilibrium drift velocity to \(w_{10} \sim 0.01\) as
+the Coulomb drag kicks in (see Appendix~\ref{sec:cloudy-models-dust}).
+However, at smaller radii the slow logarithmic increase in
+\(\phi(\Xi)\) means that the drift velocity must start increasing again to
+accommodate the linear increase of \(f\rad(\Xi)\).  Eventually,
+\(f\rad\) exceeds \(f_{\mathrm{max}}\), the maximum drag force that
+proton Coulomb interactions can provide
+(eq.~\eqref{eq:fdrag-maximum}).  This occurs at a critical value of
+the radiation parameter, which we denote the \textit{rip point}:
+\(\Xi_\dag \sim 1000\).  The variations in \(\Xi_\dag\) with star and grain
+parameters, which are of order \SI{+- 0.5}{dex}, are listed in
+Table~\ref{tab:Xi-rip}.
+
+
+\begin{table}
+  \caption{Critical values of radiation parameter at the rip point: \(\Xi_\dag\)}
+  \centering
+  \begin{tabular}{l @{\quad\quad\quad} S S} \toprule
+    & \multicolumn{2}{c}{Grain composition} \\
+    Spectrum & {Graphite} & {Silicate}
+    \\ \midrule
+    B star & 1000 +- 400 & 350 +- 150 \\
+    O star & 3000 +- 500 & 2500 +- 500 \\
+    \bottomrule
+    \addlinespace
+    \multicolumn{3}{@{}p{0.6\columnwidth}@{}}{
+    Uncertainties represent variations with grain size and gas density
+    (see Appendix~\ref{sec:cloudy-models-dust}).}
+  \end{tabular}
+  \label{tab:Xi-rip}
+\end{table}
 
 \subsection{The case of inside-out bows}
 \label{sec:case-inside-out}
