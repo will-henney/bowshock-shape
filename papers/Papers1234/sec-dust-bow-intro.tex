@@ -671,8 +671,7 @@ is set by \(d\cool\) rather than \(h_0\).
     potential \(\phi = 10\).  All Coulomb forces scale with
     \(\phi^2\), while the Epstein forces are independent of \(\phi\).  The
     species labelled ``CNO++'' represents the combined effect of all
-    metals (total abundance \num{8.5e-4}, effective atomic weight
-    \num{15.3}), which are assumed to be doubly ionized.}
+    metals (see footnote~\ref{fn:metal-drag}).}
   \label{fig:drag-components}
 \end{figure}
 
@@ -781,19 +780,33 @@ The drag force on a charged dust grain moving at a relative speed
 \(w\) through a plasma has contributions from both direct collisions
 and from electrostatic Coulomb interactions with ions and electrons.
 We use the expressions in \citet{Draine:1979a}, equations~(4)--(6),
-summing over protons, electrons, and helium ions.\footnote{Helium is
-  assumed to be 50\% neutral and 50\% singly ionized, leading to only
+considering the contributions from protons, electrons, helium
+ions,\footnote{Helium is assumed to be singly ionized, leading to only
   a small contribution to the drag force.  For much hotter stars, such
   as the central stars of planetary nebulae, helium may be doubly
-  ionized, which leads to a more significant drag contribution,
-  especially around \(w \approx \SI{5}{km.s^{-1}}\).} %
-Results are shown in Figure~\ref{fig:gas-grain-drag-photoionized} for
-different values of the dimensionless grain potential:
-\(\phi = e^2 Z\grain / a kT\), which is the electrostatic potential
+  ionized, which leads to a fourfold increase in its Coulomb drag
+  contribution, which is significant for \(w < \SI{5}{km.s^{-1}}\).} %
+and metal ions.\footnote{%
+  \label{fn:metal-drag}
+  All metals are lumped together as a single species, assuming
+  standard \hii{} region gas-phase abundances.  They are dominated by
+  C and O, with minor contributions from N and Ne.  The total
+  abundance is \num{8.5e-4} and the effective atomic weight is
+  \num{15.3}.  All are assumed to be doubly ionized.  Their largest
+  relative contribution to the drag force is for
+  \(w < \SI{2}{km.s^{-1}}\), but is less than 1\% even there.} %
+Results are shown in Figure~\ref{fig:drag-components}, where dashed lines correspond to direct solid body collisions and solid lines to electrostatic interactions.  The latter depend on the grain potential, which is described in dimensionless terms by \(\phi\), which is the electrostatic potential
 energy of a unit charge at the surface of a grain of charge
 \(Z\grain\) and radius \(a\), in units of the characteristic thermal
-energy of a gas particle.  The drag force \(f\drag\) is put in dimensionless units by dividing by
-a characteristic force:
+energy of a gas particle:
+\begin{equation}
+  \label{eq:phi-potential}
+  \phi = \frac{e^2 Z\grain}{a kT} \ .
+\end{equation}
+The electrostatic contributions to \(f\drag\) are proportional to
+\(\phi^2\) (results are shown for \(\abs{\phi} = 10\)), whereas the
+solid-body contributions are independent of \(\phi\).  The drag force is
+put in dimensionless units by dividing by a characteristic force:
 \begin{equation}
   \label{eq:fstar}
   f_* = 2 n k T \cdot \pi a^2 \ , 
@@ -809,24 +822,28 @@ the ionized gas pressure multiplied by the grain geometric cross
 section.
 
 For grains with low electric charge, \(\phi^2 \ll 1\), the drag force is
-dominated by direct collisions of protons with the grain.  The gas
-collisional mean free path is much larger than the grain size, so the
-drag is in the Epstein regime \citep{Weidenschilling:1977b}.  This is
-illustrated by the \(\phi = 0.25\) case (blue line) in
-Figure~\ref{fig:gas-grain-drag-photoionized}. As the relative
-gas--grain slip speed, \(w\), increases, \(f\drag\) first increases
-linearly with \(w\) reaching \(f\drag \approx f_*\) at
+dominated by direct collisions of protons with the grain (dashed red
+line in Fig.~\ref{fig:drag-components}).  The gas collisional mean
+free path is much larger than the grain size, so the drag is in the
+Epstein regime \citep{Weidenschilling:1977b}.
+% This is illustrated by
+% the \(\phi = 0.25\) case (blue line) in
+% Figure~\ref{fig:gas-grain-drag-photoionized}.
+As the relative gas--grain slip speed, \(w\), increases, \(f\drag\)
+first increases linearly with \(w\) reaching \(f\drag \approx f_*\) at
 \(w = \sound \approx \SI{10}{km.s^{-1}}\), then transitions to a quadratic
 increase in the supersonic regime.
 
 As \(\abs{\phi}\) increases, long-range electrostatic interactions with
 protons within the Debye radius (Coulomb drag) become increasingly
-important at subsonic relative velocities, as shown in
-Figure~\ref{fig:gas-grain-drag-photoionized} by the orange
-(\(\phi = 1\)), green (\(\phi = 4\)), and red (\(\phi = 16\)) lines.  However,
-the Coulomb drag has a peak when \(w\) is equal to the thermal
-speed of the colliders, which is \(\approx \SI{10}{km.s^{-1}}\) for protons,
-giving a maximum strength of
+important at subsonic relative velocities, as shown by the solid lines
+in Figure~\ref{fig:drag-components}).
+% in
+% Figure~\ref{fig:gas-grain-drag-photoionized} by the orange
+% (\(\phi = 1\)), green (\(\phi = 4\)), and red (\(\phi = 16\)) lines.
+However, the Coulomb drag has a peak when \(w\) is equal to the
+thermal speed of the colliders, which is
+\(\approx \SI{10}{km.s^{-1}}\) for protons, giving a maximum strength of
 \begin{equation}
   \label{eq:fdrag-maximum}
   f_{\mathrm{max}} = 0.5\, (\ln\Lambda)\, \phi^2 f_* \approx 10\, \phi^2 f_* \ , 
@@ -837,12 +854,13 @@ Debye volume), such that
 speeds, the Coulomb drag falls asymptotically as
 \(f\drag \propto 1 / w^{2}\).  The thermal speed of electrons is higher than
 that of the protons by a factor of \((m_p / m_e)^{1/2}\), so that the
-electron Coulomb drag gives a second peak fof similar strength, but at
-\(w \approx \SI{430}{km.s^{-1}}\).  The behavior of \(f\drag\) in all these
-different regimes is summarised in Table~\ref{tab:fdrag-regimes}, in
-terms of \(\phi\) and \(w_{10} = w / \SI{10}{km.s^{-1}}\).  This is
-further illustrated in Figure~\ref{fig:drag-v-phi-plane}, where the
-drag regimes are located on the \((w, \abs{\phi})\) plane.
+electron Coulomb drag (solid light blue line) gives a second peak of
+similar strength, but at \(w \approx \SI{430}{km.s^{-1}}\).  The behavior of
+\(f\drag\) in all these different regimes is summarised in
+Table~\ref{tab:fdrag-regimes}, in terms of \(\phi\) and
+\(w_{10} = w / \SI{10}{km.s^{-1}}\).  This is further illustrated in
+Figure~\ref{fig:drag-v-phi-plane}, where each of the drag regimes is
+located on the \((w, \abs{\phi})\) plane.
 
 
 % \begin{equation}
@@ -911,7 +929,7 @@ Figure~\ref{fig:gas-grain-drag-photoionized}, but with a slow
 dependence, which can be approximated as
 \begin{equation}
   \label{eq:phi-vs-Xi}
-  \phi \approx 1.5 \bigl( 2.3 +  \ln \Xi \bigr) \ .
+  \phi(\Xi) \approx 1.5 \bigl( 2.3 +  \ln \Xi \bigr) \ .
 \end{equation}
 There are also slight secondary dependencies on the grain composition and
 stellar spectrum.  The relationship given in eq.~\eqref{eq:phi-vs-Xi}
@@ -943,9 +961,28 @@ force to \(f\drag\) upon the gas, but since the dust-gas mass ratio,
 \(Z\grain\), is small, this produces a negligible acceleration of the
 gas.
 
+\begin{table}
+  \caption{Critical values of radiation parameter at the rip point: \(\Xi_\dag\)}
+  \centering
+  \begin{tabular*}{0.75\columnwidth}{l @{\quad\quad\quad\quad} S S} \toprule
+    & \multicolumn{2}{c}{Grain composition} \\
+    Spectrum & {Graphite} & {Silicate}
+    \\ \midrule
+    B star & 1000 +- 400 & 350 +- 150 \\
+    O star & 3000 +- 500 & 2500 +- 500 \\
+    \bottomrule
+    \addlinespace
+    \multicolumn{3}{@{}p{0.75\columnwidth}@{}}{
+    Calculated from the Cloudy models shown in Figure~\ref{fig:drift-gn}. 
+    Uncertainties represent variations with grain size and gas density. 
+    See Appendix~\ref{sec:cloudy-models-dust} for further details.}
+  \end{tabular*}
+  \label{tab:Xi-rip}
+\end{table}
+
 As the dusty stream approaches the star, the radiation parameter
 \(\Xi\) will increase, with a dependence of \(R^{-2}\) once the stream
-is well away from the ionization front.  This increases \(f\rad\)
+is well inside the ionization front.  This increases \(f\rad\)
 (eq.~\eqref{eq:frad-Xi}), but also increases the grain potential,
 \(\phi\) (eq.~\eqref{eq:phi-vs-Xi}) due to the increasing dominance of
 grain charging by photoelectric ejection.  Initially, this results in
@@ -960,28 +997,40 @@ proton Coulomb interactions can provide
 the radiation parameter, which we denote the \textit{rip point}:
 \(\Xi_\dag \sim 1000\).  The variations in \(\Xi_\dag\) with star and grain
 parameters, which are of order \SI{+- 0.5}{dex}, are listed in
-Table~\ref{tab:Xi-rip}.
+Table~\ref{tab:Xi-rip} and illustrated graphically in
+Figure~\ref{fig:drift-gn}.  The radius of the rip point, \(R_\dag\), can
+be expressed in terms of \(R_*\), the fiducial optically thick bow
+shock radius introduced in \S~\ref{sec:strong-gas-grain}:
+\begin{equation}
+  \label{eq:Rdag-over-Rstar}
+  R_\dag = \frac{v_\infty}{\sound}\, \Xi_\dag^{-1/2} R_* \approx v_{10}\, \Xi_\dag^{-1/2} R_* \ ,
+\end{equation}
+where we have made use of equations~\eqref{eq:Rstar} and~\eqref{eq:Xi-Prad-over-Pgas}. 
 
+\subsubsection{Grain trajectories for the on-axis case}
+\label{sec:grain-traj-axis}
 
-\begin{table}
-  \caption{Critical values of radiation parameter at the rip point: \(\Xi_\dag\)}
-  \centering
-  \begin{tabular}{l @{\quad\quad\quad} S S} \toprule
-    & \multicolumn{2}{c}{Grain composition} \\
-    Spectrum & {Graphite} & {Silicate}
-    \\ \midrule
-    B star & 1000 +- 400 & 350 +- 150 \\
-    O star & 3000 +- 500 & 2500 +- 500 \\
-    \bottomrule
-    \addlinespace
-    \multicolumn{3}{@{}p{0.6\columnwidth}@{}}{
-    Uncertainties represent variations with grain size and gas density
-    (see Appendix~\ref{sec:cloudy-models-dust}).}
-  \end{tabular}
-  \label{tab:Xi-rip}
-\end{table}
+What happens to the dust grain following this catastrophic breakdown
+of gas--grain coupling depends on the relation between the rip point
+radius, \(R_\dag\), and the drag-free radiative turnaround radius,
+\(R\starstar\).  If \(R_\dag > R\starstar\), then the grain's inertia
+will still carry it in as far as \(R\starstar\) and the initial
+trajectory will be almost identical to that described in
+Appendix~\ref{sec:gas-free-bow} for the drag-free case. However, after
+being turned around by the radiation field and pushed out past
+\(R_\dag\) again, the grain will \emph{recouple} to the gas and be
+dragged back for a second approach.\footnote{If the initial impact
+  parameter of the trajectory is not strictly \(b = 0\), then the
+  resultant lateral component of \(f\rad\) will mean that \(b\) will
+  be much increased for the second approach.} %
+If, on the other hand, \(R_\dag < R\starstar\), then the tail wind
+provided by the gas drags the grain closer to the star than it
+``wants'' to be. 
 
-\subsection{The case of inside-out bows}
+\subsubsection{Dust waves in stream parameter space}
+\label{sec:dust-waves-stream}
+
+\section{The case of inside-out bows}
 \label{sec:case-inside-out}
 
 So far, we have considered the case where the inner source dominates
