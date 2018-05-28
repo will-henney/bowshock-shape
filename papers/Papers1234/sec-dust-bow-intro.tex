@@ -1023,7 +1023,12 @@ Therefore, the condition \(R_\dag > R_0\) becomes
   v_{10} > \bigl( \Xi_\dag \, \eta \bigr)^{1/2} \ . 
 \end{equation}
 For O stars, the wind efficiency is generally high (\(\eta > 0.1\)) and
-\(\Xi_\dag > 1000\) (Tab.~\ref{tab:Xi-rip}), so that 
+\(\Xi_\dag > 2000\) (Tab.~\ref{tab:Xi-rip}), so that dust waves can only
+exist when the stream velocity is very high
+(\(v_\infty > \SI{150}{km.s^{-1}}\)).  For B~stars, in contrast, the wind
+can be much weaker (\(\eta < 0.01\)) and \((\Xi_\dag\) is also smaller, so
+that dust waves are permitted by this criterion for much lower stream
+velocities: (\(v_\infty > \SI{30}{km.s^{-1}}\)).
 
 \begin{figure*}
   \centering
@@ -1032,8 +1037,43 @@ For O stars, the wind efficiency is generally high (\(\eta > 0.1\)) and
   \label{fig:existence-dust-wave}
 \end{figure*}
 
-\subsubsection{Grain trajectories for the on-axis case}
-\label{sec:grain-traj-axis}
+However, there are other conditions that need to be satisfied in order
+for the dust wave to exist.  For instance, the drag-free turnaround
+radius must also be outside the bow shock: \(R\starstar > R_0\),
+otherwise the radiation is incapable of repelling the grain
+opportunely, even once it has decoupled from the gas.  From
+equations~\eqref{eq:Rstar}, \eqref{eq:tau-star},
+and~\eqref{eq:dust-r0} we find
+\begin{equation}
+  \label{eq:Rstarstar-over-Rstar}
+  \frac{R\starstar}{R_*} = \frac{2 \sigma\grain \Qp \tau_*}{\kappa m\grain} \ , 
+\end{equation}
+so, if we define a single-grain opacity as
+\(\kappa\grain = \sigma\grain \Qp / m\grain\), then this condition becomes
+\begin{equation}
+  \label{eq:dust-wave-low-density-condition}
+  \tau_* >  0.5\, \frac{\kappa}{\kappa\grain}\, \eta^{1/2} 
+  % \frac{\kappa \eta^{1/2}}{2 \kappa\grain}
+  \ . 
+\end{equation}
+The average value of the factor \(\kappa / \kappa\grain\) over the entire
+grain population must be equal to the dust--gas mass ratio,
+\(Z\grain \approx 0.01\), but the factor will vary between grains, according
+to their size and composition.\footnote{%
+  Remember that \(\kappa\) is the opacity per unit mass of gas, while
+  \(\kappa\grain\) is the opacity per unit mass of a particular grain. In
+  both cases, averaged over the stellar spectrum.} %
+In particular, it will be relatively larger for the largest grains
+(\(\approx \SI{0.2}{\um}\)), which dominate the total dust mass, and smaller
+for the smaller grains (\(\approx \SI{0.02}{\um}\)), which dominate the UV
+opacity.
+
+Further restrictions on the existence of dust waves arise when the
+effects of magnetic fields are considered, as will be discussed in
+\S~\ref{sec:magn-effects-grain} below.
+
+\subsubsection{Grain trajectories along the symmetry axis}
+\label{sec:grain-traj-along}
 
 What happens to the dust grain following this catastrophic breakdown
 of gas--grain coupling depends on the relation between the rip point
@@ -1049,8 +1089,13 @@ dragged back for a second approach.\footnote{If the initial impact
   resultant lateral component of \(f\rad\) will mean that \(b\) will
   be much increased for the second approach.} %
 If, on the other hand, \(R_\dag < R\starstar\), then the tail wind
-provided by the gas drags the grain closer to the star than it
-``wants'' to be. 
+provided by the gas drags the grain closer to the star than its
+inertia would naturally take it.
+
+
+\subsubsection{Magnetic effects on grain trajectories }
+\label{sec:magn-effects-grain}
+
 
 
 \section{The case of inside-out bows}
