@@ -692,7 +692,7 @@ is set by \(d\cool\) rather than \(h_0\).
     superthermal regimes for protons, while the thin white dotted line
     indicates the corresponding transition for electrons.  Contours
     show the total drag force in units of \(f_*\) (see
-    eq.~\eqref{eq:fstar}) in decade intervals from \(0.1\) to
+    eq.~[\ref{eq:fstar}]) in decade intervals from \(0.1\) to
     \(10^4\), as labelled.  Results are shown for
     \(T = \SI{8000}{K}\) and \(n = \SI{100}{cm^{-3}}\), but the
     differences are very slight throughout the ranges
@@ -983,8 +983,8 @@ gas.
 As the dusty stream approaches the star, the radiation parameter
 \(\Xi\) will increase, with a dependence of \(R^{-2}\) once the stream
 is well inside the ionization front.  This increases \(f\rad\)
-(eq.~\eqref{eq:frad-Xi}), but also increases the grain potential,
-\(\phi\) (eq.~\eqref{eq:phi-vs-Xi}) due to the increasing dominance of
+(eq.~[\ref{eq:frad-Xi}]), but also increases the grain potential,
+\(\phi\) (eq.~[\ref{eq:phi-vs-Xi}]) due to the increasing dominance of
 grain charging by photoelectric ejection.  Initially, this results in
 a lowering of the equilibrium drift velocity to \(w_{10} \sim 0.01\) as
 the Coulomb drag kicks in (see Appendix~\ref{sec:cloudy-models-dust}).
@@ -993,19 +993,44 @@ However, at smaller radii the slow logarithmic increase in
 accommodate the linear increase of \(f\rad(\Xi)\).  Eventually,
 \(f\rad\) exceeds \(f_{\mathrm{max}}\), the maximum drag force that
 proton Coulomb interactions can provide
-(eq.~\eqref{eq:fdrag-maximum}).  This occurs at a critical value of
+(eq.~[\ref{eq:fdrag-maximum}]).  This occurs at a critical value of
 the radiation parameter, which we denote the \textit{rip point}:
 \(\Xi_\dag \sim 1000\).  The variations in \(\Xi_\dag\) with star and grain
 parameters, which are of order \SI{+- 0.5}{dex}, are listed in
 Table~\ref{tab:Xi-rip} and illustrated graphically in
-Figure~\ref{fig:drift-gn}.  The radius of the rip point, \(R_\dag\), can
-be expressed in terms of \(R_*\), the fiducial optically thick bow
-shock radius introduced in \S~\ref{sec:strong-gas-grain}:
+Figure~\ref{fig:drift-gn}.
+
+\subsubsection{Existence conditions for a separate dust wave}
+\label{sec:exist-cond-separ}
+
+In order for a separate dust wave to exist, it is necessary for the
+grains to decouple from the incoming gas stream before the stream hits
+the hydrodynamic bow shock caused by the stellar wind.  The radius of
+the rip point, \(R_\dag\), can be expressed in terms of \(R_*\), the
+fiducial optically thick bow shock radius introduced in
+\S~\ref{sec:strong-gas-grain}:
 \begin{equation}
   \label{eq:Rdag-over-Rstar}
   R_\dag = \frac{v_\infty}{\sound}\, \Xi_\dag^{-1/2} R_* \approx v_{10}\, \Xi_\dag^{-1/2} R_* \ ,
 \end{equation}
-where we have made use of equations~\eqref{eq:Rstar} and~\eqref{eq:Xi-Prad-over-Pgas}. 
+where we have made use of equations~\eqref{eq:Rstar}
+and~\eqref{eq:Xi-Prad-over-Pgas}.  The wind bow shock radius is
+\(R_0 = \eta^{1/2} R_*\) (eq.~[\ref{eq:x-cases}]), where \(\eta\) is the
+wind momentum efficiency (eq.~[\ref{eq:wind-eta-typical}]).
+Therefore, the condition \(R_\dag > R_0\) becomes
+\begin{equation}
+  \label{eq:dust-wave-velocity-condition}
+  v_{10} > \bigl( \Xi_\dag \, \eta \bigr)^{1/2} \ . 
+\end{equation}
+For O stars, the wind efficiency is generally high (\(\eta > 0.1\)) and
+\(\Xi_\dag > 1000\) (Tab.~\ref{tab:Xi-rip}), so that 
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/existence-dust-wave}
+  \caption{Regions of stream parameter space where separated dust waves may exist}
+  \label{fig:existence-dust-wave}
+\end{figure*}
 
 \subsubsection{Grain trajectories for the on-axis case}
 \label{sec:grain-traj-axis}
@@ -1027,8 +1052,6 @@ If, on the other hand, \(R_\dag < R\starstar\), then the tail wind
 provided by the gas drags the grain closer to the star than it
 ``wants'' to be. 
 
-\subsubsection{Dust waves in stream parameter space}
-\label{sec:dust-waves-stream}
 
 \section{The case of inside-out bows}
 \label{sec:case-inside-out}
