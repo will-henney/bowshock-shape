@@ -122,6 +122,9 @@ wavelengths if they are present.\footnote{%
 The strong coupling assumption means that all the radiative forces
 applied to the dust grains are directly felt by the gas also.
 
+\subsubsection{Bows supported by radiation and wind}
+\label{sec:three-bow-regimes}
+
 The internal pressure is the sum of wind ram pressure and the
 effective radiation pressure that acts on the bow shell.  The
 radiative momentum loss rate of the star is \(L/c\) and the wind
@@ -797,11 +800,11 @@ and metal ions.\footnote{%
   \(w < \SI{2}{km.s^{-1}}\), but is less than 1\% even there.} %
 Results are shown in Figure~\ref{fig:drag-components}, where dashed lines correspond to direct solid body collisions and solid lines to electrostatic interactions.  The latter depend on the grain potential, which is described in dimensionless terms by \(\phi\), which is the electrostatic potential
 energy of a unit charge at the surface of a grain of charge
-\(Z\grain\) and radius \(a\), in units of the characteristic thermal
+\(z\grain\) and radius \(a\), in units of the characteristic thermal
 energy of a gas particle:
 \begin{equation}
   \label{eq:phi-potential}
-  \phi = \frac{e^2 Z\grain}{a kT} \ .
+  \phi = \frac{e^2 z\grain}{a kT} \ .
 \end{equation}
 The electrostatic contributions to \(f\drag\) are proportional to
 \(\phi^2\) (results are shown for \(\abs{\phi} = 10\)), whereas the
@@ -1026,7 +1029,7 @@ For O stars, the wind efficiency is generally high (\(\eta > 0.1\)) and
 \(\Xi_\dag > 2000\) (Tab.~\ref{tab:Xi-rip}), so that dust waves can only
 exist when the stream velocity is very high
 (\(v_\infty > \SI{150}{km.s^{-1}}\)).  For B~stars, in contrast, the wind
-can be much weaker (\(\eta < 0.01\)) and \((\Xi_\dag\) is also smaller, so
+can be much weaker (\(\eta < 0.01\)) and \(\Xi_\dag\) is also smaller, so
 that dust waves are permitted by this criterion for much lower stream
 velocities: (\(v_\infty > \SI{30}{km.s^{-1}}\)).
 
@@ -1056,17 +1059,36 @@ so, if we define a single-grain opacity as
   % \frac{\kappa \eta^{1/2}}{2 \kappa\grain}
   \ . 
 \end{equation}
-The average value of the factor \(\kappa / \kappa\grain\) over the entire
-grain population must be equal to the dust--gas mass ratio,
+The average value of the factor \(\kappa / \kappa\grain\) over the entire grain
+population must be equal to the dust--gas mass ratio,
 \(Z\grain \approx 0.01\), but the factor will vary between grains, according
 to their size and composition.\footnote{%
   Remember that \(\kappa\) is the opacity per unit mass of gas, while
   \(\kappa\grain\) is the opacity per unit mass of a particular grain. In
   both cases, averaged over the stellar spectrum.} %
 In particular, it will be relatively larger for the largest grains
-(\(\approx \SI{0.2}{\um}\)), which dominate the total dust mass, and smaller
-for the smaller grains (\(\approx \SI{0.02}{\um}\)), which dominate the UV
-opacity.
+(\(a \approx \SI{0.2}{\um}\)), which dominate the total dust mass, and
+smaller for the smaller grains (\(a \approx \SI{0.02}{\um}\)), which
+dominate the UV opacity.  Given the dependence of \(\tau_*\) on the
+stream parameters (eq.~[\ref{eq:taustar-typical}]), for a given
+stellar luminosity this condition corresponds to a minimum value for
+\(n / v_\infty^2\).
+
+A third condition comes from requiring \(R_\dag > R_0\) in the radiation
+bow wave regime (see \S~\ref{sec:three-bow-regimes}), where
+\(R_0 \approx 2 \tau_* R_*\).  This yields
+\begin{equation}
+  \label{eq:dust-wave-high-density-condition}
+  \tau_* < 0.5\, v_{10}\, \Xi_\dag^{-1/2} \ , 
+\end{equation}
+which, for a given stellar luminosity, corresponds to a maximum value
+for \(n / v_\infty^4\).  Thus, for a given stream velocity that satisfies
+equation~\eqref{eq:dust-wave-velocity-condition},
+equations~(\ref{eq:dust-wave-low-density-condition},
+\ref{eq:dust-wave-high-density-condition}) determine respectively the
+minimum and maximum stream density for which a dust wave can exist.
+
+
 
 Further restrictions on the existence of dust waves arise when the
 effects of magnetic fields are considered, as will be discussed in
