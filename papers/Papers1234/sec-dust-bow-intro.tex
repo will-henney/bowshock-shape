@@ -1003,7 +1003,7 @@ parameters, which are of order \SI{+- 0.5}{dex}, are listed in
 Table~\ref{tab:Xi-rip} and illustrated graphically in
 Figure~\ref{fig:drift-gn}.
 
-\subsubsection{Existence conditions for a separate dust wave}
+\subsubsection{Existence conditions for dust waves}
 \label{sec:exist-cond-separ}
 
 In order for a separate dust wave to exist, it is necessary for the
@@ -1023,7 +1023,7 @@ wind momentum efficiency (eq.~[\ref{eq:wind-eta-typical}]).
 Therefore, the condition \(R_\dag > R_0\) becomes
 \begin{equation}
   \label{eq:dust-wave-velocity-condition}
-  v_{10} > \bigl( \Xi_\dag \, \eta \bigr)^{1/2} \ . 
+  v_{10} > v_{10,\text{min}} = \bigl( \Xi_\dag \, \eta \bigr)^{1/2} \ . 
 \end{equation}
 For O stars, the wind efficiency is generally high (\(\eta > 0.1\)) and
 \(\Xi_\dag > 2000\) (Tab.~\ref{tab:Xi-rip}), so that dust waves can only
@@ -1036,7 +1036,17 @@ velocities: (\(v_\infty > \SI{30}{km.s^{-1}}\)).
 \begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/existence-dust-wave}
-  \caption{Regions of stream parameter space where separated dust waves may exist}
+  \caption{Regions of stream parameter space \((v, n)\) where dust
+    waves may form around main-sequence OB stars of
+    \SIlist{10;20;40}{M_\odot} (see Tab.~\ref{tab:stars}).  Figure is
+    similar to Fig.~\ref{fig:zones-v-n-plane}, except that the
+    velocity axis is logarithmic and extends out to
+    \SI{1000}{km.s^{-1}}.  Overlapping colored shapes show parameters
+    where dust waves may be allowed in the cases of large
+    (\(a = \SI{0.2}{\um}\)) and small (\(a = \SI{0.02}{\um}\))
+    graphite and silicate grains, as labeled in the left panel.  For
+    \((v, n)\) outside of these shapes, dust waves cannot occur for
+    the reasons indicated by yellow text boxes in the right panel. }
   \label{fig:existence-dust-wave}
 \end{figure*}
 
@@ -1055,7 +1065,7 @@ so, if we define a single-grain opacity as
 \(\kappa\grain = \sigma\grain \Qp / m\grain\), then this condition becomes
 \begin{equation}
   \label{eq:dust-wave-low-density-condition}
-  \tau_* >  0.5\, \frac{\kappa}{\kappa\grain}\, \eta^{1/2} 
+  \tau_* >  \tau_{*,\text{min}} = 0.5\, \frac{\kappa}{\kappa\grain}\, \eta^{1/2} 
   % \frac{\kappa \eta^{1/2}}{2 \kappa\grain}
   \ . 
 \end{equation}
@@ -1079,7 +1089,7 @@ bow wave regime (see \S~\ref{sec:three-bow-regimes}), where
 \(R_0 \approx 2 \tau_* R_*\).  This yields
 \begin{equation}
   \label{eq:dust-wave-high-density-condition}
-  \tau_* < 0.5\, v_{10}\, \Xi_\dag^{-1/2} \ , 
+  \tau_* < \tau_{*,\text{max}} = 0.5\, v_{10}\, \Xi_\dag^{-1/2} \ , 
 \end{equation}
 which, for a given stellar luminosity, corresponds to a maximum value
 for \(n / v_\infty^4\).  Thus, for a given stream velocity that satisfies
@@ -1087,8 +1097,6 @@ equation~\eqref{eq:dust-wave-velocity-condition},
 equations~(\ref{eq:dust-wave-low-density-condition},
 \ref{eq:dust-wave-high-density-condition}) determine respectively the
 minimum and maximum stream density for which a dust wave can exist.
-
-
 
 Further restrictions on the existence of dust waves arise when the
 effects of magnetic fields are considered, as will be discussed in
@@ -1110,9 +1118,16 @@ dragged back for a second approach.\footnote{If the initial impact
   parameter of the trajectory is not strictly \(b = 0\), then the
   resultant lateral component of \(f\rad\) will mean that \(b\) will
   be much increased for the second approach.} %
-If, on the other hand, \(R_\dag < R\starstar\), then the tail wind
-provided by the gas drags the grain closer to the star than its
-inertia would naturally take it.
+From equations~(\ref{eq:Rdag-over-Rstar},
+\ref{eq:Rstarstar-over-Rstar},
+\ref{eq:dust-wave-high-density-condition}), the condition
+\(R_\dag > R\starstar\) corresponds to
+\(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
+lines in the left panel of Figure~\ref{fig:existence-dust-wave}.  If,
+on the other hand, \(R_\dag < R\starstar\), then the tail wind provided
+by the gas drags the grain closer to the star than its inertia would
+naturally take it.  
+
 
 
 \subsubsection{Magnetic effects on grain trajectories }
