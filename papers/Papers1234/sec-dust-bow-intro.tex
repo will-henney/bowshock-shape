@@ -461,7 +461,9 @@ with \(\mathcal{R} + \mathcal{A} > \mathcal{F}\) cannot be entirely
 photoionized by the star, and so must have trapped the ionization
 front.
 
-The ratio of advective particle flux to ionizing flux is, from equations~\eqref{eq:Rstar}, \eqref{eq:shell-advective-flux}, \eqref{eq:shell-ionizing-flux},
+The ratio of advective particle flux to ionizing flux is, from
+equations~\eqref{eq:Rstar}, \eqref{eq:shell-advective-flux},
+\eqref{eq:shell-ionizing-flux},
 \begin{equation}
   \label{eq:advective-over-ionizing-flux}
   \frac{\mathcal{A}}{\mathcal{F}} = \num{5.86e-5} \frac{x^2 L_4}{v_{10} S_{49}} \ , 
@@ -506,7 +508,9 @@ implies
 From equation~\eqref{eq:rad-full-x}, it can be seen that \(x\) depends
 on the external stream parameters, \(n\), \(v_\infty\) only via
 \(\tau_*\), and so equation~\eqref{eq:ifront-trap-x-cubed-taustar} is a
-condition for \(\tau_*\), which, by using equation~\eqref{eq:taustar-typical}, becomes a condition on \(n / v_{10}^2\).  In the radiation bow shock case,
+condition for \(\tau_*\), which, by using
+equation~\eqref{eq:taustar-typical}, becomes a condition on
+\(n / v_{10}^2\).  In the radiation bow shock case,
 \(x = (1 + \eta)^{1/2}\), and the condition can be written:
 \begin{equation}
   \label{eq:ifront-trap-density-RBS}
@@ -1046,7 +1050,16 @@ velocities: (\(v_\infty > \SI{30}{km.s^{-1}}\)).
     (\(a = \SI{0.2}{\um}\)) and small (\(a = \SI{0.02}{\um}\))
     graphite and silicate grains, as labeled in the left panel.  For
     \((v, n)\) outside of these shapes, dust waves cannot occur for
-    the reasons indicated by yellow text boxes in the right panel. }
+    the reasons indicated by labeled orange arrows in the center
+    panel.  Labeled dashed lines in the right panel show the
+    correspondence between the region boundaries and each dust wave
+    existence condition given in
+    equations~(\ref{eq:dust-wave-velocity-condition},
+    \ref{eq:dust-wave-low-density-condition},
+    \ref{eq:dust-wave-high-density-condition}). Heavy dashed lines in
+    the left panel show where the rip point and the drag-free
+    turnaround radius coincide.  For dust waves below these lines,
+    drag forces are unimportant for the grains.  }
   \label{fig:existence-dust-wave}
 \end{figure*}
 
@@ -1125,10 +1138,39 @@ From equations~(\ref{eq:Rdag-over-Rstar},
 \(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
 lines in the left panel of Figure~\ref{fig:existence-dust-wave}.  If,
 on the other hand, \(R_\dag < R\starstar\), then the tail wind provided
-by the gas drags the grain closer to the star than its inertia would
-naturally take it.  
+by the gas carries the grain closer to the star than its inertia would
+naturally take it.  When the grain finally decouples at \(R_\dag\) it
+experiences a much higher unbalanced \(f\rad\), which can initially
+accelerate it to outward velocities \(\gg \abs{v_\infty}\) if
+\(R_\dag \ll R\starstar\).
+
+The post-decoupling behavior of the grain depends on the sign of
+\(d f\drag / d w\) when \(w = \abs{v_\infty}\).  If this derivative is
+positive, as is the case in drag regimes~II and V (see
+Tab.~\ref{tab:fdrag-regimes} and Fig.~\ref{fig:drag-v-phi-plane}),
+then the grain can reach a stable equilibrium drift at rest with
+respect to the star\footnote{%
+  Again, this is only strictly true when the impact parameter is zero.
+  However, as we show below, it is a reasonable approximation over a
+  range of impact parameters in the case where the angle between the
+  magnetic field direction and the stream velocity is not too
+  large.} %
+at a point \(R_\ddag\), which we call the \textit{stagnant drift
+  radius}. If the stream velocity is not excessively high
+(\(v_\infty < \SI{150}{km.s^{-1}}\) when \(\phi = 4\), or
+\(< \SI{300}{km.s^{-1}}\) when \(\phi = 16\)), then the equilibrium
+\(f\rad\) is less than the value at the rip point, requiring a lower
+value of the radiation parameter: \(\Xi_\ddag < \Xi_\dag\).  The resultant
+stagnant drift radius is therefore outside the rip point:
+\(R_\ddag > R_\dag\).
 
 
+
+whether or not
+the incoming stream velocity lies in drag regime IV
+(Table~\ref{tab:fdrag-regimes}) with , which
+produces the unstable drift region identified in
+Figure~\ref{fig:gas-grain-drag-photoionized}.
 
 \subsubsection{Magnetic effects on grain trajectories }
 \label{sec:magn-effects-grain}
