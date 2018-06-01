@@ -1147,8 +1147,31 @@ inflow velocity if \(R_\dag \ll R\starstar\).
 \begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/dust-wave-phase-trajectories-annotate}
-  \caption{Phase space trajectories along the symmetry axis}
-  \label{fig:phase-space-trajectories}
+  \caption{Trajectories of small graphite grains
+    (\(a = \SI{0.02}{\um}\)) at impact parameter \(b = 0\) for two
+    example cases (see yellow ``+'' symbols in left panel of
+    Fig.~\ref{fig:existence-dust-wave}), which differ only in the
+    stream velocity: \(v = \SI{40}{km.s^{-1}}\) (left panels) and
+    \SI{80}{km.s^{-1}} (right panels).  In both cases, the stream
+    density is \(n = \SI{1}{cm^{-3}}\) and the central star is a
+    \SI{10}{M_\odot} main-sequence B star (see Tab.~\ref{tab:stars}).
+    Upper panels show the evolution of grain radius, \(R\) (blue
+    curve, normalized by the rip point radius, \(R_\dag\)), and grain
+    velocity, \(v\) (orange curve, normalized by the gas stream
+    velocity).  The origin of the time axis is set to the moment of
+    closest approach of the grain to the star: \(R = \Rmin\).  Lower
+    panels show the trajectories in phase space: position versus
+    gas--grain relative slip velocity (\(w = \abs{v - v_\infty}\)).  Filled
+    contours show the net force on the grain: \(f\rad - f\drag\), with
+    positive values in blue and negative values in red.  The heavy
+    dotted line shows where there is no net force: \(f\rad = f\drag\).
+    The grain trajectory (thick, solid black line with arrows)
+    initially follows this line, but departs from it after the rip
+    point. In the left panel, the grain enters a limit cycle between
+    decoupling (rip) and re-coupling (snap back).  In the right panel,
+    the grain spirals in on the stagnant drift point.  See text for
+    further details.}
+    \label{fig:phase-space-trajectories}
 \end{figure*}
 
 The post-decoupling behavior of the grain depends on the sign of
@@ -1171,7 +1194,45 @@ value of the radiation parameter: \(\Xi_\ddag < \Xi_\dag\).  The resultant
 stagnant drift radius is therefore outside the rip point:
 \(R_\ddag > R_\dag\).
 
+On the other hand, if \(d f\drag / d w < 0\) when
+\(w = \abs{v_\infty}\), then the equilibrium is unstable and no stagnant
+drift is possible.  This occurs for drag regime~IV, which applies when
+\(\phi > 1\) and
+\(\SI{10}{km.s^{-1}} < v_\infty < \SI{50}{km.s^{-1}}\).  There is also a
+second unstable regime (partially visible in the upper-right corner of
+Fig.~\ref{fig:drag-v-phi-plane}), which is related to the thermal peak
+in the electron Coulomb drag when \(\phi > 30\) and
+\(\SI{400}{km.s^{-1}} < v_\infty < \SI{2000}{km.s^{-1}}\), but this is not
+relevant to bow shocks around OB~stars.\footnote{%
+  It may apply in other contexts, such as outflows from AGN, since
+  detailed modeling of grain charging around quasars
+  \citep{Weingartner:2006a} implies that grain potentials as high as
+  \(\phi \sim 100\) can be achieved.} %
 
+Examples of the each of these two behaviors are illustrated in
+Figure~\ref{fig:phase-space-trajectories}.  The left panels show the
+case where \(v_\infty = \SI{40}{km.s^{-1}}\), which is in the unstable
+regime, resulting in periodic ``limit-cycle'' behavior (the parameters
+of this model correspond to the yellow ``plus'' symbol labeled ``40''
+in the left panel of Fig.~\ref{fig:existence-dust-wave}).  During the
+grain's approach it initially follows an equilibrium drift phase
+trajectory (lower left panel) along the \(f\rad - f\drag = 0\)
+contour, with a very slight deceleration.  Then, when it reaches the
+rip point, \(R = R_\dag\), it suddenly experiences an unbalanced outward
+radiation force (blue region of phase space in
+Fig.~\ref{fig:phase-space-trajectories}). The grain's inward momentum
+carries it to the point \(R\min\), which is only slightly inside
+\(R_\dag\), before it is expelled at roughly twice the inflow speed.
+However, after moving outward, it finds itself in a drag-dominated
+region of phase space (red in the figure), and so recouples to the
+inflowing gas stream.  The recoupling is gradual at first, as the
+grain's outward motion is slowed and it begins to move inward again,
+but is completed suddenly once \(w\) falls below \SI{10}{km.s^{-1}} in
+what we term \textit{snap back}. The net result is the grain is back
+on the same phase track that it came in on, and so repeats the cycle
+indefinitely. 
+
+The grain trajectory can be seen to follow a limit cycle, in which 
 
 whether or not
 the incoming stream velocity lies in drag regime IV
