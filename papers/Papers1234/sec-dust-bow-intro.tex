@@ -1254,9 +1254,26 @@ periods it has come to almost a complete rest.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figs/onaxis-stats-plot-MS10-v080-gra002}
-  \caption{Vertical cut through Fig.~\ref{fig:decouple-v-n-plane},
-    showing bow radius and different regimes for a fixed inflow
-    velocity of \SI{80}{km.s^{-1}}.}
+  \caption{Bow radius as a function of stream density for a stream of
+    initial velocity \SI{80}{km.s^{-1}}, which interacts with a
+    \SI{10}{M_\odot} main-sequence B~star.  This corresponds to a vertical
+    slice through the left panel of
+    Fig.~\ref{fig:existence-dust-wave}.  At low densities, the
+    hydrodynamic bow shock (blue line) is larger than the drag-free
+    turnaround radius for small carbon grains, meaning that a grain's
+    inertia carries it into the bow shock along with the gas, even
+    though the gas--grain coupling is not particularly strong.  At
+    densities above about \SI{0.05}{cm^{-3}}, however, this is no
+    longer true and a separate dust wave forms outside of the
+    hydrodynamic bow shock, which is now dust-free (green dashed
+    line).  The grains in the dust wave will occupy a range of radii
+    (pale orange shading) between \(\Rmin\) (solid orange line) and
+    \(R_\ddag\), the stagnant drift radius.  At densities above about
+    \SI{1000}{cm^{-3}}, the gas stream starts to feel the effect of
+    passing through the dust wave, and above \SI{3e4}{cm^{-3}}, the
+    dust wave and bow shock merge to form a radiative bow wave (red
+    line), which becomes an optically thick radiative bow shock
+    (purple line) above \SI{e6}{cm^{-3}}.}
   \label{fig:decouple-vertical-cut}
 \end{figure}
 
@@ -1336,9 +1353,19 @@ stream velocity and grain and star properties, so that
 point where they cross at \(\tau_* = \tau_{*, \text{max}}\), we find
 \(\alpha = 1.5\) is required.  It can be seen that the gas deceleration is
 negligible over most of the density range for which a separate dust
-wave arises.  Only for \(n > \SI{e3}{cm^{-3}}\) does \(R_{\text{dfbs}}\) begin
-to curve up from the general \(n^{-1/2}\) trend, becoming essentially
-flat until the full-coupling point at \(n \approx \SI{3e4}{cm^{-3}}\)
+wave arises.  Only for \(n > \SI{e3}{cm^{-3}}\) does
+\(R_{\text{dfbs}}\) begin to curve up from the general \(n^{-1/2}\)
+trend, becoming essentially flat at a value
+\(R_{\text{dfbs}} \approx (\kappa/\kappa\grain) R\starstar\) until full-coupling is
+established at \(n > \SI{3e4}{cm^{-3}}\).  Note, however, that the
+treatment described here is very approximate: it does not take into
+account the shock that will form once \(J\drag\) reaches an
+appreciable fraction of \(m_{\text{gas}} v_\infty\) and, additionally, it
+includes a factor, \(\alpha\), whose appropriate value is unclear.  More
+detailed modeling is required to fully understand the bow behavior in
+this transition regime.
+
+
 
 
 
