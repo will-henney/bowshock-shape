@@ -729,20 +729,13 @@ is set by \(d\cool\) rather than \(h_0\).
 \end{figure*}
 
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figs/decouple-v-n-plane}
-  \caption{As Fig.~\ref{fig:zones-v-n-plane}(a), but accounting for
-    gas-grain decoupling with constant efficiency \(\xi = 0.07\). }
-  \label{fig:decouple-v-n-plane}
-\end{figure}
+% \begin{figure}
+%   \includegraphics[width=\linewidth]{figs/decouple-v-n-plane}
+%   \caption{As Fig.~\ref{fig:zones-v-n-plane}(a), but accounting for
+%     gas-grain decoupling with constant efficiency \(\xi = 0.07\). }
+%   \label{fig:decouple-v-n-plane}
+% \end{figure}
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figs/decouple-v40-versus-n}
-  \caption{Vertical cut through Fig.~\ref{fig:decouple-v-n-plane},
-    showing bow radius and different regimes for a fixed inflow
-    velocity of \SI{40}{km.s^{-1}}.}
-  \label{fig:decouple-v40-versus-n}
-\end{figure}
 
 
 If the radiation field is sufficiently strong, then the collisional
@@ -1242,15 +1235,29 @@ with respect to the star.  The trajectory during the first approach is
 similar to the previous case, except that the overshoot of the rip
 point is greater, so that \(\Rmin \approx 0.65 R_\dag\) in this case.  This is
 a consequence of the fact that the rip point is closer to the
-drag-free turnaround radius (\(R_\dag / R\star\star\) is not so small as in the
-lower velocity case), so that the grain inertia is relatively more
-important.  A second consequence is that the speed of the initial
-expulsion is not so large, being only a little higher than the inflow
-velocity (but opposite to it).  The qualitative difference between the
-two cases emerges after the first recoupling: instead of the snap back
-and endless limit cycle, the grain oscillates about the stagnant drift
-radius with ever decreasing amplitude, so that it has come almost to
-rest after a few oscillation periods.
+drag-free turnaround radius (\(R_\dag / R\starstar\) is larger than in
+the lower velocity case), so that the grain inertia is relatively more
+important.  A second consequence of this is that the speed of the
+initial expulsion is not so large, being only a little higher than the
+inflow velocity.  The qualitative difference between the two cases
+emerges after the first recoupling: instead of the snap back and
+endless limit cycle, the grain oscillates about the stagnant drift
+radius with ever decreasing amplitude, so that after a few oscillation
+periods it has come to almost a complete rest.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/onaxis-stats-plot-MS10-v080-gra002}
+  \caption{Vertical cut through Fig.~\ref{fig:decouple-v-n-plane},
+    showing bow radius and different regimes for a fixed inflow
+    velocity of \SI{80}{km.s^{-1}}.}
+  \label{fig:decouple-vertical-cut}
+\end{figure}
+
+\subsubsection{Back reaction on the gas flow}
+\label{sec:back-reaction-gas}
+
+
+
 
 
 \subsubsection{Magnetic effects on grain trajectories }
