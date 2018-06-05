@@ -1265,7 +1265,7 @@ periods it has come to almost a complete rest.
 
 So far we have ignored the effect of the drag force on the gas stream
 itself, but it is clear that this must become important as \(\tau_*\)
-approaches \(\tau_{*,\text{max}})\), since that is the point where the
+approaches \(\tau_{*,\text{max}}\), since that is the point where the
 dust wave transitions to a bow wave, in which the dust and gas are
 perfectly coupled.  A full treatment of this problem would require
 solving the hydrodynamic equations simultaneously with the equations
@@ -1285,12 +1285,60 @@ The timescale of the flow can be characterized by the crossing time
 \(R_\dag / v_\infty\), but the residence time of the grain at the bow apex
 will be several times larger than this (see previous section).  On the
 other hand, the average drag force during this residence will be
-several times smaller than the \(f\drag (R_\dag)\).  Therefore, we introduce a dimensionless factor, \(\alpha\), which we expect to be of order unity, and write the total impulse imparted to the grain by drag as
+several times smaller than \(f\drag (R_\dag)\) if
+\(R_\ddag > R_\dag\), which is typically the case.  We therefore parameterize
+our ignorance via a dimensionless factor, \(\alpha\), which we expect to be
+of order unity, and write the total impulse imparted to the grain by
+drag as
 \begin{equation}
   \label{eq:grain-impulse}
-  J\drag = \alpha f\drag (R_\dag) \frac{R_\dag}{v_\infty}
-  = \tfrac12 \alpha m\grain v_\infty \frac{R\starstar}{R_\dag} \ .
+  J\drag \equiv \int \!f\drag \, dt \approx \alpha f\drag (R_\dag) \frac{R_\dag}{v_\infty}
+  = \tfrac12 \alpha \, m\grain v_\infty \, \frac{R\starstar}{R_\dag} \ .
 \end{equation}
+
+By Newton's Third Law, an equal and opposite impulse is imparted to
+the gas, which will act to decelerate the gas stream as it decouples
+from the grains.  Realistically, \(J\drag\) should be summed over the
+grain size distribution, but for simplicity we assume that all grains
+are identical, so that the mass of gas that accompanies each grain is
+given by
+\begin{equation}
+  \label{eq:gas-mass}
+  m_{\text{gas}} = \frac{m\grain}{Z\grain} =  m\grain \, \frac{\kappa\grain}{\kappa} \ . 
+\end{equation}
+If the gas remains supersonic after decoupling, then thermal pressure
+can be ignored and the gas will suffer a change in momentum equal to
+\(J\drag\), so that its velocity is reduced by
+\(\Delta v = J\drag / m_{\text{gas}}\), which by
+equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
+\ref{eq:dust-wave-high-density-condition}, \ref{eq:grain-impulse},
+\ref{eq:gas-mass}) is
+\begin{equation}
+  \label{eq:gas-dv}
+  \Delta v = \tfrac12 \alpha \frac{\tau_*}{\tau_{*, \text{max}}} \ .
+\end{equation}
+This deceleration reduces the gas stream's ram pressure before it
+interacts with the central star's stellar wind.  The radius of the
+dust-free bow shock formed by this interaction is therefore increased
+by a factor \((1 - \Delta v / v_\infty)^{-1}\) with respect to the case
+calculated in \S~\ref{sec:three-bow-regimes}, yielding
+\begin{equation}
+  \label{eq:gas-free-bow-shock}
+  R_{\text{dfbs}} \approx \frac{\eta^{1/2} R_*}{1 - \tfrac12 \alpha \tau_* / \tau_{*, \text{max}}} \ .
+\end{equation}
+
+An example is illustrated in Figure~\ref{fig:decouple-vertical-cut},
+where the dust-free bow shock radius is shown by the green dashed line
+as a function of stream density, \(n\).  This is calculated for fixed
+stream velocity and grain and star properties, so that
+\(\tau_* \propto n^{1/2}\) (eq.~[\ref{eq:taustar-typical}]).  In order for
+\(R_{\text{dfbs}}\) to match the dust-wave and bow-wave radii at the
+point where they cross at \(\tau_* = \tau_{*, \text{max}}\), we find
+\(\alpha = 1.5\) is required.  It can be seen that the gas deceleration is
+negligible over most of the density range for which a separate dust
+wave arises.  Only for \(n > \SI{e3}{cm^{-3}}\) does \(R_{\text{dfbs}}\) begin
+to curve up from the general \(n^{-1/2}\) trend, becoming essentially
+flat until the full-coupling point at \(n \approx \SI{3e4}{cm^{-3}}\)
 
 
 
