@@ -795,10 +795,13 @@ and metal ions.\footnote{%
   \num{15.3}.  All are assumed to be doubly ionized.  Their largest
   relative contribution to the drag force is for
   \(w < \SI{2}{km.s^{-1}}\), but is less than 1\% even there.} %
-Results are shown in Figure~\ref{fig:drag-components}, where dashed lines correspond to direct solid body collisions and solid lines to electrostatic interactions.  The latter depend on the grain potential, which is described in dimensionless terms by \(\phi\), which is the electrostatic potential
-energy of a unit charge at the surface of a grain of charge
-\(z\grain\) and radius \(a\), in units of the characteristic thermal
-energy of a gas particle:
+Results are shown in Figure~\ref{fig:drag-components}, where dashed
+lines correspond to direct solid body collisions and solid lines to
+electrostatic interactions.  The latter depend on the grain potential,
+which is described in dimensionless terms by \(\phi\), which is the
+electrostatic potential energy of a unit charge at the surface of a
+grain of charge \(z\grain\) and radius \(a\), in units of the
+characteristic thermal energy of a gas particle:
 \begin{equation}
   \label{eq:phi-potential}
   \phi = \frac{e^2 z\grain}{a kT} \ .
@@ -1000,6 +1003,32 @@ parameters, which are of order \SI{+- 0.5}{dex}, are listed in
 Table~\ref{tab:Xi-rip} and illustrated graphically in
 Figure~\ref{fig:drift-gn}.
 
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/existence-dust-wave}
+  \caption{Regions of stream parameter space \((v, n)\) where dust
+    waves may form around main-sequence OB stars of
+    \SIlist{10;20;40}{M_\odot} (see Tab.~\ref{tab:stars}).  Figure is
+    similar to Fig.~\ref{fig:zones-v-n-plane}, except that the
+    velocity axis is logarithmic and extends out to
+    \SI{1000}{km.s^{-1}}.  Overlapping colored shapes show parameters
+    where dust waves may be allowed in the cases of large
+    (\(a = \SI{0.2}{\um}\)) and small (\(a = \SI{0.02}{\um}\))
+    graphite and silicate grains, as labeled in the left panel.  For
+    \((v, n)\) outside of these shapes, dust waves cannot occur for
+    the reasons indicated by labeled orange arrows in the center
+    panel.  Labeled dashed lines in the right panel show the
+    correspondence between the region boundaries and each dust wave
+    existence condition given in
+    equations~(\ref{eq:dust-wave-velocity-condition},
+    \ref{eq:dust-wave-low-density-condition},
+    \ref{eq:dust-wave-high-density-condition}). Heavy dashed lines in
+    the left panel show where the rip point and the drag-free
+    turnaround radius coincide.  For dust waves below these lines,
+    drag forces are unimportant for the grains.  }
+  \label{fig:existence-dust-wave}
+\end{figure*}
+
 \subsubsection{Existence conditions for dust waves}
 \label{sec:exist-cond-separ}
 
@@ -1029,32 +1058,6 @@ exist when the stream velocity is very high
 can be much weaker (\(\eta < 0.01\)) and \(\Xi_\dag\) is also smaller, so
 that dust waves are permitted by this criterion for much lower stream
 velocities: (\(v_\infty > \SI{30}{km.s^{-1}}\)).
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{figs/existence-dust-wave}
-  \caption{Regions of stream parameter space \((v, n)\) where dust
-    waves may form around main-sequence OB stars of
-    \SIlist{10;20;40}{M_\odot} (see Tab.~\ref{tab:stars}).  Figure is
-    similar to Fig.~\ref{fig:zones-v-n-plane}, except that the
-    velocity axis is logarithmic and extends out to
-    \SI{1000}{km.s^{-1}}.  Overlapping colored shapes show parameters
-    where dust waves may be allowed in the cases of large
-    (\(a = \SI{0.2}{\um}\)) and small (\(a = \SI{0.02}{\um}\))
-    graphite and silicate grains, as labeled in the left panel.  For
-    \((v, n)\) outside of these shapes, dust waves cannot occur for
-    the reasons indicated by labeled orange arrows in the center
-    panel.  Labeled dashed lines in the right panel show the
-    correspondence between the region boundaries and each dust wave
-    existence condition given in
-    equations~(\ref{eq:dust-wave-velocity-condition},
-    \ref{eq:dust-wave-low-density-condition},
-    \ref{eq:dust-wave-high-density-condition}). Heavy dashed lines in
-    the left panel show where the rip point and the drag-free
-    turnaround radius coincide.  For dust waves below these lines,
-    drag forces are unimportant for the grains.  }
-  \label{fig:existence-dust-wave}
-\end{figure*}
 
 However, there are other conditions that need to be satisfied in order
 for the dust wave to exist.  For instance, the drag-free turnaround
@@ -1104,38 +1107,12 @@ equations~(\ref{eq:dust-wave-low-density-condition},
 \ref{eq:dust-wave-high-density-condition}) determine respectively the
 minimum and maximum stream density for which a dust wave can exist.
 
-Further restrictions on the existence of dust waves arise when the
-effects of magnetic fields are considered, as will be discussed in
+The combined effects of the three conditions are illustrated in
+Figure~\ref{fig:existence-dust-wave} for each of the three example
+main sequence stars from Table~\ref{tab:stars}.  Further restrictions
+on the existence of dust waves arise when the effects of magnetic
+fields are considered, as will be discussed in
 \S~\ref{sec:magn-effects-grain} below.
-
-\subsubsection{Grain trajectories along the symmetry axis}
-\label{sec:grain-traj-along}
-
-What happens to the dust grain following this catastrophic breakdown
-of gas--grain coupling depends on the relation between the rip point
-radius, \(R_\dag\), and the drag-free radiative turnaround radius,
-\(R\starstar\).  If \(R_\dag > R\starstar\), then the grain's inertia
-will still carry it in as far as \(R\starstar\) and the initial
-trajectory will be almost identical to that described in
-Appendix~\ref{sec:gas-free-bow} for the drag-free case. However, after
-being turned around by the radiation field and pushed out past
-\(R_\dag\) again, the grain will \emph{recouple} to the gas and be
-dragged back for a second approach.\footnote{If the initial impact
-  parameter of the trajectory is not strictly \(b = 0\), then the
-  resultant lateral component of \(f\rad\) will mean that \(b\) will
-  be much increased for the second approach.} %
-From equations~(\ref{eq:Rdag-over-Rstar},
-\ref{eq:Rstarstar-over-Rstar},
-\ref{eq:dust-wave-high-density-condition}), the condition
-\(R_\dag > R\starstar\) corresponds to
-\(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
-lines in the left panel of Figure~\ref{fig:existence-dust-wave}.  If,
-on the other hand, \(R_\dag < R\starstar\), then the tail wind provided
-by the gas carries the grain closer to the star than its inertia would
-naturally take it.  When the grain finally decouples at \(R_\dag\) it
-experiences a much higher unbalanced \(f\rad\), which can initially
-accelerate it to outward velocities significantly higher than the
-inflow velocity if \(R_\dag \ll R\starstar\).
 
 \begin{figure*}
   \centering
@@ -1166,6 +1143,36 @@ inflow velocity if \(R_\dag \ll R\starstar\).
     further details.}
     \label{fig:phase-space-trajectories}
 \end{figure*}
+
+\subsubsection{Grain trajectories along the symmetry axis}
+\label{sec:grain-traj-along}
+
+What happens to the dust grain following this catastrophic breakdown
+of gas--grain coupling depends on the relation between the rip point
+radius, \(R_\dag\), and the drag-free radiative turnaround radius,
+\(R\starstar\).  If \(R_\dag > R\starstar\), then the grain's inertia
+will still carry it in as far as \(R\starstar\) and the initial
+trajectory will be almost identical to that described in
+Appendix~\ref{sec:gas-free-bow} for the drag-free case. However, after
+being turned around by the radiation field and pushed out past
+\(R_\dag\) again, the grain will \emph{recouple} to the gas and be
+dragged back for a second approach.\footnote{If the initial impact
+  parameter of the trajectory is not strictly \(b = 0\), then the
+  resultant lateral component of \(f\rad\) will mean that \(b\) will
+  be much increased for the second approach.} %
+From equations~(\ref{eq:Rdag-over-Rstar},
+\ref{eq:Rstarstar-over-Rstar},
+\ref{eq:dust-wave-high-density-condition}), the condition
+\(R_\dag > R\starstar\) corresponds to
+\(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
+lines in the left panel of Figure~\ref{fig:existence-dust-wave}.  If,
+on the other hand, \(R_\dag < R\starstar\), then the tail wind provided
+by the gas carries the grain closer to the star than its inertia would
+naturally take it.  When the grain finally decouples at \(R_\dag\) it
+experiences a much higher unbalanced \(f\rad\), which can initially
+accelerate it to outward velocities significantly higher than the
+inflow velocity if \(R_\dag \ll R\starstar\).
+
 
 The post-decoupling behavior of the grain depends on the sign of
 \(d f\drag / d w\) when \(w = \abs{v_\infty}\).  If this derivative is
@@ -1256,7 +1263,34 @@ periods it has come to almost a complete rest.
 \subsubsection{Back reaction on the gas flow}
 \label{sec:back-reaction-gas}
 
+So far we have ignored the effect of the drag force on the gas stream
+itself, but it is clear that this must become important as \(\tau_*\)
+approaches \(\tau_{*,\text{max}})\), since that is the point where the
+dust wave transitions to a bow wave, in which the dust and gas are
+perfectly coupled.  A full treatment of this problem would require
+solving the hydrodynamic equations simultaneously with the equations
+of motion of the dust grains, which is beyond the scope of this paper.
+Instead, we outline a heuristic approach that qualitatively captures
+the physics involved.
 
+The maximum drag force experienced by a grain is at the rip point.
+Since the grain follows a zero-net-force phase track up until that
+point, this can be written with the help of
+equations~(\ref{eq:dust-rad-force}, \ref{eq:dust-r0}) as
+\begin{equation}
+  \label{eq:fdrag-max}
+  f\drag (R_\dag) = f\rad(R_\dag) =   \frac{m\grain v_\infty^2 R\starstar}{ 2 R_\dag^2} 
+\end{equation}
+The timescale of the flow can be characterized by the crossing time
+\(R_\dag / v_\infty\), but the residence time of the grain at the bow apex
+will be several times larger than this (see previous section).  On the
+other hand, the average drag force during this residence will be
+several times smaller than the \(f\drag (R_\dag)\).  Therefore, we introduce a dimensionless factor, \(\alpha\), which we expect to be of order unity, and write the total impulse imparted to the grain by drag as
+\begin{equation}
+  \label{eq:grain-impulse}
+  J\drag = \alpha f\drag (R_\dag) \frac{R_\dag}{v_\infty}
+  = \tfrac12 \alpha m\grain v_\infty \frac{R\starstar}{R_\dag} \ .
+\end{equation}
 
 
 
