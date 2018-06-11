@@ -1,0 +1,249 @@
+* Second opinion on proplyd shapes
++ [2018-06-09 Sat]
+  + I have traced the shapes of the LV[1-5] bow shocks from the 11 micron Smith (2005) image
+  + I will fit them using the [[https://github.com/div-B-equals-0/circle-fit][circle-fit]] programs, including the bootstrap resampling
+  + Initial results [2018-06-10 Sun 18:21]
+    + In general, not so good:
+      + LV1 :: unsurprisingly gives very large \Pi' since arc is s-shaped near the axis due to the binary interaction
+        + most convincing result is with \Delta\theta = 80: \Pi' = 25, \Lambda' = 4.3
+        + The alatude is probably reliable, since all he fits agree
+      + LV2 :: the fit has the axis at the "wrong" position angle, since the east wing (as traced) is where the arc comes closest to the star
+        + Result has \Pi' = 2.19 \pm 0.07, which is probably too high
+        + \Lambda' is meaningless since arc does not reach 90 deg
+        + I think we need to exclude the E--W filament, since it looks like a chance superposition
+      + LV3 :: again, the fit has the axis too far round to the SE, although not so bad as with LV2
+        + As a result, the W wing is excluded from the fit and \Pi' comes out too high
+        + \Pi' = 1.95 \pm 0.11
+        + \Lambda' = 1.55 \pm 0.02, which looks about right
+      + LV4 :: The fits are very good, and identical for the different \Delta\theta
+        + \Pi' = 2.8 \pm 0.07
+        + \Lambda' = 2.2 \pm 0.02
+      + LV5 :: Fit is good, but no alatude since the arc does not stretch far enough
+        + \Pi' = 2.04 \pm 0.06
+
+
+* History of attempts to fit the proplyd arc shapes
+:PROPERTIES:
+:ID:       0EDB3A1E-84C7-4721-B4AD-7ED6A3AFDC98
+:END:
++ [[file:~/Work/Bowshocks/Jorge/bowshock-shape/proplyd-shell-measurements.org][file:../proplyd-shell-measurements.org]]
+  + This is from [2013-04-15 Mon]
+  + Seems to have come from measurements on GO569PCf502e.fits
+  + Example region file: LV-502e-positions.reg
++ [[id:3CF53B2C-D620-4FAF-8266-0A32655625CE][Empirical material to include in Paper 1]]
+  + In [[file:../doc/analysis.org]]
+  + From [2016-03-10 Thu] or thereabouts
+  + Last work done on this seems to be [2016-05-17 Tue]
+  + Where are the region files from the latest version?
+    + I don't think they exist - from the comments in analysis.org, it looks like I was supposed to be doing the astrometric alignment of the new Bally 2015 image before we measured the shapes again
+    + Not sure that is really necessary
++ [[id:B52F20B1-3CE1-4E11-820F-B95B7BC56BC7][New measurements of the close-in proplyds {2014-09-30 Tue}]]
+  + In file [[file:~/Dropbox/JorgeBowshocks/Jorge_prop/PC-will/README.org][file:~/Dropbox/JorgeBowshocks/Jorge_prop/PC-will/README.org]]
+  + This is from [2014-09-30 Tue], so earlier than the previous ones
+  + But at least it is finished - it is what I did for the Luis A paper (still not finished!)
++ There are other earlier versions in ~PC-correct~ and ~PC-orig~ from late-2013 to early-2014
++ Finally, there is the stuff in [[file:../LL-shapes-2017]]
+  + That is from [2017-02-27 Mon] for the original stuff, which is the LL arc measurements that are going to now appear in Paper 3
+  + Plus, more recently [2018-02-24 Sat] for the two example arcs that went in Paper 1
+  + There are some files in there for the inner proplyds, but they date from [2014-05-14 Wed], so I think they were just copied from the ~PC-will~ folder
+
+* Detail of fitting the shapes in MIR
+Run in shell
+#+BEGIN_SRC sh :eval no
+python ~/Dropbox/circle-fit/plot-bootstrap.py lv1-smith-2005-forma.reg ~/Dropbox/JorgeBowshocks/MIR/SmithBally/wcs.mos11jy.fits 75 0.5 bootstrap-lv1-75-05.pdf
+#+END_SRC
+
+And repeat for the others
+
+This seems to work remarkably well, except for LV1, where the
+planitude comes out as more than 100
+
+I need to look at the actual fits though, since the planitudes are significantly higher than Jorge has in his thesis
+** Arc fit with graph
+
+#+BEGIN_SRC python :eval no :tangle lv-circle-fit.py
+  import sys 
+  sys.path.append("/Users/will/Dropbox/circle-fit")
+  import circle_fit
+
+  fits_file = "/Users/will/Dropbox/JorgeBowshocks/MIR/SmithBally/wcs.mos11jy.fits"
+
+  try:
+      source = str(sys.argv[1])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} SOURCE")
+
+  for delta_theta in 65, 70, 75, 80:
+      plotfile = f"{source}-{delta_theta:02d}.pdf"
+      print('#### '*10)
+      print("Creating", plotfile)
+      circle_fit.plot_solution(
+          f"{source}-smith-2005-forma.reg",
+          fits_file,
+          plotfile,
+          delta_theta=delta_theta,
+          vmin=0.0, vmax=0.01,
+      )
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+python lv-circle-fit.py lv1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv1-65.pdf
+CircleFit(Pi = 6.278, Lambda = 3.501, dLambda = -0.178)
+CircleFit(Pi = 4.288, Lambda = 3.868, dLambda = -1.218)
+CircleFit(Pi = 318.664, Lambda = 4.210, dLambda = -1.074)
+CircleFit(Pi = 14.286, Lambda = 4.090, dLambda = -1.068)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv1-70.pdf
+CircleFit(Pi = 6.278, Lambda = 3.501, dLambda = -0.178)
+CircleFit(Pi = 4.575, Lambda = 3.827, dLambda = -1.100)
+CircleFit(Pi = 2124.537, Lambda = 4.322, dLambda = -1.077)
+CircleFit(Pi = 46.959, Lambda = 4.207, dLambda = -1.082)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv1-75.pdf
+CircleFit(Pi = 6.278, Lambda = 3.501, dLambda = -0.178)
+CircleFit(Pi = 4.575, Lambda = 3.827, dLambda = -1.100)
+CircleFit(Pi = 143.749, Lambda = 4.263, dLambda = -1.077)
+CircleFit(Pi = 137.568, Lambda = 4.446, dLambda = -1.074)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv1-80.pdf
+CircleFit(Pi = 6.278, Lambda = 3.501, dLambda = -0.178)
+CircleFit(Pi = 5.052, Lambda = 3.811, dLambda = -0.975)
+CircleFit(Pi = 39.559, Lambda = 4.295, dLambda = -1.043)
+CircleFit(Pi = 25.012, Lambda = 4.364, dLambda = -1.007)
+#+end_example
+
+
+#+BEGIN_SRC sh :results verbatim
+python lv-circle-fit.py lv2
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv2-65.pdf
+CircleFit(Pi = 1.833, Lambda = 1.365, dLambda = -0.231)
+CircleFit(Pi = 2.384, Lambda = 1.409, dLambda = -0.252)
+CircleFit(Pi = 2.384, Lambda = 1.409, dLambda = -0.252)
+CircleFit(Pi = 2.384, Lambda = 1.409, dLambda = -0.252)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv2-70.pdf
+CircleFit(Pi = 1.833, Lambda = 1.365, dLambda = -0.231)
+CircleFit(Pi = 2.384, Lambda = 1.409, dLambda = -0.252)
+CircleFit(Pi = 2.187, Lambda = 1.398, dLambda = -0.248)
+CircleFit(Pi = 2.187, Lambda = 1.398, dLambda = -0.248)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv2-75.pdf
+CircleFit(Pi = 1.833, Lambda = 1.365, dLambda = -0.231)
+CircleFit(Pi = 2.187, Lambda = 1.398, dLambda = -0.248)
+CircleFit(Pi = 2.187, Lambda = 1.398, dLambda = -0.248)
+CircleFit(Pi = 2.187, Lambda = 1.398, dLambda = -0.248)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv2-80.pdf
+CircleFit(Pi = 1.833, Lambda = 1.365, dLambda = -0.231)
+CircleFit(Pi = 1.962, Lambda = 1.379, dLambda = -0.239)
+CircleFit(Pi = 1.962, Lambda = 1.379, dLambda = -0.239)
+CircleFit(Pi = 1.962, Lambda = 1.379, dLambda = -0.239)
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+python lv-circle-fit.py lv3
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv3-65.pdf
+CircleFit(Pi = 1.448, Lambda = 1.337, dLambda = 0.093)
+CircleFit(Pi = 1.546, Lambda = 1.520, dLambda = 0.254)
+CircleFit(Pi = 1.911, Lambda = 1.551, dLambda = 0.265)
+CircleFit(Pi = 1.928, Lambda = 1.552, dLambda = 0.265)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv3-70.pdf
+CircleFit(Pi = 1.448, Lambda = 1.337, dLambda = 0.093)
+CircleFit(Pi = 1.546, Lambda = 1.520, dLambda = 0.254)
+CircleFit(Pi = 2.088, Lambda = 1.564, dLambda = 0.266)
+CircleFit(Pi = 1.908, Lambda = 1.551, dLambda = 0.265)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv3-75.pdf
+CircleFit(Pi = 1.448, Lambda = 1.337, dLambda = 0.093)
+CircleFit(Pi = 1.411, Lambda = 1.493, dLambda = 0.250)
+CircleFit(Pi = 2.088, Lambda = 1.564, dLambda = 0.266)
+CircleFit(Pi = 1.950, Lambda = 1.551, dLambda = 0.262)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv3-80.pdf
+CircleFit(Pi = 1.448, Lambda = 1.337, dLambda = 0.093)
+CircleFit(Pi = 1.411, Lambda = 1.493, dLambda = 0.250)
+CircleFit(Pi = 2.020, Lambda = 1.557, dLambda = 0.262)
+CircleFit(Pi = 1.772, Lambda = 1.512, dLambda = 0.240)
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+python lv-circle-fit.py lv5
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv5-65.pdf
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 1.893, Lambda = 1.399, dLambda = 0.087)
+CircleFit(Pi = 1.893, Lambda = 1.399, dLambda = 0.087)
+CircleFit(Pi = 1.893, Lambda = 1.399, dLambda = 0.087)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv5-70.pdf
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 1.893, Lambda = 1.399, dLambda = 0.087)
+CircleFit(Pi = 1.893, Lambda = 1.399, dLambda = 0.087)
+CircleFit(Pi = 1.893, Lambda = 1.399, dLambda = 0.087)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv5-75.pdf
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv5-80.pdf
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+CircleFit(Pi = 2.036, Lambda = 1.410, dLambda = 0.087)
+#+end_example
+
+#+BEGIN_SRC sh :results verbatim
+python lv-circle-fit.py lv4
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv4-65.pdf
+CircleFit(Pi = 3.319, Lambda = 2.286, dLambda = -0.058)
+CircleFit(Pi = 2.791, Lambda = 2.194, dLambda = -0.109)
+CircleFit(Pi = 2.810, Lambda = 2.195, dLambda = -0.111)
+CircleFit(Pi = 2.810, Lambda = 2.195, dLambda = -0.111)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv4-70.pdf
+CircleFit(Pi = 3.319, Lambda = 2.286, dLambda = -0.058)
+CircleFit(Pi = 2.791, Lambda = 2.194, dLambda = -0.109)
+CircleFit(Pi = 2.791, Lambda = 2.194, dLambda = -0.109)
+CircleFit(Pi = 2.791, Lambda = 2.194, dLambda = -0.109)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv4-75.pdf
+CircleFit(Pi = 3.319, Lambda = 2.286, dLambda = -0.058)
+CircleFit(Pi = 2.791, Lambda = 2.194, dLambda = -0.109)
+CircleFit(Pi = 2.791, Lambda = 2.194, dLambda = -0.109)
+CircleFit(Pi = 2.791, Lambda = 2.194, dLambda = -0.109)
+#### #### #### #### #### #### #### #### #### #### 
+Creating lv4-80.pdf
+CircleFit(Pi = 3.319, Lambda = 2.286, dLambda = -0.058)
+CircleFit(Pi = 2.830, Lambda = 2.195, dLambda = -0.104)
+CircleFit(Pi = 2.830, Lambda = 2.195, dLambda = -0.104)
+CircleFit(Pi = 2.830, Lambda = 2.195, dLambda = -0.104)
+#+end_example
+

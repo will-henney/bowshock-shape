@@ -179,6 +179,9 @@ We are revising section 5 of the paper
 + Jorge will revise the entire article to check which sections still need more attention
 
 * Empirical material to include in Paper 1
+:PROPERTIES:
+:ID:       3CF53B2C-D620-4FAF-8266-0A32655625CE
+:END:
 
 ** TODO New method of measuring the uncertainty in the bow shock R_0 and R_c measurements  
 + Do further fits, but each time removing one point from the points that are fitted
