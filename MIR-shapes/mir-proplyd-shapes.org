@@ -45,7 +45,8 @@
 + Finally, there is the stuff in [[file:../LL-shapes-2017]]
   + That is from [2017-02-27 Mon] for the original stuff, which is the LL arc measurements that are going to now appear in Paper 3
   + Plus, more recently [2018-02-24 Sat] for the two example arcs that went in Paper 1
-  + There are some files in there for the inner proplyds, but they date from [2014-05-14 Wed], so I think they were just copied from the ~PC-will~ folder
+  + There are some files in there for the inner proplyds, but they date from [2014-05-14 Wed], so I *originally thought* they were just copied from the ~PC-will~ folder
+  + But no: the naming convention (177-341 instead of HST1) suggests that they actually came from [[file:~/Dropbox/LuisBowshocks/j8oc01010_wcs/177-341-forma.reg][file:~/Dropbox/LuisBowshocks/j8oc01010_wcs/]]
 
 * Detail of fitting the shapes in MIR
 Run in shell

@@ -1,0 +1,48 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+circle(5:35:17.723,-5:23:41.42,4.54584") # color=black dash=1 edit=0 move=0 rotate=0 delete=0 tag={Circle fits}
+point(5:35:16.747,-5:23:16.39) # point=circle
+point(5:35:16.788,-5:23:18.27) # point=x
+point(5:35:16.773,-5:23:18.28) # point=x
+point(5:35:16.760,-5:23:18.29) # point=x
+point(5:35:16.747,-5:23:18.25) # point=x
+point(5:35:16.740,-5:23:18.23) # point=x
+point(5:35:16.731,-5:23:18.19) # point=x
+point(5:35:16.722,-5:23:18.15) # point=x
+point(5:35:16.714,-5:23:18.10) # point=x
+point(5:35:16.706,-5:23:18.05) # point=x
+point(5:35:16.697,-5:23:18.00) # point=x
+point(5:35:16.690,-5:23:17.94) # point=x
+point(5:35:16.682,-5:23:17.88) # point=x
+point(5:35:16.673,-5:23:17.80) # point=x
+point(5:35:16.668,-5:23:17.75) # point=x
+point(5:35:16.656,-5:23:17.65) # point=x
+point(5:35:16.662,-5:23:17.68) # point=x
+point(5:35:16.649,-5:23:17.58) # point=x
+point(5:35:16.644,-5:23:17.50) # point=x
+point(5:35:16.636,-5:23:17.42) # point=x
+point(5:35:16.630,-5:23:17.32) # point=x
+point(5:35:16.623,-5:23:17.24) # point=x
+point(5:35:16.615,-5:23:17.09) # point=x
+point(5:35:16.063,-5:23:24.24) # point=circle
+point(5:35:16.131,-5:23:25.67) # point=x
+point(5:35:16.132,-5:23:25.38) # point=x
+point(5:35:16.132,-5:23:25.13) # point=x
+point(5:35:16.134,-5:23:24.96) # point=x
+point(5:35:16.133,-5:23:24.79) # point=x
+point(5:35:16.132,-5:23:24.66) # point=x
+point(5:35:16.132,-5:23:24.51) # point=x
+point(5:35:16.132,-5:23:24.36) # point=x
+point(5:35:16.131,-5:23:24.23) # point=x
+point(5:35:16.130,-5:23:24.10) # point=x
+point(5:35:16.127,-5:23:23.99) # point=x
+point(5:35:16.123,-5:23:23.89) # point=x
+point(5:35:16.122,-5:23:23.73) # point=x
+point(5:35:16.120,-5:23:23.62) # point=x
+point(5:35:16.116,-5:23:23.48) # point=x
+point(5:35:16.110,-5:23:23.39) # point=x
+point(5:35:16.104,-5:23:23.25) # point=x
+point(5:35:16.098,-5:23:23.14) # point=x
+point(5:35:16.068,-5:23:22.72) # point=x
+point(5:35:16.090,-5:23:22.95) # point=x

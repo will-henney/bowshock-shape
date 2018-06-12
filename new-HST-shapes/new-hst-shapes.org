@@ -1,0 +1,10 @@
+* [2018-06-11 Mon] New measurements of the LV arcs
++ In the data that Jorge is using at the moment, several of the sources are problematic:
+  + LV2 has a very small planitude
+  + LV4 has a very large planitude
++ Looking at a range of different images, there are possible explanations for this:
+  + LV2 has a "tiger claw" mark across it, which may not be part of the bow shock
+  + LV4 seems to vary with time and/or filter
+  + 
+* Time variation of LV4
++ The data for this are in the proper motions project
