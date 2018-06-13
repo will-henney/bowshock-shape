@@ -8,3 +8,15 @@
   + 
 * Time variation of LV4
 + The data for this are in the proper motions project
+  + https://github.com/deprecated/orion-proper-motions
++ Most striking feature is the splitting of the arc into two in the latest epochs
+  + Separation: 0.233 arcsec in 2015-01
+    + Days since first epoch: 6136
+    + Velocity: 410 1.49597870691e13 0.233 / 6136 3600 24 1.0e5 = 26.96 km/s
+  + Separation: 0.224 arcsec in 2012-01
+    + Days since first epoch: 7235
+    + Velocity: 410 1.49597870691e13 0.224 / 7235 3600 24 1.0e5 = 22 km/s
++ We could also measure the thickness of the shell and how it varies with time
++ Interpretation
+  + Could be a wobble in the shell that means we see 2 limb-brightened edges
+  + Possible due to the linear vishniac instability
