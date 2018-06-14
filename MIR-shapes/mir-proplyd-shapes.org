@@ -54,7 +54,7 @@ Run in shell
 python ~/Dropbox/circle-fit/plot-bootstrap.py lv1-smith-2005-forma.reg ~/Dropbox/JorgeBowshocks/MIR/SmithBally/wcs.mos11jy.fits 75 0.5 bootstrap-lv1-75-05.pdf
 #+END_SRC
 
-And repeat for the others
+And repeat for the others 
 
 This seems to work remarkably well, except for LV1, where the
 planitude comes out as more than 100

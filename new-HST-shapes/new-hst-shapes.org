@@ -19,4 +19,98 @@
 + We could also measure the thickness of the shell and how it varies with time
 + Interpretation
   + Could be a wobble in the shell that means we see 2 limb-brightened edges
-  + Possible due to the linear vishniac instability
+  + Possibly due to the linear Vishniac instability
+** NUV observations of LV4
++ FOC images from 1994
++ Arc diameter is 0.04 arcsec! (is this the i-front?)
++ => radius = 0.02 arcsec = 8.6 AU
++ cf radius of arc ~= 1 arcsec, so it has expanded to 50 times its radius
++ for LV5 I get 0.063 arcsec => 25.83 AU = 3.86e14 cm (I had 6e14 cm in HA98)
+** Arc shape variation with time for LV4
+*** Graph of the arc fits for LV4
+First, look at the fits
+
+#+BEGIN_SRC python :eval no :tangle lv4-circle-fit.py
+  import sys 
+  sys.path.append("/Users/will/Dropbox/circle-fit")
+  import circle_fit
+
+  datapaths = [
+      "/Users/will/Dropbox/OrionHST-2012/Combine/",
+      "/Users/will/Dropbox/OrionBally-2016/data-historic/",
+      "/Users/will/Dropbox/OrionBally-2016/data-2016-01-11/",
+  ]
+
+  fits_files = {
+      "oiii-1993-pc": datapaths[0] + "f502n-allpc-align-rob_drz_sci.fits",
+      "oiii-2004-acs": datapaths[0] + "fr505n-5007-align-rob_drz_sci.fits", 
+      "ha-1993-pc": datapaths[1] + "wcs_3f656.fits",
+      "ha-2004-acs": datapaths[1] + "j8oc01010_wcs.fits",
+      "ha-2005-acs": datapaths[1] + "hlsp_orion_hst_acs_strip0l_f658n_v1_drz.fits",
+      "ha-2015-wfc3": datapaths[2] + "icaz01040_drz.fits"
+      }
+
+  vlim = {
+      "oiii-1993-pc": [0.24, 1.1],
+      "oiii-2004-acs": [20, 60],
+      "ha-1993-pc": [75, 118],
+      "ha-2004-acs": [50, 75],
+      "ha-2005-acs": [50, 75],
+      "ha-2015-wfc3": [12.5, 19.3],
+  }
+
+  try:
+      image_id = str(sys.argv[1])
+  except:
+      sys.exit(f"Usage: {sys.argv[0]} SOURCE")
+
+  for delta_theta in 40, 45, 50, 55, 60, 65, 70, 75:
+      plotfile = f"lv4-{image_id}-{delta_theta:03d}.pdf"
+      print('#### '*10)
+      print("Creating", plotfile)
+      circle_fit.plot_solution(
+          f"lv4-{image_id}-forma.reg",
+          fits_files[image_id],
+          plotfile,
+          delta_theta=delta_theta,
+          vmin=vlim[image_id][0], vmax=vlim[image_id][1],
+          verbose=False, maxiter=5
+      )
+#+END_SRC
+
+#+BEGIN_SRC sh
+python lv4-circle-fit.py oiii-1993-pc
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+python lv4-circle-fit.py oiii-2004-acs
+#+END_SRC
+
+#+RESULTS:
+
+
++ So it seems that the smaller values of \Delta\theta are favored for LV4
+  + The planitude is roughly constant for 40, 45, 50, 55, 60, 65 in case of oiii-2004
+    + But does go up gradually for oiii-1993
++ But for ha, the values are jumping all over the place
++ The 2015 Ha image from Bally gives particularly bad results
++ [ ] I need to look at this all again sometime, and maybe change the points for the 2015 image - get rid of the double shell
+
+*** Bootstrapping the errors on arc fits for LV4
+#+BEGIN_SRC sh :eval no
+python ~/Dropbox/circle-fit/plot-bootstrap.py lv4-oiii-1993-pc-forma.reg ~/Dropbox/OrionHST-2012/Combine/f502n-allpc-align-rob_drz_sci.fits 75 0.5 bootstrap-lv4-oiii-1993-pc-75-05.pdf
+#+END_SRC
+
+#+BEGIN_SRC sh :eval no
+python ~/Dropbox/circle-fit/plot-bootstrap.py lv4-oiii-2004-acs-forma.reg ~/Dropbox/OrionHST-2012/Combine/fr505n-5007-align-rob_drz_sci.fits 75 0.5 bootstrap-lv4-oiii-2004-acs-75-05.pdf
+#+END_SRC
+
+Also do for 45, 60
+
+#+BEGIN_SRC sh :eval no
+python ~/Dropbox/circle-fit/plot-bootstrap.py lv4-oiii-1993-pc-forma.reg ~/Dropbox/OrionHST-2012/Combine/f502n-allpc-align-rob_drz_sci.fits 45 0.5 bootstrap-lv4-oiii-1993-pc-45-05.pdf
+#+END_SRC
+#+BEGIN_SRC sh :eval no
+python ~/Dropbox/circle-fit/plot-bootstrap.py lv4-oiii-1993-pc-forma.reg ~/Dropbox/OrionHST-2012/Combine/f502n-allpc-align-rob_drz_sci.fits 60 0.5 bootstrap-lv4-oiii-1993-pc-60-05.pdf
+#+END_SRC
+
