@@ -45,7 +45,7 @@ fraction of the points for each source
 
 
 if __name__ == '__main__':
-    sample_filename = 'LV-positions-new-will.reg'
+    sample_filename = 'LV-positions-2018-will.reg'
     nsamples = 10
     for isample in range(nsamples):
         sample_id = 'samp{:02d}'.format(isample)

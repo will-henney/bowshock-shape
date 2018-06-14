@@ -16,14 +16,14 @@ parser.add_argument('--proplyd', type=str, default='LV3',
                     help='choose a proplyd to work')
 parser.add_argument('--on-axis', action="store_true",
                     help='Force circle center to lie on star-proplyd axis')
-parser.add_argument('--tfit',type=float,default=45,help='upper theta value for fitting data')
+parser.add_argument('--tfit', type=float, default=45, help='upper theta value for fitting data')
 
 cmd_args = parser.parse_args()
 regionfile = cmd_args.region
 name, ext = regionfile.split('.')
 regfl_chsn = name.split('-')[1] + name.split('-')[-1]
 tfit = cmd_args.tfit
-
+sns.set_style("whitegrid")
 def calc_R(xc, yc):
     """ calculate the distance of each 2D points from the center (xc, yc) """
     return np.sqrt((x-xc)**2 + (y-yc)**2)
@@ -198,18 +198,10 @@ y_fit2 = yc_2 + R_2*np.sin(theta_fit)
 
 
 #***************************************************************************
-#We need two points to draw the R0 and Rc Line if on-axis
+#We need two points to draw the R0 and Rc. Better choose R0 always on axis
 xrcline, yrcline = xc_2 + R_2/np.sqrt(2.), yc_2 + R_2/np.sqrt(2.)
-delta = np.arctan2(yc_2,xc_2)
-if cmd_args.on_axis:
-    dth = 0.0
-    xr0line, yr0line = xc_2 + R_2, 0
-elif (delta<0.5*np.pi)and (delta> -0.5*np.pi):
-    dth = delta
-    xr0line,yr0line = xc_2 + R_2*np.cos(delta),yc_2+R_2*np.sin(delta)
-else:
-    dth = delta+np.pi
-    xr0line, yr0line = xc_2 + R_2*np.cos(delta+np.pi), yc_2 + R_2*np.sin(delta+np.pi)
+delta = np.arctan2(yc_2, xc_2)
+xr0line, yr0line = xc_2 + R_2, 0
 #***************************************************************************
 #Plotting data (normalized with R0)
 R0 = np.sqrt(xr0line**2+yr0line**2)
@@ -218,19 +210,19 @@ plt.plot(x/R0, y/R0, "o", label=r"{}: $D = {:.2f}''$".format(proplyd, D))
 #Plotting the circle fit
 plt.plot(x_fit2/R0, y_fit2/R0, 'k--', label="Circle fit to data", lw=2)
 plt.plot([xc_2/R0], [yc_2/R0], 'bx')#Drawing R0 and Rc:
-r0x,r0y = np.array([0,xr0line]),np.array([0,yr0line])
-rcx,rcy = np.array([xc_2,xrcline]),np.array([yc_2,yrcline])
-plt.plot(r0x/R0,r0y/R0,'g-',label = r"$R'_0/D' = {:.3f}$".format(R0))
-plt.plot(rcx/R0,rcy/R0,'m-',label = r"$R'_c/D' = {:.3f}$".format(R_2))
+r0x,r0y = np.array([0, xr0line]),np.array([0, yr0line])
+rcx,rcy = np.array([xc_2, xrcline]),np.array([yc_2, yrcline])
+plt.plot(r0x/R0, r0y/R0, 'g-', label=r"$R'_0/D'={:.3f}$".format(R0))
+plt.plot(rcx/R0, rcy/R0, 'm-', label=r"$\Pi'={:.3f}$".format(R_2))
 #***************************************************************************
 
 
-plt.annotate(r"$R'_0$",xy=(0.5*xr0line/R0,0.5*yr0line/R0),xytext=(20,-20),fontsize='x-small',
-    alpha=1.0,textcoords='offset points',ha ='right',va='bottom',
+plt.annotate(r"$R'_0$",xy=(0.5*xr0line/R0, 0.5*yr0line/R0), xytext=(20,-20), fontsize='x-small',
+    alpha=1.0,textcoords='offset points', ha ='right', va='bottom',
     bbox=dict(boxstyle='round,pad=0.5', fc='blue', alpha=0.5),
     arrowprops = dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
-plt.annotate(r"$R'_c$",xy=(0.5*(xc_2+xrcline)/R0,0.5*(yc_2+yrcline)/R0),xytext=(-20,20),
-    fontsize='x-small',alpha=1.0,textcoords = 'offset points',ha = 'left',va='top',
+plt.annotate(r"$\Pi'$", xy=(0.5*(xc_2+xrcline)/R0,0.5*(yc_2+yrcline)/R0), xytext=(-20, 20),
+    fontsize='x-small', alpha=1.0,textcoords = 'offset points', ha = 'left', va='top',
      bbox=dict(boxstyle='round,pad=0.5', fc='blue', alpha=0.5),
      arrowprops = dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
 # Proplyd position (at the origin in this frame)
@@ -247,8 +239,8 @@ plt.plot(0.0, 0.0, "rx", label=None)
 
 
 plt.legend(loc="lower left")
-plt.xlabel(r"$z'/R'_0$",fontsize = "large")
-plt.ylabel(r"$r'/R'_0$",fontsize = "large")
+plt.xlabel(r"$z'/R'_0$", fontsize = "large")
+plt.ylabel(r"$r'/R'_0$", fontsize = "large")
 
 #plt.grid()
 #plt.title("{} fit circle".format(proplyd))
@@ -259,9 +251,9 @@ ax = plt.gca()
 ax.set_aspect('equal', adjustable='box')
 
 if cmd_args.on_axis:
-    plotfile = "LV-bowshocks-xyfancy-onaxis-{}-{}.pdf".format(regfl_chsn,proplyd)
+    plotfile="LV-bowshocks-xyfancy-onaxis-{}-{}.pdf".format(regfl_chsn,proplyd)
 else:
-    plotfile = "LV-bowshocks-xyfancy-{}-{}.pdf".format(regfl_chsn, proplyd)
+    plotfile="LV-bowshocks-xyfancy-{}-{}.pdf".format(regfl_chsn, proplyd)
 plt.savefig(plotfile)
 
 
@@ -272,8 +264,7 @@ savedict = {
     'proplyd': proplyd,
     'D': D,
     'R0': R0,
-    'Rc': R_2,
-    'd theta': dth
+    'Rc': R_2
 }
 
 with open(savefile, 'w') as f:
