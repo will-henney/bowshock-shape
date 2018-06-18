@@ -1024,8 +1024,9 @@ Figure~\ref{fig:drift-gn}.
     \ref{eq:dust-wave-low-density-condition},
     \ref{eq:dust-wave-high-density-condition}). Heavy dashed lines in
     the left panel show where the rip point and the drag-free
-    turnaround radius coincide.  For dust waves below these lines,
-    drag forces are unimportant for the grains.  }
+    turnaround radius coincide.  Dust waves above these lines are drag
+    dominated, while dust waves below the lines are inertia dominated.
+  }
   \label{fig:existence-dust-wave}
 \end{figure*}
 
@@ -1160,8 +1161,8 @@ dragged back for a second approach.\footnote{If the initial impact
   parameter of the trajectory is not strictly \(b = 0\), then the
   resultant lateral component of \(f\rad\) will mean that \(b\) will
   be much increased for the second approach.} %
-From equations~(\ref{eq:Rdag-over-Rstar},
-\ref{eq:Rstarstar-over-Rstar},
+We will refer to this as an \textit{inertia-dominated dust wave}.  From
+equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
 \ref{eq:dust-wave-high-density-condition}), the condition
 \(R_\dag > R\starstar\) corresponds to
 \(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
@@ -1171,8 +1172,8 @@ by the gas carries the grain closer to the star than its inertia would
 naturally take it.  When the grain finally decouples at \(R_\dag\) it
 experiences a much higher unbalanced \(f\rad\), which can initially
 accelerate it to outward velocities significantly higher than the
-inflow velocity if \(R_\dag \ll R\starstar\).
-
+inflow velocity if \(R_\dag \ll R\starstar\).  We will refer to this case
+as a \textit{drag-dominated dust wave}.
 
 The post-decoupling behavior of the grain depends on the sign of
 \(d f\drag / d w\) when \(w = \abs{v_\infty}\).  If this derivative is
@@ -1209,7 +1210,7 @@ relevant to bow shocks around OB~stars.\footnote{%
   \citep{Weingartner:2006a} implies that grain potentials as high as
   \(\phi \sim 100\) can be achieved.} %
 
-An examples of each of these two behaviors is illustrated in
+An example of each of these two behaviors is illustrated in
 Figure~\ref{fig:phase-space-trajectories}.  The left panels show the
 case where \(v_\infty = \SI{40}{km.s^{-1}}\), which is in the unstable
 regime, resulting in periodic ``limit-cycle'' behavior (the parameters
@@ -1351,7 +1352,7 @@ stream velocity and grain and star properties, so that
 \(\tau_* \propto n^{1/2}\) (eq.~[\ref{eq:taustar-typical}]).  In order for
 \(R_{\text{dfbs}}\) to match the dust-wave and bow-wave radii at the
 point where they cross at \(\tau_* = \tau_{*, \text{max}}\), we find
-\(\alpha = 1.5\) is required.  It can be seen that the gas deceleration is
+\(\alpha \approx 1.5\) is required.  It can be seen that the gas deceleration is
 negligible over most of the density range for which a separate dust
 wave arises.  Only for \(n > \SI{e3}{cm^{-3}}\) does
 \(R_{\text{dfbs}}\) begin to curve up from the general \(n^{-1/2}\)
@@ -1361,17 +1362,80 @@ established at \(n > \SI{3e4}{cm^{-3}}\).  Note, however, that the
 treatment described here is very approximate: it does not take into
 account the shock that will form once \(J\drag\) reaches an
 appreciable fraction of \(m_{\text{gas}} v_\infty\) and, additionally, it
-includes a factor, \(\alpha\), whose appropriate value is unclear.  More
-detailed modeling is required to fully understand the bow behavior in
-this transition regime.
-
-
+includes a factor, \(\alpha\), whose value has not been rigorously
+justified.  More detailed modeling is required to fully understand the
+bow behavior in this transition regime.
 
 
 
 \subsubsection{Magnetic effects on grain trajectories }
 \label{sec:magn-effects-grain}
 
+An important effect that we have not considered up to now is the
+Lorentz force on charged grains due to the plasma's magnetic field:
+\begin{equation}
+  \label{eq:f-lorentz}
+  \bm{f}\!\B = \frac{z\grain e}{c} \, \bm{w} \times \bm{B} \ . 
+\end{equation}
+The direction of the force is perpendicular both to the magnetic
+field, \(\bm{B}\), and to the relative velocity, \(\bm{w}\), of the
+grain with respect to the plasma.  If \(\bm{w}\) and \(\bm{B}\) (as
+seen by the grain) are changing slowly, compared with the
+gyrofrequency, \(\omega\B = z\grain e B / m\grain c\), then the grain
+motion perpendicular to \(\bm{B}\) is constrained to be a circle of
+radius equal to the Larmor radius:
+\begin{equation}
+  \label{eq:Larmor}
+  r\B = \frac{m\grain c w_\perp} {\abs{z\grain} e B} \ ,
+\end{equation}
+where \(B = \abs{\bm{B}}\) and \(w_\perp\) is the perpendicular component
+of \(\bm{w}\).  The component of \(\bm{w}\) parallel to \(\bm{B}\) is
+unaffected by \(\bm{f}\!\B\), so the resultant trajectory is helical.
+
+The relative importance of the magnetic field can be characterized by
+the ratio of the Larmor radius to the minimum radius, \(\Rmin\),
+reached by the grain in the dust wave (see
+\S~\ref{sec:grain-traj-along}), where \(\Rmin \approx R_\dag\) for
+drag-dominated dust waves, or \(\Rmin \approx R\starstar\) for
+inertia-dominated dust waves.  We write the field strength in terms of
+the Alfvén speed,
+\begin{equation}
+  \label{eq:alfven}
+  v\alfven = \frac{B}{(4\pi\rho\gas)^{1/2}} \ ,
+\end{equation}
+and the grain charge \(z\grain e\) in terms of the potential \(\phi\) (eq.~[\ref{eq:phi-potential}]) to obtain
+\begin{equation}
+  \label{eq:larmor-over-Rdag}
+  \frac{r\B}{R_\dag} = 0.0140 \,
+  a_{\si{\um}}^2 \,
+  \frac{w_\perp}{v\alfven} \,
+  \left( \frac{\Xi_\dag}{L_4 T_4} \right)^{1/2}
+  \frac{\rho\grain}{\phi_\dag}
+\end{equation}
+and
+\begin{equation}
+  \label{eq:larmor-over-Rstarstar}
+  \frac{r\B}{R\starstar} = 0.0544 \,
+  a_{\si{\um}}^3 \,
+  \frac{w_\perp}{v\alfven} \,
+  \frac{v_{10}^2 }{n^{1/2}} \,
+  \frac{1}{L_4 T_4} \,
+  \frac{\rho\grain^2}{\Qp \phi\starstar} \ ,
+\end{equation}
+where \(a_{\si{\um}} = a / \SI{1}{\um}\), \(\rho\grain\) is the grain
+material density in \si{g.cm^{-3}}, and we have made use of
+equations~(\ref{eq:Rstar-typical}, \ref{eq:Rdag-over-Rstar},
+\ref{eq:dust-r0}).
+
+If \(r\B / \Rmin \ll 1\), then the grains are so strongly coupled to the
+field that they can be treated in the guiding-center approximation, in
+which the trajectory is decomposed into a tight circular gyromotion
+around the field lines, plus a sliding of the guiding center
+along the field lines, which is governed by the radiation and drag
+forces (we ignore the slow \(\bm{f} \times \bm{B}\) drift across the field
+lines).  In the opposite limit, \(r\B / \Rmin \gg 1\), magnetic coupling
+is so weak that the results of the previous sections are scarcely
+modified.
 
 
 \section{The case of inside-out bows}
