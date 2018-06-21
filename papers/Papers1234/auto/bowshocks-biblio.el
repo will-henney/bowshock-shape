@@ -125,6 +125,7 @@
     "Ng:2017a"
     "Weidenschilling:1977b"
     "Weingartner:2001b"
-    "Weingartner:2006a"))
+    "Weingartner:2006a"
+    "Arthur:2011a"))
  :bibtex)
 

@@ -1025,7 +1025,7 @@ Figure~\ref{fig:drift-gn}.
     \ref{eq:dust-wave-high-density-condition}). Heavy dashed lines in
     the left panel show where the rip point and the drag-free
     turnaround radius coincide.  Dust waves above these lines are drag
-    dominated, while dust waves below the lines are inertia dominated.
+    confined, while dust waves below the lines are inertia confined.
   }
   \label{fig:existence-dust-wave}
 \end{figure*}
@@ -1161,7 +1161,7 @@ dragged back for a second approach.\footnote{If the initial impact
   parameter of the trajectory is not strictly \(b = 0\), then the
   resultant lateral component of \(f\rad\) will mean that \(b\) will
   be much increased for the second approach.} %
-We will refer to this as an \textit{inertia-dominated dust wave}.  From
+We will refer to this as an \textit{inertia-confined dust wave}.  From
 equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
 \ref{eq:dust-wave-high-density-condition}), the condition
 \(R_\dag > R\starstar\) corresponds to
@@ -1173,7 +1173,7 @@ naturally take it.  When the grain finally decouples at \(R_\dag\) it
 experiences a much higher unbalanced \(f\rad\), which can initially
 accelerate it to outward velocities significantly higher than the
 inflow velocity if \(R_\dag \ll R\starstar\).  We will refer to this case
-as a \textit{drag-dominated dust wave}.
+as a \textit{drag-confined dust wave}.
 
 The post-decoupling behavior of the grain depends on the sign of
 \(d f\drag / d w\) when \(w = \abs{v_\infty}\).  If this derivative is
@@ -1396,12 +1396,13 @@ The relative importance of the magnetic field can be characterized by
 the ratio of the Larmor radius to the minimum radius, \(\Rmin\),
 reached by the grain in the dust wave (see
 \S~\ref{sec:grain-traj-along}), where \(\Rmin \approx R_\dag\) for
-drag-dominated dust waves, or \(\Rmin \approx R\starstar\) for
-inertia-dominated dust waves.  We write the field strength in terms of
+drag-confined dust waves, or \(\Rmin \approx R\starstar\) for
+inertia-confined dust waves.  We write the field strength in terms of
 the Alfvén speed,
 \begin{equation}
   \label{eq:alfven}
-  v\alfven = \frac{B}{(4\pi\rho\gas)^{1/2}} \ ,
+  v\alfven = \frac{B}{(4\pi\rho\gas)^{1/2}}
+  = 1.9\, \frac{B}{\si{\micro G}} n^{-1/2} \, \si{km.s^{-1}} \ ,
 \end{equation}
 and the grain charge \(z\grain e\) in terms of the potential \(\phi\) (eq.~[\ref{eq:phi-potential}]) to obtain
 \begin{equation}
@@ -1430,12 +1431,55 @@ equations~(\ref{eq:Rstar-typical}, \ref{eq:Rdag-over-Rstar},
 If \(r\B / \Rmin \ll 1\), then the grains are so strongly coupled to the
 field that they can be treated in the guiding-center approximation, in
 which the trajectory is decomposed into a tight circular gyromotion
-around the field lines, plus a sliding of the guiding center
-along the field lines, which is governed by the radiation and drag
-forces (we ignore the slow \(\bm{f} \times \bm{B}\) drift across the field
-lines).  In the opposite limit, \(r\B / \Rmin \gg 1\), magnetic coupling
-is so weak that the results of the previous sections are scarcely
-modified.
+around the field lines, plus a sliding of the guiding center along the
+field lines, which is governed by the radiation and drag forces (we
+ignore the slow \(\bm{f} \times \bm{B}\) drift across the field lines).  In
+the opposite limit, \(r\B / \Rmin \gg 1\), magnetic coupling is so weak
+that the results of the previous sections are scarcely modified.
+Assuming \(w_\perp \sim v_\infty\) and adopting a threshold of
+\(r\B / \Rmin < 0.1\), equations~(\ref{eq:larmor-over-Rdag},
+\ref{eq:larmor-over-Rstarstar}) can be transformed into conditions on
+the stream velocity (in \si{km.s^{-1}}) where tight magnetic coupling
+will apply:
+\newcommand\freeze{\ensuremath{_{\text{tight}}}}
+\begin{equation}
+  \label{eq:velocity-strong-B-coupling}
+  v_{\infty} < v\freeze \approx
+  \begin{cases}
+    \text{drag-confined:}
+    & 0.8 \, a_{\si{\um}}^{-2} \, v\alfven \, L_4^{1/2}\\
+    \text{inertia-confined:}
+    & 6 \, a_{\si{\um}}^{-1} \, v\alfven^{1/3} \, n^{1/6} \, L_4^{1/3} \\
+  \end{cases} \ ,
+\end{equation}
+where we have substituted typical values of the minor parameters
+\(\Xi_\dag\), \(\phi_{\dag}\), \(\phi_{**}\), \(\rho\grain\),
+\(T_4\).\footnote{%
+  The most significant systematic variation in \(v\freeze\) from these
+  suppressed parameters is due to grain composition, yielding slightly
+  higher values for graphite than for silicate (\SI{+-0.15}{dex}).} %
+It is apparent that \(v\freeze\) is very sensitive to the grain size.
+For instance, taking a typical \hii{} region value of
+\(v\alfven = \SI{2}{km.s^{-1}}\) \citep{Arthur:2011a} and
+\(L_4 = 0.63\) (Tab.~\ref{tab:stars}, B1.5~V star), then for the
+drag-confined case \(v\freeze \approx \SI{30}{km.s^{-1}}\) for \SI{0.2}{\um}
+grains but \(v\freeze \approx \SI{3000}{km.s^{-1}}\) for \SI{0.02}{\um}
+grains. Thus, for typical stream velocities of
+\SIrange{20}{100}{km.s^{-1}}, the small grains are always tightly
+coupled to the magnetic field, but the large grains are only loosely
+coupled for the faster streams.
+
+We now investigate how the results of the previous sections are
+modified by magnetic fields in the tight coupling limit.  For
+simplicity, we assume a uniform field in the incoming stream, with
+field lines oriented at an angle \(\theta\B\) to the velocity vector that
+defines the bow axis.  We also assume a super-alfvénic stream,
+\(v_\infty > v\alfven\), so that the radius, \(R_0\), of the wind bow shock
+is unaffected, and take \(t_* \ll \tau_{*, \text{max}}\), so that the
+back-reaction of the grain drag on the plasma is negligible (see
+previous section) and \(B\) remains uniform in magnitude and direction
+in the dust wave region, outside of the bow shock.
+
 
 
 \section{The case of inside-out bows}
