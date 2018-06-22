@@ -20,7 +20,9 @@
 \usepackage{enumerate}
 \usepackage{pdflscape}
 \usepackage{rotating}
+\usepackage{xr-hyper}
 \usepackage{hyperref}
+\externaldocument[Q-]{quadrics-bowshock}
 
 % Define a fermata symbol for use inline with text
 % 04 Jul 2017 WJH
@@ -68,6 +70,8 @@
 % Definitions needed in abstract
 \newcommand\hii{\ion{H}{ii}}
 
+\defcitealias{Tarango-Yong:2018a}{Paper~I}
+\newcommand\PaperI{\citetalias{Tarango-Yong:2018a}}
 
 
 \title[Stellar bow shocks]{Weather vanes and runaways: Bow
@@ -109,6 +113,7 @@
 \input{sec-obs-intro}
 \clearpage
 \input{sec-quadrics-observations}
+\input{sec-standing-wave}
 \input{sec-obs-conclusions}
 \clearpage
 \bibliographystyle{mnras}
