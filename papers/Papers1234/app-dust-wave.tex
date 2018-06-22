@@ -72,16 +72,21 @@ of closest approach, \(R\starstar\), given by energy conservation:
 \end{equation}
 where \(m\grain\) is the grain mass.  The grain then turns round and
 recedes from the source along the same radius, reaching a velocity of
-\(+v_\infty\) at large distance.  For \(b > 0\), the trajectory,
-\(R\grain(\theta; b)\), is found\footnote{%
+\(+v_\infty\) at large distance.  Note that \(R\starstar\) as given by
+equation~\eqref{eq:dust-r0} is the equivalent of
+equation~\eqref{eq:rad:R0}, except for a single grain considered in
+isolation, rather than a well-coupled dusty plasma.
+
+For \(b > 0\), the trajectory, \(R\grain(\theta; b)\), is
+found\footnote{%
   The problem is formally identical to that of Rutherford scattering,
   or (modulo a change of sign) planetary orbits.  The method of
   solution (via introduction of a centrifugal potential term and
   reduction to a 1-dimensional problem) can be found in any classical
   mechanics text \citep[e.g.,][\S~14]{Landau:1976a}.} %
 to be hyperbolic, characterized by an eccentricity,
-\(\varepsilon = \bigl( 1 + 4 b^2 / R\starstar^2\bigr)^{1/2}\), and polar angle of
-closest approach, \(\thm = \cos^{-1} \varepsilon^{-1}\).  The trajectory is
+\(\varepsilon = \bigl( 1 + 4 b^2 / R\starstar^2\bigr)^{1/2}\), and polar angle
+of closest approach, \(\thm = \cos^{-1} \varepsilon^{-1}\).  The trajectory is
 symmetrical about \(\thm\) and can be written as
 \begin{equation}
   \label{eq:dust-r-theta}
@@ -141,6 +146,73 @@ the resulting bow shape is more open than in the parallel stream case,
 increasingly so with increasing \(\mu\).  The planitude and alatude are
 both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
 
+\subsection{Tight magnetic coupling}
+\label{sec:tight-magn-coupl}
+
+As discussed in \S~\ref{sec:magn-effects-grain}, for small grains
+(\(a < \SI{0.1}{\um}\)) the Larmor magnetic gyration radius, \(r\B\)
+is typically small compared with other length scales of interest, and
+so the grains are effectively tied to the magnetic field lines.  In
+this approximation, we can calculate the grain dynamics in the
+drag-free limit using \(f\rad\) as the sole force as above, but this
+time allowing acceleration only along the field lines.  Assuming a
+uniform magnetic field, the only extra parameter needed is
+\(\theta\B\), the angle between the field direction and the direction of
+the dust stream (assumed to be plane parallel).  The radiation force
+will also produce an out-of-plane drift, given by
+\begin{equation}
+  \label{eq:perpendicular-drift}
+  \bm{v}_{\text{drift}} = \frac{c}{e z\grain} \, \frac{\bm{f}\!\rad \times \bm{B}}{B^2}
+  \ ,
+\end{equation}
+but from equations~(\ref{eq:Larmor}, \ref{eq:dust-rad-force},
+\ref{eq:dust-r0}) it follows that
+\begin{equation}
+  \label{eq:vdrift-over-vinfinity}
+  \frac{v_{\text{drift}}(R\starstar)}{v_\infty} = \frac{r\B}{2 R\starstar} \ ,
+\end{equation}
+so it is valid to ignore this drift in the limit of small \(r\B\).
+
+For \(\theta\B = 0\), the \(b = 0\) trajectory is identical to the
+non-magnetic case since the grain velocity and radiation force are
+both parallel to the field, which yields zero Lorentz force and zero
+\(\bm{f} \times \bm{B}\) drift. Therefore, the axial turnaround radius,
+\(R\starstar\), is still given by equation~\eqref{eq:dust-r0},
+whatever the value of \(r\B\).  For \(b > 0 \), \(f\rad\) has
+a component perpendicular to \(\bm{B}\), which will induce a helical
+gyromotion around the field lines, but the guiding center must move
+parallel to the axis if \(r\B \ll R\starstar\).  Thus, the guiding
+center motion can be found from conservation of potential plus kinetic
+energy in one dimension:
+\begin{equation}
+  \label{eq:parallel-energy-balance}
+  \frac{v^2}{v_\infty^2} + V\rad = 1 \ , 
+\end{equation}
+where \(V\rad\) is a suitably normalized radiation potential
+integrated along the field lines (\(x\) axis, where
+\(x = R \cos\theta = b \cot\theta\)):
+\begin{equation}
+  \label{eq:parallel-radiation-potential}
+  V\rad = R\starstar \int_x^\infty \frac{\cos\theta}{R^2}\, dx
+  = \frac{R\starstar\sin\theta}{b}
+  = \frac{R\starstar}{R} \ .
+\end{equation}
+From equation~\eqref{eq:parallel-energy-balance}, the trajectory must
+turn around when \(V\rad = 1\), and
+equation~\eqref{eq:parallel-radiation-potential} shows that this
+occurs at the same spherical radius, \(R = R\starstar\), for all
+impact parameters, \(b\), so that the inner boundary of the dust wave
+is hemispherical in shape:
+\begin{equation}
+  \label{eq:thB-0-shape}
+  \frac{R_{\text{in}}(\theta)} {R\starstar} = 1 \ ,
+\end{equation}
+with \(\Pi = \Lambda = 1\).  Note, however, that this only applies to
+streamlines with \(b \le R\starstar\).  For those with
+\(b > R\starstar\), the maximum \(V\rad\), which occurs at \(x = 0\),
+is smaller than unity, so that grains on these streamlines slow down
+as they go past the star, but then speed up again without turning
+round.
 
 
 \begin{figure}
@@ -175,6 +247,8 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
     sampling of the streamlines in the low density regions.}
   \label{fig:dust-wave-coupling}
 \end{figure*}
+
+
 
 
 \section{Toy model of dust wave with gas drag}

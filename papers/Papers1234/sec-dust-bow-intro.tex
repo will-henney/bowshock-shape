@@ -37,7 +37,7 @@ larger radius.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=\linewidth]{figs/bows-and-waves}
+  \includegraphics[width=0.8\linewidth]{figs/bows-and-waves}
   \caption{Bow shocks, bow waves, and dust waves}
   \label{fig:3-types-bow}
 \end{figure*}
@@ -172,15 +172,15 @@ brought to rest by radiation alone\footnote{%
   shocks, which are important as the velocity approaches the sound
   speed, \(\sound\) (in \S~XX below, we show that the resultant
   corrections to \(R_0\) are of order \(\sound / v_\infty\)).} %
-at a distance \(R_0\) where
+at a distance \(R\starstar\) where
 \begin{equation}
   \label{eq:rad-poten}
-  \int_{R_0}^\infty a_{\text{rad}} \, dr = \tfrac12 v_\infty^2 \ , 
+  \int_{R\starstar}^\infty a_{\text{rad}} \, dr = \tfrac12 v_\infty^2 \ , 
 \end{equation}
 yielding
 \begin{equation}
   \label{eq:rad:R0}
-  R_0 = \frac{\kappa L}{2\pi c v_\infty^2} \ .
+  R\starstar = \frac{\kappa L}{2\pi c v_\infty^2} \ .
 \end{equation}
 On the other hand, we can also argue as in the optically thick case
 above by approximating the bow shell as a surface, and balancing
@@ -194,7 +194,7 @@ equation~\eqref{eq:rad-press-balance-thick} is replaced with
   \frac{L (1 - e^{-\tau})}{4 \pi c R_0^2} = \rho v^2 \ .
 \end{equation}
 In the optically thin limit, \(1 - e^{-\tau} \approx \tau\), so these two
-descriptions can be seen to agree so long as
+descriptions can be seen to agree (\(R_0 \to R\starstar\)) so long as
 \begin{equation}
   \label{eq:tau-thin}
   \tau = 2 \kappa \rho R_0 \ ,
@@ -214,7 +214,11 @@ and adding in the stellar wind ram pressure\footnote{%
   always the case.} %
 from equation~\eqref{eq:wind-efficiency}, we find that the general bow
 radius can be written in terms of the fiducial radius as
-\(R_0 = x R_*\), where \(x\) is the solution of
+\begin{equation}
+  \label{eq:R0-definition}
+  R_0 = x R_* \ ,
+\end{equation}
+where \(x\) is the solution of
 \begin{equation}
   \label{eq:rad-full-x}
   x^2 - \bigl(1 - e^{-2 \tau_* x} \bigr) - \eta = 0 \ .
