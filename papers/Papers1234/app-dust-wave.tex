@@ -149,6 +149,14 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
 \subsection{Tight magnetic coupling}
 \label{sec:tight-magn-coupl}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/parallel-bfield-dust-wave-inertia}
+  \caption{Dust wave formed by action of radiation forces on grains
+    that are tightly coupled to a uniform parallel magnetic field.}
+  \label{fig:inertia-thB0}
+\end{figure}
+
 As discussed in \S~\ref{sec:magn-effects-grain}, for small grains
 (\(a < \SI{0.1}{\um}\)) the Larmor magnetic gyration radius, \(r\B\)
 is typically small compared with other length scales of interest, and
@@ -213,6 +221,27 @@ streamlines with \(b \le R\starstar\).  For those with
 is smaller than unity, so that grains on these streamlines slow down
 as they go past the star, but then speed up again without turning
 round.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/perp-bfield-dust-wave-inertia}
+  \caption{Dust wave formed by action of radiation forces on grains
+    that are tightly coupled to a uniform perpendicular magnetic
+    field.}
+  \label{fig:inertia-thB90}
+\end{figure}
+
+For \(\theta\B = \ang{90}\), the guiding center is forced to move at a
+constant speed in the \(x\) direction, so that \(x = -v_\infty t\), while
+the motion in the \(y\) direction obeys the ODE:
+\begin{equation}
+  \label{eq:ode-perp-bfield}
+  \frac{d^2 Y}{d X^2} = \frac{Y}{2 \left( X^2 + Y^2\right)^{3/2}} \ ,
+\end{equation}
+where \(X = x / R\starstar\) and \(Y = y / R\starstar\).  We have been
+unable to find an analytic solution to this equation, but a numerical
+solution is shown in Figure~\ref{fig:inertia-thB90}.
+
 
 
 \begin{figure}
@@ -358,12 +387,6 @@ the symmetry axis.
 \textit{Do the analytic solution for parallel case.  Discuss perp case too - see figure.}
 
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/perp-bfield-dust-wave-inertia}
-  \caption{Inertia-confined dust wave with perpendicular field}
-  \label{fig:inertia-thB90}
-\end{figure}
 
 First consider the limit of very small gyro-radius, which is the case
 when the Lorentz force is much larger than other forces acting on the
