@@ -93,7 +93,7 @@ symmetrical about \(\thm\) and can be written as
   \frac{R\grain(\theta; b)} {R\starstar} = 
   \frac{ \tfrac12 \bigl( \varepsilon^2 - 1 \bigr)} {\varepsilon \cos(\theta - \thm) - 1} \ , 
 \end{equation}
-with a total deflection angle of \(2 \thm\), which is equal to
+with a total deflection angle of \(\ang{180} - 2 \thm\), which is equal to
 \ang{90} when \(b = 0.5 R\starstar\).
 
 \subsection{Parallel dust stream}
@@ -153,7 +153,12 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
   \centering
   \includegraphics[width=\linewidth]{figs/parallel-bfield-dust-wave-inertia}
   \caption{Dust wave formed by action of radiation forces on grains
-    that are tightly coupled to a uniform parallel magnetic field.}
+    that are tightly coupled to a uniform parallel magnetic field.
+    Two example trajectories, one with \(b > R\starstar\) (upper) and
+    one with \(b < R\starstar\) (lower) are shown schematically in
+    orange.  The orientation of the magnetic field lines is shown in
+    blue.  The grayscale image shows the resultant dust density
+    distribution.}
   \label{fig:inertia-thB0}
 \end{figure}
 
@@ -181,6 +186,18 @@ but from equations~(\ref{eq:Larmor}, \ref{eq:dust-rad-force},
 \end{equation}
 so it is valid to ignore this drift in the limit of small \(r\B\).
 
+We now calculate in detail the grain trajectories in this limit for
+two cases, with the magnetic field oriented parallel and perpendicular
+to the stream\footnote{In both cases, the stream trajectories are
+  assumed parallel to one another, as in \S~\ref{sec:dust-parallel}.}
+direction, respectively. These are sufficient to give a flavor of the
+effects of a magnetic field on the dust wave structure.  Further
+models at intermediate angles, and which also include the effects of
+gas drag, are shown in \S~\ref{sec:magn-effects-grain}.
+
+\subsubsection{Parallel magnetic field}
+\label{sec:parall-magn-field}
+
 For \(\theta\B = 0\), the \(b = 0\) trajectory is identical to the
 non-magnetic case since the grain velocity and radiation force are
 both parallel to the field, which yields zero Lorentz force and zero
@@ -196,8 +213,8 @@ energy in one dimension:
   \label{eq:parallel-energy-balance}
   \frac{v^2}{v_\infty^2} + V\rad = 1 \ , 
 \end{equation}
-where \(V\rad\) is a suitably normalized radiation potential
-integrated along the field lines (\(x\) axis, where
+where \(V\rad\) is a suitably normalized potential of the projected
+radiation force along the field lines (\(x\) axis, where
 \(x = R \cos\theta = b \cot\theta\)):
 \begin{equation}
   \label{eq:parallel-radiation-potential}
@@ -222,6 +239,24 @@ is smaller than unity, so that grains on these streamlines slow down
 as they go past the star, but then speed up again without turning
 round.
 
+The grain density of the inflowing stream follows from mass continuity as:
+\begin{equation}
+  \label{eq:thB-0-density}
+  n\grain(R) = \frac{n \bar{m} Z\grain}{m\grain} \left( 1 - R^{-1} \right)^{-1/2} \ ,
+\end{equation}
+where for simplicity we assume a single grain species of mass
+\(m\grain\) and dust-gas ratio \(Z\grain\). The outflowing stream has
+exactly the same velocity profile as the inflowing one, apart from a
+change of sign for those streamlines that turn round.  Therefore, in
+the region where the two streams co-exist (\(y \le R\starstar\),
+\(x > 0\), and \(R > R\starstar\)), the total density is double that
+given by equation~\eqref{eq:thB-0-density}.  This is illustrated in
+Figure~\ref{fig:inertia-thB0}.
+
+\subsubsection{Perpendicular magnetic field}
+\label{sec:perp-magn-field}
+
+
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/perp-bfield-dust-wave-inertia}
@@ -230,6 +265,7 @@ round.
     field.}
   \label{fig:inertia-thB90}
 \end{figure}
+
 
 For \(\theta\B = \ang{90}\), the guiding center is forced to move at a
 constant speed in the \(x\) direction, so that \(x = -v_\infty t\), while
@@ -240,270 +276,28 @@ the motion in the \(y\) direction obeys the ODE:
 \end{equation}
 where \(X = x / R\starstar\) and \(Y = y / R\starstar\).  We have been
 unable to find an analytic solution to this equation, but a numerical
-solution is shown in Figure~\ref{fig:inertia-thB90}.
-
-
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/dust-coupling-1d}
-  \caption{Dust-gas coupling for an on-axis (purely radial)
-    trajectory.  (a)~Grain radial position, \(R/R\starstar\), gas--grain
-    velocity difference, \(w/v_\infty\), and local asymptotic drift
-    velocity, \(w\drift/v_\infty\), versus time for
-    \(\alpha\drag = 0.5\).  The behavior is typical of the dynamics of a
-    damped harmonic oscillator. (b)~Phase space (position, velocity)
-    trajectories for \(\alpha\drag = 0\), 0.5, and 2. All trajectories
-    begin in the lower right corner and evolve in a clockwise
-    direction. For \(\alpha\drag > 0\), the grain spirals in on the point
-    \((x, u) = (\alpha\drag^{-1}, 0)\).}
-  \label{fig:dust-coupling-1d}
-\end{figure}
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{figs/dust-couple-stream-annotate}
-  \caption{Dust grain trajectories under influence of gas drag in
-    addition to a repulsive central radiative force.  The dust
-    streamlines are shown as black lines with arrows and the dust
-    density as a linear gray scale, with maximum (black) of twice the
-    ambient dust density.  Results are shown for four values of the
-    drag parameter (see text): \(\alpha_\text{drag} = 0.25\), \(0.5\),
-    \(1.0\), and \(2.0\). The shape of the bow wave for the drag-free
-    case (Fig.~\ref{fig:dust-trajectories}) is shown by the thick
-    dotted line.  Faint patterns visible in the density away from the
-    bow wave are numerical aliasing artefacts caused by sparse
-    sampling of the streamlines in the low density regions.}
-  \label{fig:dust-wave-coupling}
-\end{figure*}
-
-
-
-
-\section{Toy model of dust wave with gas drag}
-\label{sec:bow-wave-drag}
-More realistically, a grain will also be subject to a drag force,
-\(f\drag\), due to its relative motion with respect to gas or plasma
-particles. If the gas density, velocity, and sound speed are
-\(\rho\gas\), \(v\gas\), and \(\soundspeed\), then a grain with velocity
-\(v\grain\) will experience a drag force that is directed opposite to
-the relative velocity, \(\bm{w} = \bm{v}\grain - \bm{v}\gas\).  In the
-supersonic limit, \(w \equiv \abs{\bm{w}} \gg \soundspeed\), the magnitude of
-the force is
-\begin{equation}
-  \label{eq:dust-fdrag}
-  \abs{f\drag} \approx Q\drag \xsec \rho\gas w^2 \ ,
-\end{equation}
-where \(Q\drag\) is an efficiency factor (which may be smaller or
-greater than unity) that accounts for details such as sticking
-probability and the boost in cross section due to the Coulomb force
-when a charged grain interacts with an ionized plasma
-\citep{Draine:1979a}.  We neglect the back reaction of the dust on the
-gas motion and assume a uniform background gas flow that is perfectly
-coupled to the incoming dust stream at large radii.  So, for the
-parallel stream case, we have \(\bm{v}\gas = -v_\infty \uvec{x}\) everywhere.
-
-Considering the incoming flow on the symmetry axis, at each radius
-there is an asymptotic gas--grain drift speed, \(w\drift\), for which
-the radiative and drag forces exactly cancel, \(f\drag = -\frad\),
-yielding
-\begin{equation}
-  \label{eq:dust-wdrift}
-  w\drift = \left( \frac{\Qp L} {4\pi c Q\drag \rho\gas R^2} \right)^{1/2} \ .
-\end{equation}
-Any deviation of \(w\) from \(w\drift\) produces unbalanced forces
-that tend to restore \(w \to w\drift\), although the grain inertia means
-that this will not happen instantaneously, so that if \(w\drift\)
-varies rapidly along a streamline, then changes in \(w\) will lag
-behind.  We define a dimensionless coupling coefficient,
-\(\alpha\drag\), to be the speed of the incoming stream in units of the
-drift velocity at the radiative turn-around radius:
-\begin{equation}
-  \label{eq:dust-alpha}
-  \alpha\drag \equiv \frac{v_\infty} {w\drift(R\starstar)} = \left(
-    Q\drag \frac{R\starstar / a\grain} {\rho\grain / \rho\gas}
-  \right)^{1/2} \ ,
-\end{equation}
-where we have used equation~\eqref{eq:dust-r0} and suppressed a
-grain-shape dependent geometric factor of order unity.  If
-\(\alpha\drag \ll 1\), then \(w\drift \gg v_\infty\) out to several times the
-turn-around radius, so the radiation field has no difficulty in
-effectively decoupling the grain from the gas and producing the
-velocity difference that is required to turn the grain around and
-expel it towards the direction whence it came (\(w = 2 v_\infty\)).
-However, for non-zero \(\alpha\drag\) the \(R^{-1}\) dependence of
-\(w\drift\) (eq.~\eqref{eq:dust-wdrift}) means that the grain will
-\textit{re-couple} to the inflowing gas stream around a radius
-\(\approx R\starstar / \alpha\drag \) and be swept back in again for another approach to
-the source.  A further effect of increasing \(\alpha\drag\) is that the
-grain penetrates closer to the star on its initial approach, thanks to
-the tail wind provided by the gas flow.  Both these behaviors are
-illustrated in Figure~\ref{fig:dust-coupling-1d}, where the inertial
-lag of \(w\) behind \(w\drift\) means that the phase space trajectory
-(panel b) is a spiral, which converges on the stagnation point
-\((R, v) = (R\starstar / \alpha\drag, 0)\). The cases \(\alpha\drag = 0.5\) and
-\(\alpha\drag = 2\) are shown, and it can be seen that with larger
-\(\alpha\drag\) the oscillations about the stagnation radius are
-significantly damped.
-
-However, this description only applies to grains with impact
-parameter, \(b\), that is exactly zero.  Even a very small finite
-\(b\) means that \(\frad\) has a component perpendicular to the axis,
-which pushes the grain to the side and means that, after re-coupling,
-its second approach is at a much larger impact parameter than its
-first, so it is dragged around the wings of the bow wave before it can
-bounce in and out more than twice.  This is illustrated in
-Figure~\ref{fig:dust-wave-coupling}, which shows grain trajectories
-and the resulting dust density structure, calculated from numerical
-integration of equations~\eqref{eq:dust-rad-force}
-and~\eqref{eq:dust-fdrag} in 2-D cylindrical coordinates.  Results are
-shown for a range of coupling parameters, \(\alpha\drag\).  The
-\(\alpha\drag = 0.25\) case appears qualitatively similar to the no-drag
-case shown in Figure~\ref{fig:dust-trajectories}a, except that the
-inner edge of the bow wave has been shifted to a smaller radius.
-Recoupling of the outgoing streamlines to the gas flow does occur
-eventually, but on length scales larger than shown in the figure. The
-\(\alpha\drag = 0.5\) case shows the oscillating trajectories discussed
-above for those grains that come in with a small initial impact
-parameter.  In the \(\alpha\drag = 1.0\) case, the oscillating trajectories
-are more confined, forming a thick shell around \(R\starstar\).  In the
-\(\alpha\drag = 2.0\) case, the shell is much thinner and concentrated at
-the inner rim.  As \(\alpha\drag\) increases, the oscillations are damped
-further so that the stagnation radius \(R\starstar / \alpha\drag\) becomes a good
-approximation to the apex radius of the density wave.  All the cases
-illustrated are for a parallel incident stream, but a divergent stream
-gives qualitatively similar behavior, as shown in
-Appendix~\ref{sec:equat-moti-grains}.  We propose the term
-\textit{dragoid} for the 3-dimensional shapes of the bow waves, found
-by rotating results such as Figure~\ref{fig:dust-wave-coupling} about
-the symmetry axis.
-
-
-\section{Dust wave with magnetic field}
-\label{sec:bow-wave-with}
-
-\newcommand\Larmor{\ensuremath{_{\text{L}}}}
-
-\textit{Do the analytic solution for parallel case.  Discuss perp case too - see figure.}
-
-
-
-First consider the limit of very small gyro-radius, which is the case
-when the Lorentz force is much larger than other forces acting on the
-grain. The grains will then follow tightly wound helical paths around
-the magnetic field lines, which can be decomposed into a circular
-motion of radius \(r\Larmor\) plus the motion if the \textit{guiding
-  center} along the field line.  The motion of the guiding center is
-explicitly followed by accounting for the components parallel to the
-field lines of the radiative and drag forces, whereas forces
-perpendicular to the field lines, which would only effect the circular
-motion are ignored in the first instance (but see \S~XXX below).
-
-\begin{figure}
-  
-  \includegraphics[width=0.8\linewidth]{figs/dust-bfield-stream-b15-z0000}
-  \includegraphics[width=0.8\linewidth]{figs/dust-bfield-stream-b45-z0000}
-  \includegraphics[width=0.8\linewidth]{figs/dust-bfield-stream-b75-z0000}
-  \caption{Grain trajectories for magnetised dust waves in the limit
-    of no gas drag and small gyro-radius. }
-  \label{fig:magnetic-dust-waves}
-\end{figure}
-
-
-\begin{figure*}
-  \includegraphics[width=\linewidth]{figs/multi-view-dust-bfield-15}
-  \caption{xxx}
-  \label{fig:projected-magnetic-dust-waves-15}
-\end{figure*}
-\begin{figure*}
-  \includegraphics[width=\linewidth]{figs/multi-view-dust-bfield-45}
-  \caption{xxx}
-  \label{fig:projected-magnetic-dust-waves-45}
-\end{figure*}
-\begin{figure*}
-  \includegraphics[width=\linewidth]{figs/multi-view-dust-bfield-75}
-  \caption{xxx}
-  \label{fig:projected-magnetic-dust-waves-75}
-\end{figure*}
-
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{figs/dust-lorentz-stream-3d-turb-b90-L2000-Ma0100-Z+000}
-  \includegraphics[width=\linewidth]{figs/dust-lorentz-stream-3d-turbz-b90-L2000-Ma0100-Y+000}
-  \caption{Streamlines in three dimensions of resolved gyro-radius }
-  \label{fig:stream-3d}
-\end{figure}
-
-\subsection{Resolved Larmor radius}
-\label{sec:resolv-larm-radi}
-
-
-
-\section{Applicability of the dust wave models}
-\label{sec:dust-applicability}
-
-The apex turn-around radius, \(R\starstar\), of the bow wave depends on the
-grain properties via the combination \(\xsec \Qp / m\grain\).  For
-grains of size \(a\grain\) and internal density \(\rho\grain\), we have
-\(\xsec / m\grain \approx (a\grain \rho\grain)^{-1}\).  For radiation with
-wavelength smaller than the grain size, \(\lambda < a\grain\), the
-efficiency is \(\Qp \sim 1\), whereas for \(\lambda > a\grain\) it is
-\(\Qp \sim a\grain/\lambda\).  Therefore, we would expect \(R\starstar\) to be almost
-independent of grain size for small grains, but to vary as
-\(R\starstar \propto a\grain^{-1}\) for large grains, where small/large is relative
-to the peak wavelength of the radiation source.  In principle, a
-polydisperse population of grains could produce a blurring of the
-observed bow wave, but only if large grains contribute significantly
-to the dust emission.
-
-
-\TODO{Variation of \(\alpha\drag\) with grain size, charged grains.}
-
-\TODO{Lorentz force, Larmor radius}
-
-\TODO{Back-reaction on gas, \(\alpha\drag \to \infty\), recovery of drag-free
-  result for \(R_0\) but with increased effective grain mass.}
-
-\section{Apparent shapes of projected dragoids}
-\label{sec:dust-wave-apparent}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/test_xyprime_dragoid}
-  \caption{Apparent bow shapes in the plane of the sky for
-    parallel-stream dragoids as a function of inclination angle.  Drag
-    coefficient, \(\alpha\drag\) increases from top-left to bottom-right.
-    Inclination \(\abs{i}\) is shown in \ang{15} increments, indicated
-    by line color and thickness (see key).}
-  \label{fig:dragoid-xy-prime}
-\end{figure}
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/test_xyprime_div_dragoid}
-  \caption{As Fig.~\ref{fig:dragoid-xy-prime} but for divergent stream
-    dragoids.  Drag coefficient increases from top to bottom, while
-    degree of divergence increases from left to right. }
-  \label{fig:dragoid-div-xy-prime}
-\end{figure}
-
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/dragoid-R90-vs-Rc}
-  \caption{Apparent projected shapes of dragoids in the
-    \(\Pi'\)--\(\Lambda'\) plane. Colored symbols indicate the
-    \(\abs{i} = 0\) position for selected models (see key).  Thin
-    lines show the inclination-dependent tracks of each model, with
-    tick marks along each track for 20 equal-spaced values of
-    \(\abs{\sin i}\). Gray shaded regions are as in
-    Fig.~\ref{Q-fig:quadric-projection-continued}a of \PaperI{}.  The
-    wilkinoid track is shown in white. }
-  \label{fig:dragoid-Rc-R90}
-\end{figure}
-
-
-\section{Shape and structure of bow waves}
-\label{sec:shape-bow-wave}
+solution is shown in Figure~\ref{fig:inertia-thB90}.  When the impact
+parameter is larger than \(b \sim R\starstar\), the trajectories are very
+similar to in the non-magnetic case
+(Fig.~\ref{fig:dust-trajectories}a).  As shown in
+Figure~\ref{fig:inertia-thB90}b, the interaction of the grain with the
+radiation field in this large-\(b\) regime can be approximated as an
+impulsive acceleration of magnitude \(\sim b^{-2}\) and duration
+\(\sim b\), producing a final \(y\) velocity of \(\sim b^{-1}\).  Since the
+\(x\) velocity is constant, the total deflection angle is also of
+order \(\sim b^{-1}\).  The overlap of the outgoing trajectories produces
+a dense concentration of grains at the inner edge, which is roughly
+parabolic in shape.  However, for \(b < R\starstar\) the remorseless
+advance of the magnetic field does not allow the grains to slow down
+and turn round, as they do in the non-magnetic and parallel-field
+cases.  As a result, no dense shell forms in the apex region, but
+instead there is a diffuse minimum in the density of grains around the
+star due to the high grain velocities reached there.  This means that
+the apparent morphology of a pure dust wave becomes very sensitive to
+the radial dependence of the grain emissivity.  If this is
+sufficiently steep, then the apex would coincide with the position of
+the star, although in practice the presence of a wind-supported bow
+shock, however small, will complicate the picture.
 
 
 

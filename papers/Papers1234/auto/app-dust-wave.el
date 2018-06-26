@@ -8,8 +8,6 @@
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
-   (TeX-add-symbols
-    "Larmor")
    (LaTeX-add-labels
     "sec:gas-free-bow"
     "fig:dust-trajectories"
@@ -25,29 +23,13 @@
     "fig:inertia-thB0"
     "eq:perpendicular-drift"
     "eq:vdrift-over-vinfinity"
+    "sec:parall-magn-field"
     "eq:parallel-energy-balance"
     "eq:parallel-radiation-potential"
     "eq:thB-0-shape"
+    "eq:thB-0-density"
+    "sec:perp-magn-field"
     "fig:inertia-thB90"
-    "eq:ode-perp-bfield"
-    "fig:dust-coupling-1d"
-    "fig:dust-wave-coupling"
-    "sec:bow-wave-drag"
-    "eq:dust-fdrag"
-    "eq:dust-wdrift"
-    "eq:dust-alpha"
-    "sec:bow-wave-with"
-    "fig:magnetic-dust-waves"
-    "fig:projected-magnetic-dust-waves-15"
-    "fig:projected-magnetic-dust-waves-45"
-    "fig:projected-magnetic-dust-waves-75"
-    "fig:stream-3d"
-    "sec:resolv-larm-radi"
-    "sec:dust-applicability"
-    "sec:dust-wave-apparent"
-    "fig:dragoid-xy-prime"
-    "fig:dragoid-div-xy-prime"
-    "fig:dragoid-Rc-R90"
-    "sec:shape-bow-wave"))
+    "eq:ode-perp-bfield"))
  :latex)
 
