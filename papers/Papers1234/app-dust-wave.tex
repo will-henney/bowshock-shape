@@ -262,7 +262,31 @@ Figure~\ref{fig:inertia-thB0}.
   \includegraphics[width=\linewidth]{figs/perp-bfield-dust-wave-inertia}
   \caption{Dust wave formed by action of radiation forces on grains
     that are tightly coupled to a uniform perpendicular magnetic
-    field.}
+    field.  (a)~Sample trajectories are shown by thin black lines and
+    the resultant dust density distribution in grayscale.  Two
+    parabolic fits to the inner edge of the dust wave in the wing
+    region (\(y > R\starstar\)) are shown. The orange line shows a
+    simultaneous fit to both wings, while the green line shows a fit
+    to a single wing, in which the parabola apex is not constrained to
+    lie on the axis.  The second fit has much smaller residuals,
+    indicating that the overall dust wave shape is ``pointier'' than a
+    parabola, but this is hard to quantify because the disappearance
+    of the dense shell in the apex region makes it impossible to
+    define \(R_0\) for the bow.  (b)~Trajectory parameters over a wide
+    range of impact parameters, shown on a log--log scale. Distances
+    are in units of \(R\starstar\), times in units of
+    \(R\starstar / v_\infty\), velocities in units of \(v_\infty\), and
+    accelerations in units of \(v_\infty^2 / R\starstar\). The grain's
+    acceleration along the \(y\) axis has a maximum value,
+    \(a_{\text{max}}\), which occurs at a position
+    \(x(a_{\text{max}}), y(a_{\text{max}})\), just before the grain is
+    swept past the star, with a duration (FWHM) of \(\Delta t\).  The
+    grain's asymptotic \(y\) velocity is \(v_{\text{final}}\) and the
+    fact that this closely tracks \(a_{\text{max}} \times \Delta t\) indicates
+    that the majority of the acceleration occurs in a sharp impulse.
+    The curves tend to straight lines at the right side of the graph,
+    which gives the asymptotic scaling relations discussed in the
+    text.}
   \label{fig:inertia-thB90}
 \end{figure}
 
@@ -272,13 +296,13 @@ constant speed in the \(x\) direction, so that \(x = -v_\infty t\), while
 the motion in the \(y\) direction obeys the ODE:
 \begin{equation}
   \label{eq:ode-perp-bfield}
-  \frac{d^2 Y}{d X^2} = \frac{Y}{2 \left( X^2 + Y^2\right)^{3/2}} \ ,
+  \frac{d^2 y}{d x^2} = \tfrac12 R\starstar  \,
+  y \, \bigl( x^2 + y^2\bigr)^{-3/2} \ .
 \end{equation}
-where \(X = x / R\starstar\) and \(Y = y / R\starstar\).  We have been
-unable to find an analytic solution to this equation, but a numerical
-solution is shown in Figure~\ref{fig:inertia-thB90}.  When the impact
-parameter is larger than \(b \sim R\starstar\), the trajectories are very
-similar to in the non-magnetic case
+We have been unable to find an analytic solution to this equation, but
+a numerical solution is shown in Figure~\ref{fig:inertia-thB90}.  When
+the impact parameter is larger than \(b \sim R\starstar\), the
+trajectories are very similar to in the non-magnetic case
 (Fig.~\ref{fig:dust-trajectories}a).  As shown in
 Figure~\ref{fig:inertia-thB90}b, the interaction of the grain with the
 radiation field in this large-\(b\) regime can be approximated as an
