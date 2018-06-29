@@ -1005,6 +1005,34 @@ parameters, which are of order \SI{+- 0.5}{dex}, are listed in
 Table~\ref{tab:Xi-rip} and illustrated graphically in
 Figure~\ref{fig:drift-gn}.
 
+What happens to the dust grain following this catastrophic breakdown
+of gas--grain coupling depends on the relation between the rip point
+radius, \(R_\dag\), and the drag-free radiative turnaround radius,
+\(R\starstar\).  If \(R_\dag > R\starstar\), then the grain's inertia
+will still carry it in as far as \(R\starstar\) and the initial
+trajectory will be almost identical to that described in
+Appendix~\ref{sec:gas-free-bow} for the drag-free case. However, after
+being turned around by the radiation field and pushed out past
+\(R_\dag\) again, the grain will \emph{recouple} to the gas and be
+dragged back for a second approach.\footnote{If the initial impact
+  parameter of the trajectory is not strictly \(b = 0\), then the
+  resultant lateral component of \(f\rad\) will mean that \(b\) will
+  be much increased for the second approach.} %
+We will refer to this as an \textit{inertia-confined dust wave}.  From
+equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
+\ref{eq:dust-wave-high-density-condition}), the condition
+\(R_\dag > R\starstar\) corresponds to
+\(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
+lines in the left panel of Figure~\ref{fig:existence-dust-wave}.  If,
+on the other hand, \(R_\dag < R\starstar\), then the tail wind provided
+by the gas carries the grain closer to the star than its inertia would
+naturally take it.  When the grain finally decouples at \(R_\dag\) it
+experiences a much higher unbalanced \(f\rad\), which can initially
+accelerate it to outward velocities significantly higher than the
+inflow velocity if \(R_\dag \ll R\starstar\).  We will refer to this case
+as a \textit{drag-confined dust wave}.
+
+
 \begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/existence-dust-wave}
@@ -1035,11 +1063,11 @@ Figure~\ref{fig:drift-gn}.
 \subsubsection{Existence conditions for dust waves}
 \label{sec:exist-cond-separ}
 
-In order for a separate dust wave to exist, it is necessary for the
-grains to decouple from the incoming gas stream before the stream hits
-the hydrodynamic bow shock caused by the stellar wind.  The radius of
-the rip point, \(R_\dag\), can be expressed in terms of \(R_*\), the
-fiducial optically thick bow shock radius introduced in
+In order for a separate outer dust wave to exist, it is necessary for
+the grains to decouple from the incoming gas stream before the stream
+hits the hydrodynamic bow shock caused by the stellar wind.  The
+radius of the rip point, \(R_\dag\), can be expressed in terms of
+\(R_*\), the fiducial optically thick bow shock radius introduced in
 \S~\ref{sec:strong-gas-grain}:
 \begin{equation}
   \label{eq:Rdag-over-Rstar}
@@ -1115,7 +1143,22 @@ Figure~\ref{fig:existence-dust-wave} for each of the three example
 main sequence stars from Table~\ref{tab:stars}.  Further restrictions
 on the existence of dust waves arise when the effects of magnetic
 fields are considered, as will be discussed in
-\S~\ref{sec:magn-effects-grain} below.
+\S~\ref{sec:magn-effects-grain} below.  Note that the three conditions
+are restrictions solely on the formation of an \textit{outer} dust
+wave, that is, outside of the wind-supported hydrodynamic bow shock.
+In the case of the equation~\eqref{eq:dust-wave-low-density-condition}
+condition, there is a further possibility: if the gas--grain coupling
+(and magnetic coupling) is so weak that it is still unimportant at the
+higher densities found in the bow shock shell, then an
+inertia-confined \textit{inner} dust wave may form inside the bow
+shock, even when \(t_* < \tau_{*,\text{min}}\).  Although the same might
+be thought to apply to the condition of
+equation~\eqref{eq:dust-wave-velocity-condition}, this is not the
+case, since the density compression in the bow shock will reduce the
+radiation parameter, \(\Xi\), which moves the rip point, \(R_\dag\), to an
+even smaller radius.  Therefore, if radiation has not managed to
+decouple a grain before it passes through the shock, it is unlikely to
+be able to do it afterwards.
 
 \begin{figure*}
   \centering
@@ -1149,33 +1192,6 @@ fields are considered, as will be discussed in
 
 \subsubsection{Grain trajectories along the symmetry axis}
 \label{sec:grain-traj-along}
-
-What happens to the dust grain following this catastrophic breakdown
-of gas--grain coupling depends on the relation between the rip point
-radius, \(R_\dag\), and the drag-free radiative turnaround radius,
-\(R\starstar\).  If \(R_\dag > R\starstar\), then the grain's inertia
-will still carry it in as far as \(R\starstar\) and the initial
-trajectory will be almost identical to that described in
-Appendix~\ref{sec:gas-free-bow} for the drag-free case. However, after
-being turned around by the radiation field and pushed out past
-\(R_\dag\) again, the grain will \emph{recouple} to the gas and be
-dragged back for a second approach.\footnote{If the initial impact
-  parameter of the trajectory is not strictly \(b = 0\), then the
-  resultant lateral component of \(f\rad\) will mean that \(b\) will
-  be much increased for the second approach.} %
-We will refer to this as an \textit{inertia-confined dust wave}.  From
-equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
-\ref{eq:dust-wave-high-density-condition}), the condition
-\(R_\dag > R\starstar\) corresponds to
-\(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
-lines in the left panel of Figure~\ref{fig:existence-dust-wave}.  If,
-on the other hand, \(R_\dag < R\starstar\), then the tail wind provided
-by the gas carries the grain closer to the star than its inertia would
-naturally take it.  When the grain finally decouples at \(R_\dag\) it
-experiences a much higher unbalanced \(f\rad\), which can initially
-accelerate it to outward velocities significantly higher than the
-inflow velocity if \(R_\dag \ll R\starstar\).  We will refer to this case
-as a \textit{drag-confined dust wave}.
 
 The post-decoupling behavior of the grain depends on the sign of
 \(d f\drag / d w\) when \(w = \abs{v_\infty}\).  If this derivative is
@@ -1335,7 +1351,7 @@ equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
 \ref{eq:gas-mass}) is
 \begin{equation}
   \label{eq:gas-dv}
-  \Delta v = \tfrac12 \alpha \frac{\tau_*}{\tau_{*, \text{max}}} \ .
+  \Delta v = \tfrac12 \alpha \frac{\tau_*}{\tau_{*, \text{max}}} v_\infty\ .
 \end{equation}
 This deceleration reduces the gas stream's ram pressure before it
 interacts with the central star's stellar wind.  The radius of the
@@ -1466,16 +1482,16 @@ If \(r\B / \Rmin \ll 1\), then the grains are so strongly coupled to the
 field that they can be treated in the guiding-center approximation, in
 which the trajectory is decomposed into a tight circular gyromotion
 around the field lines, plus a sliding of the guiding center along the
-field lines, which is governed by the radiation and drag forces (we
-ignore the slow \(\bm{f} \times \bm{B}\) drift across the field lines).  In
-the opposite limit, \(r\B / \Rmin \gg 1\), magnetic coupling is so weak
-that the results of the previous sections are scarcely modified.
-Assuming \(w_\perp \sim v_\infty\) and adopting a threshold of
+field lines, which is governed by the radiation and drag forces (the
+slow \(\bm{f} \times \bm{B}\) drift across the field lines is negligible in
+this case, see App.~\ref{sec:tight-magn-coupl}).  In the opposite
+limit, \(r\B / \Rmin \gg 1\), magnetic coupling is so weak that the
+results of the previous sections are scarcely modified.  Assuming
+\(w_\perp \sim v_\infty\) and adopting a threshold of
 \(r\B / \Rmin < 0.1\), equations~(\ref{eq:larmor-over-Rdag},
 \ref{eq:larmor-over-Rstarstar}) can be transformed into conditions on
 the stream velocity (in \si{km.s^{-1}}) where tight magnetic coupling
-will apply:
-\newcommand\freeze{\ensuremath{_{\text{tight}}}}
+will apply: \newcommand\freeze{\ensuremath{_{\text{tight}}}}
 \begin{equation}
   \label{eq:velocity-strong-B-coupling}
   v_{\infty} < v\freeze \approx
@@ -1503,22 +1519,62 @@ grains. Thus, for typical stream velocities of
 coupled to the magnetic field, but the large grains are only loosely
 coupled for the faster streams.
 
-We now investigate how the results of the previous sections are
+We can now investigate how the results of the previous sections are
 modified by magnetic fields in the tight coupling limit.  For
 simplicity, we assume a uniform field in the incoming stream, with
 field lines oriented at an angle \(\theta\B\) to the velocity vector that
 defines the bow axis.  We also assume a super-alfvénic stream,
 \(v_\infty > v\alfven\), so that the radius, \(R_0\), of the wind bow shock
-is unaffected, and take \(t_* \ll \tau_{*, \text{max}}\), so that the
-back-reaction of the grain drag on the plasma is negligible (see
-previous section) and \(B\) remains uniform in magnitude and direction
-in the dust wave region, outside of the bow shock.  In
-Appendix~\ref{sec:tight-magn-coupl}, we derive results in the limit of
-zero gas--grain drag, which is appropriate for inertia-confined dust
-waves, while in Figures~\ref{fig:frozen-stream}
-and~\ref{fig:frozen-trajectories} we show example results for
-drag-confined dust waves.
+is unaffected by the magnetic field, and additionally assume
+\(\tau_* \ll \tau_{*, \text{max}}\), so that the back-reaction of the grain
+drag on the plasma is negligible (see previous section) and \(B\)
+remains uniform in magnitude and direction in the dust wave region,
+outside of the bow shock.
 
+In Appendix~\ref{sec:tight-magn-coupl}, we derive results in the limit
+of zero gas--grain drag, which is appropriate for inertia-confined dust
+waves. We find very different structures, depending on the orientation
+of the field.  For a parallel field (Fig.~\ref{fig:inertia-thB0}), the
+apex of the dust wave occurs at the same point, \(R\starstar\), as in
+the non-magnetic case, but the shape of the dust wave wings is more
+closed, being hemispherical rather than parabolic in shape.  For a
+perpendicular field (Fig.~\ref{fig:inertia-thB90}), on the other hand,
+grains in the apex region are dragged very close to the star and no
+dust wave forms there.  A dust wave can form in the wings, with impact
+parameter \(> R\starstar\), which is roughly parabolic in shape, but
+more swept-back than in the non-magnetic case.  Whether such a dust
+wave will exist in practice depends critically on the size and shape
+of the MHD wind-supported bow shock.
+
+In Figures~\ref{fig:frozen-stream} and~\ref{fig:frozen-trajectories}
+we show example results for drag-confined dust waves. Apart from the
+inclusion of the magnetic field, the model parameters are the same as
+used in Figure~\ref{fig:phase-space-trajectories}, with the exception
+that the stream density is increased to \SI{10}{cm^{-3}}.\footnote{The
+  reason for using a higher density is to decrease the amplitude of
+  the radial oscillations of the trajectories, which allows the dust
+  wave structure to be more clearly perceived in the figures. } This
+time, we use quasi-parallel (\(\theta\B = \ang{10}\)) and
+quasi-perpendicular (\(\theta\B = \ang{75}\)) field orientations.  The
+quasi-parallel field is most similar to the non-magnetic case, and the
+models shown in the two upper panels of Figure~\ref{fig:frozen-stream}
+closely mirror the cases shown in
+Figure~\ref{fig:phase-space-trajectories}, with a limit cycle behavior
+when \(v_\infty = \SI{40}{km.s^{-1}}\) and stagnant drift when
+\(v_\infty = \SI{80}{km.s^{-1}}\).  The principle difference from the 1-D
+axial trajectories discussed in \S~\ref{sec:grain-traj-along} is that
+the small \ang{10} misalignment of \(\bm{B}\) from the incident stream
+direction causes a slow sideways migration, which puts a finite limit
+on the time a grain can reside in front of the star.  This can be
+appreciated more clearly in Figure~\ref{fig:frozen-trajectories},
+which shows the grain position and velocity along a sample streamline
+with initial impact parameter \(b = -0.4 R_\dag\) for the two
+quasi-parallel models.  In panel~a, we see the same rip-and-snap-back
+cycle of de-coupling and re-coupling that was discussed previously,
+but only two periods of the cycle are completed before the grain's
+lateral migration takes it as far as \(y \approx +R_\dag\), at which point
+nothing can stop the gas stream from dragging it past the star and
+away.
 
 
 
