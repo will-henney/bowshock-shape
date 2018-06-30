@@ -1003,7 +1003,15 @@ the radiation parameter, which we denote the \textit{rip point}:
 \(\Xi_\dag \sim 1000\).  The variations in \(\Xi_\dag\) with star and grain
 parameters, which are of order \SI{+- 0.5}{dex}, are listed in
 Table~\ref{tab:Xi-rip} and illustrated graphically in
-Figure~\ref{fig:drift-gn}.
+Figure~\ref{fig:drift-gn}.  The radius of the rip point, \(R_\dag\), can
+be expressed in terms of \(R_*\), the fiducial optically thick bow
+shock radius introduced in \S~\ref{sec:strong-gas-grain}:
+\begin{equation}
+  \label{eq:Rdag-over-Rstar}
+  R_\dag = \frac{v_\infty}{\sound}\, \Xi_\dag^{-1/2} R_* \approx v_{10}\, \Xi_\dag^{-1/2} R_* \ ,
+\end{equation}
+where we have made use of equations~\eqref{eq:Rstar}
+and~\eqref{eq:Xi-Prad-over-Pgas}.
 
 What happens to the dust grain following this catastrophic breakdown
 of gas--grain coupling depends on the relation between the rip point
@@ -1065,19 +1073,11 @@ as a \textit{drag-confined dust wave}.
 
 In order for a separate outer dust wave to exist, it is necessary for
 the grains to decouple from the incoming gas stream before the stream
-hits the hydrodynamic bow shock caused by the stellar wind.  The
-radius of the rip point, \(R_\dag\), can be expressed in terms of
-\(R_*\), the fiducial optically thick bow shock radius introduced in
-\S~\ref{sec:strong-gas-grain}:
-\begin{equation}
-  \label{eq:Rdag-over-Rstar}
-  R_\dag = \frac{v_\infty}{\sound}\, \Xi_\dag^{-1/2} R_* \approx v_{10}\, \Xi_\dag^{-1/2} R_* \ ,
-\end{equation}
-where we have made use of equations~\eqref{eq:Rstar}
-and~\eqref{eq:Xi-Prad-over-Pgas}.  The wind bow shock radius is
-\(R_0 = \eta^{1/2} R_*\) (eq.~[\ref{eq:x-cases}]), where \(\eta\) is the
-wind momentum efficiency (eq.~[\ref{eq:wind-eta-typical}]).
-Therefore, the condition \(R_\dag > R_0\) becomes
+hits the hydrodynamic bow shock caused by the stellar wind.  The wind
+bow shock radius is \(R_0 = \eta^{1/2} R_*\) (eq.~[\ref{eq:x-cases}]),
+where \(\eta\) is the wind momentum efficiency
+(eq.~[\ref{eq:wind-eta-typical}]).  Therefore, the condition
+\(R_\dag > R_0\) becomes from equation~\eqref{eq:Rdag-over-Rstar}:
 \begin{equation}
   \label{eq:dust-wave-velocity-condition}
   v_{10} > v_{10,\text{min}} = \bigl( \Xi_\dag \, \eta \bigr)^{1/2} \ . 
@@ -1151,7 +1151,7 @@ condition, there is a further possibility: if the gas--grain coupling
 (and magnetic coupling) is so weak that it is still unimportant at the
 higher densities found in the bow shock shell, then an
 inertia-confined \textit{inner} dust wave may form inside the bow
-shock, even when \(t_* < \tau_{*,\text{min}}\).  Although the same might
+shock, even when \(\tau_* < \tau_{*,\text{min}}\).  Although the same might
 be thought to apply to the condition of
 equation~\eqref{eq:dust-wave-velocity-condition}, this is not the
 case, since the density compression in the bow shock will reduce the
@@ -1561,20 +1561,39 @@ models shown in the two upper panels of Figure~\ref{fig:frozen-stream}
 closely mirror the cases shown in
 Figure~\ref{fig:phase-space-trajectories}, with a limit cycle behavior
 when \(v_\infty = \SI{40}{km.s^{-1}}\) and stagnant drift when
-\(v_\infty = \SI{80}{km.s^{-1}}\).  The principle difference from the 1-D
-axial trajectories discussed in \S~\ref{sec:grain-traj-along} is that
-the small \ang{10} misalignment of \(\bm{B}\) from the incident stream
-direction causes a slow sideways migration, which puts a finite limit
-on the time a grain can reside in front of the star.  This can be
-appreciated more clearly in Figure~\ref{fig:frozen-trajectories},
-which shows the grain position and velocity along a sample streamline
-with initial impact parameter \(b = -0.4 R_\dag\) for the two
-quasi-parallel models.  In panel~a, we see the same rip-and-snap-back
-cycle of de-coupling and re-coupling that was discussed previously,
-but only two periods of the cycle are completed before the grain's
-lateral migration takes it as far as \(y \approx +R_\dag\), at which point
-nothing can stop the gas stream from dragging it past the star and
-away.
+\(v_\infty = \SI{80}{km.s^{-1}}\).
+
+The principle difference from the 1-D axial trajectories discussed in
+\S~\ref{sec:grain-traj-along} is that the small \ang{10} misalignment
+of \(\bm{B}\) from the incident stream direction causes a slow
+sideways migration, which puts a finite limit on the time a grain can
+reside in front of the star.  This can be appreciated more clearly in
+Figure~\ref{fig:frozen-trajectories}, which shows the grain position
+and velocity along a sample streamline with initial impact parameter
+\(b = -0.4 R_\dag\) for the two quasi-parallel models.  In panel~a,
+corresponding to \(v_\infty = \SI{40}{km.s^{-1}}\), we see the same
+rip-and-snap-back cycle of de-coupling and re-coupling that was
+discussed previously, but only two periods of the cycle are completed
+before the grain's lateral migration takes it as far as
+\(y \approx +R_\dag\), at which point nothing can stop the gas stream from
+dragging it past the star and away.  All told, the grain remains in
+the apex region for about \(1/\sin\theta\B\) times longer than the crossing
+time, \(R_\dag / v_\infty\).
+
+In panel~b, corresponding to \(v_\infty = \SI{80}{km.s^{-1}}\), the grain
+settles for a while around the stagnant drift radius, \(R_\ddag\), after
+the initial rip and turn around.  Again, it slowly migrates sideways,
+and eventually recouples to the incident stream, but this time after
+reaching \(y \approx +R_\ddag\).  The grain residence time in the apex region,
+measured in crossing times, is slightly longer than in panel~a, but is
+of the same order.  In both these cases, a second, exterior dense
+shell is formed in addition to the hemispherical one produced by the
+initial turn around inside \(R_\dag\). In the limit-cycle case, it forms
+at the snap-back point, while in the stagnant-drift case, it forms at
+\(R_\ddag\) and is significantly denser than the interior shell (upper
+right panel of Fig.~\ref{fig:frozen-stream}).
+
+
 
 
 
