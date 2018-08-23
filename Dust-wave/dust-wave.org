@@ -1622,7 +1622,14 @@ python coulomb-decouple-v-n-plane.py
   + Alternative (Jones at el 2013, 2016)
     + Silicate cores with aromatic carbonaceous mantles
     + Model originally proposed by Mayo Greenberg
-
+** Revisiting the core-halo grain models
++ Supposedly, timescale for mantle processing is 1e6/ G_0 years
+  + This should steepen NIR-visible extinction
+  + Modify IR emission bands
+  + Enhance Mid-IR to mm emission
+  + Apparently, Orion type dust is a result of photo-processing of previously coagulated dust
++ If the small grains have a sufficiently steep power index, then it
+  may be the very smallest that dominate FUV extinction
 
 ** DONE Which grains contribute most to the extinction
 CLOSED: [2018-01-01 Mon 14:55]
