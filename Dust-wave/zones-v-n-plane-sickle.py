@@ -73,6 +73,10 @@ for M, L4, eta, S49, ax in stardata:
     # Ionization fraction in shell
     ysh = 1.0 - 1.0/(3.5e5*Ush)
 
+    # Only contour bits near the line
+    shade = np.ones_like(vv)
+    shade[np.abs(np.log10(R0/R0s[0])) > 0.15] = 0.0
+
     # cs = ax.contour(vv, nn, ysh,
     #                 (0.9, 0.99, 0.999, 0.9999, 0.99999),
     #                 linewidths=1.0,
@@ -131,8 +135,8 @@ for M, L4, eta, S49, ax in stardata:
     m = (c_sig_over_alpha*Ushout >= LHS1) & (c_sig_over_alpha*Ushout <= LHS2)
     tau_gas_IF = np.nanmean(tau_gas[m])
     tau_dust_IF = np.nanmean(tau_dust[m])
-    cs = ax.contourf(vv, nn, tau_dust, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.3)
-    ax.contour(vv, nn, absfrac+advecfrac, 1.0, linewidths=0.7, colors='r')
+    cs = ax.contourf(vv, nn, tau_dust*shade, (tau_dust[m].min(), tau_dust[m].max()), linewidths=2, colors='r', alpha=0.3)
+    ax.contour(vv, nn, (absfrac+advecfrac)/shade, 1.0, linewidths=0.7, colors='r')
 
     # ax.contour(vv, nn, tau, tau_dust_IF,
     #            colors='k', linestyles='--', linewidths=0.8)
@@ -153,7 +157,7 @@ for M, L4, eta, S49, ax in stardata:
     #           fmt=r'$\uparrow\uparrow$ Trapped i-front $\uparrow\uparrow$', 
     #           inline=True, inline_spacing=10, use_clabeltext=True)
 
-    ax.contourf(vv, nn, tau, (eta, 1.0), colors='k', alpha=0.15)
+    ax.contourf(vv, nn, tau*shade, (eta, 1.0), colors='k', alpha=0.15)
     # ax.contour(vv, nn, tau, (eta/3, eta, 3*eta), colors='r')
     # ax.contour(vv, nn, tau, (1.0, 3.0), colors='m')
     cs = ax.contour(vv, nn, R0, R0s, linewidths=lws, colors='k')
