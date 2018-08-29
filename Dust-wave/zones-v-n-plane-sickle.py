@@ -32,7 +32,7 @@ def xfunc(x, ts, eta):
     """Function to be zeroed to find x"""
     return x**2 - (1.0 - np.exp(-2*ts*x)) - eta
 
-R0s = [0.073, ]
+R0s = [0.087, ]
 lws = [2.0, ]
 cformats = { 0.073: "0.073 pc", }
 clevs_to_label = list(cformats.keys())
