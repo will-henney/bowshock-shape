@@ -1008,6 +1008,13 @@ python zones-v-n-plane-RSG.py
       #           inline=True, inline_spacing=2, use_clabeltext=True)
 
 
+      # Add box for measured proper motion of 96 +/- 40 km/s => 46 - 136
+      ax.axvspan(46.0, 136.0, 0.0, 0.5, alpha=0.1)
+      # Add box for typical densities of 1000 to 1e4 pcc
+      ax.axhspan(1000.0, 1.0e4, 0.0, 0.5, color="g", alpha=0.1)
+
+      ax.text(20.0, 1.0, r"B1.5V, $\eta = 0.007$, $R = 0.087$ pc", rotation=-34, fontsize="x-small")
+
       ax.set(xscale='log', yscale='log')
 
   axes.set(xlabel=r"$v$, km s$^{-1}$", ylabel=r"$n$, cm$^{-3}$")
