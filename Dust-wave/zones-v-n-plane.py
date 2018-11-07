@@ -14,6 +14,7 @@ stardata = [
     [20.0, 5.453, 0.1199, 0.1, axes[1]],
     [40.0, 22.19, 0.4468, 1.0, axes[2]],
 ]
+LIGHT_SPEED_KM_S = 2.99792458e5
 
 # Velocities in units of km/s (10 km/s -> 100 km/s)
 vgrid = np.linspace(10.0, 100.0, 800)
@@ -212,6 +213,11 @@ for M, L4, eta, S49, ax in stardata:
               fontsize='xx-small', fmt=r"$d_\mathrm{cool} = h_0$",
               inline=True, inline_spacing=2, use_clabeltext=True)
 
+
+    # Now do KE flux: e_ratio = KE flux through outer shock / absorbed radiative flux
+    e_ratio = 0.5*(vv/LIGHT_SPEED_KM_S)*(eta + 1 - np.exp(-tau))/(1 - np.exp(-tau))
+    cs = ax.contourf(vv, nn, e_ratio, (0.1, 100.0),
+                    linewidths=1, colors='g', alpha=0.5)
 
     ax.set(yscale='log')
 
