@@ -1,0 +1,147 @@
+\documentclass[useAMS, usenatbib, a4paper]{mnras}
+\pdfsuppresswarningpagegroup=1
+
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{fixltx2e}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{separate-uncertainty = true}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[Q-]{quadrics-bowshock}
+
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+
+% Fonts 
+\usepackage{newtxtext}
+% Note: newtxmath must come AFTER newtxtext
+\usepackage[varvw,smallerops]{newtxmath}
+
+\usepackage{chemgreek}
+\activatechemgreekmapping{newtx}
+
+\hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
+  urlcolor=blue!50!black}
+
+\usepackage{etoolbox}
+\robustify\bfseries
+\robustify\itshape
+
+%% The following hack solves a problem with
+%% ERROR: \pdfendlink ended up in different nesting level than \pdfstartlink.
+%% See https://tex.stackexchange.com/a/249743
+\makeatletter
+\patchcmd\@combinedblfloats{\box\@outputbox}{\unvbox\@outputbox}{}{%
+  \errmessage{\noexpand\@combinedblfloats could not be patched}%
+}%
+\makeatother
+
+%% Bold italic
+\newcommand\hmmax{0}            % we don't need heavy fonts
+\newcommand\bmmax{1}            % reduce use of math alphabets for bold
+\usepackage{bm}
+
+%% Bundled custom packages
+\usepackage{aastex-compat}
+
+\title
+{Bows around OB stars in the Orion Nebula}
+
+\newcommand\AddressCRyA{Instituto de Radioastronom\'{\i}a y Astrof\'{\i}sica,
+  Universidad Nacional Aut\'onoma de M\'exico, Apartado Postal 3-72,
+  58090 Morelia, Michoac\'an, M\'exico}
+\author[Henney \& Arthur]{
+  William J. Henney \& S. Jane Arthur\\
+  \AddressCRyA
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2017}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Sin}{\mathcal{S}}
+\DeclareMathOperator{\Cos}{\mathcal{C}}
+\DeclareMathOperator{\Cot}{\mathcal{T}}
+\DeclareMathOperator{\GammaFunc}{\Gamma}
+\newcommand\w{\ensuremath{\mathrm{w}}}
+\newcommand\C{\ensuremath{\mathrm{c}}}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\Abs}[1]{\left\lvert#1\right\rvert}
+\newcommand\TODO[1]{%
+  \begin{center}
+    \framebox{\parbox{0.8\linewidth}{
+        \texttt{\footnotesize\color{red} #1}}}
+  \end{center}}
+
+\newcommand\uvec[1]{\bm{\hat{#1}}}
+\newcommand\T{_{\mathrm{\scriptscriptstyle T}}}
+
+\newcommand\Qp{\ensuremath{Q_{\text{p}}}}
+\newcommand{\grain}{\ensuremath{_{\text{d}}}}
+\newcommand{\B}{\ensuremath{_{\scriptscriptstyle\text{B}}}}
+\newcommand{\alfven}{\ensuremath{_{\scriptscriptstyle\text{A}}}}
+\newcommand{\xsec}{\ensuremath{\sigma\grain}}
+\newcommand\frad{\ensuremath{f_{\text{rad}}}}
+\newcommand\fmax{\ensuremath{f_{\text{max}}}}
+\newcommand\thm{\ensuremath{\theta_{\text{m}}}}
+\newcommand\drag{\ensuremath{_{\text{drag}}}}
+\newcommand{\gas}{\ensuremath{_{\text{gas}}}}
+\newcommand{\drift}{\ensuremath{_{\text{drift}}}}
+\newcommand\rad{\ensuremath{_{\text{rad}}}}
+\newcommand\Rmin{\ensuremath{R_{\scriptscriptstyle\text{min}}}}
+% Why do I need both of these?
+\newcommand\sound{\ensuremath{c_{\text{s}}}}
+\newcommand\soundspeed{\ensuremath{c_{\text{s,gas}}}}
+\newcommand\starstar{\ensuremath{_{**}}}
+\newcommand\hii{\ion{H}{ii}}
+
+
+\defcitealias{Tarango-Yong:2018a}{Paper~I}
+\newcommand\PaperI{\citetalias{Tarango-Yong:2018a}}
+
+
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+\begin{abstract}
+  The interaction of OB stars with a moving medium will form a
+  bow-shaped nebula that emits strongly in the mid-infrared.
+  Depending on the strength of the stellar wind and the optical depth
+  of the nebula, these may either be hydrodynamic bow shocks or
+  radiation-supported bow waves.  We investigate the case of two such
+  nebulae within the star forming region of the Orion Nebula: the
+  Ney--Allen nebula around the B0.5V star \(\theta^1\)\,Ori~D in the core of
+  the Trapezium Cluster, and the nebula around the B1.5V star LP~Ori
+  on the periphery of the region.  We find that the Ney--Allen nebula
+  is a wind-supported bow shock in fully ionized gas, whereas the
+  LP~Ori nebula is radiation-supported bow wave, interacting with
+  neutral/molecular material.
+\end{abstract}
+
+\begin{keywords}
+  circumstellar matter -- radiation: dynamics -- stars: winds, outflows
+\end{keywords}
+
+\input{sec-dust-case-studies}
+\bibliographystyle{mnras}
+\bibliography{bowshocks-biblio}
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
