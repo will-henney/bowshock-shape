@@ -16,24 +16,30 @@ emitted by the star are absorbed by dust grains in the incoming
 stream, with the resultant momentum transfer being sufficient to
 decelerate and deflect the grains within a certain distance from the
 star, forming a dust-free, bow-shaped cavity with an enhanced dust
-density at its edge.  Two regimes are possible, depending on the
-strength of coupling between the gas (or plasma) and the dust.  In the
-strong-coupling regime, gas--grain drag decelerates the gas along with
-the dust, forming a shocked gas shell in a similar fashion to the
-wind-driven bow shock case.  In the weak-coupling regime, the gas
-stream is relatively unaffected and the dust temporarily decouples to
-form a dust-only shell.  This second case has recently been studied in
-detail in the context of the interaction of late O-type stars (which
-have only weak stellar winds) with dusty photoevaporation flows inside
-\hii{} regions \citep{Ochsendorf:2014a, Ochsendorf:2014b,
-  Ochsendorf:2015a}.  We follow the nomenclature proposed by
-\citet{Ochsendorf:2014b}, in which \textit{dust wave} refers to the
-weak coupling case and \textit{bow wave} to the strong coupling case.
-More complex, hybrid scenarios are also possible, such as that studied
-by \citet{van-Marle:2011a}, where a hydrodynamic bow shock forms, but
-the larger dust grains that accompany the stellar wind pass right
-through the shocked gas shell, and form their own dust wave at a
-larger radius.
+density at its edge.
+
+Two regimes are possible, depending on the strength of coupling
+between the gas (or plasma) and the dust.  In the strong-coupling
+regime, gas--grain drag decelerates the gas along with the dust.  If
+the stream is optically thin to the star's ultraviolet radiation, then
+the deceleration occurs gradually over a range of radii, forming a
+relatively thick shell.  On the other hand, if the stream is optically
+thick, then a shocked gas shell forms in a similar fashion to the
+wind-driven bow shock case, except internally supported by trapped
+radiation instead of shocked stellar wind.  In the weak-coupling
+regime, the gas stream is relatively unaffected and the dust
+temporarily decouples to form a dust-only shell.  This second case has
+recently been studied in detail in the context of the interaction of
+late O-type stars (some of which have very weak stellar winds) with
+dusty photoevaporation flows inside \hii{} regions
+\citep{Ochsendorf:2014a, Ochsendorf:2014b, Ochsendorf:2015a}.  We
+follow the nomenclature proposed by \citet{Ochsendorf:2014b}, in which
+\textit{dust wave} refers to the weak coupling case and \textit{bow
+  wave} to the strong coupling case.  More complex, hybrid scenarios
+are also possible, such as that studied by \citet{van-Marle:2011a},
+where a hydrodynamic bow shock forms, but the larger dust grains that
+accompany the stellar wind pass right through the shocked gas shell,
+and form their own dust wave at a larger radius.
 
 \begin{figure*}
   \centering
@@ -42,32 +48,66 @@ larger radius.
   \label{fig:3-types-bow}
 \end{figure*}
 
-In \citet[][hereafter \PaperI{}]{Tarango-Yong:2018a}, we proposed a
-new two-dimensional classification scheme for bow shapes: the
-projected planitude--alatude, or \(\Pi'\)--\(\Lambda'\), diagram.  Planitude
-measures the flatness of the bow's apex, while alatude measures the
-openness of the bow's wings.  Both are dimensionless ratios of lengths
-that can be estimated from observational images.  We have analyzed the
-inclination-dependent tracks on the \(\Pi'\)--\(\Lambda'\) plane for simple
-geometric shapes (spheroids, paraboloids, hyperboloids) and for
-thin-shell hydrodynamic bow shock models (wilkinoid, cantoids,
-ancantoids).  In this paper, we will do the same for simple models of
-radiation-driven dust waves (dragoids) and bow waves (trapoids).
+% In \citet[][hereafter \PaperI{}]{Tarango-Yong:2018a}, we proposed a
+% new two-dimensional classification scheme for bow shapes: the
+% projected planitude--alatude, or \(\Pi'\)--\(\Lambda'\), diagram.  Planitude
+% measures the flatness of the bow's apex, while alatude measures the
+% openness of the bow's wings.  Both are dimensionless ratios of lengths
+% that can be estimated from observational images.  We have analyzed the
+% inclination-dependent tracks on the \(\Pi'\)--\(\Lambda'\) plane for simple
+% geometric shapes (spheroids, paraboloids, hyperboloids) and for
+% thin-shell hydrodynamic bow shock models (wilkinoid, cantoids,
+% ancantoids).  In this paper, we will do the same for simple models of
+% radiation-driven dust waves (dragoids) and bow waves (trapoids).
 
+
+In this paper, we develop simple physical models to show in detail
+when and how these different interaction regimes apply when varying
+the parameters of the star, the dust grains, and the ambient stream.
+We concentrate primarily on the case of luminous early type stars,
+where dust is present only in the ambient stream, and not in the
+stellar wind.
+%
 The paper is organized as follows.
 %
-In \S~\ref{sec:shape-dust-wave} we do the same for simple models of a
-dusty radiation bow wave (dragoids), including the effects of
-gas-grain drag.
+In \S~\ref{sec:strong-gas-grain} we consider the case where the grains
+are perfectly coupled to the gas via collisions, investigating the
+relative importance of wind and radiation in providing internal
+support for the bow shell as a function of the density and velocity of
+the ambient stream, as well as calculating the shell's ionization
+state and radiative cooling efficiency.
 %
-In \S~\ref{sec:perturbed-bows} we investigate the effects on the
-planitude--alatude plane of small-amplitude perturbations to the bow
-shape.
+In \S~\ref{sec:imperf-coupl-betw} we calculate in detail the grain
+charging and dynamics, subject to radiation and drag forces, in order
+to determine the rip point where gas--grain coupling catastrophically
+breaks down.  This is used to determine existence conditions for the
+presence of a decoupled dust wave.
 %
+In \S~\ref{sec:magn-effects-grain} we consider the additional coupling
+between the grains and the plasma's magnetic field, and how this
+effects the existence and structure of dust waves.
+%
+In \S~\ref{sec:summary-discussion} we briefly discuss the application
+of our models to observed bows.
+%
+In \S~\ref{sec:conclusions} we summarise the conclusions of our study. 
+%
+A series of appendices provide additional technical information on
+dust physics (Appendix~\ref{sec:cloudy-models-dust}), analytical
+models of the shape of dust waves in the drag-free limit
+(Appendix~\ref{sec:gas-free-bow}), and the numerical calculation of
+grain trajectories (Appendix~\ref{sec:equat-moti-grains}).
+
+% In \S~\ref{sec:shape-dust-wave} we do the same for simple models of a
+% dusty radiation bow wave (dragoids), including the effects of
+% gas-grain drag.
+% %
+% In \S~\ref{sec:perturbed-bows} we investigate the effects on the
+% planitude--alatude plane of small-amplitude perturbations to the bow
+% shape.
+% %
 
 
-\section{Different types of bow}
-\label{sec:different-types-bow}
 
 \begin{figure*}
   \includegraphics[width=\linewidth]{figs/zones-v-n-plane}
@@ -89,26 +129,20 @@ shape.
   \label{fig:zones-v-n-plane}
 \end{figure*}
 
-In this section, we investigate the different types of bow interaction
-that will occur in different regions of parameter space. We will
-mainly treat the canonical case\footnote{%
-  Variant cases with differing arrangements of dust and radiation
-  sources are treated in \S~\ref{sec:case-inside-out}.} %
-of a bow around a star of bolometric luminosity, \(L\), with a
-radiatively driven wind, which is immersed in an external stream of
-gas and dust with density, \(\rho\), and velocity, \(v\).  The size and
-shape of the bow is determined by a generalized balance of pressure
-(or, equivalently, momentum) between internal and external sources.
-We assume that the stream is supersonic and super-alfvenic, so that
-the external pressure is dominated by the ram pressure: \(\rho v^2\).
 
-\subsection{Strong gas-grain coupling}
+\section{Strong gas-grain coupling}
 \label{sec:strong-gas-grain}
 
-We first consider the case where the dust grains and gas are perfectly
-coupled by collisions.\footnote{%
-  Cases where this assumption does not hold are investigated below in
-  \S~\ref{sec:imperf-coupl-betw}.} %
+We consider the canonical case of a bow around a star of bolometric
+luminosity, \(L\), with a radiatively driven wind, which is immersed
+in an external stream of gas and dust with density, \(\rho\), and
+velocity, \(v\).  The size and shape of the bow is determined by a
+generalized balance of pressure (or, equivalently, momentum) between
+internal and external sources.  We assume that the stream is
+supersonic and super-alfvenic, so that the external pressure is
+dominated by the ram pressure: \(\rho v^2\).  We first consider the case
+where the dust grains and gas are perfectly coupled by collisions.
+
 Although dust grains typically constitute only a small fraction
 \(Z\grain \sim 0.01\) of the mass of the external stream, they
 nevertheless dominate the broad-band opacity at FUV, optical and IR
@@ -120,7 +154,7 @@ wavelengths if they are present.\footnote{%
 The strong coupling assumption means that all the radiative forces
 applied to the dust grains are directly felt by the gas also.
 
-\subsubsection{Bows supported by radiation and wind}
+\subsection{Bows supported by radiation and wind}
 \label{sec:three-bow-regimes}
 
 The internal pressure is the sum of wind ram pressure and the
@@ -391,7 +425,7 @@ effect of shifting the radiation bow wave regime to higher densities:
 \(n = \text{\numrange{1000}{30 000}}\, v_{10}^2\) in this case.
 
 
-\subsubsection{Effects of stellar gravity}
+\subsection{Effects of stellar gravity}
 \label{sec:effects-gravity}
 
 In principle, gravitational attraction from the star, of mass \(M\),
@@ -417,7 +451,7 @@ important in the outer parts of the shell (see
 
 
 
-\subsubsection{Ionization state of the bow shell}
+\subsection{Ionization state of the bow shell}
 \label{sec:trapp-ioniz-front}
 
 \newcommand\alphaB{\ensuremath{\alpha_{\text{B}}}}
@@ -577,20 +611,21 @@ trapping occurs well inside the radiation bow shock zone, where the
 dust optical depth is already sufficient to trap all of the radiative
 momentum.
 
-\subsubsection{Radiative cooling lengths}
+\subsection{Radiative cooling lengths}
 \label{sec:radi-cool-lengths}
 \newcommand\M{\ensuremath{\mathcal{M}}}
+%
 In this section, we calculate whether the radiative cooling is
 sufficiently rapid behind the bow shock to allow the formation of a
-thin, dense shell.  Since cooling is least efficient at low densities,
-we will assume that the wind bow shock regime applies unless otherwise
-specified. We label quantities just outside the shock by the subscript
-``0'', quantities just inside the shock (after thermalization, but
-before any radiative cooling) by the subscript ``1'', and quantities
-after the gas has cooled back to the photoionization equilibrium
-temperature by the subscript ``2''.  Assuming a ratio of specific
-heats, \(\gamma = 5/3\), the relation between the pre-shock and immediate
-post-shock quantities is
+thin, dense shell.  Since this is mainly a concern at low densities,
+where cooling is least efficient, we will assume that the wind bow
+shock regime applies unless otherwise specified. We label quantities
+just outside the shock by the subscript ``0'', quantities just inside
+the shock (after thermalization, but before any radiative cooling) by
+the subscript ``1'', and quantities after the gas has cooled back to
+the photoionization equilibrium temperature by the subscript ``2''.
+Assuming a ratio of specific heats, \(\gamma = 5/3\), the relation between
+the pre-shock and immediate post-shock quantities is
 \begin{align}
   % \M_1 &= \left(\frac{\M_0^2 + 3} {5\M_0^2 - 1}\right)^{1/2} \\
   \label{eq:shock-n-jump}
@@ -667,7 +702,7 @@ For bows with outer stream densities between the two blue lines,
 cooling does occur, albeit inefficiently, so that the shell thickness
 is set by \(d\cool\) rather than \(h_0\).
 
-\subsection{Imperfect coupling between gas and dust}
+\section{Imperfect coupling between gas and dust}
 \label{sec:imperf-coupl-betw}
 
 \begin{figure}
@@ -746,7 +781,7 @@ calculate the regions of star+stream parameter space where this might
 occur, leading to a separation of the bow into an outer dust wave and
 an inner, dust-free bow shock.
 
-\subsubsection{Drag force on grains}
+\subsection{Drag force on grains}
 \label{sec:drag-force-grains}
 
 \begin{table}
@@ -900,7 +935,7 @@ located on the \((w, \abs{\phi})\) plane.
 % 13.815.  So we get 23.267 + 0.651 log10(T4) - 0.217 log10(n).  Nope,
 % best with natural log
 
-\subsubsection{Gas--grain separation: drift and rip}
+\subsection{Gas--grain separation: drift and rip}
 \label{sec:gas-grain-separ}
 
 In Appendix~\ref{sec:gas-free-bow} we calculate the behaviour of an
@@ -1068,7 +1103,7 @@ as a \textit{drag-confined dust wave}.
   \label{fig:existence-dust-wave}
 \end{figure*}
 
-\subsubsection{Existence conditions for dust waves}
+\subsection{Existence conditions for dust waves}
 \label{sec:exist-cond-separ}
 
 In order for a separate outer dust wave to exist, it is necessary for
@@ -1190,7 +1225,7 @@ be able to do it afterwards.
     \label{fig:phase-space-trajectories}
 \end{figure*}
 
-\subsubsection{Grain trajectories along the symmetry axis}
+\subsection{Grain trajectories along the symmetry axis}
 \label{sec:grain-traj-along}
 
 The post-decoupling behavior of the grain depends on the sign of
@@ -1296,7 +1331,7 @@ periods it has come to almost a complete rest.
   \label{fig:decouple-vertical-cut}
 \end{figure}
 
-\subsubsection{Back reaction on the gas flow}
+\subsection{Back reaction on the gas flow}
 \label{sec:back-reaction-gas}
 
 So far we have ignored the effect of the drag force on the gas stream
@@ -1386,7 +1421,7 @@ bow behavior in this transition regime.
 
 
 
-\subsubsection{Magnetic effects on grain trajectories }
+\section{Magnetic effects on grain trajectories }
 \label{sec:magn-effects-grain}
 
 \begin{figure*}
