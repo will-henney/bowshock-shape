@@ -174,18 +174,18 @@ trapped by the bow shell.  In the single scattering limit,\footnote{%
   reasons. (1)~The grain albedo is not that high (typically
   \(\sim 0.5\) at ultraviolet through optical wavelengths). (2)~The
   scattered radiation field is more isotropic than the stellar field,
-  leading to cancellation in the radiative
-  flux. (3)~Absorbed radiation is re-emitted at infrared
-  wavelengths, where the dust opacity is very much lower.} %
-and temporarily neglecting the wind, then pressure balance at the bow
-apex, a distance \(R_0\) along the symmetry axis from the star is
-given by
+  leading to cancellation in the radiative flux. (3)~Absorbed
+  radiation is re-emitted at infrared wavelengths, where the dust
+  opacity is very much lower.} %
+and temporarily neglecting the wind for clarity of exposition, then
+pressure balance at the bow apex, a distance \(R_0\) along the
+symmetry axis from the star is given by
 \begin{equation}
   \label{eq:rad-press-balance-thick}
   \frac{L}{4 \pi c R_0^2} = \rho v^2 \ ,
 \end{equation}
-which yields a fiducial bow shock radius in this optically thick limit
-as
+which yields a fiducial bow shock radius in this optically thick,
+radiation-only limit as
 \begin{equation}
   \label{eq:Rstar}
   R_* = \left(\frac{L}{4\pi c \rho v^2}\right)^{1/2} \ .
@@ -199,13 +199,14 @@ units of \si{cm^2.g^{-1}}), then the radiative acceleration is
   a_{\text{rad}} = \frac{\kappa L}{4 \pi c R^2} \ .
 \end{equation}
 Therefore, an incoming stream with initial velocity, \(v_\infty\), can be
-brought to rest by radiation alone\footnote{%
-  For simplicity, we here ignore the effects of gravity, which are
-  important for low ratios of \(\kappa L / M\), see
-  \S~\ref{sec:effects-gravity}.  We also ignore pressure gradients and
-  shocks, which are important as the velocity approaches the sound
-  speed, \(\sound\) (in \S~XX below, we show that the resultant
-  corrections to \(R_0\) are of order \(\sound / v_\infty\)).} %
+brought to rest by radiation alone
+% \footnote{%
+%   For simplicity, we here ignore the effects of gravity, which are
+%   important for low ratios of \(\kappa L / M\), see
+%   \S~\ref{sec:effects-gravity}.  We also ignore pressure gradients and
+%   shocks, which are important as the velocity approaches the sound
+%   speed, \(\sound\) (in \S~XX below, we show that the resultant
+%   corrections to \(R_0\) are of order \(\sound / v_\infty\)).} %
 at a distance \(R\starstar\) where
 \begin{equation}
   \label{eq:rad-poten}
@@ -240,12 +241,13 @@ Then, defining a fiducial optical depth,
   \label{eq:tau-star}
   \tau_* = \rho \kappa R_* \ ,
 \end{equation}
-and adding in the stellar wind ram pressure\footnote{%
-  We implicitly assume that the interaction of the stellar wind with
-  the external stream can always be treated in the continuum limit.
-  This will be true if either the collisional mean free path or the
-  ion Larmor radius is much smaller than \(R_0\), which is almost
-  always the case.} %
+and now reinstating the stellar wind ram pressure term
+% \footnote{%
+%   We implicitly assume that the interaction of the stellar wind with
+%   the external stream can always be treated in the continuum limit.
+%   This will be true if either the collisional mean free path or the
+%   ion Larmor radius is much smaller than \(R_0\), which is almost
+%   always the case.} %
 from equation~\eqref{eq:wind-efficiency}, we find that the general bow
 radius can be written in terms of the fiducial radius as
 \begin{equation}
@@ -273,18 +275,22 @@ cases:
   \end{cases}
 \end{equation}
 The first case, \(x \approx (1 + \eta)^{1/2}\), corresponds to a
-\textit{radiation bow shock}; the second case,
-\(x \approx 2 \tau_* \), corresponds to a \textit{radiation bow wave}; and the
-third case, \(x \approx \eta^{1/2}\), corresponds to a \textit{wind bow shock}.
-The two bow shock cases are similar in that the external stream is
-oblivious to the presence of the star until it suddenly hits the bow
-shock shell, differing only in whether it is radiation or wind that is
-providing the internal pressure.  In the intermediate bow wave case,
-on the other hand, the external stream is gradually decelerated by
-absorption of photons as it approaches the bow.\footnote{A shock does
-  still form in this case, but shocked material constitutes only a
-  fraction of the total column density of the shell, see
-  \S~\ref{sec:shape-bow-wave}.}
+\textit{radiation bow shock} (RBS); the second case,
+\(x \approx 2 \tau_* \), corresponds to a \textit{radiation bow wave} (RBW);
+and the third case, \(x \approx \eta^{1/2}\), corresponds to a \textit{wind bow
+  shock} (WBS).  The two bow shock cases are similar in that the
+external stream is oblivious to the presence of the star until it
+suddenly hits the bow shock shell, differing only in whether it is
+radiation or wind that is providing the internal pressure.  In the
+intermediate bow wave case, on the other hand, the external stream is
+gradually decelerated by absorption of photons as it approaches the
+bow.\footnote{A shock can still form in this case, but shocked
+  material constitutes only a small fraction of the total column
+  density of the shell.}
+
+\subsection{Dependence on stellar type}
+\label{sec:depend-stell-type}
+
 
 \begin{table*}
   \centering
@@ -319,8 +325,8 @@ absorption of photons as it approaches the bow.\footnote{A shock does
 \end{table*}
 
 We now consider the application to bow shocks around main sequence OB
-stars, expressing stellar and ambient parameters in terms of typical
-values as follows:
+stars, as well as cool and hot supergiants, expressing stellar and
+ambient parameters in terms of typical values as follows:
 \begin{align*}
   \label{eq:stellar-parameters}
   \dot{M}_{-7} &= \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
@@ -504,12 +510,19 @@ equations~\eqref{eq:Rstar}, \eqref{eq:shell-advective-flux},
   \label{eq:advective-over-ionizing-flux}
   \frac{\mathcal{A}}{\mathcal{F}} = \num{5.86e-5} \frac{x^2 L_4}{v_{10} S_{49}} \ , 
 \end{equation}
-which is nearly always small.  For clarity of exposition, we therefore
-ignore \(\mathcal{A}\) in the following discussion, although it is
-included in quantitative calculations.  The column density of the
-shocked shell can be found, for example, from equations~(10) and~(12)
-of \citet{Wilkin:1996a} in the limit \(v_\infty/V \to 0\) (Wilkin's parameter
-\(\alpha\)) and \(\theta \to 0\).  This yields
+where
+\begin{equation*}
+  S_{49} = S / \bigl( \SI{e49}{s^{-1}} \bigr) \ .
+\end{equation*}
+Numerical values of \(S_{49}\) for our three example stars are given
+in Table~\ref{tab:stars}, taken from Figure~4 of
+\citet{Sternberg:2003a}.  Since \(\mathcal{A} \ll \mathcal{F}\) in
+nearly all cases, for clarity of exposition we ignore \(\mathcal{A}\)
+in the following discussion, although it is included in quantitative
+calculations.  The column density of the shocked shell can be found,
+for example, from equations~(10) and~(12) of \citet{Wilkin:1996a} in
+the limit \(v_\infty/V \to 0\) (Wilkin's parameter \(\alpha\)) and
+\(\theta \to 0\).  This yields
 \begin{equation}
   \label{eq:shocked-shell-column}
   n\shell h\shell = \tfrac34 n R_0 \ .
@@ -550,18 +563,14 @@ equation~\eqref{eq:taustar-typical}, becomes a condition on
 \(x = (1 + \eta)^{1/2}\), and the condition can be written:
 \begin{equation}
   \label{eq:ifront-trap-density-RBS}
-  \frac{n}{v_{10}^2} > \num{2.65e8} \, \frac{S_{49}^2 T_4^{3.4}}{L_4^3 (1 + \eta)^3} \ , 
+  \text{RBS:}\quad
+  \frac{n}{v_{10}^2} > \num{2.65e8} \, \frac{S_{49}^2 T_4^{3.4}}{L_4^3 (1 + \eta)^3} \ .
 \end{equation}
-where
-\begin{equation*}
-  S_{49} = S / \bigl( \SI{e49}{s^{-1}} \bigr) \ .
-\end{equation*}
-Numerical values of \(S_{49}\) for our three example stars are given
-in Table~\ref{tab:stars}, taken from Figure~4 of
-\citet{Sternberg:2003a}.  In the radiation bow wave case,
-\(x = 2\tau_*\), and the condition can be written:
+In the radiation bow wave case, \(x = 2\tau_*\), and the condition can be
+written:
 \begin{equation}
   \label{eq:ifront-trap-taustar-RBW}
+  \text{RBW:}\quad
   \frac{n}{v_{10}^2} > \num{5.36e4} \, \frac{S_{49}^{1/2} T_4^{0.85} }{\kappa_{600}^{3/2} L_4^{3/2}} \ . 
 \end{equation}
 In the wind bow shock case, the result is the same as
@@ -697,7 +706,7 @@ the radiative case,
   equation~\eqref{eq:shocked-shell-column} by substituting \(n = n_0\)
   and \(n\shell \approx n_1\), then using equation~\eqref{eq:shock-n-jump}.
   Consideration of the slight increase in density between the shock
-  and the contact discontinuity reduces this value by 5--10\%.} %
+  and the contact/tangential discontinuity reduces this value by 5--10\%.} %
 For bows with outer stream densities between the two blue lines,
 cooling does occur, albeit inefficiently, so that the shell thickness
 is set by \(d\cool\) rather than \(h_0\).
@@ -1061,8 +1070,9 @@ dragged back for a second approach.\footnote{If the initial impact
   parameter of the trajectory is not strictly \(b = 0\), then the
   resultant lateral component of \(f\rad\) will mean that \(b\) will
   be much increased for the second approach.} %
-We will refer to this as an \textit{inertia-confined dust wave}.  From
-equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
+We will refer to this as an \textit{inertia-confined dust wave}
+(IDW).  From equations~(\ref{eq:Rdag-over-Rstar},
+\ref{eq:Rstarstar-over-Rstar},
 \ref{eq:dust-wave-high-density-condition}), the condition
 \(R_\dag > R\starstar\) corresponds to
 \(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
@@ -1073,7 +1083,7 @@ naturally take it.  When the grain finally decouples at \(R_\dag\) it
 experiences a much higher unbalanced \(f\rad\), which can initially
 accelerate it to outward velocities significantly higher than the
 inflow velocity if \(R_\dag \ll R\starstar\).  We will refer to this case
-as a \textit{drag-confined dust wave}.
+as a \textit{drag-confined dust wave} (DDW).
 
 
 \begin{figure*}
@@ -1421,7 +1431,7 @@ bow behavior in this transition regime.
 
 
 
-\section{Magnetic effects on grain trajectories }
+\section{Magnetic coupling of grains}
 \label{sec:magn-effects-grain}
 
 \begin{figure*}
@@ -1452,7 +1462,14 @@ bow behavior in this transition regime.
   \centering
   \includegraphics[width=\linewidth]{figs/frozen-trajectories-multi}
   \caption{Sample grain trajectories for drag-confined dust waves with
-    tight magnetic coupling.}
+    tight magnetic coupling and a quasi-parallel field
+    orientation. These are the same models as in the upper row of
+    Fig.~\ref{fig:frozen-stream}. (a)~Incident stream velocity of
+    \(v_\infty = \SI{40}{km.s^{-1}}\), showing quasi-limit-cycle behavior
+    (\numrange{0}{4000} years).  (b)~Incident stream velocity of
+    \(v_\infty = \SI{80}{km.s^{-1}}\), showing quasi-stagnation behavior
+    (\numrange{500}{2000} years).  In both cases, the streamline with
+    initial impact parameter \(y = -0.4 R_\dag\) is shown.}
   \label{fig:frozen-trajectories}
 \end{figure}
 
@@ -1481,9 +1498,9 @@ The relative importance of the magnetic field can be characterized by
 the ratio of the Larmor radius to the minimum radius, \(\Rmin\),
 reached by the grain in the dust wave (see
 \S~\ref{sec:grain-traj-along}), where \(\Rmin \approx R_\dag\) for
-drag-confined dust waves, or \(\Rmin \approx R\starstar\) for
-inertia-confined dust waves.  We write the field strength in terms of
-the Alfvén speed,
+drag-confined dust waves (DDW), or \(\Rmin \approx R\starstar\) for
+inertia-confined dust waves (IDW).  We write the field strength in
+terms of the Alfvén speed,
 \begin{equation}
   \label{eq:alfven}
   v\alfven = \frac{B}{(4\pi\rho\gas)^{1/2}}
@@ -1492,6 +1509,7 @@ the Alfvén speed,
 and the grain charge \(z\grain e\) in terms of the potential \(\phi\) (eq.~[\ref{eq:phi-potential}]) to obtain
 \begin{equation}
   \label{eq:larmor-over-Rdag}
+  \text{DDW:}\quad \frac{r\B}{\Rmin} =  
   \frac{r\B}{R_\dag} = 0.0140 \,
   a_{\si{\um}}^2 \,
   \frac{w_\perp}{v\alfven} \,
@@ -1501,6 +1519,7 @@ and the grain charge \(z\grain e\) in terms of the potential \(\phi\) (eq.~[\ref
 and
 \begin{equation}
   \label{eq:larmor-over-Rstarstar}
+  \text{IDW:}\quad \frac{r\B}{\Rmin} =  
   \frac{r\B}{R\starstar} = 0.0544 \,
   a_{\si{\um}}^3 \,
   \frac{w_\perp}{v\alfven} \,
@@ -1521,8 +1540,8 @@ field lines, which is governed by the radiation and drag forces (the
 slow \(\bm{f} \times \bm{B}\) drift across the field lines is negligible in
 this case, see App.~\ref{sec:tight-magn-coupl}).  In the opposite
 limit, \(r\B / \Rmin \gg 1\), magnetic coupling is so weak that the
-results of the previous sections are scarcely modified.  Assuming
-\(w_\perp \sim v_\infty\) and adopting a threshold of
+non-magnetic results of \S~\ref{sec:imperf-coupl-betw} are scarcely
+modified.  Assuming \(w_\perp \sim v_\infty\) and adopting a threshold of
 \(r\B / \Rmin < 0.1\), equations~(\ref{eq:larmor-over-Rdag},
 \ref{eq:larmor-over-Rstarstar}) can be transformed into conditions on
 the stream velocity (in \si{km.s^{-1}}) where tight magnetic coupling
@@ -1553,6 +1572,9 @@ grains. Thus, for typical stream velocities of
 \SIrange{20}{100}{km.s^{-1}}, the small grains are always tightly
 coupled to the magnetic field, but the large grains are only loosely
 coupled for the faster streams.
+
+\subsection{Grain trajectories with tight magnetic coupling}
+\label{sec:grain-traj-with}
 
 We can now investigate how the results of the previous sections are
 modified by magnetic fields in the tight coupling limit.  For
