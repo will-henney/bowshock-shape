@@ -1,6 +1,48 @@
 \section{Equations of motion for grains with radiation and gas drag}
 \label{sec:equat-moti-grains}
 
+Following \citet{Draine:1979a}, the drag force on a grain that is
+moving at relative velocity \(w\) through a partially ionized gas can
+be written as a sum over each collider species, \(k\), with mass
+\(m_k\), abundance relative to hydrogen \(\alpha_k\) and charge
+\(z_k\). If the velocity is normalized to the thermal velocity of each
+species:
+\begin{equation}
+  \label{eq:s-velocity}
+  s_k = \left( m_k w^2 / 2 k T  \right)^{1/2} \ ,
+\end{equation}
+then the force is given by
+\begin{equation}
+  \label{eq:ds79}
+  f\drag = f_* \sum_k \alpha_k \left[ G_0(s_k) + z_k^2 \phi^2 \ln(\Lambda/z_k) G_2(s_k) \right],
+\end{equation}
+where \(f_*\) is a characteristic thermal force on the grain
+(see eq.~[\ref{eq:fstar}]). The
+dimensionless functions of normalized speed \(G_0(s)\) and \(G_2(s)\)
+are given by
+\begin{align}
+  \label{eq:G0}
+  G_0(s) & = \left( s^2 + 1 - \frac{1}{4 s^2} \right) \erf(s)
+  +  \left( s + \frac{1}{2 s} \right) \frac{e^{-s^2}}{\sqrt{\pi}}\\
+  \label{eq:G2}
+  G_2(s) & = \frac{\erf(s)}{s^2} - \frac{2 e^{-s^2}}{s \sqrt{\pi}} \ .
+\end{align}
+The \(G_0\) term is due to inelastic solid-body collisions in the
+Epstein limit, and is derived in \S~4 of \citet{Baines:1965a}.  The
+\(G_2\) term is due to electrostatic Coulomb interactions, with
+\(\phi\) being the grain potential in thermal units
+(eq.~[\ref{eq:phi-potential}]) and \(\Lambda\) the plasma parameter.  It was
+first derived in the different context of dynamic friction in stellar
+systems by \citet{Chandrasekhar:1941a}.
+
+We provide a python implementation of these equations in the file
+\texttt{ds79.py}, available from
+\url{https://github.com/div-B-equals-0/dust-trajectories}.
+Figure~\ref{fig:drag-components}--\ref{fig:gas-grain-drag-photoionized}
+show example applications to gas--grain drag in a photoionized region.
+
+
+
 \begin{figure}
   \includegraphics[width=\linewidth]{figs/dust-couple-div-stream}
   \caption{Divergent dragoids}

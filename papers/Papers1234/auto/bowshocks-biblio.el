@@ -134,6 +134,8 @@
     "Baldwin:1991a"
     "Abel:2008a"
     "Lanz:2003a"
-    "Lanz:2007a"))
+    "Lanz:2007a"
+    "Baines:1965a"
+    "Chandrasekhar:1941a"))
  :bibtex)
 
