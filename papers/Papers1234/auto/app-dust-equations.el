@@ -14,12 +14,10 @@
     "eq:ds79"
     "eq:G0"
     "eq:G2"
-    "fig:divergent-dragoids"
-    "eq:dust-XY"
-    "eq:dust-UV"
-    "eq:dust-motion"
-    "eq:dust-gas-velocities"
-    "eq:dust-R1"
-    "eq:dust-gas-density"))
+    "eq:grain-equation-motion"
+    "eq:total-force"
+    "eq:projected-force"
+    "eq:grain-accelration"
+    "eq:drag-constant"))
  :latex)
 
