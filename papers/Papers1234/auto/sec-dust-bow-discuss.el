@@ -10,6 +10,9 @@
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (LaTeX-add-labels
     "sec:summary-discussion"
+    "sec:sigma-ori-as"
+    "fig:sig-ori"
+    "fig:sig-ori-cuts"
     "sec:case-inside-out"
     "sec:conclusions"))
  :latex)

@@ -664,15 +664,15 @@ coefficient, which is dominated by hydrogen photo-electrons
 follows:
 \begin{align}
   \label{eq:cooling-coefficient}
-  \Lambda_{\text{warm}} &= \num{3.3e-24} \, T_4^{2.3} \, \si{erg.cm^{-3}.s^{-1}}\\
-  \Lambda_{\text{hot}} &= \num{e-20} \, T_4^{-1}\, \si{erg.cm^{-3}.s^{-1}} \\
+  \Lambda_{\text{warm}} &= \num{3.3e-24} \, T_4^{2.3} \, \si{erg.cm^{3}.s^{-1}}\\
+  \Lambda_{\text{hot}} &= \num{e-20} \, T_4^{-1}\, \si{erg.cm^{3}.s^{-1}} \\
   \Lambda &= \left( \Lambda_{\text{warm}}^{-k} +  \Lambda_{\text{hot}}^{-k} \right)^{-1/k}
       \quad \text{with} \quad k = 3 \ ,
 \end{align}
 which is valid in the range \(0.7 < T_4 < 1000\).  We approximate the heating coefficient as
 \begin{equation}
   \label{eq:heating-coefficient}
-  \Gamma = \num{1.77e-24} \, T_4^{-1/2} \, \si{erg.cm^{-3}.s^{-1}} \ ,
+  \Gamma = \num{1.77e-24} \, T_4^{-1/2} \, \si{erg.cm^{3}.s^{-1}} \ ,
 \end{equation}
 where the coefficient is chosen so as to give \(\Gamma = \Lambda\) at
 an equilibrium temperature of \(T_4 = 0.8\).
@@ -1588,23 +1588,26 @@ drag on the plasma is negligible (see previous section) and \(B\)
 remains uniform in magnitude and direction in the dust wave region,
 outside of the bow shock.
 
-In Appendix~\ref{sec:tight-magn-coupl}, we derive results in the limit
-of zero gas--grain drag, which is appropriate for inertia-confined dust
-waves. We find very different structures, depending on the orientation
-of the field.  For a parallel field (Fig.~\ref{fig:inertia-thB0}), the
-apex of the dust wave occurs at the same point, \(R\starstar\), as in
-the non-magnetic case, but the shape of the dust wave wings is more
-closed, being hemispherical rather than parabolic in shape.  For a
-perpendicular field (Fig.~\ref{fig:inertia-thB90}), on the other hand,
-grains in the apex region are dragged very close to the star and no
-dust wave forms there.  A dust wave can form in the wings, with impact
-parameter \(> R\starstar\), which is roughly parabolic in shape, but
-more swept-back than in the non-magnetic case.  Whether such a dust
-wave will exist in practice depends critically on the size and shape
-of the MHD wind-supported bow shock.
+In Appendix~\ref{sec:tight-magn-coupl}, we derive analytic and
+semi-analytic results in the limit of zero gas--grain drag, which is
+appropriate for inertia-confined dust waves. We find very different
+structures, depending on the orientation of the field.  For a parallel
+field (Fig.~\ref{fig:inertia-thB0}), the apex of the dust wave occurs
+at the same point, \(R\starstar\), as in the non-magnetic case, but
+the shape of the dust wave wings is more closed, being hemispherical
+rather than parabolic in shape.  For a perpendicular field
+(Fig.~\ref{fig:inertia-thB90}), on the other hand, grains in the apex
+region are dragged very close to the star and no dust wave forms
+there.  A dust wave can form in the wings, with impact parameter
+\(> R\starstar\), which is roughly parabolic in shape, but more
+swept-back than in the non-magnetic case.  Whether such a dust wave
+will exist in practice depends critically on the size and shape of the
+MHD wind-supported bow shock.
 
 In Figures~\ref{fig:frozen-stream} and~\ref{fig:frozen-trajectories}
-we show example results for drag-confined dust waves. Apart from the
+we show example results for drag-confined dust waves, which are
+calculated by numerically integrating the grain's equation of motion,
+as described in Appendix~\ref{sec:equat-moti-grains}. Apart from the
 inclusion of the magnetic field, the model parameters are the same as
 used in Figure~\ref{fig:phase-space-trajectories}, with the exception
 that the stream density is increased to \SI{10}{cm^{-3}}.\footnote{The

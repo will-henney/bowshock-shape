@@ -21,6 +21,9 @@
   + Could be a wobble in the shell that means we see 2 limb-brightened edges
   + Possibly due to the linear Vishniac instability
 ** NUV observations of LV4
+:PROPERTIES:
+:ID:       4F6EA6F7-1F1D-4EF6-BEAC-13D83C905301
+:END:
 + FOC images from 1994
 + Arc diameter is 0.04 arcsec! (is this the i-front?)
 + => radius = 0.02 arcsec = 8.6 AU
