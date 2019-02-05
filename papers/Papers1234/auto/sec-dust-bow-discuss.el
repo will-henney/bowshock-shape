@@ -8,8 +8,13 @@
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (TeX-add-symbols
+    "IR")
    (LaTeX-add-labels
     "sec:summary-discussion"
+    "eq:tau-empirical"
+    "tab:observations"
+    "fig:All-sources-eta-tau"
     "sec:case-inside-out"
     "sec:conclusions"))
  :latex)

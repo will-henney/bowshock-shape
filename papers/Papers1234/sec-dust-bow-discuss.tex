@@ -14,7 +14,95 @@ infrared luminosity of bow.  Favored by high densities.
 
 Dust waves favored by high velocities and intermediate densities.
 
+\newcommand\IR{\ensuremath{_{\text{IR}}}}
 
+In order to provide an empirical anchor to our theoretical
+calculations, we now consider how the parameters of our models might
+be determined from observations.  A fundamental parameter is the
+optical depth, \(\tau\), of the bow shell to UV radiation, which
+determines what fraction of the stellar photon momentum is available
+to support the shell (see \S~\ref{sec:three-bow-regimes}).  But the
+same photons also heat the dust grains in the bow, which re-radiate
+that energy predominantly at mid-infrared wavelengths (roughly
+\SIrange{10}{100}{\um}) with luminosity \(L\IR\).  Assuming that
+Ly\(\alpha\) and mechanical heating of the dust shell is negligible and
+that the emitting shell subtends a solid angle \(\Omega\), as seen from the
+star, then the optical depth can be estimated as
+\begin{equation}
+  \label{eq:tau-empirical}
+  \tau = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
+  \approx \frac{2 L\IR}{L_*} \ ,
+\end{equation}
+where the last approximate equality holds if \(\tau \ll 1\) and the shell
+emission covers one hemisphere.\footnote{%
+  The \(\tau\) of \S~\ref{sec:three-bow-regimes} is not exactly the same
+  as the \(\tau\) of equation~\eqref{eq:tau-empirical}, but is larger by
+  a factor of \(1 + \varpi (1 - g)/(1 - \varpi)\), where \(\varpi\) is
+  the grain albedo and \(g\) the scattering asymmetry (see
+  App.~\ref{sec:gas-free-bow}).} %
+
+
+
+
+\begin{table}
+  \centering
+  \caption[Observational]{Key observational parameters for star/bow systems}
+  \label{tab:observations}
+  \begin{tabular}{l S S S}
+    \toprule
+    Star & {\(L_* / \si{L_\odot}\)} & {\(L_{\text{IR}} / \si{L_\odot}\)} & {\(R_0 / \si{pc}\)} \\
+    \midrule
+    \thD & 2.95e4 & 620 & 0.003 \\
+    LP~Ori & 1600 & 240 & 0.01 \\
+    \(\sigma\)~Ori & 6e4 & 15 & 0.12 \\[\smallskipamount]
+    K18 Sources & \numrange{1.4e4}{8.7e5} & \numrange{8}{2800} & \numrange{0.02}{1.35} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/All-sources-eta-tau}
+  \caption[Observational diagnostic diagram]{Observational diagnostic
+    diagram for bow shocks.  The shell optical depth \(\tau\) (\(x\)
+    axis) and momentum efficiency \(\eta\shell\) (\(y\) axis) can be
+    estimated from observations of the bolometric stellar luminosity,
+    infrared shell luminosity, and shell radius, as described in the
+    text.  Results are shown for the 20 sources (circle symbols) from
+    \citet{Kobulnicky:2018a} plus three further sources (square
+    symbols), where we have obtained the measurements ourselves (see
+    Tab.~\ref{tab:observations}).  The color of each symbol indicates
+    the stellar luminosity (dark to light) as indicated by the scale
+    bar. The shell pressure is determined assuming a gas temperature
+    \(T = \SI{e4}{K}\), an absorption opacity
+    \(\kappa = \SI{600}{cm^2.g^{-1}}\), and a thickness-to-radius ratio
+    \(H/R = 0.25\).  The sensitivity of the results to a
+    factor-of-three change in each parameter is shown in the upper
+    inset box.  Exceptions are the two Orion Nebula sources, \thD{}
+    and LP~Ori, where the small dim squares show the results of
+    assuming the standard shell parameters, while the large squares
+    show the results of modifications according to the peculiar
+    circumstances of each object, as described in the text.  The lower
+    inset box shows the sensitivity of the results to a factor-of-two
+    uncertainty in each observed quantity: distance to source \(D\);
+    stellar luminosity \(L_*\), shell infrared flux \(F\IR\); shell
+    angular size \(\theta\).  Lines and shading indicate different
+    theoretical bow regimes (see \S\S~\ref{sec:strong-gas-grain} and
+    \ref{sec:imperf-coupl-betw}).  The dashed blue diagonal line
+    corresponds to radiation-supported bows, while the upper left
+    region corresponds to wind-supported bows.  The upper right corner
+    (purple) corresponds to optically thick bow shocks, while the
+    lower left corner (yellow) is the region where grain--gas
+    separation \textit{may} occur, leading to a potential dust wave.
+    However, the existence of a dust wave in this region is not
+    automatic, since it only includes one of the four necessary
+    conditions (\S~\ref{sec:exist-cond-separ} and
+    \S~\ref{sec:grain-traj-with}). The lower-right region is strictly
+    forbidden unless the assumption that dust heating is dominated by
+    stellar radiation is violated. }
+  \label{fig:All-sources-eta-tau}
+\end{figure*}
 
 
 
