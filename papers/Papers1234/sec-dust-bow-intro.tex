@@ -117,7 +117,7 @@ grain trajectories (Appendix~\ref{sec:equat-moti-grains}).
     cases, \(\kappa = \SI{600}{cm^2.g^{-1}}\) and efficient gas-grain
     coupling is assumed. Solid black lines of varying width show the
     bow size (star-apex separation, \(R_0\)), while gray shading shows
-    the radiation bow wave regime, with lower border \(\tau = \eta\) and
+    the radiation bow wave regime, with lower border \(\tau = \eta\wind\) and
     upper border \(\tau = 1\), where \(\tau = 2 \kappa \rho R_0\) is the optical
     depth through the bow.  For bows above the red solid line, the
     ionization front is trapped inside the bow.  Blue lines delineate
@@ -163,9 +163,9 @@ radiative momentum loss rate of the star is \(L/c\) and the wind
 momentum loss rate can be expressed as
 \begin{equation}
   \label{eq:wind-efficiency}
-  \dot{M} V = \eta L / c \ , 
+  \dot{M} V = \eta\wind L / c \ , 
 \end{equation}
-where \(\eta\) is the momentum efficiency of the wind, which is typically
+where \(\eta\wind\) is the momentum efficiency of the wind, which is typically
 \(< 1\) \citep{Lamers:1999b}. If the optical depth is very large, then
 all of the stellar radiative momentum, emitted with rate \(L/c\), is
 trapped by the bow shell.  In the single scattering limit,\footnote{%
@@ -257,7 +257,7 @@ radius can be written in terms of the fiducial radius as
 where \(x\) is the solution of
 \begin{equation}
   \label{eq:rad-full-x}
-  x^2 - \bigl(1 - e^{-2 \tau_* x} \bigr) - \eta = 0 \ .
+  x^2 - \bigl(1 - e^{-2 \tau_* x} \bigr) - \eta\wind = 0 \ .
 \end{equation}
 Since this is a transcendental equation, \(x\) must be found
 numerically, but we can write explicit expressions for three limiting
@@ -266,18 +266,18 @@ cases:
   \label{eq:x-cases}
   x \approx
   \begin{cases}
-    \text{if \(\tau_* \gg 1\):} & (1 + \eta)^{1/2}  \\
-    \text{if \(\tau_*^2 \ll 1\):} & \tau_* + \bigl( \tau_*^2 + \eta \bigr)^{1/2} \approx
+    \text{if \(\tau_* \gg 1\):} & (1 + \eta\wind)^{1/2}  \\
+    \text{if \(\tau_*^2 \ll 1\):} & \tau_* + \bigl( \tau_*^2 + \eta\wind \bigr)^{1/2} \approx
     \begin{cases}
-      \text{if \(\tau_*^2 \gg \eta\):} & 2 \tau_*  \\
-      \text{if \(\tau_*^2 \ll \eta\):} & \eta^{1/2} 
+      \text{if \(\tau_*^2 \gg \eta\wind\):} & 2 \tau_*  \\
+      \text{if \(\tau_*^2 \ll \eta\wind\):} & \eta\wind^{1/2} 
     \end{cases}
   \end{cases}
 \end{equation}
-The first case, \(x \approx (1 + \eta)^{1/2}\), corresponds to a
+The first case, \(x \approx (1 + \eta\wind)^{1/2}\), corresponds to a
 \textit{radiation bow shock} (RBS); the second case,
 \(x \approx 2 \tau_* \), corresponds to a \textit{radiation bow wave} (RBW);
-and the third case, \(x \approx \eta^{1/2}\), corresponds to a \textit{wind bow
+and the third case, \(x \approx \eta\wind^{1/2}\), corresponds to a \textit{wind bow
   shock} (WBS).  The two bow shock cases are similar in that the
 external stream is oblivious to the presence of the star until it
 suddenly hits the bow shock shell, differing only in whether it is
@@ -299,7 +299,7 @@ bow.\footnote{A shock can still form in this case, but shocked
   \begin{tabular}{l S S S S S S S S S l}
     \toprule
     & {\(M / \si{M_\odot}\)} & {\(L_4\)}
-    & {\(\dot{M}_{-7}\)} & {\(V_3\)} & {\( \eta \)}
+    & {\(\dot{M}_{-7}\)} & {\(V_3\)} & {\( \eta\wind \)}
     & {Sp.~Type} 
     & {\(T_{\text{eff}} / \si{kK}\)} & {\(\lambda_{\text{eff}}\) / \si{\um}}
     & {\(S_{49}\)} & Figures 
@@ -345,7 +345,7 @@ In terms of these parameters, we can express the stellar wind momentum
 efficiency as
 \begin{equation}
   \label{eq:wind-eta-typical}
-  \eta = \num{0.495} \,\dot{M}_{-7} \,V_3  \,L_4^{-1}
+  \eta\wind = \num{0.495} \,\dot{M}_{-7} \,V_3  \,L_4^{-1}
 \end{equation}
 and the fiducial radius and optical depth as
 \begin{align}
@@ -393,7 +393,7 @@ hot main sequence stars.  The luminosity is a steep function of
 stellar mass (\(L \sim M^{2.5}\)) and the wind mass-loss rate is a steep
 function of luminosity (\(\dot{M} \sim L^{2.2}\)), which means that the
 wind momentum efficiency is also a steep function of mass
-(\(\eta \sim M^3\)), approaching unity for early O~stars, but falling to
+(\(\eta\wind \sim M^3\)), approaching unity for early O~stars, but falling to
 less than 1\% for B~stars.
 
 \begin{figure}
@@ -559,11 +559,11 @@ on the external stream parameters, \(n\), \(v_\infty\) only via
 condition for \(\tau_*\), which, by using
 equation~\eqref{eq:taustar-typical}, becomes a condition on
 \(n / v_{10}^2\).  In the radiation bow shock case,
-\(x = (1 + \eta)^{1/2}\), and the condition can be written:
+\(x = (1 + \eta\wind)^{1/2}\), and the condition can be written:
 \begin{equation}
   \label{eq:ifront-trap-density-RBS}
   \text{RBS:}\quad
-  \frac{n}{v_{10}^2} > \num{2.65e8} \, \frac{S_{49}^2 T_4^{3.4}}{L_4^3 (1 + \eta)^3} \ .
+  \frac{n}{v_{10}^2} > \num{2.65e8} \, \frac{S_{49}^2 T_4^{3.4}}{L_4^3 (1 + \eta\wind)^3} \ .
 \end{equation}
 In the radiation bow wave case, \(x = 2\tau_*\), and the condition can be
 written:
@@ -574,7 +574,7 @@ written:
 \end{equation}
 In the wind bow shock case, the result is the same as
 equation~\eqref{eq:ifront-trap-density-RBS}, but changing the factor
-\((1 + \eta)^3\) to \(\eta^3\).  For the example hot stars in
+\((1 + \eta\wind)^3\) to \(\eta\wind^3\).  For the example hot stars in
 Table~\ref{tab:stars}, and assuming \(\kappa_{600} = 1\),
 \(T_4 = 0.8\), the resulting density threshold is
 \(n > (\text{\numrange{1000}{5000}})\, v_{10}^2\), depending only
@@ -1118,19 +1118,19 @@ as a \textit{drag-confined dust wave} (DDW).
 In order for a separate outer dust wave to exist, it is necessary for
 the grains to decouple from the incoming gas stream before the stream
 hits the hydrodynamic bow shock caused by the stellar wind.  The wind
-bow shock radius is \(R_0 = \eta^{1/2} R_*\) (eq.~[\ref{eq:x-cases}]),
-where \(\eta\) is the wind momentum efficiency
+bow shock radius is \(R_0 = \eta\wind^{1/2} R_*\) (eq.~[\ref{eq:x-cases}]),
+where \(\eta\wind\) is the wind momentum efficiency
 (eq.~[\ref{eq:wind-eta-typical}]).  Therefore, the condition
 \(R_\dag > R_0\) becomes from equation~\eqref{eq:Rdag-over-Rstar}:
 \begin{equation}
   \label{eq:dust-wave-velocity-condition}
-  v_{10} > v_{10,\text{min}} = \bigl( \Xi_\dag \, \eta \bigr)^{1/2} \ . 
+  v_{10} > v_{10,\text{min}} = \bigl( \Xi_\dag \, \eta\wind \bigr)^{1/2} \ . 
 \end{equation}
-For O stars, the wind efficiency is generally high (\(\eta > 0.1\)) and
+For O stars, the wind efficiency is generally high (\(\eta\wind > 0.1\)) and
 \(\Xi_\dag > 2000\) (Tab.~\ref{tab:Xi-rip}), so that dust waves can only
 exist when the stream velocity is very high
 (\(v_\infty > \SI{150}{km.s^{-1}}\)).  For B~stars, in contrast, the wind
-can be much weaker (\(\eta < 0.01\)) and \(\Xi_\dag\) is also smaller, so
+can be much weaker (\(\eta\wind < 0.01\)) and \(\Xi_\dag\) is also smaller, so
 that dust waves are permitted by this criterion for much lower stream
 velocities: (\(v_\infty > \SI{30}{km.s^{-1}}\)).
 
@@ -1149,8 +1149,8 @@ so, if we define a single-grain opacity as
 \(\kappa\grain = \sigma\grain \Qp / m\grain\), then this condition becomes
 \begin{equation}
   \label{eq:dust-wave-low-density-condition}
-  \tau_* >  \tau_{*,\text{min}} = 0.5\, \frac{\kappa}{\kappa\grain}\, \eta^{1/2} 
-  % \frac{\kappa \eta^{1/2}}{2 \kappa\grain}
+  \tau_* >  \tau_{*,\text{min}} = 0.5\, \frac{\kappa}{\kappa\grain}\, \eta\wind^{1/2} 
+  % \frac{\kappa \eta\wind^{1/2}}{2 \kappa\grain}
   \ . 
 \end{equation}
 The average value of the factor \(\kappa / \kappa\grain\) over the entire grain
@@ -1404,7 +1404,7 @@ by a factor \((1 - \Delta v / v_\infty)^{-1}\) with respect to the case
 calculated in \S~\ref{sec:three-bow-regimes}, yielding
 \begin{equation}
   \label{eq:gas-free-bow-shock}
-  R_{\text{dfbs}} \approx \frac{\eta^{1/2} R_*}{1 - \tfrac12 \alpha \tau_* / \tau_{*, \text{max}}} \ .
+  R_{\text{dfbs}} \approx \frac{\eta\wind^{1/2} R_*}{1 - \tfrac12 \alpha \tau_* / \tau_{*, \text{max}}} \ .
 \end{equation}
 
 An example is illustrated in Figure~\ref{fig:decouple-vertical-cut},

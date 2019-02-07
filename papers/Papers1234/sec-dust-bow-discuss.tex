@@ -18,16 +18,24 @@ Dust waves favored by high velocities and intermediate densities.
 
 In order to provide an empirical anchor to our theoretical
 calculations, we now consider how the parameters of our models might
-be determined from observations.  A fundamental parameter is the
-optical depth, \(\tau\), of the bow shell to UV radiation, which
-determines what fraction of the stellar photon momentum is available
-to support the shell (see \S~\ref{sec:three-bow-regimes}).  But the
-same photons also heat the dust grains in the bow, which re-radiate
-that energy predominantly at mid-infrared wavelengths (roughly
-\SIrange{10}{100}{\um}) with luminosity \(L\IR\).  Assuming that
-Ly\(\alpha\) and mechanical heating of the dust shell is negligible and
-that the emitting shell subtends a solid angle \(\Omega\), as seen from the
-star, then the optical depth can be estimated as
+be determined from observations.  The parameter space diagrams, such
+as Figures~\ref{fig:zones-v-n-plane} and
+\ref{fig:existence-dust-wave}, are not particularly useful in this
+regard, since in many cases the ambient density and relative stellar
+velocity are not directly measured.  Instead, we aim to construct
+diagnostics based on the most common observations, which are of the
+infrared dust emission.
+
+A fundamental parameter is the optical depth, \(\tau\), of the bow shell
+to UV radiation, which determines what fraction of the stellar photon
+momentum is available to support the shell (see
+\S~\ref{sec:three-bow-regimes}).  But the same photons also heat the
+dust grains in the bow, which re-radiate that energy predominantly at
+mid-infrared wavelengths (roughly \SIrange{10}{100}{\um}) with
+luminosity \(L\IR\).  Assuming that Ly\(\alpha\) and mechanical heating of
+the dust shell is negligible and that the emitting shell subtends a
+solid angle \(\Omega\), as seen from the star, then the optical depth can
+be estimated as
 \begin{equation}
   \label{eq:tau-empirical}
   \tau = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
@@ -41,8 +49,50 @@ emission covers one hemisphere.\footnote{%
   the grain albedo and \(g\) the scattering asymmetry (see
   App.~\ref{sec:gas-free-bow}).} %
 
-
-
+A second important parameter is the thermal plus magnetic pressure in
+the shocked shell, which is doubly useful since in a steady state it
+is equal to \emph{both} the internal supporting pressure (wind ram
+pressure plus absorbed stellar radiation) \emph{and} the external
+confining pressure (ram pressure of ambient stream).  The shell pressure is
+not given directly by the observations, but can be determined as
+follows:
+\begin{enumerate}[1.]
+\item The shell mass column (\si{g.cm^{-2}}) can be estimated from the
+  optical depth by assuming an effective UV opacity: \(\Sigma\shell = \tau / \kappa\)
+\item The shell density (\si{g.cm^{-3}}) can be found from the mass
+  column if the shell thickness is known:
+  \(\rho\shell = \Sigma / h\shell\).  In the absence of other information, a
+  fixed fraction of the shell radius can be used.  In particular, we
+  normalize by a typical value of one~quarter\footnote{%
+    This corresponds to a Mach number \(\M_0 = \surd 3\) if the stream
+    shock is radiative, or \(\M_0 \gg 1\) if non-radiative (see
+    \S~\ref{sec:radi-cool-lengths}).  Further discussion is given in
+    Appendix~\ref{app:bow-shock-data}} %
+  the star--apex distance:
+  \(h_{1/4} = h\shell / (0.25 R_0)\).
+\item Finally, the pressure (\si{dyne.cm^{-2}}) follows by assuming
+  values for the sound speed and Alfvén speed:
+  \(P\shell = \rho\shell (\sound^2 + \frac12 v\alfven^2) \).
+\end{enumerate}
+It is natural to normalize this pressure to the stellar radiation
+pressure at the shell, so we define a shell momentum efficiency
+\newcommand\pc{\ensuremath{_{\text{pc}}}}
+\begin{equation}
+  \label{eq:eta-shell}
+  \eta\shell \equiv \frac{P\shell}{P\rad}
+  = \frac{4\pi R_0^2\, (\sound^2 + \frac12 v\alfven^2)\, \tau}{L_*\, \kappa\, h\shell}
+  \approx 245 \frac{R\pc \, T_4 \, \tau}{L_4 \, \kappa_{600} \, h_{1/4}} \ , 
+\end{equation}
+where in the last step we have assumed ionized gas with negligible
+magnetic support (\(v\alfven \ll \sound\)) and written the stellar
+luminosity and shell parameters in terms of typical values, as in
+\S~\ref{sec:depend-stell-type}.  Note that the shell momentum
+efficiency is simply the reciprocal of the radiation parameter of
+equation~\eqref{eq:Xi-Prad-over-Pgas}:
+\(\eta\shell = \Xi\shell^{-1}\), which provides yet a third use for
+\(\eta\shell\), since \(\Xi\) is paramount in determining whether the
+grains and gas remain well-coupled (see
+\S~\ref{sec:exist-cond-separ}).
 
 \begin{table}
   \centering
@@ -99,14 +149,21 @@ emission covers one hemisphere.\footnote{%
     automatic, since it only includes one of the four necessary
     conditions (\S~\ref{sec:exist-cond-separ} and
     \S~\ref{sec:grain-traj-with}). The lower-right region is strictly
-    forbidden unless the assumption that dust heating is dominated by
-    stellar radiation is violated. }
+    forbidden, except in case of violation of the assumption that dust
+    heating be dominated by stellar radiation. }
   \label{fig:All-sources-eta-tau}
 \end{figure*}
 
 
 
+Mass loss rates - starting from \citet{Kobulnicky:2010a}
 
+Different scenarios for producing velocities: dynamic ejection from
+young clusters \citep{Hoogerwerf:2001a, Oh:2016c} produce high
+velocities, dissolution of binary systems following core-collapse SN
+\citep{Renzo:2018a} tend to produce lower velocities for the unbound
+MS companion (walkaways, slower than 30 km/s).  Also, champagne flows
+have low velocities.
 
 How different regions of the \(\Pi\)--\(\Lambda\) plane are populated.
 Bottom-right quadrant hard to get to (except for standing wave
