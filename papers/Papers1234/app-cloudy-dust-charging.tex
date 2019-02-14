@@ -171,12 +171,29 @@ Fig.~\ref{fig:cloudy-ism-dust-opacity}).
   \label{fig:phi-vs-Xi}
 \end{figure}
 Finally, Figure~\ref{fig:phi-vs-Xi} shows the slow dependence of grain
-potential on radiation parameter for all the simulations on a linear versus
-logarithmic scale.  The logarithmic fit of
+potential on radiation parameter for all the simulations on a linear
+versus logarithmic scale.  The logarithmic fit of
 equation~\eqref{eq:phi-vs-Xi}, most appropriate for carbon grains
 around cooler stars, is shown by the solid line.  The dashed lines
 show the modifications for silicate grains and for hotter stars (see
-\S~\ref{sec:gas-grain-separ}).
+\S~\ref{sec:gas-grain-separ}).  Further details of the Cloudy dust
+models are discussed in Appendix~\ref{sec:grain-temp-emiss}.
+
+
+\section{Grain temperature and mid-infrared emissivity}
+\label{sec:grain-temp-emiss}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/grain-T-vs-U}
+  \caption{Grain temperature versus radiation field mean intensity,
+    \(U\), in units of the interstellar radiation field in the solar
+    neighborhood.  Line types and colors are as in
+    Fig.~\ref{fig:phi-vs-Xi} and correspond to a variety of stellar
+    spectral shapes, gas densities, and grain species.}
+  \label{fig:grain-T-vs-U}
+\end{figure}
+
 
 \begin{figure}
   \centering
@@ -185,7 +202,8 @@ show the modifications for silicate grains and for hotter stars (see
     (lines colored as in Fig.~\ref{fig:drift-gn}), compared with grain
     models from \citet{Draine:2007a} (dark gray symbols), which assume
     illumination by a scaled interstellar radiation field, which has a
-    SED with a very different shape from that of an OB star.  }
+    SED with a very different shape from that of an OB star, see
+    Fig.~\ref{fig:sed-comparison}.  }
   \label{fig:grain-j70}
 \end{figure}
 
@@ -197,8 +215,8 @@ show the modifications for silicate grains and for hotter stars (see
     field in the solar neighborhood (orange line).  The OB star is the
     \SI{20}{M_\odot} model from Table~\ref{tab:stars} and is plotted for a
     distance from the star of \SI{1}{pc}.  The interstellar SED is
-    from \citet{Mathis:1983a} and is multiplied by \num{100} so that
-    the total FUV-to-NIR flux is similar for the two SEDs.}
+    from \citet{Mathis:1983a} and is multiplied by \num{80} so that
+    the total FUV-to-NIR flux is equal for the two SEDs.}
   \label{fig:sed-comparison}
 \end{figure}
 
