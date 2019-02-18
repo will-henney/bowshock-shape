@@ -73,7 +73,7 @@ If distances are measured in units of the radiative turnaround radius,
 \(\bm{a}\grain = \bm{f} / m\grain\) in the non-magnetic case can be
 written in non-dimensional form as
 \begin{equation}
-  \label{eq:grain-accelration}
+  \label{eq:grain-acceleration}
   \frac{\bm{a}\grain}{a\starstar}
   = \frac{R\starstar^2}{2 R^{2}} \hat{\bm{r}}
   - C\drag \frac{f\drag}{f_*} \hat{\bm{w}} \, 
@@ -90,7 +90,7 @@ appendix is available at
 \url{https://github.com/div-B-equals-0/dust-trajectories}, including
 programs to generate all the grain trajectory figures of this paper
 plus additional figures and movies.  The integration of
-equation~\eqref{eq:grain-equation-motion} is carried out using the
+equation~\eqref{eq:grain-acceleration} is carried out using the
 python library function \texttt{scipy.integrate.odeint}, which wraps
 the Fortran ODEPACK library \citep{Hindmarsh:1983a, Jones:2001a}.
 

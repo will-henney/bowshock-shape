@@ -6,7 +6,6 @@
     "van-Dyke:1982a"
     "Johnstone:1998"
     "Laques:1979"
-    "HA:1998"
     "Canto:1996"
     "Kobulnicky:2010a"
     "Mackey:2012b"
@@ -138,6 +137,24 @@
     "Lanz:2003a"
     "Lanz:2007a"
     "Baines:1965a"
-    "Chandrasekhar:1941a"))
+    "Chandrasekhar:1941a"
+    "Mathis:1983a"
+    "Draine:2007a"
+    "Draine:2001a"
+    "Hoang:2018a"
+    "Xie:2018a"
+    "Lebouteiller:2011a"
+    "Desert:1990a"
+    "Giard:1994a"
+    "Draine:1981a"
+    "Brown:2015a"
+    "Henney:1998b"
+    "Habing:1968a"
+    "Duley:1973a"
+    "Tielens:1985a"
+    "Hoogerwerf:2001a"
+    "Oh:2016c"
+    "Renzo:2018a"
+    "Martins:2005a"))
  :bibtex)
 
