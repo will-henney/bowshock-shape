@@ -361,9 +361,9 @@ the ratio of Lyman \(\alpha\) to direct stellar radiation as
 \end{equation}
 Taking the most favorable parameters imaginable of a slow stream
 (\(v_{10} = 2\)), very strong wind (\(x \approx 1\)), and reduced dust
-opacity (\(\kappa_{600} = 0.1\)) gives a Lyman \(\alpha\) flux of only 10\% of the
-stellar flux.  In any other circumstances, the fraction would be even
-lower.
+opacity (\(\kappa_{600} = 0.1\)) gives a Lyman \(\alpha\) contribution of only
+10\% of the stellar radiative energy density.  In any other
+circumstances, the fraction would be even lower.
 
 \subsubsection{Shock heating}
 \newcommand\kin{\ensuremath{_{\text{kin}}}}
@@ -414,7 +414,37 @@ for a stream velocity \(v = \SI{200}{km.s^{-1}}\), we have
 \(F\ke/F\trap < 0.01\) and the shock-excited dust emission is still
 negligible.  Only in stars with \(v > \SI{1000}{km.s^{-1}}\) would the
 shock emission start to be significant, and such hyper-velocity stars
-\citep{Brown:2015a} do not show bow shocks.
+\citep{Brown:2015a} do not show detectable bow shocks.
+
+So far, we have only considered the outer shock, but the inner shock
+that decelerates the stellar wind will have a velocity of
+\SIrange{1000}{3000}{km.s^{-1}} and therefore might have a
+significant kinetic energy flux by eq.~\eqref{eq:F-ratio-shock}.
+However, the stellar wind from hot stars will be free of
+dust,\footnote{%
+  With the exception of Wolf-Rayet colliding wind binary systems
+  \citep{Tuthill:1999a, Callingham:2019a}.} %
+so that it would be necessary for the stellar wind protons to cross
+the contact/tangential discontinuity and deposit their energy in the
+dusty plasma of the shocked ambient stream.  This is not possible
+because the Larmor radius (see \S~\ref{sec:magn-effects-grain}) of a
+\SI{3000}{km.s^{-1}} proton in a \SI{1}{\micro G} field is only
+\SI{3e10}{cm}, which is millions of times smaller than typical bow
+sizes.  The magnetic field in the outer shell is unlikely to be
+smaller than \(\approx n^{1/2} \si{\micro G}\), given that Alfvén
+speeds of \SI{2}{km.s^{-1}} are typical of photoionized regions
+(cf.~eq.~[\ref{eq:alfven}]) and if the density were much lower than
+\SI{1}{cm^{-3}}, then the scale of the bow would be commensurately
+larger anyway.  Three-dimensional MHD simulations of bow shocks
+\citep{Katushkina:2017a, Gvaramadze:2018a} show that the magnetic
+field lines are always oriented parallel to the shell, so that high
+energy particles from the stellar wind would be efficiently reflected
+in a very thin layer and cannot contribute to grain heating.  For the
+same reason, heat conduction by electrons across the contact
+discontinuity is also greatly suppressed \citep{Meyer:2017a}.
+
+
+
 
 % Inner shock \dots no dust \dots proton Larmor radius very small, so
 % no penetration across contact discontinuity

@@ -155,6 +155,10 @@
     "Hoogerwerf:2001a"
     "Oh:2016c"
     "Renzo:2018a"
-    "Martins:2005a"))
+    "Martins:2005a"
+    "Tuthill:1999a"
+    "Callingham:2019a"
+    "Gvaramadze:2018a"
+    "Katushkina:2017a"))
  :bibtex)
 
