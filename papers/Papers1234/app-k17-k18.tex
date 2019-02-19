@@ -55,12 +55,12 @@ In Figure~\ref{fig:k17-k18-comparison} we compare the \(\tau\) obtained
 using the shell luminosity as described above with that obtained using
 the luminosity ratios directly from K17 Table~5.  It can be seen that
 for the majority of sources the two measurements are consistent within
-a factor of two (gray band).  The three furthest-flung outliers can be
+a factor of two (gray band).  The four furthest-flung outliers can be
 understood as follows:
 \begin{description}
 \item[\textit{Source 67}] This has a very poor-quality spectral fit in
-  K17 (see lower left panel of their Fig.~12) and so the
-  \(F_{\text{IR}}\) is overestimated by a factor of 10.
+  K17 (see lower left panel of their Fig.~12) and so 
+  \(F_{\text{IR}}\) is overestimated by them by a factor of 10.
 \item[\textit{Sources 341 and 342}] The spectral classes changed from
   B2V in K17 to O9V and B1V, respectively, in K18, increasing the
   derived \(L_*\), which lowers \(\tau\).
@@ -88,11 +88,80 @@ understood as follows:
     the solid gray line shows the emissivities that they claim to be
     using from \citet{Draine:2007a}.  The dashed line shows the
     emissivities that we believe they should have been using, which
-    correct for the fact that the illuminating SED in
-    \citet{Draine:2007a} is dominated by longer wavelengths (see
-    App.~\ref{sec:grain-temp-emiss}).}
+    correct for the marked difference in spectral energy distribution
+    between OB stars and the Galactic interstellar radiation field
+    (see App.~\ref{sec:grain-temp-emiss}).}
   \label{fig:k18-emissivity}
 \end{figure}
+
+\newcommand\LOS{\ensuremath{_{\text{los}}}}
+K18 derive mass loss rates for their sources using a method that is
+different from the one that we employ in
+\S~\ref{sec:summary-discussion}.  Both methods are based on
+determining the stellar wind ram pressure that supports the bow shell,
+but K18 do so via the following steps:
+\begin{enumerate}[K1.]
+\item \label{K1} The line-of-sight mass column through the shell is
+  calculated by combining the peak surface brightness at \SI{70}{\um},
+  \(S_{70}\), with a theoretical emissivity per nucleon,
+  \(j_{70}(U)\), from \citet{Draine:2007a}:
+  \(\Sigma\LOS = S_{70} / \bar{m} j_{70}(U)\).  This depends on
+  knowledge of the stellar radiation field at the shell:
+  \(U \propto L_* / R_0^2\).
+\item \label{K2} The shell density is found from the line-of-sight
+  mass column using an observationally determined ``chord diameter'',
+  \(\ell\), which is assumed to be equal to the depth along the line
+  of sight: \(\rho\shell = \Sigma\LOS / \ell\).
+\item \label{K3} The internal ram pressure is equated to the external
+  ram pressure, which is found by assuming a stream velocity of
+  \SI{30}{km.s^{-1}} and a compression factor of 4 across the outer
+  shock:
+  \(P_{\text{stream}} = 0.25 \rho\shell \times
+  (\SI{30}{km.s^{-1}})^2\).
+\end{enumerate}
+There are clear parallels but also differences between steps
+K\ref{K1}--K\ref{K3} and our own steps P\ref{P1}--P\ref{P3}.  Our
+step~P\ref{P1} depends on the total observed infrared flux of the bow
+combined with an assumption about the grain opacity at ultraviolet
+wavelengths, while step~K\ref{K1} depends on the peak brightness at a
+single wavelength combined with an assumption about the grain
+emissivity at infrared wavelengths.  Our step~P\ref{P2} requires an
+assumption about the relative thickness of the shell, while
+step~K\ref{K2} is more directly tied to observations.\footnote{%
+  Note that there is a relation between the chord length, \(\ell\),
+  and the shell thickness, \(h\shell\), but this depends on the
+  planitude, \(\Pi\) of the bow shape \citep{Tarango-Yong:2018a}:
+  \( h\shell/R_0 = \Pi \bigl(1 - \{1 - [\ell/(2 \Pi R_0)]^2\}^{1/2}\bigr)\).  } %
+On the other hand, step~K\ref{K3} makes a roughly equivalent
+assumption about the shock compression factor,\footnote{%
+  In reality, the compression factor may be larger or smaller than 4,
+  depending on the efficiency of the post-shock cooling (see
+  \S~\ref{sec:radi-cool-lengths}).  For instance, for
+  \(v = \SI{30}{km.s^{-1}}\) as assumed by K18 and \(T = \SI{e4}{K}\),
+  one has a Mach number of \(\M_0 = 2.63\) and a compression factor of
+  2.8 for a non-radiative shock (by eq.~[\ref{eq:shock-n-jump}]) or a
+  factor of \(\M_0^2 =6.9\) for a strongly radiative one.  } %
+and a further assumption about the stream velocity. These assumptions
+are not necessary for our step~P\ref{P3}, but we do need to assume a
+value for the shell gas temperature.
+
+In principle, both methods are valid and their different assumptions
+and dependencies on observed quantities and auxiliary parameters
+provide an important cross check on one another.  However, as
+explained in detail in Appendix~\ref{sec:grain-temp-emiss}, the
+\(j_\nu(U)\) relation depends on the shape of the illuminating SED,
+which means that the \citet{Draine:2007a} models require modification
+when applied to grains around OB stars.  In addition, when attempting
+to replicate the K18 values of \(j_{70}\) we find that they only
+follow the \citet{Draine:2007a} values for \(U > \num{e4}\), tending
+to a constant value for weaker radiation fields.  The situation is
+summarized in Figure~\ref{fig:k18-emissivity}, where the values taken
+directly from Table~2 of K18 are shown by red crosses, the values they
+claim to be using are shown by the gray solid line (this curve is
+consistent with that shown in K18 Fig.~2), and the values they
+\textit{should} have been using are shown by the gray dashed line.
+
+% If we replaced K3 with M3, then mass loss rates would be reduced by 1.86 across the board
 
 \begin{figure}
   \centering
@@ -100,18 +169,52 @@ understood as follows:
   \caption{Effects on mass-loss determination of correcting the K18
     emissivities.  The mass-loss rates from Table~2 of K18 are shown
     on the \(x\) axis, while the corrected values are shown on the
-    \(y\) axis.  The corrected mass-loss rates are predominantly lower
-    by a factor of roughly 2.}
+    \(y\) axis.  Symbols are color coded by the strength of the
+    radiation field, \(U\). The corrected mass-loss rates are
+    predominantly lower by a factor of roughly 2.}
   \label{fig:k18-mdot-corrected-emissivity}
 \end{figure}
+
+After correcting the \SI{70}{\um} emissivities in this way, we
+re-derive the mass loss rates, following the same steps as in K18,
+which are then used in Figure~\ref{fig:mass-loss-vs-luminosity}b of
+\S~\ref{sec:summary-discussion}.  The difference between these
+corrected mass-loss rates and those published in K18 is shown in
+Figure~\ref{fig:k18-mdot-corrected-emissivity}.  It can be seen that
+sources with \(U \approx \num{e3}\) (darker shading) are relatively
+unaffected but that sources with stronger radiation fields (lighter
+shading) have their mass-loss increasingly reduced, as could be
+surmised from Figure~\ref{fig:k18-emissivity}.  The average reduction
+is by a factor of about two.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/K18-mdot-corrected-comparison-R0}
-  \caption{Comparison of two mass-loss methods.}
+  \caption{Comparison of the two mass-loss methods: K18 corrected
+    method (\(x\) axis) versus our method (\(y\) axis).  Error bars on
+    the \(y\) axis correspond to a factor-three uncertainty in
+    \(\eta\shell\).  Sources for which these error bars overlap with
+    the RBW zone are only upper limits for the wind mass-loss rate,
+    and are indicated by faint symbols.}
   \label{fig:mass-loss-comparison}
 \end{figure}
 
+Finally, in Figure~\ref{fig:mass-loss-comparison} we compare our own
+mass-loss determinations with the corrected K18 values.  The plot
+symbols are shaded according to the physical size of the bow, \(R_0\).
+It is apparent that the two methods are broadly in agreement on
+average, but there is considerable dispersion for individual objects,
+with only a weak correlation between the results of the two techniques
+(Pearson correlation coefficient \(r = 0.67\)).  Interestingly, the
+smaller bows (darker shading) show much better agreement than the
+larger bows (lighter shading).  The five bows with
+\(R_0 > \SI{0.4}{pc}\) (339, 344, 369, 381, 382) show a difference of
+nearly an order of magnitude, in the sense that our method
+consistently predicts lower mass-loss rates than K18.  For a further
+five of the sources (380, 407, 409, 410, 411), our method gives only
+an upper limit to the wind mass-loss rate if one assumes a
+factor-three uncertainty in \(\eta\shell\), and these bows are among
+the smallest in the sample, all with \(R_0 < \SI{0.1}{pc}\).
 
 %%% Local Variables:
 %%% mode: latex

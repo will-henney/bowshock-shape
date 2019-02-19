@@ -159,6 +159,9 @@
     "Tuthill:1999a"
     "Callingham:2019a"
     "Gvaramadze:2018a"
-    "Katushkina:2017a"))
+    "Katushkina:2017a"
+    "ODell:2001c"
+    "Balog:2014a"
+    "Engelbracht:2007a"))
  :bibtex)
 

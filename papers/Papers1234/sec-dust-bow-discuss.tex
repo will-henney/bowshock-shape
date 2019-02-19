@@ -41,37 +41,39 @@ be estimated as
   \tau = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
   \approx \frac{2 L\IR}{L_*} \ ,
 \end{equation}
-where the last approximate equality holds if \(\tau \ll 1\) and the shell
-emission covers one hemisphere.\footnote{%
-  The \(\tau\) of \S~\ref{sec:three-bow-regimes} is not exactly the same
-  as the \(\tau\) of equation~\eqref{eq:tau-empirical}, but is larger by
-  a factor of \(1 + \varpi (1 - g)/(1 - \varpi)\), where \(\varpi\) is
-  the grain albedo and \(g\) the scattering asymmetry (see
-  App.~\ref{sec:gas-free-bow}).} %
+where the last approximate equality holds if \(\tau \ll 1\) and the
+shell emission covers one hemisphere.\footnote{%
+  The \(\tau\) of \S~\ref{sec:three-bow-regimes} is not exactly the
+  same as the \(\tau\) of equation~\eqref{eq:tau-empirical}, but is
+  larger by a factor of
+  \(Q_P / Q_{\text{abs}} = 1 + \varpi (1 - g)/(1 - \varpi)\), where
+  \(\varpi\) is the grain albedo and \(g\) the scattering asymmetry
+  (see App.~\ref{sec:gas-free-bow}).} %
 
 A second important parameter is the thermal plus magnetic pressure in
 the shocked shell, which is doubly useful since in a steady state it
 is equal to \emph{both} the internal supporting pressure (wind ram
 pressure plus absorbed stellar radiation) \emph{and} the external
-confining pressure (ram pressure of ambient stream).  The shell pressure is
-not given directly by the observations, but can be determined as
-follows:
-\begin{enumerate}[1.]
-\item The shell mass column (\si{g.cm^{-2}}) can be estimated from the
-  optical depth by assuming an effective UV opacity: \(\Sigma\shell = \tau / \kappa\)
-\item The shell density (\si{g.cm^{-3}}) can be found from the mass
-  column if the shell thickness is known:
-  \(\rho\shell = \Sigma / h\shell\).  In the absence of other information, a
-  fixed fraction of the shell radius can be used.  In particular, we
-  normalize by a typical value of one~quarter\footnote{%
+confining pressure (ram pressure of ambient stream).  The shell
+pressure is not given directly by the observations, but can be
+determined by the following three steps:
+\begin{enumerate}[P1.]
+\item \label{P1} The shell mass column (\si{g.cm^{-2}}) can be
+  estimated from the optical depth by assuming an effective UV
+  opacity: \(\Sigma\shell = \tau / \kappa\)
+\item \label{P2} The shell density (\si{g.cm^{-3}}) can be found from
+  the mass column if the shell thickness is known:
+  \(\rho\shell = \Sigma / h\shell\).  In the absence of other
+  information, a fixed fraction of the shell radius can be used.  In
+  particular, we normalize by a typical value of
+  one~quarter\footnote{%
     This corresponds to a Mach number \(\M_0 = \surd 3\) if the stream
     shock is radiative, or \(\M_0 \gg 1\) if non-radiative (see
     \S~\ref{sec:radi-cool-lengths}).  Further discussion is given in
     Appendix~\ref{app:bow-shock-data}} %
-  the star--apex distance:
-  \(h_{1/4} = h\shell / (0.25 R_0)\).
-\item Finally, the pressure (\si{dyne.cm^{-2}}) follows by assuming
-  values for the sound speed and Alfvén speed:
+  the star--apex distance: \(h_{1/4} = h\shell / (0.25 R_0)\).
+\item \label{P3} Finally, the pressure (\si{dyne.cm^{-2}}) follows by
+  assuming values for the sound speed and Alfvén speed:
   \(P\shell = \rho\shell (\sound^2 + \frac12 v\alfven^2) \).
 \end{enumerate}
 It is natural to normalize this pressure to the stellar radiation
@@ -93,6 +95,8 @@ equation~\eqref{eq:Xi-Prad-over-Pgas}:
 \(\eta\shell\), since \(\Xi\) is paramount in determining whether the
 grains and gas remain well-coupled (see
 \S~\ref{sec:exist-cond-separ}).
+
+
 
 \begin{table}
   \centering
@@ -155,16 +159,80 @@ grains and gas remain well-coupled (see
 \end{figure*}
 
 
+In Figure~\ref{fig:All-sources-eta-tau} we show the resultant
+diagnostic diagram: \(\eta\shell\) versus \(\tau\).  The horizontal
+axis shows the fraction of the stellar radiative \emph{energy} that is
+reprocessed by the bow shell, while the vertical axis shows the
+fraction of stellar radiative \emph{momentum} that is imparted to the
+shell, either directly by absorption, or indirectly by the stellar
+wind (which is itself radiatively driven).  Radiatively supported bows
+(DW, RBW, or RBS, or cases) should lie on the diagonal line
+\(\eta\shell = ( Q_P / Q_{\text{abs}}) \tau \approx 1.25 \tau\), where
+we have used the ratio of grain radiation pressure efficiency to
+absorption efficiency found in the FUV band for the dust mixture shown
+in Figure~\ref{fig:cloudy-ism-dust-opacity}.  Wind-supported bows
+should lie above this line and no bows should lie below the
+\(\eta = \tau\) line, since \(Q_P\) cannot be smaller than
+\(Q_{\text{abs}}\).
+
+
+We have calculated \(\eta\shell\) and \(\tau\) using the
+above-described methods for the 20 mid-infrared sources studied by
+\citet{Kobulnicky:2018a} and plotted them on our diagnostic diagram.
+Details of our treatment of this observational material are provided
+in Appendix~\ref{app:bow-shock-data}.  In order to expand the range of
+physical conditions, we have included three additional sources (data
+in Table~\ref{tab:observations}): bows around \thD{}
+\citep{Smith:2005a} and LP~Ori \citep{ODell:2001c} in the Orion
+Nebula, which show larger optical depths, plus the inner bow around
+\(\sigma\)~Ori, which illuminates the Horsehead Nebula and has
+previously been claimed to be a dust wave \citep{Ochsendorf:2014b,
+  Ochsendorf:2015a}.  Details of the observations of these additional
+sources will be published elsewhere.
+
+Rather than clutter the diagram with error bars, we instead show the
+sensitivity to observational errors in the lower-right gray box, where
+each arrow corresponds to a factor of two increase (0.3~dex) in an
+observational quantity: distance, \(D\); stellar luminosity, \(L_*\);
+total infrared flux, \(F_{\text{IR}}\); and bow angular apex distance,
+\(\theta\).  Most sources are members of known high-mass clusters with
+distance uncertainties less than 20\% (0.08~dex).\footnote{The only
+  exception is Source~329 in Cygnus, for which the distance
+  uncertainty is roughly a factor of 2 \citep{Kobulnicky:2018a}.}  The
+stellar luminosity is determined from spectral classification, which
+makes it independent of distance.  Taking a \SI{2000}{K} dispersion in
+the effective temperature scale \citep{Martins:2005a} gives an
+uncertainty of 25\% in the luminosity, and adding in possible errors
+in gravity and the effect of binaries, we estimate a total uncertainty
+in \(L_*\) of 50\% (0.45~mag or 0.18~dex).  We estimate the
+uncertainty in shell bolometric flux, \(F_{\text{IR}}\), by comparing
+two different methods: model fitting \citep{Kobulnicky:2017a} and a
+weighted sum of the 8, 24, and \SI{70}{\um} bands
+(App.~\ref{app:bow-shock-data}), giving a standard deviation of 17\%
+(0.07~dex).\footnote{%
+  The absolute flux calibration uncertainty for both Herschel CAPS
+  \citep{Balog:2014a} and Spitzer MIPS \citep{Engelbracht:2007a} is
+  less than 5\%.} %
+For the angular apex distance, \(\theta\), the largest uncertainty for
+well-resolved sources is due to the unknown inclination.
+\citet{Tarango-Yong:2018a} show that the dispersion in true to
+projected distances can introduce an uncertainty of \(30\%\)
+(0.11~dex) in unfavorable cases (e.g., their Fig.~26).  For 5 of the
+20 sources from \citet{Kobulnicky:2018a}, \(\theta\) is of order the
+Spitzer PSF width at \SI{24}{\um}, so the errors may be larger.
+Assuming all these observational errors to be independent yields a
+total \(\pm 1~\sigma\) observational uncertainty shown by the blue
+dashed ellipse in the figure.
+
 
 Mass loss rates - starting from \citet{Kobulnicky:2010a}
 
-\begin{figure}
+\begin{figure*}
   \centering
-  \includegraphics[width=\linewidth]{figs/Mdot-from-eta-vs-luminosity}
-  \includegraphics[width=\linewidth]{figs/Mdot-K18-corrected-vs-luminosity}
+  \includegraphics[width=\linewidth]{figs/Mdot-vs-lum-combo-edited}
   \caption{Mass loss rates}
   \label{fig:mass-loss-vs-luminosity}
-\end{figure}
+\end{figure*}
 
 
 
