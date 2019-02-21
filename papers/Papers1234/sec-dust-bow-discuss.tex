@@ -200,7 +200,7 @@ distance uncertainties less than 20\% (0.08~dex).\footnote{The only
   exception is Source~329 in Cygnus, for which the distance
   uncertainty is roughly a factor of 2 \citep{Kobulnicky:2018a}.}  The
 stellar luminosity is determined from spectral classification, which
-makes it independent of distance.  Taking a \SI{2000}{K} dispersion in
+ makes it independent of distance.  Taking a \SI{2000}{K} dispersion in
 the effective temperature scale \citep{Martins:2005a} gives an
 uncertainty of 25\% in the luminosity, and adding in possible errors
 in gravity and the effect of binaries, we estimate a total uncertainty
@@ -208,9 +208,9 @@ in \(L_*\) of 50\% (0.45~mag or 0.18~dex).  We estimate the
 uncertainty in shell bolometric flux, \(F_{\text{IR}}\), by comparing
 two different methods: model fitting \citep{Kobulnicky:2017a} and a
 weighted sum of the 8, 24, and \SI{70}{\um} bands
-(App.~\ref{app:bow-shock-data}), giving a standard deviation of 17\%
-(0.07~dex).\footnote{%
-  The absolute flux calibration uncertainty for both Herschel CAPS
+(App.~\ref{app:bow-shock-data}, eq.~[\ref{eq:total-ir-flux}]), giving
+a standard deviation of 17\% (0.07~dex).\footnote{%
+  The absolute flux calibration uncertainty for both Herschel PACS
   \citep{Balog:2014a} and Spitzer MIPS \citep{Engelbracht:2007a} is
   less than 5\%.} %
 For the angular apex distance, \(\theta\), the largest uncertainty for
@@ -230,7 +230,12 @@ Mass loss rates - starting from \citet{Kobulnicky:2010a}
 \begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/Mdot-vs-lum-combo-edited}
-  \caption{Mass loss rates}
+  \caption{Wind mass-loss rates as a function of stellar luminosity,
+    derived from (a)~our momentum efficiency method and (b)~the grain
+    emissivity method of \citet{Kobulnicky:2018a}, with corrections as
+    described in Appendix~\ref{app:bow-shock-data}.  Circle symbols
+    show the sources from K18, colored according to the stellar
+    effective temperature (see key at far right). }
   \label{fig:mass-loss-vs-luminosity}
 \end{figure*}
 
