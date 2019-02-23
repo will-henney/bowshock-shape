@@ -287,9 +287,9 @@ spectral type.
   \begin{tabular}{l S S S S S S}
     \toprule
     \(x_i\) & {\(\sigma_{x_i}\)}
-    & {\(\Delta_{x_i} (\tau)\)} & {\(\Delta_{x_i} (\eta\shell)\)}
-    & {\(\Delta_{x_i} (\dot M)\)} & {\(\Delta_{x_i} (\dot M_{\text{K18}})\)}
-    & {\(\Delta_{x_i} (L_*)\)}
+    & {\(J_{x_i} (\tau)\)} & {\(J_{x_i} (\eta\shell)\)}
+    & {\(J_{x_i} (\dot M)\)} & {\(J_{x_i} (\dot M_{\text{K18}})\)}
+    & {\(J_{x_i} (L_*)\)}
     \\
     \midrule
     \(D\)     & 0.08 & 2  & 3 & 3 & 2 & 0\\
@@ -325,22 +325,24 @@ only approximately so for \(\dot M\) and
   For \(\dot M\) it is true for \(\eta\shell \gg 1.25 \tau\) and for
   \(\dot M_{\text{K18}}\) it is true in the limit that the grain
   emissivity can be expressed as a power law in \(U\).} %
-We define \(\Delta_{x_i} (f_k)\) as the logarithmic derivative
-\(d \ln f_k / d \ln x_i \) and \(\sigma_{x_i}\) as the rms dispersion
-in \(x_i\), measured in dex.  These are given in
-Table~\ref{tab:derived-parameters}.  Then, the elements of the
-variance--covariance matrix for the derived parameters are
+We define \(J_{x_i} (f_k)\) as the elements of the Jacobian matrix of
+logarithmic derivatives \(d \ln f_k / d \ln x_i \), which are given
+for our quantities in Table~\ref{tab:derived-parameters}.  Then, the
+elements of the variance--covariance matrix for the derived parameters
+are
 \begin{equation}
   \label{eq:covariance}
-  C_{k,k'} = \sum_{i} \Delta_{x_i} (f_k) \, \sigma_{x_i}^2 \, \Delta_{x_i} (f_{k'}) \ , 
+  C_{k,k'} = \sum_{i} J_{x_i} (f_k) \, \sigma_{x_i}^2 \, J_{x_i} (f_{k'}) \ , 
 \end{equation}
-which are given in Table~\ref{tab:covariance}, assuming the
-\(\sigma_{x_i}\) derived in
-\S~\ref{sec:distance}--\ref{sec:stell-wind-veloc} as suitable for the
-K18 sources.  It can be seen that many of the off-diagonal elements
-are of similar magnitude to the diagonal elements, which is an
-indication of significant correlations between the errors in the
-different parameters.
+where the \(\sigma_{x_i}\) are the rms dispersions in \(x_i\),
+measured in dex.  In Figure~\ref{fig:python-covar} we give example
+python code for calculating this matrix, using the \(\sigma_{x_i}\)
+derived in \S~\ref{sec:distance}--\ref{sec:stell-wind-veloc} for the
+K18 sources (second column of Tab.~\ref{tab:derived-parameters}), with
+results given in Table~\ref{tab:covariance}.  It can be seen that many
+of the off-diagonal elements are of similar magnitude to the diagonal
+elements, which is an indication of significant correlations between
+the errors in the different parameters.
 
 \begin{table}
   \centering
@@ -365,7 +367,7 @@ different parameters.
 For any particular pair of derived quantities, \(f_m\) and \(f_{n}\),
 one can find the \textit{error ellipse} that characterises the
 projection of observational errors onto the \(f_m\)--\(f_{n}\) plane.
-The ellipse can be described by standard deviations along major and
+The ellipse is characterized by standard deviations along major and
 minor axes, \(\sigma_a\), \(\sigma_b\), together with the angle
 \(\theta_a\) between the \(f_m\) axis and the ellipse major axis.
 These are given via the eigenvalues and eigenvectors of the relevant
@@ -381,10 +383,10 @@ These are given via the eigenvalues and eigenvectors of the relevant
   \theta_a = & \frac12 \arctan \left( \frac{2 C_{m,n}}{C_{m,m} - C_{n,n}} \right) \ .
 \end{align}
 For instance, Table~\ref{tab:error-ellipse} shows the resultant error
-ellipse parameters for the relations plotted in
-Figures~\ref{fig:All-sources-eta-tau} and
-\ref{fig:mass-loss-vs-luminosity}ab, which are shown in blue on the
-respective graphs.
+ellipse parameters (shown in blue on the respective graphs) for the
+relations plotted in Figures~\ref{fig:All-sources-eta-tau},
+\ref{fig:mass-loss-vs-luminosity}ab, and
+\ref{fig:mass-loss-comparison}.
 
 \begin{table}
   \centering
@@ -409,22 +411,22 @@ respective graphs.
   \footnotesize
   \begin{verbatim}
 import numpy as np
-sigx = np.diag([0.08, 0.18, 0.12, 0.12, 0.11, 0.08, 0.18])
-Dfx = np.array([
+sig = np.diag([0.08, 0.18, 0.12, 0.12, 0.11, 0.08, 0.18])
+J = np.array([
     [2, -1, 1, 0, 0, 0, 0],
     [3, -2, 1, 0, 1, 0, 0],
     [3, -1, 1, 0, 1, 0, -1],
     [2, -0.5, 0, 1, 2, -1, -1],
     [0, 1, 0, 0, 0, 0, 0]
 ])
-C = Dfx @ sigx**2 @ Dfx.T
+C = J @ sig**2 @ J.T
   \end{verbatim}
   \caption{Snippet of Python code that calculates the
     covariance matrix of Table~\ref{tab:covariance}.  The last line
     implements equation~\eqref{eq:covariance} by a triple matrix
-    product of the derivatives matrix \texttt{Dfx}, the square of a
-    diagonal matrix of observational standard deviations \texttt{sigx},
-    and the transpose of \texttt{Dfx}.}
+    product of the Jacobian matrix \texttt{J}, the square of a
+    diagonal matrix of observational standard deviations \texttt{sig},
+    and the transpose of \texttt{J}.}
   \label{fig:python-covar}
 \end{figure}
 
