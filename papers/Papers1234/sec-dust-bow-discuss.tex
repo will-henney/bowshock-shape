@@ -14,7 +14,6 @@ infrared luminosity of bow.  Favored by high densities.
 
 Dust waves favored by high velocities and intermediate densities.
 
-\newcommand\IR{\ensuremath{_{\text{IR}}}}
 
 In order to provide an empirical anchor to our theoretical
 calculations, we now consider how the parameters of our models might
@@ -175,14 +174,13 @@ should lie above this line and no bows should lie below the
 \(\eta = \tau\) line, since \(Q_P\) cannot be smaller than
 \(Q_{\text{abs}}\).
 
-
 We have calculated \(\eta\shell\) and \(\tau\) using the
 above-described methods for the 20 mid-infrared sources studied by
-\citet{Kobulnicky:2018a} and plotted them on our diagnostic diagram.
-Details of our treatment of this observational material are provided
-in Appendix~\ref{app:bow-shock-data}.  In order to expand the range of
-physical conditions, we have included three additional sources (data
-in Table~\ref{tab:observations}): bows around \thD{}
+\citet{Kobulnicky:2018a} (K18) and plotted them on our diagnostic
+diagram.  Details of our treatment of this observational material are
+provided in Appendix~\ref{app:bow-shock-data}.  In order to expand the
+range of physical conditions, we have included three additional
+sources (data in Table~\ref{tab:observations}): bows around \thD{}
 \citep{Smith:2005a} and LP~Ori \citep{ODell:2001c} in the Orion
 Nebula, which show larger optical depths, plus the inner bow around
 \(\sigma\)~Ori, which illuminates the Horsehead Nebula and has
@@ -191,38 +189,20 @@ previously been claimed to be a dust wave \citep{Ochsendorf:2014b,
 sources will be published elsewhere.
 
 Rather than clutter the diagram with error bars, we instead show the
-sensitivity to observational errors in the lower-right gray box, where
-each arrow corresponds to a factor of two increase (0.3~dex) in an
+sensitivity to observational errors in the lower-right box, where each
+arrow corresponds to a factor of two increase (0.3~dex) in an
 observational quantity: distance, \(D\); stellar luminosity, \(L_*\);
 total infrared flux, \(F_{\text{IR}}\); and bow angular apex distance,
-\(\theta\).  Most sources are members of known high-mass clusters with
-distance uncertainties less than 20\% (0.08~dex).\footnote{The only
-  exception is Source~329 in Cygnus, for which the distance
-  uncertainty is roughly a factor of 2 \citep{Kobulnicky:2018a}.}  The
-stellar luminosity is determined from spectral classification, which
- makes it independent of distance.  Taking a \SI{2000}{K} dispersion in
-the effective temperature scale \citep{Martins:2005a} gives an
-uncertainty of 25\% in the luminosity, and adding in possible errors
-in gravity and the effect of binaries, we estimate a total uncertainty
-in \(L_*\) of 50\% (0.45~mag or 0.18~dex).  We estimate the
-uncertainty in shell bolometric flux, \(F_{\text{IR}}\), by comparing
-two different methods: model fitting \citep{Kobulnicky:2017a} and a
-weighted sum of the 8, 24, and \SI{70}{\um} bands
-(App.~\ref{app:bow-shock-data}, eq.~[\ref{eq:total-ir-flux}]), giving
-a standard deviation of 17\% (0.07~dex).\footnote{%
-  The absolute flux calibration uncertainty for both Herschel PACS
-  \citep{Balog:2014a} and Spitzer MIPS \citep{Engelbracht:2007a} is
-  less than 5\%.} %
-For the angular apex distance, \(\theta\), the largest uncertainty for
-well-resolved sources is due to the unknown inclination.
-\citet{Tarango-Yong:2018a} show that the dispersion in true to
-projected distances can introduce an uncertainty of \(30\%\)
-(0.11~dex) in unfavorable cases (e.g., their Fig.~26).  For 5 of the
-20 sources from \citet{Kobulnicky:2018a}, \(\theta\) is of order the
-Spitzer PSF width at \SI{24}{\um}, so the errors may be larger.
-Assuming all these observational errors to be independent yields a
-total \(\pm 1~\sigma\) observational uncertainty shown by the blue
-dashed ellipse in the figure.
+\(\theta\).  In \S~\ref{app:bow-shock-data} we estimate the
+uncertainty in each observational quantity, which we then combine to
+find the \(\pm 1~\sigma\) error ellipse shown in blue in the figure.
+It can be seen that observational uncertainties in \(\tau\) and
+\(\eta\) are highly correlated: the dispersion is \SI{0.7}{dex} in the
+product \(\eta\tau\) but only \SI{0.16}{dex} in the ratio
+\(\eta/\tau\), with stellar luminosity errors dominating in both
+cases.  Observational uncertainties are therefore relatively
+unimportant in determining whether a given source is wind-driven or
+radiation-driven.
 
 
 Mass loss rates - starting from \citet{Kobulnicky:2010a}
@@ -231,11 +211,33 @@ Mass loss rates - starting from \citet{Kobulnicky:2010a}
   \centering
   \includegraphics[width=\linewidth]{figs/Mdot-vs-lum-combo-edited}
   \caption{Wind mass-loss rates as a function of stellar luminosity,
-    derived from (a)~our momentum efficiency method and (b)~the grain
-    emissivity method of \citet{Kobulnicky:2018a}, with corrections as
-    described in Appendix~\ref{app:bow-shock-data}.  Circle symbols
-    show the sources from K18, colored according to the stellar
-    effective temperature (see key at far right). }
+    derived from (a)~our trapped energy/momentum method and (b)~the
+    grain emissivity method of \citet{Kobulnicky:2018a}, with
+    corrections as described in our Appendix~\ref{app:bow-shock-data}.
+    Circle symbols show the sources from K18, colored according to the
+    stellar effective temperature (see key at far right). In panel a,
+    squares show two of our additional sources
+    (Tab.~\ref{tab:observations}). Upper limits to the mass loss are
+    given for sources that lie close to the radiation-supported line
+    in Fig.~\ref{fig:All-sources-eta-tau}, represented by faint
+    symbols and downward-pointing arrows.  Sources that lie less than
+    a factor of three above the line have enhanced downward
+    uncertainties and are also shown by slightly fainter symbols.  For
+    \(\sigma\)~Ori, the large symbol corresponds to the sum of the
+    luminosities of the triple OB system Aa, Ab, and B
+    \citep{Simon-Diaz:2015a}, while the small symbol corresponds to
+    the luminosity of only the most massive component Aa.  Lines show
+    the predictions of stellar wind models: red lines are the commonly
+    used recipes from \citet{Vink:2000a} for dwarfs (solid), giants
+    (dashed), and supergiants (dotted), while black lines show
+    eq.~(11) of \citet{Krticka:2017a} for O~stars (solid) and models
+    of \citet{Krticka:2014a} for B stars.  Orange plus symbols show
+    mass-loss measurements from NUV lines for weak-wind O~dwarfs
+    \citep{Marcolino:2009a}, while the green plus symbol shows the
+    measurement from infrared H recombination lines for \(\sigma\)~Ori
+    \citep{Najarro:2011a}.  Boxes show the sensitivity of the results
+    to observational uncertainties (lower right) and assumed shell
+    parameters (upper left).}
   \label{fig:mass-loss-vs-luminosity}
 \end{figure*}
 

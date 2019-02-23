@@ -162,6 +162,10 @@
     "Katushkina:2017a"
     "ODell:2001c"
     "Balog:2014a"
-    "Engelbracht:2007a"))
+    "Engelbracht:2007a"
+    "Krticka:2017a"
+    "Najarro:2011a"
+    "Marcolino:2009a"
+    "Simon-Diaz:2015a"))
  :bibtex)
 

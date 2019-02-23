@@ -9,7 +9,6 @@
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-add-symbols
-    "IR"
     "pc")
    (LaTeX-add-labels
     "sec:summary-discussion"

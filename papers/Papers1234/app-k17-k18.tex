@@ -189,7 +189,7 @@ is by a factor of about two.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{figs/K18-mdot-corrected-comparison-R0}
+  \includegraphics[width=\linewidth]{figs/K18-mdot-corrected-comparison-R0-edited}
   \caption{Comparison of the two mass-loss methods: K18 corrected
     method (\(x\) axis) versus our method (\(y\) axis).  Error bars on
     the \(y\) axis correspond to a factor-three uncertainty in
@@ -215,6 +215,219 @@ five of the sources (380, 407, 409, 410, 411), our method gives only
 an upper limit to the wind mass-loss rate if one assumes a
 factor-three uncertainty in \(\eta\shell\), and these bows are among
 the smallest in the sample, all with \(R_0 < \SI{0.1}{pc}\).
+
+\subsection{Uncertainty estimates for observational quantities}
+\label{sec:uncert-estim-observ}
+
+In this section, we estimate the \(1\sigma\) uncertainties in
+observational measurements, which contribute to the uncertainties in
+the derived quantities: \(\tau\), \(\eta\), and \(\dot M\) (see
+\S~\ref{sec:summary-discussion}).
+
+\subsubsection{Distance}
+\label{sec:distance}
+
+Most sources are members of known high-mass clusters with distance
+uncertainties less than 20\% (0.08~dex). The only exception is
+Source~329 in Cygnus, for which the distance uncertainty is roughly a
+factor of 2 \citep{Kobulnicky:2018a}.
+
+\subsubsection{Stellar luminosity}
+\label{sec:stellar-luminosity}
+
+The stellar luminosity is determined from spectral classification,
+which makes it independent of distance.  Taking a \SI{2000}{K}
+dispersion in the effective temperature scale \citep{Martins:2005a}
+gives an uncertainty of 25\% in the luminosity, and adding in possible
+errors in gravity and the effect of binaries, we estimate a total
+uncertainty in \(L_*\) of 50\% (0.45~mag or 0.18~dex).
+
+\subsubsection{Shell flux and surface brightness}
+\label{sec:shell-flux-surface}
+
+We estimate the uncertainty in shell bolometric flux,
+\(F_{\text{IR}}\), by comparing two different methods: model fitting
+\citep{Kobulnicky:2017a} and a weighted sum of the 8, 24, and
+\SI{70}{\um} bands (eq.~[\ref{eq:total-ir-flux}]), giving a standard
+deviation of 17\% (0.07~dex).  To this, we add the estimate of 25\%
+for the effects of background subtraction uncertainties on individual
+photometric measurements \citep{Kobulnicky:2017a}. The absolute flux
+calibration uncertainty for both Herschel PACS \citep{Balog:2014a} and
+Spitzer MIPS \citep{Engelbracht:2007a} is less than 5\%, which is
+small in comparison. Combining the 3 contributions in quadrature gives
+a total uncertainty of 0.12~dex.  We adopt the same uncertainty for
+the \SI{70}{\um} surface brightness.
+
+\subsubsection{Angular sizes}
+\label{sec:angular-sizes}
+
+For the angular apex distance, \(\theta\), the largest uncertainty for
+well-resolved sources is due to the unknown inclination.
+\citet{Tarango-Yong:2018a} show that the dispersion in true to
+projected distances can introduce an uncertainty of \(30\%\)
+(0.11~dex) in unfavorable cases (e.g., their Fig.~26).  For 5 of the
+20 sources from \citet{Kobulnicky:2018a}, \(\theta\) is of order the
+Spitzer PSF width at \SI{24}{\um}, so the errors may be larger.
+
+\subsubsection{Stellar wind velocity}
+\label{sec:stell-wind-veloc}
+
+Although this is not strictly an observed quantity for the K18 sample,
+we will treat it as such since it is estimated per star, based on the
+spectral type.
+
+\subsubsection{Uncertainties and covariance for derived quantities}
+\label{sec:comb-uncert-covar}
+
+\begin{table}
+  \centering
+  \caption[Derived]{Propagation of observational uncertainties to derived quantities}
+  \label{tab:derived-parameters}
+  \setlength\tabcolsep{3pt}
+  \begin{tabular}{l S S S S S S}
+    \toprule
+    \(x_i\) & {\(\sigma_{x_i}\)}
+    & {\(\Delta_{x_i} (\tau)\)} & {\(\Delta_{x_i} (\eta\shell)\)}
+    & {\(\Delta_{x_i} (\dot M)\)} & {\(\Delta_{x_i} (\dot M_{\text{K18}})\)}
+    & {\(\Delta_{x_i} (L_*)\)}
+    \\
+    \midrule
+    \(D\)     & 0.08 & 2  & 3 & 3 & 2 & 0\\
+    \(L_*\)   & 0.18 & -1 & -2 & -1 & -0.5 & 1\\
+    \(F\IR\)  & 0.12 & 1 & 1 & 1 & 0 & 0\\
+    \(I_{70}\) & 0.12 & 0 & 0 & 0 & 1 & 0\\
+    \(\theta\) & 0.11 & 0 & 1 & 1 & 2 & 0\\
+    \(\ell/R\) & 0.08 & 0 & 0 & 0 & -1 & 0\\
+    \(V\wind\) & 0.18 & 0 & 0 & -1 & -1 & 0\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+
+Even though errors in the fundamental observed quantities, \(x_i\),
+are assumed independent, errors in the derived quantities,
+\(f_k(x_1, x_2, \dots)\), will not necessarily be so.  For the
+purposes of this paper:
+\begin{align}
+  \label{eq:observed-and-derived}
+  x_i \in &  \left\{D;\ L_*;\ F\IR;\ I_{70};\ \theta;\ \ell/R;\ V\wind \right\} \\
+  f_k \in & \left\{\tau;\ \eta\shell;\ \dot M;\ \dot M_{\text{K18}};\ L_* \right\}
+            \ .
+\end{align}
+Note that \(L_*\) appears in both lists because we use it as a graph
+axis in Figure~\ref{fig:mass-loss-vs-luminosity}.  For the case where
+each \(f_k\) is a simple product of powers of the \(x_i\), the
+propagation of errors reduces to linear algebra of log
+quantities. This is exactly true for \(\tau\) and \(\eta\shell\), but
+only approximately so for \(\dot M\) and
+\(\dot M_{\text{K18}}\).\footnote{%
+  For \(\dot M\) it is true for \(\eta\shell \gg 1.25 \tau\) and for
+  \(\dot M_{\text{K18}}\) it is true in the limit that the grain
+  emissivity can be expressed as a power law in \(U\).} %
+We define \(\Delta_{x_i} (f_k)\) as the logarithmic derivative
+\(d \ln f_k / d \ln x_i \) and \(\sigma_{x_i}\) as the rms dispersion
+in \(x_i\), measured in dex.  These are given in
+Table~\ref{tab:derived-parameters}.  Then, the elements of the
+variance--covariance matrix for the derived parameters are
+\begin{equation}
+  \label{eq:covariance}
+  C_{k,k'} = \sum_{i} \Delta_{x_i} (f_k) \, \sigma_{x_i}^2 \, \Delta_{x_i} (f_{k'}) \ , 
+\end{equation}
+which are given in Table~\ref{tab:covariance}, assuming the
+\(\sigma_{x_i}\) derived in
+\S~\ref{sec:distance}--\ref{sec:stell-wind-veloc} as suitable for the
+K18 sources.  It can be seen that many of the off-diagonal elements
+are of similar magnitude to the diagonal elements, which is an
+indication of significant correlations between the errors in the
+different parameters.
+
+\begin{table}
+  \centering
+  \caption[Covariance]{Variance--covariance matrix \(C_{k,k'}\) for derived quantities}
+  \label{tab:covariance}
+  \setlength\tabcolsep{3pt}
+  \begin{tabular}{l S S S S S }
+    \toprule
+    & {\(\tau\)} & {\(\eta\shell\)}
+    & {\(\dot M\)} & {\(\dot M_{\text{K18}}\)} & {\(L_*\)}
+    \\
+    \midrule
+    \(\tau\)               &  0.0724 &  0.1176 &  0.0852 &  0.0418 & -0.0324 \\
+    \(\eta\shell\)         &  0.1176 &  0.2137 &  0.1489 &   0.095 & -0.0648 \\
+    \(\dot M\)             &  0.0852 &  0.1489 &  0.1489 &  0.1112 & -0.0324 \\
+    \(\dot M_{\text{K18}}\)&  0.0418 &   0.095 &  0.1112 &  0.1353 & -0.0162 \\
+    \(L_*\)                & -0.0324 & -0.0648 & -0.0324 & -0.0162 &  0.0324 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+For any particular pair of derived quantities, \(f_m\) and \(f_{n}\),
+one can find the \textit{error ellipse} that characterises the
+projection of observational errors onto the \(f_m\)--\(f_{n}\) plane.
+The ellipse can be described by standard deviations along major and
+minor axes, \(\sigma_a\), \(\sigma_b\), together with the angle
+\(\theta_a\) between the \(f_m\) axis and the ellipse major axis.
+These are given via the eigenvalues and eigenvectors of the relevant
+\(2 \times 2\) submatrix of the covariance matrix:
+\begin{align}
+  \label{eq:error-ellipse}
+  \sigma_a^2 = & \frac12 \left\{   C_{m,m} + C_{n,n}
+                 + \left[ \left( C_{m,m} + C_{n,n} \right)^2
+                 - 4 C_{m,n}^2 \right]^{1/2}\right\} \\
+  \sigma_b^2 = & \frac12 \left\{   C_{m,m} + C_{n,n}
+                 - \left[ \left( C_{m,m} + C_{n,n} \right)^2
+                 - 4 C_{m,n}^2 \right]^{1/2}\right\} \\
+  \theta_a = & \frac12 \arctan \left( \frac{2 C_{m,n}}{C_{m,m} - C_{n,n}} \right) \ .
+\end{align}
+For instance, Table~\ref{tab:error-ellipse} shows the resultant error
+ellipse parameters for the relations plotted in
+Figures~\ref{fig:All-sources-eta-tau} and
+\ref{fig:mass-loss-vs-luminosity}ab, which are shown in blue on the
+respective graphs.
+
+\begin{table}
+  \centering
+  \caption[Error ellipse]{Error ellipse parameters for particular pairs of derived quantities}
+  \label{tab:error-ellipse}
+  \begin{tabular}{l l S S S l}
+    \toprule
+    \(f_m\) & \(f_n\) &  {\(\sigma_a\)} & {\(\sigma_b\)}
+    & {\(\theta_a\), \si{\degree}} & Figure   \\
+    \midrule
+    \(\tau\) & \(\eta\) & 0.529 & 0.077 & 60.5 & \ref{fig:All-sources-eta-tau} \\
+    \(L_*\) & \(\dot M\) & 0.397 & 0.155 & -75.5 & \ref{fig:mass-loss-vs-luminosity}a \\
+    \(L_*\) & \(\dot M_{\text{K18}}\) & 0.371 & 0.173 & -81.3 & \ref{fig:mass-loss-vs-luminosity}b \\
+    \(\dot M_{\text{K18}}\) & \(\dot M\) & 0.503 & 0.175 & 46.7 & \ref{fig:mass-loss-comparison} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\begin{figure}
+  \centering
+  \footnotesize
+  \begin{verbatim}
+import numpy as np
+sigx = np.diag([0.08, 0.18, 0.12, 0.12, 0.11, 0.08, 0.18])
+Dfx = np.array([
+    [2, -1, 1, 0, 0, 0, 0],
+    [3, -2, 1, 0, 1, 0, 0],
+    [3, -1, 1, 0, 1, 0, -1],
+    [2, -0.5, 0, 1, 2, -1, -1],
+    [0, 1, 0, 0, 0, 0, 0]
+])
+C = Dfx @ sigx**2 @ Dfx.T
+  \end{verbatim}
+  \caption{Snippet of Python code that calculates the
+    covariance matrix of Table~\ref{tab:covariance}.  The last line
+    implements equation~\eqref{eq:covariance} by a triple matrix
+    product of the derivatives matrix \texttt{Dfx}, the square of a
+    diagonal matrix of observational standard deviations \texttt{sigx},
+    and the transpose of \texttt{Dfx}.}
+  \label{fig:python-covar}
+\end{figure}
+
 
 %%% Local Variables:
 %%% mode: latex
