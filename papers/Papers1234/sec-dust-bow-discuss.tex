@@ -1,18 +1,61 @@
 \section{Discussion}
 \label{sec:summary-discussion}
 
-Are there any objects that might not be bow shocks?
+% Are there any objects that might not be bow shocks?
 
-Progression in density:
-\begin{gather*}
-  \text{Increasing density} \longrightarrow \\
-  \text{WBS} \to \text{WBS} + \text{IDW} \to \text{WBS} + \text{DDW} \to \text{(RBW)} \to \text{RBS}
-\end{gather*}
+% Progression in density:
+% \begin{gather*}
+%   \text{Increasing density} \longrightarrow \\
+%   \text{WBS} \to \text{WBS} + \text{IDW} \to \text{WBS} + \text{DDW} \to \text{(RBW)} \to \text{RBS}
+% \end{gather*}
 
-Chief diagnostic for radiation supported bows (RBW or RBS cases) is
-infrared luminosity of bow.  Favored by high densities.
+% Chief diagnostic for radiation supported bows (RBW or RBS cases) is
+% infrared luminosity of bow.  Favored by high densities.
 
-Dust waves favored by high velocities and intermediate densities.
+% Dust waves favored by high velocities and intermediate densities.
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.8\linewidth]{figs/All-sources-eta-tau}
+  \caption[Observational diagnostic diagram]{Observational diagnostic
+    diagram for bow shocks.  The shell optical depth \(\tau\) (\(x\)
+    axis) and momentum efficiency \(\eta\shell\) (\(y\) axis) can be
+    estimated from observations of the bolometric stellar luminosity,
+    infrared shell luminosity, and shell radius, as described in the
+    text.  Results are shown for the 20 sources (circle symbols) from
+    \citet{Kobulnicky:2018a} plus three further sources (square
+    symbols), where we have obtained the measurements ourselves (see
+    Tab.~\ref{tab:observations}).  The color of each symbol indicates
+    the stellar luminosity (dark to light) as indicated by the scale
+    bar. The shell pressure is determined assuming a gas temperature
+    \(T = \SI{e4}{K}\), an absorption opacity
+    \(\kappa = \SI{600}{cm^2.g^{-1}}\), and a thickness-to-radius ratio
+    \(H/R = 0.25\).  The sensitivity of the results to a
+    factor-of-three change in each parameter is shown in the upper
+    inset box.  Exceptions are the two Orion Nebula sources, \thD{}
+    and LP~Ori, where the small dim squares show the results of
+    assuming the standard shell parameters, while the large squares
+    show the results of modifications according to the peculiar
+    circumstances of each object, as described in the text.  The lower
+    inset box shows the sensitivity of the results to a factor-of-two
+    uncertainty in each observed quantity: distance to source \(D\);
+    stellar luminosity \(L_*\), shell infrared flux \(F\IR\); shell
+    angular size \(\theta\).  Lines and shading indicate different
+    theoretical bow regimes (see \S\S~\ref{sec:strong-gas-grain} and
+    \ref{sec:imperf-coupl-betw}).  The dashed blue diagonal line
+    corresponds to radiation-supported bows, while the upper left
+    region corresponds to wind-supported bows.  The upper right corner
+    (purple) corresponds to optically thick bow shocks, while the
+    lower left corner (yellow) is the region where grain--gas
+    separation \textit{may} occur, leading to a potential dust wave.
+    However, the existence of a dust wave in this region is not
+    automatic, since it only includes one of the four necessary
+    conditions (\S~\ref{sec:exist-cond-separ} and
+    \S~\ref{sec:grain-traj-with}). The lower-right region is strictly
+    forbidden, except in case of violation of the assumption that dust
+    heating be dominated by stellar radiation. }
+  \label{fig:All-sources-eta-tau}
+\end{figure*}
 
 
 In order to provide an empirical anchor to our theoretical
@@ -23,18 +66,30 @@ as Figures~\ref{fig:zones-v-n-plane} and
 regard, since in many cases the ambient density and relative stellar
 velocity are not directly measured.  Instead, we aim to construct
 diagnostics based on the most common observations, which are of the
-infrared dust emission.
+infrared dust emission.  Key questions that we wish to address include
+\begin{enumerate}[1.]
+\item Can we distinguish observationally between radiation support
+  (bow waves and dust waves) and wind support (bow shocks)?
+\item Are there any clear examples of sources with radiation-supported bows?
+\item In the case of wind support, can we reliably determine mass loss
+  rates from mid-infrared observations?
+\end{enumerate}
 
-A fundamental parameter is the optical depth, \(\tau\), of the bow shell
-to UV radiation, which determines what fraction of the stellar photon
-momentum is available to support the shell (see
+
+\subsection{Energy trapping versus momentum trapping}
+\label{sec:energy-trapp-vers}
+
+A fundamental parameter is the optical depth, \(\tau\), of the bow
+shell to UV radiation, which determines what fraction of the stellar
+photon momentum is available to support the shell (see
 \S~\ref{sec:three-bow-regimes}).  But the same photons also heat the
 dust grains in the bow, which re-radiate that energy predominantly at
 mid-infrared wavelengths (roughly \SIrange{10}{100}{\um}) with
-luminosity \(L\IR\).  Assuming that Ly\(\alpha\) and mechanical heating of
-the dust shell is negligible and that the emitting shell subtends a
-solid angle \(\Omega\), as seen from the star, then the optical depth can
-be estimated as
+luminosity \(L\IR\).  Assuming that Ly\(\alpha\) and mechanical
+heating of the dust shell is negligible (see
+\S~\ref{sec:unimp-other-heat}) and that the emitting shell subtends a
+solid angle \(\Omega\), as seen from the star, then the optical depth
+can be estimated as
 \begin{equation}
   \label{eq:tau-empirical}
   \tau = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
@@ -96,6 +151,11 @@ grains and gas remain well-coupled (see
 \S~\ref{sec:exist-cond-separ}).
 
 
+\subsection[The eta-tau diagnostic diagram]
+{\boldmath The \(\eta\shell\)--\(\tau\) diagnostic diagram}
+\label{sec:eta-tau-diagnostic}
+
+
 
 \begin{table}
   \centering
@@ -114,48 +174,6 @@ grains and gas remain well-coupled (see
 \end{table}
 
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.8\linewidth]{figs/All-sources-eta-tau}
-  \caption[Observational diagnostic diagram]{Observational diagnostic
-    diagram for bow shocks.  The shell optical depth \(\tau\) (\(x\)
-    axis) and momentum efficiency \(\eta\shell\) (\(y\) axis) can be
-    estimated from observations of the bolometric stellar luminosity,
-    infrared shell luminosity, and shell radius, as described in the
-    text.  Results are shown for the 20 sources (circle symbols) from
-    \citet{Kobulnicky:2018a} plus three further sources (square
-    symbols), where we have obtained the measurements ourselves (see
-    Tab.~\ref{tab:observations}).  The color of each symbol indicates
-    the stellar luminosity (dark to light) as indicated by the scale
-    bar. The shell pressure is determined assuming a gas temperature
-    \(T = \SI{e4}{K}\), an absorption opacity
-    \(\kappa = \SI{600}{cm^2.g^{-1}}\), and a thickness-to-radius ratio
-    \(H/R = 0.25\).  The sensitivity of the results to a
-    factor-of-three change in each parameter is shown in the upper
-    inset box.  Exceptions are the two Orion Nebula sources, \thD{}
-    and LP~Ori, where the small dim squares show the results of
-    assuming the standard shell parameters, while the large squares
-    show the results of modifications according to the peculiar
-    circumstances of each object, as described in the text.  The lower
-    inset box shows the sensitivity of the results to a factor-of-two
-    uncertainty in each observed quantity: distance to source \(D\);
-    stellar luminosity \(L_*\), shell infrared flux \(F\IR\); shell
-    angular size \(\theta\).  Lines and shading indicate different
-    theoretical bow regimes (see \S\S~\ref{sec:strong-gas-grain} and
-    \ref{sec:imperf-coupl-betw}).  The dashed blue diagonal line
-    corresponds to radiation-supported bows, while the upper left
-    region corresponds to wind-supported bows.  The upper right corner
-    (purple) corresponds to optically thick bow shocks, while the
-    lower left corner (yellow) is the region where grain--gas
-    separation \textit{may} occur, leading to a potential dust wave.
-    However, the existence of a dust wave in this region is not
-    automatic, since it only includes one of the four necessary
-    conditions (\S~\ref{sec:exist-cond-separ} and
-    \S~\ref{sec:grain-traj-with}). The lower-right region is strictly
-    forbidden, except in case of violation of the assumption that dust
-    heating be dominated by stellar radiation. }
-  \label{fig:All-sources-eta-tau}
-\end{figure*}
 
 
 In Figure~\ref{fig:All-sources-eta-tau} we show the resultant
@@ -171,7 +189,7 @@ we have used the ratio of grain radiation pressure efficiency to
 absorption efficiency found in the FUV band for the dust mixture shown
 in Figure~\ref{fig:cloudy-ism-dust-opacity}.  Wind-supported bows
 should lie above this line and no bows should lie below the
-\(\eta = \tau\) line, since \(Q_P\) cannot be smaller than
+\(\eta\shell = \tau\) line, since \(Q_P\) cannot be smaller than
 \(Q_{\text{abs}}\).
 
 We have calculated \(\eta\shell\) and \(\tau\) using the
@@ -188,21 +206,148 @@ previously been claimed to be a dust wave \citep{Ochsendorf:2014b,
   Ochsendorf:2015a}.  Details of the observations of these additional
 sources will be published elsewhere.
 
-Rather than clutter the diagram with error bars, we instead show the
-sensitivity to observational errors in the lower-right box, where each
-arrow corresponds to a factor of two increase (0.3~dex) in an
-observational quantity: distance, \(D\); stellar luminosity, \(L_*\);
-total infrared flux, \(F_{\text{IR}}\); and bow angular apex distance,
-\(\theta\).  In \S~\ref{app:bow-shock-data} we estimate the
-uncertainty in each observational quantity, which we then combine to
-find the \(\pm 1~\sigma\) error ellipse shown in blue in the figure.
-It can be seen that observational uncertainties in \(\tau\) and
-\(\eta\) are highly correlated: the dispersion is \SI{0.7}{dex} in the
-product \(\eta\tau\) but only \SI{0.16}{dex} in the ratio
-\(\eta/\tau\), with stellar luminosity errors dominating in both
+
+
+\subsubsection{Random uncertainties due to observational errors}
+\label{sec:rand-syst-uncert}
+
+The fundamental observational quantities that go into determining
+\(\tau\) and \(\eta\shell\) for each source are distance, \(D\);
+stellar luminosity, \(L_*\); total infrared flux, \(F_{\text{IR}}\);
+and bow angular apex distance, \(\theta\).  From these, the shell
+radius and infrared luminosity are found as \(R_0 = \theta D\) and
+\(L_{\text{IR}} = 4\pi D^2 F_{\text{IR}}\).  Rather than clutter the
+diagram with error bars, we instead show the sensitivity to
+observational errors in the lower-right box, where each arrow
+corresponds to a factor of two increase (0.3~dex) in each quantity:
+\(D\), \(L_*\), \(F_{\text{IR}}\), and \(\theta\).  In
+\S~\ref{sec:uncert-estim-observ} we estimate the uncertainty in each
+observational quantity for the K18 sources.  We then combine these in
+\S~\ref{sec:comb-uncert-covar} to find the \(\pm 1~\sigma\) error
+ellipse, shown in blue in the figure.  It can be seen that
+observational uncertainties in \(\tau\) and \(\eta\shell\) are highly
+correlated: the dispersion is \SI{0.7}{dex} in the product
+\(\eta\shell \tau\) but only \SI{0.16}{dex} in the ratio
+\(\eta\shell/\tau\), with stellar luminosity errors dominating in both
 cases.  Observational uncertainties are therefore relatively
 unimportant in determining whether a given source is wind-driven or
-radiation-driven.
+radiation-driven, which depends only on \(\eta\shell/\tau\).  On the
+other hand, they do significantly effect the question of whether a
+source has a sufficiently high radiation parameter \(\Xi\) to possibly
+be a dust wave.
+
+\subsubsection{Systematic uncertainties due to assumed shell parameters}
+\label{sec:syst-uncert-due}
+
+A further source of uncertainty arises from the parameters of the
+shocked shell that are assumed in steps P\ref{P1}--P\ref{P3}, namely
+the relative shell thickness, \(h\shell/R_0\), the ultraviolet grain
+opacity per mass of gas, \(\kappa\), and the shell temperature, \(T\).
+These parameters effect only \(\eta\shell\), not \(\tau\), with a
+sensitivity shown by arrows in the upper left box of
+Figure~\ref{fig:All-sources-eta-tau}.
+
+\subparagraph{Shell thickness}
+We do not expect a great deal of variation in the shell thickness,
+except for in the case of fast runaway stars
+(\(v > \SI{100}{km.s^{-1}}\)), for which the shell may be dramatically
+thinner if the post-shock cooling is sufficiently rapid
+(\(h / R_0 \sim M_0^{-2}\)).  For ambient densities less than about
+\SI{10}{cm^{-3}}, the minimum thickness is about ten times smaller
+than we are assuming.  This occurs at
+\(v \approx \SI{60}{km.s^{-1}}\), corresponding to the peak in the
+cooling curve at \SI{e5}{K} (see \S~\ref{sec:radi-cool-lengths}),
+since the thickness is set by the cooling length at higher speeds.  In
+principle, the shell thickness can be measured observationally if the
+source is sufficiently well resolved \citep{Kobulnicky:2017a},
+although this is complicated by projection effects.
+
+\subparagraph{Dust opacity}
+The dust opacity will depend on the total dust-gas ratio and on the
+composition and size distribution of the grains.  Our adopted value of
+\SI{600}{cm^2.g^{-1}}, or \SI{1.3e-21}{cm^2.H^{-1}}, is appropriate
+for average Galactic interstellar grains in the EUV and FUV (e.g.,
+\citealp{Weingartner:2001a}), but there is ample evidence for
+substantial spatial variations in grain extinction properties
+\citep{Fitzpatrick:2007a}, both on Galactic scales
+\citep{Schlafly:2016a} and within a single star forming region
+\citep{Beitia-Antero:2017a}.  The properties of grains within
+photoionized regions are very poorly constrained observationally
+because the optical depth is generally much lower than in overlying
+neutral material.  In the Orion Nebula, there is some evidence
+\citep{Salgado:2016a} that the FUV dust opacity in the ionized gas may
+be as low as \SI{90}{cm^2.g^{-1}}, although the uncertainties in this
+estimate are large and different results are obtained in other
+regions, such as W3(A) \citep{Salgado:2012a}.   
+
+\subparagraph{Shell gas temperature} For bows around O~stars, the
+shell temperature should be close to the photoionization equilibrium
+value of \(\approx \SI{e4}{K}\), since the post-shock cooling length
+is short in ambient densities above \SI{0.1}{cm^{-3}}
+(\S~\ref{sec:radi-cool-lengths}) and the shell does not trap the
+ionization front for ambient densities below \SI{e4}{cm^{-3}}
+(\S~\ref{sec:trapp-ioniz-front}).  For B~stars, on the other hand,
+these two density limits move closer together (cf.~the smaller gap
+between the blue and red lines in Figs.~\ref{fig:zones-v-n-plane}a and
+\ref{fig:B-supergiant}, as compared with \ref{fig:zones-v-n-plane}b
+and~c), making it more likely that a bow will lie in a different
+temperature regime.  The only source for which we have evidence that
+this occurs is LP~Ori, as discussed in the next section.
+
+
+
+\subsubsection{Special treatment of particular sources}
+\label{sec:spec-treatm-part}
+
+For two of the additional bows listed in Table~\ref{tab:observations},
+we are forced to deviate from the default values for the shell
+parameters.  For LP~Ori, the bow shell appears to be formed from
+neutral gas \citep{ODell:2001c} and its relatively high \(\tau\) value
+is more than sufficient to trap the weak ionizing photon output of a
+B3 star.  We therefore move its point in
+Figure~\ref{fig:All-sources-eta-tau} downward to reflect a temperature
+of \SI{1000}{K} (or, equivalently, a magnetically supported shell with
+\(v\alfven \approx \SI{3}{km.s^{-1}}\)).  For the case of the Orion
+Trapezium star \thD{}, we find that using the default parameters
+results in a placement well inside the forbidden zone of
+Figure~\ref{fig:All-sources-eta-tau} (indicated by fainter symbol).
+For this object there is no reason to suspect anything but the usual
+photoionized temperature of \SI{e4}{K}, but its placement could be
+resolved either by decreasing the shell thickness, or decreasing the
+UV dust opacity, or both. Given the moderate limb brightening seen in
+the highest resolution images of the Ney--Allen nebula
+\citep{Robberto:2005a, Smith:2005a}, the shell thickness is unlikely
+to be less than half our default value.  But, if this were combined
+with a factor 5 decrease in \(\kappa\), as suggested by
+\citet{Salgado:2016a}, then this would be sufficient to move the
+source up to the RBW line, or slightly above.
+
+
+\subsection{Candidate radiation-supported bows}
+\label{sec:cand-radi-supp}
+
+Four sources are sufficiently close to the diagonal line
+\(\eta\shell = 1.25 \tau\) in Figure~\ref{fig:All-sources-eta-tau}
+that they should be treated as potential candidates for
+radiation-supported bows. These are K18 sources~380 (HD~53367,
+V750~Mon) and 407 (HD~93249 in Carina) plus \thD{} and LP~Ori.  Of the
+four, source 380 is the only one that is also a candidate for
+grain-gas decoupling.  Details of some of these sources are presented
+in \S~\ref{sec:notes-part-sourc}, where for source~380 we show that
+reducing both luminosity and distance by a factor of roughly 2 with
+respect to the values used by K18 would provide a better fit to the
+totality of observational data.  However, the ratio
+\(\eta\shell /\tau\) is proportional to \(D / L_*\) so it would not be
+affected by such an adjustment and the bow remains
+radiation-supported.  On the other hand \(\eta\shell\) (proportional
+to \(D / L_*^2\)) would increase by 2, making the classification as
+dust wave candidate more marginal.
+
+
+
+\subsection{Stellar wind mass-loss rates}
+\label{sec:stellar-wind-mass}
+
 
 
 Mass loss rates - starting from \citet{Kobulnicky:2010a}
@@ -240,6 +385,11 @@ Mass loss rates - starting from \citet{Kobulnicky:2010a}
     parameters (upper left).}
   \label{fig:mass-loss-vs-luminosity}
 \end{figure*}
+
+
+Source~342 is anomalous in both methods.
+
+Evidence for small grains around Arches cluster near Galactic center \citep{Hankins:2017a}
 
 
 

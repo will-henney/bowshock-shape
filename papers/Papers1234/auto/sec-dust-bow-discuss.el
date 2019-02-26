@@ -12,13 +12,20 @@
     "pc")
    (LaTeX-add-labels
     "sec:summary-discussion"
+    "fig:All-sources-eta-tau"
+    "sec:energy-trapp-vers"
     "eq:tau-empirical"
     "P1"
     "P2"
     "P3"
     "eq:eta-shell"
+    "sec:eta-tau-diagnostic"
     "tab:observations"
-    "fig:All-sources-eta-tau"
+    "sec:rand-syst-uncert"
+    "sec:syst-uncert-due"
+    "sec:spec-treatm-part"
+    "sec:cand-radi-supp"
+    "sec:stellar-wind-mass"
     "fig:mass-loss-vs-luminosity"
     "sec:case-inside-out"
     "sec:conclusions"))

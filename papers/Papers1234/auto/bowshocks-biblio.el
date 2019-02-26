@@ -166,6 +166,26 @@
     "Krticka:2017a"
     "Najarro:2011a"
     "Marcolino:2009a"
-    "Simon-Diaz:2015a"))
+    "Simon-Diaz:2015a"
+    "Fitzpatrick:2007a"
+    "Beitia-Antero:2017a"
+    "Schlafly:2016a"
+    "Salgado:2016a"
+    "Salgado:2012a"
+    "Gaia-Collaboration:2018a"
+    "Gaia-Collaboration:2016a"
+    "Pogodin:2006a"
+    "Tjin-A-Djie:2001a"
+    "Quireza:2006b"
+    "van-Leeuwen:2007a"
+    "Brand:1993a"
+    "Quireza:2006a"
+    "Hawley:1978a"
+    "Luri:2018a"
+    "Fairlamb:2015a"
+    "Stark:1984a"
+    "Nieva:2013a"
+    "Lee:2012a"
+    "Matzner:2002a"))
  :bibtex)
 

@@ -222,7 +222,7 @@ the smallest in the sample, all with \(R_0 < \SI{0.1}{pc}\).
 In this section, we estimate the \(1\sigma\) uncertainties in
 observational measurements, which contribute to the uncertainties in
 the derived quantities: \(\tau\), \(\eta\), and \(\dot M\) (see
-\S~\ref{sec:summary-discussion}).
+\S~\ref{sec:comb-uncert-covar} and \S~\ref{sec:summary-discussion}).
 
 \subsubsection{Distance}
 \label{sec:distance}
@@ -274,9 +274,10 @@ Spitzer PSF width at \SI{24}{\um}, so the errors may be larger.
 
 Although this is not strictly an observed quantity for the K18 sample,
 we will treat it as such since it is estimated per star, based on the
-spectral type.
+spectral type.  K18 estimate 50\% uncertainty, and we adopt the same
+here (0.18~dex).
 
-\subsubsection{Uncertainties and covariance for derived quantities}
+\subsection{Covariance of derived quantities from propagation of observational uncertainties}
 \label{sec:comb-uncert-covar}
 
 \begin{table}
@@ -306,9 +307,13 @@ spectral type.
 
 
 Even though errors in the fundamental observed quantities, \(x_i\),
-are assumed independent, errors in the derived quantities,
-\(f_k(x_1, x_2, \dots)\), will not necessarily be so.  For the
-purposes of this paper:
+are assumed independent,\footnote{%
+  It is of course true that \(F\IR\) and \(I_{70}\) are not completely
+  independent from one another, but this does not matter since we
+  consider only derived quantities that are a function of one or the
+  other, not both.} %
+errors in the derived quantities, \(f_k(x_1, x_2, \dots)\), will not
+necessarily be so.  For the purposes of this paper:
 \begin{align}
   \label{eq:observed-and-derived}
   x_i \in &  \left\{D;\ L_*;\ F\IR;\ I_{70};\ \theta;\ \ell/R;\ V\wind \right\} \\
@@ -421,6 +426,7 @@ J = np.array([
 ])
 C = J @ sig**2 @ J.T
   \end{verbatim}
+  \vspace*{-\baselineskip}
   \caption{Snippet of Python code that calculates the
     covariance matrix of Table~\ref{tab:covariance}.  The last line
     implements equation~\eqref{eq:covariance} by a triple matrix
@@ -429,6 +435,85 @@ C = J @ sig**2 @ J.T
     and the transpose of \texttt{J}.}
   \label{fig:python-covar}
 \end{figure}
+
+\subsection{Notes on particular sources}
+\label{sec:notes-part-sourc}
+
+\subsubsection{Source~380, HD~53367, V750~Mon}
+\label{sec:hd-53367-v750}
+  
+This is a Herbig Be star with spectral type B0V--B0III and mass 12 to
+\SI{15}{M_\odot}, which shows long-scale irregular photometric
+variability \citep{Tjin-A-Djie:2001a, Pogodin:2006a} together with
+cyclic radial velocity variations, which are interpreted as an
+eccentric binary with a \SI{5}{M_\odot} pre-main-sequence companion.
+It is located outside the solar circle and, although it was originally
+classified as part of the CMa OB association at about \SI{1}{kpc}
+\citep{Tjin-A-Djie:2001a}, more recent estimates put it much closer.
+K18 assume a distance of \SI{260}{pc}, based on Hipparcos measurements
+\citep{van-Leeuwen:2007a}, but its Gaia DR2 parallax
+\citep{Gaia-Collaboration:2016a, Gaia-Collaboration:2018a, Luri:2018a}
+puts it closer still at \SI{140 \pm 30}{pc}.\footnote{%
+  Median and 90\% confidence interval, estimated from Bayesian
+  inference using an exponential density distribution with scale
+  length of \SI{1350}{pc} as a prior (see
+  \url{https://github.com/agabrown/astrometry-inference-tutorials/}). }
+
+\citet{Quireza:2006b} report a kinematic distance to the associated
+\hii{} region IC~2177 (G\num{223.70}\num{-1.90}) of \SI{1.6}{kpc},
+based an LSR radio recombination line velocity of \SI{+16}{km.s^{-1}}
+\citep{Quireza:2006a} and the outer Galaxy rotation curve of
+\citet{Brand:1993a}.  However, given the dispersion in peculiar
+velocities of star-forming clouds (\SIrange{7}{9}{km.s^{-1}},
+\citealp{Stark:1984a}) and likely streaming motions of the ionized gas
+(\(\approx \SI{10}{km.s^{-1}}\), \citealp{Matzner:2002a, Lee:2012a}),
+this is still consistent with a much smaller distance, which would
+also help in bringing the radio continuum-derived nebular electron
+density into agreement with the value (\(\approx \SI{100}{cm^{-3}}\))
+derived from the optical [\ion{S}{ii}] line ratio
+\citep{Hawley:1978a}.
+
+\citet{Fairlamb:2015a} derive a distance of \SI{340 \pm 60}{pc} from
+combining a spectroscopically determined effective temperature,
+gravity, and reddening with photometry and pre-main sequence
+evolutionary tracks.  They also determine a luminosity of \SI{13000
+  \pm 1000}{L_\odot}, which is only half that assumed by K18, and
+would have to be even lower to bring the photometry into concordance
+with the Gaia distance.  Alternatively, the luminosity could remain
+the same if the total-to-selective extinction ratio were higher than
+the \(R_V = 3.1\) assumed by \citet{Fairlamb:2015a}.  Taking
+\(R_V = 5.5\) instead, as in Orion, would give \(A_V = 3.34\) and a
+predicted \(V\) magnitude of 6.7 if we assume \(L_4 = 1.3\),
+\(D = \SI{170}{pc}\) (furthest distance in Gaia 90\% confidence
+interval) and \(T_{\text{eff}} = \SI{29.5}{kK}\)
+\citep{Fairlamb:2015a} for a bolometric correction of \(-2.86\)
+\citep{Nieva:2013a}.  The observed brightness varies between
+\(V = 6.9\) and 7.2, which is still at least 20\% fainter than
+predicted, but this is the best that can be achieved without rejecting
+the Gaia parallax distance entirely.
+
+A final sanity check can be performed by considering the free-free
+radio continuum flux of V750~Mon's surrounding \hii{} region, which,
+after converting to a luminosity, should be proportional to the total
+recombination rate in the nebula and therefore, assuming
+photoionization equilibrium and negligible dust absorption in the
+ionized gas, also proportional to the ionizing photon luminosity of
+the star.  \citet{Quireza:2006b} report a flux density of \SI{6}{Jy}
+at \SI{8.6}{Ghz} for G\num{223.70}\num{-1.90}, as compared with a flux
+density of \SI{260}{Jy} for the Orion Nebula using the same
+instrumental setup.  Assuming an ionizing photon luminosity of
+\(S_{49} = 1\) and distance \SI{410}{pc} for the ionizing Trapezium
+stars in Orion, therefore implies
+\(S_{49} = 0.0027 (D/\SI{140}{pc})^2\) for V750~Mon.  Using an
+ionizing flux of \SI{3.2e22}{cm^{-2}.s^{-1}} from the curves in Fig.~4
+of \citet{Sternberg:2003a}, this translates to a bolometric luminosity
+of \(L_4 = 0.96 (D/\SI{140}{pc})^2\), which is consistent with the
+\citet{Fairlamb:2015a} value if we take a distance towards the high
+end of the Gaia range.
+
+\subsubsection{Source 407, HD~93249}
+\label{sec:source-407}
+
 
 
 %%% Local Variables:
