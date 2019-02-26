@@ -1,0 +1,113 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{{Abel}, {Hoof}, {Shaw}, {Ferland}  \&
+  {Elwert}}{{Abel} et~al.}{2008}]{Abel:2008a}
+{Abel} N.~P.,  {Hoof} P.~A.~M.~v.,  {Shaw} G.,  {Ferland} G.~J.,   {Elwert} T.,
+   2008, \apj, 686, 1125
+
+\bibitem[\protect\citeauthoryear{{Arthur}, {Henney}, {Mellema}, {de Colle}  \&
+  {V{\'a}zquez-Semadeni}}{{Arthur} et~al.}{2011}]{Arthur:2011a}
+{Arthur} S.~J.,  {Henney} W.~J.,  {Mellema} G.,  {de Colle} F.,
+  {V{\'a}zquez-Semadeni} E.,  2011, \mnras, 414, 1747
+
+\bibitem[\protect\citeauthoryear{{Baines}, {Williams}  \& {Asebiomo}}{{Baines}
+  et~al.}{1965}]{Baines:1965a}
+{Baines} M.~J.,  {Williams} I.~P.,   {Asebiomo} A.~S.,  1965, \mnras, 130, 63
+
+\bibitem[\protect\citeauthoryear{{Baldwin}, {Ferland}, {Martin}, {Corbin},
+  {Cota}, {Peterson}  \& {Slettebak}}{{Baldwin} et~al.}{1991}]{Baldwin:1991a}
+{Baldwin} J.~A.,  {Ferland} G.~J.,  {Martin} P.~G.,  {Corbin} M.~R.,  {Cota}
+  S.~A.,  {Peterson} B.~M.,   {Slettebak} A.,  1991, \apj, 374, 580
+
+\bibitem[\protect\citeauthoryear{Bohren \& Huffman}{Bohren \&
+  Huffman}{1983}]{Bohren:1983a}
+Bohren C.~F.,  Huffman D.,  1983, Absorption and scattering of light by small
+  particles.
+Wiley-VCH
+
+\bibitem[\protect\citeauthoryear{{Chandrasekhar}}{{Chandrasekhar}}{1941}]{Chandrasekhar:1941a}
+{Chandrasekhar} I.~S.,  1941, \apj, 93, 285
+
+\bibitem[\protect\citeauthoryear{{Draine} \& {Salpeter}}{{Draine} \&
+  {Salpeter}}{1979}]{Draine:1979a}
+{Draine} B.~T.,  {Salpeter} E.~E.,  1979, \apj, 231, 77
+
+\bibitem[\protect\citeauthoryear{{Ferland} et~al.,}{{Ferland}
+  et~al.}{2013}]{Ferland:2013a}
+{Ferland} G.~J.,  et~al., 2013, \rmxaa, 49, 137
+
+\bibitem[\protect\citeauthoryear{{Ferland} et~al.,}{{Ferland}
+  et~al.}{2017}]{Ferland:2017a}
+{Ferland} G.~J.,  et~al., 2017, \rmxaa, 53, 385
+
+\bibitem[\protect\citeauthoryear{Hindmarsh}{Hindmarsh}{1983}]{Hindmarsh:1983a}
+Hindmarsh A.~C.,  1983, IMACS Transactions on Scientific Computation, 1, 55
+
+\bibitem[\protect\citeauthoryear{Jones, Oliphant, Peterson  et~al.}{Jones
+  et~al.}{2019}]{Jones:2001a}
+Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
+  source scientific tools for {Python}, \url {http://www.scipy.org/}
+
+\bibitem[\protect\citeauthoryear{Landau \& Lifshitz}{Landau \&
+  Lifshitz}{1976}]{Landau:1976a}
+Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
+ Course of Theoretical Physics S Vol. 1, Butterworth-Heinemann
+
+\bibitem[\protect\citeauthoryear{{Lanz} \& {Hubeny}}{{Lanz} \&
+  {Hubeny}}{2003}]{Lanz:2003a}
+{Lanz} T.,  {Hubeny} I.,  2003, \apjs, 146, 417
+
+\bibitem[\protect\citeauthoryear{{Lanz} \& {Hubeny}}{{Lanz} \&
+  {Hubeny}}{2007}]{Lanz:2007a}
+{Lanz} T.,  {Hubeny} I.,  2007, \apjs, 169, 83
+
+\bibitem[\protect\citeauthoryear{{Spitzer}}{{Spitzer}}{1978}]{Spitzer:1978a}
+{Spitzer} L.,  1978, {Physical processes in the interstellar medium}.
+New York: Wiley-Interscience
+
+\bibitem[\protect\citeauthoryear{{Tarango-Yong} \& {Henney}}{{Tarango-Yong} \&
+  {Henney}}{2018}]{Tarango-Yong:2018a}
+{Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431
+
+\bibitem[\protect\citeauthoryear{{Weidenschilling}}{{Weidenschilling}}{1977}]{Weidenschilling:1977b}
+{Weidenschilling} S.~J.,  1977, \mnras, 180, 57
+
+\bibitem[\protect\citeauthoryear{{Weingartner} \& {Draine}}{{Weingartner} \&
+  {Draine}}{2001a}]{Weingartner:2001b}
+{Weingartner} J.~C.,  {Draine} B.~T.,  2001a, \apjs, 134, 263
+
+\bibitem[\protect\citeauthoryear{{Weingartner} \& {Draine}}{{Weingartner} \&
+  {Draine}}{2001b}]{Weingartner:2001a}
+{Weingartner} J.~C.,  {Draine} B.~T.,  2001b, \apj, 548, 296
+
+\bibitem[\protect\citeauthoryear{{Weingartner}, {Draine}  \&
+  {Barr}}{{Weingartner} et~al.}{2006}]{Weingartner:2006a}
+{Weingartner} J.~C.,  {Draine} B.~T.,   {Barr} D.~K.,  2006, \apj, 645, 1188
+
+\bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
+{Wilkin} F.~P.,  1996, \apjl, 459, L31
+
+\bibitem[\protect\citeauthoryear{{van Hoof}, {Weingartner}, {Martin}, {Volk}
+  \& {Ferland}}{{van Hoof} et~al.}{2004}]{van-Hoof:2004a}
+{van Hoof} P.~A.~M.,  {Weingartner} J.~C.,  {Martin} P.~G.,  {Volk} K.,
+  {Ferland} G.~J.,  2004, \mnras, 350, 1330
+
+\makeatother
+\end{thebibliography}

@@ -1,0 +1,309 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{{Balog} et~al.,}{{Balog}
+  et~al.}{2014}]{Balog:2014a}
+{Balog} Z.,  et~al., 2014, Experimental Astronomy, 37, 129
+
+\bibitem[\protect\citeauthoryear{{Beitia-Antero} \& {Gómez de
+  Castro}}{{Beitia-Antero} \& {Gómez de Castro}}{2017}]{Beitia-Antero:2017a}
+{Beitia-Antero} L.,  {Gómez de Castro} A.~I.,  2017, \mnras, 469, 2531
+
+\bibitem[\protect\citeauthoryear{{Brand} \& {Blitz}}{{Brand} \&
+  {Blitz}}{1993}]{Brand:1993a}
+{Brand} J.,  {Blitz} L.,  1993, \aap, 275, 67
+
+\bibitem[\protect\citeauthoryear{{Brown}}{{Brown}}{2015}]{Brown:2015a}
+{Brown} W.~R.,  2015, \araa, 53, 15
+
+\bibitem[\protect\citeauthoryear{{Callingham}, {Tuthill}, {Pope}, {Williams},
+  {Crowther}, {Edwards}, {Norris}  \& {Kedziora-Chudczer}}{{Callingham}
+  et~al.}{2019}]{Callingham:2019a}
+{Callingham} J.~R.,  {Tuthill} P.~G.,  {Pope} B.~J.~S.,  {Williams} P.~M.,
+  {Crowther} P.~A.,  {Edwards} M.,  {Norris} B.,   {Kedziora-Chudczer} L.,
+  2019, Nature Astronomy, 3, 82
+
+\bibitem[\protect\citeauthoryear{{Desert}, {Boulanger}  \& {Puget}}{{Desert}
+  et~al.}{1990}]{Desert:1990a}
+{Desert} F.-X.,  {Boulanger} F.,   {Puget} J.~L.,  1990, \aap, 237, 215
+
+\bibitem[\protect\citeauthoryear{{Draine}}{{Draine}}{1981}]{Draine:1981a}
+{Draine} B.~T.,  1981, \apj, 245, 880
+
+\bibitem[\protect\citeauthoryear{{Draine} \& {Li}}{{Draine} \&
+  {Li}}{2001}]{Draine:2001a}
+{Draine} B.~T.,  {Li} A.,  2001, \apj, 551, 807
+
+\bibitem[\protect\citeauthoryear{{Draine} \& {Li}}{{Draine} \&
+  {Li}}{2007}]{Draine:2007a}
+{Draine} B.~T.,  {Li} A.,  2007, \apj, 657, 810
+
+\bibitem[\protect\citeauthoryear{{Duley}}{{Duley}}{1973}]{Duley:1973a}
+{Duley} W.~W.,  1973, \apss, 23, 43
+
+\bibitem[\protect\citeauthoryear{{Engelbracht} et~al.,}{{Engelbracht}
+  et~al.}{2007}]{Engelbracht:2007a}
+{Engelbracht} C.~W.,  et~al., 2007, \pasp, 119, 994
+
+\bibitem[\protect\citeauthoryear{{Fairlamb}, {Oudmaijer}, {Mendigut{\'{\i}}a},
+  {Ilee}  \& {van den Ancker}}{{Fairlamb} et~al.}{2015}]{Fairlamb:2015a}
+{Fairlamb} J.~R.,  {Oudmaijer} R.~D.,  {Mendigut{\'{\i}}a} I.,  {Ilee} J.~D.,
+  {van den Ancker} M.~E.,  2015, \mnras, 453, 976
+
+\bibitem[\protect\citeauthoryear{{Fitzpatrick} \& {Massa}}{{Fitzpatrick} \&
+  {Massa}}{2007}]{Fitzpatrick:2007a}
+{Fitzpatrick} E.~L.,  {Massa} D.,  2007, \apj, 663, 320
+
+\bibitem[\protect\citeauthoryear{{Gaia Collaboration} et~al.,}{{Gaia
+  Collaboration} et~al.}{2016}]{Gaia-Collaboration:2016a}
+{Gaia Collaboration} et~al., 2016, \aap, 595, A1
+
+\bibitem[\protect\citeauthoryear{{Gaia Collaboration} et~al.,}{{Gaia
+  Collaboration} et~al.}{2018}]{Gaia-Collaboration:2018a}
+{Gaia Collaboration} et~al., 2018, \aap, 616, A1
+
+\bibitem[\protect\citeauthoryear{{Garc{\'{\i}}a-Arredondo}, {Henney}  \&
+  {Arthur}}{{Garc{\'{\i}}a-Arredondo} et~al.}{2001}]{Garcia-Arredondo:2001a}
+{Garc{\'{\i}}a-Arredondo} F.,  {Henney} W.~J.,   {Arthur} S.~J.,  2001, \apj,
+  561, 830
+
+\bibitem[\protect\citeauthoryear{{Giard}, {Bernard}, {Lacombe}, {Normand}  \&
+  {Rouan}}{{Giard} et~al.}{1994}]{Giard:1994a}
+{Giard} M.,  {Bernard} J.~P.,  {Lacombe} F.,  {Normand} P.,   {Rouan} D.,
+  1994, \aap, 291, 239
+
+\bibitem[\protect\citeauthoryear{{Gvaramadze}, {Alexashov}, {Katushkina}  \&
+  {Kniazev}}{{Gvaramadze} et~al.}{2018}]{Gvaramadze:2018a}
+{Gvaramadze} V.~V.,  {Alexashov} D.~B.,  {Katushkina} O.~A.,   {Kniazev} A.~Y.,
+   2018, \mnras, 474, 4421
+
+\bibitem[\protect\citeauthoryear{{Habing}}{{Habing}}{1968}]{Habing:1968a}
+{Habing} H.~J.,  1968, \bain, 19, 421
+
+\bibitem[\protect\citeauthoryear{{Hawley}}{{Hawley}}{1978}]{Hawley:1978a}
+{Hawley} S.~A.,  1978, \apj, 224, 417
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
+  {Arthur}}{1998}]{Henney:1998b}
+{Henney} W.~J.,  {Arthur} S.~J.,  1998, \aj, 116, 322
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {O'Dell}}{{Henney} \&
+  {O'Dell}}{1999}]{Henney:1999a}
+{Henney} W.~J.,  {O'Dell} C.~R.,  1999, \aj, 118, 2350
+
+\bibitem[\protect\citeauthoryear{{Hoogerwerf}, {de Bruijne}  \& {de
+  Zeeuw}}{{Hoogerwerf} et~al.}{2001}]{Hoogerwerf:2001a}
+{Hoogerwerf} R.,  {de Bruijne} J.~H.~J.,   {de Zeeuw} P.~T.,  2001, \aap, 365,
+  49
+
+\bibitem[\protect\citeauthoryear{{Katushkina}, {Alexashov}, {Izmodenov}  \&
+  {Gvaramadze}}{{Katushkina} et~al.}{2017}]{Katushkina:2017a}
+{Katushkina} O.~A.,  {Alexashov} D.~B.,  {Izmodenov} V.~V.,   {Gvaramadze}
+  V.~V.,  2017, \mnras, 465, 1573
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky}, {Gilbert}  \&
+  {Kiminki}}{{Kobulnicky} et~al.}{2010}]{Kobulnicky:2010a}
+{Kobulnicky} H.~A.,  {Gilbert} I.~J.,   {Kiminki} D.~C.,  2010, \apj, 710, 549
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky} et~al.,}{{Kobulnicky}
+  et~al.}{2016}]{Kobulnicky:2016a}
+{Kobulnicky} H.~A.,  et~al., 2016, \apjs, 227, 18
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky}, {Schurhammer}, {Baldwin},
+  {Chick}, {Dixon}, {Lee}  \& {Povich}}{{Kobulnicky}
+  et~al.}{2017}]{Kobulnicky:2017a}
+{Kobulnicky} H.~A.,  {Schurhammer} D.~P.,  {Baldwin} D.~J.,  {Chick} W.~T.,
+  {Dixon} D.~M.,  {Lee} D.,   {Povich} M.~S.,  2017, \aj, 154, 201
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky}, {Chick}  \&
+  {Povich}}{{Kobulnicky} et~al.}{2018}]{Kobulnicky:2018a}
+{Kobulnicky} H.~A.,  {Chick} W.~T.,   {Povich} M.~S.,  2018, \apj, 856, 74
+
+\bibitem[\protect\citeauthoryear{{Krti{\v c}ka}}{{Krti{\v
+  c}ka}}{2014}]{Krticka:2014a}
+{Krti{\v c}ka} J.,  2014, \aap, 564, A70
+
+\bibitem[\protect\citeauthoryear{{Krtička} \& {Kubát}}{{Krtička} \&
+  {Kubát}}{2017}]{Krticka:2017a}
+{Krtička} J.,  {Kubát} J.,  2017, \aap, 606, A31
+
+\bibitem[\protect\citeauthoryear{{Lebouteiller}, {Bernard-Salas}, {Whelan},
+  {Brandl}, {Galliano}, {Charmandaris}, {Madden}  \& {Kunth}}{{Lebouteiller}
+  et~al.}{2011}]{Lebouteiller:2011a}
+{Lebouteiller} V.,  {Bernard-Salas} J.,  {Whelan} D.~G.,  {Brandl} B.,
+  {Galliano} F.,  {Charmandaris} V.,  {Madden} S.,   {Kunth} D.,  2011, \apj,
+  728, 45
+
+\bibitem[\protect\citeauthoryear{{Lee}, {Murray}  \& {Rahman}}{{Lee}
+  et~al.}{2012}]{Lee:2012a}
+{Lee} E.~J.,  {Murray} N.,   {Rahman} M.,  2012, \apj, 752, 146
+
+\bibitem[\protect\citeauthoryear{{Luri} et~al.,}{{Luri}
+  et~al.}{2018}]{Luri:2018a}
+{Luri} X.,  et~al., 2018, \aap, 616, A9
+
+\bibitem[\protect\citeauthoryear{{Marcolino}, {Bouret}, {Martins}, {Hillier},
+  {Lanz}  \& {Escolano}}{{Marcolino} et~al.}{2009}]{Marcolino:2009a}
+{Marcolino} W.~L.~F.,  {Bouret} J.-C.,  {Martins} F.,  {Hillier} D.~J.,  {Lanz}
+  T.,   {Escolano} C.,  2009, \aap, 498, 837
+
+\bibitem[\protect\citeauthoryear{{Martins}, {Schaerer}  \& {Hillier}}{{Martins}
+  et~al.}{2005}]{Martins:2005a}
+{Martins} F.,  {Schaerer} D.,   {Hillier} D.~J.,  2005, \aap, 436, 1049
+
+\bibitem[\protect\citeauthoryear{{Mathis}, {Mezger}  \& {Panagia}}{{Mathis}
+  et~al.}{1983}]{Mathis:1983a}
+{Mathis} J.~S.,  {Mezger} P.~G.,   {Panagia} N.,  1983, \aap, 128, 212
+
+\bibitem[\protect\citeauthoryear{{Matzner}}{{Matzner}}{2002}]{Matzner:2002a}
+{Matzner} C.~D.,  2002, \apj, 566, 302
+
+\bibitem[\protect\citeauthoryear{{Meyer}, {van Marle}, {Kuiper}  \&
+  {Kley}}{{Meyer} et~al.}{2016}]{Meyer:2016a}
+{Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
+  459, 1146
+
+\bibitem[\protect\citeauthoryear{{Meyer}, {Mignone}, {Kuiper}, {Raga}  \&
+  {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
+{Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
+  2017, \mnras, 464, 3229
+
+\bibitem[\protect\citeauthoryear{{Najarro}, {Hanson}  \& {Puls}}{{Najarro}
+  et~al.}{2011}]{Najarro:2011a}
+{Najarro} F.,  {Hanson} M.~M.,   {Puls} J.,  2011, \aap, 535, A32
+
+\bibitem[\protect\citeauthoryear{{Nieva}}{{Nieva}}{2013}]{Nieva:2013a}
+{Nieva} M.-F.,  2013, \aap, 550, A26
+
+\bibitem[\protect\citeauthoryear{{O'Dell}}{{O'Dell}}{2001}]{ODell:2001c}
+{O'Dell} C.~R.,  2001, \aj, 122, 2662
+
+\bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
+  {Wen}}{1994}]{ODell:1994a}
+{O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
+  {Tielens}}{2015}]{Ochsendorf:2015a}
+{Ochsendorf} B.~B.,  {Tielens} A.~G.~G.~M.,  2015, \aap, 576, A2
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf}, {Cox}, {Krijt}, {Salgado},
+  {Bern{\'e}}, {Bernard}, {Kaper}  \& {Tielens}}{{Ochsendorf}
+  et~al.}{2014}]{Ochsendorf:2014b}
+{Ochsendorf} B.~B.,  {Cox} N.~L.~J.,  {Krijt} S.,  {Salgado} F.,  {Bern{\'e}}
+  O.,  {Bernard} J.~P.,  {Kaper} L.,   {Tielens} A.~G.~G.~M.,  2014, \aap, 563,
+  A65
+
+\bibitem[\protect\citeauthoryear{{Oh} \& {Kroupa}}{{Oh} \&
+  {Kroupa}}{2016}]{Oh:2016c}
+{Oh} S.,  {Kroupa} P.,  2016, \aap, 590, A107
+
+\bibitem[\protect\citeauthoryear{{Pogodin}, {Malanushenko}, {Kozlova},
+  {Tarasova}  \& {Franco}}{{Pogodin} et~al.}{2006}]{Pogodin:2006a}
+{Pogodin} M.~A.,  {Malanushenko} V.~P.,  {Kozlova} O.~V.,  {Tarasova} T.~N.,
+  {Franco} G.~A.~P.,  2006, \aap, 452, 551
+
+\bibitem[\protect\citeauthoryear{{Quireza}, {Rood}, {Balser}  \&
+  {Bania}}{{Quireza} et~al.}{2006a}]{Quireza:2006a}
+{Quireza} C.,  {Rood} R.~T.,  {Balser} D.~S.,   {Bania} T.~M.,  2006a, \apjs,
+  165, 338
+
+\bibitem[\protect\citeauthoryear{{Quireza}, {Rood}, {Bania}, {Balser}  \&
+  {Maciel}}{{Quireza} et~al.}{2006b}]{Quireza:2006b}
+{Quireza} C.,  {Rood} R.~T.,  {Bania} T.~M.,  {Balser} D.~S.,   {Maciel} W.~J.,
+   2006b, \apj, 653, 1226
+
+\bibitem[\protect\citeauthoryear{{Renzo} et~al.,}{{Renzo}
+  et~al.}{2018}]{Renzo:2018a}
+{Renzo} M.,  et~al., 2018, arXiv e-prints
+
+\bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
+  et~al.}{2005}]{Robberto:2005a}
+{Robberto} M.,  et~al., 2005, \aj, 129, 1534
+
+\bibitem[\protect\citeauthoryear{{Salgado} et~al.,}{{Salgado}
+  et~al.}{2012}]{Salgado:2012a}
+{Salgado} F.,  et~al., 2012, \apjl, 749, L21
+
+\bibitem[\protect\citeauthoryear{{Salgado}, {Berné}, {Adams}, {Herter},
+  {Keller}  \& {Tielens}}{{Salgado} et~al.}{2016}]{Salgado:2016a}
+{Salgado} F.,  {Berné} O.,  {Adams} J.~D.,  {Herter} T.~L.,  {Keller} L.~D.,
+  {Tielens} A.~G.~G.~M.,  2016, \apj, 830, 118
+
+\bibitem[\protect\citeauthoryear{{Schlafly} et~al.,}{{Schlafly}
+  et~al.}{2016}]{Schlafly:2016a}
+{Schlafly} E.~F.,  et~al., 2016, \apj, 821, 78
+
+\bibitem[\protect\citeauthoryear{{Simón-D{\'{\i}}az}
+  et~al.,}{{Simón-D{\'{\i}}az} et~al.}{2015}]{Simon-Diaz:2015a}
+{Simón-D{\'{\i}}az} S.,  et~al., 2015, \apj, 799, 169
+
+\bibitem[\protect\citeauthoryear{{Smith}, {Bally}, {Shuping}, {Morris}  \&
+  {Kassis}}{{Smith} et~al.}{2005}]{Smith:2005a}
+{Smith} N.,  {Bally} J.,  {Shuping} R.~Y.,  {Morris} M.,   {Kassis} M.,  2005,
+  \aj, 130, 1763
+
+\bibitem[\protect\citeauthoryear{{Spitzer}}{{Spitzer}}{1978}]{Spitzer:1978a}
+{Spitzer} L.,  1978, {Physical processes in the interstellar medium}.
+New York: Wiley-Interscience
+
+\bibitem[\protect\citeauthoryear{{Stark}}{{Stark}}{1984}]{Stark:1984a}
+{Stark} A.~A.,  1984, \apj, 281, 624
+
+\bibitem[\protect\citeauthoryear{{Sternberg}, {Hoffmann}  \&
+  {Pauldrach}}{{Sternberg} et~al.}{2003}]{Sternberg:2003a}
+{Sternberg} A.,  {Hoffmann} T.~L.,   {Pauldrach} A.~W.~A.,  2003, \apj, 599,
+  1333
+
+\bibitem[\protect\citeauthoryear{{Tarango-Yong} \& {Henney}}{{Tarango-Yong} \&
+  {Henney}}{2018}]{Tarango-Yong:2018a}
+{Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431
+
+\bibitem[\protect\citeauthoryear{{Tielens} \& {Hollenbach}}{{Tielens} \&
+  {Hollenbach}}{1985}]{Tielens:1985a}
+{Tielens} A.~G.~G.~M.,  {Hollenbach} D.,  1985, \apj, 291, 722
+
+\bibitem[\protect\citeauthoryear{{Tjin A Djie}, {van den Ancker}, {Blondel},
+  {Shevchenko}, {Ezhkova}, {de Winter}  \& {Grankin}}{{Tjin A Djie}
+  et~al.}{2001}]{Tjin-A-Djie:2001a}
+{Tjin A Djie} H.~R.~E.,  {van den Ancker} M.~E.,  {Blondel} P.~F.~C.,
+  {Shevchenko} V.~S.,  {Ezhkova} O.~V.,  {de Winter} D.,   {Grankin} K.~N.,
+  2001, \mnras, 325, 1441
+
+\bibitem[\protect\citeauthoryear{{Tuthill}, {Monnier}  \& {Danchi}}{{Tuthill}
+  et~al.}{1999}]{Tuthill:1999a}
+{Tuthill} P.~G.,  {Monnier} J.~D.,   {Danchi} W.~C.,  1999, \nat, 398, 487
+
+\bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
+  et~al.}{2000}]{Vink:2000a}
+{Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  2000, \aap, 362, 295
+
+\bibitem[\protect\citeauthoryear{{Weingartner} \& {Draine}}{{Weingartner} \&
+  {Draine}}{2001}]{Weingartner:2001a}
+{Weingartner} J.~C.,  {Draine} B.~T.,  2001, \apj, 548, 296
+
+\bibitem[\protect\citeauthoryear{{Xie}, {Ho}, {Li}  \& {Shangguan}}{{Xie}
+  et~al.}{2018}]{Xie:2018a}
+{Xie} Y.,  {Ho} L.~C.,  {Li} A.,   {Shangguan} J.,  2018, \apj, 867, 91
+
+\bibitem[\protect\citeauthoryear{{van Leeuwen}}{{van
+  Leeuwen}}{2007}]{van-Leeuwen:2007a}
+{van Leeuwen} F.,  2007, \aap, 474, 653
+
+\makeatother
+\end{thebibliography}

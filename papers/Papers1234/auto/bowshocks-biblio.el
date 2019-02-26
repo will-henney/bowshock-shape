@@ -186,6 +186,9 @@
     "Stark:1984a"
     "Nieva:2013a"
     "Lee:2012a"
-    "Matzner:2002a"))
+    "Matzner:2002a"
+    "Henney:2019c"
+    "Henney:2019b"
+    "Henney:2019a"))
  :bibtex)
 

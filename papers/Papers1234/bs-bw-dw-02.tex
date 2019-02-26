@@ -1,0 +1,127 @@
+\documentclass[useAMS, usenatbib, a4paper]{mnras}
+\pdfsuppresswarningpagegroup=1
+
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{fixltx2e}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{separate-uncertainty = true}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+
+% Fonts 
+\usepackage{newtxtext}
+% Note: newtxmath must come AFTER newtxtext
+\usepackage[varvw,smallerops]{newtxmath}
+
+\usepackage{chemgreek}
+\activatechemgreekmapping{newtx}
+\usepackage{listings}
+
+\hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
+  urlcolor=blue!50!black}
+
+\usepackage{etoolbox}
+\robustify\bfseries
+\robustify\itshape
+
+%% The following hack solves a problem with
+%% ERROR: \pdfendlink ended up in different nesting level than \pdfstartlink.
+%% See https://tex.stackexchange.com/a/249743
+\makeatletter
+\patchcmd\@combinedblfloats{\box\@outputbox}{\unvbox\@outputbox}{}{%
+  \errmessage{\noexpand\@combinedblfloats could not be patched}%
+}%
+\makeatother
+
+%% Bold italic
+\newcommand\hmmax{0}            % we don't need heavy fonts
+\newcommand\bmmax{1}            % reduce use of math alphabets for bold
+\usepackage{bm}
+
+%% Bundled custom packages
+\usepackage{aastex-compat}
+
+\title
+{Bow shocks, bow waves, and dust waves. II. Beyond the rip point}
+
+\newcommand\AddressCRyA{Instituto de Radioastronom\'{\i}a y Astrof\'{\i}sica,
+  Universidad Nacional Aut\'onoma de M\'exico, Apartado Postal 3-72,
+  58090 Morelia, Michoac\'an, M\'exico}
+\author[Henney \& Arthur]{
+  William J. Henney \& S. Jane Arthur\\
+  \AddressCRyA
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2019}
+
+\input{bs-bw-dw-defs.tex}
+
+\externaldocument[Q-]{quadrics-bowshock}
+%\externaldocument[I-]{bs-bw-dw-01}
+%\externaldocument[III-]{bs-bw-dw-03}
+
+\defcitealias{Tarango-Yong:2018a}{Paper~I}
+\newcommand\PaperI{\citetalias{Tarango-Yong:2018a}}
+
+
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+\begin{abstract}
+  Dust waves are a result of gas--grain decoupling in a stream of
+  dusty plasma that flows past a luminous star.  The radiation field
+  is sufficiently strong to overcome the collisional coupling between
+  grains and gas at a \textit{rip-point}, where the ratio of radiation
+  pressure to gas pressure exceeds a critical value of roughly 1000.
+  When the rip point occurs outside the hydrodynamic bow shock, a
+  separate dust wave may form, decoupled from the gas shell, which can
+  either be drag-confined or inertia-confined, depending on the stream
+  density and relative velocity.  In the drag-confined case, there is
+  a minimum stream velocity of roughly \SI{60}{km.s^{-1}} that allows
+  a steady-state stagnant drift solution for the dust wave apex.  For
+  lower relative velocities, the dust dynamics close to the axis
+  exhibit a limit cycle behavior (rip and snap back) between two
+  different radii.  Strong coupling of charged grains to the plasma's
+  magnetic field can modify these effects, but for a quasi-parallel
+  field orientation the results are qualitatively similar to the
+  non-magnetic case. For a quasi-perpendicular field, on the other
+  hand, the formation of a decoupled dust wave is strongly suppressed.
+\end{abstract}
+
+\begin{keywords}
+  circumstellar matter -- radiation: dynamics -- stars: winds, outflows
+\end{keywords}
+
+\input{sec-weak-coupling}
+\bibliographystyle{mnras}
+\bibliography{bowshocks-biblio}
+\appendix
+\input{app-cloudy-dust-charging}
+\input{app-dust-wave}
+\input{app-dust-equations}
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
