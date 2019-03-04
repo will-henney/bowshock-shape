@@ -579,8 +579,8 @@ In Figure~\ref{fig:zones-v-n-plane} we show curves calculated from
 equations~\eqref{eq:shock-n-jump} to~\eqref{eq:heating-coefficient},
 corresponding to \(d\cool = R_0\) (thick blue line) and
 \(d\cool = h_0\) (thin blue line), where \(h_0\) is the shell
-thickness in the efficient cooling case.  In this context, \(n_0 = n\)
-and \(n_2 = n\shell\), so that \(h_0\) follows from
+thickness in the limit of instantaneous cooling.  In this context,
+\(n_0 = n\) and \(n_2 = n\shell\), so that \(h_0\) follows from
 equations~\eqref{eq:shocked-shell-column}
 and~\eqref{eq:isothermal-shell-density} as
 \begin{equation}
@@ -608,6 +608,68 @@ the radiative case,
 For bows with outer stream densities between the two blue lines,
 cooling does occur, albeit inefficiently, so that the shell thickness
 is set by \(d\cool\) rather than \(h_0\).
+
+\subsection{Axial structure of bow shells}
+\label{sec:axial-structure-bow}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/shell-profiles}
+  \caption{Profiles of physical variables along the axis of bow shells
+    for (a)~wind-supported bow shock; (b)~radiation-supported bow
+    wave, and (c)~radiation-supported bow shock.  In all cases, a
+    stream velocity of \SI{30}{km.s^{-1}} and an equilibrium ionized
+    sound speed of \SI{10}{km.s^{-1}} are assumed.}
+  \label{fig:axial-structure}
+\end{figure}
+
+In the shell of a wind-supported bow shock, the gas density is highest
+at the contact discontinuity, but this is no longer true for
+radiation-supported bows, as illustrated in
+Figure~\ref{fig:axial-structure}.  For the optically thin RBW case,
+equations~\eqref{eq:rad-accel} to~\eqref{eq:rad:R0} can be combined to
+give the radial dependence of the stream velocity as it approaches the
+star:
+\begin{equation}
+  \label{eq:v-RBW-ballistic}
+  v(R) = \left( 1 - \frac{R_{**}}{R} \right)^{1/2} v_\infty \ .
+\end{equation}
+This ballistic approximation (shown by the dashed red line in
+Fig.~\ref{fig:axial-structure}b) predicts that the velocity smoothly
+decreases to zero at \(R = R_{**}\).  However, although this is valid
+in the limit of high Mach number, it ignores the effects of gas
+pressure and so becomes invalid once the stream velocity falls close
+to the sound speed.
+
+
+\section{Discussion}
+\label{sec:discussion}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/zones-v-n-plane-Weak}
+  \caption{As Fig.~\ref{fig:zones-v-n-plane}, but for a weak-wind
+    O~star, similar to the sample observed by \citet{Martins:2005b}.
+    For this star, radiation-supported bow waves (gray shading) occur
+    over a much larger region of parameter space than for a
+    normal-wind star of the same spectral type
+    (see Fig.~\ref{fig:zones-v-n-plane}b).}
+  \label{fig:O-weak-wind}
+\end{figure}
+
+Hot stars, comparison with expected velocities and densities.
+
+Expected velocities.  There are cases of high velocities, e.g., AE~Aur, but they are probably rare. \citep{Renzo:2018a}
+In cases, where proper motions are measured, they are often low.
+
+Metallicity dependence of wind strength. RBW more likely at lower metallicities. 
+
+Weak wind stars - repeat the 20 Msun case, but for a much lower \(\eta\wind\)
+
+
+Cool stars, comparison with observed densities (Betelgeuse, for
+instance). Other ones in \citep{Cox:2012a}.
+
+Prospects for observation in LMC: 1 parsec = 4 arcsec, so need JWST to get most of them. 
 
 %%% Local Variables:
 %%% mode: latex

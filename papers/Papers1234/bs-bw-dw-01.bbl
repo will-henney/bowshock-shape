@@ -35,6 +35,9 @@
   {10.1086/177820}, \href {http://adsabs.harvard.edu/abs/1996ApJ...469..729C}
   {469, 729}
 
+\bibitem[\protect\citeauthoryear{{Cox} et~al.,}{{Cox} et~al.}{2012}]{Cox:2012a}
+{Cox} N.~L.~J.,  et~al., 2012, \aap, 537, A35
+
 \bibitem[\protect\citeauthoryear{{Gull} \& {Sofia}}{{Gull} \&
   {Sofia}}{1979}]{Gull:1979a}
 {Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
@@ -66,6 +69,11 @@ Cambridge, UK: Cambridge University Press
   {Churchwell}}{{Mac Low} et~al.}{1991}]{Mac-Low:1991a}
 {Mac Low} M.-M.,  {van Buren} D.,  {Wood} D.~O.~S.,   {Churchwell} E.,  1991,
   \apj, 369, 395
+
+\bibitem[\protect\citeauthoryear{{Martins}, {Schaerer}, {Hillier}, {Meynadier},
+  {Heydari-Malayeri}  \& {Walborn}}{{Martins} et~al.}{2005}]{Martins:2005b}
+{Martins} F.,  {Schaerer} D.,  {Hillier} D.~J.,  {Meynadier} F.,
+  {Heydari-Malayeri} M.,   {Walborn} N.~R.,  2005, \aap, 441, 735
 
 \bibitem[\protect\citeauthoryear{{Meyer}, {Mackey}, {Langer}, {Gvaramadze},
   {Mignone}, {Izzard}  \& {Kaper}}{{Meyer} et~al.}{2014}]{Meyer:2014b}
@@ -115,6 +123,10 @@ Sausalito, CA: University Science Books
 \bibitem[\protect\citeauthoryear{{Puls}, {Vink}  \& {Najarro}}{{Puls}
   et~al.}{2008}]{Puls:2008a}
 {Puls} J.,  {Vink} J.~S.,   {Najarro} F.,  2008, \aapr, 16, 209
+
+\bibitem[\protect\citeauthoryear{{Renzo} et~al.,}{{Renzo}
+  et~al.}{2018}]{Renzo:2018a}
+{Renzo} M.,  et~al., 2018, arXiv, 1804.09164
 
 \bibitem[\protect\citeauthoryear{{Rodr{\'{\i}}guez-Ram{\'{\i}}rez} \&
   {Raga}}{{Rodr{\'{\i}}guez-Ram{\'{\i}}rez} \&
