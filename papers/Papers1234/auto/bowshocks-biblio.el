@@ -190,6 +190,12 @@
     "Matzner:2002a"
     "Henney:2019c"
     "Henney:2019b"
-    "Henney:2019a"))
+    "Henney:2019a"
+    "Hafez:1999a"
+    "Embid:1984a"
+    "Courant:1948a"
+    "Morawetz:1956a"
+    "Morawetz:1985a"
+    "Seddon:1999a"))
  :bibtex)
 

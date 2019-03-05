@@ -626,7 +626,28 @@ is set by \(d\cool\) rather than \(h_0\).
 In the shell of a wind-supported bow shock, the gas density is highest
 at the contact discontinuity, but this is no longer true for
 radiation-supported bows, as illustrated in
-Figure~\ref{fig:axial-structure}.  For the optically thin RBW case,
+Figure~\ref{fig:axial-structure}, where we schematically show the
+shell structure for the three cases: WBS, RBW, and RBS.  In all cases,
+we assume a far-field mach number of \(\M_\infty = 3\) for the incident
+stream of density \(n_\infty\).  For the WBS case
+(Fig.~\ref{fig:axial-structure}a), the stream is unchanged until it
+reaches the shock, so \(\M_0 = \M_\infty\) and \(n_0 = n_\infty\).  The density
+increases to \(n_1 = 3 n_0\) in the shock
+(eq.~[\ref{eq:shock-n-jump}]), and then to \(n_2 = 9 n_0\)
+(eq.~[\ref{eq:isothermal-shell-density}]) after it has cooled back
+down to the equilibrium photoionized temperature.  In the figure, we
+show the case where \(d\cool < h_0\), so that most of the shell is at
+roughly constant density.  Note that although the mass flux along the
+axis, \(n v\), is approximately conserved in most of the flow, this is
+no longer true close to the contact discontinuity, since the
+streamlines bend away from the axis due to lateral pressure gradients.
+This is what allows \(v\) to tend to zero, while \(n\) remains
+constant.  The thermal pressure in the shocked stellar wind is equal
+to the shell pressure, but its density is much smaller due to a
+temperature that is higher by a factor of \(\approx 3100 V_3^2\),
+(eq.~[\ref{eq:shock-T-jump}], assuming inefficient cooling).
+
+For the optically thin RBW case (Fig.~\ref{fig:axial-structure}b),
 equations~\eqref{eq:rad-accel} to~\eqref{eq:rad:R0} can be combined to
 give the radial dependence of the stream velocity as it approaches the
 star:
@@ -639,8 +660,86 @@ Fig.~\ref{fig:axial-structure}b) predicts that the velocity smoothly
 decreases to zero at \(R = R_{**}\).  However, although this is valid
 in the limit of high Mach number, it ignores the effects of gas
 pressure and so becomes invalid once the stream velocity falls close
-to the sound speed.
+to the sound speed.  The situation bears similarities to the flow in a
+supersonic diffuser, such as the inlet of a ramjet or other supersonic
+aircraft engine \citep{Seddon:1999a}, which slows supersonic airflow
+down to subsonic speeds before combustion.  Exactly the opposite flow
+configuration is present in a rocket nozzle \citep{Courant:1948a},
+where the flow can smoothly pass from subsonic to supersonic
+velocities at the throat of the nozzle.  An analogy between an
+isothermal stellar wind and a rocket nozzle is developed in detail in
+\S~3.5 of \citet{Lamers:1999b}.  However, in the reverse case of a
+supersonic diffuser, a smooth transition from supersonic to subsonic
+flow is not possible \citep{Morawetz:1956a}.  Instead, a normal shock
+wave develops, which decelerates the supersonically entering flow,
+allowing it to exit subsonically \citep{Embid:1984a, Hafez:1999a}.
+The supersonic inlet/bow wave analogy is not so exact as the rocket
+nozzle/stellar wind analogy due to the multi-dimensional nature of the
+bow shell, which means that lateral flows of gas away from the apex
+become important when the velocity is subsonic.\footnote{%
+  In the aeronautical case, the inlet is usually designed so that
+  multiple oblique shocks partially decelerate the flow before it
+  passes through the normal shock.  This is the analogy of the initial
+  gradual radiative deceleration in the bow wave.  } %
+Nonetheless, we expect that a normal shock must be present in the
+flow, although there does not seem to be any simple argument for
+predicting the exact Mach number where it will occur.  In
+Figure.~\ref{fig:axial-structure}b, we assume that the shock occurs at
+a Mach number \(\M_0 = 1.5\), but multidimensional numerical
+simulations are necessary to test this supposition.
 
+The shell in the RBW case therefore consists of two parts: an outer
+radiatively braked sub-shell, and an inner shocked sub-shell.  In the
+outer sub-shell, the density gradually increases inwards as the stream
+is decelerated by the absorbed photons, reaching
+\begin{equation}
+  \label{eq:outer-shell-density}
+  n_0 = \frac{\M_\infty}{\M_0} n_\infty
+\end{equation}
+just outside the shock (\(n_0 = 2 n_\infty\) for the case illustrated).  In
+the inner sub-shell, on the other hand, the pressure must increase
+outwards, since it is subsonic and therefore in approximate
+hydrostatic equilibrium with an outward-pointing effective gravity
+from the radiation force.  The shell thickness will be set by the
+hydrostatic scale height, \(h_a = \sound^2 / a\rad\), which by
+eqs.~(\ref{eq:rad-accel}, \ref{eq:rad:R0}) is given by
+\begin{equation}
+  \label{eq:scale-height}
+  h_a = \frac{2 R_{**}}{\M_\infty^2} \ .
+\end{equation}
+If the cooling is efficient (\(d\cool < h_a\)), then most of the
+sub-shell is isothermal and the density will fall off exponentially
+towards the star.  The contact discontinuity with the stellar wind
+will form at the point where the shell pressure has fallen by a factor
+of order \(\tau / \eta\wind\), but this has no influence on the bulk of the
+shell, which is pressurized by radiation, not wind.  If, as we
+suspect, \(\M_0\) depends only weakly, if at all, on \(\M_\infty\), then
+eqs.~(\ref{eq:outer-shell-density}, \ref{eq:scale-height}) imply that
+the inner shocked sub-shell represents a fraction
+\(\approx \M_\infty^{-1}\) of the total shell optical depth, which means that the
+outer supersonic sub-shell dominates for highly supersonic stream
+velocities.
+
+For the optically thick RBS case (Fig.~\ref{fig:axial-structure}c),
+the shell density profile is no longer simply exponential since the
+pressure scale height now increases as one moves away from the star,
+due to the extinction-induced decline in radiation flux. Assuming
+single scattering and plane geometry, the resultant hydrostatic
+density profile is doubly exponential:
+\begin{equation}
+  \label{eq:rbs-density-profile}
+  n(R) = n_2 e^{-e^{-x}} \text{\quad where\quad } x = n_2 \bar{m} \kappa (R - R_*) \ . 
+\end{equation}
+The shell density increases from \(e^{-1} n_2\) at \(R_*\) to saturate
+at \(n_2\) for \(R > R_* + h_a\), where \(h_a \approx 8 h_0 / \tau\).  We show
+results for a total shell optical depth \(\tau = 3\), for which
+\(h_a\) and \(h_0\) are almost equal.  For larger optical depths,
+\(h_0 > h_a\) so that the constant density portion of the shell will
+dominate the total column.  A small fraction \(e^{-\tau}\) of the photons
+will penetrate the shell and be available to decelerate the supersonic
+stream, as in the RBW case, yielding
+\(v_0 = (1 - \tau e^{-\tau}) v_\infty\).  In the illustrated case of
+\(\tau = 3\), the resultant speed reduction before the shock is only 8\%.
 
 \section{Discussion}
 \label{sec:discussion}

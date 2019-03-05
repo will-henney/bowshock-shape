@@ -35,12 +35,25 @@
   {10.1086/177820}, \href {http://adsabs.harvard.edu/abs/1996ApJ...469..729C}
   {469, 729}
 
+\bibitem[\protect\citeauthoryear{Courant \& Friedrichs}{Courant \&
+  Friedrichs}{1948}]{Courant:1948a}
+Courant R.,  Friedrichs K.,  1948, Supersonic Flow and Shock Waves.
+Springer-Verlag New York
+
 \bibitem[\protect\citeauthoryear{{Cox} et~al.,}{{Cox} et~al.}{2012}]{Cox:2012a}
 {Cox} N.~L.~J.,  et~al., 2012, \aap, 537, A35
+
+\bibitem[\protect\citeauthoryear{Embid, Goodman  \& Majda}{Embid
+  et~al.}{1984}]{Embid:1984a}
+Embid P.,  Goodman J.,   Majda A.,  1984, SIAM J. Sci. Stat. Comput., 5, 21
 
 \bibitem[\protect\citeauthoryear{{Gull} \& {Sofia}}{{Gull} \&
   {Sofia}}{1979}]{Gull:1979a}
 {Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
+
+\bibitem[\protect\citeauthoryear{Hafez \& Guo}{Hafez \&
+  Guo}{1999}]{Hafez:1999a}
+Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019a}]{Henney:2019b}
@@ -90,6 +103,9 @@ Cambridge, UK: Cambridge University Press
 {Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
   2017, \mnras, 464, 3229
 
+\bibitem[\protect\citeauthoryear{Morawetz}{Morawetz}{1956}]{Morawetz:1956a}
+Morawetz C.~S.,  1956, Communications on Pure and Applied Mathematics, 9, 45
+
 \bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
   {Tielens}}{2015}]{Ochsendorf:2015a}
 {Ochsendorf} B.~B.,  {Tielens} A.~G.~G.~M.,  2015, \aap, 576, A2
@@ -133,6 +149,11 @@ Sausalito, CA: University Science Books
   {Raga}}{2016}]{Rodriguez-Ramirez:2016b}
 {Rodr{\'{\i}}guez-Ram{\'{\i}}rez} J.~C.,  {Raga} A.~C.,  2016, \mnras, 460,
   1876
+
+\bibitem[\protect\citeauthoryear{Seddon \& Goldsmith}{Seddon \&
+  Goldsmith}{1999}]{Seddon:1999a}
+Seddon J.,  Goldsmith E.~L.,  1999, Intake Aerodynamics, 2nd edn.
+American Institute of Aeronautics and Astronautics
 
 \bibitem[\protect\citeauthoryear{{Sternberg}, {Hoffmann}  \&
   {Pauldrach}}{{Sternberg} et~al.}{2003}]{Sternberg:2003a}
