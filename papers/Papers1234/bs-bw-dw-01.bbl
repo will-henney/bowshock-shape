@@ -21,9 +21,26 @@
   {Hoare}}{2006}]{Arthur:2006a}
 {Arthur} S.~J.,  {Hoare} M.~G.,  2006, \apjs, 165, 283
 
+\bibitem[\protect\citeauthoryear{{Arthur}, {Medina}  \& {Henney}}{{Arthur}
+  et~al.}{2016}]{Arthur:2016a}
+{Arthur} S.~J.,  {Medina} S.-N.~X.,   {Henney} W.~J.,  2016, \mnras, 463, 2864
+
+\bibitem[\protect\citeauthoryear{{Ballesteros-Paredes}, {Hartmann}  \&
+  {Vázquez-Semadeni}}{{Ballesteros-Paredes}
+  et~al.}{1999}]{Ballesteros-Paredes:1999a}
+{Ballesteros-Paredes} J.,  {Hartmann} L.,   {Vázquez-Semadeni} E.,  1999,
+  \apj, 527, 285
+
 \bibitem[\protect\citeauthoryear{{Bertoldi} \& {Draine}}{{Bertoldi} \&
   {Draine}}{1996}]{Bertoldi:1996a}
 {Bertoldi} F.,  {Draine} B.~T.,  1996, \apj, 458, 222
+
+\bibitem[\protect\citeauthoryear{{Blaauw}}{{Blaauw}}{1961}]{Blaauw:1961a}
+{Blaauw} A.,  1961, \bain, 15, 265
+
+\bibitem[\protect\citeauthoryear{{Bordalo} \& {Telles}}{{Bordalo} \&
+  {Telles}}{2011}]{Bordalo:2011a}
+{Bordalo} V.,  {Telles} E.,  2011, \apj, 735, 52
 
 \bibitem[\protect\citeauthoryear{{Brott} et~al.,}{{Brott}
   et~al.}{2011}]{Brott:2011a}
@@ -35,6 +52,12 @@
   {10.1086/177820}, \href {http://adsabs.harvard.edu/abs/1996ApJ...469..729C}
   {469, 729}
 
+\bibitem[\protect\citeauthoryear{{Cohen}, {Wollman}, {Leutenegger},
+  {Sundqvist}, {Fullerton}, {Zsargó}  \& {Owocki}}{{Cohen}
+  et~al.}{2014}]{Cohen:2014a}
+{Cohen} D.~H.,  {Wollman} E.~E.,  {Leutenegger} M.~A.,  {Sundqvist} J.~O.,
+  {Fullerton} A.~W.,  {Zsargó} J.,   {Owocki} S.~P.,  2014, \mnras, 439, 908
+
 \bibitem[\protect\citeauthoryear{Courant \& Friedrichs}{Courant \&
   Friedrichs}{1948}]{Courant:1948a}
 Courant R.,  Friedrichs K.,  1948, Supersonic Flow and Shock Waves.
@@ -43,9 +66,28 @@ Springer-Verlag New York
 \bibitem[\protect\citeauthoryear{{Cox} et~al.,}{{Cox} et~al.}{2012}]{Cox:2012a}
 {Cox} N.~L.~J.,  et~al., 2012, \aap, 537, A35
 
+\bibitem[\protect\citeauthoryear{{Damiani} et~al.,}{{Damiani}
+  et~al.}{2016}]{Damiani:2016a}
+{Damiani} F.,  et~al., 2016, \aap, 591, A74
+
+\bibitem[\protect\citeauthoryear{{Dyson}}{{Dyson}}{1968}]{Dyson:1968a}
+{Dyson} J.~E.,  1968, \apss, 1, 388
+
+\bibitem[\protect\citeauthoryear{{Ehlerová} \& {Palouš}}{{Ehlerová} \&
+  {Palouš}}{2005}]{Ehlerova:2005a}
+{Ehlerová} S.,  {Palouš} J.,  2005, \aap, 437, 101
+
 \bibitem[\protect\citeauthoryear{Embid, Goodman  \& Majda}{Embid
   et~al.}{1984}]{Embid:1984a}
 Embid P.,  Goodman J.,   Majda A.,  1984, SIAM J. Sci. Stat. Comput., 5, 21
+
+\bibitem[\protect\citeauthoryear{{Ferrière}}{{Ferrière}}{2001}]{Ferriere:2001a}
+{Ferrière} K.~M.,  2001, Reviews of Modern Physics, 73, 1031
+
+\bibitem[\protect\citeauthoryear{{Gualandris}, {Portegies Zwart}  \&
+  {Eggleton}}{{Gualandris} et~al.}{2004}]{Gualandris:2004a}
+{Gualandris} A.,  {Portegies Zwart} S.,   {Eggleton} P.~P.,  2004, \mnras, 350,
+  615
 
 \bibitem[\protect\citeauthoryear{{Gull} \& {Sofia}}{{Gull} \&
   {Sofia}}{1979}]{Gull:1979a}
@@ -63,9 +105,29 @@ Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
   {Arthur}}{2019b}]{Henney:2019c}
 {Henney} W.~J.,  {Arthur} S.~J.,  2019b, \mnras
 
-\bibitem[\protect\citeauthoryear{{Krti{\v c}ka}}{{Krti{\v
-  c}ka}}{2014}]{Krticka:2014a}
-{Krti{\v c}ka} J.,  2014, \aap, 564, A70
+\bibitem[\protect\citeauthoryear{{Henney}, {Arthur}  \&
+  {Garc{\'{\i}}a-D{\'{\i}}az}}{{Henney} et~al.}{2005}]{Henney:2005a}
+{Henney} W.~J.,  {Arthur} S.~J.,   {Garc{\'{\i}}a-D{\'{\i}}az} M.~T.,  2005,
+  \apj, 627, 813
+
+\bibitem[\protect\citeauthoryear{{Hoogerwerf}, {de Bruijne}  \& {de
+  Zeeuw}}{{Hoogerwerf} et~al.}{2001}]{Hoogerwerf:2001a}
+{Hoogerwerf} R.,  {de Bruijne} J.~H.~J.,   {de Zeeuw} P.~T.,  2001, \aap, 365,
+  49
+
+\bibitem[\protect\citeauthoryear{{Huenemoerder}, {Oskinova}, {Ignace},
+  {Waldron}, {Todt}, {Hamaguchi}  \& {Kitamoto}}{{Huenemoerder}
+  et~al.}{2012}]{Huenemoerder:2012a}
+{Huenemoerder} D.~P.,  {Oskinova} L.~M.,  {Ignace} R.,  {Waldron} W.~L.,
+  {Todt} H.,  {Hamaguchi} K.,   {Kitamoto} S.,  2012, \apjl, 756, L34
+
+\bibitem[\protect\citeauthoryear{{Kalberla} \& {Dedes}}{{Kalberla} \&
+  {Dedes}}{2008}]{Kalberla:2008a}
+{Kalberla} P.~M.~W.,  {Dedes} L.,  2008, \aap, 487, 951
+
+\bibitem[\protect\citeauthoryear{{Kalberla} \& {Kerp}}{{Kalberla} \&
+  {Kerp}}{2009}]{Kalberla:2009a}
+{Kalberla} P.~M.~W.,  {Kerp} J.,  2009, \araa, 47, 27
 
 \bibitem[\protect\citeauthoryear{{Lamers} \& {Cassinelli}}{{Lamers} \&
   {Cassinelli}}{1999}]{Lamers:1999b}
@@ -78,15 +140,32 @@ Cambridge, UK: Cambridge University Press
 {Lamers} H.~J.~G.~L.~M.,  {Snow} T.~P.,   {Lindholm} D.~M.,  1995, \apj, 455,
   269
 
+\bibitem[\protect\citeauthoryear{{Lucy}}{{Lucy}}{2012}]{Lucy:2012a}
+{Lucy} L.~B.,  2012, \aap, 544, A120
+
 \bibitem[\protect\citeauthoryear{{Mac Low}, {van Buren}, {Wood}  \&
   {Churchwell}}{{Mac Low} et~al.}{1991}]{Mac-Low:1991a}
 {Mac Low} M.-M.,  {van Buren} D.,  {Wood} D.~O.~S.,   {Churchwell} E.,  1991,
   \apj, 369, 395
 
+\bibitem[\protect\citeauthoryear{{Marasco}, {Fraternali}, {van der Hulst}  \&
+  {Oosterloo}}{{Marasco} et~al.}{2017}]{Marasco:2017a}
+{Marasco} A.,  {Fraternali} F.,  {van der Hulst} J.~M.,   {Oosterloo} T.,
+  2017, \aap, 607, A106
+
+\bibitem[\protect\citeauthoryear{{Marcolino}, {Bouret}, {Martins}, {Hillier},
+  {Lanz}  \& {Escolano}}{{Marcolino} et~al.}{2009}]{Marcolino:2009a}
+{Marcolino} W.~L.~F.,  {Bouret} J.-C.,  {Martins} F.,  {Hillier} D.~J.,  {Lanz}
+  T.,   {Escolano} C.,  2009, \aap, 498, 837
+
 \bibitem[\protect\citeauthoryear{{Martins}, {Schaerer}, {Hillier}, {Meynadier},
   {Heydari-Malayeri}  \& {Walborn}}{{Martins} et~al.}{2005}]{Martins:2005b}
 {Martins} F.,  {Schaerer} D.,  {Hillier} D.~J.,  {Meynadier} F.,
   {Heydari-Malayeri} M.,   {Walborn} N.~R.,  2005, \aap, 441, 735
+
+\bibitem[\protect\citeauthoryear{{Martins}, {Mahy}, {Hillier}  \&
+  {Rauw}}{{Martins} et~al.}{2012}]{Martins:2012a}
+{Martins} F.,  {Mahy} L.,  {Hillier} D.~J.,   {Rauw} G.,  2012, \aap, 538, A39
 
 \bibitem[\protect\citeauthoryear{{Meyer}, {Mackey}, {Langer}, {Gvaramadze},
   {Mignone}, {Izzard}  \& {Kaper}}{{Meyer} et~al.}{2014}]{Meyer:2014b}
@@ -106,6 +185,20 @@ Cambridge, UK: Cambridge University Press
 \bibitem[\protect\citeauthoryear{Morawetz}{Morawetz}{1956}]{Morawetz:1956a}
 Morawetz C.~S.,  1956, Communications on Pure and Applied Mathematics, 9, 45
 
+\bibitem[\protect\citeauthoryear{{Najarro}, {Hanson}  \& {Puls}}{{Najarro}
+  et~al.}{2011}]{Najarro:2011a}
+{Najarro} F.,  {Hanson} M.~M.,   {Puls} J.,  2011, \aap, 535, A32
+
+\bibitem[\protect\citeauthoryear{{O'Dell}, {Ferland}  \& {Peimbert}}{{O'Dell}
+  et~al.}{2017}]{ODell:2017b}
+{O'Dell} C.~R.,  {Ferland} G.~J.,   {Peimbert} M.,  2017, \mnras, 464, 4835
+
+\bibitem[\protect\citeauthoryear{{Oberst}, {Parshley}, {Nikola}, {Stacey},
+  {Löhr}, {Lane}, {Stark}  \& {Kamenetzky}}{{Oberst}
+  et~al.}{2011}]{Oberst:2011a}
+{Oberst} T.~E.,  {Parshley} S.~C.,  {Nikola} T.,  {Stacey} G.~J.,  {Löhr} A.,
+  {Lane} A.~P.,  {Stark} A.~A.,   {Kamenetzky} J.,  2011, \apj, 739, 100
+
 \bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
   {Tielens}}{2015}]{Ochsendorf:2015a}
 {Ochsendorf} B.~B.,  {Tielens} A.~G.~G.~M.,  2015, \aap, 576, A2
@@ -122,23 +215,16 @@ Morawetz C.~S.,  1956, Communications on Pure and Applied Mathematics, 9, 45
 {Ochsendorf} B.~B.,  {Verdolini} S.,  {Cox} N.~L.~J.,  {Bern{\'e}} O.,  {Kaper}
   L.,   {Tielens} A.~G.~G.~M.,  2014b, \aap, 566, A75
 
-\bibitem[\protect\citeauthoryear{{Oskinova}, {Todt}, {Ignace}, {Brown},
-  {Cassinelli}  \& {Hamann}}{{Oskinova} et~al.}{2011}]{Oskinova:2011b}
-{Oskinova} L.~M.,  {Todt} H.,  {Ignace} R.,  {Brown} J.~C.,  {Cassinelli}
-  J.~P.,   {Hamann} W.-R.,  2011, \mnras, 416, 1456
-
 \bibitem[\protect\citeauthoryear{{Osterbrock} \& {Ferland}}{{Osterbrock} \&
   {Ferland}}{2006}]{Osterbrock:2006a}
 {Osterbrock} D.~E.,  {Ferland} G.~J.,  2006, {Astrophysics of gaseous nebulae
   and active galactic nuclei}, second edn.
 Sausalito, CA: University Science Books
 
-\bibitem[\protect\citeauthoryear{{Prinja}}{{Prinja}}{1989}]{Prinja:1989a}
-{Prinja} R.~K.,  1989, \mnras, 241, 721
-
-\bibitem[\protect\citeauthoryear{{Puls}, {Vink}  \& {Najarro}}{{Puls}
-  et~al.}{2008}]{Puls:2008a}
-{Puls} J.,  {Vink} J.~S.,   {Najarro} F.,  2008, \aapr, 16, 209
+\bibitem[\protect\citeauthoryear{{Povich}, {Benjamin}, {Whitney}, {Babler},
+  {Indebetouw}, {Meade}  \& {Churchwell}}{{Povich} et~al.}{2008}]{Povich:2008a}
+{Povich} M.~S.,  {Benjamin} R.~A.,  {Whitney} B.~A.,  {Babler} B.~L.,
+  {Indebetouw} R.,  {Meade} M.~R.,   {Churchwell} E.,  2008, \apj, 689, 242
 
 \bibitem[\protect\citeauthoryear{{Renzo} et~al.,}{{Renzo}
   et~al.}{2018}]{Renzo:2018a}
@@ -155,6 +241,25 @@ Sausalito, CA: University Science Books
 Seddon J.,  Goldsmith E.~L.,  1999, Intake Aerodynamics, 2nd edn.
 American Institute of Aeronautics and Astronautics
 
+\bibitem[\protect\citeauthoryear{{Sexton}, {Povich}, {Smith}, {Babler}, {Meade}
+   \& {Rudolph}}{{Sexton} et~al.}{2015}]{Sexton:2015b}
+{Sexton} R.~O.,  {Povich} M.~S.,  {Smith} N.,  {Babler} B.~L.,  {Meade} M.~R.,
+   {Rudolph} A.~L.,  2015, \mnras, 446, 1047
+
+\bibitem[\protect\citeauthoryear{{Shu}, {Lizano}, {Galli}, {Cant{\'o}}  \&
+  {Laughlin}}{{Shu} et~al.}{2002}]{Shu:2002a}
+{Shu} F.~H.,  {Lizano} S.,  {Galli} D.,  {Cant{\'o}} J.,   {Laughlin} G.,
+  2002, \apj, 580, 969
+
+\bibitem[\protect\citeauthoryear{{Smith}, {Barbá}  \& {Walborn}}{{Smith}
+  et~al.}{2004}]{Smith:2004a}
+{Smith} N.,  {Barbá} R.~H.,   {Walborn} N.~R.,  2004, \mnras, 351, 1457
+
+\bibitem[\protect\citeauthoryear{{Smith}, {Groh}, {France}  \&
+  {McCray}}{{Smith} et~al.}{2017}]{Smith:2017b}
+{Smith} N.,  {Groh} J.~H.,  {France} K.,   {McCray} R.,  2017, \mnras, 468,
+  2333
+
 \bibitem[\protect\citeauthoryear{{Sternberg}, {Hoffmann}  \&
   {Pauldrach}}{{Sternberg} et~al.}{2003}]{Sternberg:2003a}
 {Sternberg} A.,  {Hoffmann} T.~L.,   {Pauldrach} A.~W.~A.,  2003, \apj, 599,
@@ -163,6 +268,10 @@ American Institute of Aeronautics and Astronautics
 \bibitem[\protect\citeauthoryear{{Tenorio-Tagle}}{{Tenorio-Tagle}}{1979}]{Tenorio-Tagle:1979a}
 {Tenorio-Tagle} G.,  1979, \aap, 71, 59
 
+\bibitem[\protect\citeauthoryear{{Tetzlaff}, {Neuhäuser}  \&
+  {Hohle}}{{Tetzlaff} et~al.}{2011}]{Tetzlaff:2011a}
+{Tetzlaff} N.,  {Neuhäuser} R.,   {Hohle} M.~M.,  2011, \mnras, 410, 190
+
 \bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
   et~al.}{1999}]{Vink:1999a}
 {Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  1999, \aap, 350, 181
@@ -170,6 +279,10 @@ American Institute of Aeronautics and Astronautics
 \bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
   et~al.}{2000}]{Vink:2000a}
 {Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  2000, \aap, 362, 295
+
+\bibitem[\protect\citeauthoryear{{Weilbacher} et~al.,}{{Weilbacher}
+  et~al.}{2015}]{Weilbacher:2015a}
+{Weilbacher} P.~M.,  et~al., 2015, \aap, 582, A114
 
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31

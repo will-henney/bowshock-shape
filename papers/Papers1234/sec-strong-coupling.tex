@@ -9,15 +9,16 @@
     cases, \(\kappa = \SI{600}{cm^2.g^{-1}}\) and efficient gas-grain
     coupling is assumed. Solid black lines of varying width show the
     bow size (star-apex separation, \(R_0\)), while gray shading shows
-    the radiation bow wave regime, with lower border \(\tau = \eta\wind\) and
-    upper border \(\tau = 1\), where \(\tau = 2 \kappa \rho R_0\) is the optical
-    depth through the bow.  For bows above the red solid line, the
-    ionization front is trapped inside the bow.  Blue lines delineate
-    different cooling regimes.  Above the thin blue line
-    (\(d_{\text{cool}} = h_0\)), the bow shock radiates efficiently,
-    forming a thin shocked shell.  Below the thick blue line
-    (\(d_{\text{cool}} = R_0\)), the bow shock is essentially
-    non-radiative.}
+    the radiation bow wave regime, with lower border
+    \(\tau = \eta\wind\) and upper border \(\tau = 1\), where
+    \(\tau = 2 \kappa \rho R_0\) is the optical depth through the bow.  For bows
+    above the red solid line, the ionization front is trapped inside
+    the bow (\S~\ref{sec:trapp-ioniz-front}).  Blue lines delineate
+    different cooling regimes (\S~\ref{sec:radi-cool-lengths}).  Above
+    the thin blue line (\(d_{\text{cool}} = h_0\)), the bow shock
+    radiates efficiently, forming a thin shocked shell.  Below the
+    thick blue line (\(d_{\text{cool}} = R_0\)), the bow shock is
+    essentially non-radiative.}
   \label{fig:zones-v-n-plane}
 \end{figure*}
 
@@ -195,13 +196,12 @@ bow.\footnote{A shock can still form in this case, but shocked
     \\
     \midrule
     & 10 & 0.63 & 0.0034 & 2.47 & 0.0066 & {B1.5\,V} & 25.2 & 0.115 & 0.00013
-                   & \ref{fig:zones-v-n-plane}a, \ref{fig:existence-dust-wave}a,
-                     \ref{fig:phase-space-trajectories}--~\ref{fig:frozen-trajectories} \\
+                   & \ref{fig:zones-v-n-plane}a \\
     Main-sequence OB stars
     & 20 & 5.45 & 0.492 & 2.66 & 0.1199 & {O9\,V} & 33.9 & 0.086 & 0.16
-                   & \ref{fig:zones-v-n-plane}b, \ref{fig:existence-dust-wave}b \\
+                   & \ref{fig:zones-v-n-plane}b, \ref{fig:O-weak-wind} \\
     & 40 & 22.2 & 5.1 & 3.31 & 0.4468 & {O5\,V} & 42.5 & 0.068 & 1.41
-                   & \ref{fig:zones-v-n-plane}c, \ref{fig:existence-dust-wave}c \\[\smallskipamount]
+                   & \ref{fig:zones-v-n-plane}c\\[\smallskipamount]
     Blue supergiant star
     & 33 & 30.2 & 20.2 & 0.93 & 0.3079 & {B0.7\,Ia} & 23.5 & 0.123 & 0.016
                    & \ref{fig:B-supergiant} \\[\smallskipamount]
@@ -265,16 +265,8 @@ during the main-sequence lifetime of several million years.\footnote{%
   line-driven winds with \(T_{\text{eff}} > \SI{21 000}{K}\)
   \citep{Lamers:1995a}.  We find velocities of
   \SIrange{2500}{3300}{km.s^{-1}}, which are consistent with
-  observations and theory \citep{Vink:1999a} for O~stars, but at least
-  two times higher than those cited by \citet{Meyer:2014b}. For
-  main-sequence B~stars, wind column densities are too low to reliably
-  measure the terminal velocity from near ultraviolet P~Cygni profiles
-  \citep{Prinja:1989a}, and so the values are theory-dependent
-  \citep{Krticka:2014a} and hence more uncertain.  A further
-  complication is the existence of a subset of OB stars with
-  anomalously weak winds \citep{Puls:2008a}, which in some cases is
-  related to the presence of strong (\(\sim \SI{1}{kG}\)) magnetic fields
-  \citep{Oskinova:2011b}.} %
+  observations and theory \citep{Vink:1999a}, but at least two times
+  higher than those cited by \citet{Meyer:2014b}. } %
 The three examples are an early B~star (\SI{10}{M_\odot}), a late O~star
 (\SI{20}{M_\odot}), and an early O~star (\SI{40}{M_\odot}), which cover the
 range of luminosities and wind strengths expected from bow-producing
@@ -282,8 +274,8 @@ hot main sequence stars.  The luminosity is a steep function of
 stellar mass (\(L \sim M^{2.5}\)) and the wind mass-loss rate is a steep
 function of luminosity (\(\dot{M} \sim L^{2.2}\)), which means that the
 wind momentum efficiency is also a steep function of mass
-(\(\eta\wind \sim M^3\)), approaching unity for early O~stars, but falling to
-less than 1\% for B~stars.
+(\(\eta\wind \sim M^3\)), approaching unity for early O~stars, but falling
+to less than 1\% for B~stars.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figs/zones-v-n-plane-RSG}
@@ -338,24 +330,25 @@ in which \(\Gamma\Edd\) is the Eddington factor:
 where, in the last expression, \(M\) is measured in solar masses.  For
 the stars in Table~\ref{tab:stars}, we find
 \(\Gamma\Edd \approx \text{\numrange{30}{400}}\), so gravity can be safely
-ignored.  The only exception is when the optical depth of the bow is
-very large: \(\tau > \ln\Gamma\Edd \sim 5\), in which case gravity may be
-important in the outer parts of the shell (see
-\citealt{Rodriguez-Ramirez:2016b}).
+ignored.  When the optical depth of the bow is very large,
+\(\tau > \ln\Gamma\Edd \sim 5\), gravity will exceed the radiation force in the
+outer parts of the shell (see \citealt{Rodriguez-Ramirez:2016b}), but
+it is generally too weak to effect the shell structure even in such a
+case, see \S~\ref{sec:axial-structure-bow} below.
 
 
 \section{Physical state of the bow shell}
 \label{sec:phys-state-shock}
 
-The bow shell consists of two parts: an inner zone of shocked stellar
-wind, and an outer zone of decelerated ambient stream. For OB stars,
-dust grains are present only in the ambient stream, whereas for cool
-stars they will also be present in the stellar wind.  In the remainder
-of this paper, we will concentrate on the OB star case, where it is
-the outer zone that is most important observationally.  Bows are
-typically detected via their infrared radiation (absorption and
-re-emission by dust of stellar radiation), or by emission lines such
-as the hydrogen H\(\alpha\) line.
+There are two shocked zones in the bow: an inner zone of shocked
+stellar wind, and an outer zone of decelerated ambient stream. For OB
+stars, dust grains are present only in the ambient stream, whereas for
+cool stars they will also be present in the stellar wind.  In the
+remainder of this paper, we will concentrate on the OB star case,
+where it is the outer zone that is most important observationally.
+Bows are typically detected via their infrared radiation (absorption
+and re-emission by dust of stellar radiation), or by emission lines
+such as the hydrogen H\(\alpha\) line.
 
 % In the WBS and RBW case, this is also shocked
 
@@ -731,18 +724,182 @@ density profile is doubly exponential:
   n(R) = n_2 e^{-e^{-x}} \text{\quad where\quad } x = n_2 \bar{m} \kappa (R - R_*) \ . 
 \end{equation}
 The shell density increases from \(e^{-1} n_2\) at \(R_*\) to saturate
-at \(n_2\) for \(R > R_* + h_a\), where \(h_a \approx 8 h_0 / \tau\).  We show
-results for a total shell optical depth \(\tau = 3\), for which
-\(h_a\) and \(h_0\) are almost equal.  For larger optical depths,
-\(h_0 > h_a\) so that the constant density portion of the shell will
-dominate the total column.  A small fraction \(e^{-\tau}\) of the photons
-will penetrate the shell and be available to decelerate the supersonic
-stream, as in the RBW case, yielding
-\(v_0 = (1 - \tau e^{-\tau}) v_\infty\).  In the illustrated case of
+at \(n_2\) for \(R > R_* + h_a\), where \(h_a\) is now the pressure
+scale height at the inner edge of the shell.  From
+equations~(\ref{eq:Rstar}, \ref{eq:rad:R0}, \ref{eq:tau-thin},
+\ref{eq:strong-cooling-h0}, \ref{eq:scale-height}), and taking \(R_0 \approx R_*\), we find
+\begin{equation}
+  \label{eq:ha-versus-h0}
+  h_a \approx \frac{4 h_0}{3 \tau} \ .
+\end{equation}
+We show results for a total shell optical depth \(\tau = 3\), for which
+\(h_a\) is a significant fraction of \(h_0\).  For much larger optical
+depths, \(h_0 \gg h_a\) so that the constant density portion of the
+shell will dominate the total column.  A small fraction \(e^{-\tau}\) of
+the photons will penetrate the shell and be available to decelerate
+the supersonic stream, as in the RBW case, yielding
+\(v_0 = (1 - \tau e^{-\tau})\, v_\infty\).  In the illustrated case of
 \(\tau = 3\), the resultant speed reduction before the shock is only 8\%.
+As mentioned in \S~\ref{sec:effects-gravity}, radiative acceleration
+becomes less important than gravity in the outer regions of an opaque
+shell.  However, in order for this to have a significant effect on the
+shell, the gravitational scale height would have to be be less than
+the shell thickness: \(\Gamma\Edd h_a < h_0\).  From
+equation~\eqref{eq:ha-versus-h0} this translates to
+\(\tau > \frac43 \Gamma\Edd\), where Eddington factors are
+\(\Gamma\Edd \sim 100\) for luminous stars.  Such large optical depths would
+require extremely high ambient densities of
+\(n > \num{2e7} L_4 \,v_{10}^2 \left( \SI{10}{M_\odot}/M \right)^2 \,
+\si{cm^{-3}} \), where we have used equations~(\ref{eq:tau-star},
+\ref{eq:eddington-factor}) and that \(\tau \approx 2\tau_*\) in the RBS limit.
 
 \section{Discussion}
 \label{sec:discussion}
+
+\subsection{Environments of bow-forming stars}
+\label{sec:popul-bow-prod}
+
+The stellar bows modeled in this paper can be seen as either due to
+the motion of a star through the interstellar medium, or due to the
+motion of the interstellar medium that flows past the star.  The
+first case corresponds to runaway stars \citep{Blaauw:1961a}, which
+have been ejected from a binary system or stellar cluster
+\citep{Hoogerwerf:2001a}, while the second case can be due to
+photoevaporation and champagne flows in \hii{} regions
+\citep{Tenorio-Tagle:1979a, Shu:2002a, Henney:2005a}, or to general
+turbulent flows in the Galaxy
+\citep[e.g.,][]{Ballesteros-Paredes:1999a}.  In this section, we
+consider the stream densities and velocities expected in each of these
+scenarios, and compare them with our predictions for the type of bows
+that should result.
+
+Although some runaway stars have velocities exceeding
+\SI{100}{km.s^{-1}}, most are moving considerably slower, with a
+median peculiar velocity of about \SI{30}{km.s^{-1}}
+\citep{Tetzlaff:2011a}.  The higher velocity runaways are likely
+produced by dynamical interactions in the center of young clusters
+\citep{Gualandris:2004a}, whereas the supernova-induced dissolution of
+binary systems is predicted to primarily produce ``walkaways'' with
+even slower velocities of order \SI{10}{km.s^{-1}}
+\citep{Renzo:2018a}.  Environmental flows are also expected to be of
+order \SI{10}{km.s^{-1}}, which is a characteristic velocity
+dispersion for warm neutral gas in the inner Galaxy
+\citep{Marasco:2017a} and also a typical expansion velocity for
+\ion{H}{i} shells \citep{Ehlerova:2005a}.  Internal velocity
+dispersions within \hii{} regions are subsonic
+(\SIrange{5}{10}{km.s^{-1}}) for small regions, such as the Orion
+Nebula, containing one or a few ionizing stars
+\citep{Arthur:2016a}. This increases slowly for more luminous regions
+as \(\sigma \propto L^{1/4}\) \citep{Bordalo:2011a}, so giant star forming
+complexes such as Carina (100 times more luminous than Orion) show
+velocity dispersions of order \SI{20}{km.s^{-1}}
+\citep{Damiani:2016a}.  Higher velocities of
+\SIrange{30}{40}{km.s^{-1}} are reached in divergent photoevaporation
+flows \citep{Dyson:1968a}, but this is achieved at expense of a lower
+density.  Given all the above, we expect there to be many more bows
+with relative stream velocity \(v_\infty \sim \SI{20}{km.s^{-1}}\) than bows
+with \(v_\infty \sim \SI{100}{km.s^{-1}}\).
+
+Turning now to the ambient density, if bow shock stars were randomly
+sampling the volume of the Galactic disk, then we would expect the
+average density to be \(< \SI{1}{cm^{-3}}\).  The dominant gas phase
+\citep{Ferriere:2001a} near the Galactic mid-plane is the Warm Neutral
+Medium with a volume filling fraction of 45\% \citep[Fig.~11
+of][]{Kalberla:2009a} and an average density of \SI{0.9}{cm^{-3}} at
+the Solar circle \citep[\S~4 of][]{Kalberla:2008a}.  Significant
+fractions of the volume (\(\approx 20\%\) each) are also occupied by the
+Warm Ionized Medium and Hot Ionized Medium, which have even lower
+densities (\(\approx \SI{0.3}{cm^{-3}}\) and \SI{e-3}{cm^{-3}},
+respectively) and which increasingly dominate the volume for heights
+\(z > \SI{500}{pc}\) above the plane.  The denser Cold Neutral Medium
+(\(n \approx \text{\SIrange{10}{100}{cm^{-3}}}\)) and Molecular Clouds
+(\(n > \SI{1000}{cm^{-3}}\)) occupy much smaller volumes
+(\(\approx 10\%\) and \(< 1\%\), respectively).  However, observations of
+stellar bows are clearly biased towards these higher densities.
+
+In part, this bias is due to bows being easier to detect in denser
+environments.  Depending on the emission mechanism, the shell
+luminosity will be proportional to the column density
+(\(\propto n R_0\)) or volume emission measure
+(\(\propto n^2 R_0^3\)), which are both increasing functions of
+\(n\).\footnote{%
+  From \S~\ref{sec:three-bow-regimes}, the bow size falls relatively
+  slowly as \(R_0 \propto n^{-1/2}\) in the WBS and RBS cases, and is
+  independent of \(n\) in the RBW case.}  Another contribution to the
+high-density bias is simply that none but the highest velocity
+high-mass stars can move far during their lifetime from the molecular
+clouds where they were born.  Even a runaway star with
+\(v = \SI{30}{km.s^{-1}}\), will travel \(< \SI{120}{pc}\) during an
+O-star lifetime of \(< \SI{4}{Myr}\), which is of the same order as
+the sizes of Giant Molecular Clouds.  Many observed stellar bows are
+found in high mass star clusters associated with large \hii{} regions
+\citep{Povich:2008a, Sexton:2015b}.  The ionized gas density in
+Carina, for example, has an average value of
+\(\approx \SI{100}{cm^{-3}}\) \citep{Oberst:2011a, Damiani:2016a}, although
+with peaks \(> \SI{3000}{cm^{-3}}\) in photoevaporation flows from
+embedded molecular globules \citep{Smith:2004a}.  In more compact
+\hii{} regions, such as the Orion Nebula, ionized densities up to
+\SI{e4}{cm^{-3}} are found on scales of about \(\SI{0.1}{pc}\)
+\citep{Weilbacher:2015a, ODell:2017b}.
+
+In \S~\ref{sec:depend-stell-type} we found that the bow is
+wind-supported when \(\tau_*^2 < \eta\wind\), where \(\tau_*\) is a fiducial
+optical depth (eq.~[\ref{eq:taustar-typical}]) and \(\eta\wind\) is the
+radiative momentum efficiency of the stellar wind
+(eq.~[\ref{eq:wind-eta-typical}]).  This translates into a maximum
+stream density for wind-supported bows of
+\newcommand\crit{\ensuremath{_{\text{max}}}}
+\newcommand\vink{\ensuremath{_{\text{\tiny Vink}}}}
+\begin{equation}
+  \label{eq:ncrit}
+  n\crit \approx \left(\SI{30}{cm^{-3}}\right)
+  \left(  \frac{v} {\SI{10}{km.s^{-1}}}\right)^2
+  \left( \frac{\eta\wind}{\eta\vink} \right)
+  \left( \frac{\SI{600}{cm^2.g^{-1}}}{\kappa} \right)
+  \ ,
+\end{equation}
+which is largely insensitive to spectral type between early-B and
+early-O stars.  In this equation, we have expressed the wind
+efficiency in terms of the Table~\ref{tab:stars} values,
+\(\eta\vink\), which are calculated from the \citet{Vink:1999a} recipe,
+and the UV dust opacity in terms of the standard ISM value adopted in
+\S~\ref{sec:depend-stell-type}.
+
+Therefore, runaway stars moving through the diffuse ISM with
+\(n \sim \SI{1}{cm^{-3}}\) and \(v \sim \SI{30}{km.s^{-1}}\) are safely in
+the WBS regime, having \(n \approx \num{0.004}\, n\crit\) for the default
+wind and dust parameters.  On the other hand, slow-moving stars in
+\hii{} regions of moderate density (\(n \sim \SI{100}{cm^{-3}}\)) can
+easily have \(n > n\crit\), meaning that their bows will be radiation
+supported.
+
+For cases where the stellar wind or dust properties differ from our
+assumed values, then these conclusions may change.  For instance,
+there are a growing number of stars, for which very low mass-loss
+rates have been diagnosed from UV, optical or infrared line profiles
+\citep{Martins:2005b, Marcolino:2009a, Najarro:2011a, Martins:2012a,
+  Smith:2017b}.  Most of these stars are late-type O~dwarfs, for which
+the \citet{Vink:2000a} prescription predicts a mass-loss rate of
+\num{3e-8} to \SI{e-7}{M_\odot.yr^{-1}}, whereas the observed values are
+in the range \num{e-10} to \SI{3e-9}{M_\odot.yr^{-1}} -- a shortfall of 10
+to 1000!  This ``weak wind problem'' is a far larger discrepancy than
+can be explained by clumping effects.  A potential (partial)
+resolution is to suppose that internal shocks near the base of the
+wind, together with thermal conduction, heat a large fraction of the
+gas to coronal temperatures, where it is no longer detectable by means
+of standard wind diagnostic lines \citep{Lucy:2012a}.  However, in
+cases where x-ray diagnostics have been used to trace the mass loss
+this hot component (\(\mu\)~Col, \citealp{Huenemoerder:2012a};
+\(\zeta\)~Oph, \citealp{Cohen:2014a}), rates that are still an order of
+magnitude below the Vink values are found.  We therefore show in
+
+
+
+
+
+
+\subsection{Impact of the weak-wind phenomenon}
+\label{sec:impact-weak-wind}
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figs/zones-v-n-plane-Weak}
@@ -764,11 +921,30 @@ Metallicity dependence of wind strength. RBW more likely at lower metallicities.
 
 Weak wind stars - repeat the 20 Msun case, but for a much lower \(\eta\wind\)
 
+% For main-sequence B~stars, wind column densities are too low to
+% reliably measure the terminal velocity from near ultraviolet P~Cygni
+% profiles \citep{Prinja:1989a}, and so the values are theory-dependent
+% \citep{Krticka:2014a} and hence more uncertain.  A further
+% complication is the existence of a subset of OB stars with anomalously
+% weak winds \citep{Puls:2008a}, which in some cases is related to the
+% presence of strong (\(\sim \SI{1}{kG}\)) magnetic fields
+% \citep{Oskinova:2011b}.
+
 
 Cool stars, comparison with observed densities (Betelgeuse, for
 instance). Other ones in \citep{Cox:2012a}.
 
 Prospects for observation in LMC: 1 parsec = 4 arcsec, so need JWST to get most of them. 
+
+\subsection{Diagnosing bow type from shell emission profile}
+\label{sec:diagnosing-bow-type}
+
+Given that the predicted shell density profile varies between
+wind-supported and radiation-supported bows
+(\S~\ref{sec:axial-structure-bow} and Fig.~\ref{fig:axial-structure}),
+it is worth considering whether it may be possible to use observed
+emission profiles to distinguish between the two.
+
 
 %%% Local Variables:
 %%% mode: latex
