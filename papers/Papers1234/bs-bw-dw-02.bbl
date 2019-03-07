@@ -27,6 +27,16 @@
 {Arthur} S.~J.,  {Henney} W.~J.,  {Mellema} G.,  {de Colle} F.,
   {V{\'a}zquez-Semadeni} E.,  2011, \mnras, 414, 1747
 
+\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
+  Collaboration} et~al.}{2013}]{Astropy-Collaboration:2013a}
+{Astropy Collaboration} et~al., 2013, \aap, 558, A33
+
+\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
+  Collaboration} et~al.}{2018}]{Astropy-Collaboration:2018a}
+{Astropy Collaboration} et~al., 2018, preprint, \href
+  {http://adsabs.harvard.edu/abs/2018arXiv180102634T} {} (\mn@eprint {arXiv}
+  {1801.02634})
+
 \bibitem[\protect\citeauthoryear{{Baines}, {Williams}  \& {Asebiomo}}{{Baines}
   et~al.}{1965}]{Baines:1965a}
 {Baines} M.~J.,  {Williams} I.~P.,   {Asebiomo} A.~S.,  1965, \mnras, 130, 63

@@ -63,12 +63,13 @@
 Courant R.,  Friedrichs K.,  1948, Supersonic Flow and Shock Waves.
 Springer-Verlag New York
 
-\bibitem[\protect\citeauthoryear{{Cox} et~al.,}{{Cox} et~al.}{2012}]{Cox:2012a}
-{Cox} N.~L.~J.,  et~al., 2012, \aap, 537, A35
-
 \bibitem[\protect\citeauthoryear{{Damiani} et~al.,}{{Damiani}
   et~al.}{2016}]{Damiani:2016a}
 {Damiani} F.,  et~al., 2016, \aap, 591, A74
+
+\bibitem[\protect\citeauthoryear{{Desert}, {Boulanger}  \& {Puget}}{{Desert}
+  et~al.}{1990}]{Desert:1990a}
+{Desert} F.-X.,  {Boulanger} F.,   {Puget} J.~L.,  1990, \aap, 237, 215
 
 \bibitem[\protect\citeauthoryear{{Dyson}}{{Dyson}}{1968}]{Dyson:1968a}
 {Dyson} J.~E.,  1968, \apss, 1, 388
@@ -93,6 +94,10 @@ Embid P.,  Goodman J.,   Majda A.,  1984, SIAM J. Sci. Stat. Comput., 5, 21
   {Sofia}}{1979}]{Gull:1979a}
 {Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
 
+\bibitem[\protect\citeauthoryear{{Gvaramadze}, {Langer}  \&
+  {Mackey}}{{Gvaramadze} et~al.}{2012}]{Gvaramadze:2012a}
+{Gvaramadze} V.~V.,  {Langer} N.,   {Mackey} J.,  2012, \mnras, 427, L50
+
 \bibitem[\protect\citeauthoryear{Hafez \& Guo}{Hafez \&
   Guo}{1999}]{Hafez:1999a}
 Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
@@ -109,6 +114,10 @@ Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
   {Garc{\'{\i}}a-D{\'{\i}}az}}{{Henney} et~al.}{2005}]{Henney:2005a}
 {Henney} W.~J.,  {Arthur} S.~J.,   {Garc{\'{\i}}a-D{\'{\i}}az} M.~T.,  2005,
   \apj, 627, 813
+
+\bibitem[\protect\citeauthoryear{{Hoang}, {Tram}, {Lee}  \& {Ahn}}{{Hoang}
+  et~al.}{2018}]{Hoang:2018a}
+{Hoang} T.,  {Tram} L.~N.,  {Lee} H.,   {Ahn} S.-H.,  2018, arXiv e-prints
 
 \bibitem[\protect\citeauthoryear{{Hoogerwerf}, {de Bruijne}  \& {de
   Zeeuw}}{{Hoogerwerf} et~al.}{2001}]{Hoogerwerf:2001a}
@@ -128,6 +137,14 @@ Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
 \bibitem[\protect\citeauthoryear{{Kalberla} \& {Kerp}}{{Kalberla} \&
   {Kerp}}{2009}]{Kalberla:2009a}
 {Kalberla} P.~M.~W.,  {Kerp} J.,  2009, \araa, 47, 27
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky} et~al.,}{{Kobulnicky}
+  et~al.}{2016}]{Kobulnicky:2016a}
+{Kobulnicky} H.~A.,  et~al., 2016, \apjs, 227, 18
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky}, {Chick}  \&
+  {Povich}}{{Kobulnicky} et~al.}{2018}]{Kobulnicky:2018a}
+{Kobulnicky} H.~A.,  {Chick} W.~T.,   {Povich} M.~S.,  2018, \apj, 856, 74
 
 \bibitem[\protect\citeauthoryear{{Lamers} \& {Cassinelli}}{{Lamers} \&
   {Cassinelli}}{1999}]{Lamers:1999b}
@@ -236,6 +253,11 @@ Sausalito, CA: University Science Books
 {Rodr{\'{\i}}guez-Ram{\'{\i}}rez} J.~C.,  {Raga} A.~C.,  2016, \mnras, 460,
   1876
 
+\bibitem[\protect\citeauthoryear{{Salgado}, {Berné}, {Adams}, {Herter},
+  {Keller}  \& {Tielens}}{{Salgado} et~al.}{2016}]{Salgado:2016a}
+{Salgado} F.,  {Berné} O.,  {Adams} J.~D.,  {Herter} T.~L.,  {Keller} L.~D.,
+  {Tielens} A.~G.~G.~M.,  2016, \apj, 830, 118
+
 \bibitem[\protect\citeauthoryear{Seddon \& Goldsmith}{Seddon \&
   Goldsmith}{1999}]{Seddon:1999a}
 Seddon J.,  Goldsmith E.~L.,  1999, Intake Aerodynamics, 2nd edn.
@@ -245,6 +267,10 @@ American Institute of Aeronautics and Astronautics
    \& {Rudolph}}{{Sexton} et~al.}{2015}]{Sexton:2015b}
 {Sexton} R.~O.,  {Povich} M.~S.,  {Smith} N.,  {Babler} B.~L.,  {Meade} M.~R.,
    {Rudolph} A.~L.,  2015, \mnras, 446, 1047
+
+\bibitem[\protect\citeauthoryear{{Shenar} et~al.,}{{Shenar}
+  et~al.}{2017}]{Shenar:2017a}
+{Shenar} T.,  et~al., 2017, \aap, 606, A91
 
 \bibitem[\protect\citeauthoryear{{Shu}, {Lizano}, {Galli}, {Cant{\'o}}  \&
   {Laughlin}}{{Shu} et~al.}{2002}]{Shu:2002a}
@@ -260,6 +286,11 @@ American Institute of Aeronautics and Astronautics
 {Smith} N.,  {Groh} J.~H.,  {France} K.,   {McCray} R.,  2017, \mnras, 468,
   2333
 
+\bibitem[\protect\citeauthoryear{{Stephens}, {Evans}, {Xue}, {Chu}, {Gruendl}
+  \& {Segura-Cox}}{{Stephens} et~al.}{2014}]{Stephens:2014b}
+{Stephens} I.~W.,  {Evans} J.~M.,  {Xue} R.,  {Chu} Y.-H.,  {Gruendl} R.~A.,
+  {Segura-Cox} D.~M.,  2014, \apj, 784, 147
+
 \bibitem[\protect\citeauthoryear{{Sternberg}, {Hoffmann}  \&
   {Pauldrach}}{{Sternberg} et~al.}{2003}]{Sternberg:2003a}
 {Sternberg} A.,  {Hoffmann} T.~L.,   {Pauldrach} A.~W.~A.,  2003, \apj, 599,
@@ -273,12 +304,12 @@ American Institute of Aeronautics and Astronautics
 {Tetzlaff} N.,  {Neuhäuser} R.,   {Hohle} M.~M.,  2011, \mnras, 410, 190
 
 \bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
-  et~al.}{1999}]{Vink:1999a}
-{Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  1999, \aap, 350, 181
-
-\bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
   et~al.}{2000}]{Vink:2000a}
 {Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  2000, \aap, 362, 295
+
+\bibitem[\protect\citeauthoryear{{Vink}, {de Koter}  \& {Lamers}}{{Vink}
+  et~al.}{2001}]{Vink:2001a}
+{Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  2001, \aap, 369, 574
 
 \bibitem[\protect\citeauthoryear{{Weilbacher} et~al.,}{{Weilbacher}
   et~al.}{2015}]{Weilbacher:2015a}

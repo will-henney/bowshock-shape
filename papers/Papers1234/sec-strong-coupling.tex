@@ -265,7 +265,7 @@ during the main-sequence lifetime of several million years.\footnote{%
   line-driven winds with \(T_{\text{eff}} > \SI{21 000}{K}\)
   \citep{Lamers:1995a}.  We find velocities of
   \SIrange{2500}{3300}{km.s^{-1}}, which are consistent with
-  observations and theory \citep{Vink:1999a}, but at least two times
+  observations and theory \citep{Vink:2000a}, but at least two times
   higher than those cited by \citet{Meyer:2014b}. } %
 The three examples are an early B~star (\SI{10}{M_\odot}), a late O~star
 (\SI{20}{M_\odot}), and an early O~star (\SI{40}{M_\odot}), which cover the
@@ -756,9 +756,6 @@ require extremely high ambient densities of
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Environments of bow-forming stars}
-\label{sec:popul-bow-prod}
-
 The stellar bows modeled in this paper can be seen as either due to
 the motion of a star through the interstellar medium, or due to the
 motion of the interstellar medium that flows past the star.  The
@@ -861,7 +858,7 @@ stream density for wind-supported bows of
 which is largely insensitive to spectral type between early-B and
 early-O stars.  In this equation, we have expressed the wind
 efficiency in terms of the Table~\ref{tab:stars} values,
-\(\eta\vink\), which are calculated from the \citet{Vink:1999a} recipe,
+\(\eta\vink\), which are calculated from the \citet{Vink:2000a} recipe,
 and the UV dust opacity in terms of the standard ISM value adopted in
 \S~\ref{sec:depend-stell-type}.
 
@@ -872,34 +869,6 @@ wind and dust parameters.  On the other hand, slow-moving stars in
 \hii{} regions of moderate density (\(n \sim \SI{100}{cm^{-3}}\)) can
 easily have \(n > n\crit\), meaning that their bows will be radiation
 supported.
-
-For cases where the stellar wind or dust properties differ from our
-assumed values, then these conclusions may change.  For instance,
-there are a growing number of stars, for which very low mass-loss
-rates have been diagnosed from UV, optical or infrared line profiles
-\citep{Martins:2005b, Marcolino:2009a, Najarro:2011a, Martins:2012a,
-  Smith:2017b}.  Most of these stars are late-type O~dwarfs, for which
-the \citet{Vink:2000a} prescription predicts a mass-loss rate of
-\num{3e-8} to \SI{e-7}{M_\odot.yr^{-1}}, whereas the observed values are
-in the range \num{e-10} to \SI{3e-9}{M_\odot.yr^{-1}} -- a shortfall of 10
-to 1000!  This ``weak wind problem'' is a far larger discrepancy than
-can be explained by clumping effects.  A potential (partial)
-resolution is to suppose that internal shocks near the base of the
-wind, together with thermal conduction, heat a large fraction of the
-gas to coronal temperatures, where it is no longer detectable by means
-of standard wind diagnostic lines \citep{Lucy:2012a}.  However, in
-cases where x-ray diagnostics have been used to trace the mass loss
-this hot component (\(\mu\)~Col, \citealp{Huenemoerder:2012a};
-\(\zeta\)~Oph, \citealp{Cohen:2014a}), rates that are still an order of
-magnitude below the Vink values are found.  We therefore show in
-
-
-
-
-
-
-\subsection{Impact of the weak-wind phenomenon}
-\label{sec:impact-weak-wind}
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figs/zones-v-n-plane-Weak}
@@ -912,14 +881,69 @@ magnitude below the Vink values are found.  We therefore show in
   \label{fig:O-weak-wind}
 \end{figure}
 
-Hot stars, comparison with expected velocities and densities.
 
-Expected velocities.  There are cases of high velocities, e.g., AE~Aur, but they are probably rare. \citep{Renzo:2018a}
-In cases, where proper motions are measured, they are often low.
+For cases where the stellar wind or dust properties differ from our
+assumed values, then these conclusions may change.  For instance,
+there are a growing number of stars, for which very low mass-loss
+rates have been diagnosed from UV, optical or infrared line profiles
+\citep{Martins:2005b, Marcolino:2009a, Najarro:2011a, Martins:2012a,
+  Shenar:2017a, Smith:2017b}.  Most of these stars are late-type
+O~dwarfs, for which the \citet{Vink:2000a} prescription predicts a
+mass-loss rate of \num{3e-8} to \SI{e-7}{M_\odot.yr^{-1}}, whereas the
+observed values are in the range \num{e-10} to \SI{3e-9}{M_\odot.yr^{-1}}
+-- a shortfall of 10 to 1000!  This ``weak wind problem'' is a far
+larger discrepancy than can be explained by clumping effects.  A
+potential (partial) resolution is to suppose that internal shocks near
+the base of the wind, together with thermal conduction, heat a large
+fraction of the gas to coronal temperatures, where it is no longer
+detectable by means of standard wind diagnostic lines
+\citep{Lucy:2012a}.  However, in cases where x-ray diagnostics have
+been used to trace the mass loss of this hot component (\(\mu\)~Col,
+\citealp{Huenemoerder:2012a}; \(\zeta\)~Oph, \citealp{Cohen:2014a}), rates
+that are still an order of magnitude below the Vink values are found
+(see also \citealp{Shenar:2017a}).  In Figure~\ref{fig:O-weak-wind},
+we show results for a weak-wind O9 dwarf, which is identical to the
+\SI{20}{M_\odot} star from Table~\ref{tab:stars}, except with
+\(\eta\wind = 0.01 \eta\vink\) (approximating the measurements from the
+sample of \citealp{Martins:2005b}).  For such stars, the boundary
+between the wind-supported and radiation-supported regimes shifts to
+lower ambient densities, reaching \(n\crit \sim \SI{1}{cm^{-3}}\) for
+\(v = \SI{20}{km.s^{-1}}\).  This means that radiation-supported bows
+become feasible even in the diffuse ISM for this important class of
+stars (if winds are really as weak as the UV diagnostics suggest).  It
+is therefore important to critically re-evaluate attempts to
+\emph{measure} mass loss rates using observations of bows
+\citep{Gvaramadze:2012a, Kobulnicky:2018a} since such calculations
+invariably assume that the WBS regime is universally applicable.  This
+issue is addressed in detail in Paper~III.
 
-Metallicity dependence of wind strength. RBW more likely at lower metallicities. 
+Variations in the UV dust opacity would also effect our results.
+These may be due to variations in the dust/gas ratio or to changes in
+the size distribution of the grains.  The UV opacity is dominated by
+very small grains (VSG) with radius \(a \sim \SI{10}{nm}\), which
+represent a small fraction (\(\simeq 5\%\)) of the total dust mass in
+standard grain mixtures \citep{Desert:1990a}.  This same VSG
+population dominates the mid-infrared continuum emission around
+\SI{24}{\um}, which is where stellar bows are most easily detected
+\citep{Meyer:2016a, Kobulnicky:2016a}. There is some evidence that
+such grains may be depleted in the ionized gas of the Orion Nebula
+\citep{Salgado:2016a}, leading to a decrease in \(\kappa\) by a factor of
+about six.  By equation~\eqref{eq:ncrit}, this would increase
+\(n\crit\) by the same factor, making radiation-supported bows less
+likely.  On the other hand, the process of Radiative Torque Disruption
+is predicted to be important \citep{Hoang:2018a} for the high
+radiation fields found in stellar bows, and this would tend to
+\emph{increase} the VSG abundance (and hence \(\kappa\)) via the
+centrifugal destruction of larger grains.  In LMC \hii{} regions,
+\citet{Stephens:2014b} find observational evidence that the VSG
+abundance increases as the radiation field gets stronger.
 
-Weak wind stars - repeat the 20 Msun case, but for a much lower \(\eta\wind\)
+Variations in metallicity will also be reflected in
+\(\kappa\), assuming that the total dust-gas ratio is roughly proportional
+to the metal abundance, \(Z\).  However, the wind strength
+\(\eta\wind\) will also increases with metallicity
+(\(\dot{M} V\wind \propto Z^{0.82}\), \citealp{Vink:2001a}), which will
+largely cancel out the effect in our bow models.
 
 % For main-sequence B~stars, wind column densities are too low to
 % reliably measure the terminal velocity from near ultraviolet P~Cygni
@@ -931,19 +955,47 @@ Weak wind stars - repeat the 20 Msun case, but for a much lower \(\eta\wind\)
 % \citep{Oskinova:2011b}.
 
 
-Cool stars, comparison with observed densities (Betelgeuse, for
-instance). Other ones in \citep{Cox:2012a}.
+% Cool stars, comparison with observed densities (Betelgeuse, for
+% instance). Other ones in \citep{Cox:2012a}.
 
-Prospects for observation in LMC: 1 parsec = 4 arcsec, so need JWST to get most of them. 
+% Prospects for observation in LMC: 1 parsec = 4 arcsec, so need JWST to get most of them. 
 
-\subsection{Diagnosing bow type from shell emission profile}
-\label{sec:diagnosing-bow-type}
+\section{Summary}
+\label{sec:summary}
 
-Given that the predicted shell density profile varies between
-wind-supported and radiation-supported bows
-(\S~\ref{sec:axial-structure-bow} and Fig.~\ref{fig:axial-structure}),
-it is worth considering whether it may be possible to use observed
-emission profiles to distinguish between the two.
+We present a systematic study of the formation of emission arcs, or
+bows, around luminous stars that move supersonically relative to their
+surrounding medium, taking into account both the stellar wind and
+radiation pressure of the star.  In this initial study, we consider
+the case where gas and grains are perfectly coupled via collisions,
+and apply our models to OB stars.  Our principal results are as
+follows:
+\begin{enumerate}[1.]
+\item Three different regimes of interaction are possible, in order of
+  increasing optical depth of the bow shell: Wind-supported Bow Shock
+  (WBS), Radiation-supported Bow Wave (RBW), and Radiation-supported
+  Bow Shock (RBS).
+\item For a broad range of stellar types, the WBS regime occurs when
+  the ambient density is below a critical density:
+  \(n\crit \approx \SI{100}{cm^{-3}}\) for a typical relative velocity of
+  \SI{20}{km.s^{-1}}.
+\item The critical density increases for faster moving stars, but
+  decreases for stars with weak stellar winds.
+\item At densities higher than \(n\crit\), B~stars tend to be in the
+  RBW regime, and O~stars in the RBS regime.
+\item For main sequence OB stars, the bow shell remains fully
+  photoionized for ambient densities up to about 100 times
+  \(n\crit\). For isolated B~supergiants, on the other hand, the
+  ionization front may be trapped by the shell even in the WBS regime.
+\item The bow shell in the RBW regime tends to be broad, with the
+  density gradually ramping up at the inner and outer edges, whereas
+  in the WBS and RBS regimes the shell is thinner with more sharply
+  defined edges.
+\item Studies that have estimated wind mass-loss rates from
+  observations of bows need to be re-evaluated in the light of
+  possible radiation support. 
+\end{enumerate}
+
 
 
 %%% Local Variables:

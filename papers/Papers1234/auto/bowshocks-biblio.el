@@ -220,6 +220,11 @@
     "Martins:2012a"
     "Huenemoerder:2012a"
     "Cohen:2014a"
-    "Lucy:2012a"))
+    "Lucy:2012a"
+    "Gvaramadze:2012a"
+    "Shenar:2017a"
+    "Nebot-Gomez-Moran:2018a"
+    "Vink:2001a"
+    "Stephens:2014b"))
  :bibtex)
 
