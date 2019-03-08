@@ -32,33 +32,24 @@
 
 
 
-A dust grain of geometrical cross-section \(\xsec\) situated a
-distance \(R\) from a point source of radiation with luminosity \(L\)
-will experience a repulsive, radially directed radiative force
-\citep[e.g.,][]{Spitzer:1978a}
+In the optically thin limit, a spherical dust grain of radius \(a\)
+situated a distance \(R\) from a point source of radiation with
+luminosity spectrum \(L_\nu\) will experience a repulsive, radially
+directed radiative force \citep[e.g.,][]{Spitzer:1978a}
 \begin{equation}
   \label{eq:dust-rad-force}
-  \frad = \frac{\xsec \Qp L} {4 \pi R^2 c} e^{-\tau}
+  \frad = \frac{\pi a^2 } {4 \pi R^2 c}  \int_0^\infty \Qp \, L_\nu \, d\nu 
 \end{equation}
-where \Qp{} is the frequency-averaged\footnote{%
-  Frequency averages of any quantity \(x\) should be understood as
-  weighted by the attenuated source spectrum:
-  \(\langle x \rangle_\nu = (L \, e^{-\tau})^{-1} \int_0^\infty x(\nu)\, L_\nu \, e^{-\tau_\nu} \, d\nu
-  \).  } %
-radiation pressure efficiency\footnote{%
+where \Qp{} is the frequency-dependent radiation pressure efficiency\footnote{%
   \label{fn:Qp}
   For absorption efficiency \(Q_{\text{abs}}\), scattering efficiency
   \(Q_{\text{scat}}\), and asymmetry parameter (mean scattering
   cosine) \(g\), we have
-  \(\Qp = Q_{\text{abs}} + (1 - g) Q_{\text{scat}}\)
-  \citep[e.g., \S~4.5 of][]{Bohren:1983a}.} %
-of the grain, \(c\) is the speed of light, and \(\tau\) is the
-frequency-averaged optical depth between the source and the grain.
-For simplicity, we will consider only the optically thin case,
-\(\tau \to 0\).
+  \(\Qp = Q_{\text{abs}} + (1 - g) Q_{\text{scat}}\) \citep[e.g.,
+  \S~4.5 of][]{Bohren:1983a}.} %
+of the grain, and \(c\) is the speed of light.
 
 % \subsection{Gas-free dust wave}
-
 
 If \(\frad\) is the only force experienced by the grain, then it will
 move on a \textit{ballistic} trajectory, determined by its initial
@@ -68,23 +59,30 @@ radial velocity \(-v_\infty\), which is decelerated to zero at the distance
 of closest approach, \(R\starstar\), given by energy conservation:
 \begin{equation}
   \label{eq:dust-r0}
-  R\starstar = \frac{\xsec \Qp L} {2 \pi c m\grain v_\infty^2} \ ,
+  R\starstar = \frac{\kappa\grain L} {2 \pi c v_\infty^2} \ ,
 \end{equation}
-where \(m\grain\) is the grain mass.  The grain then turns round and
-recedes from the source along the same radius, reaching a velocity of
-\(+v_\infty\) at large distance.  Note that \(R\starstar\) as given by
-equation~\eqref{eq:dust-r0} is the equivalent of
-equation~\eqref{eq:rad:R0}, except for a single grain considered in
-isolation, rather than a well-coupled dusty plasma.
+where we have defined a frequency-averaged single-grain opacity
+(\si{cm^2.g^{-1}}) as
+\begin{equation}
+  \label{eq:kappa-grain}
+  \kappa\grain = \frac{\pi a^2}{m\grain L} \int_0^\infty \Qp \, L_\nu \, d\nu \ ,
+\end{equation}
+in which \(m\grain\) is the grain mass and \(L\) is the bolometric
+source luminosity.  The grain then turns round and recedes from the
+source along the same radius, reaching a velocity of \(+v_\infty\) at large
+distance.  Note that \(R\starstar\) as given by
+equation~\eqref{eq:dust-r0} is formally identical to Paper~I's
+equation~(6), but with the important difference that it is for a
+single grain considered in isolation, rather than a well-coupled dusty
+plasma.  If 
 
-For \(b > 0\), the trajectory, \(R\grain(\theta; b)\), is
-found\footnote{%
-  The problem is formally identical to that of Rutherford scattering,
-  or (modulo a change of sign) planetary orbits.  The method of
-  solution (via introduction of a centrifugal potential term and
-  reduction to a 1-dimensional problem) can be found in any classical
-  mechanics text \citep[e.g.,][\S~14]{Landau:1976a}.} %
-to be hyperbolic, characterized by an eccentricity,
+For \(b > 0\), the problem is formally identical to that of Rutherford
+scattering, or (modulo a change of sign) planetary orbits.  The method
+of solution (via introduction of a centrifugal potential term and
+reduction to a 1-dimensional problem) can be found in any classical
+mechanics text \citep[e.g.,][\S~14]{Landau:1976a}.  The trajectory,
+\(R\grain(\theta; b)\), is found to be hyperbolic, characterized by an
+eccentricity,
 \(\varepsilon = \bigl( 1 + 4 b^2 / R\starstar^2\bigr)^{1/2}\), and polar angle
 of closest approach, \(\thm = \cos^{-1} \varepsilon^{-1}\).  The trajectory is
 symmetrical about \(\thm\) and can be written as
@@ -130,11 +128,11 @@ described by equation~\eqref{eq:dust-r-theta}, except that the
 trajectory axes for \(b > 0\) are no longer aligned with the global
 symmetry axis, so we must make the substitution
 \(\theta \to \theta + \theta_1(b)\), where \(\sin \theta_1 = b / D\) (see
-Fig.~\ref{Q-fig:crw-schema} of \PaperI{}). We parametrize the degree
-of divergence as \(\mu = R\starstar / D\) and, as before,
-\(R\grain(\theta + \theta_1(b, \mu); b)\) is minimized over all trajectories to
-find the shape of the bow wave's inner edge.  This time, the result is
-a confocal hyperbola:
+Fig.~\ref{Q-fig:crw-schema} of \citealp{Tarango-Yong:2018a}). We
+parameterize the degree of divergence as \(\mu = R\starstar / D\) and, as
+before, \(R\grain(\theta + \theta_1(b, \mu); b)\) is minimized over all
+trajectories to find the shape of the bow wave's inner edge.  This
+time, the result is a confocal hyperbola:
 \begin{equation}
   \label{eq:dust-divergent-r-in}
   \frac{R_{\text{in}}(\theta; \mu)} {R\starstar} = \frac{1 + \varepsilon_\mu}{1 + \varepsilon_\mu\cos\theta} \ ,
@@ -146,7 +144,7 @@ the resulting bow shape is more open than in the parallel stream case,
 increasingly so with increasing \(\mu\).  The planitude and alatude are
 both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
 
-\subsection{Tight magnetic coupling}
+\subsection{Magnetized dust waves}
 \label{sec:tight-magn-coupl}
 
 \begin{figure}
@@ -162,8 +160,8 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
   \label{fig:inertia-thB0}
 \end{figure}
 
-As discussed in \S~\ref{sec:magn-effects-grain}, for small grains
-(\(a < \SI{0.1}{\um}\)) the Larmor magnetic gyration radius, \(r\B\)
+We will show later in \S~\ref{sec:magn-effects-grain} that for
+sufficiently small grains the Larmor magnetic gyration radius, \(r\B\)
 is typically small compared with other length scales of interest, and
 so the grains are effectively tied to the magnetic field lines.  In
 this approximation, we can calculate the grain dynamics in the
@@ -328,5 +326,5 @@ shock, however small, will complicate the picture.
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "dusty-bow-wave"
+%%% TeX-master: "bs-bw-dw-02"
 %%% End:

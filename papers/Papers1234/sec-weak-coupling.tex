@@ -1,22 +1,4 @@
 
-\section{Introduction}
-\label{sec:rip-introduction}
-
-In \S~\ref{sec:imperf-coupl-betw} we calculate in detail the grain
-charging and dynamics, subject to radiation and drag forces, in order
-to determine the rip point where gas--grain coupling catastrophically
-breaks down.  This is used to determine existence conditions for the
-presence of a decoupled dust wave.
-%
-In \S~\ref{sec:magn-effects-grain} we consider the additional coupling
-between the grains and the plasma's magnetic field, and how this
-effects the existence and structure of dust waves.
-%
-A series of appendices provide additional technical information on
-dust physics (Appendix~\ref{sec:cloudy-models-dust}), analytical
-models of the shape of dust waves in the drag-free limit
-(Appendix~\ref{sec:gas-free-bow}), and the numerical calculation of
-grain trajectories (Appendix~\ref{sec:equat-moti-grains}).
 
 \section{Imperfect coupling between gas and dust}
 \label{sec:imperf-coupl-betw}
@@ -356,13 +338,15 @@ parameters, which are of order \SI{+- 0.5}{dex}, are listed in
 Table~\ref{tab:Xi-rip} and illustrated graphically in
 Figure~\ref{fig:drift-gn}.  The radius of the rip point, \(R_\dag\), can
 be expressed in terms of \(R_*\), the fiducial optically thick bow
-shock radius introduced in \S~\ref{sec:strong-gas-grain}:
+shock radius introduced in Paper~I's \S~2.1:
+%% XREF \ref{sec:three-bow-regimes}
 \begin{equation}
   \label{eq:Rdag-over-Rstar}
   R_\dag = \frac{v_\infty}{\sound}\, \Xi_\dag^{-1/2} R_* \approx v_{10}\, \Xi_\dag^{-1/2} R_* \ ,
 \end{equation}
-where we have made use of equations~\eqref{eq:Rstar}
-and~\eqref{eq:Xi-Prad-over-Pgas}.
+where we have made use of equation~\eqref{eq:Xi-Prad-over-Pgas} and
+Paper~I's equation~(3).
+%% XREF \eqref{eq:Rstar}
 
 What happens to the dust grain following this catastrophic breakdown
 of gas--grain coupling depends on the relation between the rip point
@@ -398,9 +382,10 @@ as a \textit{drag-confined dust wave} (DDW).
   \includegraphics[width=\linewidth]{figs/existence-dust-wave}
   \caption{Regions of stream parameter space \((v, n)\) where dust
     waves may form around main-sequence OB stars of
-    \SIlist{10;20;40}{M_\odot} (see Tab.~\ref{tab:stars}).  Figure is
-    similar to Fig.~\ref{fig:zones-v-n-plane}, except that the
-    velocity axis is logarithmic and extends out to
+    \SIlist{10;20;40}{M_\odot} (see Paper~I's Tab.~1).  This figure is
+    similar to Paper~I's Fig.~2,
+    %% XREF\ref{fig:zones-v-n-plane},
+    except that the velocity axis is logarithmic and extends out to
     \SI{1000}{km.s^{-1}}.  Overlapping colored shapes show parameters
     where dust waves may be allowed in the cases of large
     (\(a = \SI{0.2}{\um}\)) and small (\(a = \SI{0.02}{\um}\))
@@ -426,35 +411,43 @@ as a \textit{drag-confined dust wave} (DDW).
 In order for a separate outer dust wave to exist, it is necessary for
 the grains to decouple from the incoming gas stream before the stream
 hits the hydrodynamic bow shock caused by the stellar wind.  The wind
-bow shock radius is \(R_0 = \eta\wind^{1/2} R_*\) (eq.~[\ref{eq:x-cases}]),
+bow shock radius is \(R_0 = \eta\wind^{1/2} R_*\) (Paper~I's eq.~[12]),
+%% XREF \ref{eq:x-cases}
 where \(\eta\wind\) is the wind momentum efficiency
-(eq.~[\ref{eq:wind-eta-typical}]).  Therefore, the condition
+(Paper~I's eq.~[13]).
+%% XREF \ref{eq:wind-eta-typical}
+Therefore, the condition
 \(R_\dag > R_0\) becomes from equation~\eqref{eq:Rdag-over-Rstar}:
 \begin{equation}
   \label{eq:dust-wave-velocity-condition}
   v_{10} > v_{10,\text{min}} = \bigl( \Xi_\dag \, \eta\wind \bigr)^{1/2} \ . 
 \end{equation}
-For O stars, the wind efficiency is generally high (\(\eta\wind > 0.1\)) and
+For early O main-sequence stars and OB supergiants, the wind
+efficiency is generally high (\(\eta\wind > 0.1\)) and
 \(\Xi_\dag > 2000\) (Tab.~\ref{tab:Xi-rip}), so that dust waves can only
 exist when the stream velocity is very high
-(\(v_\infty > \SI{150}{km.s^{-1}}\)).  For B~stars, in contrast, the wind
-can be much weaker (\(\eta\wind < 0.01\)) and \(\Xi_\dag\) is also smaller, so
-that dust waves are permitted by this criterion for much lower stream
-velocities: (\(v_\infty > \SI{30}{km.s^{-1}}\)).
+(\(v_\infty > \SI{150}{km.s^{-1}}\)).  For main-sequence B~stars, in
+contrast, the wind can be much weaker (\(\eta\wind < 0.01\)) and
+\(\Xi_\dag\) is also smaller, so that dust waves are permitted by this
+criterion for much lower stream velocities:
+(\(v_\infty > \SI{30}{km.s^{-1}}\)).  The same will be true of the
+``weak-wind'' class of late O main-sequence stars, which also show
+\(\eta\wind < 0.01\) (see Paper~I, \S~4).
 
 However, there are other conditions that need to be satisfied in order
 for the dust wave to exist.  For instance, the drag-free turnaround
 radius must also be outside the bow shock: \(R\starstar > R_0\),
 otherwise the radiation is incapable of repelling the grain
 opportunely, even once it has decoupled from the gas.  From
-equations~\eqref{eq:Rstar}, \eqref{eq:tau-star},
-and~\eqref{eq:dust-r0} we find
+equation~\eqref{eq:dust-r0}, together with Paper~I's equations~(3, 9),
+%% XREF \eqref{eq:Rstar}
+%% XREF \eqref{eq:tau-star},
+we find
 \begin{equation}
   \label{eq:Rstarstar-over-Rstar}
-  \frac{R\starstar}{R_*} = \frac{2 \sigma\grain \Qp \tau_*}{\kappa m\grain} \ , 
+  \frac{R\starstar}{R_*} = \frac{2 \kappa\grain \tau_*}{\kappa} \ , 
 \end{equation}
-so, if we define a single-grain opacity as
-\(\kappa\grain = \sigma\grain \Qp / m\grain\), then this condition becomes
+so the condition becomes
 \begin{equation}
   \label{eq:dust-wave-low-density-condition}
   \tau_* >  \tau_{*,\text{min}} = 0.5\, \frac{\kappa}{\kappa\grain}\, \eta\wind^{1/2} 
@@ -472,12 +465,16 @@ In particular, it will be relatively larger for the largest grains
 (\(a \approx \SI{0.2}{\um}\)), which dominate the total dust mass, and
 smaller for the smaller grains (\(a \approx \SI{0.02}{\um}\)), which
 dominate the UV opacity.  Given the dependence of \(\tau_*\) on the
-stream parameters (eq.~[\ref{eq:taustar-typical}]), for a given
+stream parameters (Paper~I's eq.~[15]),
+%% XREF \ref{eq:taustar-typical}
+for a given
 stellar luminosity this condition corresponds to a minimum value for
 \(n / v_\infty^2\).
 
 A third condition comes from requiring \(R_\dag > R_0\) in the radiation
-bow wave regime (see \S~\ref{sec:three-bow-regimes}), where
+bow wave regime (see Paper~I's \S~2.1),
+%% XREF \ref{sec:three-bow-regimes}
+where
 \(R_0 \approx 2 \tau_* R_*\).  This yields
 \begin{equation}
   \label{eq:dust-wave-high-density-condition}
@@ -492,7 +489,9 @@ minimum and maximum stream density for which a dust wave can exist.
 
 The combined effects of the three conditions are illustrated in
 Figure~\ref{fig:existence-dust-wave} for each of the three example
-main sequence stars from Table~\ref{tab:stars}.  Further restrictions
+main sequence stars from Paper~I's Table~1.
+%% XREF \ref{tab:stars}
+Further restrictions
 on the existence of dust waves arise when the effects of magnetic
 fields are considered, as will be discussed in
 \S~\ref{sec:magn-effects-grain} below.  Note that the three conditions
@@ -741,47 +740,12 @@ bow behavior in this transition regime.
 \section{Magnetic coupling of grains}
 \label{sec:magn-effects-grain}
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{figs/frozen-stream-map-multi}
-  \caption{Drag-confined dust waves with tight magnetic coupling.
-    Upper panels show a quasi-parallel field, \(\theta\B = \ang{10}\),
-    while lower panels show a quasi-perpendicular field,
-    \(\theta\B = \ang{75}\).  Left panels show an incident stream velocity of
-    \(v_\infty = \SI{40}{km.s^{-1}}\), while right panels show
-    \(v_\infty = \SI{80}{km.s^{-1}}\).  In all cases, the stream density is
-    \(n = \SI{10}{cm^{-3}}\) and the calculations are performed for
-    small graphite grains, \(a = \SI{0.02}{\um}\), and the
-    \SI{10}{M_\odot} main-sequence B~star.  Continuous black lines show
-    grain trajectories, with triplets of colored symbols indicating
-    the progress of individual cohorts, which entered from the right
-    edge at a particular time.  Continuous blue lines show the
-    magnetic field, which flows from right to left along with the
-    incident stream.  The radius of the rip point, \(R_\dag\), and the
-    stagnant drift point, \(R_\ddag\), are shown respectively by red and
-    blue dashed lines.  The approximate shape of the wind-supported
-    bow shock is shown by the dotted gray line.  The calculations are
-    no longer valid after trajectories cross this surface.}
-  \label{fig:frozen-stream}
-\end{figure*}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/frozen-trajectories-multi}
-  \caption{Sample grain trajectories for drag-confined dust waves with
-    tight magnetic coupling and a quasi-parallel field
-    orientation. These are the same models as in the upper row of
-    Fig.~\ref{fig:frozen-stream}. (a)~Incident stream velocity of
-    \(v_\infty = \SI{40}{km.s^{-1}}\), showing quasi-limit-cycle behavior
-    (\numrange{0}{4000} years).  (b)~Incident stream velocity of
-    \(v_\infty = \SI{80}{km.s^{-1}}\), showing quasi-stagnation behavior
-    (\numrange{500}{2000} years).  In both cases, the streamline with
-    initial impact parameter \(y = -0.4 R_\dag\) is shown.}
-  \label{fig:frozen-trajectories}
-\end{figure}
-
-An important effect that we have not considered up to now is the
-Lorentz force on charged grains due to the plasma's magnetic field:
+It remains to calculate in detail the effects on grain dynamics of the
+plasma's magnetic field, in order to justify the approach taken in
+\S~\ref{sec:tight-magn-coupl} and extend those results to include the
+effects of gas--grain collisions as in \S~\ref{sec:imperf-coupl-betw}.
+The Lorentz force on charged grains due to a magnetic field is
 \begin{equation}
   \label{eq:f-lorentz}
   \bm{f}\!\B = \frac{z\grain e}{c} \, \bm{w} \times \bm{B} \ . 
@@ -836,8 +800,8 @@ and
 \end{equation}
 where \(a_{\si{\um}} = a / \SI{1}{\um}\), \(\rho\grain\) is the grain
 material density in \si{g.cm^{-3}}, and we have made use of
-equations~(\ref{eq:Rstar-typical}, \ref{eq:Rdag-over-Rstar},
-\ref{eq:dust-r0}).
+equations~(\ref{eq:dust-r0}, \ref{eq:Rdag-over-Rstar}), together with Paper~I's equation~(14).
+%% XREF \ref{eq:Rstar-typical}
 
 If \(r\B / \Rmin \ll 1\), then the grains are so strongly coupled to the
 field that they can be treated in the guiding-center approximation, in
@@ -882,6 +846,45 @@ coupled for the faster streams.
 
 \subsection{Grain trajectories with tight magnetic coupling}
 \label{sec:grain-traj-with}
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/frozen-stream-map-multi}
+  \caption{Drag-confined dust waves with tight magnetic coupling.
+    Upper panels show a quasi-parallel field, \(\theta\B = \ang{10}\),
+    while lower panels show a quasi-perpendicular field,
+    \(\theta\B = \ang{75}\).  Left panels show an incident stream velocity of
+    \(v_\infty = \SI{40}{km.s^{-1}}\), while right panels show
+    \(v_\infty = \SI{80}{km.s^{-1}}\).  In all cases, the stream density is
+    \(n = \SI{10}{cm^{-3}}\) and the calculations are performed for
+    small graphite grains, \(a = \SI{0.02}{\um}\), and the
+    \SI{10}{M_\odot} main-sequence B~star.  Continuous black lines show
+    grain trajectories, with triplets of colored symbols indicating
+    the progress of individual cohorts, which entered from the right
+    edge at a particular time.  Continuous blue lines show the
+    magnetic field, which flows from right to left along with the
+    incident stream.  The radius of the rip point, \(R_\dag\), and the
+    stagnant drift point, \(R_\ddag\), are shown respectively by red and
+    blue dashed lines.  The approximate shape of the wind-supported
+    bow shock is shown by the dotted gray line.  The calculations are
+    no longer valid after trajectories cross this surface.}
+  \label{fig:frozen-stream}
+\end{figure*}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/frozen-trajectories-multi}
+  \caption{Sample grain trajectories for drag-confined dust waves with
+    tight magnetic coupling and a quasi-parallel field
+    orientation. These are the same models as in the upper row of
+    Fig.~\ref{fig:frozen-stream}. (a)~Incident stream velocity of
+    \(v_\infty = \SI{40}{km.s^{-1}}\), showing quasi-limit-cycle behavior
+    (\numrange{0}{4000} years).  (b)~Incident stream velocity of
+    \(v_\infty = \SI{80}{km.s^{-1}}\), showing quasi-stagnation behavior
+    (\numrange{500}{2000} years).  In both cases, the streamline with
+    initial impact parameter \(y = -0.4 R_\dag\) is shown.}
+  \label{fig:frozen-trajectories}
+\end{figure}
 
 We can now investigate how the results of the previous sections are
 modified by magnetic fields in the tight coupling limit.  For

@@ -107,6 +107,34 @@
   circumstellar matter -- radiation: dynamics -- stars: winds, outflows
 \end{keywords}
 
+
+\section{Introduction}
+\label{sec:rip-introduction}
+
+In \S~\ref{sec:gas-free-bow} we calculate analytical
+models of the shape of dust waves in the drag-free limit.
+%
+In \S\ref{sec:cloudy-models-dust} we discuss the relevant dust physics
+and the Cloudy models that we employ.
+%
+In \S~\ref{sec:imperf-coupl-betw} we calculate in detail the grain
+charging and dynamics, subject to radiation and drag forces, in order
+to determine the rip point where gas--grain coupling catastrophically
+breaks down.  This is used to determine existence conditions for the
+presence of a decoupled dust wave.
+%
+In \S~\ref{sec:magn-effects-grain} we consider the additional coupling
+between the grains and the plasma's magnetic field, and how this
+effects the existence and structure of dust waves.
+%
+In Appendix~\ref{sec:equat-moti-grains} we provide additional
+technical information on the numerical calculation of grain
+trajectories.
+
+\input{app-dust-wave}
+
+\input{app-cloudy-dust-charging}
+
 \input{sec-weak-coupling}
 
 \section*{Acknowledgements}
@@ -122,8 +150,6 @@ extensive use of Python language libraries from the SciPy
 \bibliographystyle{mnras}
 \bibliography{bowshocks-biblio}
 \appendix
-\input{app-cloudy-dust-charging}
-\input{app-dust-wave}
 \input{app-dust-equations}
 
 % Don't change these lines
