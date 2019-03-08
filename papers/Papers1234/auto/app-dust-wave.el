@@ -25,15 +25,13 @@
     "eq:dust-divergent-r-in"
     "sec:tight-magn-coupl"
     "fig:inertia-thB0"
-    "eq:perpendicular-drift"
-    "eq:vdrift-over-vinfinity"
+    "fig:inertia-thB90"
     "sec:parall-magn-field"
     "eq:parallel-energy-balance"
     "eq:parallel-radiation-potential"
     "eq:thB-0-shape"
     "eq:thB-0-density"
     "sec:perp-magn-field"
-    "fig:inertia-thB90"
     "eq:ode-perp-bfield"))
  :latex)
 

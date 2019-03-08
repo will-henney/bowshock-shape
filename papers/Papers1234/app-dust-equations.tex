@@ -35,9 +35,23 @@ Epstein limit, and is derived in \S~4 of \citet{Baines:1965a}.  The
 (eq.~[\ref{eq:phi-potential}]) and \(\Lambda\) the plasma parameter.  It was
 first derived in the different context of dynamical friction in
 stellar systems by \citet{Chandrasekhar:1941a}.
-Figures~\ref{fig:drag-components}--\ref{fig:gas-grain-drag-photoionized}
-show example applications to gas--grain drag in a photoionized region.
 
+Figures~\ref{fig:drag-components}--\ref{fig:gas-grain-drag-photoionized}
+show example applications of these equations to gas--grain drag in a
+photoionized region.  The included collider species are protons,
+electrons, helium ions, and metal ions.  Helium is assumed to be
+singly ionized, leading to only a small contribution to the drag
+force.  For much hotter stars, such as the central stars of planetary
+nebulae, helium may be doubly ionized, which leads to a fourfold
+increase in its Coulomb drag contribution, which is significant for
+\(w < \SI{5}{km.s^{-1}}\).  All metals are lumped together as a single
+species, assuming standard \hii{} region gas-phase abundances.  They
+are dominated by C and O, with minor contributions from N and Ne.  The
+total abundance is \num{8.5e-4} and the effective atomic weight is
+\num{15.3}.  All are assumed to be doubly ionized.  Their largest
+relative contribution to the drag force is for
+\(w < \SI{2}{km.s^{-1}}\), but is less than 1\% even there.
+  
 The grain trajectories presented in \S~\ref{sec:grain-traj-along} and
 \ref{sec:grain-traj-with} are calculated by numerically solving the
 grain equation of motion:
@@ -49,7 +63,7 @@ The total force \(\bm{f}\) is the sum of radiation, drag, and Lorentz
 terms:
 \begin{equation}
   \label{eq:total-force}
-  \bm{f} = \frac{\sigma\grain \Qp L}{4\pi R^2 c} \hat{\bm{r}}
+  \bm{f} = \frac{\sigma\grain \Qpbar L}{4\pi R^2 c} \hat{\bm{r}}
   - f\drag \hat{\bm{w}}
   + \frac{z\grain e}{c} \bm{w} \times \bm{B} \ ,
 \end{equation}
@@ -82,7 +96,7 @@ where \(a\starstar = v_\infty^2 / R\starstar\) is a characteristic
 acceleration scale and the dimensionless drag constant is
 \begin{equation}
   \label{eq:drag-constant}
-  C\drag = \frac{4}{\Qp} \left(\frac{\sound \tau_* \kappa\grain}{v_\infty \kappa}\right)^2 \ .
+  C\drag = \frac{4}{\Qpbar} \left(\frac{\sound \tau_* \kappa\grain}{v_\infty \kappa}\right)^2 \ .
 \end{equation}
 
 A collection of python programs that implement the equations of this

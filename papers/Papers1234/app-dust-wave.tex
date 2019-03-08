@@ -160,8 +160,41 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\).
   \label{fig:inertia-thB0}
 \end{figure}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/perp-bfield-dust-wave-inertia}
+  \caption{Dust wave formed by action of radiation forces on grains
+    that are tightly coupled to a uniform perpendicular magnetic
+    field.  (a)~Sample trajectories are shown by thin black lines and
+    the resultant dust density distribution in grayscale.  Two
+    parabolic fits to the inner edge of the dust wave in the wing
+    region (\(y > R\starstar\)) are shown. The orange line shows a
+    simultaneous fit to both wings, while the green line shows a fit
+    to a single wing, in which the parabola apex is not constrained to
+    lie on the axis.  The second fit has much smaller residuals,
+    indicating that the overall dust wave shape is ``pointier'' than a
+    parabola, but this is hard to quantify because the disappearance
+    of the dense shell in the apex region makes it impossible to
+    define \(R_0\) for the bow.  (b)~Trajectory parameters over a wide
+    range of impact parameters, shown on a log--log scale. Distances
+    are in units of \(R\starstar\), times in units of
+    \(R\starstar / v_\infty\), velocities in units of \(v_\infty\), and
+    accelerations in units of \(v_\infty^2 / R\starstar\). The grain's
+    acceleration along the \(y\) axis has a maximum value,
+    \(a_{\text{max}}\), which occurs at a position
+    \(x(a_{\text{max}}), y(a_{\text{max}})\), just before the grain is
+    swept past the star, with a duration (FWHM) of \(\Delta t\).  The
+    grain's asymptotic \(y\) velocity is \(v_{\text{final}}\) and the
+    fact that this closely tracks \(a_{\text{max}} \times \Delta t\) indicates
+    that the majority of the acceleration occurs in a sharp impulse.
+    The curves tend to straight lines at the right side of the graph,
+    which gives the asymptotic scaling relations discussed in the
+    text.}
+  \label{fig:inertia-thB90}
+\end{figure}
+
 We will show later in \S~\ref{sec:magn-effects-grain} that for
-sufficiently small grains the Larmor magnetic gyration radius, \(r\B\)
+sufficiently small grains the Larmor magnetic gyration radius, \(r\B\),
 is typically small compared with other length scales of interest, and
 so the grains are effectively tied to the magnetic field lines.  In
 this approximation, we can calculate the grain dynamics in the
@@ -169,27 +202,14 @@ drag-free limit using \(f\rad\) as the sole force as above, but this
 time allowing acceleration only along the field lines.  Assuming a
 uniform magnetic field, the only extra parameter needed is
 \(\theta\B\), the angle between the field direction and the direction of
-the dust stream (assumed to be plane parallel).  The radiation force
-will also produce an out-of-plane drift, given by
-\begin{equation}
-  \label{eq:perpendicular-drift}
-  \bm{v}_{\text{drift}} = \frac{c}{e z\grain} \, \frac{\bm{f}\!\rad \times \bm{B}}{B^2}
-  \ ,
-\end{equation}
-but from equations~(\ref{eq:Larmor}, \ref{eq:dust-rad-force},
-\ref{eq:dust-r0}) it follows that
-\begin{equation}
-  \label{eq:vdrift-over-vinfinity}
-  \frac{v_{\text{drift}}(R\starstar)}{v_\infty} = \frac{r\B}{2 R\starstar} \ ,
-\end{equation}
-so it is valid to ignore this drift in the limit of small \(r\B\).
+the dust stream (assumed to be plane parallel).
 
 We now calculate in detail the grain trajectories in this limit for
 two cases, with the magnetic field oriented parallel and perpendicular
-to the stream\footnote{In both cases, the stream trajectories are
-  assumed parallel to one another, as in \S~\ref{sec:dust-parallel}.}
-direction, respectively. These are sufficient to give a flavor of the
-effects of a magnetic field on the dust wave structure.  Further
+to the stream direction, respectively. In both cases, the stream
+trajectories are assumed parallel to one another, as in
+\S~\ref{sec:dust-parallel}. These are sufficient to give a flavor of
+the effects of a magnetic field on the dust wave structure.  Further
 models at intermediate angles, and which also include the effects of
 gas drag, are presented in \S~\ref{sec:magn-effects-grain}.
 
@@ -254,41 +274,6 @@ Figure~\ref{fig:inertia-thB0}.
 
 \subsubsection{Perpendicular magnetic field}
 \label{sec:perp-magn-field}
-
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/perp-bfield-dust-wave-inertia}
-  \caption{Dust wave formed by action of radiation forces on grains
-    that are tightly coupled to a uniform perpendicular magnetic
-    field.  (a)~Sample trajectories are shown by thin black lines and
-    the resultant dust density distribution in grayscale.  Two
-    parabolic fits to the inner edge of the dust wave in the wing
-    region (\(y > R\starstar\)) are shown. The orange line shows a
-    simultaneous fit to both wings, while the green line shows a fit
-    to a single wing, in which the parabola apex is not constrained to
-    lie on the axis.  The second fit has much smaller residuals,
-    indicating that the overall dust wave shape is ``pointier'' than a
-    parabola, but this is hard to quantify because the disappearance
-    of the dense shell in the apex region makes it impossible to
-    define \(R_0\) for the bow.  (b)~Trajectory parameters over a wide
-    range of impact parameters, shown on a log--log scale. Distances
-    are in units of \(R\starstar\), times in units of
-    \(R\starstar / v_\infty\), velocities in units of \(v_\infty\), and
-    accelerations in units of \(v_\infty^2 / R\starstar\). The grain's
-    acceleration along the \(y\) axis has a maximum value,
-    \(a_{\text{max}}\), which occurs at a position
-    \(x(a_{\text{max}}), y(a_{\text{max}})\), just before the grain is
-    swept past the star, with a duration (FWHM) of \(\Delta t\).  The
-    grain's asymptotic \(y\) velocity is \(v_{\text{final}}\) and the
-    fact that this closely tracks \(a_{\text{max}} \times \Delta t\) indicates
-    that the majority of the acceleration occurs in a sharp impulse.
-    The curves tend to straight lines at the right side of the graph,
-    which gives the asymptotic scaling relations discussed in the
-    text.}
-  \label{fig:inertia-thB90}
-\end{figure}
-
 
 For \(\theta\B = \ang{90}\), the guiding center is forced to move at a
 constant speed in the \(x\) direction, so that \(x = -v_\infty t\), while

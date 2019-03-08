@@ -13,7 +13,7 @@
     potential \(\phi = 10\).  All Coulomb forces scale with
     \(\phi^2\), while the Epstein forces are independent of \(\phi\).  The
     species labelled ``CNO++'' represents the combined effect of all
-    metals (see footnote~\ref{fn:metal-drag}).}
+    metals (see App.~\ref{sec:equat-moti-grains}).}
   \label{fig:drag-components}
 \end{figure}
 
@@ -44,26 +44,6 @@
 \end{figure}
 
 
-\begin{figure*}
-  \includegraphics[width=\linewidth]{figs/gas-grain-drag-photoionized}
-  \caption{Dimensionless drag force, \(f\drag / f_*\), as a function
-    of gas--grain slip velocity, \(w\), for different values of the
-    grain potential in thermal units, \(\phi\).  Contributions from
-    proton and electron Coulomb (electrostatic) drag, as well as
-    Epstein (solid-body) drag are indicated.  Examples of subsonic and
-    highly supersonic stable drift velocities are shown (thin dark
-    blue arrows), where the drag force is in equilibrium with the
-    radiation force (thick dark blue dashed lines), while blue shading
-    indicates the unstable, mildly supersonic velocity regime, where
-    no stable drift equilibrium exists.  Inset graph shows \(\phi\) as a
-    function of the radiation parameter,
-    \(\Xi = P_{\mathrm{rad}} / P_{\mathrm{gas}}\) on a log--linear scale
-    for a collection of Cloudy models (see
-    Appendix~\ref{sec:cloudy-models-dust}).}
-  \label{fig:gas-grain-drag-photoionized}
-\end{figure*}
-
-
 % \begin{figure}
 %   \includegraphics[width=\linewidth]{figs/decouple-v-n-plane}
 %   \caption{As Fig.~\ref{fig:zones-v-n-plane}(a), but accounting for
@@ -75,7 +55,7 @@
 
 If the radiation field is sufficiently strong, then the collisional
 coupling between grains and gas will break down.  In this section, we
-calculate the regions of star+stream parameter space where this might
+calculate the regions of star/stream parameter space where this might
 occur, leading to a separation of the bow into an outer dust wave and
 an inner, dust-free bow shock.
 
@@ -111,32 +91,19 @@ an inner, dust-free bow shock.
   }
 \end{table}
 
-The drag force on a charged dust grain moving at a relative speed
-\(w\) through a plasma has contributions from both direct collisions
-and from electrostatic Coulomb interactions with ions and electrons.
-We use the expressions in \citet{Draine:1979a}, equations~(4)--(6),
-considering the contributions from protons, electrons, helium
-ions,\footnote{Helium is assumed to be singly ionized, leading to only
-  a small contribution to the drag force.  For much hotter stars, such
-  as the central stars of planetary nebulae, helium may be doubly
-  ionized, which leads to a fourfold increase in its Coulomb drag
-  contribution, which is significant for \(w < \SI{5}{km.s^{-1}}\).} %
-and metal ions.\footnote{%
-  \label{fn:metal-drag}
-  All metals are lumped together as a single species, assuming
-  standard \hii{} region gas-phase abundances.  They are dominated by
-  C and O, with minor contributions from N and Ne.  The total
-  abundance is \num{8.5e-4} and the effective atomic weight is
-  \num{15.3}.  All are assumed to be doubly ionized.  Their largest
-  relative contribution to the drag force is for
-  \(w < \SI{2}{km.s^{-1}}\), but is less than 1\% even there.} %
-Results are shown in Figure~\ref{fig:drag-components}, where dashed
-lines correspond to direct solid body collisions and solid lines to
-electrostatic interactions.  The latter depend on the grain potential,
-which is described in dimensionless terms by \(\phi\), which is the
-electrostatic potential energy of a unit charge at the surface of a
-grain of charge \(z\grain\) and radius \(a\), in units of the
-characteristic thermal energy of a gas particle:
+The drag force \(f\drag\) on a charged dust grain moving at a relative
+speed \(w\) through a plasma has contributions from both direct
+collisions and from electrostatic Coulomb interactions with ions and
+electrons \citep{Draine:1979a}.  Full details of the equations and
+collider species used are given in
+Appendix~\ref{sec:equat-moti-grains}. Results are shown in
+Figure~\ref{fig:drag-components}, where dashed lines correspond to
+direct solid body collisions and solid lines to electrostatic
+interactions.  The latter depend on the grain potential, which is
+described in dimensionless terms by \(\phi\), the electrostatic potential
+energy of a unit charge at the surface of a grain of charge
+\(z\grain\) and radius \(a\), in units of the characteristic thermal
+energy of a gas particle:
 \begin{equation}
   \label{eq:phi-potential}
   \phi = \frac{e^2 z\grain}{a kT} \ .
@@ -149,15 +116,8 @@ put in dimensionless units by dividing by a characteristic force:
   \label{eq:fstar}
   f_* = 2 n k T \cdot \pi a^2 \ , 
 \end{equation}
-which is approximately\footnote{%
-  To simplify the exposition, the gas pressure in this section is
-  calculated assuming a fully ionized, pure hydrogen plasma, yielding
-  \(P\gas = 2 n k T\). For typical ISM abundances, the contribution of
-  helium and its corresponding electrons yield a correction to this of
-  order 5\%.  The required modifications when a cool star interacts
-  with a predominantly neutral gas stream are discussed later.  } %
-the ionized gas pressure multiplied by the grain geometric cross
-section.
+which is approximately the ionized gas pressure multiplied by the
+grain geometric cross section.
 
 For grains with low electric charge, \(\phi^2 \ll 1\), the drag force is
 dominated by direct collisions of protons with the grain (dashed red
@@ -233,10 +193,170 @@ located on the \((w, \abs{\phi})\) plane.
 % 13.815.  So we get 23.267 + 0.651 log10(T4) - 0.217 log10(n).  Nope,
 % best with natural log
 
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/cloudy-ism-dust-opacity}
+  \caption{Extinction properties of Cloudy's standard ``ISM'' dust
+    mixture. %
+    (a)~Wavelength dependence of mean values over the entire mixture
+    of three dimensionless quantities related to scattering: albedo,
+    \(\varpi\) (solid line); scattering asymmetry,
+    \(g = \langle \cos\theta \rangle\) (dashed line); ratio of radiation pressure
+    efficiency to absorption efficiency, \(Q_P / Q_{\text{abs}}\)
+    (dotted line).
+    %
+    (b)~Wavelength dependence of mass opacity (cross section per unit
+    mass of gas) for the whole mixture (heavy black line) and broken
+    down by size bin and grain composition (colored lines, see key). }
+  \label{fig:cloudy-ism-dust-opacity}
+\end{figure}
+
+\begin{table*}
+  \centering
+  \caption{Stellar parameters for example stars}
+  \label{tab:stars}
+  \begin{tabular}{l S S S S S S S S S}
+    \toprule
+    & {\(M / \si{M_\odot}\)} & {\(L_4\)}
+    & {\(\dot{M}_{-7}\)} & {\(V_3\)} & {\( \eta\wind \)}
+    & {Sp.~Type} 
+    & {\(T_{\text{eff}} / \si{kK}\)} & {\(\lambda_{\text{eff}}\) / \si{\um}}
+    & {\(S_{49}\)} 
+    \\
+    \midrule
+    & 10 & 0.63 & 0.0034 & 2.47 & 0.0066 & {B1.5\,V} & 25.2 & 0.115 & 0.00013
+                   \\
+    Main-sequence OB stars
+    & 20 & 5.45 & 0.492 & 2.66 & 0.1199 & {O9\,V} & 33.9 & 0.086 & 0.16
+                    \\
+    & 40 & 22.2 & 5.1 & 3.31 & 0.4468 & {O5\,V} & 42.5 & 0.068 & 1.41
+                   \\[\smallskipamount]
+    Blue supergiant star
+    & 33 & 30.2 & 20.2 & 0.93 & 0.3079 & {B0.7\,Ia} & 23.5 & 0.123 & 0.016
+                   \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{Grain charging and gas--grain coupling}
+\label{sec:cloudy-models-dust}
+
+We calculate models of the physical properties of dust grains using
+the plasma physics code Cloudy \citep{Ferland:2013a, Ferland:2017a},
+which self-consistently solves the multi-frequency radiative transfer
+together with thermal, ionization, and excitation balance of all
+plasma constituents.  Cloudy incorporates grain charging as described
+in \citet{Baldwin:1991a} and \citet{van-Hoof:2004a} with photoelectric
+emission theory from \citet{Weingartner:2001b, Weingartner:2006a}.  We
+use the default ``ISM'' dust mixture included in Cloudy, which
+comprises ten size bins each for spherical silicate and graphite
+grains in the range \num{0.005} to \SI{0.25}{\um}, and which is
+designed to reproduce the average Galactic extinction curve
+\citep{Weingartner:2001a, Abel:2008a}.  The optical properties of each
+grain species are calculated using Mie theory \citep{Bohren:1983a},
+assuming solid spheres.  The resultant wavelength-dependent extinction
+properties of the mixture are summarised in
+Figure~\ref{fig:cloudy-ism-dust-opacity}.
+
+
+To ascertain the expected variation in grain properties in the
+circumstellar environs of luminous stars, we calculate a series of
+spherically symmetric, steady-state, constant density Cloudy
+simulations, illuminated by the stars listed in Table~\ref{tab:stars},
+which are the same ones as used in Paper~I.\@ Stellar spectra are
+taken from the OSTAR2002 and BSTAR2006 grids, calculated with the
+TLUSTY model atmosphere code \citep{Lanz:2003a, Lanz:2007a}.
+Simulations are run for hydrogen densities of \numlist{1;10;100;e3;e4}
+\si{cm^{-3}} and assuming standard \hii{} region gas phase abundances.
+The calculation is stopped when the ionization front is reached and
+the inner radius is chosen to be roughly 1\% of this.
+
+
+
+\begin{figure*}
+  \includegraphics[width=\linewidth]{figs/multi-dustprops}
+  \caption{Dust properties as a function of radius from star for three
+    selected Cloudy simulations. (a)~\SI{40}{M_\odot} main-sequence star in
+    medium of density \SI{e4}{cm^{-3}}. (b)~\SI{10}{M_\odot} main-sequence
+    star in medium of density \SI{1}{cm^{-3}}. (c)~Blue supergiant
+    star in medium of density \SI{1}{cm^{-3}}}.
+  \label{fig:multi-dustprops}
+\end{figure*}
+
+Figure~\ref{fig:multi-dustprops} shows resultant radial profiles of
+dust properties for representative simulations: grain temperature, grain
+abundance, grain potential, and grain drift velocity.  Line types
+correspond to the different size bins of graphite and silicate grains,
+as indicated in the key from smallest to largest. The left hand panels
+show results for a high-density (\(n = \SI{e4}{cm^{-3}}\)), compact
+(\(R \approx \SI{0.1}{pc}\)) region around an early O~star, where the grain
+temperature is very high, especially for the smaller silicate grains,
+and sublimation significantly reduces the grain abundance in the inner
+regions.  The remaining columns show low-density
+(\(n = \SI{1}{cm^{-3}}\)), extended (\(R \sim \SI{10}{pc}\)) regions
+around main-sequence and supergiant B-type stars, in which the grain
+temperatures are much lower, ranging from \SIrange{20}{50}{K} in the
+outer parts up to \SIrange{100}{200}{K} in the inner parts.
+
+Unlike the strong differences in thermal properties, the radial
+dependence of grain electrostatic potential (third row in
+Fig.~\ref{fig:multi-dustprops}) is qualitatively similar for all the
+simulations.  The grains are predominantly positively charged, with high
+potentials (\(> 10\) times the thermal energy of gas particles) close
+to the star due to the strong EUV and FUV photo-ejection.  The
+potential falls to much lower values in the outer ionized region, as
+the EUV flux falls off, and then climbs again at the ionization front
+due to the fall in electron density, while the FUV photo-ejection
+persists well into the neutral region.  There are small differences
+between the simulations due to the increasing relative importance of the
+EUV radiation for hotter stars, which leads to a deeper dip in the
+potential just inside the ionization front for the \SI{40}{M_\odot} case,
+even reaching negative values for some grain species.
+
+Equilibrium drift velocity for each grain species is calculated in the
+Cloudy simulations using the same \citet{Draine:1979a} theory as
+described in \S~\ref{sec:drag-force-grains} and
+Appendix~\ref{sec:equat-moti-grains}.  The way that this is
+implemented by default in Cloudy means that if the only solution at
+the inner radius is a superthermal one, then the superthermal solution
+branch (upper right corner of
+Fig.~\ref{fig:gas-grain-drag-photoionized}) is followed as far as
+possible through the outer spatial zones.  We have modified the code
+so as to instead always prefer the slower subthermal branch whenever
+multiple solutions are available.  This makes more sense than the
+default behavior for our context, where the grains are moving towards
+the star and so the radiative force is gradually increasing from an
+initial low value.
+
+Example results are shown in the bottom row of
+Figure~\ref{fig:multi-dustprops} and again they are qualitatively
+similar for all the simulations.  Close to the star, the radiation
+force is higher than the upper limit on the Coulomb drag force
+(eq.~\eqref{eq:fdrag-maximum}), so that the equilibrium drift velocity
+is exceedingly high.  We discuss this situation in greater detail
+below in \S~\ref{sec:drag-force-grains}.  Note that such high drift
+velocities are much higher than any realistic true relative velocity
+between grains and gas, since they are based on the assumption that
+the radiation force remains constant while the grain is accelerated,
+which is not the case under these conditions.  Instead, they are
+simply an indication that the gas and grains have completely
+decoupled.
+
+As the radial distance from the star increases, the radiation field is
+increasingly diluted but the grain potential falls only slowly, so
+eventually one reaches a point where an equilibrium between Coulomb
+drag and radiation force can be established, which corresponds to a
+discontinuity in the drift velocity.  The drift velocity carries
+on falling towards the outside of the \hii{} region, but then
+increases again just inside the ionization front due to the drop in
+grain potential there.
+
 \subsection{Gas--grain separation: drift and rip}
 \label{sec:gas-grain-separ}
 
-In Appendix~\ref{sec:gas-free-bow} we calculate the behaviour of an
+In \S~\ref{sec:gas-free-bow} we calculate the behaviour of an
 incoming stream of dust grains, subject only to the repulsive
 radiation force from a star.  For an initial inward radial trajectory,
 the dust grain motion is decelerated and turned around, reaching a
@@ -246,25 +366,65 @@ for higher initial inward velocities, but is independent of the
 density of the incoming stream.  We are now in a position to see how
 gas--grain drag will modify this picture.
 
-From equations~\eqref{eq:dust-rad-force} and~\eqref{eq:fstar}, we can
-write the radiation force acting on a grain as
-\begin{equation}
-  \label{eq:frad-Xi}
-  f\rad = \Qp\, \Xi\, f_* \ ,
-\end{equation}
-where \(\Qp\) is the grain's radiation pressure efficiency (see
-footnote~\ref{fn:Qp} in Appendix~\ref{sec:gas-free-bow}) and \(\Xi\) is
-the local radiation parameter, defined as the ratio of direct stellar
-radiation pressure to gas pressure:
+We introduce the local radiation parameter, \(\Xi\), defined as the
+ratio of direct stellar radiation pressure to gas pressure:
 \begin{equation}
   \label{eq:Xi-Prad-over-Pgas}
   \Xi \equiv \frac{P\rad}{P\gas} \approx \frac{L}{4 \pi R^2 c\, (2 n k T)} \ ,
 \end{equation}
-where the last expression corresponds to the optically thin limit.
-The grain potential \(\phi\) is also primarily determined by \(\Xi\), as
-shown in Appendix~\ref{sec:cloudy-models-dust} and the inset graph of
-Figure~\ref{fig:gas-grain-drag-photoionized}, but with a slow
-dependence, which can be approximated as
+where the last expression corresponds to the optically thin limit.  Then, if we define the grain's frequency-averaged radiation pressure
+efficiency as
+\begin{equation}
+  \label{eq:Qpbar}
+  \Qpbar = \frac{1}{L} \int_0^\infty \!\Qp \, L_\nu \, d\nu \ ,
+\end{equation}
+then equations~\eqref{eq:dust-rad-force} and~\eqref{eq:fstar} give the
+radiation force acting on a grain as
+\begin{equation}
+  \label{eq:frad-Xi}
+  f\rad = \Qpbar\, \Xi\, f_* \ .
+\end{equation}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/phi-versus-xi-annotate}
+  \caption{Grain potential in thermal units (linear scale) versus
+    radiation parameter (logarithmic scale). All densities and stellar
+    types are shown, with line colors as in Fig.~\ref{fig:drift-gn}.
+    Solid lines show silicate grains and dashed lines show graphite
+    grains.  Line width increases with grain size (to reduce clutter,
+    only every second size bin is shown).  Straight black lines show
+    the logarithmic fits discussed in the text:
+    eq.~\eqref{eq:phi-vs-Xi}, most appropriate for carbon grains
+    around cooler stars, is shown by the dashed line, while the solid
+    lines show the modifications for silicate grains and for hotter
+    stars.}
+  \label{fig:phi-vs-Xi}
+\end{figure}
+
+\begin{figure*}
+  \includegraphics[width=\linewidth]{figs/gas-grain-drag-photoionized}
+  \caption{Dimensionless drag force, \(f\drag / f_*\), as a function
+    of gas--grain slip velocity, \(w\), for different values of the
+    grain potential in thermal units, \(\phi\).  Contributions from
+    proton and electron Coulomb (electrostatic) drag, as well as
+    Epstein (solid-body) drag are indicated.  Examples of subsonic and
+    highly supersonic stable drift velocities are shown (thin dark
+    blue arrows), where the drag force is in equilibrium with the
+    radiation force (thick dark blue dashed lines), while blue shading
+    indicates the unstable, mildly supersonic velocity regime, where
+    no stable drift equilibrium exists. }
+  \label{fig:gas-grain-drag-photoionized}
+\end{figure*}
+
+The grain potential \(\phi\), which is crucial for determining
+\(f\drag\) (Tab.~\ref{tab:fdrag-regimes}), is due to competition
+between the photons and the charged particles that interact with the
+grain.  It is therefore reasonable to suppose that \(\phi\) should also
+be primarily determined by \(\Xi\).  This is confirmed in
+Figure~\ref{fig:phi-vs-Xi} using the Cloudy simulations of
+\S~\ref{sec:cloudy-models-dust}, for which we find a slow dependence
+that can be approximated as
 \begin{equation}
   \label{eq:phi-vs-Xi}
   \phi(\Xi) \approx 1.5 \bigl( 2.3 +  \ln \Xi \bigr) \ .
@@ -325,20 +485,54 @@ is well inside the ionization front.  This increases \(f\rad\)
 \(\phi\) (eq.~[\ref{eq:phi-vs-Xi}]) due to the increasing dominance of
 grain charging by photoelectric ejection.  Initially, this results in
 a lowering of the equilibrium drift velocity to \(w_{10} \sim 0.01\) as
-the Coulomb drag kicks in (see Appendix~\ref{sec:cloudy-models-dust}).
-However, at smaller radii the slow logarithmic increase in
-\(\phi(\Xi)\) means that the drift velocity must start increasing again to
-accommodate the linear increase of \(f\rad(\Xi)\).  Eventually,
-\(f\rad\) exceeds \(f_{\mathrm{max}}\), the maximum drag force that
-proton Coulomb interactions can provide
+the Coulomb drag kicks in (see lower panels of
+Fig.~\ref{fig:multi-dustprops}).  However, at smaller radii the slow
+logarithmic increase in \(\phi(\Xi)\) means that the drift velocity must
+start increasing again to accommodate the linear increase of
+\(f\rad(\Xi)\).  Eventually, \(f\rad\) exceeds \(f_{\mathrm{max}}\), the
+maximum drag force that proton Coulomb interactions can provide
 (eq.~[\ref{eq:fdrag-maximum}]).  This occurs at a critical value of
 the radiation parameter, which we denote the \textit{rip point}:
-\(\Xi_\dag \sim 1000\).  The variations in \(\Xi_\dag\) with star and grain
-parameters, which are of order \SI{+- 0.5}{dex}, are listed in
-Table~\ref{tab:Xi-rip} and illustrated graphically in
-Figure~\ref{fig:drift-gn}.  The radius of the rip point, \(R_\dag\), can
-be expressed in terms of \(R_*\), the fiducial optically thick bow
-shock radius introduced in Paper~I's \S~2.1:
+\(\Xi_\dag \sim 1000\).
+
+\begin{figure*}
+  \includegraphics[width=\linewidth]{figs/drift-pratio-4panel}
+  \caption{Drift velocity \(w\drift\) versus radiation parameter
+    \(\Xi\). Each line represents a simulation with ambient density and
+    stellar type as indicated in the key.  Results are shown for
+    graphite and silicate grains of two different sizes.  The rip
+    point, which corresponds to gas--grain decoupling, is the
+    discontinuity in the curves at
+    \(w\drift \approx \SI{10}{km.s^{-1}}\), indicated by the upper
+    horizontal dashed line.  The vertical dashed lines show the narrow
+    range of radiation parameter, \(\Xi = 1000 \pm \SI{0.5}{dex}\), that
+    encompasses the rip point for all simulations. }
+  \label{fig:drift-gn}
+\end{figure*}
+
+To test these ideas, we plot in Figure~\ref{fig:drift-gn} the grain
+drift velocity from the Cloudy simulations as a function of \(\Xi\),
+showing results for four different grain types and for all
+combinations of stellar parameters and ambient densities for which we
+have run simulations.  It can be seen that the radiation parameter at
+the rip point \(\Xi_\dagger\) is indeed confined to a narrow range.  The
+fundamental explanation for this is that both the charge balance and
+the force balance are essentially due to competition between the
+photons and the charged particles that interact with the grain.  The
+small variations in \(\Xi_\dag\) with stellar type and grain composition,
+which are of order \SI{+- 0.5}{dex}, are listed in
+Table~\ref{tab:Xi-rip}.  The gas density and grain size have very
+little influence on this critical value \(\Xi_\dag\), with the only
+exception being the very smallest grains (\(a < \SI{0.006}{\um}\), not
+illustrated), which show \(\Xi_\dag \approx \num{e4}\), but such grains are only
+minor contributors to the UV opacity for our adopted dust mixture
+(\(< 10\%\) in EUV and \(< 1\%\) in FUV, see
+Fig.~\ref{fig:cloudy-ism-dust-opacity}).
+
+
+The radius of the rip point, \(R_\dag\), can be expressed in terms of
+\(R_*\), the fiducial optically thick bow shock radius introduced in
+Paper~I's \S~2.1:
 %% XREF \ref{sec:three-bow-regimes}
 \begin{equation}
   \label{eq:Rdag-over-Rstar}
@@ -348,33 +542,6 @@ where we have made use of equation~\eqref{eq:Xi-Prad-over-Pgas} and
 Paper~I's equation~(3).
 %% XREF \eqref{eq:Rstar}
 
-What happens to the dust grain following this catastrophic breakdown
-of gas--grain coupling depends on the relation between the rip point
-radius, \(R_\dag\), and the drag-free radiative turnaround radius,
-\(R\starstar\).  If \(R_\dag > R\starstar\), then the grain's inertia
-will still carry it in as far as \(R\starstar\) and the initial
-trajectory will be almost identical to that described in
-Appendix~\ref{sec:gas-free-bow} for the drag-free case. However, after
-being turned around by the radiation field and pushed out past
-\(R_\dag\) again, the grain will \emph{recouple} to the gas and be
-dragged back for a second approach.\footnote{If the initial impact
-  parameter of the trajectory is not strictly \(b = 0\), then the
-  resultant lateral component of \(f\rad\) will mean that \(b\) will
-  be much increased for the second approach.} %
-We will refer to this as an \textit{inertia-confined dust wave}
-(IDW).  From equations~(\ref{eq:Rdag-over-Rstar},
-\ref{eq:Rstarstar-over-Rstar},
-\ref{eq:dust-wave-high-density-condition}), the condition
-\(R_\dag > R\starstar\) corresponds to
-\(\tau_* < (\kappa/\kappa\grain) \tau_{*,\text{max}}\), which is indicated by dashed
-lines in the left panel of Figure~\ref{fig:existence-dust-wave}.  If,
-on the other hand, \(R_\dag < R\starstar\), then the tail wind provided
-by the gas carries the grain closer to the star than its inertia would
-naturally take it.  When the grain finally decouples at \(R_\dag\) it
-experiences a much higher unbalanced \(f\rad\), which can initially
-accelerate it to outward velocities significantly higher than the
-inflow velocity if \(R_\dag \ll R\starstar\).  We will refer to this case
-as a \textit{drag-confined dust wave} (DDW).
 
 
 \begin{figure*}
@@ -489,9 +656,7 @@ minimum and maximum stream density for which a dust wave can exist.
 
 The combined effects of the three conditions are illustrated in
 Figure~\ref{fig:existence-dust-wave} for each of the three example
-main sequence stars from Paper~I's Table~1.
-%% XREF \ref{tab:stars}
-Further restrictions
+main sequence stars from Table~\ref{tab:stars}.  Further restrictions
 on the existence of dust waves arise when the effects of magnetic
 fields are considered, as will be discussed in
 \S~\ref{sec:magn-effects-grain} below.  Note that the three conditions
@@ -541,43 +706,77 @@ be able to do it afterwards.
     \label{fig:phase-space-trajectories}
 \end{figure*}
 
-\subsection{Grain trajectories along the symmetry axis}
+\subsection{Post-rip grain dynamics}
+\label{sec:two-regimes-post}
+
+We now investigate the trajectory of the dust grain following the
+catastrophic breakdown of gas--grain coupling at the rip point.  Two
+regimes are possible, depending on the relation between the rip point
+radius, \(R_\dag\), and the drag-free radiative turnaround radius,
+\(R\starstar\).  If \(R_\dag > R\starstar\), then the grain's inertia
+will still carry it in as far as \(R\starstar\) and the initial
+trajectory will be almost identical to that described in
+\S~\ref{sec:gas-free-bow} for the drag-free case. But once the grain
+has been turned around by the radiation field and pushed out past
+\(R_\dag\) again, it will \emph{recouple} to the gas.  
+We will refer to this as an \textit{inertia-confined dust wave} (IDW).
+From equations~(\ref{eq:Rdag-over-Rstar},
+\ref{eq:Rstarstar-over-Rstar},
+\ref{eq:dust-wave-high-density-condition}), the condition
+\(R_\dag > R\starstar\) corresponds to
+\begin{equation}
+  \label{eq:IDW}
+  \tau_* < \frac{\kappa}{\kappa\grain} \tau_{*,\text{max}} \ , 
+\end{equation}
+which is indicated by dashed lines in the left panel of
+Figure~\ref{fig:existence-dust-wave}.  If, on the other hand,
+\(R_\dag < R\starstar\), then the tail wind provided by the gas carries
+the grain closer to the star than its inertia would naturally take it.
+When the grain finally decouples at \(R_\dag\) it experiences a much
+higher unbalanced \(f\rad\), which can initially accelerate it to
+outward velocities significantly higher than the inflow velocity if
+\(R_\dag \ll R\starstar\).  We will refer to this case as a
+\textit{drag-confined dust wave} (DDW).  As in the IDW case, the
+expelled grain will eventually recouple to the gas once it moves away
+from the star.
+
 \label{sec:grain-traj-along}
 
-The post-decoupling behavior of the grain depends on the sign of
+What happens to the grain after recoupling depends on the sign of
 \(d f\drag / d w\) when \(w = \abs{v_\infty}\).  If this derivative is
 positive, as is the case in drag regimes~II and V (see
 Tab.~\ref{tab:fdrag-regimes} and Fig.~\ref{fig:drag-v-phi-plane}),
 then the grain can reach a stable equilibrium drift at rest with
-respect to the star\footnote{%
-  Again, this is only strictly true when the impact parameter is zero.
-  However, as we show below, it is a reasonable approximation over a
-  range of impact parameters in the case where the angle between the
-  magnetic field direction and the stream velocity is not too
-  large.} %
-at a point \(R_\ddag\), which we call the \textit{stagnant drift
-  radius}. If the stream velocity is not excessively high
-(\(v_\infty < \SI{150}{km.s^{-1}}\) when \(\phi = 4\), or
-\(< \SI{300}{km.s^{-1}}\) when \(\phi = 16\)), then the equilibrium
-\(f\rad\) is less than the value at the rip point, requiring a lower
-value of the radiation parameter: \(\Xi_\ddag < \Xi_\dag\).  The resultant
-stagnant drift radius is therefore outside the rip point:
-\(R_\ddag > R_\dag\).
+respect to the star at a point \(R_\ddag\), which we call the
+\textit{stagnant drift radius}. If the stream velocity is not
+excessively high (\(v_\infty < \SI{150}{km.s^{-1}}\) when
+\(\phi = 4\), or \(< \SI{300}{km.s^{-1}}\) when \(\phi = 16\)), then the
+equilibrium \(f\rad\) is less than the value at the rip point,
+requiring a lower value of the radiation parameter:
+\(\Xi_\ddag < \Xi_\dag\).  The resultant stagnant drift radius is therefore
+outside the rip point: \(R_\ddag > R_\dag\).  Of course, a static equilibrium
+is only possible when the impact parameter is exactly zero.
+Otherwise, there will be an unbalanced lateral component of the
+radiation force, which will cause a sideways drift.  However, as we
+show below, strong coupling to the magnetic field means that the
+strictly on-axis calculation is a reasonable approximation over a
+range of impact parameters in the case where the angle between the
+magnetic field direction and the stream velocity is not too large.
 
 On the other hand, if \(d f\drag / d w < 0\) when
 \(w = \abs{v_\infty}\), then the equilibrium is unstable and no stagnant
 drift is possible.  This occurs for drag regime~IV, which applies when
 \(\phi > 1\) and
-\(\SI{10}{km.s^{-1}} < v_\infty < \SI{50}{km.s^{-1}}\).  There is also a
-second unstable regime (partially visible in the upper-right corner of
+\(\SI{10}{km.s^{-1}} < v_\infty < \SI{50}{km.s^{-1}}\), as illustrated in
+Figure~\ref{fig:gas-grain-drag-photoionized}.  There is also a second
+unstable regime (partially visible in the upper-right corner of
 Fig.~\ref{fig:drag-v-phi-plane}), which is related to the thermal peak
 in the electron Coulomb drag when \(\phi > 30\) and
-\(\SI{400}{km.s^{-1}} < v_\infty < \SI{2000}{km.s^{-1}}\), but this is not
-relevant to bow shocks around OB~stars.\footnote{%
-  It may apply in other contexts, such as outflows from AGN, since
-  detailed modeling of grain charging around quasars
-  \citep{Weingartner:2006a} implies that grain potentials as high as
-  \(\phi \sim 100\) can be achieved.} %
+\(\SI{400}{km.s^{-1}} < v_\infty < \SI{2000}{km.s^{-1}}\).  This is not
+relevant to bow shocks around OB~stars since \(\phi\) does not reach such
+high values, but it may apply in other contexts, such as outflows from
+AGN, where grain potentials as high as \(\phi \sim 100\) can be achieved
+\citep{Weingartner:2006a}.
 
 An example of each of these two behaviors is illustrated in
 Figure~\ref{fig:phase-space-trajectories}.  The left panels show the
@@ -708,7 +907,9 @@ This deceleration reduces the gas stream's ram pressure before it
 interacts with the central star's stellar wind.  The radius of the
 dust-free bow shock formed by this interaction is therefore increased
 by a factor \((1 - \Delta v / v_\infty)^{-1}\) with respect to the case
-calculated in \S~\ref{sec:three-bow-regimes}, yielding
+calculated in Paper~I's \S~2.1,
+% XREF \ref{sec:three-bow-regimes}
+yielding
 \begin{equation}
   \label{eq:gas-free-bow-shock}
   R_{\text{dfbs}} \approx \frac{\eta\wind^{1/2} R_*}{1 - \tfrac12 \alpha \tau_* / \tau_{*, \text{max}}} \ .
@@ -718,7 +919,9 @@ An example is illustrated in Figure~\ref{fig:decouple-vertical-cut},
 where the dust-free bow shock radius is shown by the green dashed line
 as a function of stream density, \(n\).  This is calculated for fixed
 stream velocity and grain and star properties, so that
-\(\tau_* \propto n^{1/2}\) (eq.~[\ref{eq:taustar-typical}]).  In order for
+\(\tau_* \propto n^{1/2}\) (Paper~I's eq.~[15]).
+% XREF \ref{eq:taustar-typical}
+In order for
 \(R_{\text{dfbs}}\) to match the dust-wave and bow-wave radii at the
 point where they cross at \(\tau_* = \tau_{*, \text{max}}\), we find
 \(\alpha \approx 1.5\) is required.  It can be seen that the gas deceleration is
@@ -729,7 +932,7 @@ trend, becoming essentially flat at a value
 \(R_{\text{dfbs}} \approx (\kappa/\kappa\grain) R\starstar\) until full-coupling is
 established at \(n > \SI{3e4}{cm^{-3}}\).  Note, however, that the
 treatment described here is very approximate: it does not take into
-account the shock that will form once \(J\drag\) reaches an
+account the shock that must form once \(J\drag\) reaches an
 appreciable fraction of \(m_{\text{gas}} v_\infty\) and, additionally, it
 includes a factor, \(\alpha\), whose value has not been rigorously
 justified.  More detailed modeling is required to fully understand the
@@ -744,8 +947,8 @@ bow behavior in this transition regime.
 It remains to calculate in detail the effects on grain dynamics of the
 plasma's magnetic field, in order to justify the approach taken in
 \S~\ref{sec:tight-magn-coupl} and extend those results to include the
-effects of gas--grain collisions as in \S~\ref{sec:imperf-coupl-betw}.
-The Lorentz force on charged grains due to a magnetic field is
+effects of drag forces from the gas.  The Lorentz force on charged
+grains due to a magnetic field is
 \begin{equation}
   \label{eq:f-lorentz}
   \bm{f}\!\B = \frac{z\grain e}{c} \, \bm{w} \times \bm{B} \ . 
@@ -807,10 +1010,23 @@ If \(r\B / \Rmin \ll 1\), then the grains are so strongly coupled to the
 field that they can be treated in the guiding-center approximation, in
 which the trajectory is decomposed into a tight circular gyromotion
 around the field lines, plus a sliding of the guiding center along the
-field lines, which is governed by the radiation and drag forces (the
-slow \(\bm{f} \times \bm{B}\) drift across the field lines is negligible in
-this case, see App.~\ref{sec:tight-magn-coupl}).  In the opposite
-limit, \(r\B / \Rmin \gg 1\), magnetic coupling is so weak that the
+field lines, which is governed by the radiation and drag forces.  The
+radiation force will also produce an out-of-plane drift, given by
+\begin{equation}
+  \label{eq:perpendicular-drift}
+  \bm{v}_{\text{drift}} = \frac{c}{e z\grain} \, \frac{\bm{f}\!\rad \times \bm{B}}{B^2}
+  \ ,
+\end{equation}
+but from equations~(\ref{eq:Larmor}, \ref{eq:dust-rad-force},
+\ref{eq:dust-r0}) it follows that
+\begin{equation}
+  \label{eq:vdrift-over-vinfinity}
+  \frac{v_{\text{drift}}(R\starstar)}{v_\infty} = \frac{r\B}{2 R\starstar} \ ,
+\end{equation}
+so it is valid to ignore this drift in the limit of small \(r\B\).
+This is the limit that was applied in \S~\ref{sec:tight-magn-coupl}
+for the case of zero drag.  In the opposite limit,
+\(r\B / \Rmin \gg 1\), magnetic coupling is so weak that the
 non-magnetic results of \S~\ref{sec:imperf-coupl-betw} are scarcely
 modified.  Assuming \(w_\perp \sim v_\infty\) and adopting a threshold of
 \(r\B / \Rmin < 0.1\), equations~(\ref{eq:larmor-over-Rdag},
@@ -886,33 +1102,34 @@ coupled for the faster streams.
   \label{fig:frozen-trajectories}
 \end{figure}
 
-We can now investigate how the results of the previous sections are
-modified by magnetic fields in the tight coupling limit.  For
-simplicity, we assume a uniform field in the incoming stream, with
-field lines oriented at an angle \(\theta\B\) to the velocity vector that
-defines the bow axis.  We also assume a super-alfvénic stream,
-\(v_\infty > v\alfven\), so that the radius, \(R_0\), of the wind bow shock
-is unaffected by the magnetic field, and additionally assume
-\(\tau_* \ll \tau_{*, \text{max}}\), so that the back-reaction of the grain
-drag on the plasma is negligible (see previous section) and \(B\)
-remains uniform in magnitude and direction in the dust wave region,
-outside of the bow shock.
+We can now investigate how the results of the
+section~\ref{sec:imperf-coupl-betw} are modified by magnetic fields in
+the tight coupling limit.  For simplicity, we assume a uniform field
+in the incoming stream, with field lines oriented at an angle
+\(\theta\B\) to the velocity vector that defines the bow axis.  We also
+assume a super-alfvénic stream, \(v_\infty > v\alfven\), so that the
+radius, \(R_0\), of the wind bow shock is unaffected by the magnetic
+field, and additionally assume \(\tau_* \ll \tau_{*, \text{max}}\), so that
+the back-reaction of the grain drag on the plasma is negligible
+(\S~\ref{sec:back-reaction-gas}) and \(B\) remains uniform in
+magnitude and direction in the dust wave region, outside of the bow
+shock.
 
-In Appendix~\ref{sec:tight-magn-coupl}, we derive analytic and
+In \S~\ref{sec:tight-magn-coupl}, we derived analytic and
 semi-analytic results in the limit of zero gas--grain drag, which is
-appropriate for inertia-confined dust waves. We find very different
-structures, depending on the orientation of the field.  For a parallel
-field (Fig.~\ref{fig:inertia-thB0}), the apex of the dust wave occurs
-at the same point, \(R\starstar\), as in the non-magnetic case, but
-the shape of the dust wave wings is more closed, being hemispherical
-rather than parabolic in shape.  For a perpendicular field
-(Fig.~\ref{fig:inertia-thB90}), on the other hand, grains in the apex
-region are dragged very close to the star and no dust wave forms
+appropriate for inertia-confined dust waves.  The resultant dust wave
+structure is highly dependent on the field orientation.  For a
+parallel field (Fig.~\ref{fig:inertia-thB0}), the apex of the dust
+wave occurs at the same point, \(R\starstar\), as in the non-magnetic
+case, but the shape of the dust wave wings is more closed, being
+hemispherical rather than parabolic in shape.  For a perpendicular
+field (Fig.~\ref{fig:inertia-thB90}), on the other hand, grains in the
+apex region are dragged very close to the star and no dust wave forms
 there.  A dust wave can form in the wings, with impact parameter
 \(> R\starstar\), which is roughly parabolic in shape, but more
 swept-back than in the non-magnetic case.  Whether such a dust wave
 will exist in practice depends critically on the size and shape of the
-MHD wind-supported bow shock.
+interior MHD wind-supported bow shock.
 
 In Figures~\ref{fig:frozen-stream} and~\ref{fig:frozen-trajectories}
 we show example results for drag-confined dust waves, which are
@@ -956,7 +1173,7 @@ the initial rip and turn around.  Again, it slowly migrates sideways,
 and eventually recouples to the incident stream, but this time after
 reaching \(y \approx +R_\ddag\).  The grain residence time in the apex region,
 measured in crossing times, is slightly longer than in panel~a, but is
-of the same order.  In both these cases, a second, exterior dense
+of the same order.  In both these cases, a second, exterior dust
 shell is formed in addition to the hemispherical one produced by the
 initial turn around inside \(R_\dag\). In the limit-cycle case, it forms
 at the snap-back point, while in the stagnant-drift case, it forms at
@@ -973,17 +1190,17 @@ modeling of this requires magnetohydrodynamical simulations, which are
 beyond the scope of this paper.  In Figure~\ref{fig:frozen-stream} we
 show in gray dotted lines the Wilkinoid surface \citep{Wilkin:1996a},
 which is an approximation to the shape of the inner bow shock, see
-\PaperI.  It can be seen that the majority of dust streamlines do not
-cross this surface until well into the wings of the bow, so that a
-separate exterior dust wave can exist for this quasi-parallel
-magnetic field orientation.
+\citet{Tarango-Yong:2018a}.  It can be seen that the majority of dust
+streamlines do not cross this surface until well into the wings of the
+bow, so that a separate exterior dust wave can exist for this
+quasi-parallel magnetic field orientation.
 
 This is no longer the case for the quasi-perpendicular field
 orientation, as illustrated in the lower panels of
 Figure~\ref{fig:frozen-stream}, where the behavior is similar to the
 perpendicular inertia-confined case studied in
-Appendix~\ref{sec:perp-magn-field}.  Although the grains decouple from
-the gas inside the rip point, for small impact parameters the magnetic
+\S~\ref{sec:perp-magn-field}.  Although the grains decouple from the
+gas inside the rip point, for small impact parameters the magnetic
 geometry does not allow the radiation field to expel them until they
 are much nearer to the star.  Since the inner wind-supported bow shock
 radius is only a few times smaller than \(R_\dag\), it is possible that
@@ -995,7 +1212,7 @@ deflected, and so no separate dust wave would form in this case.  For
 the \SI{80}{km.s^{-1}} model (lower left panel), some of the
 streamlines (mainly those with \(b > 0\)) do manage to avoid crossing
 the bow shock surface, so it is possible that a dust wave may still
-form, although it would only be on one side of the axis.
+form, although it would be on only one side of the axis.
 
 
 %%% Local Variables:
