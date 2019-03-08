@@ -7,7 +7,7 @@
     stream for main-sequence OB stars of different masses:
     (a)~\SI{10}{M_\odot}, (b)~\SI{20}{M_\odot}, (c)~\SI{40}{M_\odot}.  In all
     cases, \(\kappa = \SI{600}{cm^2.g^{-1}}\) and efficient gas-grain
-    coupling is assumed. Solid black lines of varying width show the
+    coupling is assumed. Solid black lines of varying thickness show the
     bow size (star-apex separation, \(R_0\)), while gray shading shows
     the radiation bow wave regime, with lower border
     \(\tau = \eta\wind\) and upper border \(\tau = 1\), where
@@ -37,13 +37,11 @@ is the topic of Paper~II).
 Although dust grains typically constitute only a small fraction
 \(Z\grain \sim 0.01\) of the mass of the external stream, they
 nevertheless dominate the broad-band opacity at FUV, optical and IR
-wavelengths if they are present.\footnote{%
-  At EUV wavelengths (\(\lambda < \SI{912}{\angstrom}\)), gas opacity
-  dominates if the hydrogen neutral fraction is larger than
-  \(\approx 0.001\), see discussion of ionization front trapping
-  below.} %
-The strong coupling assumption means that all the radiative forces
-applied to the dust grains are directly felt by the gas also.
+wavelengths if they are present. They also dominate at EUV wavelengths
+(\(\lambda < \SI{912}{\angstrom}\)), if the hydrogen neutral fraction is
+less than \(\approx 0.001\).  The strong coupling assumption means that all
+the radiative forces applied to the dust grains are directly felt by
+the gas also.
 
 \subsection{Bows supported by radiation and wind}
 \label{sec:three-bow-regimes}
@@ -56,27 +54,26 @@ momentum loss rate can be expressed as
   \label{eq:wind-efficiency}
   \dot{M} V = \eta\wind L / c \ , 
 \end{equation}
-where \(\eta\wind\) is the momentum efficiency of the wind, which is typically
-\(< 1\) \citep{Lamers:1999b}. If the optical depth is very large, then
+where \(\eta\wind\) is the momentum efficiency of the wind, which is
+\(< 1\) in all cases except WR stars \citep{Lamers:1999b}. If the
+optical depth at UV/optical wavelengths is sufficiently large, then
 all of the stellar radiative momentum, emitted with rate \(L/c\), is
-trapped by the bow shell.  In the single scattering limit,\footnote{%
-  Although it may seem inconsistent to assume single scattering in the
-  case of high optical depths, this is defensible for the following
-  reasons. (1)~The grain albedo is not that high (typically
-  \(\sim 0.5\) at ultraviolet through optical wavelengths). (2)~The
-  scattered radiation field is more isotropic than the stellar field,
-  leading to cancellation in the radiative flux. (3)~Absorbed
-  radiation is re-emitted at infrared wavelengths, where the dust
-  opacity is very much lower.} %
-and temporarily neglecting the wind for clarity of exposition, then
-pressure balance at the bow apex, a distance \(R_0\) along the
-symmetry axis from the star is given by
+trapped by the bow shell.  At the infrared wavelengths where the
+absorbed radiation is re-emitted, the grain opacity is much lower, so
+the bow is optically thin to this radiation.  Combined with the fact
+that the UV single-scattering albedo is only \(\approx 0.5\), this means
+that the single-scattering limit is approximately valid, and we adopt
+it here.
+
+We define a fiducial bow shock radius \(R_*\) in the optically thick,
+radiation-only limit by balancing stellar radiation pressure against
+stream ram pressure at the bow apex along the
+symmetry axis from the star:
 \begin{equation}
   \label{eq:rad-press-balance-thick}
-  \frac{L}{4 \pi c R_0^2} = \rho v^2 \ ,
+  \frac{L}{4 \pi c R_*^2} = \rho v^2 \ ,
 \end{equation}
-which yields a fiducial bow shock radius in this optically thick,
-radiation-only limit as
+which yields 
 \begin{equation}
   \label{eq:Rstar}
   R_* = \left(\frac{L}{4\pi c \rho v^2}\right)^{1/2} \ .
@@ -90,15 +87,7 @@ units of \si{cm^2.g^{-1}}), then the radiative acceleration is
   a_{\text{rad}} = \frac{\kappa L}{4 \pi c R^2} \ .
 \end{equation}
 Therefore, an incoming stream with initial velocity, \(v_\infty\), can be
-brought to rest by radiation alone
-% \footnote{%
-%   For simplicity, we here ignore the effects of gravity, which are
-%   important for low ratios of \(\kappa L / M\), see
-%   \S~\ref{sec:effects-gravity}.  We also ignore pressure gradients and
-%   shocks, which are important as the velocity approaches the sound
-%   speed, \(\sound\) (in \S~XX below, we show that the resultant
-%   corrections to \(R_0\) are of order \(\sound / v_\infty\)).} %
-at a distance \(R\starstar\) where
+brought to rest by radiation alone at a distance \(R\starstar\) where
 \begin{equation}
   \label{eq:rad-poten}
   \int_{R\starstar}^\infty a_{\text{rad}} \, dr = \tfrac12 v_\infty^2 \ , 
@@ -127,20 +116,15 @@ descriptions can be seen to agree (\(R_0 \to R\starstar\)) so long as
 \end{equation}
 which we will assume to hold generally.
 
-Then, defining a fiducial optical depth,
+We define a fiducial optical depth,
 \begin{equation}
   \label{eq:tau-star}
-  \tau_* = \rho \kappa R_* \ ,
+  \tau_* = \rho \kappa R_* \ .
 \end{equation}
-and now reinstating the stellar wind ram pressure term
-% \footnote{%
-%   We implicitly assume that the interaction of the stellar wind with
-%   the external stream can always be treated in the continuum limit.
-%   This will be true if either the collisional mean free path or the
-%   ion Larmor radius is much smaller than \(R_0\), which is almost
-%   always the case.} %
-from equation~\eqref{eq:wind-efficiency}, we find that the general bow
-radius can be written in terms of the fiducial radius as
+With these fiducial values established, we return to the combined
+radiation plus wind scenario.  Adding the stellar wind ram pressure
+term from equation~\eqref{eq:wind-efficiency} allows us to write the
+general bow radius in terms of the fiducial radius as
 \begin{equation}
   \label{eq:R0-definition}
   R_0 = x R_* \ ,
@@ -175,9 +159,9 @@ until it suddenly hits the bow shock shell, differing only in whether
 it is radiation or wind that is providing the internal pressure.  In
 the intermediate bow wave case, on the other hand, the external stream
 is gradually decelerated by absorption of photons as it approaches the
-bow.\footnote{A shock can still form in this case, but shocked
-  material constitutes only a small fraction of the total column
-  density of the shell.}
+bow.  We remark that a shock can still form in this case, but shocked
+material constitutes only a fraction of the total column density of
+the shell, as we will show in \S~\ref{sec:axial-structure-bow}.
 
 \subsection{Dependence on stellar type}
 \label{sec:depend-stell-type}
@@ -305,7 +289,7 @@ Figure~\ref{fig:M-supergiant} shows results for a cool M-type
 super-giant star with stellar parameters inspired by Betelgeuse
 (\chemalpha~Orionis), as listed in Table~\ref{tab:stars}.  Unlike the
 UV-dominated spectrum of the hot stars, this star emits predominantly
-in the near-infrared, where the dust extinction efficiency is lower,
+in the near-infrared, where the dust extinction efficiency is lower \citep{Weingartner:2001a},
 so we adopt a lower opacity of \SI{60}{cm^2.g^{-1}}.  This has the
 effect of shifting the radiation bow wave regime to higher densities:
 \(n = \text{\numrange{1000}{30 000}}\, v_{10}^2\) in this case.
@@ -333,7 +317,7 @@ the stars in Table~\ref{tab:stars}, we find
 ignored.  When the optical depth of the bow is very large,
 \(\tau > \ln\Gamma\Edd \sim 5\), gravity will exceed the radiation force in the
 outer parts of the shell (see \citealt{Rodriguez-Ramirez:2016b}), but
-it is generally too weak to effect the shell structure even in such a
+it is generally too weak to affect the shell structure even in such a
 case, see \S~\ref{sec:axial-structure-bow} below.
 
 
