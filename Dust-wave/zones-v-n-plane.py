@@ -49,7 +49,7 @@ WBS_label = r"Wind bow shock, $\tau < \eta$"
 
 # Miscellaneous panel-dependent plot params
 d = {
-    "RBW y": {10.0: 4000.0, 20.0: 5000.0, 40.0: 2500.0},
+    "RBW y": {10.0: 4000.0, 20.0: 8000.0, 40.0: 4500.0},
     "trapped y": {10.0: 3.5e4, 20.0: 2.5e5, 40.0: 1.5e5},
     "trapped bg": {10.0: '0.85', 20.0: 'w', 40.0: 'w'},
     "IF tau": {10.0: 0.2, 20.0: 3.7, 40.0: 6.4},
@@ -142,7 +142,7 @@ for M, L4, eta, S49, ax in stardata:
     ax.text(60, d["trapped y"][M],
             trap_text,
             ha='center', va='center',
-            fontsize='xx-small', color='r', alpha=0.5, rotation=10,
+            fontsize='x-small', color='r', alpha=0.5, rotation=10,
             bbox=dict(fc=d["trapped bg"][M], ec='none', pad=0.1)
     )
     # ax.clabel(cs, (0.5,),
@@ -159,10 +159,10 @@ for M, L4, eta, S49, ax in stardata:
     ax.clabel(cs, clevs,
               fontsize='x-small', fmt=cformats,
               inline=True, inline_spacing=2, use_clabeltext=True)
-    ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='x-small', bbox=box_params)
-    ax.text(18.0, d["RBW y"][M], RBW_label, rotation=15, fontsize='xx-small', bbox={**box_params, **dict(fc='0.85', ec='0.6')})
-    ax.text(16.0, 1e6, RBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
-    ax.text(20.0, 15.0, WBS_label, rotation=15, fontsize='xx-small', bbox=box_params)
+    ax.text(18.0, 3e-3, Mlabel, zorder=100, fontsize='small', bbox=box_params)
+    ax.text(18.0, d["RBW y"][M], RBW_label, rotation=15, fontsize='small', bbox={**box_params, **dict(fc='0.85', ec='0.6')})
+    ax.text(16.0, 2e6, RBS_label, rotation=15, fontsize='small', bbox=box_params)
+    ax.text(20.0, 30.0, WBS_label, rotation=15, fontsize='small', bbox=box_params)
 
 
     #
@@ -205,19 +205,19 @@ for M, L4, eta, S49, ax in stardata:
     cs = ax.contour(vv, nn, cool_ratio1, (1.0,),
                     linewidths=2, colors='b', alpha=0.5)
     ax.clabel(cs, 
-              fontsize='xx-small', fmt=r"$d_\mathrm{cool} = R_0$",
+              fontsize='x-small', fmt=r"$d_\mathrm{cool} = R_0$",
               inline=True, inline_spacing=2, use_clabeltext=True)
     cs = ax.contour(vv, nn, cool_ratio2, (1.0,),
                     linewidths=1, colors='b', alpha=0.5)
     ax.clabel(cs, 
-              fontsize='xx-small', fmt=r"$d_\mathrm{cool} = h_0$",
+              fontsize='x-small', fmt=r"$d_\mathrm{cool} = h_0$",
               inline=True, inline_spacing=2, use_clabeltext=True)
 
 
     # Now do KE flux: e_ratio = KE flux through outer shock / absorbed radiative flux
     e_ratio = 0.5*(vv/LIGHT_SPEED_KM_S)*(eta + 1 - np.exp(-tau))/(1 - np.exp(-tau))
-    cs = ax.contourf(vv, nn, e_ratio, (0.1, 100.0),
-                    linewidths=1, colors='g', alpha=0.5)
+    # cs = ax.contourf(vv, nn, e_ratio, (0.1, 100.0),
+    #                 linewidths=1, colors='g', alpha=0.2)
 
     ax.set(yscale='log')
 

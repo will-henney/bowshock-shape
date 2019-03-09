@@ -351,22 +351,20 @@ such as the hydrogen H\(\alpha\) line.
 
 In this section we calculate whether the star is capable of
 photoionizing the entire bow shock shell, or whether the ionization
-front will be trapped within it.  The number of hydrogen
-recombinations\footnote{%
-  The diffuse field is treated in the on-the-spot approximation,
-  assuming all emitted Lyman continuum photons are immediately
-  re-absorbed locally, so the case~B recombination co-efficient,
-  \(\alphaB = \num{2.6e-13}\, T_4^{-0.7}\, \si{cm^3.s^{-1}}\), is
-  used, where \(T_4 = T/\SI{e4}{K}\).} %
-per unit time per unit area in a fully ionized shell is
+front will be trapped within it.  Using the on-the-spot approximation
+for the diffuse fields \citep{Osterbrock:2006a}, the number of
+hydrogen recombinations per unit time per unit area in a fully ionized
+shell of density \(n\shell\) and thickness \(h\shell\) is
 \begin{equation}
   \label{eq:shell-recombination-rate}
   \mathcal{R} = \alphaB n\shell^2 h\shell \ ,
 \end{equation}
-while the advective flux of hydrogen nuclei through the shock is 
+where \(\alphaB = \num{2.6e-13}\, T_4^{-0.7}\, \si{cm^3.s^{-1}}\) is
+the case~B recombination coefficient and \(T_4 = T/\SI{e4}{K}\).
+The advective flux of hydrogen nuclei through the shock is
 \begin{equation}
   \label{eq:shell-advective-flux}
-  \mathcal{A} = n v \ ,
+  \mathcal{A} = n v_\infty \ ,
 \end{equation}
 and the flux of hydrogen-ionizing photons
 (\(h \nu > \SI{13.6}{eV}\)) incident on the inner edge of the shell is
@@ -403,10 +401,8 @@ the limit \(v_\infty/V \to 0\) (Wilkin's parameter \(\alpha\)) and
   \label{eq:shocked-shell-column}
   n\shell h\shell = \tfrac34 n R_0 \ .
 \end{equation}
-Assuming strong cooling behind the shock,\footnote{%
-  This is shown to be justified in \S~\ref{sec:radi-cool-lengths}.
-} %
-the shell density is
+Assuming strong cooling behind the shock
+(\S~\ref{sec:radi-cool-lengths}), the shell density is
 \begin{equation}
   \label{eq:isothermal-shell-density}
   n\shell = \mathcal{M}_0^2 n \,
@@ -456,7 +452,7 @@ Table~\ref{tab:stars}, and assuming \(\kappa_{600} = 1\),
 \(T_4 = 0.8\), the resulting density threshold is
 \(n > (\text{\numrange{1000}{5000}})\, v_{10}^2\), depending only
 weakly on the stellar parameters, which is shown by the red lines in
-Figure~\ref{fig:zones-v-n-plane}.  For the \SI{10}{M_\odot} star, this is
+Figure~\ref{fig:zones-v-n-plane}.  For the \SI{10}{M_\odot} star this is
 in the radiation bow wave regime, whereas for the higher mass stars it
 is in the radiation bow shock regime.  When the external stream is
 denser than this, then the outer parts of the shocked shell may be
@@ -474,7 +470,7 @@ This results in a far lower threshold for trapping the ionization
 front of \(n > 40 v_{10}^2\).  The advective flux, \(\mathcal{A}\), is
 relatively stronger for this star than for the main-sequence stars, but
 even for \(v_{10} < 2\), where the effect is strongest, the change is
-only of order the width of the dark red line in
+only of order the thickness of the dark red line in
 Figure~\ref{fig:B-supergiant}.
 
 
@@ -509,7 +505,8 @@ thermalization, but before any radiative cooling) by the subscript
 ``1'', and quantities after the gas has cooled back to the
 photoionization equilibrium temperature by the subscript ``2''.
 Assuming a ratio of specific heats, \(\gamma = 5/3\), the relation between
-the pre-shock and immediate post-shock quantities is
+the pre-shock and immediate post-shock quantities
+\citep{ZelDovich:1967} is
 \begin{align}
   % \M_1 &= \left(\frac{\M_0^2 + 3} {5\M_0^2 - 1}\right)^{1/2} \\
   \label{eq:shock-n-jump}
@@ -576,15 +573,15 @@ previous section.  For bows with outer stream densities below the
 thick blue line, cooling is unimportant and the bow shock can be
 considered non-radiative.  In this case the shell is thicker than in
 the radiative case,
-\(h\shell/R_0 \approx \text{\numrange{0.2}{0.3}}\).\footnote{%
-  An approximate value can be found from
-  equation~\eqref{eq:shocked-shell-column} by substituting \(n = n_0\)
-  and \(n\shell \approx n_1\), then using equation~\eqref{eq:shock-n-jump}.
-  Consideration of the slight increase in density between the shock
-  and the contact/tangential discontinuity reduces this value by 5--10\%.} %
-For bows with outer stream densities between the two blue lines,
-cooling does occur, albeit inefficiently, so that the shell thickness
-is set by \(d\cool\) rather than \(h_0\).
+\(h\shell/R_0 \approx \text{\numrange{0.2}{0.3}}\).  This value can be found
+from equation~\eqref{eq:shocked-shell-column} by substituting
+\(n = n_0\) and \(n\shell \approx 1.1 n_1\), then using
+equation~\eqref{eq:shock-n-jump}. The factor \num{1.1} comes from
+consideration of the slight increase in density between the shock and
+the contact/tangential discontinuity.  For bows with outer stream
+densities between the two blue lines, cooling does occur, albeit
+inefficiently, so that the shell thickness \(h\shell\) is set by
+\(d\cool\) rather than \(h_0\).
 
 \subsection{Axial structure of bow shells}
 \label{sec:axial-structure-bow}
@@ -661,7 +658,7 @@ become important when the velocity is subsonic.\footnote{%
 Nonetheless, we expect that a normal shock must be present in the
 flow, although there does not seem to be any simple argument for
 predicting the exact Mach number where it will occur.  In
-Figure.~\ref{fig:axial-structure}b, we assume that the shock occurs at
+Figure.~\ref{fig:axial-structure}b we assume that the shock occurs at
 a Mach number \(\M_0 = 1.5\), but multidimensional numerical
 simulations are necessary to test this supposition.
 
@@ -730,8 +727,8 @@ shell.  However, in order for this to have a significant effect on the
 shell, the gravitational scale height would have to be be less than
 the shell thickness: \(\Gamma\Edd h_a < h_0\).  From
 equation~\eqref{eq:ha-versus-h0} this translates to
-\(\tau > \frac43 \Gamma\Edd\), where Eddington factors are
-\(\Gamma\Edd \sim 100\) for luminous stars.  Such large optical depths would
+\(\tau > \frac43 \Gamma\Edd\), where dust-opacity Eddington factors are
+\(\Gamma\Edd \sim 100\) for OB stars.  Such large optical depths would
 require extremely high ambient densities of
 \(n > \num{2e7} L_4 \,v_{10}^2 \left( \SI{10}{M_\odot}/M \right)^2 \,
 \si{cm^{-3}} \), where we have used equations~(\ref{eq:tau-star},
@@ -802,11 +799,10 @@ In part, this bias is due to bows being easier to detect in denser
 environments.  Depending on the emission mechanism, the shell
 luminosity will be proportional to the column density
 (\(\propto n R_0\)) or volume emission measure
-(\(\propto n^2 R_0^3\)), which are both increasing functions of
-\(n\).\footnote{%
-  From \S~\ref{sec:three-bow-regimes}, the bow size falls relatively
-  slowly as \(R_0 \propto n^{-1/2}\) in the WBS and RBS cases, and is
-  independent of \(n\) in the RBW case.}  Another contribution to the
+(\(\propto n^2 R_0^3\)), which are both increasing functions of \(n\) since,
+from \S~\ref{sec:three-bow-regimes}, the bow size falls relatively
+slowly as \(R_0 \propto n^{-1/2}\) in the WBS and RBS cases, and is
+independent of \(n\) in the RBW case.  Another contribution to the
 high-density bias is simply that none but the highest velocity
 high-mass stars can move far during their lifetime from the molecular
 clouds where they were born.  Even a runaway star with
@@ -868,30 +864,31 @@ supported.
 
 For cases where the stellar wind or dust properties differ from our
 assumed values, then these conclusions may change.  For instance,
-there are a growing number of stars, for which very low mass-loss
-rates have been diagnosed from UV, optical or infrared line profiles
+there are a growing number of stars for which very low mass-loss rates
+have been diagnosed from UV, optical or infrared line profiles
 \citep{Martins:2005b, Marcolino:2009a, Najarro:2011a, Martins:2012a,
   Shenar:2017a, Smith:2017b}.  Most of these stars are late-type
 O~dwarfs, for which the \citet{Vink:2000a} prescription predicts a
 mass-loss rate of \num{3e-8} to \SI{e-7}{M_\odot.yr^{-1}}, whereas the
-observed values are in the range \num{e-10} to \SI{3e-9}{M_\odot.yr^{-1}}
--- a shortfall of 10 to 1000!  This ``weak wind problem'' is a far
-larger discrepancy than can be explained by clumping effects.  A
-potential (partial) resolution is to suppose that internal shocks near
-the base of the wind, together with thermal conduction, heat a large
-fraction of the gas to coronal temperatures, where it is no longer
-detectable by means of standard wind diagnostic lines
-\citep{Lucy:2012a}.  However, in cases where x-ray diagnostics have
-been used to trace the mass loss of this hot component (\(\mu\)~Col,
-\citealp{Huenemoerder:2012a}; \(\zeta\)~Oph, \citealp{Cohen:2014a}), rates
-that are still an order of magnitude below the Vink values are found
-(see also \citealp{Shenar:2017a}).  In Figure~\ref{fig:O-weak-wind},
-we show results for a weak-wind O9 dwarf, which is identical to the
-\SI{20}{M_\odot} star from Table~\ref{tab:stars}, except with
-\(\eta\wind = 0.01 \eta\vink\) (approximating the measurements from the
-sample of \citealp{Martins:2005b}).  For such stars, the boundary
-between the wind-supported and radiation-supported regimes shifts to
-lower ambient densities, reaching \(n\crit \sim \SI{1}{cm^{-3}}\) for
+observationally derived values are in the range \num{e-10} to
+\SI{3e-9}{M_\odot.yr^{-1}} -- a shortfall of 10 to 1000!  This ``weak wind
+problem'' is a far larger discrepancy than can be explained by
+clumping effects.  A potential (partial) resolution is to suppose that
+internal shocks near the base of the wind, together with thermal
+conduction, heat a large fraction of the gas to coronal temperatures,
+where it is no longer detectable by means of standard wind diagnostic
+lines \citep{Lucy:2012a}.  However, in cases where x-ray diagnostics
+have been used to trace the mass loss of this hot component
+(\(\mu\)~Col, \citealp{Huenemoerder:2012a}; \(\zeta\)~Oph,
+\citealp{Cohen:2014a}), rates that are still an order of magnitude
+below the Vink values are found (see also \citealp{Shenar:2017a}).  In
+Figure~\ref{fig:O-weak-wind}, we show results for a weak-wind O9
+dwarf, which is identical to the \SI{20}{M_\odot} star from
+Table~\ref{tab:stars}, except with \(\eta\wind = 0.01 \eta\vink\)
+(approximating the measurements from the sample of
+\citealp{Martins:2005b}).  For such stars, the boundary between the
+wind-supported and radiation-supported regimes shifts to lower ambient
+densities, reaching \(n\crit \sim \SI{1}{cm^{-3}}\) for
 \(v = \SI{20}{km.s^{-1}}\).  This means that radiation-supported bows
 become feasible even in the diffuse ISM for this important class of
 stars (if winds are really as weak as the UV diagnostics suggest).  It
@@ -903,31 +900,32 @@ issue is addressed in detail in Paper~III.
 
 Variations in the UV dust opacity would also effect our results.
 These may be due to variations in the dust/gas ratio or to changes in
-the size distribution of the grains.  The UV opacity is dominated by
-very small grains (VSG) with radius \(a \sim \SI{10}{nm}\), which
-represent a small fraction (\(\simeq 5\%\)) of the total dust mass in
-standard grain mixtures \citep{Desert:1990a}.  This same VSG
-population dominates the mid-infrared continuum emission around
-\SI{24}{\um}, which is where stellar bows are most easily detected
-\citep{Meyer:2016a, Kobulnicky:2016a}. There is some evidence that
-such grains may be depleted in the ionized gas of the Orion Nebula
-\citep{Salgado:2016a}, leading to a decrease in \(\kappa\) by a factor of
-about six.  By equation~\eqref{eq:ncrit}, this would increase
-\(n\crit\) by the same factor, making radiation-supported bows less
-likely.  On the other hand, the process of Radiative Torque Disruption
-is predicted to be important \citep{Hoang:2018a} for the high
-radiation fields found in stellar bows, and this would tend to
-\emph{increase} the VSG abundance (and hence \(\kappa\)) via the
-centrifugal destruction of larger grains.  In LMC \hii{} regions,
-\citet{Stephens:2014b} find observational evidence that the VSG
-abundance increases as the radiation field gets stronger.
+the composition or size distribution of the grains.  The UV opacity is
+dominated by very small grains (VSG) with radius
+\(a \sim \SI{10}{nm}\), which represent a small fraction
+(\(\simeq 5\%\)) of the total dust mass in standard grain mixtures
+\citep{Desert:1990a}.  This same VSG population dominates the
+mid-infrared continuum emission around \SI{24}{\um}, which is where
+stellar bows are most easily detected \citep{Meyer:2016a,
+  Kobulnicky:2016a}. There is some evidence that such grains may be
+depleted in the ionized gas of the Orion Nebula \citep{Salgado:2016a},
+leading to a decrease in \(\kappa\) by a factor of about six.  By
+equation~\eqref{eq:ncrit}, this would increase \(n\crit\) by the same
+factor, making radiation-supported bows less likely.  On the other
+hand, the process of Radiative Torque Disruption is predicted to be
+important \citep{Hoang:2018a} for the high radiation fields found in
+stellar bows, and this would tend to \emph{increase} the VSG abundance
+(and hence \(\kappa\)) via the centrifugal destruction of larger grains.
+In LMC \hii{} regions, \citet{Stephens:2014b} find observational
+evidence that the VSG abundance increases as the radiation field gets
+stronger.
 
-Variations in metallicity will also be reflected in
-\(\kappa\), assuming that the total dust-gas ratio is roughly proportional
-to the metal abundance, \(Z\).  However, the wind strength
-\(\eta\wind\) will also increases with metallicity
-(\(\dot{M} V\wind \propto Z^{0.82}\), \citealp{Vink:2001a}), which will
-largely cancel out the effect in our bow models.
+Variations in metallicity will also be reflected in \(\kappa\), assuming
+that the total dust-gas ratio is roughly proportional to the metal
+abundance, \(Z\).  However, the wind strength \(\eta\wind\) also
+increases with metallicity (\(\dot{M} V\wind \propto Z^{0.82}\),
+\citealp{Vink:2001a}), which will largely cancel out the effect in our
+bow models.
 
 % For main-sequence B~stars, wind column densities are too low to
 % reliably measure the terminal velocity from near ultraviolet P~Cygni
@@ -947,13 +945,13 @@ largely cancel out the effect in our bow models.
 \section{Summary}
 \label{sec:summary}
 
-We present a systematic study of the formation of emission arcs, or
-bows, around luminous stars that move supersonically relative to their
-surrounding medium, taking into account both the stellar wind and
-radiation pressure of the star.  In this initial study, we consider
-the case where gas and grains are perfectly coupled via collisions,
-and apply our models to OB stars.  Our principal results are as
-follows:
+We have presented a systematic study of the formation of emission
+arcs, or bows, around luminous stars that move supersonically relative
+to their surrounding medium, taking into account both the stellar wind
+and radiation pressure of the star.  In this initial study, we
+considered the case where gas and grains are perfectly coupled via
+collisions, and applied our models to OB stars.  Our principal results
+are as follows:
 \begin{enumerate}[1.]
 \item Three different regimes of interaction are possible, in order of
   increasing optical depth of the bow shell: Wind-supported Bow Shock

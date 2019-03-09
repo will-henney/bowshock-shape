@@ -1,0 +1,134 @@
+
+* Initial version
+
+** Select files
+#+name: srcfiles
+#+BEGIN_SRC sh
+  srcfiles="bs-bw-dw-01.tex sec-dust-bow-intro.tex sec-strong-coupling.tex bs-bw-dw-defs.tex bs-bw-dw-01.bbl bowshocks-biblio.bib aastex-compat.sty astrojournals.sty"
+#+END_SRC
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+cd ../Papers1234
+<<srcfiles>>
+grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
+#+END_SRC
+
+#+RESULTS:
+: figs/bows-and-waves
+: figs/zones-v-n-plane
+: figs/zones-v-n-plane-RSG
+: figs/zones-v-n-plane-BSG
+: figs/shell-profiles
+: figs/zones-v-n-plane-Weak
+
+#+name: figfiles
+#+BEGIN_SRC sh
+  figfiles="figs/bows-and-waves.pdf figs/zones-v-n-plane.pdf figs/zones-v-n-plane-RSG.pdf figs/zones-v-n-plane-BSG.pdf figs/shell-profiles.pdf figs/zones-v-n-plane-Weak.pdf"
+#+END_SRC
+** List files and look at sizes
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  ls -lh $srcfiles $figfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
+-rw-rw-r--  1 will  staff    89K Mar  8 18:19 bowshocks-biblio.bib
+-rw-r--r--  1 will  staff    15K Mar  8 18:36 bs-bw-dw-01.bbl
+-rw-r--r--  1 will  staff   3.6K Mar  8 18:11 bs-bw-dw-01.tex
+-rw-r--r--  1 will  staff   2.1K Mar  7 20:22 bs-bw-dw-defs.tex
+-rw-rw-r--@ 1 will  staff   445K Mar  8  2018 figs/bows-and-waves.pdf
+-rw-r--r--  1 will  staff   184K Mar  8 17:35 figs/shell-profiles.pdf
+-rw-rw-r--@ 1 will  staff    65K Jan  3  2018 figs/zones-v-n-plane-BSG.pdf
+-rw-rw-r--@ 1 will  staff    48K Dec 28  2017 figs/zones-v-n-plane-RSG.pdf
+-rw-r--r--  1 will  staff    67K Feb 26 16:14 figs/zones-v-n-plane-Weak.pdf
+-rw-rw-r--@ 1 will  staff   146K Mar  8 16:27 figs/zones-v-n-plane.pdf
+-rw-r--r--  1 will  staff   6.4K Mar  8 14:04 sec-dust-bow-intro.tex
+-rw-r--r--  1 will  staff    49K Mar  8 19:49 sec-strong-coupling.tex
+#+end_example
+** Make tar file to submit
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bsbwdw01.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+#+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-01-submit
+: total 1720
+: -rw-r--r--  1 will  staff   858K Mar  8 20:02 ms-bsbwdw01.tar.gz
+** Test compilation in a temp folder
+
+Make folder
+
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bsbwdw01-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bsbwdw01.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bsbwdw01-test not found
+/tmp/ms-bsbwdw01-test
+total 376
+-rw-r--r--  1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--  1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--  1 will  wheel    89K Mar  8 18:19 bowshocks-biblio.bib
+-rw-r--r--  1 will  wheel    15K Mar  8 18:36 bs-bw-dw-01.bbl
+-rw-r--r--  1 will  wheel   3.6K Mar  8 18:11 bs-bw-dw-01.tex
+-rw-r--r--  1 will  wheel   2.1K Mar  7 20:22 bs-bw-dw-defs.tex
+drwxr-xr-x  8 will  wheel   256B Mar  8 20:07 figs
+-rw-r--r--  1 will  wheel   6.4K Mar  8 14:04 sec-dust-bow-intro.tex
+-rw-r--r--  1 will  wheel    49K Mar  8 19:49 sec-strong-coupling.tex
+
+./figs:
+total 1928
+-rw-r--r--@ 1 will  wheel   445K Mar  8  2018 bows-and-waves.pdf
+-rw-r--r--  1 will  wheel   184K Mar  8 17:35 shell-profiles.pdf
+-rw-r--r--@ 1 will  wheel    65K Jan  3  2018 zones-v-n-plane-BSG.pdf
+-rw-r--r--@ 1 will  wheel    48K Dec 28  2017 zones-v-n-plane-RSG.pdf
+-rw-r--r--  1 will  wheel    67K Feb 26 16:14 zones-v-n-plane-Weak.pdf
+-rw-r--r--@ 1 will  wheel   146K Mar  8 16:27 zones-v-n-plane.pdf
+#+end_example
+
+
+#+BEGIN_SRC sh
+  TMPDIR=/tmp/ms-bsbwdw01-test
+  cd $TMPDIR
+  pdflatex bs-bw-dw-01
+  bibtex bs-bw-dw-01
+  pdflatex bs-bw-dw-01
+  pdflatex bs-bw-dw-01
+  cp bs-bw-dw-01.pdf $OLDPWD/ms-bsbwdw01.pdf
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results silent
+open ms-bsbwdw01.pdf
+#+END_SRC
+** DONE Upload to MNRAS website
+CLOSED: [2019-03-08 Fri 22:29]
+#+BEGIN_QUOTE
+Dust waves and bow waves result from the action of a star's radiation pressure on a stream of dusty plasma that flows past it.  They are an alternative mechanism to hydrodynamic bow shocks for explaining the curved arcs of infrared emission seen around some stars.  When gas and grains are perfectly coupled, for a broad class of stellar parameters, wind-supported bow shocks predominate when the ambient density is below 100 per cubic cm.  At higher densities radiation-supported bows can form, tending to be optically thin bow waves around B stars, or optically thick bow shocks around early O stars.  For OB stars with particularly weak stellar winds, radiation-supported bows become more prevalent.
+#+END_QUOTE
+** TODO Submit to arxiv
++ Had to remove the .bib file
++ Had to make sure abstract was ascii, see above

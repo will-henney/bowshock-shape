@@ -111,8 +111,20 @@
 \section{Introduction}
 \label{sec:rip-introduction}
 
-In \S~\ref{sec:gas-free-bow} we calculate analytical
-models of the shape of dust waves in the drag-free limit.
+In \citet{Henney:2019a} (hereafter, Paper~I) we studied the formation
+of bows around OB stars that are moving supersonically relative to
+their surrounding medium.  For the case of strong collisional coupling
+between gas and dust grains, we showed that three different regimes of
+interaction are possible: a taxonomy of bow types
+
+
+The plan of the paper is as follows.
+%
+In \S~\ref{sec:recap-paper-i} we give some results from Paper~I that
+we will need in later sections.
+%
+In \S~\ref{sec:gas-free-bow} we calculate analytical models of the
+shape of dust waves in the drag-free limit.
 % %
 % In \S\ref{sec:cloudy-models-dust} we discuss the relevant dust physics
 % and the Cloudy models that we employ.
@@ -130,6 +142,68 @@ existence and structure of dust waves.
 In Appendix~\ref{sec:equat-moti-grains} we provide additional
 technical information on the numerical calculation of grain
 trajectories.
+
+\section{Important results from Paper~I}
+\label{sec:recap-paper-i}
+
+%% XREF \eqref{eq:Rstar}
+\begin{equation}
+  \label{eq:Rstar}
+  R_* = \left(\frac{L}{4\pi c \rho v^2}\right)^{1/2} \ .
+\end{equation}
+
+%% XREF \eqref{eq:tau-star},
+\begin{equation}
+  \label{eq:tau-star}
+  \tau_* = \rho \kappa R_* \ .
+\end{equation}
+
+
+\begin{equation}
+  \label{eq:wind-efficiency}
+  \eta\wind  = \frac{L}{c\, \dot{M} V\wind} \ , 
+\end{equation}
+
+%% XREF \ref{eq:x-cases}
+\begin{equation}
+  \label{eq:x-cases}
+  R_0 \approx
+  \begin{cases}
+    \text{RBS (\(\tau_* > 1\)):} & (1 + \eta\wind)^{1/2} \, R_*  \\
+    \text{RBW (\(\eta\wind < \tau_* < 1\)):} & 2 \, \tau_* \, R_* \\
+    \text{WBS (\(\tau_* < \eta\wind^{1/2}\)):} & \eta\wind^{1/2} \, R_*  
+  \end{cases}
+\end{equation}
+
+
+\begin{align*}
+  \label{eq:stellar-parameters}
+  \dot{M}_{-7} &= \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
+  V_3 &= V / \bigl(\SI{1000}{km.s^{-1}}\bigr) \\
+  L_4 &= L / \bigl(\SI{e4}{L_\odot}\bigr) \\
+  v_{10} &= v_\infty / \bigl( \SI{10}{km.s^{-1}} \bigr) \\
+  n &= (\rho / \bar{m}) / \bigl( \SI{1}{cm^{-3}} \bigr) \\
+  \kappa_{600} &= \kappa / \bigl( \SI{600}{cm^2.g^{-1}} \bigr) \ ,
+\end{align*}
+where \(\bar{m}\) is the mean mass per hydrogen nucleon
+(\(\bar{m} \approx 1.3 m_{\text{p}} \approx \SI{2.17e-24}{g}\) for solar
+abundances).
+
+%% XREF \ref{eq:wind-eta-typical}
+\begin{equation}
+  \label{eq:wind-eta-typical}
+  \eta\wind = \num{0.495} \,\dot{M}_{-7} \,V_3  \,L_4^{-1}
+\end{equation}
+
+%% XREF \ref{eq:taustar-typical}
+%% XREF \ref{eq:Rstar-typical}
+\begin{align}
+  \label{eq:Rstar-typical}
+  R_* / \si{pc} &= \num{2.21} \, (L_4 / n)^{1/2} \,v_{10}^{-1} \\
+  \label{eq:taustar-typical}
+  \tau_* &= \num{0.0089} \,\kappa_{600} \, (L_4 \,n)^{1/2} \,v_{10}^{-1} \ .
+\end{align}
+
 
 \input{app-dust-wave}
 

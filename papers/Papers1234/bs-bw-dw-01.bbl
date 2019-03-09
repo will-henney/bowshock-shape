@@ -117,7 +117,8 @@ Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
 
 \bibitem[\protect\citeauthoryear{{Hoang}, {Tram}, {Lee}  \& {Ahn}}{{Hoang}
   et~al.}{2018}]{Hoang:2018a}
-{Hoang} T.,  {Tram} L.~N.,  {Lee} H.,   {Ahn} S.-H.,  2018, arXiv e-prints
+{Hoang} T.,  {Tram} L.~N.,  {Lee} H.,   {Ahn} S.-H.,  2018, arXiv, \href
+  {http://adsabs.harvard.edu/abs/2018arXiv181005557H} {}
 
 \bibitem[\protect\citeauthoryear{{Hoogerwerf}, {de Bruijne}  \& {de
   Zeeuw}}{{Hoogerwerf} et~al.}{2001}]{Hoogerwerf:2001a}
@@ -245,7 +246,8 @@ Sausalito, CA: University Science Books
 
 \bibitem[\protect\citeauthoryear{{Renzo} et~al.,}{{Renzo}
   et~al.}{2018}]{Renzo:2018a}
-{Renzo} M.,  et~al., 2018, arXiv, 1804.09164
+{Renzo} M.,  et~al., 2018, arXiv, \href
+  {http://adsabs.harvard.edu/abs/2018arXiv180409164R} {1804.09164}
 
 \bibitem[\protect\citeauthoryear{{Rodr{\'{\i}}guez-Ram{\'{\i}}rez} \&
   {Raga}}{{Rodr{\'{\i}}guez-Ram{\'{\i}}rez} \&
@@ -321,6 +323,12 @@ American Institute of Aeronautics and Astronautics
 
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31
+
+\bibitem[\protect\citeauthoryear{{Zel'Dovich} \& {Raizer}}{{Zel'Dovich} \&
+  {Raizer}}{1967}]{ZelDovich:1967}
+{Zel'Dovich} Y.~B.,  {Raizer} Y.~P.,  1967, {Physics of shock waves and
+  high-temperature hydrodynamic phenomena}.
+Academic Press, New York
 
 \bibitem[\protect\citeauthoryear{{de Jager}, {Nieuwenhuijzen}  \& {van der
   Hucht}}{{de Jager} et~al.}{1988}]{de-Jager:1988a}
