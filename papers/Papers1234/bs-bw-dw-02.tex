@@ -110,13 +110,90 @@
 
 \section{Introduction}
 \label{sec:rip-introduction}
+Stellar bow shocks are predicted to occur whenever a star moves
+supersonically relative to its surrounding medium, which may either be
+due to the star's own motion \citetext{runaways, e.g.,
+  \citealp{Blaauw:1961a}}, or due to an independent environmental flow
+\citetext{weather vanes, e.g., \citealp{Povich:2008a}}.  Bow shocks
+are associated with a large variety of different types of stars, for
+example: AGB stars and red super-giants \citep{Cox:2012a}; OB stars
+\citep{Kobulnicky:2017a}; T~Tauri stars \citep{Gull:1979a,
+  Henney:2013a}; photoevaporating protoplanetary disks
+\citep{Garcia-Arredondo:2001a, Smith:2005a}; neutron stars
+\citep{Cordes:1993a, Brownsberger:2014a}; planetary nebula halos
+\citep{Ali:2012a}; and Galactic Center sources \citep{Geballe:2004a,
+  Sanchez-Bermudez:2014a}.  The dominant emission mechanism can vary
+considerably between the different classes of sources, but
+recombination line radiation such as H\(\alpha\), infrared continuum
+radiation from warm dust, and free-free radio continuum are common
+\citep{Canto:2005a, Acreman:2016a, Meyer:2016a}.  In nearly all cases,
+stellar bow shocks are easily spatially resolved and mapped, allowing
+their shapes to be compared with theoretical predictions
+\citep{Wilkin:1996a, Tarango-Yong:2018a}.  A different class of
+stellar bow shocks are found in interacting binary systems
+\citep{Stevens:1992a}, but these typically emit by non-thermal
+mechanisms and are only resolvable using radio interferometry
+techniques \citep{Contreras:1999a, Dzib:2013a}.
 
 In \citet{Henney:2019a} (hereafter, Paper~I) we studied the formation
-of bows around OB stars that are moving supersonically relative to
-their surrounding medium.  For the case of strong collisional coupling
-between gas and dust grains, we showed that three different regimes of
-interaction are possible: a taxonomy of bow types
+of bows around OB stars by the combined action of their winds and
+radiation.  For the case of strong collisional coupling between gas
+and dust grains, we showed that three different regimes of interaction
+are possible, according to the relative values of stellar wind
+radiative momentum efficiency \(\eta\wind\) and the UV optical depth of
+the bow shell \(\tau\):
+\begin{enumerate}[{\(\star\)}]
+\item Wind-supported bow shocks (WBS) where \(\tau < \eta\wind\).  These are
+  purely hydrodynamic (or MHD) interactions, in which the stellar
+  radiation is dynamically unimportant.  This regime dominates for
+  fast-moving stars and for low-density environments.
+\item Radiation-supported bow waves (RBW) where
+  \(\eta\wind < \tau < 1\).  In these optically thin bows, the stellar
+  radiative momentum gradually decelerates the oncoming stream in a
+  broad shell.  This regime is important for B~stars and weak-wind
+  O~stars in moderate density environments (\(> \SI{100}{cm^{-3}}\)).
+\item Radiation-supported bow shocks (RBS) where \(\tau > 1\).  These are
+  optically thick shells, internally supported by the trapped stellar
+  radiation pressure.  This regime applies to slow-moving O~stars in
+  dense environments.
+\end{enumerate}
+In this paper, we investigate under what circumstances the strong
+gas--grain coupling might break down, leading to a fourth regime: a
+separate dust wave outside of the hydrodynamic bow shock (see Fig.~1
+of Paper~I).
 
+In neutral and molecular regions, the drag forces are relatively weak
+and so divergent dynamics of gas and grains are frequently found in
+the context of molecular clouds \citetext{\citealp{Hopkins:2016a,
+    Lee:2017a, Mattsson:2019a}, but see \citealp{Tricco:2017a}} and
+protoplanetary disks \citep{Weidenschilling:1977b, Birnstiel:2010a,
+  Dipierro:2018a}.  In ionized regions, the electrostatic forces
+between charged dust grains and charged gas particles (principally
+protons) leads to greatly increased drag forces, which tend to
+maintain a tight coupling between dust and gas \citep{Draine:2011a}.
+However, in a photoionized \hii{} region around a high-mass star, the
+dust feels a much larger radiation force than does the gas. This leads
+to a slow relative drift between the two components in the outer
+regions of the nebula \citep{Gail:1979a, Akimkin:2015a, Akimkin:2017a,
+  Ishiki:2018a} and a total decoupling very close to the central star
+\citep[Fig.~8 of][]{Draine:2011a}
+
+With respect to stellar bow shocks, gas--grain decoupling has been
+previously studied in the context of post-shock flow, where it is the
+sudden deceleration of the gas that is the primary impetus for the
+dust to separate.  The case of a cool red supergiant was simulated by
+\citet{van-Marle:2011a}, where large grains present in the stellar
+wind are not stopped in the inner termination shock, but are carried
+through the contact discontinuity by their inertia, penetrating into
+the interstellar medium.  \citet{Katushkina:2017a} simulated the
+opposite case, where grains in the ambient medium become decoupled
+from the gas after passing the outer bow shock, and subsequently
+gyrate about the magnetic field, forming filamentary structures (see
+also \citealp{Katushkina:2018a}).  In this paper, we study a different
+decoupling mechanism, where it is the stellar radiation force acting
+on the grains that causes the separation from the gas.  This mechanism
+was first proposed by \citet{Ochsendorf:2014b} to explain the infrared
+emission arc around the high-mass multiple system \(\sigma\)~Ori.
 
 The plan of the paper is as follows.
 %
@@ -138,6 +215,10 @@ conditions for the presence of a decoupled dust wave.
 In \S~\ref{sec:magn-effects-grain} we consider the coupling between
 the grains and the plasma's magnetic field, and how this effects the
 existence and structure of dust waves.
+%
+In \S~\ref{sec:discussion} we discuss our results in the context of observed bows.
+%
+In \S~\ref{sec:summary} we summarise our findings.
 %
 In Appendix~\ref{sec:equat-moti-grains} we provide additional
 technical information on the numerical calculation of grain
@@ -169,9 +250,9 @@ trajectories.
   \label{eq:x-cases}
   R_0 \approx
   \begin{cases}
-    \text{RBS (\(\tau_* > 1\)):} & (1 + \eta\wind)^{1/2} \, R_*  \\
-    \text{RBW (\(\eta\wind < \tau_* < 1\)):} & 2 \, \tau_* \, R_* \\
-    \text{WBS (\(\tau_* < \eta\wind^{1/2}\)):} & \eta\wind^{1/2} \, R_*  
+    \text{RBS (\(\tau_*^2 > 1\)):} & (1 + \eta\wind)^{1/2} \, R_*  \\
+    \text{RBW (\(\eta\wind < \tau_*^2 < 1\)):} & 2 \, \tau_* \, R_* \\
+    \text{WBS (\(\tau_*^2 < \eta\)):} & \eta\wind^{1/2} \, R_*  
   \end{cases}
 \end{equation}
 
@@ -208,6 +289,8 @@ abundances).
 \input{app-dust-wave}
 
 \input{sec-weak-coupling}
+
+\input{sec-dust-wave-discussion}
 
 \section*{Acknowledgements}
 We are grateful for financial support provided by Dirección General de
