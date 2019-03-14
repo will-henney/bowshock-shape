@@ -2,18 +2,137 @@
 \section{Discussion}
 \label{sec:discussion}
 
-In molecular clouds:  \citet{Hopkins:2016a, Lee:2017a} say they
-decouple. \citet{Tricco:2017a} says they don't.  But then
-\citet{Mattsson:2019a} say they do.
+In this section we place our results in the context of previous work
+on gas--grain coupling in the environs of high-mass stars.  We
+concentrate on conceptual and theoretical aspects, postponing
+empirical questions about particular sources for later papers.
 
-In \citep{Akimkin:2015a} they used the drift approximation (ignored
-grain inertia effects) and also ignore back reaction on gas. In
-\citet{Akimkin:2017a} they do include back reaction.
+The distinction that we draw in \S~\ref{sec:exist-cond-separ} between
+inertia-confined dust waves and drag-confined dust waves is novel.
+However, the concept of the \textit{rip point} can be found in
+previous works, although not under that name and it has generally been
+assumed to be of little interest.  For instance, Figure~8 of
+\citet{Draine:2011a} clearly shows the discontinuity in drift velocity
+that occurs at small radii within an \hii{} region (differences from
+our own Figs.~\ref{fig:multi-dustprops} and~\ref{fig:drift-gn} are due
+to \citeauthor{Draine:2011a}'s assumption of constant grain
+potential).  However, the region of supersonic drift involves a very
+small fraction of the total dust in the \hii{} region, so it was not
+relevant to the concerns of that paper. Similarly, in \S~3.1 of
+\citet{Hopkins:2018c} the possibility is raised of a ``decoupling
+instability'' in the case that coupling strength decreases with
+increasing slip velocity, but they go on to dismiss this as physically
+irrelevant.  On the contrary, we show in this paper that it \emph{is}
+relevant so long as the grain potential is high, so that a distinct
+local maximum occurs in the drag-versus-velocity profile (see
+Fig.~\ref{fig:gas-grain-drag-photoionized}).  In \S~9 of
+\citet{Hopkins:2018a}, various issues relating to grain charging and
+drag are discussed.  The quantity
+\(e_{\text{rad}} / e_{\text{therm}}\) from \S~9.1.4 of that paper is
+the same as our radiation parameter, \(\Xi\).  In \S~9.2.3 they give an
+expression for the critical radius that divides subsonic from
+supersonic drift, which is exactly equivalent to our
+equation~\eqref{eq:Rdag-over-Rstar} for the rip point radius.  The
+parameters assumed by \citeauthor{Hopkins:2018a} yield
+\(\Xi_\dag = 3200\), which is within the range of values that we find for
+O~stars in Table~\ref{tab:Xi-rip}.
+
+\citet{Akimkin:2017a} studied the effect of radiation pressure on the
+time-dependent evolution of an \hii{} region, taking full account of
+dynamical coupling between grains and gas, thus extending a previous
+study \citep{Akimkin:2015a} that had ignored the back-reaction on the
+gas (see our \S~\ref{sec:back-reaction-gas}).  They found that the
+dust completely decouples from the gas in the zone around the star
+(\(< \SI{0.2}{pc}\) on timescales \(\sim \SI{0.5}{Myr}\)), which produces
+an inner dust hole but partially eliminates the inner gas density hole
+that is found in models that assume perfect coupling
+\citep{Mathews:1967a, Draine:2011a, Kim:2016b}. The decoupling is more
+pronounced for stars of lower effective temperature, which is probably
+related to the fact that we find the critical radiation parameter
+\(\Xi_\dag\) to be lower for B~stars than for O~stars
+(Table~\ref{tab:Xi-rip}).  A similar dust hole for the central region
+is found by \citet{Ishiki:2018a}.
+
+The gas--grain decoupling that we have discussed so far occurs at high
+radiation parameter, \(\Xi \sim 1000\), but there is another regime of
+potential decoupling that occurs at low \(\Xi\).  It has long been
+recognized \citep{Gail:1979a} that Coulomb gas--grain coupling should
+weaken in the outer zones of an \hii{} region due to the fact that the
+grain potential passes through (or close to) zero as a result of
+electron collisions becoming competitive with photoelectric ejection
+as the radiation field weakens.  This is the regime around
+\(\Xi = \text{\numrange{0.1}{1.0}}\) in Figure~\ref{fig:drift-gn},
+giving drift velocities of order \SI{1}{km.s^{-1}} for larger grains
+(\SI{0.2}{\um}), which may be sufficient to produce significant
+spatial variations in grain abundance on Myr timescales
+\citep{Ishiki:2018a}. It remains to be seen whether this is still true
+once effects that have been neglected in existing models are accounted
+for, such as the \hii{} region's magnetic field \citep{Krumholz:2007a,
+  Arthur:2011a, Gendelev:2012a} and internal turbulence
+\citep{Arthur:2016a}.  Yet another regime of potential decoupling
+occurs in the neutral shell outside the \hii{} region
+\citep{Gustafsson:2018a}, but since the drift velocity in both these
+cases is much less than interesting values of the stream velocity,
+\(v_\infty\), neither low-\(\Xi\) regime is relevant to dust waves.
+
+The most detailed simulations to date of the combined dynamics of
+dust, gas, and magnetic field in an OB bow was carried out by
+\citet{Katushkina:2017a}, who followed the trajectories of dust
+particles after passing through an MHD bow shock, under the influence
+of the stellar radiation force and Lorentz force.  The gas is
+decelerated in the shock, but the dust initially carries on with its
+pre-shock motion, which produces a relative velocity with respect to
+the plasma. The component of this velocity perpendicular to the
+magnetic field induces gyration about the field lines
+(cf~\S~\ref{sec:magn-effects-grain}), which forms filaments of
+enhanced dust density that are oriented perpendicular to the bow axis
+and with characteristic separation equal to the bulk plasma velocity
+times the gyration period.  In \citet{Katushkina:2018a}, similar such
+simulations are applied to observations of the runaway B1 supergiant
+\(\kappa\)~Cas, moving at \(\approx \SI{30}{km.s^{-1}}\), in order to explain the
+filaments of infrared dust emission seen at \SI{24}{\um}.  It is found
+that the simulations can only fit the observations with very large
+dust grains (\(\approx \SI{1}{\um}\)) and a very strong perpendicular
+magnetic field \(v\alfven \approx \SI{20}{km.s^{-1}}\).  The stellar
+parameters of \(\kappa\)~Cas are roughly those given in the last row of
+Table~\ref{tab:stars} and the observed radius of the dust arc (assumed
+to correspond to the astropause) is \SI{0.75}{pc} for a distance of
+\SI{1}{kpc}.  The \citeauthor{Katushkina:2018a} simulations do not
+explicitly include the Coulomb drag force on the dust grains, although
+our own results (\S~\ref{sec:cloudy-models-dust}) suggest that this
+must be important around \(\kappa\)~Cas.  \citet{Katushkina:2018a} argue
+that small grains are swept out by stellar radiation before reaching
+the bow shock, and this would indeed be true if drag forces were
+negligible.  However, we find \(\Xi \approx 20\) for the
+\(\kappa\)~Cas shell, implying strong gas--grain coupling and that even
+small grains cannot be repelled by the radiation force.  The root
+cause of our difference with these authors is that they are assuming a
+grain potential \(\phi \sim 1\), as seen in the ISM in the Solar
+neighborhood, as opposed to \(\phi \sim 10\), which is more appropriate to
+the environs of an OB star.  We also note that even when the Lorentz
+force vastly exceeds all other forces, it does not necessarily follow
+that the other forces are unimportant.  For example, in the
+magnetized dust wave models that we present in
+\S~\ref{sec:tight-magn-coupl} and \S~\ref{sec:grain-traj-with}, the
+Lorentz force is infinitely stronger than other forces.  Nevertheless,
+the radiation and drag forces are crucial in determining the structure
+of the dust waves, which is possible because the component of the
+Lorentz force projected along the field lines is zero.
+
+The survival of dust grains of different sizes in close proximity to
+OB stars is something that must be considered.  Potential destruction
+mechanisms include thermal evaporation, photosputtering, particle
+sputtering, and radiative torque destruction.  
+
+Sputtering
+\citep{Draine:2011a}.  Radiative Torque Disruption
+\citep{Hoang:2018a}.
 
 
-Instabilities: Resonant Drag Instability \citep{Squire:2018a, Hopkins:2018a}
+Instabilities: Resonant Drag Instability \citep{Squire:2018a, Hopkins:2018a} - application to stagnant drift case. 
 
-Survival of dust grains.  Sputtering \citep{Draine:2011a}.  Radiative Torque Disruption \citep{Hoang:2018a}. 
+
+
 
 \section{Summary}
 \label{sec:summary}

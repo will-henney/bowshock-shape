@@ -191,9 +191,10 @@ from the gas after passing the outer bow shock, and subsequently
 gyrate about the magnetic field, forming filamentary structures (see
 also \citealp{Katushkina:2018a}).  In this paper, we study a different
 decoupling mechanism, where it is the stellar radiation force acting
-on the grains that causes the separation from the gas.  This mechanism
-was first proposed by \citet{Ochsendorf:2014b} to explain the infrared
-emission arc around the high-mass multiple system \(\sigma\)~Ori.
+on the grains that causes a separation from the gas \emph{before the
+  stream reaches the bow shock}.  This mechanism was first proposed by
+\citet{Ochsendorf:2014b} to explain the infrared emission arc around
+the high-mass multiple system \(\sigma\)~Ori.
 
 The plan of the paper is as follows.
 %
@@ -216,7 +217,8 @@ In \S~\ref{sec:magn-effects-grain} we consider the coupling between
 the grains and the plasma's magnetic field, and how this effects the
 existence and structure of dust waves.
 %
-In \S~\ref{sec:discussion} we discuss our results in the context of observed bows.
+In \S~\ref{sec:discussion} we discuss our results in the context of
+previous studies.
 %
 In \S~\ref{sec:summary} we summarise our findings.
 %
@@ -224,27 +226,10 @@ In Appendix~\ref{sec:equat-moti-grains} we provide additional
 technical information on the numerical calculation of grain
 trajectories.
 
-\section{Important results from Paper~I}
+\section{Recapitulation of Paper~I}
 \label{sec:recap-paper-i}
 
-%% XREF \eqref{eq:Rstar}
-\begin{equation}
-  \label{eq:Rstar}
-  R_* = \left(\frac{L}{4\pi c \rho v^2}\right)^{1/2} \ .
-\end{equation}
-
-%% XREF \eqref{eq:tau-star},
-\begin{equation}
-  \label{eq:tau-star}
-  \tau_* = \rho \kappa R_* \ .
-\end{equation}
-
-
-\begin{equation}
-  \label{eq:wind-efficiency}
-  \eta\wind  = \frac{L}{c\, \dot{M} V\wind} \ , 
-\end{equation}
-
+In Paper~I, we found approximate expressions for the bow radius in each of the three regimes discussed in the introduction: 
 %% XREF \ref{eq:x-cases}
 \begin{equation}
   \label{eq:x-cases}
@@ -255,10 +240,47 @@ trajectories.
     \text{WBS (\(\tau_*^2 < \eta\)):} & \eta\wind^{1/2} \, R_*  
   \end{cases}
 \end{equation}
+In these expressions, we use a fiducial radius
+%% XREF \eqref{eq:Rstar}
+\begin{equation}
+  \label{eq:Rstar}
+  R_* = \left(\frac{L}{4\pi c \rho v_\infty^2}\right)^{1/2} \ ,
+\end{equation}
+a fiducial optical depth
+%% XREF \eqref{eq:tau-star},
+\begin{equation}
+  \label{eq:tau-star}
+  \tau_* = \rho \kappa R_* \ ,
+\end{equation}
+and a factor that describes the efficiency of the stellar wind as the fraction of the stellar radiation momentum that is converted to wind momentum
+\begin{equation}
+  \label{eq:wind-efficiency}
+  \eta\wind  = \frac{c\, \dot{M} V\wind}{L} \ .
+\end{equation}
+Paper~I's equation~(11) allows a more exact value for \(R_0\) to be
+found numerically in intermediate cases.  Note that \(R_0\) is the
+star--apex distance measured along the symmetry axis of the bow
+\citetext{see \citealp{Tarango-Yong:2018a} for explanation of
+  nomenclature and discussion of bow shapes}, and is calculated in the
+limit that the momentum transfer occurs at a surface.  In cases where
+the shell's finite width is significant, \(R_0\), should correspond
+approximately to the astropause (contact discontinuity) in the WBS
+regime, or a UV optical depth of unity (as measured from the star) in
+the RBS regime.  The total perpendicular optical depth of the shell to
+stellar radiation can be found as
+\begin{equation}
+  \label{eq:actual-tau}
+  \tau = \frac{R_0}{R_*} \, \tau_* \ .
+\end{equation}
 
-
+In the foregoing, we employ the stellar bolometric luminosity, \(L\),
+wind mass-loss rate, \(\dot{M}\), and terminal velocity, \(V\wind\),
+together with the ambient stream's mass density, \(\rho\), relative
+velocity \(v_\infty\), and effective dust opacity, \(\kappa\).  It is convenient
+to define dimensionless versions of these parameters by normalizing to
+typical values:
 \begin{align*}
-  \label{eq:stellar-parameters}
+  % \label{eq:stellar-parameters}
   \dot{M}_{-7} &= \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
   V_3 &= V / \bigl(\SI{1000}{km.s^{-1}}\bigr) \\
   L_4 &= L / \bigl(\SI{e4}{L_\odot}\bigr) \\
@@ -268,21 +290,19 @@ trajectories.
 \end{align*}
 where \(\bar{m}\) is the mean mass per hydrogen nucleon
 (\(\bar{m} \approx 1.3 m_{\text{p}} \approx \SI{2.17e-24}{g}\) for solar
-abundances).
-
+abundances).  In terms of these dimensionless parameters,
+equations~(\ref{eq:Rstar}--\ref{eq:wind-efficiency}) take the
+convenient forms:
 %% XREF \ref{eq:wind-eta-typical}
-\begin{equation}
-  \label{eq:wind-eta-typical}
-  \eta\wind = \num{0.495} \,\dot{M}_{-7} \,V_3  \,L_4^{-1}
-\end{equation}
-
 %% XREF \ref{eq:taustar-typical}
 %% XREF \ref{eq:Rstar-typical}
 \begin{align}
   \label{eq:Rstar-typical}
   R_* / \si{pc} &= \num{2.21} \, (L_4 / n)^{1/2} \,v_{10}^{-1} \\
   \label{eq:taustar-typical}
-  \tau_* &= \num{0.0089} \,\kappa_{600} \, (L_4 \,n)^{1/2} \,v_{10}^{-1} \ .
+  \tau_* &= \num{0.0089} \,\kappa_{600} \, (L_4 \,n)^{1/2} \,v_{10}^{-1} \\
+  \label{eq:wind-eta-typical}
+  \eta\wind &= \num{0.495} \,\dot{M}_{-7} \,V_3  \,L_4^{-1} \ .
 \end{align}
 
 
@@ -299,7 +319,7 @@ México, through grants Programa de Apoyo a Proyectos de Investigación
 e Inovación Tecnológica IN112816 and IN107019.  This work has made
 extensive use of Python language libraries from the SciPy
 \citep{Jones:2001a} and AstroPy \citep{Astropy-Collaboration:2013a,
-  Astropy-Collaboration:2018a} projects.
+  Astropy-Collaboration:2018a} projects.  We thank Olga Katushkina for useful discussions. 
 
 
 \bibliographystyle{mnras}

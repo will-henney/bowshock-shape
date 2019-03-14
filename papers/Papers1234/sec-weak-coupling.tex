@@ -474,7 +474,7 @@ gas.
     \multicolumn{3}{@{}p{0.75\columnwidth}@{}}{
     Calculated from the Cloudy models shown in Figure~\ref{fig:drift-gn}. 
     Uncertainties represent variations with grain size and gas density. 
-    See Appendix~\ref{sec:cloudy-models-dust} for further details.}
+    }
   \end{tabular*}
   \label{tab:Xi-rip}
 \end{table}
@@ -533,33 +533,31 @@ Fig.~\ref{fig:cloudy-ism-dust-opacity}).
 
 
 The radius of the rip point, \(R_\dag\), can be expressed in terms of
-\(R_*\), the fiducial optically thick bow shock radius introduced in
-Paper~I's \S~2.1:
+\(R_*\), the fiducial optically thick bow shock radius
+(eq.~[\ref{eq:Rstar}]):
 %% XREF \ref{sec:three-bow-regimes}
 \begin{equation}
   \label{eq:Rdag-over-Rstar}
   R_\dag = \frac{v_\infty}{\sound}\, \Xi_\dag^{-1/2} R_* \approx v_{10}\, \Xi_\dag^{-1/2} R_* \ ,
 \end{equation}
 where we have made use of equation~\eqref{eq:Xi-Prad-over-Pgas} and
-Paper~I's equation~(3).
+the final approximate equality assumes a typical \hii{} region
+temperature of \SI{e4}{K}.
 %% XREF \eqref{eq:Rstar}
-
-
 
 \begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/existence-dust-wave}
   \caption{Regions of stream parameter space \((v, n)\) where dust
     waves may form around main-sequence OB stars of
-    \SIlist{10;20;40}{M_\odot} (see Paper~I's Tab.~1).  This figure is
-    similar to Paper~I's Fig.~2,
-    %% XREF\ref{fig:zones-v-n-plane},
-    except that the velocity axis is logarithmic and extends out to
-    \SI{1000}{km.s^{-1}}.  Overlapping colored shapes show parameters
-    where dust waves may be allowed in the cases of large
+    \SIlist{10;20;40}{M_\odot} with standard wind parameters (see
+    Tab.~\ref{tab:stars}).  This figure is similar to Paper~I's
+    Fig.~2, except that the velocity axis is logarithmic and extends
+    out to \SI{1000}{km.s^{-1}}.  Overlapping colored shapes show
+    parameters where dust waves may be allowed in the cases of large
     (\(a = \SI{0.2}{\um}\)) and small (\(a = \SI{0.02}{\um}\))
     graphite and silicate grains, as labeled in the left panel.  For
-    \((v, n)\) outside of these shapes, dust waves cannot occur for
+    \((v_\infty, n)\) outside of these shapes, dust waves cannot occur for
     the reasons indicated by labeled orange arrows in the center
     panel.  Labeled dashed lines in the right panel show the
     correspondence between the region boundaries and each dust wave
@@ -568,9 +566,9 @@ Paper~I's equation~(3).
     \ref{eq:dust-wave-low-density-condition},
     \ref{eq:dust-wave-high-density-condition}). Heavy dashed lines in
     the left panel show where the rip point and the drag-free
-    turnaround radius coincide.  Dust waves above these lines are drag
-    confined, while dust waves below the lines are inertia confined.
-  }
+    turnaround radius coincide.  Dust waves above and to the left of
+    these lines are drag confined, while dust waves below and to the
+    right of the lines are inertia confined.  }
   \label{fig:existence-dust-wave}
 \end{figure*}
 
@@ -580,10 +578,10 @@ Paper~I's equation~(3).
 In order for a separate outer dust wave to exist, it is necessary for
 the grains to decouple from the incoming gas stream before the stream
 hits the hydrodynamic bow shock caused by the stellar wind.  The wind
-bow shock radius is \(R_0 = \eta\wind^{1/2} R_*\) (Paper~I's eq.~[12]),
+bow shock radius is \(R_0 = \eta\wind^{1/2} R_*\) (eq.~[\ref{eq:x-cases}]),
 %% XREF \ref{eq:x-cases}
 where \(\eta\wind\) is the wind momentum efficiency
-(Paper~I's eq.~[13]).
+(eq.~[\ref{eq:wind-eta-typical}]).
 %% XREF \ref{eq:wind-eta-typical}
 Therefore, the condition
 \(R_\dag > R_0\) becomes from equation~\eqref{eq:Rdag-over-Rstar}:
@@ -608,7 +606,8 @@ for the dust wave to exist.  For instance, the drag-free turnaround
 radius must also be outside the bow shock: \(R\starstar > R_0\),
 otherwise the radiation is incapable of repelling the grain
 opportunely, even once it has decoupled from the gas.  From
-equation~\eqref{eq:dust-r0}, together with Paper~I's equations~(3, 9),
+equation~\eqref{eq:dust-r0}, together with Paper~I's
+equations~(\ref{eq:Rstar}, \ref{eq:tau-star}),
 %% XREF \eqref{eq:Rstar}
 %% XREF \eqref{eq:tau-star},
 we find
@@ -634,7 +633,7 @@ In particular, it will be relatively larger for the largest grains
 (\(a \approx \SI{0.2}{\um}\)), which dominate the total dust mass, and
 smaller for the smaller grains (\(a \approx \SI{0.02}{\um}\)), which
 dominate the UV opacity.  Given the dependence of \(\tau_*\) on the
-stream parameters (Paper~I's eq.~[15]),
+stream parameters (eq.~[\ref{eq:taustar-typical}]),
 %% XREF \ref{eq:taustar-typical}
 for a given
 stellar luminosity this condition corresponds to a minimum value for
@@ -669,14 +668,17 @@ condition, there is a further possibility: if the gas--grain coupling
 (and magnetic coupling) is so weak that it is still unimportant at the
 higher densities found in the bow shock shell, then an
 inertia-confined \textit{inner} dust wave may form inside the bow
-shock, even when \(\tau_* < \tau_{*,\text{min}}\).  Although the same might
-be thought to apply to the condition of
-equation~\eqref{eq:dust-wave-velocity-condition}, this is not the
-case, since the density compression in the bow shock will reduce the
-radiation parameter, \(\Xi\), which moves the rip point, \(R_\dag\), to an
-even smaller radius.  Therefore, if radiation has not managed to
-decouple a grain before it passes through the shock, it is unlikely to
-be able to do it afterwards.
+shock, even when \(\tau_* < \tau_{*,\text{min}}\).  This is similar to the
+case studied by \citet{Katushkina:2017a, Katushkina:2018a}, which
+requires simultaneous modeling of the grain dynamics with the
+magnetohydrodynamics of the bow shock.  Note that unlike with
+equation~\eqref{eq:dust-wave-low-density-condition}, violation of
+equation~\eqref{eq:dust-wave-velocity-condition} cannot lead to an
+inner dust wave, since the density compression in the bow shock will
+reduce the radiation parameter, \(\Xi\), which moves the rip point,
+\(R_\dag\), to an even smaller radius.  Therefore, if radiation has not
+managed to decouple a grain before it passes through the shock, it is
+unlikely to be able to do so afterwards.
 
 \begin{figure*}
   \centering
@@ -908,10 +910,8 @@ equations~(\ref{eq:Rdag-over-Rstar}, \ref{eq:Rstarstar-over-Rstar},
 This deceleration reduces the gas stream's ram pressure before it
 interacts with the central star's stellar wind.  The radius of the
 dust-free bow shock formed by this interaction is therefore increased
-by a factor \((1 - \Delta v / v_\infty)^{-1}\) with respect to the case
-calculated in Paper~I's \S~2.1,
-% XREF \ref{sec:three-bow-regimes}
-yielding
+by a factor \((1 - \Delta v / v_\infty)^{-1}\) with respect to the value given
+by equation~\eqref{eq:x-cases}, yielding
 \begin{equation}
   \label{eq:gas-free-bow-shock}
   R_{\text{dfbs}} \approx \frac{\eta\wind^{1/2} R_*}{1 - \tfrac12 \alpha \tau_* / \tau_{*, \text{max}}} \ .
@@ -921,7 +921,7 @@ An example is illustrated in Figure~\ref{fig:decouple-vertical-cut},
 where the dust-free bow shock radius is shown by the green dashed line
 as a function of stream density, \(n\).  This is calculated for fixed
 stream velocity and grain and star properties, so that
-\(\tau_* \propto n^{1/2}\) (Paper~I's eq.~[15]).
+\(\tau_* \propto n^{1/2}\) (eq.~[\ref{eq:taustar-typical}]).
 % XREF \ref{eq:taustar-typical}
 In order for
 \(R_{\text{dfbs}}\) to match the dust-wave and bow-wave radii at the
@@ -1005,7 +1005,7 @@ and
 \end{equation}
 where \(a_{\si{\um}} = a / \SI{1}{\um}\), \(\rho\grain\) is the grain
 material density in \si{g.cm^{-3}}, and we have made use of
-equations~(\ref{eq:dust-r0}, \ref{eq:Rdag-over-Rstar}), together with Paper~I's equation~(14).
+equations~(\ref{eq:Rstar-typical}, \ref{eq:dust-r0}, \ref{eq:Rdag-over-Rstar}).
 %% XREF \ref{eq:Rstar-typical}
 
 If \(r\B / \Rmin \ll 1\), then the grains are so strongly coupled to the
@@ -1184,7 +1184,7 @@ right panel of Fig.~\ref{fig:frozen-stream}).
 
 The assumptions behind these models break down when the grain
 trajectory intersects the outer shock of the dust-free wind-supported
-bow shock.  The increased gas density in the bow shock shell will
+bow shock.  The increased gas pressure in the bow shock shell will
 reduce \(\Xi\), which is likely to cause gas--grain recoupling in the
 case of drag-confined dust waves (see also discussion in the final
 paragraph of \S~\ref{sec:exist-cond-separ}).  However, detailed

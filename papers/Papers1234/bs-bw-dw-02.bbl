@@ -45,6 +45,10 @@
 {Arthur} S.~J.,  {Henney} W.~J.,  {Mellema} G.,  {de Colle} F.,
   {V{\'a}zquez-Semadeni} E.,  2011, \mnras, 414, 1747
 
+\bibitem[\protect\citeauthoryear{{Arthur}, {Medina}  \& {Henney}}{{Arthur}
+  et~al.}{2016}]{Arthur:2016a}
+{Arthur} S.~J.,  {Medina} S.-N.~X.,   {Henney} W.~J.,  2016, \mnras, 463, 2864
+
 \bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
   Collaboration} et~al.}{2013}]{Astropy-Collaboration:2013a}
 {Astropy Collaboration} et~al., 2013, \aap, 558, A33
@@ -138,9 +142,16 @@ Wiley-VCH
 {Geballe} T.~R.,  {Rigaut} F.,  {Roy} J.-R.,   {Draine} B.~T.,  2004, \apj,
   602, 770
 
+\bibitem[\protect\citeauthoryear{{Gendelev} \& {Krumholz}}{{Gendelev} \&
+  {Krumholz}}{2012}]{Gendelev:2012a}
+{Gendelev} L.,  {Krumholz} M.~R.,  2012, \apj, 745, 158
+
 \bibitem[\protect\citeauthoryear{{Gull} \& {Sofia}}{{Gull} \&
   {Sofia}}{1979}]{Gull:1979a}
 {Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
+
+\bibitem[\protect\citeauthoryear{{Gustafsson}}{{Gustafsson}}{2018}]{Gustafsson:2018a}
+{Gustafsson} B.,  2018, \aap, 616, A91
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019}]{Henney:2019a}
@@ -164,8 +175,12 @@ Hindmarsh A.~C.,  1983, IMACS Transactions on Scientific Computation, 1, 55
 {Hopkins} P.~F.,  {Lee} H.,  2016, \mnras, 456, 4174
 
 \bibitem[\protect\citeauthoryear{{Hopkins} \& {Squire}}{{Hopkins} \&
-  {Squire}}{2018}]{Hopkins:2018a}
-{Hopkins} P.~F.,  {Squire} J.,  2018, \mnras, 479, 4681
+  {Squire}}{2018a}]{Hopkins:2018a}
+{Hopkins} P.~F.,  {Squire} J.,  2018a, \mnras, 479, 4681
+
+\bibitem[\protect\citeauthoryear{{Hopkins} \& {Squire}}{{Hopkins} \&
+  {Squire}}{2018b}]{Hopkins:2018c}
+{Hopkins} P.~F.,  {Squire} J.,  2018b, \mnras, 480, 2813
 
 \bibitem[\protect\citeauthoryear{{Ishiki}, {Okamoto}  \& {Inoue}}{{Ishiki}
   et~al.}{2018}]{Ishiki:2018a}
@@ -186,11 +201,19 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
 {Katushkina} O.~A.,  {Alexashov} D.~B.,  {Gvaramadze} V.~V.,   {Izmodenov}
   V.~V.,  2018, \mnras, 473, 1576
 
+\bibitem[\protect\citeauthoryear{{Kim}, {Kim}  \& {Ostriker}}{{Kim}
+  et~al.}{2016}]{Kim:2016b}
+{Kim} J.-G.,  {Kim} W.-T.,   {Ostriker} E.~C.,  2016, \apj, 819, 137
+
 \bibitem[\protect\citeauthoryear{{Kobulnicky}, {Schurhammer}, {Baldwin},
   {Chick}, {Dixon}, {Lee}  \& {Povich}}{{Kobulnicky}
   et~al.}{2017}]{Kobulnicky:2017a}
 {Kobulnicky} H.~A.,  {Schurhammer} D.~P.,  {Baldwin} D.~J.,  {Chick} W.~T.,
   {Dixon} D.~M.,  {Lee} D.,   {Povich} M.~S.,  2017, \aj, 154, 201
+
+\bibitem[\protect\citeauthoryear{{Krumholz}, {Stone}  \& {Gardiner}}{{Krumholz}
+  et~al.}{2007}]{Krumholz:2007a}
+{Krumholz} M.~R.,  {Stone} J.~M.,   {Gardiner} T.~A.,  2007, \apj, 671, 518
 
 \bibitem[\protect\citeauthoryear{Landau \& Lifshitz}{Landau \&
   Lifshitz}{1976}]{Landau:1976a}
@@ -208,6 +231,9 @@ Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
 \bibitem[\protect\citeauthoryear{{Lee}, {Hopkins}  \& {Squire}}{{Lee}
   et~al.}{2017}]{Lee:2017a}
 {Lee} H.,  {Hopkins} P.~F.,   {Squire} J.,  2017, \mnras, 469, 3532
+
+\bibitem[\protect\citeauthoryear{{Mathews}}{{Mathews}}{1967}]{Mathews:1967a}
+{Mathews} W.~G.,  1967, \apj, 147, 965
 
 \bibitem[\protect\citeauthoryear{{Mattsson}, {Bhatnagar}, {Gent}  \&
   {Villarroel}}{{Mattsson} et~al.}{2019}]{Mattsson:2019a}

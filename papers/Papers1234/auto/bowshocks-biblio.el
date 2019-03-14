@@ -250,6 +250,11 @@
     "Contreras:1999a"
     "Acreman:2016a"
     "Geballe:2004a"
-    "Sanchez-Bermudez:2014a"))
+    "Sanchez-Bermudez:2014a"
+    "Kim:2016b"
+    "Krumholz:2007a"
+    "Gendelev:2012a"
+    "Mathews:1967a"
+    "Gustafsson:2018a"))
  :bibtex)
 
