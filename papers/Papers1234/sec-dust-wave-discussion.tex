@@ -2,10 +2,77 @@
 \section{Discussion}
 \label{sec:discussion}
 
-In this section we place our results in the context of previous work
-on gas--grain coupling in the environs of high-mass stars.  We
-concentrate on conceptual and theoretical aspects, postponing
-empirical questions about particular sources for later papers.
+In this section we briefly discuss our predictions for the
+appearance of dust waves and place our results in the context of
+previous work on gas--grain coupling in the environs of high-mass
+stars.  We concentrate on conceptual and theoretical aspects,
+postponing empirical questions about particular sources for later
+papers.
+
+\subsection{Predicted appearance of dust waves}
+\label{sec:pred-shape-struct}
+By definition, dust waves do not correspond to any structure in the
+gas and so are only detectable via the mid-infrared thermal emission
+of the grains.  The emissivity is proportional to the grain density
+but also depends on the grain temperature, which is a decreasing
+function of radius, \(R\), from the star \citetext{see, for example,
+  synthetic observations in \citealp{Mackey:2016a, Acreman:2016a,
+    Meyer:2017a}}.  In radiative equilibrium, the bolometric
+emissivity is proportional to the stellar flux \(\propto R^{-2}\), but the
+radial dependence of the monochromatic emissivity will be much steeper
+than this on the short-wavelength side of the average grain thermal
+spectrum.  With this in mind, we can crudely estimate the appearance
+of the example dust waves calculated in \S\S~\ref{sec:gas-free-bow}
+and \ref{sec:grain-traj-with}.
+
+In the inertia-confined case, the radius \(R\starstar\) is
+proportional to the single-grain opacity \(\kappa\grain\) and will
+therefore vary with grain size and composition.  For a spherical grain
+of radius \(\amu\,\si{\um}\) and solid density
+\(\rho\grain \, \si{g.cm^{-3}}\), equation~\eqref{eq:kappa-grain} yields
+\begin{equation}
+  \label{eq:kappa-d-dependence}
+  \kappa\grain = 7500 \frac{\Qpbar}{\rho\grain \amu} \ . 
+\end{equation}
+The radiation pressure efficiency is \(\Qpbar \sim 1\) for
+\(\amu > 0.02\), but falls as \(\Qpbar \propto a\) for smaller grains
+\citep[e.g., Fig.~7 of][]{Draine:2011a}.  Therefore, all the smallest
+grains will form the dust wave at the same point, but grains larger
+than \SI{0.02}{\um} will be spread out with
+\(R\starstar \propto a^{-1}\).  It might be thought that this would produce
+a very broad diffuse appearance to the dust wave, but this is
+mitigated by the fact that it is the smaller grains that dominate the
+UV opacity and mid-IR emissivity.  Also, the larger grains may be
+destroyed by radiative torques (see \S~\ref{sec:grain-survival-dust}).
+For the drag-confined case, the situation is clearer since the dust
+wave will form just inside the rip point, \(R_\dag\), which is relatively
+insensitive to the grain size.
+
+The effect of a roughly parallel magnetic field is mainly seen in the
+shape of the dust wave, which becomes hemispherical
+(Fig.~\ref{fig:inertia-thB0}) instead of parabolic as was found in the
+non-magnetic case (Fig.~\ref{fig:dust-trajectories}).  Interestingly,
+this effect is the opposite of what is seen in simulations of MHD bow
+shocks \citep{Meyer:2016a}, where a parallel B-field leads to
+flatter-nosed bow shapes with a high planitude \citetext{see Fig.~25
+  of \citealp{Tarango-Yong:2018a}}.  Figure~\ref{fig:frozen-stream}ab
+shows that the field orientation has a similar effect on the dust wave
+shape for drag-confined magnetic dust waves, but with the added
+complication that a second dense shell forms on one side of the axis
+at the stagnant drift radius, \(R_\ddag\), in cases where
+\(v_\infty > \SI{60}{km.s^{-1}}\).  However, since \(R_\ddag\) is several times
+larger than \(R_\dag\), the emission from this outer shell is likely to
+be weak, given the steep radial dependence of the mid-IR emissivity
+discussed above.
+
+When the magnetic field is close to perpendicular to the axis, then a
+dense dust shell does not form in the apex region for either the
+inertia-confined (Fig.~\ref{fig:inertia-thB90}) or drag-confined
+(Fig.~\ref{fig:frozen-stream}cd) cases.  Nonetheless, it is possible
+that a dust wave might form in the wings in such cases.
+
+\subsection{Gas--grain dynamics in \hii{} regions}
+\label{sec:gas-grain-dynamics-hii}
 
 The distinction that we draw in \S~\ref{sec:exist-cond-separ} between
 inertia-confined dust waves and drag-confined dust waves is novel.
@@ -69,11 +136,28 @@ spatial variations in grain abundance on Myr timescales
 once effects that have been neglected in existing models are accounted
 for, such as the \hii{} region's magnetic field \citep{Krumholz:2007a,
   Arthur:2011a, Gendelev:2012a} and internal turbulence
-\citep{Arthur:2016a}.  Yet another regime of potential decoupling
-occurs in the neutral shell outside the \hii{} region
+\citep{Arthur:2016a}.  On the other hand, grain abundance variations
+may be enhanced by the resonant drag instability \citep{Squire:2018a,
+  Hopkins:2018a}.  Yet another regime of potential decoupling occurs
+in the neutral shell outside the \hii{} region
 \citep{Gustafsson:2018a}, but since the drift velocity in both these
 cases is much less than interesting values of the stream velocity,
 \(v_\infty\), neither low-\(\Xi\) regime is relevant to dust waves.
+
+\subsection{Gas--grain dynamics in stellar bows}
+\label{sec:gas-grain-dynamics-bs}
+
+The term \textit{dust wave} was first coined to described the
+radiative decoupling of grains from the plasma flowing past a massive
+star by \citet{Ochsendorf:2014b}, who attempted to explain the
+infrared emission arc around \(\sigma\)~Ori.  The concept was subsequently
+applied to additional dust arcs in RCW~82 and RCW~120
+\citep{Ochsendorf:2014a} and a refined model was applied to further
+observations of \(\sigma\)~Ori \citep{Ochsendorf:2015a}.  These works
+provided the inspiration for the present paper, where we have
+attempted to take a more a priori and systematic approach to the
+problem, including factors such as the Lorentz force that were
+neglected by \citeauthor{Ochsendorf:2014b}.
 
 The most detailed simulations to date of the combined dynamics of
 dust, gas, and magnetic field in an OB bow was carried out by
@@ -119,23 +203,128 @@ the radiation and drag forces are crucial in determining the structure
 of the dust waves, which is possible because the component of the
 Lorentz force projected along the field lines is zero.
 
+
+\subsection{Grain survival}
+\label{sec:grain-survival-dust}
+
 The survival of dust grains of different sizes in close proximity to
 OB stars is something that must be considered.  Potential destruction
-mechanisms include thermal evaporation, photosputtering, particle
-sputtering, and radiative torque destruction.  
+mechanisms include thermal evaporation, particle sputtering, and
+radiative torque destruction.  Thermal evaporation requires that the
+grain radiative equilibrium temperature exceed the sublimation
+temperature (\SIrange{1500}{2000}{K}, depending on composition), which
+occurs for radiative fluxes about \SI{e9} times higher than the
+interstellar radiation field.  For a drag-confined dust wave, we have
+a fixed radiation parameter \(\Xi_\dag \sim 1000\), so this becomes a
+threshold on the gas density, requiring \(n > \SI{3e5}{cm^{-3}}\).
+Combining this with the maximum allowed density for a dust wave
+(eq.~[\ref{eq:dust-wave-high-density-condition}]), we also obtain a
+condition on the stream velocity:
+\(v_\infty > 170 \kappa_{600}^{0.5} L_4^{0.15} \, \si{km.s^{-1}}\).  Therefore,
+thermal evaporation is generally unimportant in dust waves, except for
+fast-moving stars in very high density environments.
 
-Sputtering
-\citep{Draine:2011a}.  Radiative Torque Disruption
-\citep{Hoang:2018a}.
+Ion sputtering is only effective for collider kinetic energies in
+excess of \SI{100}{eV} \citep{Draine:1995a, Field:1997a}, which is
+significantly larger than thermal energies in photoionized gas.  It
+therefore requires supersonic gas--grain slip velocities
+\(w > \SI{75}{km.s^{-1}}\), but this does not necessarily imply that
+the stream velocity need be quite so high.  For inertia-confined dust
+waves, \(w\) has a maximum value of \(2 v_\infty\) and for drag-confined
+dust waves it can be even higher (for instance, reaching
+\(w \approx 4 v_\infty\) in Fig.~\ref{fig:frozen-trajectories}a), so that
+\(v_\infty > \SI{30}{km.s^{-1}}\) is probably sufficient.  However, in
+order to be destroyed by sputtering it is also necessary that a dust
+grain of radius \(\amu\)\,\si{\um} should traverse a gas column
+density of \(\approx \num{2e21}\, \amu \,\si{cm^{-2}}\)
+\citep{Draine:2011a}.  For magnetic field orientations close to
+parallel (which is the case that most favors dust wave formation), the
+grains linger in the dust wave for several dynamical times (see
+\S~\ref{sec:grain-traj-with}), so we estimate a total column of
+\(\approx 10 n R_\dag\).  Using equations~(\ref{eq:Rstar-typical},
+\ref{eq:Rdag-over-Rstar}) then implies that grains smaller than
+\(\amu \sim 0.001 (L_4 n)^{1/2}\) can be destroyed by sputtering in the
+dust wave.
+
+Radiative torque disruption \citep{Hoang:2018a} is the centrifugal
+rupture of an irregular grain of non-zero helicity that has been
+suprathermally spun up by the anisotropic absorption of radiation
+\citep{Dolginov:1976a, Draine:1996b, Lazarian:2007a}.  The process has
+a very steep size dependence, being most effective in destroying
+larger grains.  Using \citeauthor{Hoang:2018a}'s equation~(27) and
+assuming a grain tensile strength of
+\(S_{\text{max}} = \SI{2e10}{dyne.cm^{-2}}\) \citetext{\S~2.4 of
+  \citealp{Borkowski:1995a}}, we find that grains larger than
+\(\amu \sim 0.04\, n^{-0.123}\) are efficiently destroyed by this
+mechanism at a distance \(R_\dag\) from the star. The spin-up timescales
+are less than \(100\, n^{-1}\,\si{yr}\), which is short compared with
+the dust wave dynamic timescale.
+
+In summary, refractory grains in the size range
+\SIrange{0.001}{0.04}{\um} are predicted to survive in dust waves.
+Larger grains than this are unlikely to be able to resist
+disintegration by radiative torques and smaller grains may be
+destroyed by sputtering.
+
+% \subsection{Dust wave stability}
+% \label{sec:dust-wave-stability}
 
 
-Instabilities: Resonant Drag Instability \citep{Squire:2018a, Hopkins:2018a} - application to stagnant drift case. 
+% Instabilities: Resonant Drag Instability - application to stagnant drift case.
 
 
 
 
 \section{Summary}
 \label{sec:summary}
+
+We have extended our previous study of bows around OB stars (Paper~I)
+in order to consider the weak coupling case, in which a
+radiation-supported dust wave decouples from the gas to form an
+infrared emission arc outside of any hydrodynamic bow shock.  Our
+principle findings are as follows:
+\begin{enumerate}[1.]
+\item Dust waves can only exist when the star's relative velocity with
+  respect to its environment exceeds a critical value
+  \(v_\infty > v_{\text{min}}\)
+  (eq.~[\ref{eq:dust-wave-velocity-condition}]).  For O~stars with
+  strong winds,
+  \(v_{\text{min}} = \text{\SIrange{150}{300}{km.s^{-1}}}\), although
+  for weak-wind stars and B~stars it can be as low as
+  \SI{30}{km.s^{-1}}.
+\item Additionally, the ambient density is constrained to lie within a
+  certain range, \(n_{\text{min}} \to n_{\text{max}}\). For the lowest
+  allowed relative velocities, \(v_\infty \approx v_{\text{min}}\), these are
+  \(n_{\text{min}} = \SI{0.01}{cm^{-3}}\),
+  \(n_{\text{max}} = \SI{100}{cm^{-3}}\) for B stars and
+  \(n_{\text{min}} = \SI{1}{cm^{-3}}\),
+  \(n_{\text{max}} = \SI{e5}{cm^{-3}}\) for strong-wind O~stars (see
+  Fig.~\ref{fig:existence-dust-wave}).  Both these limits increase for
+  higher velocities, as \(n_{\text{min}} \propto v_\infty^2\) and
+  \(n_{\text{max}} \propto v_\infty^4\).
+\item Dust waves may either be \textit{inertia-confined} or
+  \textit{drag-confined}, where the inertia-confined regime (in which
+  gas drag is always negligible) corresponds to a relatively narrow
+  range of densities above \(n_{\text{min}}\).
+\item In drag-confined dust waves, the gas--grain decoupling occurs
+  suddenly at a \textit{rip point}, where the Coulomb drag
+  catastrophically breaks down. The rip point occurs at a particular
+  value of the radiation-to-gas pressure ratio:
+  \(\Xi_\dag \sim 1000\), with little dependence on other parameters.
+\item The post-rip grain trajectories are unstable for
+  \(v_\infty = \text{\SIrange{10}{50}{km.s^{-1}}}\), exhibiting limit-cycle
+  decoupling/recoupling behavior of repeated rip followed by
+  snap-back.  For higher velocities a quasi-stationary stagnant drift
+  shell can form on the axis.
+\item Grain coupling to magnetic fields can modify these results, but
+  this depends critically on the angle \(\theta\B\) between the field and
+  the star's relative velocity vector.  For the quasi-parallel case
+  (\(\theta\B < \ang{30}\)), the axial structure of the dust wave is
+  little-changed, but the shape of the dust wave wings become more
+  closed (hemispherical) than in the non-magnetic case.  For the
+  quasi-perpendicular case (\(\theta\B > \ang{60}\)), a dust wave cannot form
+  on the axis, although it is possible it may do so in the wings.
+\end{enumerate}
 
 
 %%% Local Variables:

@@ -255,6 +255,13 @@
     "Krumholz:2007a"
     "Gendelev:2012a"
     "Mathews:1967a"
-    "Gustafsson:2018a"))
+    "Gustafsson:2018a"
+    "Draine:1995a"
+    "Field:1997a"
+    "Borkowski:1995a"
+    "Lazarian:2007a"
+    "Draine:1996b"
+    "Dolginov:1976a"
+    "Mackey:2016a"))
  :bibtex)
 

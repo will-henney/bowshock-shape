@@ -55,9 +55,7 @@
 
 \bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
   Collaboration} et~al.}{2018}]{Astropy-Collaboration:2018a}
-{Astropy Collaboration} et~al., 2018, preprint, \href
-  {http://adsabs.harvard.edu/abs/2018arXiv180102634T} {} (\mn@eprint {arXiv}
-  {1801.02634})
+{Astropy Collaboration} et~al., 2018, \aj, 156, 123
 
 \bibitem[\protect\citeauthoryear{{Baines}, {Williams}  \& {Asebiomo}}{{Baines}
   et~al.}{1965}]{Baines:1965a}
@@ -80,6 +78,10 @@
 Bohren C.~F.,  Huffman D.,  1983, Absorption and scattering of light by small
   particles.
 Wiley-VCH
+
+\bibitem[\protect\citeauthoryear{{Borkowski} \& {Dwek}}{{Borkowski} \&
+  {Dwek}}{1995}]{Borkowski:1995a}
+{Borkowski} K.~J.,  {Dwek} E.,  1995, \apj, 454, 254
 
 \bibitem[\protect\citeauthoryear{{Brownsberger} \& {Romani}}{{Brownsberger} \&
   {Romani}}{2014}]{Brownsberger:2014a}
@@ -108,12 +110,23 @@ Wiley-VCH
 {Dipierro} G.,  {Laibe} G.,  {Alexander} R.,   {Hutchison} M.,  2018, \mnras,
   479, 4187
 
+\bibitem[\protect\citeauthoryear{{Dolginov} \& {Mitrofanov}}{{Dolginov} \&
+  {Mitrofanov}}{1976}]{Dolginov:1976a}
+{Dolginov} A.~Z.,  {Mitrofanov} I.~G.,  1976, \apss, 43, 291
+
+\bibitem[\protect\citeauthoryear{{Draine}}{{Draine}}{1995}]{Draine:1995a}
+{Draine} B.~T.,  1995, \apss, 233, 111
+
 \bibitem[\protect\citeauthoryear{{Draine}}{{Draine}}{2011}]{Draine:2011a}
 {Draine} B.~T.,  2011, \apj, 732, 100
 
 \bibitem[\protect\citeauthoryear{{Draine} \& {Salpeter}}{{Draine} \&
   {Salpeter}}{1979}]{Draine:1979a}
 {Draine} B.~T.,  {Salpeter} E.~E.,  1979, \apj, 231, 77
+
+\bibitem[\protect\citeauthoryear{{Draine} \& {Weingartner}}{{Draine} \&
+  {Weingartner}}{1996}]{Draine:1996b}
+{Draine} B.~T.,  {Weingartner} J.~C.,  1996, \apj, 470, 551
 
 \bibitem[\protect\citeauthoryear{{Dzib}, {Rodr{\'{\i}}guez}, {Loinard},
   {Mioduszewski}, {Ortiz-León}  \& {Araudo}}{{Dzib} et~al.}{2013}]{Dzib:2013a}
@@ -127,6 +140,11 @@ Wiley-VCH
 \bibitem[\protect\citeauthoryear{{Ferland} et~al.,}{{Ferland}
   et~al.}{2017}]{Ferland:2017a}
 {Ferland} G.~J.,  et~al., 2017, \rmxaa, 53, 385
+
+\bibitem[\protect\citeauthoryear{{Field}, {May}, {Pineau des Forets}  \&
+  {Flower}}{{Field} et~al.}{1997}]{Field:1997a}
+{Field} D.,  {May} P.~W.,  {Pineau des Forets} G.,   {Flower} D.~R.,  1997,
+  \mnras, 285, 839
 
 \bibitem[\protect\citeauthoryear{{Gail} \& {Sedlmayr}}{{Gail} \&
   {Sedlmayr}}{1979}]{Gail:1979a}
@@ -155,7 +173,7 @@ Wiley-VCH
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019}]{Henney:2019a}
-{Henney} W.~J.,  {Arthur} S.~J.,  2019, \mnras
+{Henney} W.~J.,  {Arthur} S.~J.,  2019, \mnras, submitted (Paper I)
 
 \bibitem[\protect\citeauthoryear{{Henney}, {Garc{\'{\i}}a-D{\'{\i}}az},
   {O'Dell}  \& {Rubin}}{{Henney} et~al.}{2013}]{Henney:2013a}
@@ -228,9 +246,18 @@ Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
   {Hubeny}}{2007}]{Lanz:2007a}
 {Lanz} T.,  {Hubeny} I.,  2007, \apjs, 169, 83
 
+\bibitem[\protect\citeauthoryear{{Lazarian} \& {Hoang}}{{Lazarian} \&
+  {Hoang}}{2007}]{Lazarian:2007a}
+{Lazarian} A.,  {Hoang} T.,  2007, \mnras, 378, 910
+
 \bibitem[\protect\citeauthoryear{{Lee}, {Hopkins}  \& {Squire}}{{Lee}
   et~al.}{2017}]{Lee:2017a}
 {Lee} H.,  {Hopkins} P.~F.,   {Squire} J.,  2017, \mnras, 469, 3532
+
+\bibitem[\protect\citeauthoryear{{Mackey}, {Haworth}, {Gvaramadze}, {Mohamed},
+  {Langer}  \& {Harries}}{{Mackey} et~al.}{2016}]{Mackey:2016a}
+{Mackey} J.,  {Haworth} T.~J.,  {Gvaramadze} V.~V.,  {Mohamed} S.,  {Langer}
+  N.,   {Harries} T.~J.,  2016, \aap, 586, A114
 
 \bibitem[\protect\citeauthoryear{{Mathews}}{{Mathews}}{1967}]{Mathews:1967a}
 {Mathews} W.~G.,  1967, \apj, 147, 965
@@ -245,12 +272,26 @@ Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
 {Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
   459, 1146
 
+\bibitem[\protect\citeauthoryear{{Meyer}, {Mignone}, {Kuiper}, {Raga}  \&
+  {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
+{Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
+  2017, \mnras, 464, 3229
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
+  {Tielens}}{2015}]{Ochsendorf:2015a}
+{Ochsendorf} B.~B.,  {Tielens} A.~G.~G.~M.,  2015, \aap, 576, A2
+
 \bibitem[\protect\citeauthoryear{{Ochsendorf}, {Cox}, {Krijt}, {Salgado},
   {Bern{\'e}}, {Bernard}, {Kaper}  \& {Tielens}}{{Ochsendorf}
-  et~al.}{2014}]{Ochsendorf:2014b}
+  et~al.}{2014a}]{Ochsendorf:2014b}
 {Ochsendorf} B.~B.,  {Cox} N.~L.~J.,  {Krijt} S.,  {Salgado} F.,  {Bern{\'e}}
-  O.,  {Bernard} J.~P.,  {Kaper} L.,   {Tielens} A.~G.~G.~M.,  2014, \aap, 563,
-  A65
+  O.,  {Bernard} J.~P.,  {Kaper} L.,   {Tielens} A.~G.~G.~M.,  2014a, \aap,
+  563, A65
+
+\bibitem[\protect\citeauthoryear{{Ochsendorf}, {Verdolini}, {Cox}, {Bern{\'e}},
+  {Kaper}  \& {Tielens}}{{Ochsendorf} et~al.}{2014b}]{Ochsendorf:2014a}
+{Ochsendorf} B.~B.,  {Verdolini} S.,  {Cox} N.~L.~J.,  {Bern{\'e}} O.,  {Kaper}
+  L.,   {Tielens} A.~G.~G.~M.,  2014b, \aap, 566, A75
 
 \bibitem[\protect\citeauthoryear{{Povich}, {Benjamin}, {Whitney}, {Babler},
   {Indebetouw}, {Meade}  \& {Churchwell}}{{Povich} et~al.}{2008}]{Povich:2008a}
