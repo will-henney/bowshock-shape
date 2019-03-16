@@ -70,58 +70,66 @@
 
 \input{bs-bw-dw-defs.tex}
 
-
-\defcitealias{Tarango-Yong:2018a}{Paper~I}
-\newcommand\PaperI{\citetalias{Tarango-Yong:2018a}}
-
-% External document commands after macro definitions
-\externaldocument[Q-]{quadrics-bowshock}
-%\externaldocument[I-]{bs-bw-dw-01}
-%\externaldocument[II-]{bs-bw-dw-02}
-
-
 \begin{document}
 \label{firstpage}
 \pagerange{\pageref{firstpage}--\pageref{lastpage}}
 \maketitle
 \begin{abstract}
-  Dust waves and bow waves result from the action of a star's
-  radiation pressure on a stream of dusty plasma that flows past it.
-  They are an alternative mechanism to hydrodynamic bow shocks for
-  explaining the curved arcs of infrared emission seen around some
-  stars.  When gas and grains are perfectly coupled, for a broad class
-  of stellar parameters, wind-supported bow shocks predominate when
-  the ambient density is below \SIrange{100}{1000}{cm^{-3}}.  At
-  higher densities radiation-supported bows can form, tending to be
-  optically thin bow waves around B~stars, or optically thick bow
-  shocks around early O~stars.  The radiation field is sufficiently
-  strong to overcome the collisional coupling between grains and gas
-  at a \textit{rip-point}, where the ratio of radiation pressure to
-  gas pressure exceeds a critical value of roughly 1000.  When the rip
-  point occurs outside the hydrodynamic bow shock, a separate dust
-  wave may form, decoupled from the gas shell, which can either be
-  drag-confined or inertia-confined, depending on the stream density
-  and relative velocity.  In the drag-confined case, there is a
-  minimum stream velocity of roughly \SI{60}{km.s^{-1}} that allows a
-  steady-state stagnant drift solution for the dust wave apex.  For
-  lower relative velocities, the dust dynamics close to the axis
-  exhibit a limit cycle behavior (rip and snap back) between two
-  different radii.  Strong coupling of charged grains to the plasma's
-  magnetic field can modify these effects, but for a quasi-parallel
-  field orientation the results are qualitatively similar. For a
-  quasi-perpendicular field, on the other hand, the formation of a
-  decoupled dust wave is strongly suppressed.
+  Stellar bow shocks, bow waves, and dust waves all result from the
+  action of a star's wind and radiation pressure on a stream of dusty
+  plasma that flows past it.  The dust in these bows emits prominently
+  at mid-infrared wavelengths in the range \SIrange{8}{60}{\um}. We
+  propose a novel diagnostic method, the \(\tau\)--\(\eta\) diagram, for
+  analyzing these bows, which is based on comparing the fractions of
+  stellar radiative energy and stellar radiative momentum that is
+  trapped by the bow shell.  This diagram allows the discrimination of
+  radiation-supported bows from wind-supported bows.  For the latter,
+  it allows the stellar wind mass loss rate to be determined.  We
+  critically compare our method with a previous method that has been
+  proposed for determining wind mass loss rates from bow shock
+  observations. We find that the dust emissivity model used previously
+  needs to be corrected to account for differences in the spectral
+  energy distribution between OB stars and the interstellar radiation
+  field, which results in a downward revision by a factor of two in
+  the mass loss rates.  After correction, the methods complement one
+  another to some degree, with differing sensitivities to systematic
+  model uncertainties.  We point out that observations of bows are of
+  limited utility in constraining mass loss rates of weak-wind stars,
+  since these tend to have radiation-supported bows, which yield only
+  upper limits to the mass loss rate.
 \end{abstract}
 
 \begin{keywords}
   circumstellar matter -- radiation: dynamics -- stars: winds, outflows
 \end{keywords}
 
+\section{Introduction}
+\label{sec:introduction}
+
+In order to provide an empirical anchor to our theoretical
+calculations, we now consider how the parameters of our models might
+be determined from observations.  The parameter space diagrams, such
+as Figures~\ref{fig:zones-v-n-plane} and
+\ref{fig:existence-dust-wave}, are not particularly useful in this
+regard, since in many cases the ambient density and relative stellar
+velocity are not directly measured.  Instead, we aim to construct
+diagnostics based on the most common observations, which are of the
+infrared dust emission.  Key questions that we wish to address include
+\begin{enumerate}[1.]
+\item Can we distinguish observationally between radiation support
+  (bow waves and dust waves) and wind support (bow shocks)?
+\item Are there any clear examples of sources with radiation-supported bows?
+\item In the case of wind support, can we reliably determine mass loss
+  rates from mid-infrared observations?
+\end{enumerate}
+
+
+
+\input{app-cloudy-dust-heating}
 \input{sec-observational-diagnostics}
 \bibliographystyle{mnras}
 \bibliography{bowshocks-biblio}
 \appendix
-\input{app-cloudy-dust-heating}
 \input{app-k17-k18}
 
 % Don't change these lines

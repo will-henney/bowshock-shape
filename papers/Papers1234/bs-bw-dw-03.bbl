@@ -88,6 +88,10 @@
 {Giard} M.,  {Bernard} J.~P.,  {Lacombe} F.,  {Normand} P.,   {Rouan} D.,
   1994, \aap, 291, 239
 
+\bibitem[\protect\citeauthoryear{{Gvaramadze}, {Langer}  \&
+  {Mackey}}{{Gvaramadze} et~al.}{2012}]{Gvaramadze:2012a}
+{Gvaramadze} V.~V.,  {Langer} N.,   {Mackey} J.,  2012, \mnras, 427, L50
+
 \bibitem[\protect\citeauthoryear{{Gvaramadze}, {Alexashov}, {Katushkina}  \&
   {Kniazev}}{{Gvaramadze} et~al.}{2018}]{Gvaramadze:2018a}
 {Gvaramadze} V.~V.,  {Alexashov} D.~B.,  {Katushkina} O.~A.,   {Kniazev} A.~Y.,
@@ -230,7 +234,8 @@
 
 \bibitem[\protect\citeauthoryear{{Renzo} et~al.,}{{Renzo}
   et~al.}{2018}]{Renzo:2018a}
-{Renzo} M.,  et~al., 2018, arXiv e-prints
+{Renzo} M.,  et~al., 2018, arXiv, \href
+  {http://adsabs.harvard.edu/abs/2018arXiv180409164R} {1804.09164}
 
 \bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
   et~al.}{2005}]{Robberto:2005a}
