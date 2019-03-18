@@ -564,13 +564,56 @@ TODO
 \section{Stellar wind mass-loss rates}
 \label{sec:stellar-wind-mass}
 
-Third method used by \citet{Gvaramadze:2012a}, relies on measurements
-of \hii{} region and bow. Only works for isolated stars.
+Various methods have been proposed to derive stellar wind mass-loss
+rates from observations of stellar bow shocks \citetext{for example,
+  \citealp{Kobulnicky:2010a, Gvaramadze:2012a, Kobulnicky:2018a}}.  In
+this section, we will show how the \(\tau\)--\(\eta\shell\) diagram can be
+used to derive the mass-loss rate for bows in the wind-supported
+regime.  We then compare our method with the method used by
+\citet{Kobulnicky:2018a}, which is a refinement of that originally
+proposed in \citet{Kobulnicky:2010a}.  The method used by
+\citet{Gvaramadze:2012a} uses combined measurements of the bow shock
+and the surrounding \hii{} region.  It has the advantage of depending
+on fewer free parameters than the other methods, but can only be used
+in the case of isolated stars, whereas the majority of the sources
+considered here are in cluster environments.
 
-Mass loss rates - starting from \citet{Kobulnicky:2010a}
-
-\subsection{Mass loss determination from the \(\tau\)--\(\eta\shell\) diagram}
+\subsection{Mass loss determination from the \boldmath \(\tau\)--\(\eta\shell\) diagram}
 \label{sec:mass-loss-determ}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/Mdot-vs-lum-combo-edited}
+  \caption{Wind mass-loss rates as a function of stellar luminosity,
+    derived from (a)~our trapped energy/momentum method and (b)~the
+    grain emissivity method of \citet{Kobulnicky:2018a}, with
+    corrections as described in our Appendix~\ref{app:bow-shock-data}.
+    Circle symbols show the sources from K18, colored according to the
+    stellar effective temperature (see key at far right). In panel a,
+    squares show two of our additional sources
+    (Tab.~\ref{tab:observations}). Upper limits to the mass loss are
+    given for sources that lie close to the radiation-supported line
+    in Fig.~\ref{fig:All-sources-eta-tau}, represented by faint
+    symbols and downward-pointing arrows.  Sources that lie less than
+    a factor of three above the line have enhanced downward
+    uncertainties and are also shown by slightly fainter symbols.  For
+    \(\sigma\)~Ori, the large symbol corresponds to the sum of the
+    luminosities of the triple OB system Aa, Ab, and B
+    \citep{Simon-Diaz:2015a}, while the small symbol corresponds to
+    the luminosity of only the most massive component Aa.  Lines show
+    the predictions of stellar wind models: red lines are the commonly
+    used recipes from \citet{Vink:2000a} for dwarfs (solid), giants
+    (dashed), and supergiants (dotted), while black lines show
+    eq.~(11) of \citet{Krticka:2017a} for O~stars (solid) and models
+    of \citet{Krticka:2014a} for B stars.  Orange plus symbols show
+    mass-loss measurements from NUV lines for weak-wind O~dwarfs
+    \citep{Marcolino:2009a}, while the green plus symbol shows the
+    measurement from infrared H recombination lines for \(\sigma\)~Ori
+    \citep{Najarro:2011a}.  Boxes show the sensitivity of the results
+    to observational uncertainties (lower right) and assumed shell
+    parameters (upper left).}
+  \label{fig:mass-loss-vs-luminosity}
+\end{figure*}
+
 
 
 
@@ -729,40 +772,6 @@ the smallest in the sample, all with \(R_0 < \SI{0.1}{pc}\).
 
 
 
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{figs/Mdot-vs-lum-combo-edited}
-  \caption{Wind mass-loss rates as a function of stellar luminosity,
-    derived from (a)~our trapped energy/momentum method and (b)~the
-    grain emissivity method of \citet{Kobulnicky:2018a}, with
-    corrections as described in our Appendix~\ref{app:bow-shock-data}.
-    Circle symbols show the sources from K18, colored according to the
-    stellar effective temperature (see key at far right). In panel a,
-    squares show two of our additional sources
-    (Tab.~\ref{tab:observations}). Upper limits to the mass loss are
-    given for sources that lie close to the radiation-supported line
-    in Fig.~\ref{fig:All-sources-eta-tau}, represented by faint
-    symbols and downward-pointing arrows.  Sources that lie less than
-    a factor of three above the line have enhanced downward
-    uncertainties and are also shown by slightly fainter symbols.  For
-    \(\sigma\)~Ori, the large symbol corresponds to the sum of the
-    luminosities of the triple OB system Aa, Ab, and B
-    \citep{Simon-Diaz:2015a}, while the small symbol corresponds to
-    the luminosity of only the most massive component Aa.  Lines show
-    the predictions of stellar wind models: red lines are the commonly
-    used recipes from \citet{Vink:2000a} for dwarfs (solid), giants
-    (dashed), and supergiants (dotted), while black lines show
-    eq.~(11) of \citet{Krticka:2017a} for O~stars (solid) and models
-    of \citet{Krticka:2014a} for B stars.  Orange plus symbols show
-    mass-loss measurements from NUV lines for weak-wind O~dwarfs
-    \citep{Marcolino:2009a}, while the green plus symbol shows the
-    measurement from infrared H recombination lines for \(\sigma\)~Ori
-    \citep{Najarro:2011a}.  Boxes show the sensitivity of the results
-    to observational uncertainties (lower right) and assumed shell
-    parameters (upper left).}
-  \label{fig:mass-loss-vs-luminosity}
-\end{figure*}
 
 
 Source~342 is anomalous in both methods.
