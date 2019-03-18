@@ -344,7 +344,7 @@ Example results are shown in the bottom row of
 Figure~\ref{fig:multi-dustprops} and again they are qualitatively
 similar for all the simulations.  Close to the star, the radiation
 force is higher than the upper limit on the Coulomb drag force
-(eq.~\eqref{eq:fdrag-maximum}), so that the equilibrium drift velocity
+(eq.~[\ref{eq:fdrag-maximum}]), so that the equilibrium drift velocity
 is exceedingly high.  We discuss this situation in greater detail
 below in \S~\ref{sec:drag-force-grains}.  Note that such high drift
 velocities are much higher than any realistic true relative velocity
@@ -582,7 +582,9 @@ temperature of \SI{e4}{K}.
     the left panel show where the rip point and the drag-free
     turnaround radius coincide.  Dust waves above and to the left of
     these lines are drag confined, while dust waves below and to the
-    right of the lines are inertia confined.  }
+    right of the lines are inertia confined.  Yellow plus symbols show
+    the parameters for the two example trajectories shown in
+    Fig.~\ref{fig:phase-space-trajectories}.}
   \label{fig:existence-dust-wave}
 \end{figure*}
 
@@ -705,7 +707,7 @@ unlikely to be able to do so afterwards.
     \SI{80}{km.s^{-1}} (right panels).  In both cases, the stream
     density is \(n = \SI{1}{cm^{-3}}\) and the central star is a
     \SI{10}{M_\odot} main-sequence B star (see Tab.~\ref{tab:stars}).
-    Upper panels show the evolution of grain radius, \(R\) (blue
+    Upper panels show the evolution of the grain position, \(R\) (blue
     curve, normalized by the rip point radius, \(R_\dag\)), and grain
     velocity, \(v\) (orange curve, normalized by the gas stream
     velocity).  The origin of the time axis is set to the moment of
@@ -814,11 +816,11 @@ it is expelled at roughly twice the inflow speed.  However, after
 moving outward, it finds itself in a drag-dominated region of phase
 space (red in the figure), and so recouples to the inflowing gas
 stream.  The recoupling initiates gradually, as the grain's outward
-motion is slowed and it begins to move inward again, but is completed
-suddenly once \(w\) again falls below \SI{10}{km.s^{-1}}, in what we
-term \textit{snap back}. The net result is that the grain has returned
-to exactly the same phase track that it started in on, and so repeats
-the cycle indefinitely.
+motion is slowed and turns around, but is completed suddenly once
+\(w\) again falls below \SI{10}{km.s^{-1}}, in what we term
+\textit{snap back}. The net result is that the grain has returned to
+exactly the same phase track that it started in on, and so repeats the
+cycle indefinitely.
 
 The right panels of Figure~\ref{fig:phase-space-trajectories} show the
 case where the stream velocity is doubled to
@@ -1048,18 +1050,17 @@ modified.  Assuming \(w_\perp \sim v_\infty\) and adopting a threshold of
 \(r\B / \Rmin < 0.1\), equations~(\ref{eq:larmor-over-Rdag},
 \ref{eq:larmor-over-Rstarstar}) can be transformed into conditions on
 the stream velocity (in \si{km.s^{-1}}) where tight magnetic coupling
-will apply: \newcommand\freeze{\ensuremath{_{\text{tight}}}}
+will apply: \(v_{\infty} < v\freeze\), where
 \begin{equation}
   \label{eq:velocity-strong-B-coupling}
-  v_{\infty} < v\freeze \approx
-  \begin{cases}
-    \text{drag-confined:}
-    & 0.8 \, a_{\si{\um}}^{-2} \, v\alfven \, L_4^{1/2}\\
-    \text{inertia-confined:}
-    & 6 \, a_{\si{\um}}^{-1} \, v\alfven^{1/3} \, n^{1/6} \, L_4^{1/3} \\
-  \end{cases} \ ,
+  \begin{aligned}
+    \text{drag-confined:}\quad v\freeze
+    &\approx 0.8 \, a_{\si{\um}}^{-2} \, v\alfven \, L_4^{1/2} \ , \\
+    \text{inertia-confined:}\quad v\freeze
+    &\approx 6 \, a_{\si{\um}}^{-1} \, v\alfven^{1/3} \, n^{1/6} \, L_4^{1/3} \ ,
+  \end{aligned}
 \end{equation}
-where we have substituted typical values of the minor parameters
+in which we have substituted typical values of the minor parameters
 \(\Xi_\dag\), \(\phi_{\dag}\), \(\phi_{**}\), \(\rho\grain\),
 \(T_4\).\footnote{%
   The most significant systematic variation in \(v\freeze\) from these
@@ -1189,7 +1190,7 @@ the initial rip and turn around.  Again, it slowly migrates sideways,
 and eventually recouples to the incident stream, but this time after
 reaching \(y \approx +R_\ddag\).  The grain residence time in the apex region,
 measured in crossing times, is slightly longer than in panel~a, but is
-of the same order.  In both these cases, a second, exterior dust
+of the same order.  In both these cases a second, exterior dust
 shell is formed in addition to the hemispherical one produced by the
 initial turn around inside \(R_\dag\). In the limit-cycle case, it forms
 at the snap-back point, while in the stagnant-drift case, it forms at
