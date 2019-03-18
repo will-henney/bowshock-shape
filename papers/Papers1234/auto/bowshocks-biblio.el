@@ -263,6 +263,7 @@
     "Draine:1996b"
     "Dolginov:1976a"
     "Mackey:2016a"
-    "Hankins:2017a"))
+    "Hankins:2017a"
+    "Arthur:2004a"))
  :bibtex)
 

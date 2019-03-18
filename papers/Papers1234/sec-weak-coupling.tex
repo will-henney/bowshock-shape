@@ -52,16 +52,16 @@
 % \end{figure}
 
 We now consider how the results of the previous section are changed
-when one accounts for drag forces from the gas.  After considering the
-general form of these forces in \S~\ref{sec:drag-force-grains}, we
-study the behavior of the grain electrostatic potential in
-\S~\ref{sec:cloudy-models-dust} and the nature of the decoupling that
-occurs for sufficiently strong radiation fields in
-\S~\ref{sec:gas-grain-separ}.  In \S~\ref{sec:exist-cond-separ} we use
-this information to deduce conditions for the existence of dust waves,
-and calculate grain trajectories in \S~\ref{sec:two-regimes-post} and
-estimate the back-reaction on the plasma in
-\S~\ref{sec:back-reaction-gas}.
+when drag forces from the gas are taken into account.  After
+considering the general form of these forces in
+\S~\ref{sec:drag-force-grains}, we study the behavior of the grain
+electrostatic potential in \S~\ref{sec:cloudy-models-dust} and the
+nature of the decoupling that occurs for sufficiently strong radiation
+fields in \S~\ref{sec:gas-grain-separ}.  In
+\S~\ref{sec:exist-cond-separ} we use this information to deduce
+conditions for the existence of dust waves, and calculate grain
+trajectories in \S~\ref{sec:two-regimes-post} and estimate the
+back-reaction on the plasma in \S~\ref{sec:back-reaction-gas}.
 
 % If the radiation field is
 % sufficiently strong, then this collisional coupling between grains and
@@ -152,7 +152,8 @@ in Figure~\ref{fig:drag-components}).
 % (\(\phi = 1\)), green (\(\phi = 4\)), and red (\(\phi = 16\)) lines.
 However, the Coulomb drag has a peak when \(w\) is equal to the
 thermal speed of the colliders, which is
-\(\approx \SI{10}{km.s^{-1}}\) for protons, giving a maximum strength of
+\(\approx \SI{10}{km.s^{-1}}\) for protons, giving a maximum strength from
+equation~\eqref{eq:ds79} of
 \begin{equation}
   \label{eq:fdrag-maximum}
   f_{\mathrm{max}} = 0.5\, (\ln\Lambda)\, \phi^2 f_* \approx 10\, \phi^2 f_* \ , 
@@ -260,16 +261,16 @@ which self-consistently solves the multi-frequency radiative transfer
 together with thermal, ionization, and excitation balance of all
 plasma constituents.  Cloudy incorporates grain charging as described
 in \citet{Baldwin:1991a} and \citet{van-Hoof:2004a} with photoelectric
-emission theory from \citet{Weingartner:2001b, Weingartner:2006a}.  We
-use the default ``ISM'' dust mixture included in Cloudy, which
-comprises ten size bins each for spherical silicate and graphite
-grains in the range \num{0.005} to \SI{0.25}{\um}, and which is
-designed to reproduce the average Galactic extinction curve
-\citep{Weingartner:2001a, Abel:2008a}.  The optical properties of each
-grain species are calculated using Mie theory \citep{Bohren:1983a},
-assuming solid spheres.  The resultant wavelength-dependent extinction
-properties of the mixture are summarised in
-Figure~\ref{fig:cloudy-ism-dust-opacity}.
+emission theory from \citet{Weingartner:2001b} and
+\citet{Weingartner:2006a}.  We use the default ``ISM'' dust mixture
+included in Cloudy, which comprises ten size bins each for spherical
+silicate and graphite grains in the range \num{0.005} to
+\SI{0.25}{\um}, and which is designed to reproduce the average
+Galactic extinction curve \citep{Weingartner:2001a, Abel:2008a}.  The
+optical properties of each grain species are calculated using Mie
+theory \citep{Bohren:1983a}, assuming solid spheres.  The resultant
+wavelength-dependent extinction properties of the mixture are
+summarised in Figure~\ref{fig:cloudy-ism-dust-opacity}.
 
 
 To ascertain the expected variation in grain properties in the
@@ -305,7 +306,7 @@ show results for a high-density (\(n = \SI{e4}{cm^{-3}}\)), compact
 (\(R \approx \SI{0.1}{pc}\)) region around an early O~star, where the grain
 temperature is very high, especially for the smaller silicate grains,
 and sublimation significantly reduces the grain abundance in the inner
-regions.  The remaining columns show low-density
+regions \citep{Arthur:2004a}.  The remaining columns show low-density
 (\(n = \SI{1}{cm^{-3}}\)), extended (\(R \sim \SI{10}{pc}\)) regions
 around main-sequence and supergiant B-type stars, in which the grain
 temperatures are much lower, ranging from \SIrange{20}{50}{K} in the
@@ -332,14 +333,12 @@ described in \S~\ref{sec:drag-force-grains} and
 Appendix~\ref{sec:equat-moti-grains}.  The way that this is
 implemented by default in Cloudy means that if the only solution at
 the inner radius is a superthermal one, then the superthermal solution
-branch (upper right corner of
-Fig.~\ref{fig:gas-grain-drag-photoionized}) is followed as far as
-possible through the outer spatial zones.  We have modified the code
-so as to instead always prefer the slower subthermal branch whenever
-multiple solutions are available.  This makes more sense than the
-default behavior for our context, where the grains are moving towards
-the star and so the radiative force is gradually increasing from an
-initial low value.
+branch is followed as far as possible through the outer spatial zones.
+We have modified the code so as to instead always prefer the slower
+subthermal branch whenever multiple solutions are available.  This
+makes more sense than the default behavior for our context, where the
+grains are moving towards the star and so the radiative force is
+gradually increasing from an initial low value.
 
 Example results are shown in the bottom row of
 Figure~\ref{fig:multi-dustprops} and again they are qualitatively
@@ -357,7 +356,7 @@ decoupled.
 
 As the radial distance from the star increases, the radiation field is
 increasingly diluted but the grain potential falls only slowly, so
-eventually one reaches a point where an equilibrium between Coulomb
+eventually a point is reached where an equilibrium between Coulomb
 drag and radiation force can be established, which corresponds to a
 discontinuity in the drift velocity.  The drift velocity carries
 on falling towards the outside of the \hii{} region, but then
@@ -402,12 +401,13 @@ radiation force acting on a grain as
   \includegraphics[width=\linewidth]{figs/phi-versus-xi-annotate}
   \caption{Grain potential in thermal units (linear scale) versus
     radiation parameter (logarithmic scale). All densities and stellar
-    types are shown, with line colors as in Fig.~\ref{fig:drift-gn}.
-    Solid lines show silicate grains and dashed lines show graphite
-    grains.  Line width increases with grain size (to reduce clutter,
-    only every second size bin is shown).  Straight black lines show
-    the logarithmic fits discussed in the text:
-    eq.~\eqref{eq:phi-vs-Xi}, most appropriate for carbon grains
+    types are shown, with line colors as indicated (blue/orange for
+    O~stars, purple/green for B~stars) and lighter shades indicating
+    higher gas densities.  Solid lines show silicate grains and dashed
+    lines show graphite grains.  Line width increases with grain size
+    (to reduce clutter, only every second size bin is shown).
+    Straight black lines show the logarithmic fits discussed in the
+    text: eq.~\eqref{eq:phi-vs-Xi}, most appropriate for carbon grains
     around cooler stars, is shown by the dashed line, while the solid
     lines show the modifications for silicate grains and for hotter
     stars.}
@@ -506,7 +506,10 @@ start increasing again to accommodate the linear increase of
 maximum drag force that proton Coulomb interactions can provide
 (eq.~[\ref{eq:fdrag-maximum}]).  This occurs at a critical value of
 the radiation parameter, which we denote the \textit{rip point}:
-\(\Xi_\dag \sim 1000\).
+\(\Xi_\dag \sim 1000\). The process is illustrated in
+Figure~\ref{fig:gas-grain-drag-photoionized}, which shows the regions
+of stability and instability as a function of gas--grain slip velocity
+as the grain potential and radiation force are increased.
 
 \begin{figure*}
   \includegraphics[width=\linewidth]{figs/drift-pratio-4panel}
@@ -637,7 +640,7 @@ The average value of the factor \(\kappa / \kappa\grain\) over the entire grain
 population must be equal to the dust--gas mass ratio,
 \(Z\grain \approx 0.01\), but the factor will vary between grains, according
 to their size and composition.\footnote{%
-  Remember that \(\kappa\) is the opacity per unit mass of gas, while
+  Recall that \(\kappa\) is the opacity per unit mass of gas, while
   \(\kappa\grain\) is the opacity per unit mass of a particular grain. In
   both cases, averaged over the stellar spectrum.} %
 In particular, it will be relatively larger for the largest grains
