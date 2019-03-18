@@ -586,7 +586,7 @@ considered here are in cluster environments.
   \caption{Wind mass-loss rates as a function of stellar luminosity,
     derived from (a)~our trapped energy/momentum method and (b)~the
     grain emissivity method of \citet{Kobulnicky:2018a}, with
-    corrections as described in our Appendix~\ref{app:bow-shock-data}.
+    corrections as described in our \S~\ref{app:bow-shock-data}.
     Circle symbols show the sources from K18, colored according to the
     stellar effective temperature (see key at far right). In panel a,
     squares show two of our additional sources
@@ -614,8 +614,44 @@ considered here are in cluster environments.
   \label{fig:mass-loss-vs-luminosity}
 \end{figure*}
 
+Taking into account the support from stellar wind ram pressure and the
+absorbed stellar radiation pressure, the pressure of the bow shell can
+be written
+\begin{equation}
+  \label{eq:eta-shell-components}
+  \eta\shell = \eta\wind +  \left(  1 - e^{-\Qp \tau / Q_{\text{abs}}}\right) \ ,
+\end{equation}
+which is valid in all 3 regimes: WBS, RBW, and RBS.\@ The wind
+momentum efficiency is defined in terms of the stellar wind parameters
+(eq.~[13] of Paper~I):
+\begin{equation}
+  \label{eq:wind-eta-typical}
+  \eta\wind = \num{0.495} \,\dot{M}_{-7} \,V_3  \,L_4^{-1} \ .
+\end{equation}
+Therefore, assuming \(\Qp/Q_{\text{abs}} = 1.25\) as in
+\S~\ref{sec:energy-trapp-vers}, the mass-loss rate can be estimated as
+\begin{equation}
+  \label{eq:mdot-tau-eta}
+  \dot{M}_{-7} = 2.02 \, L_4 \, V_3^{-1} \,
+  \left[ \eta\shell - \left(  1 - e^{-1.25 \tau} \right) \right]  \ .
+\end{equation}
+In the wind-supported WBS regime
+(\(\tau \ll \eta\wind \approx \eta\shell\)), the second term in the brackets is
+negligible, and we can use equations~(\ref{eq:tau-empirical},
+\ref{eq:eta-shell}) to write
+\begin{equation}
+  \label{eq:mdot-eta-wbs}
+  \dot{M}_{-7} \approx 990 \frac{R\pc \, T_4 \, L_{\text{IR},4}}
+  {L_4 \, V_3 \, \kappa_{600} \, h_{1/4}} \ .
+\end{equation}
+On the other hand, if \(\eta\shell\) does not greatly exceed \(\tau\), then
+the full equation~\eqref{eq:mdot-tau-eta} should be used, although the
+uncertainties in \(\eta\shell\) and \(\tau\) mean that the mass loss will be
+poorly constrained in such a case.
 
-
+Resulting mass-loss rates are shown as a function of stellar
+luminosity in Figure~\ref{fig:mass-loss-vs-luminosity}a for the K18 and
+Orion sources.
 
 \subsection{Mass loss determination method of \protect\citet{Kobulnicky:2018a}}
 \label{app:bow-shock-data}
