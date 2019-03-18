@@ -1,48 +1,69 @@
 \section{Mid-infrared grain emissivity}
 \label{sec:grain-temp-emiss}
 
+In preparation for our discussion of different wind mass loss
+diagnostic methods below, in this section we calculate the grain
+emissivity predicted by models of dust heated by a nearby OB star.  We
+use the same simulations that we employed in \S~4.2 of Paper~II,
+% XREF: Paper II \ref{sec:cloudy-models-dust}
+which employ the plasma physics code Cloudy \citep{Ferland:2013a,
+  Ferland:2017a}.  In summary, simulations of spherically symmetric,
+steady-state, constant density \hii{} regions were carried out for
+four different stellar types from B1.5 to O5 (Table~2 of Paper~II), a
+range of gas densities from \SIrange{1}{e4}{cm^{-3}}, and using
+Cloudy's default ``ISM'' graphite/silicate dust mixture with 10 size
+bins from \SIrange{0.005}{0.25}{\um}.  
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/grain-T-vs-U}
   \caption{Grain temperature versus radiation field mean intensity,
     \(U\), in units of the interstellar radiation field in the solar
-    neighborhood.  Line types and colors are as in
-    Fig.~\ref{fig:phi-vs-Xi} and correspond to a variety of stellar
-    spectral shapes, gas densities, and grain species.}
+    neighborhood.  Line types and colors correspond to a variety of
+    stellar spectral shapes, gas densities, and grain species.  Dashed
+    lines show carbon grains, solid lines show silicate grains, with
+    line thickness increasing and opacity decreasing with increasing
+    grain size.  Stellar spectral types are O5\,V (blue), O9\,V
+    (orange), B1.5\,V (purple), and B0.7\,Ia (green), with lighter
+    shades denoting higher gas densities. }
   \label{fig:grain-T-vs-U}
 \end{figure}
 
 Figure~\ref{fig:grain-T-vs-U} shows equilibrium grain temperatures for
-the Cloudy models discussed in Appendix~\ref{sec:cloudy-models-dust}
-as a function of the nominal energy density of the radiation field,
-\(U = u / u\mmp \), where \(u = L / 4 \pi R^2 c\) and \(u\mmp\) is the
-energy density of the interstellar radiation field for
-\(\lambda < \SI{8}{\um}\) in the solar neighborhood
+these Cloudy models as a function of the nominal energy density of the
+radiation field, \(U = u / u\mmp \), where \(u = L / 4 \pi R^2 c\) and
+\(u\mmp\) is the energy density of the interstellar radiation field
+for \(\lambda < \SI{8}{\um}\) in the solar neighborhood
 \citep{Mathis:1983a}:
 \begin{equation}
   \label{eq:u-mmp83}
   u\mmp\,c = \SI{0.0217}{erg.s^{-1}.cm^{-2}} \ .
 \end{equation}
-The tight relationship seen in figure~\ref{fig:grain-T-vs-U} between
+The tight relationship seen in Figure~\ref{fig:grain-T-vs-U} between
 \(T\) and \(U\) is evidence for the dominance of stellar radiative
-heating (see \S~\ref{sec:unimp-other-heat} below), while the variation
-about the mean relation is mainly due to differences in grain size and
-composition, with smaller grains and graphite grains being relatively
-hotter.  The downward hooks seen on the left end of each simulation's
-individual curve are due to the fact that our calculation of \(U\)
-does not account for internal absorption, which starts to become
-important near the ionization front.
+heating, which we justify on theoretical grounds in
+\S~\ref{sec:unimp-other-heat} below.  The variation about the mean
+relation is mainly due to differences in grain size and composition,
+with smaller grains and graphite grains being relatively hotter.  The
+downward hooks seen on the left end of each simulation's individual
+curve are due to the fact that our calculation of \(U\) does not
+account for internal absorption, which starts to become important near
+the ionization front.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/grain-j70-vs-U-edited}
-  \caption{Grain emissivity at \SI{70}{\um} for all Cloudy models
-    (lines colored as in Fig.~\ref{fig:drift-gn}), compared with grain
-    models from \citet{Draine:2007a} (dark gray symbols), which assume
-    illumination by a scaled interstellar radiation field, which has a
-    SED with a very different shape from that of an OB star, see
-    Fig.~\ref{fig:sed-comparison}.  }
+  \caption{Grain emissivity at \SI{70}{\um} for all Cloudy models,
+    with lines colored as in Fig.~\ref{fig:grain-T-vs-U}, but without
+    the variation in line type and thickness since emissivity is
+    integrated over all grain types and sizes.  For comparison, the
+    emissivity from the grain models of \citet{Draine:2007a} are shown
+    as dark gray symbols, which assume illumination by a scaled
+    interstellar radiation field with a SED with a very different
+    shape from that of an OB star, see Fig.~\ref{fig:sed-comparison}.
+    The light gray symbols show the effect of using an 8 times higher
+    \(U\) with the \citeauthor{Draine:2007a} models, which
+    approximately compensates for this difference in SED.  }
   \label{fig:grain-j70}
 \end{figure}
 
@@ -59,18 +80,20 @@ dominated by an old stellar population, which peaks in the near
 infrared, with only a small FUV contribution from younger stars (about
 8\% of the total energy density).  This is very different from the OB
 star SEDs, which are dominated by the FUV and EUV bands.  Since the
-grain absorption opacity is much higher at UV wavelengths than in the
-visible/IR (see Fig.~\ref{fig:cloudy-ism-dust-opacity}), the effective
-grain heating efficiency of the OB star SED is correspondingly higher.
-The light gray symbols show the effect on the \citet{Draine:2007a}
-models of multiplying the radiation field by a factor of \num{8} in
-order to offset this difference in efficiency, which can be seen to
-bring them into close agreement with the Cloudy models.  A further
-difference is that the \citet{Draine:2007a} model includes small PAH
-particles, which we do not include in our Cloudy models, since they
-are believed to be largely absent in photoionized regions
-\citep{Giard:1994a, Lebouteiller:2011a}.  However, this only effects
-the emissivity at shorter mid-infrared wavelengths \(< \SI{20}{\um}\).
+grain absorption opacity is substantially higher at UV wavelengths
+than in the visible/IR (see Fig.~6 of Paper~II),
+% XREF: Paper II \ref{fig:cloudy-ism-dust-opacity}
+the effective grain heating efficiency of the OB star SED is
+correspondingly higher.  The light gray symbols show the effect on the
+\citet{Draine:2007a} models of multiplying the radiation field by a
+factor of \num{8} in order to offset this difference in efficiency,
+which can be seen to bring them into close agreement with the Cloudy
+models.  A further difference is that the \citet{Draine:2007a} model
+includes small PAH particles, which we do not include in our Cloudy
+models, since they are believed to be largely absent in photoionized
+regions \citep{Giard:1994a, Lebouteiller:2011a}.  However, this only
+effects the emissivity at shorter mid-infrared wavelengths
+\(< \SI{20}{\um}\).
 
 \begin{figure}
   \centering
@@ -86,7 +109,8 @@ the emissivity at shorter mid-infrared wavelengths \(< \SI{20}{\um}\).
 \end{figure}
 
 In terms of the characteristic parameters introduced in
-\S~\ref{sec:depend-stell-type} the dimensionless radiation field becomes
+\S~\ref{sec:energy-trapp-vers} the dimensionless radiation field
+becomes
 \begin{equation}
   \label{eq:U-from-L4-and-Rpc}
   U = 14.7\, L_4\, R_{\text{pc}}^{-2} \ ,
@@ -94,11 +118,13 @@ In terms of the characteristic parameters introduced in
 or, alternatively, it can be expressed in terms of the ambient stream as
 \begin{equation}
   \label{eq:U-from-ambient}
-  U = 3.01 \, n \, v_{10}^2 / x^2 \ , 
+  U = 3.01 \, n_\infty \, v_{10}^2 / x^2 \ , 
 \end{equation}
-where \(x = R_0/R_*\) is given by equation~\eqref{eq:x-cases}.  It can
-also be related to the radiation parameter \(\Xi\), defined in
-equation~\eqref{eq:Xi-Prad-over-Pgas}, as
+where \(x = R_0/R_*\) is given by Paper~I's equation~(12).
+% XREF: Paper I \eqref{eq:x-cases}
+It can also be related to the radiation parameter \(\Xi\), defined in
+Paper~II's equation~(23), as
+% XREF: Paper II \eqref{eq:Xi-Prad-over-Pgas}
 \begin{equation}
   \label{eq:U-vs-Xi}
   U = 3.82 \, n T_4 \, \Xi \ .
@@ -191,13 +217,15 @@ In order for this process to be competitive, the following three
 conditions must all hold:
 \begin{enumerate}[1.]
 \item The post-shock gas must radiate efficiently with a cooling
-  length less than the bow size, see \S~\ref{sec:radi-cool-lengths}.
-  This is satisfied for all but the lowest densities (see
-  Fig.~\ref{fig:zones-v-n-plane}).
+  length less than the bow size, see \S~3.2 of Paper~I.\@
+  % XREF Paper I \ref{sec:radi-cool-lengths}
+  This is satisfied for all but the lowest densities (Paper~I's
+  Fig.~2).
+  % XREF Paper I \ref{fig:zones-v-n-plane}
 \item A significant fraction of the shock energy must be radiated by
   dust.  This requires that the post-shock temperature be greater than
   \SI{e6}{K}, which requires a stream velocity
-  \(v > \SI{200}{km.s^{-1}}\) \citep{Draine:1981a}.  This also
+  \(v_\infty > \SI{200}{km.s^{-1}}\) \citep{Draine:1981a}.  This also
   coincides with the range of shock velocities where the smaller
   grains will start to be destroyed by sputtering in the post-shock
   gas.
@@ -206,10 +234,10 @@ conditions must all hold:
   absorbed and reprocessed by the bow shell.
 \end{enumerate}
 It turns out that the third condition is the most stringent, so we
-will consider it in detail.  The kinetic energy flux through the outer shock for an ambient stream of density \(\rho\) and velocity \(v\) is
+will consider it in detail.  The kinetic energy flux through the outer shock for an ambient stream of density \(\rho_\infty\) and velocity \(v_\infty\) is
 \begin{equation}
   \label{eq:Fkin}
-  F\ke = \tfrac12 \rho v^3 = \tfrac12 P\shell v \ , 
+  F\ke = \tfrac12 \rho_\infty v_\infty^3 = \tfrac12 P\shell v_\infty \ , 
 \end{equation}
 while the stellar radiative energy flux absorbed by the shell is
 \begin{equation}
@@ -218,40 +246,44 @@ while the stellar radiative energy flux absorbed by the shell is
 \end{equation}
 assuming an absorption optical depth \(\tau \ll 1\). The shell
 pressure in the WBS case can be equated to the ram pressure of the
-internal stellar wind (see \S~\ref{sec:three-bow-regimes}), so that
-the ratio of the two energy fluxes is
+internal stellar wind (see
+% XREF Paper I \ref{sec:three-bow-regimes}
+\S~2.1 of Paper~I), so that the ratio of the two energy fluxes is
 \begin{equation}
   \label{eq:F-ratio-shock}
-  \frac{F\ke}{F\trap} = \frac12 \frac{\eta\wind}{\tau} \frac{v}{c} \ .
+  \frac{F\ke}{F\trap} = \frac12 \frac{\eta\wind}{\tau} \frac{v_\infty}{c} \ .
 \end{equation}
-An upper limit to the stellar wind momentum efficiency \(\eta\wind\)
-is the shell momentum efficiency \(\eta\shell\) that is derived
-observationally in \S~\ref{sec:summary-discussion}, where it is found
-that \(\eta\shell / \tau < 30\) for all sources considered.  Therefore,
-for a stream velocity \(v = \SI{200}{km.s^{-1}}\), we have
+An upper limit to the stellar wind momentum efficiency \(\eta\wind\) is
+the shell momentum efficiency \(\eta\shell\) that is derived
+observationally in \S~\ref{sec:energy-trapp-vers}, where it is found
+that \(\eta\shell / \tau < 30\) for all sources considered.  Therefore, for
+a stream velocity \(v_\infty = \SI{200}{km.s^{-1}}\), we have
 \(F\ke/F\trap < 0.01\) and the shock-excited dust emission is still
-negligible.  Only in stars with \(v > \SI{1000}{km.s^{-1}}\) would the
-shock emission start to be significant, and such hyper-velocity stars
-\citep{Brown:2015a} do not show detectable bow shocks.
+negligible.  Only in stars with \(v_\infty > \SI{1000}{km.s^{-1}}\) would
+the shock emission start to be significant, and such hyper-velocity
+stars \citep{Brown:2015a} do not show detectable bow shocks.
 
 So far, we have only considered the outer shock, but the inner shock
 that decelerates the stellar wind will have a velocity of
-\SIrange{1000}{3000}{km.s^{-1}} and therefore might have a
-significant kinetic energy flux by eq.~\eqref{eq:F-ratio-shock}.
-However, the stellar wind from hot stars will be free of
-dust,\footnote{%
+\SIrange{1000}{3000}{km.s^{-1}} and therefore might have a significant
+kinetic energy flux by eq.~\eqref{eq:F-ratio-shock}.  However, the
+stellar wind from hot stars will be free of dust,\footnote{%
   With the exception of Wolf-Rayet colliding wind binary systems
   \citep{Tuthill:1999a, Callingham:2019a}.} %
 so that it would be necessary for the stellar wind protons to cross
 the contact/tangential discontinuity and deposit their energy in the
-dusty plasma of the shocked ambient stream.  This is not possible
-because the Larmor radius (see \S~\ref{sec:magn-effects-grain}) of a
-\SI{3000}{km.s^{-1}} proton in a \SI{1}{\micro G} field is only
+dusty plasma of the shocked ambient stream in order for this source of
+energy to contribute to the grain emission.  This is not possible
+because the Larmor radius (see \S~5 of Paper~II)
+% XREF Paper II \ref{sec:magn-effects-grain}
+of a \SI{3000}{km.s^{-1}} proton in a \SI{1}{\micro G} field is only
 \SI{3e10}{cm}, which is millions of times smaller than typical bow
 sizes.  The magnetic field in the outer shell is unlikely to be
-smaller than \(\approx n^{1/2} \si{\micro G}\), given that Alfvén
-speeds of \SI{2}{km.s^{-1}} are typical of photoionized regions
-(cf.~eq.~[\ref{eq:alfven}]) and if the density were much lower than
+smaller than \(\approx n^{1/2} \si{\micro G}\), given that Alfvén speeds of
+\SI{2}{km.s^{-1}} are typical of photoionized regions (cf.~Paper~II's
+eq.~[40])
+% XREF Paper II \\ref{eq:alfven}
+and if the density were much lower than
 \SI{1}{cm^{-3}}, then the scale of the bow would be commensurately
 larger anyway.  Three-dimensional MHD simulations of bow shocks
 \citep{Katushkina:2017a, Gvaramadze:2018a} show that the magnetic
