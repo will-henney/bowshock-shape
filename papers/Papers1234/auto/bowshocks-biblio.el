@@ -264,6 +264,9 @@
     "Dolginov:1976a"
     "Mackey:2016a"
     "Hankins:2017a"
-    "Arthur:2004a"))
+    "Arthur:2004a"
+    "McKinney:2010a"
+    "Petit:2008a"
+    "Alecian:2013a"))
  :bibtex)
 

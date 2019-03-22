@@ -17,6 +17,18 @@
   {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
   mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
 
+\bibitem[\protect\citeauthoryear{{Alecian} et~al.,}{{Alecian}
+  et~al.}{2013}]{Alecian:2013a}
+{Alecian} E.,  et~al., 2013, \mnras, 429, 1001
+
+\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
+  Collaboration} et~al.}{2013}]{Astropy-Collaboration:2013a}
+{Astropy Collaboration} et~al., 2013, \aap, 558, A33
+
+\bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
+  Collaboration} et~al.}{2018}]{Astropy-Collaboration:2018a}
+{Astropy Collaboration} et~al., 2018, \aj, 156, 123
+
 \bibitem[\protect\citeauthoryear{{Balog} et~al.,}{{Balog}
   et~al.}{2014}]{Balog:2014a}
 {Balog} Z.,  et~al., 2014, Experimental Astronomy, 37, 129
@@ -86,11 +98,6 @@
   Collaboration} et~al.}{2018}]{Gaia-Collaboration:2018a}
 {Gaia Collaboration} et~al., 2018, \aap, 616, A1
 
-\bibitem[\protect\citeauthoryear{{Garc{\'{\i}}a-Arredondo}, {Henney}  \&
-  {Arthur}}{{Garc{\'{\i}}a-Arredondo} et~al.}{2001}]{Garcia-Arredondo:2001a}
-{Garc{\'{\i}}a-Arredondo} F.,  {Henney} W.~J.,   {Arthur} S.~J.,  2001, \apj,
-  561, 830
-
 \bibitem[\protect\citeauthoryear{{Giard}, {Bernard}, {Lacombe}, {Normand}  \&
   {Rouan}}{{Giard} et~al.}{1994}]{Giard:1994a}
 {Giard} M.,  {Bernard} J.~P.,  {Lacombe} F.,  {Normand} P.,   {Rouan} D.,
@@ -130,19 +137,15 @@
   {Arthur}}{2019b}]{Henney:2019b}
 {Henney} W.~J.,  {Arthur} S.~J.,  2019b, \mnras, submitted (Paper II)
 
-\bibitem[\protect\citeauthoryear{{Henney} \& {O'Dell}}{{Henney} \&
-  {O'Dell}}{1999}]{Henney:1999a}
-{Henney} W.~J.,  {O'Dell} C.~R.,  1999, \aj, 118, 2350
-
 \bibitem[\protect\citeauthoryear{{Hoang}, {Tram}, {Lee}  \& {Ahn}}{{Hoang}
   et~al.}{2018}]{Hoang:2018a}
 {Hoang} T.,  {Tram} L.~N.,  {Lee} H.,   {Ahn} S.-H.,  2018, arXiv, \href
   {http://adsabs.harvard.edu/abs/2018arXiv181005557H} {}
 
-\bibitem[\protect\citeauthoryear{{Hoogerwerf}, {de Bruijne}  \& {de
-  Zeeuw}}{{Hoogerwerf} et~al.}{2001}]{Hoogerwerf:2001a}
-{Hoogerwerf} R.,  {de Bruijne} J.~H.~J.,   {de Zeeuw} P.~T.,  2001, \aap, 365,
-  49
+\bibitem[\protect\citeauthoryear{Jones, Oliphant, Peterson  et~al.}{Jones
+  et~al.}{2019}]{Jones:2001a}
+Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
+  source scientific tools for {Python}, \url {http://www.scipy.org/}
 
 \bibitem[\protect\citeauthoryear{{Katushkina}, {Alexashov}, {Izmodenov}  \&
   {Gvaramadze}}{{Katushkina} et~al.}{2017}]{Katushkina:2017a}
@@ -206,10 +209,9 @@
 \bibitem[\protect\citeauthoryear{{Matzner}}{{Matzner}}{2002}]{Matzner:2002a}
 {Matzner} C.~D.,  2002, \apj, 566, 302
 
-\bibitem[\protect\citeauthoryear{{Meyer}, {van Marle}, {Kuiper}  \&
-  {Kley}}{{Meyer} et~al.}{2016}]{Meyer:2016a}
-{Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
-  459, 1146
+\bibitem[\protect\citeauthoryear{McKinney}{McKinney}{2010}]{McKinney:2010a}
+McKinney W.,  2010, in van~der Walt S.,  Millman J.,  eds, Proceedings of the
+  9th Python in Science Conference. pp 51 -- 56
 
 \bibitem[\protect\citeauthoryear{{Meyer}, {Mignone}, {Kuiper}, {Raga}  \&
   {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
@@ -226,10 +228,6 @@
 \bibitem[\protect\citeauthoryear{{O'Dell}}{{O'Dell}}{2001}]{ODell:2001c}
 {O'Dell} C.~R.,  2001, \aj, 122, 2662
 
-\bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
-  {Wen}}{1994}]{ODell:1994a}
-{O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
-
 \bibitem[\protect\citeauthoryear{{Ochsendorf} \& {Tielens}}{{Ochsendorf} \&
   {Tielens}}{2015}]{Ochsendorf:2015a}
 {Ochsendorf} B.~B.,  {Tielens} A.~G.~G.~M.,  2015, \aap, 576, A2
@@ -241,9 +239,10 @@
   O.,  {Bernard} J.~P.,  {Kaper} L.,   {Tielens} A.~G.~G.~M.,  2014, \aap, 563,
   A65
 
-\bibitem[\protect\citeauthoryear{{Oh} \& {Kroupa}}{{Oh} \&
-  {Kroupa}}{2016}]{Oh:2016c}
-{Oh} S.,  {Kroupa} P.,  2016, \aap, 590, A107
+\bibitem[\protect\citeauthoryear{{Petit}, {Wade}, {Drissen}, {Montmerle}  \&
+  {Alecian}}{{Petit} et~al.}{2008}]{Petit:2008a}
+{Petit} V.,  {Wade} G.~A.,  {Drissen} L.,  {Montmerle} T.,   {Alecian} E.,
+  2008, \mnras, 387, L23
 
 \bibitem[\protect\citeauthoryear{{Pogodin}, {Malanushenko}, {Kozlova},
   {Tarasova}  \& {Franco}}{{Pogodin} et~al.}{2006}]{Pogodin:2006a}
@@ -259,11 +258,6 @@
   {Maciel}}{{Quireza} et~al.}{2006b}]{Quireza:2006b}
 {Quireza} C.,  {Rood} R.~T.,  {Bania} T.~M.,  {Balser} D.~S.,   {Maciel} W.~J.,
    2006b, \apj, 653, 1226
-
-\bibitem[\protect\citeauthoryear{{Renzo} et~al.,}{{Renzo}
-  et~al.}{2018}]{Renzo:2018a}
-{Renzo} M.,  et~al., 2018, arXiv, \href
-  {http://adsabs.harvard.edu/abs/2018arXiv180409164R} {1804.09164}
 
 \bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
   et~al.}{2005}]{Robberto:2005a}

@@ -376,20 +376,22 @@ Figure~\ref{fig:All-sources-eta-tau}.
 
 \subsubsection{Shell thickness}
 \label{sec:shell-thickness}
-We do not expect a great deal of variation in the shell thickness,
-except for in the case of fast runaway stars
-(\(v > \SI{100}{km.s^{-1}}\)), for which the shell may be dramatically
-thinner if the post-shock cooling is sufficiently rapid
-(\(h / R_0 \sim M_0^{-2}\)).  For ambient densities less than about
-\SI{10}{cm^{-3}}, the minimum thickness is about ten times smaller
-than we are assuming.  This occurs at
-\(v \approx \SI{60}{km.s^{-1}}\), corresponding to the peak in the cooling
-curve at \SI{e5}{K} (see \S~3.2 of Paper~I),
+For maximally efficient post-shock radiative cooling, the shell
+thickness depends on the Mach number of the shock as
+\(h / R_0 \sim M_0^{-2}\).  However, for ambient densities less than
+about \SI{10}{cm^{-3}}, the minimum thickness is only about ten times
+smaller than the \(h / R_0 = 0.25\) that we are assuming.  In
+photoionized gas, this occurs at \(v \approx \SI{60}{km.s^{-1}}\),
+corresponding to the peak in the cooling curve at \SI{e5}{K} (see
+\S~3.2 of Paper~I),
 % XREF: Paper I \S~\ref{sec:radi-cool-lengths}
 since the thickness is set by the cooling length at higher speeds.  In
+the case that the Alfv\'en speed is a significant fraction of the
+sound speed, this will also tend to increase the thickness.  In
 principle, the shell thickness can be measured observationally if the
 source is sufficiently well resolved \citep{Kobulnicky:2017a},
-although this is complicated by projection effects.
+although this is complicated by projection effects.  We return to the
+issue of the shell thickness in the discussion below.
 
 \subsubsection{Dust opacity}
 \label{sec:dust-opacity}
@@ -460,104 +462,31 @@ with a factor 5 decrease in \(\kappa\), as suggested by
 source up to the RBW line, or slightly above.
 
 
-\section{Candidate radiation-supported bows}
+\subsection{Candidate radiation-supported bows}
 \label{sec:cand-radi-supp}
 
 Four sources are sufficiently close to the diagonal line
-\(\eta\shell = 1.25 \tau\) in Figure~\ref{fig:All-sources-eta-tau} that they
-should be treated as potential candidates for radiation-supported
-bows. These are K18 sources~380 (HD~53367, V750~Mon) and 407 (HD~93249
-in Carina) plus \thD{} and LP~Ori.  Of the four, source 380 is the
-only one that is also a candidate for grain-gas decoupling.  Further
-details of the two K18 sources are presented in following subsections,
-where for source~380 we show that reducing both luminosity and
-distance by a factor of roughly 2 with respect to the values used by
-K18 would provide a better fit to the totality of observational data.
-However, the ratio \(\eta\shell /\tau\) is proportional to \(D / L_*\) so it
-would not be affected by such an adjustment and the bow remains
-radiation-supported.  On the other hand \(\eta\shell\) (proportional to
-\(D / L_*^2\)) would increase by 2, making the classification as dust
-wave candidate more marginal. 
+\(\eta\shell = 1.25 \tau\) in Figure~\ref{fig:All-sources-eta-tau}
+that they should be treated as strong candidates for
+radiation-supported bows. These are K18 sources~380 (HD~53367,
+V750~Mon) and 407 (HD~93249 in Carina) plus \thD{} and LP~Ori.  Of the
+four, source 380 is the only one that is also a candidate for
+grain-gas decoupling.  Further details of the two K18 sources are
+presented in Appendix~\ref{sec:notes-part-sourc}, where for source~380
+we show that reducing both luminosity and distance by a factor of
+roughly 2 with respect to the values used by K18 would provide a
+better fit to the totality of observational data.  However, the ratio
+\(\eta\shell /\tau\) is proportional to \(D / L_*\) so it would not be
+affected by such an adjustment and the bow remains
+radiation-supported.  On the other hand \(\eta\shell\) (proportional
+to \(D / L_*^2\)) would increase by 2, making the classification as
+dust wave candidate more marginal.
 
-% \subsection{Notes on particular sources}
-% \label{sec:notes-part-sourc}
+Three additional K18 sources (409, 410, 411) are within a factor of 3
+of the radiation-supported line, so they too must be considered as
+potential candidates, given our estimated systematic uncertainty in
+the shell parameters (\S~\ref{sec:syst-uncert-due}).
 
-\subsection{Source~380, HD~53367, V750~Mon}
-\label{sec:hd-53367-v750}
-  
-This is a Herbig Be star with spectral type B0V--B0III and mass 12 to
-\SI{15}{M_\odot}, which shows long-scale irregular photometric
-variability \citep{Tjin-A-Djie:2001a, Pogodin:2006a} together with
-cyclic radial velocity variations, which are interpreted as an
-eccentric binary with a \SI{5}{M_\odot} pre-main-sequence companion.
-It is located outside the solar circle and, although it was originally
-classified as part of the CMa OB association at about \SI{1}{kpc}
-\citep{Tjin-A-Djie:2001a}, more recent estimates put it much closer.
-K18 assume a distance of \SI{260}{pc}, based on Hipparcos measurements
-\citep{van-Leeuwen:2007a}, but its Gaia DR2 parallax
-\citep{Gaia-Collaboration:2016a, Gaia-Collaboration:2018a, Luri:2018a}
-puts it closer still at \SI{140 \pm 30}{pc}.\footnote{%
-  Median and 90\% confidence interval, estimated from Bayesian
-  inference using an exponential density distribution with scale
-  length of \SI{1350}{pc} as a prior (see
-  \url{https://github.com/agabrown/astrometry-inference-tutorials/}). }
-
-\citet{Quireza:2006b} report a kinematic distance to the associated
-\hii{} region IC~2177 (G\num{223.70}\num{-1.90}) of \SI{1.6}{kpc},
-based an LSR radio recombination line velocity of \SI{+16}{km.s^{-1}}
-\citep{Quireza:2006a} and the outer Galaxy rotation curve of
-\citet{Brand:1993a}.  However, given the dispersion in peculiar
-velocities of star-forming clouds (\SIrange{7}{9}{km.s^{-1}},
-\citealp{Stark:1984a}) and likely streaming motions of the ionized gas
-(\(\approx \SI{10}{km.s^{-1}}\), \citealp{Matzner:2002a, Lee:2012a}),
-this is still consistent with a much smaller distance, which would
-also help in bringing the radio continuum-derived nebular electron
-density into agreement with the value (\(\approx \SI{100}{cm^{-3}}\))
-derived from the optical [\ion{S}{ii}] line ratio
-\citep{Hawley:1978a}.
-
-\citet{Fairlamb:2015a} derive a distance of \SI{340 \pm 60}{pc} from
-combining a spectroscopically determined effective temperature,
-gravity, and reddening with photometry and pre-main sequence
-evolutionary tracks.  They also determine a luminosity of \SI{13000
-  \pm 1000}{L_\odot}, which is only half that assumed by K18, and
-would have to be even lower to bring the photometry into concordance
-with the Gaia distance.  Alternatively, the luminosity could remain
-the same if the total-to-selective extinction ratio were higher than
-the \(R_V = 3.1\) assumed by \citet{Fairlamb:2015a}.  Taking
-\(R_V = 5.5\) instead, as in Orion, would give \(A_V = 3.34\) and a
-predicted \(V\) magnitude of 6.7 if we assume \(L_4 = 1.3\),
-\(D = \SI{170}{pc}\) (furthest distance in Gaia 90\% confidence
-interval) and \(T_{\text{eff}} = \SI{29.5}{kK}\)
-\citep{Fairlamb:2015a} for a bolometric correction of \(-2.86\)
-\citep{Nieva:2013a}.  The observed brightness varies between
-\(V = 6.9\) and 7.2, which is still at least 20\% fainter than
-predicted, but this is the best that can be achieved without rejecting
-the Gaia parallax distance entirely.
-
-A final sanity check can be performed by considering the free-free
-radio continuum flux of V750~Mon's surrounding \hii{} region, which,
-after converting to a luminosity, should be proportional to the total
-recombination rate in the nebula and therefore, assuming
-photoionization equilibrium and negligible dust absorption in the
-ionized gas, also proportional to the ionizing photon luminosity of
-the star.  \citet{Quireza:2006b} report a flux density of \SI{6}{Jy}
-at \SI{8.6}{Ghz} for G\num{223.70}\num{-1.90}, as compared with a flux
-density of \SI{260}{Jy} for the Orion Nebula using the same
-instrumental setup.  Assuming an ionizing photon luminosity of
-\(S_{49} = 1\) and distance \SI{410}{pc} for the ionizing Trapezium
-stars in Orion, therefore implies
-\(S_{49} = 0.0027 (D/\SI{140}{pc})^2\) for V750~Mon.  Using an
-ionizing flux of \SI{3.2e22}{cm^{-2}.s^{-1}} from the curves in Fig.~4
-of \citet{Sternberg:2003a}, this translates to a bolometric luminosity
-of \(L_4 = 0.96 (D/\SI{140}{pc})^2\), which is consistent with the
-\citet{Fairlamb:2015a} value if we take a distance towards the high
-end of the Gaia range.
-
-\subsection{Source 407, HD~93249}
-\label{sec:source-407}
-
-TODO
 
 \input{app-cloudy-dust-heating}
 
@@ -651,8 +580,27 @@ cancellation of two similar-sized terms, mean that the mass loss will
 be poorly constrained in such cases.
 
 Resulting mass-loss rates are shown as a function of stellar
-luminosity in Figure~\ref{fig:mass-loss-vs-luminosity}a for the K18 and
-Orion sources.
+luminosity in Figure~\ref{fig:mass-loss-vs-luminosity}a for the K18
+and Orion sources.  As in Figure~\ref{fig:All-sources-eta-tau} we show
+separately the uncertainties in the measurements due to observational
+errors (lower right box) and systematic model uncertainties (upper
+left box).  Typical observational uncertainties are combined into an
+error ellipse using the techniques of
+Appendix~\ref{sec:comb-uncert-covar}, which is shown in light blue.
+Sources that are close to the RBW line in the \(\tau\)--\(\eta\shell\)
+diagram yield only upper limits to the mass-loss rate and these are
+shown as faint symbols in the figure.
+
+Our results are compared with the commonly used mass-loss recipes of
+\citet{Vink:2000a} (red lines) and more recent whole-atmosphere
+simulations of wind formation in B~stars \citep{Krticka:2014a} and
+O~stars \citep{Krticka:2017a}.  Additionally, we show observational
+mass loss determinations for weak wind O~dwarfs
+\citep{Marcolino:2009a} as orange plus symbols.  It can be seen that
+the majority of the K18 sources fall below the \citeauthor{Vink:2000a}
+line and are more consistent with the \citet{Krticka:2017a} models.
+
+\textit{Write about sigma Ori}
 
 \subsection{Mass loss determination method of \protect\citet{Kobulnicky:2018a}}
 \label{app:bow-shock-data}
@@ -684,11 +632,11 @@ Orion sources.
 \end{figure}
 
 \newcommand\LOS{\ensuremath{_{\text{los}}}}
+
 K18 derive mass loss rates for their sources using a method that is
-different from the one that we employ in
-\S~\ref{sec:summary-discussion}.  Both methods are based on
-determining the stellar wind ram pressure that supports the bow shell,
-but K18 do so via the following steps:
+different from the one that we employ above.  Both methods are based
+on determining the stellar wind ram pressure that supports the bow
+shell, but K18 do so via the following steps:
 \begin{enumerate}[K1.]
 \item \label{K1} The line-of-sight mass column through the shell is
   calculated by combining the peak surface brightness at \SI{70}{\um},
@@ -716,20 +664,19 @@ wavelengths, while step~K\ref{K1} depends on the peak brightness at a
 single wavelength combined with an assumption about the grain
 emissivity at infrared wavelengths.  Our step~P\ref{P2} requires an
 assumption about the relative thickness of the shell, while
-step~K\ref{K2} is more directly tied to observations.\footnote{%
-  Note that there is a relation between the chord length, \(\ell\),
-  and the shell thickness, \(h\shell\), but this depends on the
-  planitude, \(\Pi\) of the bow shape \citep{Tarango-Yong:2018a}:
-  \( h\shell/R_0 = \Pi \bigl(1 - \{1 - [\ell/(2 \Pi R_0)]^2\}^{1/2}\bigr)\).  } %
+step~K\ref{K2} is more directly tied to observations.
 On the other hand, step~K\ref{K3} makes a roughly equivalent
 assumption about the shock compression factor,\footnote{%
   In reality, the compression factor may be larger or smaller than 4,
   depending on the efficiency of the post-shock cooling (see
-  \S~\ref{sec:radi-cool-lengths}).  For instance, for
-  \(v = \SI{30}{km.s^{-1}}\) as assumed by K18 and \(T = \SI{e4}{K}\),
-  one has a Mach number of \(\M_0 = 2.63\) and a compression factor of
-  2.8 for a non-radiative shock (by eq.~[\ref{eq:shock-n-jump}]) or a
-  factor of \(\M_0^2 =6.9\) for a strongly radiative one.  } %
+  % XREF Paper I \ref{sec:radi-cool-lengths}
+  \S~3.2 of Paper~I).  For instance, for \(v = \SI{30}{km.s^{-1}}\) as
+  assumed by K18 and \(T = \SI{e4}{K}\), one has a Mach number of
+  \(\M_0 = 2.63\) and a compression factor of 2.8 for a non-radiative
+  shock (by
+  % XREF Paper I \ref{eq:shock-n-jump}
+  eq.~[27] of Paper~I) or a factor of
+  \(\M_0^2 =6.9\) for a strongly radiative one.} %
 and a further assumption about the stream velocity. These assumptions
 are not necessary for our step~P\ref{P3}, but we do need to assume a
 value for the shell gas temperature.
@@ -737,7 +684,7 @@ value for the shell gas temperature.
 In principle, both methods are valid and their different assumptions
 and dependencies on observed quantities and auxiliary parameters
 provide an important cross check on one another.  However, as
-explained in detail in Appendix~\ref{sec:grain-temp-emiss}, the
+explained in detail in \S~\ref{sec:grain-temp-emiss}, the
 \(j_\nu(U)\) relation depends on the shape of the illuminating SED,
 which means that the \citet{Draine:2007a} models require modification
 when applied to grains around OB stars.  In addition, when attempting
@@ -766,15 +713,42 @@ consistent with that shown in K18 Fig.~2), and the values they
 
 After correcting the \SI{70}{\um} emissivities in this way, we
 re-derive the mass loss rates, following the same steps as in K18,
-which are then used in Figure~\ref{fig:mass-loss-vs-luminosity}b of
-\S~\ref{sec:summary-discussion}.  The difference between these
-corrected mass-loss rates and those published in K18 is shown in
+which are then used in Figure~\ref{fig:mass-loss-vs-luminosity}b
+above.  The difference between these corrected mass-loss rates and
+those published in K18 is shown in
 Figure~\ref{fig:k18-mdot-corrected-emissivity}.  It can be seen that
 sources with \(U \approx \num{e3}\) (darker shading) are relatively
 unaffected but that sources with stronger radiation fields (lighter
 shading) have their mass-loss increasingly reduced, as could be
 surmised from Figure~\ref{fig:k18-emissivity}.  The average reduction
 is by a factor of about two.
+
+
+
+% Different scenarios for producing velocities: dynamic ejection from
+% young clusters \citep{Hoogerwerf:2001a, Oh:2016c} produce high
+% velocities, dissolution of binary systems following core-collapse SN
+% \citep{Renzo:2018a} tend to produce lower velocities for the unbound
+% MS companion (walkaways, slower than 30 km/s).  Also, champagne flows
+% have low velocities.
+
+% \subsection{Diagnosing bow type from shell emission profile}
+% \label{sec:diagnosing-bow-type}
+
+% Given that the predicted shell density profile varies between
+% wind-supported and radiation-supported bows (Paper~I) it is worth
+% considering whether it may be possible to use observed emission
+% profiles to distinguish between the two.
+
+
+
+
+\section{Discussion}
+\label{sec:discussion}
+
+
+\subsection{Why the two mass-loss methods differ}
+\label{sec:underst-diff-betw}
 
 \begin{figure}
   \centering
@@ -788,89 +762,222 @@ is by a factor of about two.
   \label{fig:mass-loss-comparison}
 \end{figure}
 
-Finally, in Figure~\ref{fig:mass-loss-comparison} we compare our own
-mass-loss determinations with the corrected K18 values.  The plot
-symbols are shaded according to the physical size of the bow, \(R_0\).
-It is apparent that the two methods are broadly in agreement on
-average, but there is considerable dispersion for individual objects,
-with only a weak correlation between the results of the two techniques
-(Pearson correlation coefficient \(r = 0.67\)).  Interestingly, the
-smaller bows (darker shading) show much better agreement than the
-larger bows (lighter shading).  The five bows with
-\(R_0 > \SI{0.4}{pc}\) (339, 344, 369, 381, 382) show a difference of
-nearly an order of magnitude, in the sense that our method
-consistently predicts lower mass-loss rates than K18.  For a further
-five of the sources (380, 407, 409, 410, 411), our method gives only
-an upper limit to the wind mass-loss rate if one assumes a
-factor-three uncertainty in \(\eta\shell\), and these bows are among
-the smallest in the sample, all with \(R_0 < \SI{0.1}{pc}\).
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{figs/mdot_correlations_edited}
+  \caption{Correlations of derived mass loss rates with star and bow
+    parameters. First row is for mass-loss rate derived using the
+    method of this paper (\S~\ref{sec:mass-loss-determ}).  Second row
+    is for mass-loss rate derived using the corrected K18 method
+    (\S~\ref{app:bow-shock-data}).  Third row is the ratio of these
+    two methods.  Points show 18 of the 20 K18 sources, omitting the
+    two strongest candidates for radiation support.  The correlation
+    coefficient, \(r\), and linear regression slope, \(m\), are shown
+    for selected pairs of interest (fainter text indicates weaker
+    correlations).  These were calculated using the Python library
+    function \texttt{scipy.stats.linregress}.}
+  \label{fig:correlations}
+\end{figure*}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/H_versus_ell_annotated}
+  \caption{Relative chord length versus shell thickness.  The line and
+    gray shading shows the theoretical relation (eq.~\eqref{eq:h-R0})
+    for planitude of \(\Pi = 1.8 \pm 0.9\).  The short vertical lines
+    at the top of the graph show the chord lengths for each of the 20
+    K18 sources.  The sources with the four smallest and four largest
+    values of \(\ell/R_0\) are individually labelled. The mean value
+    of \(\ell / R_0 = 1.8\) is indicated by a dashed line, which
+    corresponds to \(H/R_0 = 0.25\), which is the common value that we
+    use in deriving \(\eta\) and therefore \(\dot{M}\) by our method.
+    Inset diagram at lower right shows the geometry that leads to
+    eq.~\eqref{eq:h-R0}.  }
+  \label{fig:H-versus-ell}
+\end{figure}
+
+
+From comparing the two panels in
+Figure~\ref{fig:mass-loss-vs-luminosity} it is clear that there is a
+broad average agreement between the \(\dot{M}\) values from the two
+methods.  Nevertheless, there is considerable disparity for individual
+sources.  Obviously this is to be expected for sources where the
+\(\tau\)--\(\eta\shell\) method implies radiation support, since the
+K18 method assumes stellar wind support in all cases, and so has no
+way of identifying these.  However, discrepancies remain even for
+sources that are well above the diagonal line in
+Figure~\ref{fig:All-sources-eta-tau}.  This is shown more clearly in
+Figure~\ref{fig:mass-loss-comparison}, where we compare the two
+mass-loss determinations. Plot symbols are colored according to the
+physical size of the bow, \(R_0\), and radiation-support candidates
+are shown fainter.  It is apparent that there is only weak correlation
+between the two techniques (Pearson correlation coefficient
+\(r = 0.67\)).  Interestingly, the smaller bows (red/orange shading)
+show much better agreement than the larger bows (yellow shading).  The
+five bows with \(R_0 > \SI{0.4}{pc}\) (339, 344, 369, 381, 382) show a
+difference of nearly an order of magnitude, in the sense that our
+method consistently predicts lower mass-loss rates than K18.  The
+error ellipse for the combined observational errors (see
+Tab.~\ref{tab:error-ellipse} in App.~\ref{sec:comb-uncert-covar}) is
+highly elongated along the leading diagonal in
+Figure~\ref{fig:mass-loss-comparison} due to the fact that most of the
+observational uncertainties effect both mass-loss methods in a similar
+way.  It is therefore unlikely that observational errors are a
+significant contribution to the \textit{difference} in the two
+\(\dot M\) methods, which must instead be due to the systematic model
+uncertainties.  These are represented in the figure by the vertical
+error bars, which show the effect of a factor of three uncertainty in
+\(\eta\shell\) due to variations in shell thickness, dust opacity, and
+shell gas temperature.  It can be seen that systematic errors of this
+magnitude could indeed account for the observed differences, but the
+questions remain: which parameter is causing the problem? and can we
+correct for it?
+
+Although we have seen (Fig.~\ref{fig:mass-loss-comparison}) that the
+mass-loss discrepancy increases with \(R_0\), it is hard to understand
+why the physical size per~se might cause this.  We have therefore
+looked at the correlations between all of the observed and derived
+quantities, showing some of the more interesting results in
+Figure~\ref{fig:correlations}.  Each row of plots shows the dependence
+(\(y\) axis) of the two different derived mass-loss rates, and their
+ratio, on different parameters (\(x\) axis) of the star (leftmost four
+columns) and bow shell (remaining six columns).  The most significant
+correlations are marked in red with the value of the Pearson
+correlation coefficient, \(r\) (calculated after taking the log of all
+quantities).  The values shown with dark text have \(r^2 > 0.5\),
+which means that at least 50\% of the variance in the \(y\) quantity
+is ``explained'' by the variance in the \(x\) quantity (although this
+cannot necessarily be taken to imply causation in either
+direction). For some correlations, we also mark the linear regression
+slope, \(m\).  Since we are working in logarithmic space, this is
+equal to the power index in the relation \(y \propto x^m\).  Some
+selected weaker correlations are also shown (fainter text).
+
+For our \(\eta\)--\(\tau\shell\) mass-loss method (top row) the only
+significant correlation is a positive one with the shell infrared
+luminosity \(L\IR\) (rightmost column), with slope
+\(m = 0.6 \pm 0.1\).  For the K18 mass-loss method (middle row), the
+situation is very different, showing significant correlation with a
+trio of quantities: a positive correlation with bow radius, \(R_0\),
+and negative correlations with relative chord length, \(\ell/R_0\),
+and radiation field at the shell, \(U\).  The same three correlations
+(with inverted sense) are seen for the ratio of the two methods
+(bottom row).  This is due to the fact that the
+\(\eta\)--\(\tau\shell\) method shows much shallower slopes in its
+(weak) correlations with these quantities.  As an example, we show the
+values for \(\ell/R_0\) on the figure (seventh column):
+\(m = -2.3 \pm 0.4\) for the K18 method but \(m = -0.7 \pm 0.4\) for
+our method, which leaves a significant slope in the ratio of
+\(m = 1.6 \pm 0.4\).  For the shell luminosity, on the other hand, the
+ratio does not show any significant correlation at all.  This is
+because both methods have essentially the same slope in their
+correlation with \(L\IR\): \(m = 0.6 \pm 0.1\) for our method, and a
+weak correlation with \(m = 0.5 \pm 0.3\) for the K18 method.
+
+% From https://www.socscistatistics.com/pvalues/pearsondistribution.aspx
+% With 18 points: r^2 > 0.22 for p < 0.05 (|r| > 0.469)
+% With 18 points: r^2 > 0.35 for p < 0.01 (|r| > 0.590)
+% With 18 points: r^2 > 0.50 for p < 0.001 (|r| > 0.71)
+
+Out of the three quantities, \(R_0\), \(\ell/R_0\), and \(U\) (which
+are highly correlated between themselves) we will concentrate on the
+relative chord length \(\ell/R_0\) as the most likely culprit for the
+discrepancy between the two mass-loss estimates.  This is because it
+contains observational information that is used in the K18 method
+(step K\ref{K2} of \S~\ref{app:bow-shock-data}), but is \textit{not
+  used} in the \(\tau\)--\(\eta\shell\) method.  The closest
+equivalent of \(\ell\) in our method is the shell thickness,
+\(h\shell\), which enters in step~P\ref{P2} of
+\S~\ref{sec:energy-trapp-vers}, but crucially we use a fixed fraction
+of the bow radius, \(h\shell / R_0 = 0.25\), rather than basing it on
+any observations.  In principle, we could derive \(h\shell\) from
+\(\ell\) if we knew the radius of curvature of the shell,
+\(R_{\text{c}}\), or equivalently the planitude:
+\(\Pi = R_{\text{c}} / R_0\)\citep{Tarango-Yong:2018a}.  This is
+illustrated in the inset to Figure~\ref{fig:H-versus-ell}, from which
+we find
+\begin{equation}
+  \label{eq:h-R0}
+  \frac{h\shell}{R_0} = \frac{1}{8\Pi} \left(\frac{\ell}{R_0}\right)^2 \ .
+\end{equation}
+This is plotted in Figure~\ref{fig:H-versus-ell} for planitudes of
+\(\Pi = 1.8 \pm 0.9\), which are typical of OB star bows (this will be
+shown in detail in the upcoming Paper~IV).  Also shown in the figure
+are the individual relative chord lengths for the K18 sources (rug
+plot at top).  Although the mean value of \(\ell/R_0 \approx 1.8\)
+corresponds closely to the \(h\shell/R_0 = 0.25\) that we have used, 
+
+
+\subsection{Shared properties of candidates for radiation support}
+\label{sec:comm-prop-cand}
+
+
+For five of the K18 sources (380, 407, 409, 410, 411), our method of
+\S~\ref{sec:mass-loss-determ} gives only an upper limit to the wind
+mass-loss rate if one assumes a factor-three uncertainty in
+\(\eta\shell\), raising the possibility that they may be
+radiation-supported instead of wind-supported (see Paper~I).  It is
+notable that these sources are among the smallest in the K18 sample,
+all with \(R_0 < \SI{0.1}{pc}\).  The two Orion Nebula bows, LP~Ori
+and \thD{} also fall into this category, and they are smaller still,
+with \(R_0 < \SI{0.01}{pc}\).  Six of these 7 stars also occupy a
+narrow range of spectral type\footnote{%
+  However, this is not particularly statistically significant.  For
+  instance, out of the twenty K18 sources, 7 have spectral type O8 or
+  earlier.  Therefore, taking as the null hypothesis that the 5
+  sources were randomly selected from the 20, then the chance that
+  they should all be O9 or later is
+  \(p = (1 - \frac{7}{20})^5 = 0.116\), which fails to meet the
+  conventional \(2\sigma\) significance level of \(p = 0.05\).} %
+between O9 and B0, corresponding to
+\(T_{\text{eff}} = \text{\SIrange{28}{31}{kK}}\) (LP~Ori is a much
+cooler B2 star with \(T_{\text{eff}} = \SI{20}{kK}\),
+\citealp{Petit:2008a, Alecian:2013a}).
+
+The small bow sizes are fully consistent with the expectations from
+theory developed in Paper~I.  Radiation-supported bows are predicted
+to occur either in high-density environments
+(\(n > \SI{100}{cm^{-3}}\)) or for stars with particularly weak winds.
+In either case, the bow is expected to be smaller than \SI{0.1}{pc}
+for \(v_\infty \ge \SI{20}{km.s^{-1}}\), see Figures~2a,b and~6 of
+Paper~I.\@
+
+Another common property of these sources is that they all have high
+ratios of chord length to stand-off radius, \(\ell/R_0\).  For
+instance, from Figure~\ref{fig:H-versus-ell}, the four sources with
+the highest \(\ell/R_0\) values are all among the five
+radiation-supported candidates.\footnote{%
+  In this case, the statistical significance is far higher, since
+  \(p = (\frac{5}{20})^4 = 0.0039\) for the null hypothesis.}  From
+equation~\eqref{eq:h-R0} this means they also should have thicker than
+average shells.  This is consistent with our finding from Paper~I's
+\S~3.3 that the shell tends to be broad in the radiation-supported bow
+wave regime.  Furthermore, if the larger than average \(H/R_0\) were
+to be taken account in the calculation of \(\eta\shell\)
+(eq.~\eqref{eq:eta-shell}), then it would strengthen the case for
+radiation support in these objects.
+
+
+\subsection{The anomalous B~star KGK2010~2 in Cygnus: strong wind or
+  trapped ionization front?}
+\label{sec:anomalous-b-star}
 
 
 
+Using emissivity at different wavelength, such as \SI{24}{\um}.  No
+good reason to fear stochastic heating.  They mention not getting 70/24 ratio right.  Probably be better with our correction.
 
+Correlations between observed parameters and with mass loss rates.
+Pair plot from my jupyter notebook.
 
+How both the UV opacity and the IR emissivity depend on the same VSG grains.
 
-
-Source~342 is anomalous in both methods.
+Effects of grain evolution.  RATD destroying larger grains.  How would
+this effect the abundance of smaller grains? Calculate maximum grain
+size for the \(U\) distribution of the K18 sample.  Do we see any
+effects that seem to vary with \(U\)?
 
 Evidence for small grains around Arches cluster near Galactic center \citep{Hankins:2017a}
-
-
-
-Different scenarios for producing velocities: dynamic ejection from
-young clusters \citep{Hoogerwerf:2001a, Oh:2016c} produce high
-velocities, dissolution of binary systems following core-collapse SN
-\citep{Renzo:2018a} tend to produce lower velocities for the unbound
-MS companion (walkaways, slower than 30 km/s).  Also, champagne flows
-have low velocities.
-
-How different regions of the \(\Pi\)--\(\Lambda\) plane are populated.
-Bottom-right quadrant hard to get to (except for standing wave
-oscillations), but may be due to finite shell thickness, which (for
-low Mach number) will be more apparent in the wings, which might
-decrease \(\Lambda\) more than \(\Pi\).  Fact that thin-shell solutions should
-trace the contact discontinuity, but in some cases it may be only the
-inner or the outer shell that is visible.
-
-Justification for standing waves: Fig.~3 of \citet{Meyer:2016a} shows
-a time sequence of thin-shell instability, which looks a bit like a
-standing wave. But much larger amplitude than we are considering.
-
-Deviations from axisymmetry as an alternative to oscillations. 
-
-\subsection{Diagnosing bow type from shell emission profile}
-\label{sec:diagnosing-bow-type}
-
-Given that the predicted shell density profile varies between
-wind-supported and radiation-supported bows (Paper~I) it is worth
-considering whether it may be possible to use observed emission
-profiles to distinguish between the two.
-
-
-
-\subsection{The case of inside-out bows}
-\label{sec:case-inside-out}
-
-So far, we have considered the case where the inner source dominates
-the radiation, while dust is present only in the outer stream, which
-applies to hot stars interacting with the ISM.  However, in the case
-of cool stars, the inner wind will also be dusty.  Examples are the
-red supergiant (RSG) phase of high-mass evolution, or the asymptotic
-giant branch (AGB) stage of low/intermediate-mass evolution.  In both
-these cases, it is still the inner source that provides the radiation
-field.  However, not all winds are radiatively driven and in those
-cases it is conceivable that it is the outer source that dominates the
-radiation field.  An example is the case of photoevaporating
-protoplanetary disks (proplyds) in the Orion Nebula and other \hii{}
-regions \citep{ODell:1994a}.  In the proplyds, the inner wind is a
-thermally driven photoevaporation flow \citep{Henney:1998b, Henney:1999a},
-while the outer stream is the stellar wind from an O~star
-\citep{Garcia-Arredondo:2001a}.
-
-
-\section{Summary and conclusions}
-\label{sec:conclusions}
-
 
 
 %%% Local Variables:
