@@ -267,6 +267,13 @@
     "Arthur:2004a"
     "McKinney:2010a"
     "Petit:2008a"
-    "Alecian:2013a"))
+    "Alecian:2013a"
+    "Hirabayashi:2015a"
+    "Jewitt:2014a"
+    "Zhang:2018a"
+    "Lebouteiller:2007a"
+    "Schneider:2016a"
+    "Kobulnicky:2012a"
+    "Ngoumou:2013a"))
  :bibtex)
 

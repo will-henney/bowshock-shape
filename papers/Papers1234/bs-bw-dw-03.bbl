@@ -115,11 +115,6 @@
 \bibitem[\protect\citeauthoryear{{Habing}}{{Habing}}{1968}]{Habing:1968a}
 {Habing} H.~J.,  1968, \bain, 19, 421
 
-\bibitem[\protect\citeauthoryear{{Hankins}, {Lau}, {Morris}  \&
-  {Herter}}{{Hankins} et~al.}{2017}]{Hankins:2017a}
-{Hankins} M.~J.,  {Lau} R.~M.,  {Morris} M.~R.,   {Herter} T.~L.,  2017, \apj,
-  837, 79
-
 \bibitem[\protect\citeauthoryear{{Hawley}}{{Hawley}}{1978}]{Hawley:1978a}
 {Hawley} S.~A.,  1978, \apj, 224, 417
 
@@ -137,10 +132,18 @@
   {Arthur}}{2019b}]{Henney:2019b}
 {Henney} W.~J.,  {Arthur} S.~J.,  2019b, \mnras, submitted (Paper II)
 
+\bibitem[\protect\citeauthoryear{{Hirabayashi}}{{Hirabayashi}}{2015}]{Hirabayashi:2015a}
+{Hirabayashi} M.,  2015, \mnras, 454, 2249
+
 \bibitem[\protect\citeauthoryear{{Hoang}, {Tram}, {Lee}  \& {Ahn}}{{Hoang}
   et~al.}{2018}]{Hoang:2018a}
 {Hoang} T.,  {Tram} L.~N.,  {Lee} H.,   {Ahn} S.-H.,  2018, arXiv, \href
   {http://adsabs.harvard.edu/abs/2018arXiv181005557H} {}
+
+\bibitem[\protect\citeauthoryear{{Jewitt}, {Agarwal}, {Li}, {Weaver},
+  {Mutchler}  \& {Larson}}{{Jewitt} et~al.}{2014}]{Jewitt:2014a}
+{Jewitt} D.,  {Agarwal} J.,  {Li} J.,  {Weaver} H.,  {Mutchler} M.,   {Larson}
+  S.,  2014, \apjl, 784, L8
 
 \bibitem[\protect\citeauthoryear{Jones, Oliphant, Peterson  et~al.}{Jones
   et~al.}{2019}]{Jones:2001a}
@@ -155,6 +158,11 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
 \bibitem[\protect\citeauthoryear{{Kobulnicky}, {Gilbert}  \&
   {Kiminki}}{{Kobulnicky} et~al.}{2010}]{Kobulnicky:2010a}
 {Kobulnicky} H.~A.,  {Gilbert} I.~J.,   {Kiminki} D.~C.,  2010, \apj, 710, 549
+
+\bibitem[\protect\citeauthoryear{{Kobulnicky}, {Lundquist}, {Bhattacharjee}  \&
+  {Kerton}}{{Kobulnicky} et~al.}{2012}]{Kobulnicky:2012a}
+{Kobulnicky} H.~A.,  {Lundquist} M.~J.,  {Bhattacharjee} A.,   {Kerton} C.~R.,
+  2012, \aj, 143, 71
 
 \bibitem[\protect\citeauthoryear{{Kobulnicky} et~al.,}{{Kobulnicky}
   et~al.}{2016}]{Kobulnicky:2016a}
@@ -178,6 +186,11 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
   {Kubát}}{2017}]{Krticka:2017a}
 {Krtička} J.,  {Kubát} J.,  2017, \aap, 606, A31
 
+\bibitem[\protect\citeauthoryear{{Lebouteiller}, {Brandl}, {Bernard-Salas},
+  {Devost}  \& {Houck}}{{Lebouteiller} et~al.}{2007}]{Lebouteiller:2007a}
+{Lebouteiller} V.,  {Brandl} B.,  {Bernard-Salas} J.,  {Devost} D.,   {Houck}
+  J.~R.,  2007, \apj, 665, 390
+
 \bibitem[\protect\citeauthoryear{{Lebouteiller}, {Bernard-Salas}, {Whelan},
   {Brandl}, {Galliano}, {Charmandaris}, {Madden}  \& {Kunth}}{{Lebouteiller}
   et~al.}{2011}]{Lebouteiller:2011a}
@@ -192,6 +205,16 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
 \bibitem[\protect\citeauthoryear{{Luri} et~al.,}{{Luri}
   et~al.}{2018}]{Luri:2018a}
 {Luri} X.,  et~al., 2018, \aap, 616, A9
+
+\bibitem[\protect\citeauthoryear{{Mackey}, {Gvaramadze}, {Mohamed}  \&
+  {Langer}}{{Mackey} et~al.}{2015}]{Mackey:2015a}
+{Mackey} J.,  {Gvaramadze} V.~V.,  {Mohamed} S.,   {Langer} N.,  2015, \aap,
+  573, A10
+
+\bibitem[\protect\citeauthoryear{{Mackey}, {Haworth}, {Gvaramadze}, {Mohamed},
+  {Langer}  \& {Harries}}{{Mackey} et~al.}{2016}]{Mackey:2016a}
+{Mackey} J.,  {Haworth} T.~J.,  {Gvaramadze} V.~V.,  {Mohamed} S.,  {Langer}
+  N.,   {Harries} T.~J.,  2016, \aap, 586, A114
 
 \bibitem[\protect\citeauthoryear{{Marcolino}, {Bouret}, {Martins}, {Hillier},
   {Lanz}  \& {Escolano}}{{Marcolino} et~al.}{2009}]{Marcolino:2009a}
@@ -221,6 +244,11 @@ McKinney W.,  2010, in van~der Walt S.,  Millman J.,  eds, Proceedings of the
 \bibitem[\protect\citeauthoryear{{Najarro}, {Hanson}  \& {Puls}}{{Najarro}
   et~al.}{2011}]{Najarro:2011a}
 {Najarro} F.,  {Hanson} M.~M.,   {Puls} J.,  2011, \aap, 535, A32
+
+\bibitem[\protect\citeauthoryear{{Ngoumou}, {Preibisch}, {Ratzka}  \&
+  {Burkert}}{{Ngoumou} et~al.}{2013}]{Ngoumou:2013a}
+{Ngoumou} J.,  {Preibisch} T.,  {Ratzka} T.,   {Burkert} A.,  2013, \apj, 769,
+  139
 
 \bibitem[\protect\citeauthoryear{{Nieva}}{{Nieva}}{2013}]{Nieva:2013a}
 {Nieva} M.-F.,  2013, \aap, 550, A26
@@ -276,6 +304,15 @@ McKinney W.,  2010, in van~der Walt S.,  Millman J.,  eds, Proceedings of the
   et~al.}{2016}]{Schlafly:2016a}
 {Schlafly} E.~F.,  et~al., 2016, \apj, 821, 78
 
+\bibitem[\protect\citeauthoryear{{Schneider} et~al.,}{{Schneider}
+  et~al.}{2016}]{Schneider:2016a}
+{Schneider} N.,  et~al., 2016, \aap, 591, A40
+
+\bibitem[\protect\citeauthoryear{{Sexton}, {Povich}, {Smith}, {Babler}, {Meade}
+   \& {Rudolph}}{{Sexton} et~al.}{2015}]{Sexton:2015b}
+{Sexton} R.~O.,  {Povich} M.~S.,  {Smith} N.,  {Babler} B.~L.,  {Meade} M.~R.,
+   {Rudolph} A.~L.,  2015, \mnras, 446, 1047
+
 \bibitem[\protect\citeauthoryear{{Simón-D{\'{\i}}az}
   et~al.,}{{Simón-D{\'{\i}}az} et~al.}{2015}]{Simon-Diaz:2015a}
 {Simón-D{\'{\i}}az} S.,  et~al., 2015, \apj, 799, 169
@@ -327,6 +364,11 @@ New York: Wiley-Interscience
 \bibitem[\protect\citeauthoryear{{Xie}, {Ho}, {Li}  \& {Shangguan}}{{Xie}
   et~al.}{2018}]{Xie:2018a}
 {Xie} Y.,  {Ho} L.~C.,  {Li} A.,   {Shangguan} J.,  2018, \apj, 867, 91
+
+\bibitem[\protect\citeauthoryear{{Zhang}, {Richardson}, {Barnouin}, {Michel},
+  {Schwartz}  \& {Ballouz}}{{Zhang} et~al.}{2018}]{Zhang:2018a}
+{Zhang} Y.,  {Richardson} D.~C.,  {Barnouin} O.~S.,  {Michel} P.,  {Schwartz}
+  S.~R.,   {Ballouz} R.-L.,  2018, \apj, 857, 15
 
 \bibitem[\protect\citeauthoryear{{van Leeuwen}}{{van
   Leeuwen}}{2007}]{van-Leeuwen:2007a}
