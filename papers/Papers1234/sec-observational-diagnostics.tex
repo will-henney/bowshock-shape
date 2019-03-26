@@ -490,25 +490,6 @@ the shell parameters (\S~\ref{sec:syst-uncert-due}).
 
 \input{app-cloudy-dust-heating}
 
-\section{Stellar wind mass-loss rates}
-\label{sec:stellar-wind-mass}
-
-Various methods have been proposed to derive stellar wind mass-loss
-rates from observations of stellar bow shocks \citetext{for example,
-  \citealp{Kobulnicky:2010a, Gvaramadze:2012a, Kobulnicky:2018a}}.  In
-this section, we will show how the \(\tau\)--\(\eta\shell\) diagram can be
-used to derive the mass-loss rate for bows in the wind-supported
-regime.  We then compare our method with the method used by
-\citet{Kobulnicky:2018a}, which is a refinement of that originally
-proposed in \citet{Kobulnicky:2010a}.  The method used by
-\citet{Gvaramadze:2012a} uses combined measurements of the bow shock
-and the surrounding \hii{} region.  It has the advantage of depending
-on fewer free parameters than the other methods, but can only be used
-in the case of isolated stars, whereas the majority of the sources
-considered here are in cluster environments.
-
-\subsection{Mass loss determination from the \boldmath \(\tau\)--\(\eta\shell\) diagram}
-\label{sec:mass-loss-determ}
 \begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/Mdot-vs-lum-combo-edited}
@@ -542,6 +523,27 @@ considered here are in cluster environments.
     parameters (upper left).}
   \label{fig:mass-loss-vs-luminosity}
 \end{figure*}
+
+
+\section{Stellar wind mass-loss rates}
+\label{sec:stellar-wind-mass}
+
+Various methods have been proposed to derive stellar wind mass-loss
+rates from observations of stellar bow shocks \citetext{for example,
+  \citealp{Kobulnicky:2010a, Gvaramadze:2012a, Kobulnicky:2018a}}.  In
+this section, we will show how the \(\tau\)--\(\eta\shell\) diagram can be
+used to derive the mass-loss rate for bows in the wind-supported
+regime.  We then compare our method with the method used by
+\citet{Kobulnicky:2018a}, which is a refinement of that originally
+proposed in \citet{Kobulnicky:2010a}.  The method used by
+\citet{Gvaramadze:2012a} uses combined measurements of the bow shock
+and the surrounding \hii{} region.  It has the advantage of depending
+on fewer free parameters than the other methods, but can only be used
+in the case of isolated stars, whereas the majority of the sources
+considered here are in cluster environments.
+
+\subsection{Mass loss determination from the \boldmath \(\tau\)--\(\eta\shell\) diagram}
+\label{sec:mass-loss-determ}
 
 Taking into account the support from stellar wind ram pressure and the
 absorbed stellar radiation pressure, the pressure of the bow shell can
@@ -600,8 +602,6 @@ mass loss determinations for weak wind O~dwarfs
 the majority of the K18 sources fall below the \citeauthor{Vink:2000a}
 line and are more consistent with the \citet{Krticka:2017a} models.
 
-\textit{Write about sigma Ori}
-
 \subsection{Mass loss determination method of \protect\citet{Kobulnicky:2018a}}
 \label{app:bow-shock-data}
 
@@ -630,8 +630,6 @@ line and are more consistent with the \citet{Krticka:2017a} models.
     (see App.~\ref{sec:grain-temp-emiss}).}
   \label{fig:k18-emissivity}
 \end{figure}
-
-\newcommand\LOS{\ensuremath{_{\text{los}}}}
 
 K18 derive mass loss rates for their sources using a method that is
 different from the one that we employ above.  Both methods are based
@@ -746,8 +744,87 @@ is by a factor of about two.
 \section{Discussion}
 \label{sec:discussion}
 
+In this section we discuss various issues related to our results,
+beginning in \S~\ref{sec:evolution-grain-size} with a consideration of
+how the optical properties of the grain population in bow shocks might
+be affected by the extreme radiation environment.  This is followed by
+examination of various sub-groups of sources that are unusual in some
+way: those where the two mass-loss methods give discrepant results
+(\S~\ref{sec:underst-diff-betw}), those that may be
+radiation-supported (\S~\ref{sec:comm-prop-cand}), and one source that
+shows a very large apparent mass-loss rate for its luminosity
+(\S~\ref{sec:anomalous-b-star}).
 
-\subsection{Why do the two mass-loss methods differ?}
+\subsection{Evolution of grain size}
+\label{sec:evolution-grain-size}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/xsec-dust-ratd-ism_10}
+  \caption{Change in dust opacity due to Radiative Torque Disruption
+    of large grains.  Black line shows the total absorption opacity of
+    Cloudy's standard ISM dust mixture.  The red line shows the result
+    of simulating the RATD process by removing the grains larger than
+    \SI{0.04}{\um} and distributing their mass among smaller grain
+    sizes.}
+  \label{fig:ratd}
+\end{figure}
+
+
+The properties of dust grains in bow shocks might be significantly
+different from those in the general interstellar medium, particularly
+because of the strong radiation field to which they are exposed, which
+has effects at both the small and large ends of the grain size
+distribution.  At the small end, sub-nanometer sized particles, such
+as PAHs can be destroyed by hard EUV photons
+\citep{Lebouteiller:2007a, Lebouteiller:2011a}.  Larger grains, on the
+other hand, are most vulnerable to Radiative Torque Disruption
+\citep[RATD;][]{Hoang:2018a}, see discussion in \S~6.4 of Paper~II.\@
+This is important for our diagnostics because it would tend to reduce
+the average grain size, while maintaining the same total grain mass,
+which would have the effect of increasing the ultraviolet opacity,
+while leaving the mid-infrared opacity unchanged.\footnote{The
+  mid-infrared emissivity, on the other hand, would also increase
+  since smaller grains tend to have higher radiative equilibrium
+  temperatures.} %
+We do not know the exact size distribution of fragments that would
+result from the RATD process, but we can estimate its effect by
+assuming that all grains with \(a > \SI{0.05}{\um}\) are transformed
+into grains with \(a = \text{\SIrange{0.025}{0.05}{\um}}\).  We
+implement this crudely in the Cloudy grain model
+(\S~\ref{sec:grain-temp-emiss}) by setting to zero the abundance of
+graphite and silicate grains in size bins 7, 8, 9, 10, while at the
+same time distributing their mass equally between size bins 5, and 6,
+which increases the abundance in those bins by factors of 5.19 and
+4.45, respectively.  The results are shown in Figure~\ref{fig:ratd},
+which shows the wavelength-dependent absorption opacity \(\kappa\) for
+both the standard ISM grain mixture and this RATD-modified mixture.
+As expected, the UV opacity is increased in the RATD mixture, but only
+by about 50\%, whereas the near-infrared opacity is decreased and the
+visual extinction becomes much steeper, which would correspond to a
+small total-to-selective extinction ratio of \(R_V < 3\).
+
+This modest increase in opacity from RATD grain processing is well
+within the systematic uncertainties that we have been assuming and so
+does not invalidate the results of the previous sections.  If the
+larger grains were instead to break up into many small fragments, the
+effect would be much larger.  If we repeat the above exercise, but
+assuming the fragment size is \(< \SI{0.01}{\um}\), then we find an
+increase by a factor of five in the UV opacity, but we do not feel
+that this is realistic. Studies of the break-up of fast-spinning small
+asteroids \citep{Hirabayashi:2015a, Zhang:2018a} show that when the
+tensile strength dominates over self-gravity, then stresses are
+highest in the center of the body, leading to break up into a small
+number of similarly sized pieces, as observed in asteroid P/2013~R3
+\citep{Jewitt:2014a}.  In the case of dust grains, the tensile
+strength and angular velocity are both far higher than in the asteroid
+case, but we expect a similar behavior so that the fragment size
+should be predominantly within a factor of about two below the
+critical size given in equation~(28) of \citet{Hoang:2018a}, as we
+assumed in Figure~\ref{fig:ratd}.
+
+
+\subsection{Why do results of the two mass-loss methods differ?}
 \label{sec:underst-diff-betw}
 
 \begin{figure}
@@ -847,11 +924,13 @@ correlation coefficient, \(r\) (calculated after taking the log of all
 quantities).  The values shown with dark text have \(r^2 > 0.5\),
 which means that at least 50\% of the variance in the \(y\) quantity
 is ``explained'' by the variance in the \(x\) quantity (although this
-cannot necessarily be taken to imply causation in either
-direction). For some correlations, we also mark the linear regression
-slope, \(m\).  Since we are working in logarithmic space, this is
-equal to the power index in the relation \(y \propto x^m\).  Some
-selected weaker correlations are also shown (fainter text).
+cannot necessarily be taken to imply causation in either direction
+since it might be due to the fact that both \(x\) and \(y\) are
+partially determined by a third quantity, \(z\)). For some
+correlations, we also mark the linear regression slope, \(m\).  Since
+we are working in logarithmic space, this is equal to the power index
+in the relation \(y \propto x^m\).  Some selected weaker correlations
+are also shown (fainter text).
 
 For our \(\eta\)--\(\tau\shell\) mass-loss method (top row) the only
 significant correlation is a positive one with the shell infrared
@@ -893,7 +972,7 @@ of the bow radius, \(h\shell / R_0 = 0.25\), rather than basing it on
 any observations.  In principle, we could derive \(h\shell\) from
 \(\ell\) if we knew the radius of curvature of the shell,
 \(R_{\text{c}}\), or equivalently the planitude:
-\(\Pi = R_{\text{c}} / R_0\)\citep{Tarango-Yong:2018a}.  The idealized
+\(\Pi = R_{\text{c}} / R_0\) \citep{Tarango-Yong:2018a}.  The idealized
 geometry is illustrated in the inset to Figure~\ref{fig:H-versus-ell},
 from which we find
 \begin{equation}
@@ -1000,14 +1079,14 @@ the derived values from both mass-loss methods (panels a and b of
 Fig.~\ref{fig:mass-loss-vs-luminosity}) are about 10 times larger.
 This fact was already noted in K18, who suggested that the grain
 emissivity models may not be appropriate for this object.  We propose
-instead that the shell may be predominantly neutral instead of
-ionized, which might help explain other peculiar aspects of the
-source.  Figure~\ref{fig:cygnus-bows} shows infrared images of the
-field containing both sources~342 and 341.  The field is located in
-the Cygnus~X North region, between the DR~20 and DR~21 star forming
-regions, about \SI{17}{pc} north of the center of the Cygnus OB2
-association \citep[e.g.,][]{Schneider:2016a}.  It can be seen that the
-two bow shocks have very contrasting morphologies and spectra.
+instead to investigate the idea that the shell may be predominantly
+neutral instead of ionized, which might help explain other peculiar
+aspects of the source.  Figure~\ref{fig:cygnus-bows} shows infrared
+images of the field containing both sources~342 and 341.  The field is
+located in the Cygnus~X North region, between the DR~20 and DR~21 star
+forming regions, about \SI{17}{pc} north of the center of the Cygnus
+OB2 association \citep[e.g.,][]{Schneider:2016a}.  It can be seen that
+the two bow shocks have very contrasting morphologies and spectra.
 Source~341 has a semi-circular shape, a very diffuse outer boundary,
 and is only prominent between wavelengths of \SI{12}{\um} and
 \SI{24}{\um}.  These characteristics are typical of many optically
@@ -1017,86 +1096,119 @@ around \thD{} \citetext{compare the bow shape in Fig.~3a of
   ERO~36 in Carina, \citealp{Sexton:2015b}}, and the central star of
 RCW~120 \citetext{not included in current samples, but see
   \citealp{Mackey:2015a, Mackey:2016a}}.  Source~342, on the other
-hand, has a more parabolic shape, a sharply defined arc, and emits
-strongly at all wavelengths from \SI{3.6}{\um} to \SI{150}{\um}
-\citetext{see also Fig.~13 of \citealp{Kobulnicky:2010a}}.  The
-parabolic arc shape and the broad SED are both reminiscent of LP~Ori
-(more details on the Orion Nebula bows will be provide in Paper~VI),
-and another bow that bears some similarities is Carina's Sickle object
-\citetext{ERO~21 \citealp{Sexton:2015b}, see also
-  \citealp{Ngoumou:2013a}}.  Note also the second outer arc in this
-source, which emits primarily at \SI{5.8}{\um} and \SI{7.9}{\um} and
-appears similar to the double-bow structure seen in IRAS~03063+5735
-\citep{Kobulnicky:2012a}.
+hand, has a more parabolic shape, a sharply defined outer boundary to
+its arc, and emits strongly at all wavelengths from \SI{3.6}{\um} to
+\SI{150}{\um} \citetext{see also Fig.~13 of
+  \citealp{Kobulnicky:2010a}}.  The parabolic arc shape and the broad
+SED are both reminiscent of LP~Ori (more details on the Orion Nebula
+bows will be provide in Paper~VI), and another bow that bears some
+similarities is Carina's Sickle object \citetext{ERO~21
+  \citealp{Sexton:2015b}, see also \citealp{Ngoumou:2013a} and \S~4 of
+  \citealp{Hartigan:2015a}}.  Note also the second outer rim in this
+source, which emits primarily at \SI{5.8}{\um}, \SI{7.9}{\um}, and
+\SI{12}{\um}. This appears similar to the double-bow structure seen in
+IRAS~03063+5735 \citep{Kobulnicky:2012a}.  Finally, it has the coldest
+dust of any of the K18 sources, as determined from the mid-to-far
+infrared color temperatures (\(T_{22/70} = \SI{70}{K}\),
+\(T_{70/150} = \SI{69}{K}\) from Tab.~5 of
+\citealp{Kobulnicky:2017a}).
 
 
-\subsection{Evolution of grain size}
-\label{sec:evolution-grain-size}
+If source~342 has trapped the ionization front in its shell, then
+\(\eta\shell\) has been overestimated and the source should be moved
+vertically down on Figure~\ref{fig:All-sources-eta-tau} in a similar
+way to LP~Ori.  The exact correction factor is unknown, since it
+depends on the temperature and magnetic field in the neutral shell,
+but it could easily be of order 10, which would take the shell into
+the radiation-supported regime.  The derived mass-loss rate would
+hence be reduced from the anomalously high value of
+Figure~\ref{fig:mass-loss-comparison} to essentially zero.  However,
+this requires that the shell be capable of absorbing all the ionizing
+photons from the central star, which implies a lower limit to the
+shell optical depth: \(\tau > \tau\iftrap\), see Paper~I's
+\S~3.1.\footnote{%
+  Note that \(\tau\iftrap < 1\) is allowed, since \(\tau\) is the
+  ultraviolet \emph{dust} optical depth of the shell, whereas it is
+  the EUV \textit{gas} opacity that is most important for trapping the
+  ionization front.  } %
+In the radiation-supported bow wave (RBW) regime this is
+\begin{equation}
+  \label{eq:tau-trap-rbw}
+  \text{RBW:}\quad \tau\iftrap \approx 7.1 \, \left( \frac{S_{49} \, \kappa_{600}}{L_4} \right)^{1/2} \ ,
+\end{equation}
+while in the wind-supported bow shock (WBS) regime it is
+\begin{equation}
+  \label{eq:tau-trap-wbs}
+  \text{WBS:}\quad \tau\iftrap \approx 102 \, \frac{S_{49} \, \kappa_{600}}{\eta\wind\, L_4}  \ .
+\end{equation}
+In these equations, which are derived from equations~(8, 10, 12, 24)
+of Paper~I, \(S_{49}\) is the ionizing photon luminosity of the star
+in units of \SI{e49}{s^{-1}}, while \(L_4\) and \(\kappa_{600}\) are
+defined in \S~\ref{sec:energy-trapp-vers} and \(\eta\wind\) in
+\S~\ref{sec:mass-loss-determ}.  Within the uncertainties, the
+observationally inferred spectral type of B0--B2V of source~342 is the
+same as the \SI{10}{M_\odot} main-sequence star used in Papers~I
+and~II, which has a ratio of ionizing to bolometric luminosity
+\(S_{49}/L_4 = \num{2.1e-4}\).  Substituting into
+equation~\eqref{eq:tau-trap-rbw} yields \(\tau\iftrap \approx 0.1 \)
+for the RBW case, whereas the observed optical depth is more than an
+order of magnitude lower: \(\tau \approx 0.005\).  Similar
+difficulties arise if one assumes a wind-supported bow shock, in which
+case \(\tau < \eta\wind\) by definition.  Combined with
+equation~\eqref{eq:tau-trap-wbs}, this then implies a lower limit for
+the wind momentum efficiency: \(\eta\wind > 0.14\).  Given that we
+must always have \(\eta\shell \ge \eta\wind\)
+(eq.~[\ref{eq:eta-shell-components}]), this is inconsistent with the
+observed \(\eta\shell = 0.07 T_4 / \kappa_{600} h_{1/4}\), especially
+since the whole point of the exercise is to reduce \(\eta\shell\) via
+a reduction in \(T_4\).
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/xsec-dust-ratd-ism_10}
-  \caption{Change in dust opacity due to Radiative Torque Disruption
-    of large grains.  Black line shows the total absorption opacity of
-    Cloudy's standard ISM dust mixture.  The red line shows the result
-    of simulating the RATD process by removing the grains larger than
-    \SI{0.04}{\um} and distributing their mass among smaller grain
-    sizes.}
-  \label{fig:ratd}
-\end{figure}
+Therefore, we have shown that a neutral shell is not consistent with
+the observational data for source~342, and so this is unlikely to be
+the explanation for the seemingly high mass loss rate.  Instead, it is
+possible that the explanation is simply that the stellar luminosity
+has been underestimated, since the luminosity class is not well
+constrained by spectroscopy (K18).  If the star were B1~III instead of
+B1~V, then the luminosity would be 4 times higher.  This could be due
+to a combination of having underestimated the distance and having
+underestimated the foreground extinction.  The assumed distance of
+\(D= \SI{1.3}{kpc}\) comes from a study of eclipsing binaries in the
+Cygnus~OB2 association \citep{Kiminki:2015a}, but GAIA~DR2 parallaxes
+for the association clearly show two sub-groups at
+\(D = \SI{1.76}{kpc}\) and \SI{1.35}{kpc}, with the farther group
+being the dominant one \citep{Berlanas:2019a}.  The GAIA parallax for
+source~342 yields a median and 90\% confidence interval of
+\(1.65^{+0.18}_{-0.16} \, \si{kpc}\) (same methodology as
+App.~\ref{sec:hd-53367-v750}),
+% \SIrange{1.49}{1.83}{kpc}
+which clearly indicates it is in the farther group.  Taking the median
+distance of \SI{1.65}{kpc} would raise \(L_*\) by a factor 1.61 and
+increasing the visual extinction \(A_V\) by 1 magnitude would give an
+additional factor of 2.51 for a total increase by \(\approx 4\), as we
+are looking for.  To find the effects on the derived quantities, we
+can sum the Jacobian elements in the first two rows of
+Table~\ref{tab:derived-parameters}, multiplied by the changes in
+observed log quantities: \(\Delta D \approx \SI{+0.1}{dex}\) and
+\(\Delta L_* \approx \SI{+0.6}{dex}\). For example:
+\begin{equation}
+  \label{eq:delta-derived}
+  \Delta\tau = J_D(\tau)\, \Delta D + J_{L_*}(\tau)\, \Delta L_*
+\end{equation}
+and similarly for the other quantities.  This yields
+\(\Delta \tau \approx \SI{-0.4}{dex}\),
+\(\Delta \eta\shell \approx \SI{-0.9}{dex}\),
+\(\Delta \dot{M} \approx \SI{-0.3}{dex}\), and
+\(\Delta \dot{M}_{\text{K18}} \approx \SI{-0.1}{dex}\).  In
+Figure~\ref{fig:mass-loss-vs-luminosity}a this would move source~342
+substantially to the right and slightly down, thus transforming it
+from an extreme outlier to an unremarkable source in the center of the
+pack.  It would be disappointing if such a prosaic explanation were
+the correct one, given all the other peculiarities of this source
+listed in the first paragraph of this section.  However, based on
+current evidence, the more interesting and exotic explanations are
+less plausible.
 
 
-The properties of dust grains in bow shocks might be significantly
-different from those in the general interstellar medium, particularly
-because of the strong radiation field to which they are exposed, which
-has effects at both the small and large ends of the grain size
-distribution.  At the small end, sub-nanometer sized particles, such
-as PAHs can be destroyed by hard EUV photons
-\citep{Lebouteiller:2007a, Lebouteiller:2011a}.  Larger grains, on the
-other hand, are most vulnerable to Radiative Torque Disruption
-\citep[RATD;][]{Hoang:2018a}, see discussion in \S~6.4 of Paper~II.\@
-This is important for our diagnostics because it would tend to reduce
-the average grain size, while maintaining the same total grain mass,
-which would have the effect of increasing the ultraviolet opacity,
-while leaving the mid-infrared opacity unchanged.\footnote{The
-  mid-infrared emissivity, on the other hand, would also increase
-  since smaller grains tend to have higher radiative equilibrium
-  temperatures.} %
-We do not know the exact size distribution of fragments that would
-result from the RATD process, but we can estimate its effect by
-assuming that all grains with \(a > \SI{0.05}{\um}\) are transformed
-into grains with \(a = \text{\SIrange{0.025}{0.05}{\um}}\).  We
-implement this crudely in the Cloudy grain model
-(\S~\ref{sec:grain-temp-emiss}) by setting to zero the abundance of
-graphite and silicate grains in size bins 7, 8, 9, 10, while at the
-same time distributing their mass equally between size bins 5, and 6,
-which increases the abundance in those bins by factors of 5.19 and
-4.45, respectively.  The results are shown in Figure~\ref{fig:ratd},
-which shows the wavelength-dependent absorption opacity \(\kappa\) for
-both the standard ISM grain mixture and this RATD-modified mixture.
-As expected, the UV opacity is increased in the RATD mixture, but only
-by about 50\%, whereas the near-infrared opacity is decreased and the
-visual extinction becomes much steeper, which would correspond to a
-small total-to-selective extinction ratio of \(R_V < 3\).
-
-This modest increase in opacity from RATD grain processing is well
-within the systematic uncertainties that we have been assuming and so
-does not invalidate the results of the previous sections.  If the
-larger grains were instead to break up into many small fragments, the
-effect would be much larger.  If we repeat the above exercise, but
-assuming the fragment size is \(< \SI{0.01}{\um}\), then we find an
-increase by a factor of five in the UV opacity, but we do not feel
-that this is realistic. Studies of the break-up of fast-spinning small
-asteroids \citep{Hirabayashi:2015a, Zhang:2018a} show that when the
-tensile strength dominates over self-gravity, then stresses are
-highest in the center of the body, leading to break up into a small
-number of similarly sized pieces, as observed in asteroid P/2013~R3
-\citep{Jewitt:2014a}.  In the case of dust grains, the tensile
-strength and angular velocity are both far higher than in the asteroid
-case, but we expect a similar behavior so that the fragment size
-should be predominantly within a factor of about two below the
-critical size given in equation~(28) of \citet{Hoang:2018a}, as we
-assumed in Figure~\ref{fig:ratd}.
 
 
 % Using emissivity at different wavelength, such as \SI{24}{\um}.  No

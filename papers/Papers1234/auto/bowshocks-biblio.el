@@ -274,6 +274,9 @@
     "Lebouteiller:2007a"
     "Schneider:2016a"
     "Kobulnicky:2012a"
-    "Ngoumou:2013a"))
+    "Ngoumou:2013a"
+    "Hartigan:2015a"
+    "Berlanas:2019a"
+    "Kiminki:2015a"))
  :bibtex)
 

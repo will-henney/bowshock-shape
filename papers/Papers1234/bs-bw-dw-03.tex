@@ -160,15 +160,29 @@ bows.  In \S~\ref{sec:conclusions} we summarise out findings.
 \section{Summary}
 \label{sec:conclusions}
 
-We have proposed a novel diagnostic method, the \(\tau\)-\(eta\shell\)
+We have proposed a novel diagnostic method, the \(\tau\)-\(\eta\shell\)
 diagram, for analyzing observations of stellar bow shocks around OB
 stars, which allows discrimination between radiation-supported and
 wind-supported bows.  Our principal results are as follows:
 \begin{enumerate}[1.]
-\item The UV optical depth of the bow shell can be estimated from the
-  observed infrared shell luminosity \(L\IR\) and stellar luminosity
-  \(L_*\) as \(\tau = 2 L\IR/L_*\).
-\item With the  
+\item The UV optical depth \(\tau\) of the bow shell can be estimated
+  from the observed infrared shell luminosity \(L\IR\) and stellar
+  luminosity \(L_*\) as \(\tau = 2 L\IR/L_*\).
+\item The shell momentum efficiency \(\eta\shell\), which is the
+  fraction of stellar radiative momentum that is transferred to the
+  shell either directly or indirectly (via stellar wind), can be
+  estimated from \(\tau\) and the observed shell radius \(R_0\), after
+  making some auxiliary assumptions about the physical conditions in
+  the shell.
+\item By comparing \(\tau\) and \(\eta\shell\), it is possible to
+  discriminate between three regimes (see Paper~I): wind-supported bow
+  shocks (\(\eta\shell \gg \tau\)), radiation-supported bow waves
+  (\(\eta\shell \sim \tau < 1\)), and radiation-supported bow shocks
+  (\(\eta\shell \sim \tau > 1\)).
+\item Shells with \(\eta\shell < \num{e-3}\) are potentially in a fourth
+  dust-wave regime where gas--grain collisional coupling may break
+  down (see Paper~II).
+\item 
 \end{enumerate}
 
 
@@ -189,28 +203,29 @@ projects.  We thank Chip Kobulnicky for useful discussions.
 \appendix
 \input{app-k17-k18}
 
-\section{Notes on particular sources}
-\label{sec:notes-part-sourc}
+% \section{Notes on particular sources}
 
-\subsection{Source~380, HD~53367, V750~Mon}
+\section{The Herbig Be star V750~Mon}
+\label{sec:notes-part-sourc}
 \label{sec:hd-53367-v750}
   
-This is a Herbig Be star with spectral type B0V--B0III and mass 12 to
-\SI{15}{M_\odot}, which shows long-scale irregular photometric
-variability \citep{Tjin-A-Djie:2001a, Pogodin:2006a} together with
-cyclic radial velocity variations, which are interpreted as an
-eccentric binary with a \SI{5}{M_\odot} pre-main-sequence companion.
-It is located outside the solar circle and, although it was originally
-classified as part of the CMa OB association at about \SI{1}{kpc}
-\citep{Tjin-A-Djie:2001a}, more recent estimates put it much closer.
-K18 assume a distance of \SI{260}{pc}, based on Hipparcos measurements
+K18 source~380 (HD~53367, V750~Mon) is a Herbig Be star with spectral
+type B0V--B0III and mass 12 to \SI{15}{M_\odot}, which shows
+long-scale irregular photometric variability \citep{Tjin-A-Djie:2001a,
+  Pogodin:2006a} together with cyclic radial velocity variations,
+which are interpreted as an eccentric binary with a \SI{5}{M_\odot}
+pre-main-sequence companion.  It is located outside the solar circle
+and, although it was originally classified as part of the CMa OB
+association at about \SI{1}{kpc} \citep{Tjin-A-Djie:2001a}, more
+recent estimates put it much closer.  K18 assume a distance of
+\SI{260}{pc}, based on Hipparcos measurements
 \citep{van-Leeuwen:2007a}, but its Gaia DR2 parallax
 \citep{Gaia-Collaboration:2016a, Gaia-Collaboration:2018a, Luri:2018a}
-puts it closer still at \SI{140 \pm 30}{pc}.\footnote{%
-  Median and 90\% confidence interval, estimated from Bayesian
-  inference using an exponential density distribution with scale
-  length of \SI{1350}{pc} as a prior (see
-  \url{https://github.com/agabrown/astrometry-inference-tutorials/}). }
+puts it closer still at \SI{140 \pm 30}{pc}.  This is the median and
+90\% confidence interval, estimated from Bayesian
+inference\footnote{\url{https://github.com/agabrown/astrometry-inference-tutorials/}.}
+using an exponential density distribution with scale length of
+\SI{1350}{pc} as a prior.
 
 \citet{Quireza:2006b} report a kinematic distance to the associated
 \hii{} region IC~2177 (G\num{223.70}\num{-1.90}) of \SI{1.6}{kpc},
@@ -264,21 +279,21 @@ of \(L_4 = 0.96 (D/\SI{140}{pc})^2\), which is consistent with the
 \citet{Fairlamb:2015a} value if we take a distance towards the high
 end of the Gaia range.
 
-\subsection{Source 407, HD~93249}
-\label{sec:source-407}
+% \subsection{Source 407, HD~93249}
+% \label{sec:source-407}
 
-TODO
+% TODO
 
-\subsection{Source 342}
-\label{sec:source-342}
+% \subsection{Source 342}
+% \label{sec:source-342}
 
-Source~342 is anomalous in both methods. Has high mass loss for low luminosity.
+% Source~342 is anomalous in both methods. Has high mass loss for low luminosity.
 
 
-\subsection{Source 344}
-\label{sec:source-344}
+% \subsection{Source 344}
+% \label{sec:source-344}
 
-This has big disagreement between K18 and me.  My mass-loss rate seems too low, given its high luminosity. Why?
+% This has big disagreement between K18 and me.  My mass-loss rate seems too low, given its high luminosity. Why?
 
 
 
