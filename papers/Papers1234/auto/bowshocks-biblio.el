@@ -287,6 +287,14 @@
     "van-Buren:1992a"
     "Matsuda:1989a"
     "Ueta:2008a"
-    "Sahai:2010a"))
+    "Sahai:2010a"
+    "Bodensteiner:2018a"
+    "Comeron:1998a"
+    "Huthoff:2002a"
+    "Peri:2012a"
+    "Peri:2015a"
+    "Prisegen:2019a"
+    "Raga:1997a"
+    "van-Buren:1995a"))
  :bibtex)
 
