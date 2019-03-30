@@ -277,6 +277,16 @@
     "Ngoumou:2013a"
     "Hartigan:2015a"
     "Berlanas:2019a"
-    "Kiminki:2015a"))
+    "Kiminki:2015a"
+    "Beerer:2010a"
+    "Tung:2017a"
+    "Wendker:1991a"
+    "Wright:2015a"
+    "Pecaut:2013a"
+    "Benaglia:2010a"
+    "van-Buren:1992a"
+    "Matsuda:1989a"
+    "Ueta:2008a"
+    "Sahai:2010a"))
  :bibtex)
 

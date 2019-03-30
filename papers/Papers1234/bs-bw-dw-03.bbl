@@ -33,14 +33,13 @@
   et~al.}{2014}]{Balog:2014a}
 {Balog} Z.,  et~al., 2014, Experimental Astronomy, 37, 129
 
+\bibitem[\protect\citeauthoryear{{Beerer} et~al.,}{{Beerer}
+  et~al.}{2010}]{Beerer:2010a}
+{Beerer} I.~M.,  et~al., 2010, \apj, 720, 679
+
 \bibitem[\protect\citeauthoryear{{Beitia-Antero} \& {Gómez de
   Castro}}{{Beitia-Antero} \& {Gómez de Castro}}{2017}]{Beitia-Antero:2017a}
 {Beitia-Antero} L.,  {Gómez de Castro} A.~I.,  2017, \mnras, 469, 2531
-
-\bibitem[\protect\citeauthoryear{{Berlanas}, {Wright}, {Herrero}, {Drew}  \&
-  {Lennon}}{{Berlanas} et~al.}{2019}]{Berlanas:2019a}
-{Berlanas} S.~R.,  {Wright} N.~J.,  {Herrero} A.,  {Drew} J.~E.,   {Lennon}
-  D.~J.,  2019, \mnras, 484, 1838
 
 \bibitem[\protect\citeauthoryear{{Brand} \& {Blitz}}{{Brand} \&
   {Blitz}}{1993}]{Brand:1993a}
@@ -164,11 +163,6 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
 {Katushkina} O.~A.,  {Alexashov} D.~B.,  {Izmodenov} V.~V.,   {Gvaramadze}
   V.~V.,  2017, \mnras, 465, 1573
 
-\bibitem[\protect\citeauthoryear{{Kiminki}, {Kobulnicky}, {Vargas Álvarez},
-  {Alexander}  \& {Lundquist}}{{Kiminki} et~al.}{2015}]{Kiminki:2015a}
-{Kiminki} D.~C.,  {Kobulnicky} H.~A.,  {Vargas Álvarez} C.~A.,  {Alexander}
-  M.~J.,   {Lundquist} M.~J.,  2015, \apj, 811, 85
-
 \bibitem[\protect\citeauthoryear{{Kobulnicky}, {Gilbert}  \&
   {Kiminki}}{{Kobulnicky} et~al.}{2010}]{Kobulnicky:2010a}
 {Kobulnicky} H.~A.,  {Gilbert} I.~J.,   {Kiminki} D.~C.,  2010, \apj, 710, 549
@@ -199,6 +193,10 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
 \bibitem[\protect\citeauthoryear{{Krtička} \& {Kubát}}{{Krtička} \&
   {Kubát}}{2017}]{Krticka:2017a}
 {Krtička} J.,  {Kubát} J.,  2017, \aap, 606, A31
+
+\bibitem[\protect\citeauthoryear{{Lanz} \& {Hubeny}}{{Lanz} \&
+  {Hubeny}}{2007}]{Lanz:2007a}
+{Lanz} T.,  {Hubeny} I.,  2007, \apjs, 169, 83
 
 \bibitem[\protect\citeauthoryear{{Lebouteiller}, {Brandl}, {Bernard-Salas},
   {Devost}  \& {Houck}}{{Lebouteiller} et~al.}{2007}]{Lebouteiller:2007a}
@@ -280,6 +278,10 @@ McKinney W.,  2010, in van~der Walt S.,  Millman J.,  eds, Proceedings of the
 {Ochsendorf} B.~B.,  {Cox} N.~L.~J.,  {Krijt} S.,  {Salgado} F.,  {Bern{\'e}}
   O.,  {Bernard} J.~P.,  {Kaper} L.,   {Tielens} A.~G.~G.~M.,  2014, \aap, 563,
   A65
+
+\bibitem[\protect\citeauthoryear{{Pecaut} \& {Mamajek}}{{Pecaut} \&
+  {Mamajek}}{2013}]{Pecaut:2013a}
+{Pecaut} M.~J.,  {Mamajek} E.~E.,  2013, \apjs, 208, 9
 
 \bibitem[\protect\citeauthoryear{{Petit}, {Wade}, {Drissen}, {Montmerle}  \&
   {Alecian}}{{Petit} et~al.}{2008}]{Petit:2008a}
@@ -363,6 +365,10 @@ New York: Wiley-Interscience
   {Shevchenko} V.~S.,  {Ezhkova} O.~V.,  {de Winter} D.,   {Grankin} K.~N.,
   2001, \mnras, 325, 1441
 
+\bibitem[\protect\citeauthoryear{{Tung} et~al.,}{{Tung}
+  et~al.}{2017}]{Tung:2017a}
+{Tung} A.~K.,  et~al., 2017, \aj, 154, 156
+
 \bibitem[\protect\citeauthoryear{{Tuthill}, {Monnier}  \& {Danchi}}{{Tuthill}
   et~al.}{1999}]{Tuthill:1999a}
 {Tuthill} P.~G.,  {Monnier} J.~D.,   {Danchi} W.~C.,  1999, \nat, 398, 487
@@ -374,6 +380,14 @@ New York: Wiley-Interscience
 \bibitem[\protect\citeauthoryear{{Weingartner} \& {Draine}}{{Weingartner} \&
   {Draine}}{2001}]{Weingartner:2001a}
 {Weingartner} J.~C.,  {Draine} B.~T.,  2001, \apj, 548, 296
+
+\bibitem[\protect\citeauthoryear{{Wendker}, {Higgs}  \& {Landecker}}{{Wendker}
+  et~al.}{1991}]{Wendker:1991a}
+{Wendker} H.~J.,  {Higgs} L.~A.,   {Landecker} T.~L.,  1991, \aap, 241, 551
+
+\bibitem[\protect\citeauthoryear{{Wright}, {Drew}  \& {Mohr-Smith}}{{Wright}
+  et~al.}{2015}]{Wright:2015a}
+{Wright} N.~J.,  {Drew} J.~E.,   {Mohr-Smith} M.,  2015, \mnras, 449, 741
 
 \bibitem[\protect\citeauthoryear{{Xie}, {Ho}, {Li}  \& {Shangguan}}{{Xie}
   et~al.}{2018}]{Xie:2018a}

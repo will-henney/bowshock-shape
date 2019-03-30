@@ -204,16 +204,24 @@ sources will be published elsewhere.
 \subsection{Treatment of sources from \citeauthor{Kobulnicky:2018a}}
 \label{sec:kobulnicky}
 
-
 In a series of papers \citeauthor{Kobulnicky:2018a} provide an
 extensive mid-infrared-selected sample of over 700 candidate stellar
 bow shock nebulae (\citealp{Kobulnicky:2016a, Kobulnicky:2017a,
   Kobulnicky:2018a}, hereafter K16, K17, and K18).  For 20 of these
 sources, reliable distances and spectral classifications are provided
 in Table~5 of K17 and Tables~1 and~2 of K18. In this section, we
-outline how we obtain \(\tau\) and \(\eta\shell\) from the data in these
-catalogs, while further aspects of the \citeauthor{Kobulnicky:2018a}
-material are discussed in \S~\ref{app:bow-shock-data}.
+outline how we obtain \(\tau\) and \(\eta\shell\) from the data in
+these catalogs, while further aspects of the
+\citeauthor{Kobulnicky:2018a} material are discussed in
+\S~\ref{app:bow-shock-data}.  As this paper was being written, we
+became aware of a new mass-loss study that greatly expands on the
+earlier results of K18 (H.~Kobulnicky, priv.~comm.).  The new study
+includes 70 bow shock sources and incorporates Gaia distances and
+proper motions, together with new optical/IR spectroscopy of the
+central stars.  Apart from making use of an updated spectral
+classification of one source (\S~\ref{sec:anomalous-b-star}), we have
+elected to concentrate on only the published K18 sample in this paper,
+but will address the expanded sample in future publications.
 
 The UV optical depth of the bow shell is obtained
 (eq.~[\ref{eq:tau-empirical}]) from the ratio of infrared shell
@@ -627,7 +635,7 @@ line and are more consistent with the \citet{Krticka:2017a} models.
     emissivities that we believe they should have been using, which
     correct for the marked difference in spectral energy distribution
     between OB stars and the Galactic interstellar radiation field
-    (see App.~\ref{sec:grain-temp-emiss}).}
+    (see \S~\ref{sec:grain-temp-emiss}).}
   \label{fig:k18-emissivity}
 \end{figure}
 
@@ -682,18 +690,20 @@ value for the shell gas temperature.
 In principle, both methods are valid and their different assumptions
 and dependencies on observed quantities and auxiliary parameters
 provide an important cross check on one another.  However, as
-explained in detail in \S~\ref{sec:grain-temp-emiss}, the
-\(j_\nu(U)\) relation depends on the shape of the illuminating SED,
-which means that the \citet{Draine:2007a} models require modification
-when applied to grains around OB stars.  In addition, when attempting
-to replicate the K18 values of \(j_{70}\) we find that they only
-follow the \citet{Draine:2007a} values for \(U > \num{e4}\), tending
-to a constant value for weaker radiation fields.  The situation is
+explained in detail in \S~\ref{sec:grain-temp-emiss}, the \(j_\nu(U)\)
+relation depends on the shape of the illuminating SED, which means
+that the \citet{Draine:2007a} models require modification when applied
+to grains around OB stars.  In addition, when attempting to replicate
+the K18 values of \(j_{70}\) we find that they only follow the
+\citet{Draine:2007a} values for \(U > \num{e4}\), tending to a
+constant value for weaker radiation fields.  The situation is
 summarized in Figure~\ref{fig:k18-emissivity}, where the values taken
 directly from Table~2 of K18 are shown by red crosses, the values they
 claim to be using are shown by the gray solid line (this curve is
 consistent with that shown in K18 Fig.~2), and the values they
-\textit{should} have been using are shown by the gray dashed line.
+\textit{should} have been using are shown by the gray dashed
+line. Note that this correction may also resolve the color temperature
+discrepancy noted by \citet{Kobulnicky:2017a}.
 
 % If we replaced K3 with M3, then mass loss rates would be reduced by 1.86 across the board
 
@@ -720,7 +730,6 @@ unaffected but that sources with stronger radiation fields (lighter
 shading) have their mass-loss increasingly reduced, as could be
 surmised from Figure~\ref{fig:k18-emissivity}.  The average reduction
 is by a factor of about two.
-
 
 
 % Different scenarios for producing velocities: dynamic ejection from
@@ -999,7 +1008,46 @@ We choose not make this correction to the \(\tau\)--\(\eta\shell\)
 method in this paper since we want to test the methods using published
 data alone and without excessive fine-tuning.  However, for future
 applications an empirical measurement of the shell thicknesses would
-clearly help improve the reliability of the method.
+clearly help improve the reliability of the \(\tau\)--\(\eta\shell\)
+method.
+
+It is hard to say which of the two mass-loss methods is ``better'',
+except that the \(\tau\)--\(\eta\shell\) method has the advantage of
+being able to identify radiation-supported bows, for which the mass
+loss cannot be determined.  We recommend that both be employed if
+possible as a cross-check on one another.  The
+\(\tau\)--\(\eta\shell\) method has the disadvantage of requiring
+shell photometry at a range of wavelengths: \SIrange{8}{70}{\um} in
+order to be sure of covering the bulk of the grain emission, whereas
+the K18 method needs only the \SI{70}{\um} surface brightness.  On the
+other hand, we suspect that this makes the \(\tau\)--\(\eta\shell\)
+method less sensitive to possible variations in grain composition and
+size distribution.  This is because it depends on the average grain
+opacity over a broad range of ultraviolet wavelengths, rather than the
+emissivity in a single infrared band.  Additionally, many bows are
+weak emitters at \SI{70}{\um}, whereas the background emission from
+the PDRs surrounding \hii{} regions is very bright and variable.  The
+contrast of the bow against the background is usually much higher at
+\SI{24}{\um}, but K18 avoid this waveband on the grounds that it may
+be dominated by emission from stochastic heating of very small grains.
+We maintain that this avoidance is over-conservative (see
+\S~\ref{sec:stoch-single-phot}), since (i)~the high circumstellar
+radiation fields (\(U > 1000\)) mean that stochastic heating is only
+relevant for ultra-small nanometer-sized grains \citep{Draine:2001a},
+and (ii)~the most important class of such grains in the general ISM is
+PAHs, and these are destroyed by the ionizing radiation from O~stars
+\citep{Desert:1990a}.  Although PAHs may survive in bows around
+B~stars, which lack the energetic photons (\(h\nu > \SI{40}{eV}\))
+that most efficiently destroy them \citep{Lebouteiller:2007a}, their
+contribution to the \SI{24}{\um} emissivity is likely to be small
+compared with the slightly larger grains (\(> \SI{5}{nm}\)), which are
+in thermal equilibrium with the radiation field.  It may therefore be
+worth modifying the K18 method to use the \SI{24}{\um} surface
+brightness instead of \SI{70}{\um}.  In the case of the
+\(\tau\)--\(\eta\shell\) method, this is all irrelevant since
+equation~\eqref{eq:tau-empirical} is valid in a time-averaged sense,
+irrespective of whether stochastic heating is important or not.
+
 
 \subsection{Common characteristics of radiation-supported candidates}
 \label{sec:comm-prop-cand}
@@ -1163,58 +1211,93 @@ observed \(\eta\shell = 0.07 T_4 / \kappa_{600} h_{1/4}\), especially
 since the whole point of the exercise is to reduce \(\eta\shell\) via
 a reduction in \(T_4\).
 
-Therefore, we have shown that a neutral shell is not consistent with
-the observational data for source~342, and so this is unlikely to be
-the explanation for the seemingly high mass loss rate.  Instead, it is
-possible that the explanation is simply that the stellar luminosity
-has been underestimated, since the luminosity class is not well
-constrained by spectroscopy (K18).  If the star were B1~III instead of
-B1~V, then the luminosity would be 4 times higher.  This could be due
-to a combination of having underestimated the distance and having
-underestimated the foreground extinction.  The assumed distance of
-\(D= \SI{1.3}{kpc}\) comes from a study of eclipsing binaries in the
-Cygnus~OB2 association \citep{Kiminki:2015a}, but GAIA~DR2 parallaxes
-for the association clearly show two sub-groups at
-\(D = \SI{1.76}{kpc}\) and \SI{1.35}{kpc}, with the farther group
-being the dominant one \citep{Berlanas:2019a}.  The GAIA parallax for
-source~342 yields a median and 90\% confidence interval of
-\(1.65^{+0.18}_{-0.16} \, \si{kpc}\) (same methodology as
-App.~\ref{sec:hd-53367-v750}),
-% \SIrange{1.49}{1.83}{kpc}
-which clearly indicates it is in the farther group.  Taking the median
-distance of \SI{1.65}{kpc} would raise \(L_*\) by a factor 1.61 and
-increasing the visual extinction \(A_V\) by 1 magnitude would give an
-additional factor of 2.51 for a total increase by \(\approx 4\), as we
-are looking for.  To find the effects on the derived quantities, we
-can sum the Jacobian elements in the first two rows of
-Table~\ref{tab:derived-parameters}, multiplied by the changes in
-observed log quantities: \(\Delta D \approx \SI{+0.1}{dex}\) and
-\(\Delta L_* \approx \SI{+0.6}{dex}\). For example:
-\begin{equation}
-  \label{eq:delta-derived}
-  \Delta\tau = J_D(\tau)\, \Delta D + J_{L_*}(\tau)\, \Delta L_*
-\end{equation}
-and similarly for the other quantities.  This yields
-\(\Delta \tau \approx \SI{-0.4}{dex}\),
-\(\Delta \eta\shell \approx \SI{-0.9}{dex}\),
-\(\Delta \dot{M} \approx \SI{-0.3}{dex}\), and
-\(\Delta \dot{M}_{\text{K18}} \approx \SI{-0.1}{dex}\).  In
-Figure~\ref{fig:mass-loss-vs-luminosity}a this would move source~342
-substantially to the right and slightly down, thus transforming it
-from an extreme outlier to an unremarkable source in the center of the
-pack.  It would be disappointing if such a prosaic explanation were
-the correct one, given all the other peculiarities of this source
-listed in the first paragraph of this section.  However, based on
-current evidence, the more interesting and exotic explanations are
-less plausible.
+Therefore, we have shown that source~342 cannot have a neutral shell
+if we take the published observational data at face value.  However,
+more recent spectroscopic observations revise the spectral
+classification to B4~V (H.~Kobulnicky, priv.~comm.) and this would
+change the picture completely.  A B4 dwarf, with effective temperature
+of \SI{16700}{K} \citep[Tab.~4 of][]{Pecaut:2013a} would have a very
+small ionizing luminosity. Interpolating on Table~4 of
+\citet{Lanz:2007a}, we find \(S_{49} / L_4 \approx \num{4e-6}\), which
+yields \(\tau\iftrap = 0.017\) from equation~\eqref{eq:tau-trap-rbw}.
+At the same time, the revised spectroscopy implies a smaller \(L_*\)
+by roughly a factor of 10, which increases the shell's derived
+\(\tau\) by the same factor (eq.~[\ref{eq:tau-empirical}]), yielding
+\(\tau \approx 0.05\).  Since we now have \(\tau > \tau\iftrap\) it is
+possible that ionization front may be trapped, giving a predominately
+neutral shell.  This also relies, however, on the radiation field from
+the nearby Cygnus OB2 cluster being insufficient to ionize the shell.
+Given that the cluster's stellar population \citep{Wright:2015a}
+includes 3 WR stars and a handful of early-O supergiants, the ionizing
+luminosity must be of order \SI{e51}{s^{-1}}.  In the absence of
+absorption, and assuming that the true separation to be no more than a
+few times larger than the projected separation, the cluster stars
+would contribute over 100 times greater ionizing flux at the position
+of source 34 than that due to the B4 star itself.  It is therefore
+necessary for the source to lie outside of the cluster's \hii{} region
+in order for the shell to be neutral.  It is quite plausible that this
+might be the case, since radio continuum observations \citetext{Fig.~4
+  of \citealp{Wendker:1991a} and Fig.~7 of \citealp{Tung:2017a}}
+indicate that the neighborhood of source~342 is a local minimum in
+free-free emission between discrete \hii{} regions of the Cygnus~X
+complex, while Herschel maps \citep{Schneider:2016a} show the
+presence of both warm and cold dust along the line of sight and clumps
+of Class~0 and~I YSOs are seen nearby \citep{Beerer:2010a}, indicative
+of shielded neutral/molecular gas.
+
+
+
+%%%
+%%% PREVIOUS VERSION, WHEN WE THOUGHT 342 WAS A B1V STAR
+%%%
+% % Therefore, we have shown that a neutral shell is not consistent with
+% % the observational data for source~342, and so this is unlikely to be
+% % the explanation for the seemingly high mass loss rate.  Instead, it is
+% % possible that the explanation is simply that the stellar luminosity
+% % has been underestimated, since the luminosity class is not well
+% % constrained by spectroscopy (K18).  If the star were B1~III instead of
+% % B1~V, then the luminosity would be 4 times higher.  This could be due
+% % to a combination of having underestimated the distance and having
+% % underestimated the foreground extinction.  The assumed distance of
+% % \(D= \SI{1.3}{kpc}\) comes from a study of eclipsing binaries in the
+% % Cygnus~OB2 association \citep{Kiminki:2015a}, but GAIA~DR2 parallaxes
+% % for the association clearly show two sub-groups at
+% % \(D = \SI{1.76}{kpc}\) and \SI{1.35}{kpc}, with the farther group
+% % being the dominant one \citep{Berlanas:2019a}.  The GAIA parallax for
+% % source~342 yields a median and 90\% confidence interval of
+% % \(1.65^{+0.18}_{-0.16} \, \si{kpc}\) (same methodology as
+% % App.~\ref{sec:hd-53367-v750}),
+% % % \SIrange{1.49}{1.83}{kpc}
+% % which clearly indicates it is in the farther group.  Taking the median
+% % distance of \SI{1.65}{kpc} would raise \(L_*\) by a factor 1.61 and
+% % increasing the visual extinction \(A_V\) by 1 magnitude would give an
+% % additional factor of 2.51 for a total increase by \(\approx 4\), as we
+% % are looking for.  To find the effects on the derived quantities, we
+% % can sum the Jacobian elements in the first two rows of
+% % Table~\ref{tab:derived-parameters}, multiplied by the changes in
+% % observed log quantities: \(\Delta D \approx \SI{+0.1}{dex}\) and
+% % \(\Delta L_* \approx \SI{+0.6}{dex}\). For example:
+% % \begin{equation}
+% %   \label{eq:delta-derived}
+% %   \Delta\tau = J_D(\tau)\, \Delta D + J_{L_*}(\tau)\, \Delta L_*
+% % \end{equation}
+% % and similarly for the other quantities.  This yields
+% % \(\Delta \tau \approx \SI{-0.4}{dex}\),
+% % \(\Delta \eta\shell \approx \SI{-0.9}{dex}\),
+% % \(\Delta \dot{M} \approx \SI{-0.3}{dex}\), and
+% % \(\Delta \dot{M}_{\text{K18}} \approx \SI{-0.1}{dex}\).  In
+% % Figure~\ref{fig:mass-loss-vs-luminosity}a this would move source~342
+% % substantially to the right and slightly down, thus transforming it
+% % from an extreme outlier to an unremarkable source in the center of the
+% % pack.  It would be disappointing if such a prosaic explanation were
+% % the correct one, given all the other peculiarities of this source
+% % listed in the first paragraph of this section.  However, based on
+% % current evidence, the more interesting and exotic explanations are
+% % less plausible.
 
 
 
 
-% Using emissivity at different wavelength, such as \SI{24}{\um}.  No
-% good reason to fear stochastic heating.  They mention not getting 70/24 ratio right.  Probably be better with our correction.
-
-% How both the UV opacity and the IR emissivity depend on the same VSG grains.
 
 % Evidence for small grains around Arches cluster near Galactic center \citep{Hankins:2017a}
 
