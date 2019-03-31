@@ -74,16 +74,21 @@ can be estimated as
   \approx \frac{2 L\IR}{L_*} \ ,
 \end{equation}
 where the last approximate equality holds if \(\tau \ll 1\) and the shell
-emission covers one hemisphere.  Note that the \(\tau\) of Paper~I is not
-exactly the same as the \(\tau\) of equation~\eqref{eq:tau-empirical},
-but is larger by a factor of
-\(Q_P / Q_{\text{abs}} = 1 + \varpi (1 - g)/(1 - \varpi)\), where
-\(\varpi\) is the grain albedo and \(g\) the scattering asymmetry.
-This is plotted in Figure~6a of Paper~II for Cloudy's default ISM
-grain mixture (see \S~\ref{sec:grain-temp-emiss} below), where it can
-be seen that \(Q_P / Q_{\text{abs}} = \text{\numrange{1.2}{1.3}}\) at
-EUV/FUV wavelengths (\(\lambda = \text{\SIrange{0.05}{0.2}{\um}}\)), so the
-correction is small.
+emission covers one hemisphere.\footnote{%
+  Note that the \(\tau\) of Paper~I is not exactly the same as the
+  \(\tau\) of equation~\eqref{eq:tau-empirical}, but is larger by a
+  factor of
+  \(Q_P / Q_{\text{abs}} = 1 + \varpi (1 - g)/(1 - \varpi)\), where
+  \(\varpi\) is the grain albedo and \(g\) the scattering asymmetry.
+  For standard ISM grain mixtures,
+  \(Q_P / Q_{\text{abs}} = \text{\numrange{1.2}{1.3}}\) at EUV/FUV
+  wavelengths.}
+% This is plotted in Figure~6a of Paper~II for Cloudy's default ISM
+% grain mixture (see \S~\ref{sec:grain-temp-emiss} below), where it
+% can be seen that
+% \(Q_P / Q_{\text{abs}} = \text{\numrange{1.2}{1.3}}\) at EUV/FUV
+% wavelengths (\(\lambda = \text{\SIrange{0.05}{0.2}{\um}}\)), so the
+% correction is small.
 
 A second important parameter is the thermal plus magnetic pressure in
 the shocked shell, which is doubly useful since in a steady state it
@@ -98,7 +103,7 @@ determined by the following three steps:
   opacity: \(\Sigma\shell = \tau / \kappa\)
 \item \label{P2} The shell density (\si{g.cm^{-3}}) can be found from
   the mass column if the shell thickness is known:
-  \(\rho\shell = \Sigma / h\shell\).  In the absence of other information, a
+  \(\rho\shell = \Sigma\shell / h\shell\).  In the absence of other information, a
   fixed fraction of the shell radius can be used.  In particular, we
   normalize by a typical value of one~quarter the star--apex distance:
   \(h_{1/4} = h\shell / (0.25 R_0)\).  This corresponds to a Mach
@@ -115,17 +120,18 @@ pressure at the shell, so we define a shell momentum efficiency
 \begin{equation}
   \label{eq:eta-shell}
   \eta\shell \equiv \frac{P\shell}{P\rad}
-  = \frac{4\pi R_0^2\, (\sound^2 + \frac12 v\alfven^2)\, \tau}{L_*\, \kappa\, h\shell}
+  = \frac{4\pi R_0^2\, (\sound^2 + \frac12 v\alfven^2)\, c\, \tau}{L_*\, \kappa\, h\shell}
   \approx 245 \frac{R\pc \, T_4 \, \tau}{L_4 \, \kappa_{600} \, h_{1/4}} \ , 
 \end{equation}
-where in the last step we have assumed ionized gas with negligible
+where \(c\) is the speed of light. In the last step we have assumed
+ionized gas at temperature \(\num{e4}\,T_4\,\si{K}\) with negligible
 magnetic support (\(v\alfven \ll \sound\)) and written the stellar
 luminosity and shell parameters in terms of typical values, which we
 summarize below.  Note that the shell momentum efficiency is simply
-the reciprocal of the radiation parameter from Paper~II's equation~(23):
-\(\eta\shell = \Xi\shell^{-1}\), which provides yet a third use for
-\(\eta\shell\), since \(\Xi\) is paramount in determining whether the
-grains and gas remain well-coupled (see \S~4.4 of Paper~II).
+the reciprocal of the radiation parameter from Paper~II's
+equation~(23): \(\eta\shell = \Xi\shell^{-1}\), which provides yet a third
+use for \(\eta\shell\), since \(\Xi\) is paramount in determining whether
+the grains and gas remain well-coupled (see \S~4.4 of Paper~II).
 
 In this section and the remainder of the paper, we employ
 dimensionless versions of the stellar bolometric luminosity, \(L_*\),
@@ -158,12 +164,13 @@ abundances).
   \label{tab:observations}
   \begin{tabular}{l S S S}
     \toprule
-    Star & {\(L_* / \si{L_\odot}\)} & {\(L_{\text{IR}} / \si{L_\odot}\)} & {\(R_0 / \si{pc}\)} \\
+    Star & {\(L_* / \SI{e4}{L_\odot}\)}
+    & {\(L_{\text{IR}} / \si{L_\odot}\)} & {\(R_0 / \si{pc}\)} \\
     \midrule
-    \thD & 2.95e4 & 620 & 0.003 \\
-    LP~Ori & 1600 & 240 & 0.01 \\
-    \(\sigma\)~Ori & 6e4 & 15 & 0.12 \\[\smallskipamount]
-    K18 Sources & \numrange{1.4e4}{8.7e5} & \numrange{8}{2800} & \numrange{0.02}{1.35} \\
+    \thD & 2.95 & 620 & 0.003 \\
+    LP~Ori & 0.16 & 240 & 0.01 \\
+    \(\sigma\)~Ori & 6.0 & 15 & 0.12 \\[\smallskipamount]
+    K18 Sources & \numrange{1.4}{87} & \numrange{8}{2800} & \numrange{0.02}{1.35} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -242,14 +249,14 @@ three mid-infrared bands:
 where \(F_8\) is Spitzer IRAC \SI{8.0}{\um}, \(F_{24}\) is Spitzer
 MIPS \SI{23.7}{\um}, \(F_{12}\) and \(F_{22}\) are WISE bands 3 and 4,
 and \(F_{70}\) is Herschel PACS \SI{70}{\um}.  The weights are chosen
-so that the integral \(\int_0^\infty F_\nu \,d\nu\) is approximated by the sum
-\(\Sigma_k F_k\, \Delta\nu_k\), under the assumption that fluxes in shorter (e.g.,
-IRAC \SI{5.8}{\um}) and longer (e.g., PACS \SI{150}{\um}) wavebands
-are negligible.  Shell fluxes are converted to luminosities using the
-assumed distance to each source, and stellar luminosities are taken
-directly from K18 Table~2, based on spectroscopic classification and
-the calibrations of gravity and effective temperature from
-\citet{Martins:2005a}.  
+so that the integral \(\int_0^\infty F_\nu \,d\nu\) is approximated by the
+quadrature sum \(\Sigma_k F_k\, \Delta\nu_k\), under the assumption that fluxes in
+shorter (e.g., IRAC \SI{5.8}{\um}) and longer (e.g., PACS
+\SI{150}{\um}) wavebands are negligible.  Shell fluxes are converted
+to luminosities using the assumed distance to each source, and stellar
+luminosities are taken directly from K18 Table~2, based on
+spectroscopic classification and the calibrations of gravity and
+effective temperature from \citet{Martins:2005a}.
 
 \begin{figure}
   \centering
@@ -294,7 +301,7 @@ observational errors in the lower-right box, where each arrow
 corresponds to a factor of two increase (0.3~dex) in each quantity:
 \(D\), \(L_*\), \(F_{\text{IR}}\), and \(\theta\).  We now calculate
 uncertainty estimates for individual observational quantities that are
-used in deriving not only \(\tau\) and \(\eta\shell\), but also mass-loss
+used in deriving not only \(\tau\) and \(\eta\shell\) but also mass-loss
 rates, as discussed later in \S~\ref{sec:stellar-wind-mass}.
 
 \subsubsection{Distance}
@@ -366,7 +373,7 @@ correlated: the dispersion is \SI{0.7}{dex} in the product
 cases.  Observational uncertainties are therefore relatively
 unimportant in determining whether a given source is wind-driven or
 radiation-driven, which depends only on \(\eta\shell/\tau\).  On the other
-hand, they do significantly effect the question of whether a source
+hand, they do significantly affect the question of whether a source
 has a sufficiently high radiation parameter \(\Xi\) to possibly be a
 dust wave.
 
@@ -428,20 +435,23 @@ disruption of larger grains \citep{Hoang:2018a}.
 For bows around O~stars, the shell temperature should be close to the
 photoionization equilibrium value of \(\approx \SI{e4}{K}\), since the
 post-shock cooling length is short in ambient densities above
-\SI{0.1}{cm^{-3}} (\S~3.2 of Paper~I)
+\SI{0.1}{cm^{-3}}
+% (\S~3.2 of Paper~I)
 % XREF: Paper I \ref{sec:radi-cool-lengths}
 and the shell does not trap the ionization front for ambient densities
-below \SI{e4}{cm^{-3}} (\S~3.1 of Paper~I).
+below \SI{e4}{cm^{-3}} (see Paper~I's \S\S~3.1 and 3.2 for details).
+% (\S~3.1 of Paper~I).
 % XREF: Paper I \\ref{sec:trapp-ioniz-front}
 For B~stars, on the other hand, these two density limits move closer
-together (cf.~the smaller gap between the blue and red lines in
+together,
+% (cf.~the smaller gap between the blue and red lines in
 % XREF: Paper I \ref{fig:zones-v-n-plane}a
 % XREF: Paper I \ref{fig:B-supergiant}
 % XREF: Paper I \ref{fig:zones-v-n-plane}bc
-Paper~I's Figs.~2a and 4, as compared with 2b and~c), making it more
-likely that a bow will lie in a different temperature regime.  The
-only source for which we have evidence that this occurs is LP~Ori, as
-discussed in the next section.
+% Paper~I's Figs.~2a and 4, as compared with 2b and~c),
+making it more likely that a bow will lie in a different temperature
+regime.  The only source for which we have evidence that this occurs
+is LP~Ori, as discussed in the next section.
 
 \subsection{Special treatment of particular sources}
 \label{sec:spec-treatm-part}
@@ -449,11 +459,12 @@ discussed in the next section.
 For two of the additional bows listed in Table~\ref{tab:observations},
 we are forced to deviate from the default values for the shell
 parameters.  For LP~Ori, the bow shell appears to be formed from
-neutral gas \citep{ODell:2001c} and its relatively high \(\tau\) value
-is more than sufficient to trap the weak ionizing photon output of a
-B3 star.  We therefore move its point in
-Figure~\ref{fig:All-sources-eta-tau} downward to reflect a temperature
-of \SI{1000}{K} (or, equivalently, a magnetically supported shell with
+neutral gas \citep{ODell:2001c} and its relatively high \(\tau\) value is
+more than sufficient to trap the weak ionizing photon output of a B3
+star.  We therefore move its point in
+Figure~\ref{fig:All-sources-eta-tau} downward by a factor of ten,
+which could be a thermally supported neutral shell at \SI{2000}{K} or
+a magnetically supported shell with
 \(v\alfven \approx \SI{3}{km.s^{-1}}\)).  For the case of the Orion
 Trapezium star \thD{}, we find that using the default parameters
 results in a placement well inside the forbidden zone of
@@ -639,7 +650,7 @@ line and are more consistent with the \citet{Krticka:2017a} models.
   \label{fig:k18-emissivity}
 \end{figure}
 
-K18 derive mass loss rates for their sources using a method that is
+K18 derive mass-loss rates for their sources using a method that is
 different from the one that we employ above.  Both methods are based
 on determining the stellar wind ram pressure that supports the bow
 shell, but K18 do so via the following steps:
@@ -1063,7 +1074,7 @@ all with \(R_0 < \SI{0.1}{pc}\).  The two Orion Nebula bows, LP~Ori
 and \thD{} also fall into this category, and they are smaller still,
 with \(R_0 < \SI{0.01}{pc}\).  Six of these 7 stars also occupy a
 narrow range of spectral type\footnote{%
-  However, the statistically significance is not strong.  For
+  However, the statistical significance is not strong.  For
   instance, out of the twenty K18 sources, 7 have spectral type O8 or
   earlier.  Therefore, taking as the null hypothesis that the 5
   sources were randomly selected from the 20, then the chance that
@@ -1122,8 +1133,8 @@ K18 source~342 is the only source that shows a significant discrepancy
 bow shock candidate~2 in a survey of mid-infrared arcs in Cygnus~X
 \citep{Kobulnicky:2010a}, and is referred to as KGK2010~2 in
 subsequent works.  For its early~B spectral type,
-\(\dot{M} \approx \SI{3e-9}{M_\odot.yr^{-1}}\) is expected, whereas
-the derived values from both mass-loss methods (panels a and b of
+\(\dot{M} \approx \SI{3e-9}{M_\odot.yr^{-1}}\) is expected, whereas the derived
+values from both mass-loss methods (panels a and b of
 Fig.~\ref{fig:mass-loss-vs-luminosity}) are about 10 times larger.
 This fact was already noted in K18, who suggested that the grain
 emissivity models may not be appropriate for this object.  We propose
@@ -1149,17 +1160,20 @@ its arc, and emits strongly at all wavelengths from \SI{3.6}{\um} to
 \SI{150}{\um} \citetext{see also Fig.~13 of
   \citealp{Kobulnicky:2010a}}.  The parabolic arc shape and the broad
 SED are both reminiscent of LP~Ori (more details on the Orion Nebula
-bows will be provide in Paper~VI), and another bow that bears some
+bows will be provided in Paper~VI), and another bow that bears some
 similarities is Carina's Sickle object \citetext{ERO~21
   \citealp{Sexton:2015b}, see also \citealp{Ngoumou:2013a} and \S~4 of
   \citealp{Hartigan:2015a}}.  Note also the second outer rim in this
 source, which emits primarily at \SI{5.8}{\um}, \SI{7.9}{\um}, and
 \SI{12}{\um}. This appears similar to the double-bow structure seen in
 IRAS~03063+5735 \citep{Kobulnicky:2012a}.  Finally, it has the coldest
-dust of any of the K18 sources, as determined from the mid-to-far
-infrared color temperatures (\(T_{22/70} = \SI{70}{K}\),
-\(T_{70/150} = \SI{69}{K}\) from Tab.~5 of
-\citealp{Kobulnicky:2017a}).
+dust of any of the K18 sources,\footnote{%
+  Even with such a low dust temperature, adding the \SI{150}{\um} flux
+  to the quadrature sum would only increase the total infrared flux by
+  20\% over that given by equation~\eqref{eq:total-ir-flux}.} %
+as determined from the mid-to-far infrared color temperatures
+(\(T_{22/70} = \SI{70}{K}\), \(T_{70/150} = \SI{69}{K}\) from Tab.~5
+of \citealp{Kobulnicky:2017a}).
 
 
 If source~342 has trapped the ionization front in its shell, then

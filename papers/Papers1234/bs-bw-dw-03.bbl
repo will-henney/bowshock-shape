@@ -25,6 +25,11 @@
   et~al.}{2013}]{Alecian:2013a}
 {Alecian} E.,  et~al., 2013, \mnras, 429, 1001
 
+\bibitem[\protect\citeauthoryear{{Arthur}, {Henney}, {Mellema}, {de Colle}  \&
+  {V{\'a}zquez-Semadeni}}{{Arthur} et~al.}{2011}]{Arthur:2011a}
+{Arthur} S.~J.,  {Henney} W.~J.,  {Mellema} G.,  {de Colle} F.,
+  {V{\'a}zquez-Semadeni} E.,  2011, \mnras, 414, 1747
+
 \bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
   Collaboration} et~al.}{2013}]{Astropy-Collaboration:2013a}
 {Astropy Collaboration} et~al., 2013, \aap, 558, A33
@@ -365,6 +370,10 @@ McKinney W.,  2010, in van~der Walt S.,  Millman J.,  eds, Proceedings of the
   {Alecian}}{{Petit} et~al.}{2008}]{Petit:2008a}
 {Petit} V.,  {Wade} G.~A.,  {Drissen} L.,  {Montmerle} T.,   {Alecian} E.,
   2008, \mnras, 387, L23
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
+  Collaboration} et~al.}{2016}]{Planck-Collaboration:2016c}
+{Planck Collaboration} et~al., 2016, \aap, 586, A137
 
 \bibitem[\protect\citeauthoryear{{Pogodin}, {Malanushenko}, {Kozlova},
   {Tarasova}  \& {Franco}}{{Pogodin} et~al.}{2006}]{Pogodin:2006a}
