@@ -907,7 +907,7 @@ Zoom in on the best data
       tab[col] /= tab['R0_fit']
 
   tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
-
+  
   tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
   tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
 
@@ -1061,6 +1061,218 @@ Plot KDE of the distribution
 + The result is exported in [[file:mipsgal-Rc-R90-thumbnails.pdf]]
 
 
+**** TODO Test out log-log axes for these graphs
++ [2019-03-31 Sun 11:30] Return to this project - reborn as Paper IV!
++ I want to see if the graphs would look better with log axes
++ That way, we wouldn't have such a long tail towards high planitude
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+
+  #sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-zoom-log.pdf'
+
+  range_ = [0.35, 9.5]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  Q = tab['R0_fit']/tab['R0_sigma']
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = m3, m4, m5
+  alphas = 0.2, 0.4, 0.8
+  stars = '3', '4', '5'
+  colors = 'c', 'r', 'b'
+  sizes = 5, 7, 10
+
+  for m, alpha, star, c, ms in zip(masks, alphas, stars, colors, sizes):
+      label = f'{star}-star ($N = {m.sum()}$)'
+      ax.errorbar('Rc', 'R90', xerr='Rc_sigma', yerr='R90_sigma', data=tab[m],
+                  fmt='o', ms=ms, lw=1, alpha=alpha, c=c, label=label)
+      ax.errorbar('Rc', 'R90', yerr='R90_asym', data=tab[m],
+                  fmt='none', elinewidth=0.5, alpha=alpha, ecolor=c, label=None)
+      # ax.errorbar('Rcp', 'R90p', xerr='Rc_sigma', yerr='R90p_sigma', data=tab[m],
+      #             fmt='o', lw=1, alpha=alpha, c=c, label=label)
+      # ax.errorbar('Rcn', 'R90n', xerr='Rc_sigma', yerr='R90n_sigma', data=tab[m],
+      #             fmt='s', lw=1, alpha=alpha, c=c, label=None)
+
+  for source in tab[m5]:
+      ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
+              fontsize=5, color='orange', ha='center', va='center')
+  for source in tab[m4 & (tab['Rc'] < 1.0)]:
+      ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
+
+  ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=range_, ylim=range_,
+      xscale="log", yscale="log",
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-zoom-log.pdf]]
+
++ Do the same for the KDE graph on log axes
+  + This has the problem that we want to calculate the KDE in log space, and seaborn can't do that natively
+  + *SOLVED* We can do it my monkey patching!
+    + We just swap out ~seaborn.distributions._statsmodels_bivariate_kde~ for our own version that takes logs of x and y first and then antilogs of the resultant grid
+    + The only remaining adjustment necessary is in the contour levels
+
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+  import seaborn.distributions 
+
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-kde-log.pdf'
+
+  range_ = [0.35, 9.5]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = m3, (m4 | m5)
+  shades = True, False
+  alphas = 0.8, 0.8
+  cmaps = 'Blues', 'Reds_d'
+  gammas = 0.5, 0.5
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma in zip(masks, alphas, cmaps, shades, gammas):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+  #                bw=(0.18, 0.12),
+                  bw=(0.06, 0.04),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+
+
+  #ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-kde-log.pdf]]
+
+
+
 *** Histograms of differences in PA
 + This is not that informative 
 + [X] Maybe include it as an inset to the R_0-R_0 graph
@@ -1118,7 +1330,7 @@ Plot KDE of the distribution
 *** AB testing of various sub-sets
 
 **** H II region versus isolated
-+ So this show the various 'Env' types:
++ So this shows the various 'Env' types:
   + I :: /Isolated/ in purple filled contours
   + FB,FH :: /Facing bright rim/ or /Facing H II region/ as solid orange contours
   + H :: Inside /H II region/ as dashed green contours
@@ -1130,12 +1342,32 @@ Plot KDE of the distribution
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
   import seaborn as sns
+  import seaborn.distributions 
 
-  sns.set_style('white')
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
   sns.set_color_codes('dark')
 
   figfile = 'mipsgal-Rc-R90-environment.pdf'
+
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
 
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
@@ -1193,8 +1425,8 @@ Plot KDE of the distribution
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.4, 1.6],
-                  bw=(0.25, 0.15),
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.09, 0.06),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
 
@@ -1209,19 +1441,23 @@ Plot KDE of the distribution
 
   ax.legend(frameon=True, loc='upper right', title='Bow shock\nEnvironment')
   ax.set(
-      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
-      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
-      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
-      xscale='linear', yscale='linear')
-
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
   ## Histograms of marginal distributions
   subwin_w = 0.2
   subwin_h = 0.06
   subwin_x0 = 0.2
-  subwin_y0 = 0.65
+  subwin_y0 = 0.75
   subwin_xmargin = 0.06
   subwin_ymargin = 0.02
+
 
 
   with sns.plotting_context(
@@ -1248,7 +1484,7 @@ Plot KDE of the distribution
 
       yq0, dyq = 0.15, 0.05
       for m, c, axx in zip(masks, colors, [ax_i_Rc, ax_f_Rc, ax_h_Rc]):
-          sns.distplot(tab['Rc'][m], bins=10, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['Rc'][m], bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['Rc'][m],
                                                      [10, 25, 50, 75, 90])
@@ -1270,15 +1506,13 @@ Plot KDE of the distribution
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
-          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_h_Rc.set(xlabel=r'$R_c/R_0$')
+      ax_h_Rc.set(xlabel=r'$\Pi$')
       for axx in ax_i_Rc, ax_f_Rc:
           axx.set(xlabel='')
           axx.tick_params(labelbottom='off') 
 
       for m, c, axx in zip(masks, colors, [ax_i_R90, ax_f_R90, ax_h_R90]):
-          sns.distplot(tab['R90'][m], bins=10, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['R90'][m], bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
                                                      [10, 25, 50, 75, 90])
@@ -1300,14 +1534,23 @@ Plot KDE of the distribution
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
-          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_h_R90.set(xlabel=r'$R_{90}/R_0$')
+      ax_h_R90.set(xlabel=r'$\Lambda$')
       for axx in ax_i_R90, ax_f_R90:
           axx.set(xlabel='')
           axx.tick_params(labelbottom='off') 
 
+      for axx in ax_i_Rc, ax_f_Rc, ax_h_Rc, ax_i_R90, ax_f_R90, ax_h_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  #        sns.despine(ax=axx)
 
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
   fig.savefig(figfile)
 
 
@@ -1525,12 +1768,31 @@ Plot KDE of the distribution
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
   import seaborn as sns
+  import seaborn.distributions 
 
-  sns.set_style('white')
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
   sns.set_color_codes('dark')
 
   figfile = 'mipsgal-Rc-R90-candidates.pdf'
+
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
 
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
@@ -1587,8 +1849,8 @@ Plot KDE of the distribution
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.4, 1.6],
-                  bw=(0.18, 0.12),
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.06, 0.04),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
   masks5 = mmultiple & m5, msingle & m5
@@ -1603,21 +1865,24 @@ Plot KDE of the distribution
   ax.legend(frameon=True, loc='upper right', title='Source\nCandidates')
 
 
-  #ax.legend(frameon=True, loc='upper right')
   ax.set(
-      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
-      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
-      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
-      xscale='linear', yscale='linear')
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
 
   ## Histograms of marginal distributions
   subwin_w = 0.2
   subwin_h = 0.1
   subwin_x0 = 0.2
-  subwin_y0 = 0.65
+  subwin_y0 = 0.75
   subwin_xmargin = 0.06
-  subwin_ymargin = 0.01
+  subwin_ymargin = 0.02
 
 
   with sns.plotting_context(
@@ -1662,9 +1927,8 @@ Plot KDE of the distribution
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_s_Rc.set(xlabel=r'$R_c/R_0$')
-      ax_m_Rc.set(xlabel=None)
+      ax_s_Rc.set(xlabel=r'$\Pi$')
+      ax_m_Rc.set(xlabel='_nolabel_')
       ax_m_Rc.tick_params(labelbottom='off') 
 
       for m, c, axx in zip(masks, colors, [ax_m_R90, ax_s_R90]):
@@ -1691,11 +1955,20 @@ Plot KDE of the distribution
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
           axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_s_R90.set(xlabel=r'$R_{90}/R_0$')
-      ax_m_R90.set(xlabel=None)
+      ax_s_R90.set(xlabel=r'$\Lambda$')
+      ax_m_R90.set(xlabel='_nolabel_')
       ax_m_R90.tick_params(labelbottom='off') 
 
+      for axx in ax_m_Rc, ax_s_Rc, ax_m_R90, ax_s_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
   fig.savefig(figfile)
 
 

@@ -21,6 +21,11 @@
   Darling}{1952}]{Anderson:1952a}
 Anderson T.~W.,  Darling D.~A.,  1952, Ann. Math. Statist., 23, 193
 
+\bibitem[\protect\citeauthoryear{{Benaglia}, {Romero}, {Mart{\'{\i}}}, {Peri}
+  \& {Araudo}}{{Benaglia} et~al.}{2010}]{Benaglia:2010a}
+{Benaglia} P.,  {Romero} G.~E.,  {Mart{\'{\i}}} J.,  {Peri} C.~S.,   {Araudo}
+  A.~T.,  2010, \aap, 517, L10
+
 \bibitem[\protect\citeauthoryear{Brown \& Forsythe}{Brown \&
   Forsythe}{1974}]{Brown:1974a}
 Brown M.~B.,  Forsythe A.~B.,  1974, Journal of the American Statistical
@@ -62,6 +67,11 @@ Delaney H.~D.,  Vargha A.,  2002, Psychological Methods, 7, 485
   et~al.}{2015}]{Eker:2015a}
 {Eker} Z.,  et~al., 2015, \aj, 149, 131
 
+\bibitem[\protect\citeauthoryear{{Garc{\'{\i}}a-Arredondo}, {Henney}  \&
+  {Arthur}}{{Garc{\'{\i}}a-Arredondo} et~al.}{2001}]{Garcia-Arredondo:2001a}
+{Garc{\'{\i}}a-Arredondo} F.,  {Henney} W.~J.,   {Arthur} S.~J.,  2001, \apj,
+  561, 830
+
 \bibitem[\protect\citeauthoryear{Goodman}{Goodman}{1999a}]{Goodman:1999a}
 Goodman S.~N.,  1999a, Ann Intern Med, 130, 995
 
@@ -80,6 +90,14 @@ Goodman S.~N.,  1999b, Ann Intern Med, 130, 1005
   et~al.}{2015}]{Head:2015a}
 Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
   Biology, 13, 1
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
+  {Arthur}}{1998}]{Henney:1998b}
+{Henney} W.~J.,  {Arthur} S.~J.,  1998, \aj, 116, 322
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {O'Dell}}{{Henney} \&
+  {O'Dell}}{1999}]{Henney:1999a}
+{Henney} W.~J.,  {O'Dell} C.~R.,  1999, \aj, 118, 2350
 
 \bibitem[\protect\citeauthoryear{{Indebetouw} et~al.,}{{Indebetouw}
   et~al.}{2005}]{Indebetouw:2005a}
@@ -120,6 +138,13 @@ Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
 {Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
   459, 1146
 
+\bibitem[\protect\citeauthoryear{{O'Dell}}{{O'Dell}}{2001}]{ODell:2001c}
+{O'Dell} C.~R.,  2001, \aj, 122, 2662
+
+\bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
+  {Wen}}{1994}]{ODell:1994a}
+{O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
+
 \bibitem[\protect\citeauthoryear{{Povich}, {Benjamin}, {Whitney}, {Babler},
   {Indebetouw}, {Meade}  \& {Churchwell}}{{Povich} et~al.}{2008}]{Povich:2008a}
 {Povich} M.~S.,  {Benjamin} R.~A.,  {Whitney} B.~A.,  {Babler} B.~L.,
@@ -131,6 +156,10 @@ Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
 
 \bibitem[\protect\citeauthoryear{Ruscio}{Ruscio}{2008}]{Ruscio:2008a}
 Ruscio J.,  2008, Psychol Methods, 13, 19
+
+\bibitem[\protect\citeauthoryear{{Sahai} \& {Chronopoulos}}{{Sahai} \&
+  {Chronopoulos}}{2010}]{Sahai:2010a}
+{Sahai} R.,  {Chronopoulos} C.~K.,  2010, \apjl, 711, L53
 
 \bibitem[\protect\citeauthoryear{Scholz \& Stephens}{Scholz \&
   Stephens}{1987}]{Scholz:1987a}
@@ -147,9 +176,18 @@ John Wiley \& Sons
 Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
   55, 62
 
+\bibitem[\protect\citeauthoryear{{Smith}, {Bally}, {Shuping}, {Morris}  \&
+  {Kassis}}{{Smith} et~al.}{2005}]{Smith:2005a}
+{Smith} N.,  {Bally} J.,  {Shuping} R.~Y.,  {Morris} M.,   {Kassis} M.,  2005,
+  \aj, 130, 1763
+
 \bibitem[\protect\citeauthoryear{{Tarango-Yong} \& {Henney}}{{Tarango-Yong} \&
   {Henney}}{2018}]{Tarango-Yong:2018a}
 {Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431
+
+\bibitem[\protect\citeauthoryear{{Ueta} et~al.,}{{Ueta}
+  et~al.}{2008}]{Ueta:2008a}
+{Ueta} T.,  et~al., 2008, \pasj, 60, S407
 
 \bibitem[\protect\citeauthoryear{{Werner} et~al.,}{{Werner}
   et~al.}{2004}]{Werner:2004a}

@@ -23,9 +23,7 @@
 
 \bibitem[\protect\citeauthoryear{{Astropy Collaboration} et~al.,}{{Astropy
   Collaboration} et~al.}{2018}]{Astropy-Collaboration:2018a}
-{Astropy Collaboration} et~al., 2018, preprint, \href
-  {http://adsabs.harvard.edu/abs/2018arXiv180102634T} {} (\mn@eprint {arXiv}
-  {1801.02634})
+{Astropy Collaboration} et~al., 2018, \aj, 156, 123
 
 \bibitem[\protect\citeauthoryear{{Bally}, {O'Dell}  \& {McCaughrean}}{{Bally}
   et~al.}{2000}]{Bally:2000a}
@@ -91,8 +89,8 @@ Guti{\'e}rrez-Soto L.~{\'A}.,  2015, Master's thesis, Universidad Nacional
   R.~H.,  2013, \mnras, 428, 691
 
 \bibitem[\protect\citeauthoryear{Jones, Oliphant, Peterson  et~al.}{Jones
-  et~al.}{2018}]{Jones:2001a}
-Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2018, {SciPy}: Open
+  et~al.}{2019}]{Jones:2001a}
+Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
   source scientific tools for {Python}, \url {http://www.scipy.org/}
 
 \bibitem[\protect\citeauthoryear{{Joye} \& {Mandel}}{{Joye} \&
