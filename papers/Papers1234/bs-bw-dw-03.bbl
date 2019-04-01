@@ -25,6 +25,10 @@
   et~al.}{2013}]{Alecian:2013a}
 {Alecian} E.,  et~al., 2013, \mnras, 429, 1001
 
+\bibitem[\protect\citeauthoryear{{Arthur} \& {Hoare}}{{Arthur} \&
+  {Hoare}}{2006}]{Arthur:2006a}
+{Arthur} S.~J.,  {Hoare} M.~G.,  2006, \apjs, 165, 283
+
 \bibitem[\protect\citeauthoryear{{Arthur}, {Henney}, {Mellema}, {de Colle}  \&
   {V{\'a}zquez-Semadeni}}{{Arthur} et~al.}{2011}]{Arthur:2011a}
 {Arthur} S.~J.,  {Henney} W.~J.,  {Mellema} G.,  {de Colle} F.,
@@ -183,7 +187,9 @@
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019b}]{Henney:2019b}
-{Henney} W.~J.,  {Arthur} S.~J.,  2019b, \mnras, submitted (Paper II)
+{Henney} W.~J.,  {Arthur} S.~J.,  2019b, arXiv e-prints, \href
+  {http://adsabs.harvard.edu/abs/2019arXiv190307774H} {1903.07774 MNRAS
+  submitted (Paper II)}
 
 \bibitem[\protect\citeauthoryear{{Hirabayashi}}{{Hirabayashi}}{2015}]{Hirabayashi:2015a}
 {Hirabayashi} M.,  2015, \mnras, 454, 2249
@@ -244,6 +250,7 @@ Jones E.,  Oliphant T.,  Peterson P.,   et~al., 2001--2019, {SciPy}: Open
 \bibitem[\protect\citeauthoryear{{Kobulnicky}, {Chick}  \&
   {Povich}}{{Kobulnicky} et~al.}{2018}]{Kobulnicky:2018a}
 {Kobulnicky} H.~A.,  {Chick} W.~T.,   {Povich} M.~S.,  2018, \apj, 856, 74
+  (K18)
 
 \bibitem[\protect\citeauthoryear{{Krti{\v c}ka}}{{Krti{\v
   c}ka}}{2014}]{Krticka:2014a}

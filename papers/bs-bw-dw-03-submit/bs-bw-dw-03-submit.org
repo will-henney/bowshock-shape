@@ -1,0 +1,164 @@
+* Initial version
+
+** Select files
+#+name: srcfiles
+#+BEGIN_SRC sh
+  srcfiles="bs-bw-dw-03.tex sec-observational-diagnostics.tex app-cloudy-dust-heating.tex app-k17-k18.tex bs-bw-dw-defs.tex bs-bw-dw-03.bbl aastex-compat.sty astrojournals.sty"
+#+END_SRC
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+cd ../Papers1234
+<<srcfiles>>
+grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+figs/All-sources-eta-tau
+figs/K17-tau-comparison
+figs/Mdot-vs-lum-combo-edited
+figs/K18-emissivity-vs-U
+figs/K18-mdot-Ux8-comparison
+figs/xsec-dust-ratd-ism_10
+figs/K18-mdot-corrected-comparison-R0-edited
+figs/mdot_correlations_edited
+figs/H_versus_ell_annotated
+figs/cygnus-bows-midir-combo
+figs/grain-T-vs-U
+figs/grain-j70-vs-U-edited
+figs/sed-comparison
+#+end_example
+
+#+name: figfiles
+#+BEGIN_SRC sh
+  figfiles="figs/All-sources-eta-tau.pdf figs/K17-tau-comparison.pdf figs/Mdot-vs-lum-combo-edited.pdf figs/K18-emissivity-vs-U.pdf figs/K18-mdot-Ux8-comparison.pdf figs/xsec-dust-ratd-ism_10.pdf figs/K18-mdot-corrected-comparison-R0-edited.pdf figs/mdot_correlations_edited.pdf figs/H_versus_ell_annotated.pdf figs/cygnus-bows-midir-combo.pdf figs/grain-T-vs-U.pdf figs/grain-j70-vs-U-edited.pdf figs/sed-comparison.pdf"
+#+END_SRC
+
+** List files and look at sizes
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  ls -lh $srcfiles $figfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--  1 will  staff    15K Mar 30 19:31 app-cloudy-dust-heating.tex
+-rw-r--r--  1 will  staff   6.7K Mar 16 22:23 app-k17-k18.tex
+-rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--  1 will  staff    23K Mar 30 23:00 bs-bw-dw-03.bbl
+-rw-r--r--  1 will  staff    17K Mar 30 22:52 bs-bw-dw-03.tex
+-rw-r--r--  1 will  staff   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
+-rw-r--r--  1 will  staff   314K Feb 22 22:47 figs/All-sources-eta-tau.pdf
+-rw-r--r--  1 will  staff    75K Mar 21 22:46 figs/H_versus_ell_annotated.pdf
+-rw-r--r--  1 will  staff    21K Mar 30 20:27 figs/K17-tau-comparison.pdf
+-rw-r--r--  1 will  staff    19K Feb 11 16:01 figs/K18-emissivity-vs-U.pdf
+-rw-r--r--  1 will  staff    19K Mar 30 20:29 figs/K18-mdot-Ux8-comparison.pdf
+-rw-r--r--  1 will  staff   126K Mar 30 19:31 figs/K18-mdot-corrected-comparison-R0-edited.pdf
+-rw-r--r--  1 will  staff   417K Mar 27 11:58 figs/Mdot-vs-lum-combo-edited.pdf
+-rw-r--r--  1 will  staff   3.4M Mar 24 18:13 figs/cygnus-bows-midir-combo.pdf
+-rw-r--r--  1 will  staff    30K Mar 30 18:43 figs/grain-T-vs-U.pdf
+-rw-r--r--  1 will  staff    68K Mar 30 18:41 figs/grain-j70-vs-U-edited.pdf
+-rw-r--r--  1 will  staff   206K Mar 30 19:47 figs/mdot_correlations_edited.pdf
+-rw-r--r--  1 will  staff    25K Feb 13 17:59 figs/sed-comparison.pdf
+-rw-r--r--  1 will  staff    20K Mar 23 23:20 figs/xsec-dust-ratd-ism_10.pdf
+-rw-r--r--  1 will  staff    68K Mar 30 22:52 sec-observational-diagnostics.tex
+#+end_example
+
+
+** Make tar file to submit
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bsbwdw03.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+#+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-03-submit
+: total 10272
+: -rw-r--r--  1 will  staff   7.8K Mar 18 18:06 bs-bw-dw-03-submit.org
+: -rw-r--r--  1 will  staff   4.6M Mar 30 23:14 ms-bsbwdw03.tar.gz
+
+
+** Test compilation in a temp folder
+
+Make folder
+
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bsbwdw03-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bsbwdw03.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bsbwdw03-test found and removed
+/tmp/ms-bsbwdw03-test
+total 312
+-rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--   1 will  wheel    15K Mar 30 19:31 app-cloudy-dust-heating.tex
+-rw-r--r--   1 will  wheel   6.7K Mar 16 22:23 app-k17-k18.tex
+-rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--   1 will  wheel    23K Mar 30 23:00 bs-bw-dw-03.bbl
+-rw-r--r--   1 will  wheel    17K Mar 30 22:52 bs-bw-dw-03.tex
+-rw-r--r--   1 will  wheel   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
+drwxr-xr-x  15 will  wheel   480B Mar 30 23:14 figs
+-rw-r--r--   1 will  wheel    68K Mar 30 22:52 sec-observational-diagnostics.tex
+
+./figs:
+total 9736
+-rw-r--r--  1 will  wheel   314K Feb 22 22:47 All-sources-eta-tau.pdf
+-rw-r--r--  1 will  wheel    75K Mar 21 22:46 H_versus_ell_annotated.pdf
+-rw-r--r--  1 will  wheel    21K Mar 30 20:27 K17-tau-comparison.pdf
+-rw-r--r--  1 will  wheel    19K Feb 11 16:01 K18-emissivity-vs-U.pdf
+-rw-r--r--  1 will  wheel    19K Mar 30 20:29 K18-mdot-Ux8-comparison.pdf
+-rw-r--r--  1 will  wheel   126K Mar 30 19:31 K18-mdot-corrected-comparison-R0-edited.pdf
+-rw-r--r--  1 will  wheel   417K Mar 27 11:58 Mdot-vs-lum-combo-edited.pdf
+-rw-r--r--  1 will  wheel   3.4M Mar 24 18:13 cygnus-bows-midir-combo.pdf
+-rw-r--r--  1 will  wheel    30K Mar 30 18:43 grain-T-vs-U.pdf
+-rw-r--r--  1 will  wheel    68K Mar 30 18:41 grain-j70-vs-U-edited.pdf
+-rw-r--r--  1 will  wheel   206K Mar 30 19:47 mdot_correlations_edited.pdf
+-rw-r--r--  1 will  wheel    25K Feb 13 17:59 sed-comparison.pdf
+-rw-r--r--  1 will  wheel    20K Mar 23 23:20 xsec-dust-ratd-ism_10.pdf
+#+end_example
+
+We don't run bibtex since that will destroy the .bbl file, and we aren't including the .bib file since arxiv does not like it
+
+#+BEGIN_SRC sh
+  TMPDIR=/tmp/ms-bsbwdw03-test
+  cd $TMPDIR
+  pdflatex bs-bw-dw-03
+  pdflatex bs-bw-dw-03
+  cp bs-bw-dw-03.pdf $OLDPWD/ms-bsbwdw03.pdf
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results silent
+open ms-bsbwdw03.pdf
+#+END_SRC
+
+** DONE Upload to MNRAS website
+CLOSED: [2019-03-30 Sat 23:38]
+Bow shocks, bow waves, and dust waves. III. Diagnostics
+
+#+BEGIN_QUOTE
+Stellar bow shocks, bow waves, and dust waves all result from the action of a star's wind and radiation pressure on a stream of dusty plasma that flows past it.  The dust in these bows emits prominently at mid-infrared wavelengths in the range 8 to 60 micron. We propose a novel diagnostic method, the tau-eta diagram, for analyzing these bows, which is based on comparing the fractions of stellar radiative energy and stellar radiative momentum that is trapped by the bow shell.  This diagram allows the discrimination of wind-supported bow shocks, radiation-supported bow waves, and dust waves in which grains decouple from the gas.  For the wind-supported bow shocks, it allows the stellar wind mass-loss rate to be determined.  We critically compare our method with a previous method that has been proposed for determining wind mass-loss rates from bow shock observations. This comparison points to ways in which both methods can be improved and suggests a downward revision by a factor of two with respect to previously reported mass-loss rates.  From a sample of 23 mid-infrared bow-shaped sources, we identify at least 4 strong candidates for radiation-supported bow waves, which need to be confirmed by more detailed studies, but no strong candidates for dust waves.
+#+END_QUOTE
+
+
+** TODO Upload to arxiv
