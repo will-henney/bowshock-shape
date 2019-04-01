@@ -1365,6 +1365,7 @@ Plot KDE of the distribution
   range_ = [0.35, 9.5]
   nhist = 15
   bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
   ticks2 = [0.5, 1.0, 2.0, 5.0]
   ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
 
@@ -1426,7 +1427,7 @@ Plot KDE of the distribution
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
                   levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
-                  bw=(0.09, 0.06),
+                  bw=(0.06, 0.04),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
 
@@ -1512,7 +1513,7 @@ Plot KDE of the distribution
           axx.tick_params(labelbottom='off') 
 
       for m, c, axx in zip(masks, colors, [ax_i_R90, ax_f_R90, ax_h_R90]):
-          sns.distplot(tab['R90'][m], bins=bins_, hist_kws={'range': range_},
+          sns.distplot(tab['R90'][m], bins=binsx, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
                                                      [10, 25, 50, 75, 90])
@@ -1524,6 +1525,9 @@ Plot KDE of the distribution
                        xytext=(0.0, 7), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
+          axx.text(1.0, 0.4, fr'$N = {np.sum(m.data)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
@@ -1763,6 +1767,7 @@ Plot KDE of the distribution
   + This implies that errors in R_0 due to uncertainty in identifying the stellar source are not important.
 + [X] Add marginal distribution histograms
 #+BEGIN_SRC python :return figfile :results file
+  import sys
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp
   from astropy.table import Table
@@ -1791,6 +1796,7 @@ Plot KDE of the distribution
   range_ = [0.35, 9.5]
   nhist = 15
   bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
   ticks2 = [0.5, 1.0, 2.0, 5.0]
   ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
 
@@ -1838,7 +1844,7 @@ Plot KDE of the distribution
   cmaps = 'Greens', 'Oranges_d'
   gammas = 0.5, 0.5
   lss = None, 'solid'
-
+ 
   # m = m5 | m4 | m3
   # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
   #             n_levels=30, cmap='Cyans',
@@ -1850,7 +1856,7 @@ Plot KDE of the distribution
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
                   levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
-                  bw=(0.06, 0.04),
+                  bw=(0.045, 0.03),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
   masks5 = mmultiple & m5, msingle & m5
@@ -1904,7 +1910,7 @@ Plot KDE of the distribution
       # Back to the original masks that include 5, 4, 3-star sources
       yq0, dyq = 0.1, 0.05
       for m, c, axx in zip(masks, colors, [ax_m_Rc, ax_s_Rc]):
-          sns.distplot(tab['Rc'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['Rc'][m], bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['Rc'][m],
                                                      [10, 25, 50, 75, 90])
@@ -1932,7 +1938,7 @@ Plot KDE of the distribution
       ax_m_Rc.tick_params(labelbottom='off') 
 
       for m, c, axx in zip(masks, colors, [ax_m_R90, ax_s_R90]):
-          sns.distplot(tab['R90'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['R90'][m], bins=binsx, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
                                                      [10, 25, 50, 75, 90])
@@ -1944,6 +1950,9 @@ Plot KDE of the distribution
                        xytext=(0.0, 8), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
+          axx.text(1.0, 0.4, fr'$N = {np.sum(m.data)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
@@ -2369,25 +2378,45 @@ Plot KDE of the distribution
   + But I don't think this is the (whole) answer
 + More convincing is the fact that both R0 and Rc/R0 and R90/R0 tend to increase with inclination
   + At least this is true for hyperbolic-type shapes
-+ Also worht noting that the observed effect is opposite to what would be expected due to errors in determining R_0
-  + In that case you would have larger R_0 producing smaller ratios (and vixe versa)
++ Also worth noting that the observed effect is opposite to what would be expected due to errors in determining R_0
+  + In that case you would have larger R_0 producing smaller ratios (and vice versa)
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp, mannwhitneyu
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
   import seaborn as sns
+  import seaborn.distributions 
+
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
 
   def rank_biserial(a, b):
       U = mannwhitneyu(a, b, alternative='two-sided')
       rb = 1.0 - 2*U.statistic/(len(a)*len(b))
       return rb, U.pvalue
 
-  sns.set_style('white')
   sns.set_color_codes('dark')
 
   figfile = 'mipsgal-Rc-R90-R0.pdf'
+
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
 
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
@@ -2448,8 +2477,8 @@ Plot KDE of the distribution
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.3],
-                  bw=(0.18, 0.12),
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.045, 0.03),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
   masks5 = myes & m5, mno & m5
@@ -2466,17 +2495,20 @@ Plot KDE of the distribution
 
   #ax.legend(frameon=True, loc='upper right')
   ax.set(
-      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
-      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
-      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
-      xscale='linear', yscale='linear')
-
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
   ## Histograms of marginal distributions
   subwin_w = 0.2
-  subwin_h = 0.09
+  subwin_h = 0.1
   subwin_x0 = 0.2
-  subwin_y0 = 0.65
+  subwin_y0 = 0.75
   subwin_xmargin = 0.06
   subwin_ymargin = 0.02
 
@@ -2500,7 +2532,7 @@ Plot KDE of the distribution
       # Back to the original masks that include 5, 4, 3-star sources
       yq0, dyq = 0.1, 0.05
       for m, c, axx in zip(masks, colors, [ax_y_Rc, ax_n_Rc]):
-          sns.distplot(tab['Rc'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['Rc'][m], bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['Rc'][m],
                                                      [10, 25, 50, 75, 90])
@@ -2527,16 +2559,14 @@ Plot KDE of the distribution
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
       #
-      ax_n_Rc.set(xlabel=r'$R_c/R_0$')
-      ax_y_Rc.set(xlabel='')
+      ax_n_Rc.set(xlabel=r'$\Pi$')
+      ax_y_Rc.set(xlabel='_nolabel_')
       ax_y_Rc.tick_params(labelbottom='off') 
 
       # Back to the original masks that include 5, 4, 3-star sources
       for m, c, axx in zip(masks, colors, [ax_y_R90, ax_n_R90]):
-          sns.distplot(tab['R90'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['R90'][m], bins=binsx, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
                                                      [10, 25, 50, 75, 90])
@@ -2548,7 +2578,7 @@ Plot KDE of the distribution
                        xytext=(0.0, 8), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
-          axx.text(1.0, 0.4, fr'$N = {np.sum(m)}$',
+          axx.text(1.0, 0.4, fr'$N = {np.sum(m.data)}$',
                    fontsize=8, ha='right', va='top',
                    transform=axx.transAxes)
           # Calculate K-S statistic
@@ -2558,22 +2588,27 @@ Plot KDE of the distribution
 						 midrank=False)
               s = fr'A-D $p = {pAD:.4f}$'
               rb, pMW = rank_biserial(tab['R90'][m], tab['R90'][masks[0]])
-              s += '\n' + fr'$r_b = {rb:.2f}$'
+  #            s += '\n' + fr'$r_b = {rb:.2f}$'
               axx.text(1.0, 0.9, s,
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
-      ax_y_R90.set(xlabel='')
+      ax_n_R90.set(xlabel=r'$\Lambda$')
+      ax_y_R90.set(xlabel='_nolabel_')
       ax_y_R90.tick_params(labelbottom='off') 
+      for axx in ax_y_Rc, ax_n_Rc, ax_y_R90, ax_n_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
+  sns.despine()
+  fig.tight_layout(pad=1.0)
   fig.savefig(figfile)
-
-
 #+END_SRC
 
 #+RESULTS:
@@ -3370,13 +3405,32 @@ CLOSED: [2017-03-20 Mon 11:31]
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
   import seaborn as sns
+  import seaborn.distributions 
 
-  sns.set_style('white')
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
   sns.set_color_codes('dark')
 
   figfile = 'mipsgal-Rc-R90-Mag.pdf'
 
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
 
@@ -3441,8 +3495,8 @@ CLOSED: [2017-03-20 Mon 11:31]
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.3],
-                  bw=(0.18, 0.12),
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.045, 0.03),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
   masks5 = myes & m5, mno & m5
@@ -3460,17 +3514,20 @@ CLOSED: [2017-03-20 Mon 11:31]
 
   #ax.legend(frameon=True, loc='upper right')
   ax.set(
-      xlim=[0.0, 5.0], ylim=[0.0, 5.0],
-      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
-      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
-      xscale='linear', yscale='linear')
-
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
   ## Histograms of marginal distributions
   subwin_w = 0.2
-  subwin_h = 0.09
+  subwin_h = 0.1
   subwin_x0 = 0.2
-  subwin_y0 = 0.65
+  subwin_y0 = 0.75
   subwin_xmargin = 0.06
   subwin_ymargin = 0.02
 
@@ -3494,7 +3551,7 @@ CLOSED: [2017-03-20 Mon 11:31]
       # Back to the original masks that include 5, 4, 3-star sources
       yq0, dyq = 0.1, 0.05
       for m, c, axx in zip(masks, colors, [ax_y_Rc, ax_n_Rc]):
-          sns.distplot(tab['Rc'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['Rc'][m], bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['Rc'][m],
                                                      [10, 25, 50, 75, 90])
@@ -3517,16 +3574,14 @@ CLOSED: [2017-03-20 Mon 11:31]
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
       #
-      ax_n_Rc.set(xlabel=r'$R_c/R_0$')
-      ax_y_Rc.set(xlabel='')
+      ax_n_Rc.set(xlabel=r'$\Pi$')
+      ax_y_Rc.set(xlabel='_nolabel_')
       ax_y_Rc.tick_params(labelbottom='off') 
 
       # Back to the original masks that include 5, 4, 3-star sources
       for m, c, axx in zip(masks, colors, [ax_y_R90, ax_n_R90]):
-          sns.distplot(tab['R90'][m], bins=15, hist_kws={'range': [0.0, 5.0]},
+          sns.distplot(tab['R90'][m], bins=binsx, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
                                                      [10, 25, 50, 75, 90])
@@ -3538,6 +3593,9 @@ CLOSED: [2017-03-20 Mon 11:31]
                        xytext=(0.0, 8), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
+          axx.text(1.0, 0.4, fr'$N = {np.sum(m.data)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
@@ -3549,12 +3607,20 @@ CLOSED: [2017-03-20 Mon 11:31]
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, 5.0], xticks=[0, 1, 2, 3, 4, 5])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
-      ax_y_R90.set(xlabel='')
+      ax_n_R90.set(xlabel=r'$\Lambda$')
+      ax_y_R90.set(xlabel='_nolabel_')
       ax_y_R90.tick_params(labelbottom='off') 
 
+      for axx in ax_n_Rc, ax_y_Rc, ax_n_R90, ax_y_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
   fig.savefig(figfile)
 
 
