@@ -9304,7 +9304,7 @@ python wave_xyprime.py 0.04 10.0 ancantoid-xi080-beta000500
   colors = 'b', 'k', 'r'
   linewidths = [2, 1, 2]
   # Different (amplitude, wavenumber) are different panels
-  amplitudes = [0.1, 0.05, 0.02]
+  amplitudes = [0.2, 0.1, 0.04]
   wavenumbers = [1.0, 2.0, 5.0]
 
   # All are for zero inclination
@@ -10003,7 +10003,7 @@ python animate_xyprime_wave.py wilkinoid
 #+name: run-save-wave
 #+header: :var A=0.1 N=1.5
 #+BEGIN_SRC sh :results verbatim
-  for shape in wilkinoid cantoid-beta002000 ancantoid-xi080-beta000500 dragoid-alpha100; do
+  for shape in wilkinoid cantoid-beta002000 ancantoid-xi080-beta000500; do
       python save-wave-data.py $shape $A $N
       echo
   done
@@ -10019,6 +10019,13 @@ python animate_xyprime_wave.py wilkinoid
 : cantoid-beta002000-wave-A010-N10.json
 : ancantoid-xi080-beta000500-wave-A010-N10.json
 : dragoid-alpha100-wave-A010-N10.json
+
+#+call: run-save-wave(A=0.2, N=1)
+
+#+RESULTS:
+: wilkinoid-wave-A020-N10.json
+: cantoid-beta002000-wave-A020-N10.json
+: ancantoid-xi080-beta000500-wave-A020-N10.json
 
 #+call: run-save-wave(A=0.05, N=2)
 
@@ -10037,6 +10044,14 @@ python animate_xyprime_wave.py wilkinoid
 : ancantoid-xi080-beta000500-wave-A001-N50.json
 : dragoid-alpha100-wave-A001-N50.json
 
+#+call: run-save-wave(A=0.1, N=2)
+
+#+RESULTS:
+: wilkinoid-wave-A010-N20.json
+: cantoid-beta002000-wave-A010-N20.json
+: ancantoid-xi080-beta000500-wave-A010-N20.json
+
+
 *** Figure of R_c-R_90 for the standing wave
 This is something I never got finished for the multi-quadric fits
 
@@ -10045,7 +10060,7 @@ This is something I never got finished for the multi-quadric fits
   import json
   import numpy as np
   from matplotlib import pyplot as plt
-  import matplotlib.ticker
+  import matplotlib.ticker as mticker
   import seaborn as sns
 
   try:
@@ -10055,6 +10070,9 @@ This is something I never got finished for the multi-quadric fits
       sys.exit(f"Usage: {sys.argv[0]} WAVE_ID SHAPE_ID [SHAPE_ID ...]")
 
   plotfile = sys.argv[0].replace('.py', f'-{WAVE_ID}.pdf')
+
+  range_ = [0.35, 9.5]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
 
   sns.set_style('ticks')
   fig, ax = plt.subplots(figsize=(5, 5))
@@ -10072,7 +10090,7 @@ This is something I never got finished for the multi-quadric fits
   ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   # Put a cross at the Wilkinoid coordinates: [5/3, sqrt(3)]
-  ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0)
+  ax.plot([5./3.], [np.sqrt(3.0)], '+', c='w', ms=10, alpha=1.0, zorder=100)
 
   nshapes = len(BASE_SHAPE_IDS)
   colors = sns.color_palette(n_colors=nshapes)
@@ -10082,23 +10100,24 @@ This is something I never got finished for the multi-quadric fits
       data = np.load(prefix + '.npz')
       Rc, R90 = data['Rc'], data['R90']
       for x, y in zip(Rc, R90):
-          ax.plot(x, y, '-', lw=2, c=color, label="_nolabel_", alpha=0.3)
-      ax.plot(Rc[0], R90[0], '-', lw=3, c=color,
+          ax.plot(x, y, '.', ms=5, mec="none", c=color, label="_nolabel_", alpha=0.1)
+      ax.plot([], [], '.', ms=9, mec="none", c=color,
               label=metadata['shape_label'], alpha=0.8)
 
   ax.legend(title=metadata['wave_label'])
 
   ax.set(
-      yscale='linear',
-      xscale='linear',
-      xlim=[0.0, 5.1],
-      ylim=[0.0, 5.1],
-      xlabel=r"Projected dimensionless radius of curvature: $\widetilde{R}_{c}{}'$",
-      ylabel=r"Projected dimensionless perpendicular radius: $\widetilde{R}_{90}{}'$",
-  )        
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
   sns.despine()
-  fig.tight_layout()
+  fig.tight_layout(pad=1.0)
   fig.savefig(plotfile)
   print(plotfile, end='')
 
@@ -10108,7 +10127,6 @@ This is something I never got finished for the multi-quadric fits
   python wave-R90-vs-Rc.py A010-N15 \
          cantoid-beta002000 \
          ancantoid-xi080-beta000500 \
-         dragoid-alpha100 \
          wilkinoid 
 #+END_SRC
 
@@ -10120,7 +10138,6 @@ This is something I never got finished for the multi-quadric fits
   python wave-R90-vs-Rc.py A010-N10 \
          cantoid-beta002000 \
          ancantoid-xi080-beta000500 \
-         dragoid-alpha100 \
          wilkinoid 
 #+END_SRC
 
@@ -10128,10 +10145,29 @@ This is something I never got finished for the multi-quadric fits
 [[file:wave-R90-vs-Rc-A010-N10.pdf]]
 
 #+BEGIN_SRC sh :results file
+  python wave-R90-vs-Rc.py A020-N10 \
+         cantoid-beta002000 \
+         ancantoid-xi080-beta000500 \
+         wilkinoid 
+#+END_SRC
+
+#+RESULTS:
+[[file:wave-R90-vs-Rc-A020-N10.pdf]]
+
+#+BEGIN_SRC sh :results file
+  python wave-R90-vs-Rc.py A010-N20 \
+         cantoid-beta002000 \
+         ancantoid-xi080-beta000500 \
+         wilkinoid 
+#+END_SRC
+
+#+RESULTS:
+[[file:wave-R90-vs-Rc-A010-N20.pdf]]
+
+#+BEGIN_SRC sh :results file
   python wave-R90-vs-Rc.py A005-N20 \
          cantoid-beta002000 \
          ancantoid-xi080-beta000500 \
-         dragoid-alpha100 \
          wilkinoid 
 #+END_SRC
 
@@ -10142,7 +10178,6 @@ This is something I never got finished for the multi-quadric fits
   python wave-R90-vs-Rc.py A001-N50 \
          cantoid-beta002000 \
          ancantoid-xi080-beta000500 \
-         dragoid-alpha100 \
          wilkinoid 
 #+END_SRC
 

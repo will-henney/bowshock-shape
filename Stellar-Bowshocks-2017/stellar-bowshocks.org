@@ -2445,7 +2445,7 @@ Plot KDE of the distribution
   ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
   ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
   ax.axvline(1.0, ymax=0.6, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.plot([0.0, 3.0], [0.0, 3.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -3185,10 +3185,12 @@ CLOSED: [2017-03-20 Mon 14:01]
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
   import seaborn as sns
 
-  sns.set_style('white')
+  #sns.set_style('white')
   sns.set_color_codes('dark')
+  sns.set_palette('muted')
 
   figfile = 'mipsgal-boxplot-Rc-R90-versus-R0.pdf'
 
@@ -3203,7 +3205,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   tab['dR90'] = np.abs(tab['R90p'] - tab['R90n'])/tab['R90']
   tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
 
-  fig, axes = plt.subplots(5, 1, sharex=True, figsize=(3, 8))
+  fig, axes = plt.subplots(5, 1, sharex=True, figsize=(4, 8))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -3237,38 +3239,43 @@ CLOSED: [2017-03-20 Mon 14:01]
       else:
           pexp = np.floor(np.log10(p))
           return rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
-    
+
 
   for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'R90_sigma', R0var]):
-      sns.boxplot(x=R0_label, y=tab[Rshape][mgood], order=R0_order, ax=ax)
-      if Rshape != R0var:
+      dependent = Rshape != R0var
+      sns.boxplot(x=R0_label, y=tab[Rshape][mgood], order=R0_order, ax=ax, boxprops=dict(lw=0.0), showfliers=False, notch=dependent)
+      if dependent:
           # Anderson-Darling k-sample test over the 5 sub-samples
           subsamples = [tab[Rshape][mgood][R0_label == _] for _ in R0_order]
           AD, levelsAD, pAD = anderson_ksamp(subsamples, midrank=False)
           BF, pBF = levene(*subsamples, center='median')
           s = f'{pformat(pAD)} (AD), {pformat(pBF)} (BF)'
-          ax.text(0.05, -0.04, s,
+          ax.text(0.05, -0.06, s,
                   ha='left', va='top', transform=ax.transAxes,
-                  fontsize='x-small'
+                  fontsize='small'
           )
 
 
-  axes[0].set(ylabel=r'$R_{90} / R_{0}$', ylim=[0.0, None])
-  axes[1].set(ylabel=r'$R_{c} / R_{0}$', ylim=[0.0, 5.0])
-  axes[2].set(ylabel=r'$|R_{90+} - R_{90-}|/ R_{90}$',
-              ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
-  axes[3].set(ylabel=r'$\epsilon (R_{90}) / R_{0}$',
-              ylim=[-0.01, None], yticks=[0, 0.2, 0.8])
-  axes[4].set(ylabel=r"$R_0$, $''$", yscale='log',
-              yticks=[5, 10, 50],
-              ylim=[4.0, 160.0])
+  axes[0].set(ylabel='Alatude\n' + r'$\Lambda = R_{90}/R_0$',
+              ylim=[0.0, None], yticks=[0, 1, 2, 3])
+  axes[1].set(ylabel='Planitude\n' + r'$\Pi = R_{c}/R_0$',
+              ylim=[0.0, 5.0])
+  axes[2].set(ylabel='Asymmetry\n' + r'$|\Lambda_{+} - \Lambda_{-}|/ \Lambda$',
+              ylim=[-0.01, None], yticks=[0, 0.2, 0.4, 0.6, 0.8])
+  axes[3].set(ylabel='Point dispersion\n' + r'$\epsilon (\Lambda)$',
+              ylim=[-0.01, None], yticks=[0, 0.2, 0.4, 0.6, 0.8])
+  axes[4].set(ylabel='Bows size\n' + r"$R_0$, arcsec", yscale='log',
+              ylim=[4.5, 190.0])
+  axes[4].yaxis.set_major_locator(mticker.FixedLocator([5, 10, 100]))
+  axes[4].yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
   for iR0, R0_median in enumerate(R0_order):
       x = (iR0 + 0.5) / len(R0_order)
-      axes[-1].text(x, 1.0, f'$N = {np.sum(R0_label == R0_median)}$',
+      axes[-1].text(x, 0.92, f'$N = {np.sum(R0_label == R0_median)}$',
                     ha='center', va='top', transform=ax.transAxes,
-                    fontsize='xx-small'
+                    fontsize='small'
       )
-  axes[-1].set(xlabel=r"Sub-sample median $R_0$, $''$", )
+  axes[-1].set(xlabel=r"Sub-sample median $R_0$, arcsec", )
   sns.despine(trim=True)
   for ax in axes[:-1]:
       sns.despine(ax=ax, bottom=True)
@@ -5608,12 +5615,32 @@ This is the one I am tending towards - close together on the sky, clearly showin
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
   import seaborn as sns
+  import seaborn.distributions 
 
-  sns.set_style('white')
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
   sns.set_color_codes('dark')
 
   figfile = 'mipsgal-Rc-R90-vs-Orion.pdf'
+
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
 
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
@@ -5641,8 +5668,8 @@ This is the one I am tending towards - close together on the sky, clearly showin
   ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
   ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
   ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.axvline(1.0, ymax=1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.plot([0.0, 5.5], [0.0, 5.5], lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.7, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -5674,15 +5701,15 @@ This is the one I am tending towards - close together on the sky, clearly showin
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4],
-                  bw=(0.3, 0.2),
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.045, 0.03),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
       sns.kdeplot(otab['Rc out'].data, otab['R90'].data, 
                   n_levels=8, cmap='Greens_d', linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
                   #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
-                  bw=(0.3, 0.2),
+                  bw=(0.09, 0.06),
                   shade=False, shade_lowest=False, ax=ax, alpha=alpha)
     
   # masks5 = m5, 
@@ -5697,24 +5724,23 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
   ax.legend(frameon=True, loc='lower right', title='')
 
-  Rmax = 6.5
-
-  #ax.legend(frameon=True, loc='upper right')
   ax.set(
-      xlim=[0.0, Rmax], ylim=[0.0, Rmax],
-      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
-      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
-      xscale='linear', yscale='linear')
-
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
   ## Histograms of marginal distributions
   subwin_w = 0.2
-  subwin_h = 0.09
-  subwin_x0 = 0.2
-  subwin_y0 = 0.65
-  subwin_xmargin = 0.26
+  subwin_h = 0.1
+  subwin_x0 = 0.17
+  subwin_y0 = 0.75
+  subwin_xmargin = 0.06
   subwin_ymargin = 0.02
-
 
   colors = 'purple', 'g'
   alphas = 0.8, 0.8
@@ -5740,7 +5766,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
       yq0, dyq = 0.1, 0.05
       datasets = tab['Rc'][m], otab['Rc out']
       for data, c, axx in zip(datasets, colors, [ax_y_Rc, ax_n_Rc]):
-          sns.distplot(data, bins=16, hist_kws={'range': [0.0, Rmax]},
+          sns.distplot(data, bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(data,
                                                      [10, 25, 50, 75, 90])
@@ -5763,17 +5789,15 @@ This is the one I am tending towards - close together on the sky, clearly showin
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, Rmax], xticks=[0, 2, 4, 6, 8])
-          sns.despine(ax=axx, trim=True, offset=None)
       #
-      ax_n_Rc.set(xlabel=r'$R_c/R_0$')
-      ax_y_Rc.set(xlabel='')
+      ax_n_Rc.set(xlabel=r'$\Pi$')
+      ax_y_Rc.set(xlabel='_nolabel_')
       ax_y_Rc.tick_params(labelbottom='off') 
 
       # Back to the original masks that include 5, 4, 3-star sources
       datasets = tab['R90'][m], otab['R90']
       for data, c, axx in zip(datasets, colors, [ax_y_R90, ax_n_R90]):
-          sns.distplot(data, bins=16, hist_kws={'range': [0.0, Rmax]},
+          sns.distplot(data, bins=binsx, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(data,
                                                      [10, 25, 50, 75, 90])
@@ -5785,6 +5809,9 @@ This is the one I am tending towards - close together on the sky, clearly showin
                        xytext=(0.0, 8), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
+          axx.text(1.0, 0.4, fr'$N = {len(data)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(data, datasets[0])
@@ -5796,12 +5823,20 @@ This is the one I am tending towards - close together on the sky, clearly showin
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, Rmax], xticks=[0, 2, 4, 6, 8])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
-      ax_y_R90.set(xlabel='')
+      ax_n_R90.set(xlabel=r'$\Lambda$')
+      ax_y_R90.set(xlabel='_nolabel_')
       ax_y_R90.tick_params(labelbottom='off') 
 
+      for axx in ax_y_Rc, ax_n_Rc, ax_y_R90, ax_n_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
   fig.savefig(figfile)
 
 
@@ -5819,12 +5854,32 @@ This is the one I am tending towards - close together on the sky, clearly showin
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
   import seaborn as sns
+  import seaborn.distributions 
 
-  sns.set_style('white')
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
   sns.set_color_codes('dark')
 
   figfile = 'mipsgal-Rc-R90-vs-Herschel.pdf'
+
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
 
   combo_file = 'mipsgal-arcfit.tab'
   tab = Table.read(combo_file, format='ascii.tab')
@@ -5852,8 +5907,8 @@ This is the one I am tending towards - close together on the sky, clearly showin
   ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
   ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
   ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.axvline(1.0, ymax=1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
-  ax.plot([0.0, 2.6], [0.0, 2.6], lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.7, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -5885,15 +5940,15 @@ This is the one I am tending towards - close together on the sky, clearly showin
       sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
-                  levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
-                  bw=(0.135, 0.09),
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.045, 0.03),
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
     
       sns.kdeplot(otab['Rc out'].data, otab['R90'].data, 
                   n_levels=6, cmap='Reds_d', linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
                   #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
-                  bw=(0.12, 0.08),
+                  bw=(0.03, 0.02),
                   shade=False, shade_lowest=False, ax=ax, alpha=alpha)
 
   # masks5 = m5, 
@@ -5912,25 +5967,27 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
   #ax.legend(frameon=True, loc='upper right')
   ax.set(
-      xlim=[0.0, Rmax], ylim=[0.0, Rmax],
-      xlabel=r'Radius of curvature ratio: $R_c/R_0$',
-      xticks=[0, 1, 2, 3, 4], yticks=[0, 1, 2, 3, 4], 
-      ylabel=r'Perpendicular radius ratio: $R_{90}/R_0$',
-      )
-
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
   ## Histograms of marginal distributions
   subwin_w = 0.2
-  subwin_h = 0.09
-  subwin_x0 = 0.4
-  subwin_y0 = 0.65
+  subwin_h = 0.1
+  subwin_x0 = 0.17
+  subwin_y0 = 0.75
   subwin_xmargin = 0.06
   subwin_ymargin = 0.02
 
 
   colors = 'purple', 'r'
   alphas = 0.8, 0.8
-  labels = 'MIPSGAL', 'M42'
+  labels = 'MIPSGAL', 'Herschel'
 
   with sns.plotting_context(
           rc={'axes.labelsize': 9,
@@ -5952,7 +6009,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
       yq0, dyq = 0.1, 0.05
       datasets = tab['Rc'][m], otab['Rc out']
       for data, c, axx in zip(datasets, colors, [ax_y_Rc, ax_n_Rc]):
-          sns.distplot(data, bins=16, hist_kws={'range': [0.0, Rmax]},
+          sns.distplot(data, bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(data,
                                                      [10, 25, 50, 75, 90])
@@ -5975,17 +6032,15 @@ This is the one I am tending towards - close together on the sky, clearly showin
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, Rmax], xticks=[0, 1, 2, 3, 4])
-          sns.despine(ax=axx, trim=True, offset=None)
       #
-      ax_n_Rc.set(xlabel=r'$R_c/R_0$')
-      ax_y_Rc.set(xlabel='')
+      ax_n_Rc.set(xlabel=r'$\Pi$')
+      ax_y_Rc.set(xlabel='_nolabel_')
       ax_y_Rc.tick_params(labelbottom='off') 
 
       # Back to the original masks that include 5, 4, 3-star sources
       datasets = tab['R90'][m], otab['R90']
       for data, c, axx in zip(datasets, colors, [ax_y_R90, ax_n_R90]):
-          sns.distplot(data, bins=16, hist_kws={'range': [0.0, Rmax]},
+          sns.distplot(data, bins=binsx, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
           q10, q25, q50, q75, q90 = np.nanpercentile(data,
                                                      [10, 25, 50, 75, 90])
@@ -5997,6 +6052,9 @@ This is the one I am tending towards - close together on the sky, clearly showin
                        xytext=(0.0, 8), textcoords='offset points',
                        fontsize=8, ha='center', va='bottom'
           )
+          axx.text(1.0, 0.4, fr'$N = {len(data)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
               KS, pKS = ks_2samp(data, datasets[0])
@@ -6008,12 +6066,20 @@ This is the one I am tending towards - close together on the sky, clearly showin
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-          axx.set(xlim=[0.0, Rmax], xticks=[0, 1, 2, 3, 4])
-          sns.despine(ax=axx, trim=True, offset=None)
-      ax_n_R90.set(xlabel=r'$R_{90}/R_0$')
-      ax_y_R90.set(xlabel='')
+      ax_n_R90.set(xlabel=r'$\Lambda$')
+      ax_y_R90.set(xlabel='_nolabel_')
       ax_y_R90.tick_params(labelbottom='off') 
 
+      for axx in ax_y_Rc, ax_n_Rc, ax_y_R90, ax_n_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
   fig.savefig(figfile)
 
 

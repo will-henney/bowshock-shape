@@ -513,17 +513,11 @@ extreme inclinations.
 
 \begin{figure}
   \centering
-  \setlength\tabcolsep{0pt}
-  \begin{tabular}{ll}
-    (a) & (b) \\
-    \includegraphics[height=1.167\linewidth]
-    {figs/mipsgal-boxplot-Rc-R90-versus-R0}
-        & \includegraphics[height=1.167\linewidth]
-          {figs/mipsgal-boxplot-Rc-R90-versus-H0}
-  \end{tabular}
-  \caption{(a) Box plots of the distributions of bow shock shape
-    parameters, \(R_c/R_0\) and \(R_{90} / R_0\), together with a
-    measure of the tail asymmetry, \(|R_{90+} - R_{90-}| / R_{90}\),
+  \includegraphics[width=\linewidth]
+  {figs/mipsgal-boxplot-Rc-R90-versus-R0}
+  \caption{Box plots of the distributions of bow shock shape
+    parameters, \(\Pi\) and \(\Lambda\), together with a
+    measure of the tail asymmetry, \(|\Lambda_{+} - \Lambda_{-}| / \Lambda\),
     after partitioning on the bow shock size, \(R_0\).  All 3-, 4-,
     and 5-star sources are sorted according to \(R_0\) and divided
     into 5 non-overlapping sub-samples of roughly equal size, each
@@ -534,15 +528,10 @@ extreme inclinations.
     by diamonds.  A 5-sample Anderson--Darling test and Brown--Forsythe
     test is performed for each dependent variable, with resultant
     \(p\)-value given at the bottom of each panel.   It is apparent
-    that the dispersion in \(R_{90} / R_0\) (upper panel) increases
+    that the dispersion in \(\Lambda\) (upper panel) increases
     systematically with \(R_0\), although the central value is roughly
     constant.  No clear systematic changes are apparent in
-    \(R_c / R_{90}\) (middle panel).  (b)~As (a), but partitioning on
-    the extinction-corrected \(H\)-band magnitude, \(H_0\).  Note that
-    sub-samples are plotted in order of \textit{decreasing} magnitude
-    to allow comparison between (a) and (b), given the negative
-    correlation between \(H_0\) and \(R_0\) (see
-    Fig.~\ref{fig:mipsgal-pairplot}).}
+    \(\Pi\) (middle panel).}
   \label{fig:mipsgal-boxplot}
 \end{figure}
 
@@ -794,9 +783,9 @@ result hard to interpret.
 \end{figure*}
 
 
-\begin{figure*}
+\begin{figure}
   \centering
-  \includegraphics[width=0.8\linewidth]{figs/mipsgal-Rc-R90-vs-Herschel}
+  \includegraphics[width=\linewidth]{figs/mipsgal-Rc-R90-vs-Herschel}
   \caption[]{Comparison of bow shock shapes between Herschel RSG/AGB
     arcs (large red symbols and hollow red contours) and MIPSGAL OB
     star arcs (small purple symbols and filled purple contours).
@@ -806,7 +795,7 @@ result hard to interpret.
     more detail, and a smaller KDE smoothing bandwidth of
     \(0.12 \times 0.08\) is used.}
   \label{fig:herschel-compare-mipsgal}
-\end{figure*}
+\end{figure}
 
 We obtain a second sample of bow shocks from a far-infrared survey
 \citep{Cox:2012a} of circumstellar shells around asymptotic giant
@@ -883,16 +872,16 @@ Herschel sources.
   \label{fig:ll-arcs}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure}
   \centering
-  \includegraphics[width=0.8\linewidth]{figs/mipsgal-Rc-R90-vs-Orion}
+  \includegraphics[width=\linewidth]{figs/mipsgal-Rc-R90-vs-Orion}
   \caption[]{Comparison of Orion with OB stars.  Other details of the
     plots are as in Figs.~\ref{fig:mipsgal-shapes}
     and~\ref{fig:mipsgal-uncorrelated}, except that the diagnostic
     plots are zoomed out to encompass larger ratio values, and a
     larger KDE smoothing bandwidth of \(0.3 \times 0.2\) is used.}
   \label{fig:ll-compare-mipsgal}
-\end{figure*}
+\end{figure}
 
 
 Mention future JWST observations with \(0.85\arcsec\) resolution at \SI{22}{\um}. 

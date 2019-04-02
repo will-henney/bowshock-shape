@@ -49,7 +49,7 @@ phase_labels = ["phase = 0.0, 1.0", "phase = 0.25, 0.75", "phase = 0.5"]
 colors = 'b', 'k', 'r'
 linewidths = [2, 1, 2]
 # Different (amplitude, wavenumber) are different panels
-amplitudes = [0.1, 0.05, 0.02]
+amplitudes = [0.2, 0.1, 0.04]
 wavenumbers = [1.0, 2.0, 5.0]
 
 # All are for zero inclination
