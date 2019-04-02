@@ -635,20 +635,20 @@ line and are more consistent with the \citet{Krticka:2017a} models.
 % \end{figure*}
 
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/K18-emissivity-vs-U}
-  \caption{Discrepancies in \SI{70}{\um} emissivities that we have
-    identified in K18.  Red crosses show the emissivities given in
-    K18's Table~2 as a function of the radiation field \(U\), while
-    the solid gray line shows the emissivities that they claim to be
-    using from \citet{Draine:2007a}.  The dashed line shows the
-    emissivities that we believe they should have been using, which
-    correct for the marked difference in spectral energy distribution
-    between OB stars and the Galactic interstellar radiation field
-    (see \S~\ref{sec:grain-temp-emiss}).}
-  \label{fig:k18-emissivity}
-\end{figure}
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=\linewidth]{figs/K18-emissivity-vs-U}
+%   \caption{Discrepancies in \SI{70}{\um} emissivities that we have
+%     identified in K18.  Red crosses show the emissivities given in
+%     K18's Table~2 as a function of the radiation field \(U\), while
+%     the solid gray line shows the emissivities that they claim to be
+%     using from \citet{Draine:2007a}.  The dashed line shows the
+%     emissivities that we believe they should have been using, which
+%     correct for the marked difference in spectral energy distribution
+%     between OB stars and the Galactic interstellar radiation field
+%     (see \S~\ref{sec:grain-temp-emiss}).}
+%   \label{fig:k18-emissivity}
+% \end{figure}
 
 K18 derive mass-loss rates for their sources using a method that is
 different from the one that we employ above.  Both methods are based
@@ -704,19 +704,27 @@ provide an important cross check on one another.  However, as
 explained in detail in \S~\ref{sec:grain-temp-emiss}, the \(j_\nu(U)\)
 relation depends on the shape of the illuminating SED, which means
 that the \citet{Draine:2007a} models require modification when applied
-to grains around OB stars.  In addition, when attempting to replicate
-the K18 values of \(j_{70}\) we find that they only follow the
-\citet{Draine:2007a} values for \(U > \num{e4}\), tending to a
-constant value for weaker radiation fields.  The situation is
-summarized in Figure~\ref{fig:k18-emissivity}, where the values taken
-directly from Table~2 of K18 are shown by red crosses, the values they
-claim to be using are shown by the gray solid line (this curve is
-consistent with that shown in K18 Fig.~2), and the values they
-\textit{should} have been using are shown by the gray dashed
-line. Note that this correction may also resolve the color temperature
-discrepancy noted by \citet{Kobulnicky:2017a}.
+to grains around OB stars.  A further discrepancy arises due to an
+interpolation error in K18, which resulted in values of \(j_{70}\)
+being overestimated by about a factor of 2 for sources with weak
+radiation fields (H.~Kobulnicky, priv.~comm.).
 
-% If we replaced K3 with M3, then mass loss rates would be reduced by 1.86 across the board
+% In addition, when attempting to replicate
+% the K18 values of \(j_{70}\) we find that they only follow the
+% \citet{Draine:2007a} values for \(U > \num{e4}\), tending to a
+% constant value for weaker radiation fields.  
+
+
+% The situation is
+% summarized in Figure~\ref{fig:k18-emissivity}, where the values taken
+% directly from Table~2 of K18 are shown by red crosses, the values they
+% claim to be using are shown by the gray solid line (this curve is
+% consistent with that shown in K18 Fig.~2), and the values they
+% \textit{should} have been using are shown by the gray dashed
+% line. Note that this correction may also resolve the color temperature
+% discrepancy noted by \citet{Kobulnicky:2017a}.
+
+
 
 \begin{figure}
   \centering
@@ -738,9 +746,10 @@ those published in K18 is shown in
 Figure~\ref{fig:k18-mdot-corrected-emissivity}.  It can be seen that
 sources with \(U \approx \num{e3}\) (darker shading) are relatively
 unaffected but that sources with stronger radiation fields (lighter
-shading) have their mass-loss increasingly reduced, as could be
-surmised from Figure~\ref{fig:k18-emissivity}.  The average reduction
-is by a factor of about two.
+shading) have their mass-loss increasingly reduced.
+% , as could be
+% surmised from Figure~\ref{fig:k18-emissivity}.
+The average reduction is by a factor of about two.
 
 
 % Different scenarios for producing velocities: dynamic ejection from
