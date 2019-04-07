@@ -1,38 +1,39 @@
-\section{A simple model for stellar bows}
+\section{A simple model for stellar bow shells}
 \label{sec:strong-gas-grain}
 
 \begin{figure*}
   \includegraphics[width=\linewidth]{figs/zones-v-n-plane}
-  \caption{Bow regimes in parameter space (\(v, n\)) of the external
-    stream for main-sequence OB stars of different masses:
+  \caption{Bow shell regimes in parameter space (\(v, n\)) of the
+    external stream for main-sequence OB stars of different masses:
     (a)~\SI{10}{M_\odot}, (b)~\SI{20}{M_\odot}, (c)~\SI{40}{M_\odot}.  In all
     cases, \(\kappa = \SI{600}{cm^2.g^{-1}}\) and efficient gas-grain
-    coupling is assumed. Solid black lines of varying thickness show the
-    bow size (star-apex separation, \(R_0\)), while gray shading shows
-    the radiation bow wave regime, with lower border
+    coupling is assumed. Solid black lines of varying thickness show
+    the bow shell size (star-apex separation, \(R_0\)), while gray
+    shading shows the radiation bow wave regime, with lower border
     \(\tau = \eta\wind\) and upper border \(\tau = 1\), where
-    \(\tau = 2 \kappa \rho R_0\) is the optical depth through the bow.  For bows
-    above the red solid line, the ionization front is trapped inside
-    the bow (\S~\ref{sec:trapp-ioniz-front}).  Blue lines delineate
-    different cooling regimes (\S~\ref{sec:radi-cool-lengths}).  Above
-    the thin blue line (\(d_{\text{cool}} = h_0\)), the bow shock
-    radiates efficiently, forming a thin shocked shell.  Below the
-    thick blue line (\(d_{\text{cool}} = R_0\)), the bow shock is
-    essentially non-radiative.}
+    \(\tau = 2 \kappa \rho R_0\) is the optical depth through the bow.  For bow
+    shells above the red solid line, the ionization front is trapped
+    inside the bow shell (\S~\ref{sec:trapp-ioniz-front}).  Blue lines
+    delineate different cooling regimes
+    (\S~\ref{sec:radi-cool-lengths}).  Above the thin blue line
+    (\(d_{\text{cool}} = h_0\)), the bow shock radiates efficiently,
+    forming a thin shocked shell.  Below the thick blue line
+    (\(d_{\text{cool}} = R_0\)), the bow shock is essentially
+    non-radiative.}
   \label{fig:zones-v-n-plane}
 \end{figure*}
 
 
-We consider the canonical case of a bow around a star of bolometric
-luminosity, \(L\), with a radiatively driven wind, which is immersed
-in an external stream of gas and dust with density, \(\rho\), and
-velocity, \(v\).  The size and shape of the bow is determined by a
-generalized balance of pressure (or, equivalently, momentum) between
-internal and external sources.  We assume that the stream is
-supersonic and super-alfvenic, so that the external pressure is
-dominated by the ram pressure, \(\rho v^2\), and that dust grains and gas
-are perfectly coupled by collisions (the breakdown of this assumption
-is the topic of Paper~II).
+We consider the canonical case of a bow shell around a star of
+bolometric luminosity, \(L\), with a radiatively driven wind, which is
+immersed in an external stream of gas and dust with density, \(\rho\),
+and velocity, \(v\).  The size and shape of the bow shell is
+determined by a generalized balance of pressure (or, equivalently,
+momentum) between internal and external sources.  We assume that the
+stream is supersonic and super-alfvenic, so that the external pressure
+is dominated by the ram pressure, \(\rho v^2\), and that dust grains and
+gas are perfectly coupled by collisions (the breakdown of this
+assumption is the topic of Paper~II).
 
 Although dust grains typically constitute only a small fraction
 \(Z\grain \sim 0.01\) of the mass of the external stream, they
@@ -43,7 +44,7 @@ less than \(\approx 0.001\).  The strong coupling assumption means that all
 the radiative forces applied to the dust grains are directly felt by
 the gas also.
 
-\subsection{Bows supported by radiation and wind}
+\subsection{Bow shells supported by radiation and wind}
 \label{sec:three-bow-regimes}
 
 The internal pressure is the sum of wind ram pressure and the
@@ -60,7 +61,7 @@ optical depth at UV/optical wavelengths is sufficiently large, then
 all of the stellar radiative momentum, emitted with rate \(L/c\), is
 trapped by the bow shell.  At the infrared wavelengths where the
 absorbed radiation is re-emitted, the grain opacity is much lower, so
-the bow is optically thin to this radiation.  Combined with the fact
+the bow shell is optically thin to this radiation.  Combined with the fact
 that the UV single-scattering albedo is only \(\approx 0.5\), this means
 that the single-scattering limit is approximately valid, and we adopt
 it here.
@@ -124,7 +125,7 @@ We define a fiducial optical depth,
 With these fiducial values established, we return to the combined
 radiation plus wind scenario.  Adding the stellar wind ram pressure
 term from equation~\eqref{eq:wind-efficiency} allows us to write the
-general bow radius in terms of the fiducial radius as
+general bow shell radius in terms of the fiducial radius as
 \begin{equation}
   \label{eq:R0-definition}
   R_0 = x R_* \ ,
@@ -280,7 +281,7 @@ powerful wind, the radiation bow wave regime only occurs for a very
 narrow range of densities, whereas for the \SI{10}{M_\odot} star, with a
 much weaker wind, the regime is much broader, extending to
 \(n < \num{e4} \, v_{10}^2\).  Another difference is the size scale of
-the bows in this regime, which is
+the bow shells in this regime, which is
 \(R_0 = \text{\SIrange{0.001}{0.003}{pc}}\) for the \SI{10}{M_\odot} star
 if \(v_\infty = \SI{40}{km.s^{-1}}\), but \(R_0 \approx \SI{0.1}{pc}\) for the
 \SI{40}{M_\odot} star, assuming the same inflow velocity.
@@ -314,7 +315,7 @@ in which \(\Gamma\Edd\) is the Eddington factor:
 where, in the last expression, \(M\) is measured in solar masses.  For
 the stars in Table~\ref{tab:stars}, we find
 \(\Gamma\Edd \approx \text{\numrange{30}{400}}\), so gravity can be safely
-ignored.  When the optical depth of the bow is very large,
+ignored.  When the optical depth of the bow shell is very large,
 \(\tau > \ln\Gamma\Edd \sim 5\), gravity will exceed the radiation force in the
 outer parts of the shell (see \citealt{Rodriguez-Ramirez:2016b}), but
 it is generally too weak to affect the shell structure even in such a
@@ -330,7 +331,7 @@ stars, dust grains are present only in the ambient stream, whereas for
 cool stars they will also be present in the stellar wind.  In the
 remainder of this paper, we will concentrate on the OB star case,
 where it is the outer zone that is most important observationally.
-Bows are typically detected via their infrared radiation (absorption
+Bow shells are typically detected via their infrared radiation (absorption
 and re-emission by dust of stellar radiation), or by emission lines
 such as the hydrogen H\(\alpha\) line.
 
@@ -563,13 +564,13 @@ and~\eqref{eq:isothermal-shell-density} as
 \end{equation}
 The bends in the curves at \(v \approx \SI{50}{km.s^{-1}}\) are due to the
 maximum in the cooling coefficient \(\Lambda(T)\) around
-\(\SI{e5}{K}\).  For bows with outer stream densities above the thin
+\(\SI{e5}{K}\).  For bow shells with outer stream densities above the thin
 blue line, radiative cooling is so efficient that the bow shock can be
 considered isothermal, and so the shell is dense and thin (at least,
 in the apex region).  It can be seen that the ionization front
 trapping always occurs at densities larger than this, which justifies
 the use of equation~\eqref{eq:isothermal-shell-density} in the
-previous section.  For bows with outer stream densities below the
+previous section.  For bow shells with outer stream densities below the
 thick blue line, cooling is unimportant and the bow shock can be
 considered non-radiative.  In this case the shell is thicker than in
 the radiative case,
@@ -578,7 +579,7 @@ from equation~\eqref{eq:shocked-shell-column} by substituting
 \(n = n_0\) and \(n\shell \approx 1.1 n_1\), then using
 equation~\eqref{eq:shock-n-jump}. The factor \num{1.1} comes from
 consideration of the slight increase in density between the shock and
-the contact/tangential discontinuity.  For bows with outer stream
+the contact/tangential discontinuity.  For bow shells with outer stream
 densities between the two blue lines, cooling does occur, albeit
 inefficiently, so that the shell thickness \(h\shell\) is set by
 \(d\cool\) rather than \(h_0\).
@@ -590,29 +591,47 @@ inefficiently, so that the shell thickness \(h\shell\) is set by
   \centering
   \includegraphics[width=\linewidth]{figs/shell-profile-wbs}
   \caption{Profiles of physical variables along the axis of the bow
-    shell for a wind-supported bow shock.  The case is shown of a
-    stream velocity of \SI{30}{km.s^{-1}} and an equilibrium ionized
-    sound speed of \SI{10}{km.s^{-1}}.}
+    shell for a wind-supported bow shock.  The top panel shows the gas
+    density (purple) and the gas thermal pressure (green dashed line)
+    as a function of radius from the star. The bottom panel shows the
+    absolute value of the gas velocity (red line) and sound speed
+    (orange line).  The stellar wind comes from the left with positive
+    velocity, while the ambient stream comes from the right. All
+    velocities are in the frame of reference of the star, which is
+    located off the left-hand edge of the figure.  The case shown is
+    for a stream velocity of \SI{30}{km.s^{-1}} and an equilibrium
+    ionized sound speed of \SI{10}{km.s^{-1}}, with a post-shock
+    cooling length \(d\cool\) that is smaller than the shell thickness
+    \(h_0\). The different flow regions are described in the text.}
   \label{fig:axial-structure-wbs}
 \end{figure}
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/shell-profile-rbw}
   \caption{As Fig.~\ref{fig:axial-structure-wbs} but for a
-    radiation-supported bow wave.}
+    radiation-supported bow wave.  The heavy dashed red line in the
+    lower panel shows the ballistic approximation to the velocity
+    profile, which would be followed in the case of a highly
+    supersonic incident stream.  The ambient stream is gradually
+    decelerated by absorption of stellar radiation, leading to a lower
+    velocity and higher density just before the shock, \(v_0\) and
+    \(n_0\), as compared to the values at large distances,
+    \(v_\infty\) and \(n_\infty\), which are shown by dashed horizontal lines.}
   \label{fig:axial-structure-rbw}
 \end{figure}
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/shell-profile-rbs}
   \caption{As Fig.~\ref{fig:axial-structure-wbs} but for a
-    radiation-supported bow shock.}
+    radiation-supported bow shock.  A smaller cooling length is assumed
+    than in the previous figures since the RBS regime occurs at higher
+    ambient densities.}
   \label{fig:axial-structure-rbs}
 \end{figure}
 
 In the shell of a wind-supported bow shock, the gas density is highest
 at the contact discontinuity, but this is no longer true for
-radiation-supported bows, as illustrated in
+radiation-supported bow shells, as illustrated in
 Figures~\ref{fig:axial-structure-wbs} to
 \ref{fig:axial-structure-rbs}, where we schematically show the shell
 structure for the three cases: WBS, RBW, and RBS.  In all cases, we
@@ -722,7 +741,8 @@ The shell density increases from \(e^{-1} n_2\) at \(R_*\) to saturate
 at \(n_2\) for \(R > R_* + h_a\), where \(h_a\) is now the pressure
 scale height at the inner edge of the shell.  From
 equations~(\ref{eq:Rstar}, \ref{eq:rad:R0}, \ref{eq:tau-thin},
-\ref{eq:strong-cooling-h0}, \ref{eq:scale-height}), and taking \(R_0 \approx R_*\), we find
+\ref{eq:strong-cooling-h0}, \ref{eq:scale-height}), and taking
+\(R_0 \approx R_*\), we find
 \begin{equation}
   \label{eq:ha-versus-h0}
   h_a \approx \frac{4 h_0}{3 \tau} \ .
@@ -751,7 +771,7 @@ require extremely high ambient densities of
 \section{Discussion}
 \label{sec:discussion}
 
-The stellar bows modeled in this paper can be seen as either due to
+The stellar bow shells modeled in this paper can be seen as either due to
 the motion of a star through the interstellar medium, or due to the
 motion of the interstellar medium that flows past the star.  The
 first case corresponds to runaway stars \citep{Blaauw:1961a}, which
@@ -762,7 +782,7 @@ photoevaporation and champagne flows in \hii{} regions
 turbulent flows in the Galaxy
 \citep[e.g.,][]{Ballesteros-Paredes:1999a}.  In this section, we
 consider the stream densities and velocities expected in each of these
-scenarios, and compare them with our predictions for the type of bows
+scenarios, and compare them with our predictions for the type of bow shells
 that should result.
 
 Although some runaway stars have velocities exceeding
@@ -788,8 +808,8 @@ velocity dispersions of order \SI{20}{km.s^{-1}}
 \citep{Damiani:2016a}.  Higher velocities of
 \SIrange{30}{40}{km.s^{-1}} are reached in divergent photoevaporation
 flows \citep{Dyson:1968a}, but this is achieved at expense of a lower
-density.  Given all the above, we expect there to be many more bows
-with relative stream velocity \(v_\infty \sim \SI{20}{km.s^{-1}}\) than bows
+density.  Given all the above, we expect there to be many more bow shells
+with relative stream velocity \(v_\infty \sim \SI{20}{km.s^{-1}}\) than bow shells
 with \(v_\infty \sim \SI{100}{km.s^{-1}}\).
 
 Turning now to the ambient density, if bow shock stars were randomly
@@ -807,14 +827,14 @@ respectively) and which increasingly dominate the volume for heights
 (\(n \approx \text{\SIrange{10}{100}{cm^{-3}}}\)) and Molecular Clouds
 (\(n > \SI{1000}{cm^{-3}}\)) occupy much smaller volumes
 (\(\approx 10\%\) and \(< 1\%\), respectively).  However, observations of
-stellar bows are clearly biased towards these higher densities.
+stellar bow shells are clearly biased towards these higher densities.
 
-In part, this bias is due to bows being easier to detect in denser
+In part, this bias is due to bow shells being easier to detect in denser
 environments.  Depending on the emission mechanism, the shell
 luminosity will be proportional to the column density
 (\(\propto n R_0\)) or volume emission measure
 (\(\propto n^2 R_0^3\)), which are both increasing functions of \(n\) since,
-from \S~\ref{sec:three-bow-regimes}, the bow size falls relatively
+from \S~\ref{sec:three-bow-regimes}, the bow shell size falls relatively
 slowly as \(R_0 \propto n^{-1/2}\) in the WBS and RBS cases, and is
 independent of \(n\) in the RBW case.  Another contribution to the
 high-density bias is simply that none but the highest velocity
@@ -822,7 +842,7 @@ high-mass stars can move far during their lifetime from the molecular
 clouds where they were born.  Even a runaway star with
 \(v = \SI{30}{km.s^{-1}}\), will travel \(< \SI{120}{pc}\) during an
 O-star lifetime of \(< \SI{4}{Myr}\), which is of the same order as
-the sizes of Giant Molecular Clouds.  Many observed stellar bows are
+the sizes of Giant Molecular Clouds.  Many observed stellar bow shells are
 found in high mass star clusters associated with large \hii{} regions
 \citep{Povich:2008a, Sexton:2015b}.  The ionized gas density in
 Carina, for example, has an average value of
@@ -833,12 +853,12 @@ embedded molecular globules \citep{Smith:2004a}.  In more compact
 \SI{e4}{cm^{-3}} are found on scales of about \(\SI{0.1}{pc}\)
 \citep{Weilbacher:2015a, ODell:2017b}.
 
-In \S~\ref{sec:depend-stell-type} we found that the bow is
+In \S~\ref{sec:depend-stell-type} we found that the bow shell is
 wind-supported when \(\tau_*^2 < \eta\wind\), where \(\tau_*\) is a fiducial
 optical depth (eq.~[\ref{eq:taustar-typical}]) and \(\eta\wind\) is the
 radiative momentum efficiency of the stellar wind
 (eq.~[\ref{eq:wind-eta-typical}]).  This translates into a maximum
-stream density for wind-supported bows of
+stream density for wind-supported bow shells of
 \newcommand\crit{\ensuremath{_{\text{max}}}}
 \newcommand\vink{\ensuremath{_{\text{\tiny Vink}}}}
 \begin{equation}
@@ -861,7 +881,7 @@ Therefore, runaway stars moving through the diffuse ISM with
 the WBS regime, having \(n \approx \num{0.004}\, n\crit\) for the default
 wind and dust parameters.  On the other hand, slow-moving stars in
 \hii{} regions of moderate density (\(n \sim \SI{100}{cm^{-3}}\)) can
-easily have \(n > n\crit\), meaning that their bows will be radiation
+easily have \(n > n\crit\), meaning that their bow shells will be radiation
 supported.
 
 \begin{figure}
@@ -903,11 +923,11 @@ Table~\ref{tab:stars}, except with \(\eta\wind = 0.01 \eta\vink\)
 \citealp{Martins:2005b}).  For such stars, the boundary between the
 wind-supported and radiation-supported regimes shifts to lower ambient
 densities, reaching \(n\crit \sim \SI{1}{cm^{-3}}\) for
-\(v = \SI{20}{km.s^{-1}}\).  This means that radiation-supported bows
+\(v = \SI{20}{km.s^{-1}}\).  This means that radiation-supported bow shells
 become feasible even in the diffuse ISM for this important class of
 stars (if winds are really as weak as the UV diagnostics suggest).  It
 is therefore important to critically re-evaluate attempts to
-\emph{measure} mass loss rates using observations of bows
+\emph{measure} mass loss rates using observations of bow shells
 \citep{Gvaramadze:2012a, Kobulnicky:2018a} since such calculations
 invariably assume that the WBS regime is universally applicable.  This
 issue is addressed in detail in Paper~III.
@@ -920,15 +940,15 @@ dominated by very small grains (VSG) with radius
 (\(\simeq 5\%\)) of the total dust mass in standard grain mixtures
 \citep{Desert:1990a}.  This same VSG population dominates the
 mid-infrared continuum emission around \SI{24}{\um}, which is where
-stellar bows are most easily detected \citep{Meyer:2016a,
+stellar bow shells are most easily detected \citep{Meyer:2016a,
   Kobulnicky:2016a}. There is some evidence that such grains may be
 depleted in the ionized gas of the Orion Nebula \citep{Salgado:2016a},
 leading to a decrease in \(\kappa\) by a factor of about six.  By
 equation~\eqref{eq:ncrit}, this would increase \(n\crit\) by the same
-factor, making radiation-supported bows less likely.  On the other
+factor, making radiation-supported bow shells less likely.  On the other
 hand, the process of Radiative Torque Disruption is predicted to be
 important \citep{Hoang:2018a} for the high radiation fields found in
-stellar bows, and this would tend to \emph{increase} the VSG abundance
+stellar bow shells, and this would tend to \emph{increase} the VSG abundance
 (and hence \(\kappa\)) via the centrifugal destruction of larger grains.
 In LMC \hii{} regions, \citet{Stephens:2014b} find observational
 evidence that the VSG abundance increases as the radiation field gets
@@ -939,7 +959,7 @@ that the total dust-gas ratio is roughly proportional to the metal
 abundance, \(Z\).  However, the wind strength \(\eta\wind\) also
 increases with metallicity (\(\dot{M} V\wind \propto Z^{0.82}\),
 \citealp{Vink:2001a}), which will largely cancel out the effect in our
-bow models.
+bow shell models.
 
 % For main-sequence B~stars, wind column densities are too low to
 % reliably measure the terminal velocity from near ultraviolet P~Cygni
@@ -960,12 +980,12 @@ bow models.
 \label{sec:summary}
 
 We have presented a systematic study of the formation of emission
-arcs, or bows, around luminous stars that move supersonically relative
-to their surrounding medium, taking into account both the stellar wind
-and radiation pressure of the star.  In this initial study, we
-considered the case where gas and grains are perfectly coupled via
-collisions, and applied our models to OB stars.  Our principal results
-are as follows:
+arcs, or bow shells, around luminous stars that move supersonically
+relative to their surrounding medium, taking into account both the
+stellar wind and radiation pressure of the star.  In this initial
+study, we considered the case where gas and grains are perfectly
+coupled via collisions, and applied our models to OB stars.  Our
+principal results are as follows:
 \begin{enumerate}[1.]
 \item Three different regimes of interaction are possible, in order of
   increasing optical depth of the bow shell: Wind-supported Bow Shock
@@ -988,7 +1008,7 @@ are as follows:
   in the WBS and RBS regimes the shell is thinner with more sharply
   defined edges.
 \item Studies that have estimated wind mass-loss rates from
-  observations of bows need to be re-evaluated in the light of
+  observations of bow shells need to be re-evaluated in the light of
   possible radiation support. 
 \end{enumerate}
 

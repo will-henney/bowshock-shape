@@ -1,4 +1,166 @@
 
+* Revised version
+** Ref report
+#+BEGIN_QUOTE
+Reviewer's Comments:
+Reviewer: 1
+
+Comments to the Author
+This is a report on the submitted paper "Bow shocks, bow waves, and dust waves. I. Strong coupling limit" by Henney and Arthur. This is a very interesting and well-written paper. It clearly shows the range of parameter space where bow shocks, bow waves and dust waves occur, and discusses the properties of each in a consistent way which allows easy comparison of their similarities and differences. It can be expected to be a very useful future reference for these phenomena.
+
+I can recommend publication once the following minor point is addressed. Figure 5 has an awful lot going on in it. For this reason there needs to be much more detail in the caption. Also, the arrowed lines indicating the shocked stellar wind velocity and sounde speed are very difficult to see, due to their thinness and colour, though I understand these are meant to be qualitative in nature. The authors might like to consider whether this figure would be easier to take in if it was split into 3 separate figures.
+#+END_QUOTE
+
+** Reply to referee
+We thank the referee for a helpful report.  We agree with the points
+made about Figure 5.  We have taken up the suggestion to split this
+into 3 separate figures, and we have greatly expanded the figure
+captions.  The lines that the referee found difficult to see have been
+made darker.
+
+One other modification that we have made is to change the noun "bow"
+to "bow shell" in multiple places.  We have done this because some
+colleagues found the former to be confusing.
+
+
+** Select files for revised version
+The ~srcsfiles~ list hasn't changes, but the ~figfiles~ has
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+cd ../Papers1234
+<<srcfiles>>
+grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
+#+END_SRC
+
+#+RESULTS:
+: figs/bows-and-waves
+: figs/zones-v-n-plane
+: figs/zones-v-n-plane-RSG
+: figs/zones-v-n-plane-BSG
+: figs/shell-profile-wbs
+: figs/shell-profile-rbw
+: figs/shell-profile-rbs
+: figs/zones-v-n-plane-Weak
+
+#+name: figfiles-revised
+#+BEGIN_SRC sh
+  figfiles="figs/bows-and-waves.pdf figs/zones-v-n-plane.pdf figs/zones-v-n-plane-RSG.pdf figs/zones-v-n-plane-BSG.pdf figs/shell-profile-wbs.pdf figs/shell-profile-rbw.pdf figs/shell-profile-rbs.pdf figs/zones-v-n-plane-Weak.pdf"
+#+END_SRC
+
+** List revised files and look at sizes
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles-revised>>
+  cd ../Papers1234
+  ls -lh $srcfiles $figfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
+-rw-rw-r--  1 will  staff   121K Mar 30 23:00 bowshocks-biblio.bib
+-rw-r--r--  1 will  staff    15K Apr  7 13:32 bs-bw-dw-01.bbl
+-rw-r--r--  1 will  staff   3.6K Apr  7 13:32 bs-bw-dw-01.tex
+-rw-r--r--  1 will  staff   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
+-rw-rw-r--@ 1 will  staff   445K Mar  8  2018 figs/bows-and-waves.pdf
+-rw-r--r--  1 will  staff    85K Apr  7 13:12 figs/shell-profile-rbs.pdf
+-rw-r--r--  1 will  staff   100K Apr  7 13:11 figs/shell-profile-rbw.pdf
+-rw-r--r--  1 will  staff    60K Apr  7 13:10 figs/shell-profile-wbs.pdf
+-rw-rw-r--@ 1 will  staff    65K Jan  3  2018 figs/zones-v-n-plane-BSG.pdf
+-rw-rw-r--@ 1 will  staff    48K Dec 28  2017 figs/zones-v-n-plane-RSG.pdf
+-rw-r--r--  1 will  staff    67K Feb 26 16:14 figs/zones-v-n-plane-Weak.pdf
+-rw-rw-r--@ 1 will  staff   146K Mar  8 16:27 figs/zones-v-n-plane.pdf
+-rw-r--r--  1 will  staff   6.4K Apr  7 13:24 sec-dust-bow-intro.tex
+-rw-r--r--  1 will  staff    51K Apr  7 13:32 sec-strong-coupling.tex
+#+end_example
+
+** Make revised tar file to submit
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles-revised>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bsbwdw01.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+#+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-01-submit
+: total 6832
+: -rw-r--r--  1 will  staff   4.8K Mar 10 20:16 bs-bw-dw-01-submit.org
+: -rw-------@ 1 will  staff   1.2M Mar  8 20:45 bsbwdw01-v1-processed.pdf
+: -rw-r--r--@ 1 will  staff   1.2M Apr  7 13:50 ms-bsbwdw01.pdf
+: -rw-r--r--  1 will  staff   921K Apr  7 13:57 ms-bsbwdw01.tar.gz
+
+
+** Test compilation of revised version in a temp folder
+
+Make folder
+
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bsbwdw01-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bsbwdw01.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bsbwdw01-test found and removed
+/tmp/ms-bsbwdw01-test
+total 440
+-rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--   1 will  wheel   121K Mar 30 23:00 bowshocks-biblio.bib
+-rw-r--r--   1 will  wheel    15K Apr  7 13:32 bs-bw-dw-01.bbl
+-rw-r--r--   1 will  wheel   3.6K Apr  7 13:56 bs-bw-dw-01.tex
+-rw-r--r--   1 will  wheel   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
+drwxr-xr-x  10 will  wheel   320B Apr  7 13:57 figs
+-rw-r--r--   1 will  wheel   6.4K Apr  7 13:24 sec-dust-bow-intro.tex
+-rw-r--r--   1 will  wheel    51K Apr  7 13:32 sec-strong-coupling.tex
+
+./figs:
+total 2064
+-rw-r--r--@ 1 will  wheel   445K Mar  8  2018 bows-and-waves.pdf
+-rw-r--r--  1 will  wheel    85K Apr  7 13:12 shell-profile-rbs.pdf
+-rw-r--r--  1 will  wheel   100K Apr  7 13:11 shell-profile-rbw.pdf
+-rw-r--r--  1 will  wheel    60K Apr  7 13:10 shell-profile-wbs.pdf
+-rw-r--r--@ 1 will  wheel    65K Jan  3  2018 zones-v-n-plane-BSG.pdf
+-rw-r--r--@ 1 will  wheel    48K Dec 28  2017 zones-v-n-plane-RSG.pdf
+-rw-r--r--  1 will  wheel    67K Feb 26 16:14 zones-v-n-plane-Weak.pdf
+-rw-r--r--@ 1 will  wheel   146K Mar  8 16:27 zones-v-n-plane.pdf
+#+end_example
+
+#+BEGIN_SRC sh
+  TMPDIR=/tmp/ms-bsbwdw01-test
+  cd $TMPDIR
+  pdflatex bs-bw-dw-01
+  bibtex bs-bw-dw-01
+  pdflatex bs-bw-dw-01
+  pdflatex bs-bw-dw-01
+  cp bs-bw-dw-01.pdf $OLDPWD/ms-bsbwdw01.pdf
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results silent
+open ms-bsbwdw01.pdf
+#+END_SRC
+
+** Upload revised version to MNRAS website
+#+BEGIN_QUOTE
+Dust waves and bow waves result from the action of a star’s radiation pressure on a stream of dusty plasma that flows past it. They are an alternative mechanism to hydrodynamic bow shocks for explaining the curved arcs of infrared emission seen around some stars. When gas and grains are perfectly coupled, for a broad class of stellar parameters, wind-supported bow shocks predominate when the ambient density is below 100 cm−3. At higher densities radiation-supported bows can form, tending to be optically thin bow waves around B stars, or optically thick bow shocks around early O stars. For OB stars with particularly weak stellar winds, radiation-supported bow shells become more prevalent.
+#+END_QUOTE
+
 * Initial version
 
 ** Select files
