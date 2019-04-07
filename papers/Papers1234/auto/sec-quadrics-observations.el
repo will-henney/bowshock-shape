@@ -24,7 +24,6 @@
     "sec:corr-shape"
     "fig:mipsgal-correlated"
     "fig:mipsgal-boxplot"
-    "fig:mipsgal-heteroscedastic"
     "sec:far-infrared-arcs"
     "fig:herschel-arc-fits"
     "fig:herschel-arc-fits-poor"

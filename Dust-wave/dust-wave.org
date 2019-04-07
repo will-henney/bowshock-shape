@@ -9208,6 +9208,34 @@ This one is very silly. For phase = 0.5 it looks like a duck
 #+END_SRC
 
 #+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.2 1.0 wilkinoid
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A020-N10-wilkinoid.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.1 2.0 wilkinoid
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A010-N20-wilkinoid.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.04 5.0 wilkinoid
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A004-N50-wilkinoid.pdf]]
+
+#+BEGIN_SRC sh :results file
+python wave_xyprime.py 0.1 2.0 ancantoid-xi080-beta000500
+#+END_SRC
+
+#+RESULTS:
+[[file:wave_xyprime-A010-N20-ancantoid-xi080-beta000500.pdf]]
+
+#+BEGIN_SRC sh :results file
 python wave_xyprime.py 0.05 2.0 ancantoid-xi080-beta000500
 #+END_SRC
 
@@ -10036,6 +10064,13 @@ python animate_xyprime_wave.py wilkinoid
 : dragoid-alpha100-wave-A005-N20.json
 
 
+#+call: run-save-wave(A=0.04, N=5)
+
+#+RESULTS:
+: wilkinoid-wave-A004-N50.json
+: cantoid-beta002000-wave-A004-N50.json
+: ancantoid-xi080-beta000500-wave-A004-N50.json
+
 #+call: run-save-wave(A=0.01, N=5)
 
 #+RESULTS:
@@ -10175,14 +10210,14 @@ This is something I never got finished for the multi-quadric fits
 [[file:wave-R90-vs-Rc-A005-N20.pdf]]
 
 #+BEGIN_SRC sh :results file
-  python wave-R90-vs-Rc.py A001-N50 \
+  python wave-R90-vs-Rc.py A004-N50 \
          cantoid-beta002000 \
          ancantoid-xi080-beta000500 \
          wilkinoid 
 #+END_SRC
 
 #+RESULTS:
-[[file:wave-R90-vs-Rc-A001-N50.pdf]]
+[[file:wave-R90-vs-Rc-A004-N50.pdf]]
 
 
 *** Slope of Rc-R90 graph from analytic estimate

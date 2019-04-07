@@ -3205,7 +3205,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   tab['dR90'] = np.abs(tab['R90p'] - tab['R90n'])/tab['R90']
   tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
 
-  fig, axes = plt.subplots(5, 1, sharex=True, figsize=(4, 8))
+  fig, axes = plt.subplots(5, 1, sharex=False, figsize=(4, 8))
 
   m5 = tab['Rating'] ==  5
   m4 = tab['Rating'] ==  4
@@ -3240,18 +3240,18 @@ CLOSED: [2017-03-20 Mon 14:01]
           pexp = np.floor(np.log10(p))
           return rf'$p = {p/10**pexp:.1f} \times 10^{{{pexp:.0f}}}$'
 
-
-  for ax, Rshape in zip(axes, ['R90', 'Rc', 'dR90', 'R90_sigma', R0var]):
+  ytexts = [0.0, 0.0, -0.05, 0.0, None]
+  for ax, Rshape, ytext in zip(axes, ['R90', 'Rc', 'dR90', 'R90_sigma', R0var], ytexts):
       dependent = Rshape != R0var
-      sns.boxplot(x=R0_label, y=tab[Rshape][mgood], order=R0_order, ax=ax, boxprops=dict(lw=0.0), showfliers=False, notch=dependent)
+      sns.boxplot(x=R0_label, y=tab[Rshape][mgood], order=R0_order, ax=ax, boxprops=dict(lw=0.0), showfliers=False, whis=[5, 95], notch=dependent, bootstrap=1000)
       if dependent:
           # Anderson-Darling k-sample test over the 5 sub-samples
           subsamples = [tab[Rshape][mgood][R0_label == _] for _ in R0_order]
           AD, levelsAD, pAD = anderson_ksamp(subsamples, midrank=False)
           BF, pBF = levene(*subsamples, center='median')
           s = f'{pformat(pAD)} (AD), {pformat(pBF)} (BF)'
-          ax.text(0.05, -0.06, s,
-                  ha='left', va='top', transform=ax.transAxes,
+          ax.text(0.05, ytext, s,
+                  ha='left', va='center', transform=ax.transAxes,
                   fontsize='small'
           )
 
@@ -3259,26 +3259,27 @@ CLOSED: [2017-03-20 Mon 14:01]
   axes[0].set(ylabel='Alatude\n' + r'$\Lambda = R_{90}/R_0$',
               ylim=[0.0, None], yticks=[0, 1, 2, 3])
   axes[1].set(ylabel='Planitude\n' + r'$\Pi = R_{c}/R_0$',
-              ylim=[0.0, 5.0])
+              ylim=[0.0, None],  yticks=[0, 1, 2, 3])
   axes[2].set(ylabel='Asymmetry\n' + r'$|\Lambda_{+} - \Lambda_{-}|/ \Lambda$',
-              ylim=[-0.01, None], yticks=[0, 0.2, 0.4, 0.6, 0.8])
+              ylim=[-0.01, None], yticks=[0, 0.2, 0.4, 0.6])
   axes[3].set(ylabel='Point dispersion\n' + r'$\epsilon (\Lambda)$',
-              ylim=[-0.01, None], yticks=[0, 0.2, 0.4, 0.6, 0.8])
+              ylim=[-0.01, None], yticks=[0, 0.2, 0.4, 0.6])
   axes[4].set(ylabel='Bows size\n' + r"$R_0$, arcsec", yscale='log',
-              ylim=[4.5, 190.0])
-  axes[4].yaxis.set_major_locator(mticker.FixedLocator([5, 10, 100]))
+              ylim=[4.5, 58])
+  axes[4].yaxis.set_major_locator(mticker.FixedLocator([5, 10, 50]))
   axes[4].yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
 
   for iR0, R0_median in enumerate(R0_order):
       x = (iR0 + 0.5) / len(R0_order)
-      axes[-1].text(x, 0.92, f'$N = {np.sum(R0_label == R0_median)}$',
-                    ha='center', va='top', transform=ax.transAxes,
+      axes[-1].text(x, 0.94, f'$N = {np.sum(R0_label == R0_median)}$',
+                    ha='center', va='center', transform=ax.transAxes,
                     fontsize='small'
       )
   axes[-1].set(xlabel=r"Sub-sample median $R_0$, arcsec", )
   sns.despine(trim=True)
   for ax in axes[:-1]:
       sns.despine(ax=ax, bottom=True)
+      ax.set(xticks=[])
   fig.tight_layout()
   fig.savefig(figfile)
 #+END_SRC
@@ -8148,6 +8149,49 @@ CLOSED: [2017-07-05 Wed 19:07]
   - T Mic - very irregular, multiple strands
   - W Ori - too faint full stop
   - NML Tau - even smaller and diffuser
+* Comments on the Cox sources and other cool stars 
+** H I observations
++ Matthews:2013a have 21 cm observations of AGB shells
++ These do not overlap with the Cox sources
++ But they are similar shapes
++ Partial list
+  + RX Lep
+    - O-rich AGB @ 149 pc
+    - has closed bow shock and wake (maybe)
+    - R_0 = 3 arcmin = 0.13 pc
+  + IK Tau is the same as NML Tau, which I skip in Cox list (too small and diffuse), and which has no obvious H I bow
+  + Y UMa
+    - O-rich Semi-reg var @ 385 pc
+    - Shows sort-of bow, but star is on top of apex
+  + R Peg
+    - O-rich Mira @ 400 pc
+    - Little bow embedded in bigger structure
+  + Y CVn
+    - Looks like bow, but pointing wrong way
+  + Several others, none look convincing
+** Cox sources - what are they?
+| Fig |   | Name      | Type  |
+|-----+---+-----------+-------|
+|   8 | a | \alpha Ori     | RSG   |
+|   8 | b | \mu Cep     | RSG   |
+|   8 | c | R Hya     | AGB   |
+|   8 | d | R Leo     | AGB   |
+|   8 | e | UU Aur    | C-AGB |
+|   8 | f | V1934 Sgr | AGB   |
+|   8 | g | X Pav     | AGB   |
+|   8 | h | R Cas     | AGB   |
+|-----+---+-----------+-------|
+|   9 | a | CW Leo    | C-AGB |
+|   9 | b | EP Aqr    | AGB   |
+|   9 | c | \chi Cyg     | S-RSG |
+|   9 | d | RT Vir    | AGB   |
+|   9 | e | W Aql     | S-AGB |
+|   9 | f | W Pic     | C-AGB |
+|   9 | g | R ScI     | C-AGB |
+|   9 | h | \theta Aps     | AGB   |
+
+So only 3 out of 16 are supergiants
+
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs
