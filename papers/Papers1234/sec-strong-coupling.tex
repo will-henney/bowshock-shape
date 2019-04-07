@@ -588,23 +588,37 @@ inefficiently, so that the shell thickness \(h\shell\) is set by
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{figs/shell-profiles}
-  \caption{Profiles of physical variables along the axis of bow shells
-    for (a)~wind-supported bow shock; (b)~radiation-supported bow
-    wave, and (c)~radiation-supported bow shock.  In all cases, a
+  \includegraphics[width=\linewidth]{figs/shell-profile-wbs}
+  \caption{Profiles of physical variables along the axis of the bow
+    shell for a wind-supported bow shock.  The case is shown of a
     stream velocity of \SI{30}{km.s^{-1}} and an equilibrium ionized
-    sound speed of \SI{10}{km.s^{-1}} are assumed.}
-  \label{fig:axial-structure}
+    sound speed of \SI{10}{km.s^{-1}}.}
+  \label{fig:axial-structure-wbs}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/shell-profile-rbw}
+  \caption{As Fig.~\ref{fig:axial-structure-wbs} but for a
+    radiation-supported bow wave.}
+  \label{fig:axial-structure-rbw}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/shell-profile-rbs}
+  \caption{As Fig.~\ref{fig:axial-structure-wbs} but for a
+    radiation-supported bow shock.}
+  \label{fig:axial-structure-rbs}
 \end{figure}
 
 In the shell of a wind-supported bow shock, the gas density is highest
 at the contact discontinuity, but this is no longer true for
 radiation-supported bows, as illustrated in
-Figure~\ref{fig:axial-structure}, where we schematically show the
-shell structure for the three cases: WBS, RBW, and RBS.  In all cases,
-we assume a far-field mach number of \(\M_\infty = 3\) for the incident
-stream of density \(n_\infty\).  For the WBS case
-(Fig.~\ref{fig:axial-structure}a), the stream is unchanged until it
+Figures~\ref{fig:axial-structure-wbs} to
+\ref{fig:axial-structure-rbs}, where we schematically show the shell
+structure for the three cases: WBS, RBW, and RBS.  In all cases, we
+assume a far-field mach number of \(\M_\infty = 3\) for the incident stream
+of density \(n_\infty\).  For the WBS case
+(Fig.~\ref{fig:axial-structure-wbs}), the stream is unchanged until it
 reaches the shock, so \(\M_0 = \M_\infty\) and \(n_0 = n_\infty\).  The density
 increases to \(n_1 = 3 n_0\) in the shock
 (eq.~[\ref{eq:shock-n-jump}]), and then to \(n_2 = 9 n_0\)
@@ -621,7 +635,7 @@ to the shell pressure, but its density is much smaller due to a
 temperature that is higher by a factor of \(\approx 3100 V_3^2\),
 (eq.~[\ref{eq:shock-T-jump}], assuming inefficient cooling).
 
-For the optically thin RBW case (Fig.~\ref{fig:axial-structure}b),
+For the optically thin RBW case (Fig.~\ref{fig:axial-structure-rbw}),
 equations~\eqref{eq:rad-accel} to~\eqref{eq:rad:R0} can be combined to
 give the radial dependence of the stream velocity as it approaches the
 star:
@@ -630,7 +644,7 @@ star:
   v(R) = \left( 1 - \frac{R_{**}}{R} \right)^{1/2} v_\infty \ .
 \end{equation}
 This ballistic approximation (shown by the dashed red line in
-Fig.~\ref{fig:axial-structure}b) predicts that the velocity smoothly
+Fig.~\ref{fig:axial-structure-rbw}) predicts that the velocity smoothly
 decreases to zero at \(R = R_{**}\).  However, although this is valid
 in the limit of high Mach number, it ignores the effects of gas
 pressure and so becomes invalid once the stream velocity falls close
@@ -658,7 +672,7 @@ become important when the velocity is subsonic.\footnote{%
 Nonetheless, we expect that a normal shock must be present in the
 flow, although there does not seem to be any simple argument for
 predicting the exact Mach number where it will occur.  In
-Figure.~\ref{fig:axial-structure}b we assume that the shock occurs at
+Figure.~\ref{fig:axial-structure-rbw} we assume that the shock occurs at
 a Mach number \(\M_0 = 1.5\), but multidimensional numerical
 simulations are necessary to test this supposition.
 
@@ -694,7 +708,7 @@ the inner shocked sub-shell represents a fraction
 outer supersonic sub-shell dominates for highly supersonic stream
 velocities.
 
-For the optically thick RBS case (Fig.~\ref{fig:axial-structure}c),
+For the optically thick RBS case (Fig.~\ref{fig:axial-structure-rbs}),
 the shell density profile is no longer simply exponential since the
 pressure scale height now increases as one moves away from the star,
 due to the extinction-induced decline in radiation flux. Assuming

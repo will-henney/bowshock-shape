@@ -104,11 +104,13 @@ Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019a}]{Henney:2019b}
-{Henney} W.~J.,  {Arthur} S.~J.,  2019a, \mnras
+{Henney} W.~J.,  {Arthur} S.~J.,  2019a, arXiv e-prints, \href
+  {http://adsabs.harvard.edu/abs/2019arXiv190307774H} {1903.07774 MNRAS
+  submitted (Paper II)}
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019b}]{Henney:2019c}
-{Henney} W.~J.,  {Arthur} S.~J.,  2019b, \mnras
+{Henney} W.~J.,  {Arthur} S.~J.,  2019b, \mnras, in prep (Paper III)
 
 \bibitem[\protect\citeauthoryear{{Henney}, {Arthur}  \&
   {Garc{\'{\i}}a-D{\'{\i}}az}}{{Henney} et~al.}{2005}]{Henney:2005a}
@@ -146,6 +148,7 @@ Hafez M.,  Guo W.,  1999, Computers \& Fluids, 28, 701
 \bibitem[\protect\citeauthoryear{{Kobulnicky}, {Chick}  \&
   {Povich}}{{Kobulnicky} et~al.}{2018}]{Kobulnicky:2018a}
 {Kobulnicky} H.~A.,  {Chick} W.~T.,   {Povich} M.~S.,  2018, \apj, 856, 74
+  (K18)
 
 \bibitem[\protect\citeauthoryear{{Lamers} \& {Cassinelli}}{{Lamers} \&
   {Cassinelli}}{1999}]{Lamers:1999b}

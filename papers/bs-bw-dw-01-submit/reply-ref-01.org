@@ -1,0 +1,10 @@
+* Ref report
+#+BEGIN_QUOTE
+Reviewer's Comments:
+Reviewer: 1
+
+Comments to the Author
+This is a report on the submitted paper "Bow shocks, bow waves, and dust waves. I. Strong coupling limit" by Henney and Arthur. This is a very interesting and well-written paper. It clearly shows the range of parameter space where bow shocks, bow waves and dust waves occur, and discusses the properties of each in a consistent way which allows easy comparison of their similarities and differences. It can be expected to be a very useful future reference for these phenomena.
+
+I can recommend publication once the following minor point is addressed. Figure 5 has an awful lot going on in it. For this reason there needs to be much more detail in the caption. Also, the arrowed lines indicating the shocked stellar wind velocity and sounde speed are very difficult to see, due to their thinness and colour, though I understand these are meant to be qualitative in nature. The authors might like to consider whether this figure would be easier to take in if it was split into 3 separate figures.
+#+END_QUOTE
