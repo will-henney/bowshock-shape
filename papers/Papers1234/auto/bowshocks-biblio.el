@@ -296,6 +296,16 @@
     "Prisegen:2019a"
     "Raga:1997a"
     "van-Buren:1995a"
-    "Planck-Collaboration:2016c"))
+    "Planck-Collaboration:2016c"
+    "Baranov:1970a"
+    "Blondin:1998a"
+    "Brown:2005a"
+    "Dyson:1972a"
+    "Dyson:1975a"
+    "Dyson:1989a"
+    "Hyde:2017a"
+    "Meyer:2014a"
+    "Pikelner:1968a"
+    "van-Buren:1990a"))
  :bibtex)
 

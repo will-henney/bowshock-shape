@@ -21,10 +21,24 @@
   Darling}{1952}]{Anderson:1952a}
 Anderson T.~W.,  Darling D.~A.,  1952, Ann. Math. Statist., 23, 193
 
+\bibitem[\protect\citeauthoryear{{Baranov}, {Krasnobaev}  \&
+  {Kulikovskii}}{{Baranov} et~al.}{1970}]{Baranov:1970a}
+{Baranov} V.~B.,  {Krasnobaev} K.~V.,   {Kulikovskii} A.~G.,  1970, Akademiia
+  Nauk SSSR Doklady, 194, 41
+
 \bibitem[\protect\citeauthoryear{{Benaglia}, {Romero}, {Mart{\'{\i}}}, {Peri}
   \& {Araudo}}{{Benaglia} et~al.}{2010}]{Benaglia:2010a}
 {Benaglia} P.,  {Romero} G.~E.,  {Mart{\'{\i}}} J.,  {Peri} C.~S.,   {Araudo}
   A.~T.,  2010, \aap, 517, L10
+
+\bibitem[\protect\citeauthoryear{{Bodensteiner}, {Baade}, {Greiner}  \&
+  {Langer}}{{Bodensteiner} et~al.}{2018}]{Bodensteiner:2018a}
+{Bodensteiner} J.,  {Baade} D.,  {Greiner} J.,   {Langer} N.,  2018, \aap, 618,
+  A110
+
+\bibitem[\protect\citeauthoryear{{Brown} \& {Bomans}}{{Brown} \&
+  {Bomans}}{2005}]{Brown:2005a}
+{Brown} D.,  {Bomans} D.~J.,  2005, \aap, 439, 183
 
 \bibitem[\protect\citeauthoryear{Brown \& Forsythe}{Brown \&
   Forsythe}{1974}]{Brown:1974a}
@@ -34,15 +48,6 @@ Brown M.~B.,  Forsythe A.~B.,  1974, Journal of the American Statistical
 \bibitem[\protect\citeauthoryear{{Carey} et~al.,}{{Carey}
   et~al.}{2009}]{Carey:2009a}
 {Carey} S.~J.,  et~al., 2009, \pasp, 121, 76
-
-\bibitem[\protect\citeauthoryear{Cleveland}{Cleveland}{1979}]{Cleveland:1979a}
-Cleveland W.~S.,  1979, Journal of the American Statistical Association, 74,
-  829
-
-\bibitem[\protect\citeauthoryear{Cleveland \& Devlin}{Cleveland \&
-  Devlin}{1988}]{Cleveland:1988a}
-Cleveland W.~S.,  Devlin S.~J.,  1988, Journal of the American Statistical
-  Association, 83, 596
 
 \bibitem[\protect\citeauthoryear{Cohen}{Cohen}{1988}]{Cohen:1988a}
 Cohen J.,  1988, Statistical Power Analysis for the Behavioral Sciences, 2nd
@@ -63,6 +68,17 @@ Cureton E.~E.,  1956, Psychometrika, 21, 287
   Vargha}{2002}]{Delaney:2002a}
 Delaney H.~D.,  Vargha A.,  2002, Psychological Methods, 7, 485
 
+\bibitem[\protect\citeauthoryear{{Dyson}}{{Dyson}}{1975}]{Dyson:1975a}
+{Dyson} J.~E.,  1975, \apss, 35, 299
+
+\bibitem[\protect\citeauthoryear{{Dyson} \& {Ghanbari}}{{Dyson} \&
+  {Ghanbari}}{1989}]{Dyson:1989a}
+{Dyson} J.~E.,  {Ghanbari} J.,  1989, \aap, 226, 270
+
+\bibitem[\protect\citeauthoryear{{Dyson} \& {de Vries}}{{Dyson} \& {de
+  Vries}}{1972}]{Dyson:1972a}
+{Dyson} J.~E.,  {de Vries} J.,  1972, \aap, 20, 223
+
 \bibitem[\protect\citeauthoryear{{Eker} et~al.,}{{Eker}
   et~al.}{2015}]{Eker:2015a}
 {Eker} Z.,  et~al., 2015, \aj, 149, 131
@@ -82,6 +98,10 @@ Goodman S.~N.,  1999b, Ann Intern Med, 130, 1005
   et~al.}{2011}]{Groenewegen:2011a}
 {Groenewegen} M.~A.~T.,  et~al., 2011, \aap, 526, A162
 
+\bibitem[\protect\citeauthoryear{{Gull} \& {Sofia}}{{Gull} \&
+  {Sofia}}{1979}]{Gull:1979a}
+{Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
+
 \bibitem[\protect\citeauthoryear{{Gvaramadze} \& {Bomans}}{{Gvaramadze} \&
   {Bomans}}{2008}]{Gvaramadze:2008a}
 {Gvaramadze} V.~V.,  {Bomans} D.~J.,  2008, \aap, 490, 1071
@@ -95,9 +115,26 @@ Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
   {Arthur}}{1998}]{Henney:1998b}
 {Henney} W.~J.,  {Arthur} S.~J.,  1998, \aj, 116, 322
 
+\bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
+  {Arthur}}{2019a}]{Henney:2019a}
+{Henney} W.~J.,  {Arthur} S.~J.,  2019a, arXiv e-prints, \href
+  {http://adsabs.harvard.edu/abs/2019arXiv190303737H} {1903.03737 MNRAS
+  submitted (Paper I)}
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
+  {Arthur}}{2019b}]{Henney:2019b}
+{Henney} W.~J.,  {Arthur} S.~J.,  2019b, arXiv e-prints, \href
+  {http://adsabs.harvard.edu/abs/2019arXiv190307774H} {1903.07774 MNRAS
+  submitted (Paper II)}
+
 \bibitem[\protect\citeauthoryear{{Henney} \& {O'Dell}}{{Henney} \&
   {O'Dell}}{1999}]{Henney:1999a}
 {Henney} W.~J.,  {O'Dell} C.~R.,  1999, \aj, 118, 2350
+
+\bibitem[\protect\citeauthoryear{{Hyde}, {Russell}, {Ritter}, {Filipović},
+  {Kaper}, {Grieve}  \& {O'Brien}}{{Hyde} et~al.}{2017}]{Hyde:2017a}
+{Hyde} E.~A.,  {Russell} D.~M.,  {Ritter} A.,  {Filipović} M.~D.,  {Kaper} L.,
+   {Grieve} K.,   {O'Brien} A.~N.,  2017, \pasp, 129, 094201
 
 \bibitem[\protect\citeauthoryear{{Indebetouw} et~al.,}{{Indebetouw}
   et~al.}{2005}]{Indebetouw:2005a}
@@ -109,6 +146,10 @@ Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
   {Hook} R.~N.,  eds,  Astronomical Society of the Pacific Conference Series
   Vol. 295, Astronomical Data Analysis Software and Systems XII. p.~489
 
+\bibitem[\protect\citeauthoryear{{Kobulnicky}, {Gilbert}  \&
+  {Kiminki}}{{Kobulnicky} et~al.}{2010}]{Kobulnicky:2010a}
+{Kobulnicky} H.~A.,  {Gilbert} I.~J.,   {Kiminki} D.~C.,  2010, \apj, 710, 549
+
 \bibitem[\protect\citeauthoryear{{Kobulnicky} et~al.,}{{Kobulnicky}
   et~al.}{2016}]{Kobulnicky:2016a}
 {Kobulnicky} H.~A.,  et~al., 2016, \apjs, 227, 18
@@ -118,6 +159,16 @@ Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
   Art{\'e}s-Rodr\'{\i}guez}{2012}]{Leiva-Murillo:2012a}
 Leiva-Murillo J.~M.,  Art{\'e}s-Rodr\'{\i}guez A.,  2012, Pattern Recogn.
   Lett., 33, 1717
+
+\bibitem[\protect\citeauthoryear{{Mackey}, {Gvaramadze}, {Mohamed}  \&
+  {Langer}}{{Mackey} et~al.}{2015}]{Mackey:2015a}
+{Mackey} J.,  {Gvaramadze} V.~V.,  {Mohamed} S.,   {Langer} N.,  2015, \aap,
+  573, A10
+
+\bibitem[\protect\citeauthoryear{{Mackey}, {Haworth}, {Gvaramadze}, {Mohamed},
+  {Langer}  \& {Harries}}{{Mackey} et~al.}{2016}]{Mackey:2016a}
+{Mackey} J.,  {Haworth} T.~J.,  {Gvaramadze} V.~V.,  {Mohamed} S.,  {Langer}
+  N.,   {Harries} T.~J.,  2016, \aap, 586, A114
 
 \bibitem[\protect\citeauthoryear{{Majewski}, {Zasowski}  \&
   {Nidever}}{{Majewski} et~al.}{2011}]{Majewski:2011a}
@@ -133,6 +184,11 @@ Makarov A.~A.,  Simonova G.~I.,  2017, Journal of Mathematical Sciences, 221,
 Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
   50
 
+\bibitem[\protect\citeauthoryear{{Meyer}, {Gvaramadze}, {Langer}, {Mackey},
+  {Boumis}  \& {Mohamed}}{{Meyer} et~al.}{2014}]{Meyer:2014a}
+{Meyer} D.~M.-A.,  {Gvaramadze} V.~V.,  {Langer} N.,  {Mackey} J.,  {Boumis}
+  P.,   {Mohamed} S.,  2014, \mnras, 439, L41
+
 \bibitem[\protect\citeauthoryear{{Meyer}, {van Marle}, {Kuiper}  \&
   {Kley}}{{Meyer} et~al.}{2016}]{Meyer:2016a}
 {Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
@@ -144,6 +200,18 @@ Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
 \bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
   {Wen}}{1994}]{ODell:1994a}
 {O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
+
+\bibitem[\protect\citeauthoryear{{Peri}, {Benaglia}, {Brookes}, {Stevens}  \&
+  {Isequilla}}{{Peri} et~al.}{2012}]{Peri:2012a}
+{Peri} C.~S.,  {Benaglia} P.,  {Brookes} D.~P.,  {Stevens} I.~R.,   {Isequilla}
+  N.~L.,  2012, \aap, 538, A108
+
+\bibitem[\protect\citeauthoryear{{Peri}, {Benaglia}  \& {Isequilla}}{{Peri}
+  et~al.}{2015}]{Peri:2015a}
+{Peri} C.~S.,  {Benaglia} P.,   {Isequilla} N.~L.,  2015, \aap, 578, A45
+
+\bibitem[\protect\citeauthoryear{{Pikel'ner}}{{Pikel'ner}}{1968}]{Pikelner:1968a}
+{Pikel'ner} S.~B.,  1968, \aplett, 2, 97
 
 \bibitem[\protect\citeauthoryear{{Povich}, {Benjamin}, {Whitney}, {Babler},
   {Indebetouw}, {Meade}  \& {Churchwell}}{{Povich} et~al.}{2008}]{Povich:2008a}
@@ -176,6 +244,11 @@ John Wiley \& Sons
 Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
   55, 62
 
+\bibitem[\protect\citeauthoryear{{Sexton}, {Povich}, {Smith}, {Babler}, {Meade}
+   \& {Rudolph}}{{Sexton} et~al.}{2015}]{Sexton:2015b}
+{Sexton} R.~O.,  {Povich} M.~S.,  {Smith} N.,  {Babler} B.~L.,  {Meade} M.~R.,
+   {Rudolph} A.~L.,  2015, \mnras, 446, 1047
+
 \bibitem[\protect\citeauthoryear{{Smith}, {Bally}, {Shuping}, {Morris}  \&
   {Kassis}}{{Smith} et~al.}{2005}]{Smith:2005a}
 {Smith} N.,  {Bally} J.,  {Shuping} R.~Y.,  {Morris} M.,   {Kassis} M.,  2005,
@@ -193,9 +266,25 @@ Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
   et~al.}{2004}]{Werner:2004a}
 {Werner} M.~W.,  et~al., 2004, \apjs, 154, 1
 
+\bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
+{Wilkin} F.~P.,  1996, \apjl, 459, L31
+
 \bibitem[\protect\citeauthoryear{{Wright} et~al.,}{{Wright}
   et~al.}{2010}]{Wright:2010a}
 {Wright} E.~L.,  et~al., 2010, \aj, 140, 1868
+
+\bibitem[\protect\citeauthoryear{{van Buren} \& {McCray}}{{van Buren} \&
+  {McCray}}{1988}]{van-Buren:1988a}
+{van Buren} D.,  {McCray} R.,  1988, \apjl, 329, L93
+
+\bibitem[\protect\citeauthoryear{{van Buren}, {Mac Low}, {Wood}  \&
+  {Churchwell}}{{van Buren} et~al.}{1990}]{van-Buren:1990a}
+{van Buren} D.,  {Mac Low} M.-M.,  {Wood} D.~O.~S.,   {Churchwell} E.,  1990,
+  \apj, 353, 570
+
+\bibitem[\protect\citeauthoryear{{van Buren}, {Noriega-Crespo}  \&
+  {Dgani}}{{van Buren} et~al.}{1995}]{van-Buren:1995a}
+{van Buren} D.,  {Noriega-Crespo} A.,   {Dgani} R.,  1995, \aj, 110, 2914
 
 \makeatother
 \end{thebibliography}
