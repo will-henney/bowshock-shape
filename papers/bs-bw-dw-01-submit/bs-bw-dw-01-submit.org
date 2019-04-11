@@ -87,11 +87,13 @@ grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
 
 #+RESULTS:
 : /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-01-submit
-: total 6832
-: -rw-r--r--  1 will  staff   4.8K Mar 10 20:16 bs-bw-dw-01-submit.org
+: total 11936
+: -r--------@ 1 will  staff   1.2M Apr  9 08:57 accepted-first-look-proof.pdf
+: -rw-r--r--  1 will  staff    12K Apr  7 14:15 bs-bw-dw-01-submit.org
 : -rw-------@ 1 will  staff   1.2M Mar  8 20:45 bsbwdw01-v1-processed.pdf
-: -rw-r--r--@ 1 will  staff   1.2M Apr  7 13:50 ms-bsbwdw01.pdf
-: -rw-r--r--  1 will  staff   921K Apr  7 13:57 ms-bsbwdw01.tar.gz
+: -r--------@ 1 will  staff   1.3M Apr  7 14:13 bsbwdw01-v2-processed.pdf
+: -rw-r--r--@ 1 will  staff   1.2M Apr  7 13:58 ms-bsbwdw01.pdf
+: -rw-r--r--  1 will  staff   923K Apr  9 09:34 ms-bsbwdw01.tar.gz
 
 
 ** Test compilation of revised version in a temp folder
@@ -117,14 +119,14 @@ Make folder
 #+begin_example
 /tmp/ms-bsbwdw01-test found and removed
 /tmp/ms-bsbwdw01-test
-total 440
+total 448
 -rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
 -rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
--rw-r--r--   1 will  wheel   121K Mar 30 23:00 bowshocks-biblio.bib
--rw-r--r--   1 will  wheel    15K Apr  7 13:32 bs-bw-dw-01.bbl
+-rw-r--r--   1 will  wheel   126K Apr  9 09:29 bowshocks-biblio.bib
+-rw-r--r--   1 will  wheel    15K Apr  9 09:31 bs-bw-dw-01.bbl
 -rw-r--r--   1 will  wheel   3.6K Apr  7 13:56 bs-bw-dw-01.tex
 -rw-r--r--   1 will  wheel   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
-drwxr-xr-x  10 will  wheel   320B Apr  7 13:57 figs
+drwxr-xr-x  10 will  wheel   320B Apr  9 09:34 figs
 -rw-r--r--   1 will  wheel   6.4K Apr  7 13:24 sec-dust-bow-intro.tex
 -rw-r--r--   1 will  wheel    51K Apr  7 13:32 sec-strong-coupling.tex
 
