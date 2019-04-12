@@ -1,0 +1,791 @@
+* Proofs
++ Q1 :: Confirm no colour in printed version. 
++ Q2 :: Please change back to the two emails as given in the manuscript: j.tarango@irya.unam.mx and w.henney@irya.unam.mx.  The one given in the proofs is obsolete (should still work, but has not been canonical for over ten years). 
++ Q3 :: Surnames correct
++ Q4 :: Correct
++ Q5 :: No databases cited
++ Q6 :: Keywords fine
++ Q7 :: Figures fine
++ Q8 :: Notation fine
++ Q9 :: Edits fine
++ Q10 :: All fine
++ Q11 :: All fine
++ Q12 :: ApJ submitted - the authors are currently finalizing their response to the referee report
++ Q13 :: The author list given on the page https://www.scipy.org/citing.html is "Eric Jones and Travis Oliphant and Pearu Peterson and others", so I don't know if it is more than 8
++ Q14 :: The date is given as "2001--", but if that is inconsistent with MNRAS style, you could put "2001--2018".  I think that "2018" on its own is misleading.
++ Q15 :: Again, the date of 2018 is not correct since the web page was originally written in 1999
++ Other :: Why is "sgn" set in italic in equation (62)? All other operators are set in upright roman.
+* Version 2 select files
+#+name: srcfiles2
+#+BEGIN_SRC sh
+srcfiles="quadrics-bowshock.tex sec-intro.tex sec-projection.tex sec-conic.tex sec-thin-shell.tex sec-conclusions.tex app-intermediate.tex app-parabola.tex app-shape-parameters.tex app-rcurv-empirical.tex quadrics-bowshock.bbl bowshocks-biblio.bib aastex-compat.sty astrojournals.sty"
+#+END_SRC
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+cd ../Papers1234
+<<srcfiles2>>
+grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+figs/bow-terminology
+figs/generic-bowshock
+figs/bowshock-crw-variables
+figs/characteristic-radii
+figs/projection-pos
+figs/bowshock-unit-vectors
+figs/ellipse_edited
+figs/hyperbola_edited
+figs/conic1
+figs/conic-departure
+figs/projected-Rc-vs-i
+figs/projected-R90-vs-i
+figs/projected-R90-vs-Rc
+figs/projected-R0-vs-i
+figs/projected-R90-Rc-snapshots
+figs/anisotropic-arrows
+figs/ancantoid-shape
+figs/ancantoid-Pi-lambda-true
+figs/ancantoid-angles
+figs/crw-departure
+figs/crw-departure-k38
+figs/test_xyprime
+figs/test_xyprime_ancantoid
+figs/ancantoid-R90-vs-Rc-a
+figs/ancantoid-R90-vs-Rc-b
+figs/ancantoid-R90-vs-Rc-lobeta-a
+figs/M17-composite
+figs/depart-cheby-M17-MHD2040-AllB7
+figs/depart-cheby-M17-HD2040
+figs/test_xyprime_simulation
+figs/m17-planitude-alatude
+figs/m17-r0-prime
+figs/m17-histograms
+figs/new-two-arc-multi-fig
+figs/000-400-planitude-alatude
+figs/069-601-planitude-alatude
+figs/000-400-Pi-vs-Dtheta
+figs/069-601-Pi-vs-Dtheta
+#+end_example
+
+#+name: figfiles2
+#+BEGIN_SRC sh
+  figfiles="figs/bow-terminology.pdf figs/generic-bowshock.jpg figs/bowshock-crw-variables.pdf figs/characteristic-radii.pdf figs/projection-pos.pdf figs/bowshock-unit-vectors.pdf figs/ellipse_edited.pdf figs/hyperbola_edited.pdf figs/conic1.pdf figs/conic-departure.pdf figs/projected-Rc-vs-i.pdf figs/projected-R90-vs-i.pdf figs/projected-R90-vs-Rc.pdf figs/projected-R0-vs-i.pdf figs/projected-R90-Rc-snapshots.pdf figs/anisotropic-arrows.pdf figs/ancantoid-shape.pdf figs/ancantoid-Pi-lambda-true.pdf figs/ancantoid-angles.pdf figs/crw-departure.pdf figs/crw-departure-k38.pdf figs/test_xyprime.pdf figs/test_xyprime_ancantoid.pdf figs/ancantoid-R90-vs-Rc-a.pdf figs/ancantoid-R90-vs-Rc-b.pdf figs/ancantoid-R90-vs-Rc-lobeta-a.pdf figs/M17-composite.pdf figs/depart-cheby-M17-MHD2040-AllB7.pdf figs/depart-cheby-M17-HD2040.pdf figs/test_xyprime_simulation.pdf figs/m17-planitude-alatude.pdf figs/m17-r0-prime.pdf figs/m17-histograms.pdf figs/m17-histograms.pdf figs/new-two-arc-multi-fig.pdf figs/000-400-planitude-alatude.pdf figs/069-601-planitude-alatude.pdf figs/000-400-Pi-vs-Dtheta.pdf figs/069-601-Pi-vs-Dtheta.pdf"
+#+END_SRC
+
+** List all version 2 files and look at sizes
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles2>>
+  <<figfiles2>>
+  cd ../Papers1234
+  ls -lh $srcfiles $figfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-r--r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--  1 will  staff   3.2K Mar  6 20:03 app-intermediate.tex
+-rw-r--r--  1 will  staff   3.0K Dec  2 22:20 app-parabola.tex
+-rw-r--r--  1 will  staff   5.6K Mar  2 09:44 app-rcurv-empirical.tex
+-rw-r--r--  1 will  staff   7.9K Mar  6 22:17 app-shape-parameters.tex
+-rw-r--r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--  1 will  staff    47K Mar  7 12:40 bowshocks-biblio.bib
+-rw-r--r--@ 1 will  staff    19K Mar  2 09:40 figs/000-400-Pi-vs-Dtheta.pdf
+-rw-r--r--@ 1 will  staff    81K Mar  2 09:40 figs/000-400-planitude-alatude.pdf
+-rw-r--r--@ 1 will  staff    19K Mar  2 09:40 figs/069-601-Pi-vs-Dtheta.pdf
+-rw-r--r--@ 1 will  staff    81K Mar  2 09:40 figs/069-601-planitude-alatude.pdf
+-rw-r--r--@ 1 will  staff   1.6M Feb 22 12:49 figs/M17-composite.pdf
+-rw-r--r--@ 1 will  staff    87K Nov 11 15:33 figs/ancantoid-Pi-lambda-true.pdf
+-rw-r--r--@ 1 will  staff    90K Nov 12 13:06 figs/ancantoid-R90-vs-Rc-a.pdf
+-rw-r--r--@ 1 will  staff    90K Nov 12 13:06 figs/ancantoid-R90-vs-Rc-b.pdf
+-rw-r--r--@ 1 will  staff   101K Nov 12 19:42 figs/ancantoid-R90-vs-Rc-lobeta-a.pdf
+-rw-r--r--@ 1 will  staff    32K Nov 10 13:24 figs/ancantoid-angles.pdf
+-rw-r--r--@ 1 will  staff    25K Nov 10 23:17 figs/ancantoid-shape.pdf
+-rw-r--r--@ 1 will  staff    40K Nov  7 11:16 figs/anisotropic-arrows.pdf
+-rw-r--r--@ 1 will  staff    47K Nov  1 11:20 figs/bow-terminology.pdf
+-rw-r--r--@ 1 will  staff   104K Feb  7  2017 figs/bowshock-crw-variables.pdf
+-rw-r--r--@ 1 will  staff    68K Dec  6 10:19 figs/bowshock-unit-vectors.pdf
+-rw-r--r--@ 1 will  staff    92K Dec  6 10:24 figs/characteristic-radii.pdf
+-rw-r--r--@ 1 will  staff    22K Nov 25 21:57 figs/conic-departure.pdf
+-rw-r--r--@ 1 will  staff    26K Nov  3 12:19 figs/conic1.pdf
+-rw-r--r--@ 1 will  staff    33K Nov 26 18:35 figs/crw-departure-k38.pdf
+-rw-r--r--@ 1 will  staff    30K Nov 26 18:34 figs/crw-departure.pdf
+-rw-r--r--@ 1 will  staff    23K Dec  4 10:05 figs/depart-cheby-M17-HD2040.pdf
+-rw-r--r--@ 1 will  staff    23K Dec  4 10:05 figs/depart-cheby-M17-MHD2040-AllB7.pdf
+-rw-r--r--@ 1 will  staff    27K Nov  3 12:08 figs/ellipse_edited.pdf
+-rw-r--r--@ 1 will  staff   731K Dec  6 10:43 figs/generic-bowshock.jpg
+-rw-r--r--@ 1 will  staff    40K Nov  3 12:08 figs/hyperbola_edited.pdf
+-rw-r--r--@ 1 will  staff    23K Dec  4 10:05 figs/m17-histograms.pdf
+-rw-r--r--@ 1 will  staff    23K Dec  4 10:05 figs/m17-histograms.pdf
+-rw-r--r--@ 1 will  staff    91K Dec  4 10:05 figs/m17-planitude-alatude.pdf
+-rw-r--r--@ 1 will  staff    26K Dec  4 10:05 figs/m17-r0-prime.pdf
+-rw-r--r--@ 1 will  staff   1.1M Feb 28 12:29 figs/new-two-arc-multi-fig.pdf
+-rw-r--r--@ 1 will  staff    38K Nov 25 21:57 figs/projected-R0-vs-i.pdf
+-rw-r--r--@ 1 will  staff   1.7M Nov 25 21:57 figs/projected-R90-Rc-snapshots.pdf
+-rw-r--r--@ 1 will  staff    97K Nov 25 21:57 figs/projected-R90-vs-Rc.pdf
+-rw-r--r--@ 1 will  staff    37K Nov 25 21:57 figs/projected-R90-vs-i.pdf
+-rw-r--r--@ 1 will  staff    38K Nov 25 21:57 figs/projected-Rc-vs-i.pdf
+-rw-r--r--@ 1 will  staff   463K Jun 14  2016 figs/projection-pos.pdf
+-rw-r--r--@ 1 will  staff    35K Nov 12 08:44 figs/test_xyprime.pdf
+-rw-r--r--@ 1 will  staff    30K Nov 12 08:41 figs/test_xyprime_ancantoid.pdf
+-rw-r--r--@ 1 will  staff    38K Dec  4 10:05 figs/test_xyprime_simulation.pdf
+-rw-r--r--  1 will  staff    11K Mar  7 12:43 quadrics-bowshock.bbl
+-rw-r--r--  1 will  staff   5.8K Mar  7 11:02 quadrics-bowshock.tex
+-rw-r--r--  1 will  staff    35K Mar  6 10:54 sec-conclusions.tex
+-rw-r--r--  1 will  staff    26K Mar  6 22:19 sec-conic.tex
+-rw-r--r--  1 will  staff    15K Mar  7 12:43 sec-intro.tex
+-rw-r--r--  1 will  staff    12K Mar  7 12:26 sec-projection.tex
+-rw-r--r--  1 will  staff    32K Mar  7 12:12 sec-thin-shell.tex
+#+end_example
+
+** How many words?
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles2>>
+  cd ../Papers1234
+  wc $srcfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+     182     593    5927 quadrics-bowshock.tex
+     314    2151   15180 sec-intro.tex
+     297    1587   12230 sec-projection.tex
+     579    3461   26654 sec-conic.tex
+     718    4231   33136 sec-thin-shell.tex
+     634    4815   35329 sec-conclusions.tex
+     101     405    3314 app-intermediate.tex
+      82     397    3038 app-parabola.tex
+     187     924    8115 app-shape-parameters.tex
+     120     798    5685 app-rcurv-empirical.tex
+     257     930   11621 quadrics-bowshock.bbl
+    1636    6082   48548 bowshocks-biblio.bib
+      52      59    1435 aastex-compat.sty
+     116     329    4530 astrojournals.sty
+    5275   26762  214742 total
+#+end_example
+
+So, not counting the references, about 20,000 words
+
+Now, compare with Jorge thesis:
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  cd ~/Dropbox/JorgeThesis
+  wc *.tex
+#+END_SRC
+
+#+RESULTS:
+:      433    2753   24947 Appendix.tex
+:      326    3734   30536 CRW.tex
+:      468    4182   32858 bow-model.tex
+:        2       6      65 conclusions.tex
+:      259    3732   26234 objects.tex
+:      112    1373   10035 orion-results.tex
+:       93     163    2385 orion_tesis.tex
+:       38      82     745 portada.tex
+:     1731   16025  127805 total
+
+Currently 16,000 words.
+
+I we assume 40 hour weeks, and 40 week working year, then that means 10 words per hour. 
+
+* TODO Make the version 2 tar file to submit
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles2>>
+  <<figfiles2>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bows02.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+  /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/jorge-paper-submit
+  total 222856
+  -rw-rw-r--   1 will  staff   5.9K Mar  7  2018 bow-reply.txt
+  drwxrwxr-x  23 will  staff   736B Mar  7  2018 latexdiff
+  -r--r-----@  1 will  staff   278K Mar 15  2018 mnras-copyright-licence.pdf
+  -r--r-----@  1 will  staff   5.2M Dec  6  2017 ms-bows01-submitted-v1.pdf
+  -rw-rw-r--@  1 will  staff   5.2M Dec  6  2017 ms-bows01.pdf
+  -rw-rw-r--   1 will  staff   3.8M Dec  6  2017 ms-bows01.tar.gz
+  -rw-rw-r--@  1 will  staff   8.1M Mar  7  2018 ms-bows02.pdf
+  -rw-rw-r--   1 will  staff   6.7M Apr 11 11:34 ms-bows02.tar.gz
+  -rw-rw-r--   1 will  staff    37K May  9  2018 paper0-submit.org
+  -rw-rw-r--@  1 will  staff    23M Apr 20  2018 sty669-will-comments.pdf
+  -rw-rw-r--@  1 will  staff    23M Apr 19  2018 sty669.pdf
+  -rw-rw-r--@  1 will  staff    21M Apr 20  2018 sty669_track_changes.pdf
+  -rw-rw----@  1 will  staff    10M Mar  7  2018 version2-proof.pdf
+  #+end_example
+
+
+
+* DONE Test version 2 compilation in a temp folder
+CLOSED: [2018-03-07 Wed 13:48]
+
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bows02-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bows02.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bows02-test not found
+/tmp/ms-bows02-test
+total 624
+-rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--   1 will  wheel   3.2K Mar  6  2018 app-intermediate.tex
+-rw-r--r--   1 will  wheel   3.0K Dec  2  2017 app-parabola.tex
+-rw-r--r--   1 will  wheel   5.6K Mar  2  2018 app-rcurv-empirical.tex
+-rw-r--r--   1 will  wheel   7.9K Mar  6  2018 app-shape-parameters.tex
+-rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--   1 will  wheel   126K Apr  9 09:29 bowshocks-biblio.bib
+drwxr-xr-x  40 will  wheel   1.3K Apr 11 11:35 figs
+-rw-r--r--   1 will  wheel    11K Mar 31 18:58 quadrics-bowshock.bbl
+-rw-r--r--   1 will  wheel   5.8K Mar  7  2018 quadrics-bowshock.tex
+-rw-r--r--   1 will  wheel    35K Mar  6  2018 sec-conclusions.tex
+-rw-r--r--   1 will  wheel    26K Mar  6  2018 sec-conic.tex
+-rw-r--r--   1 will  wheel    15K Mar  7  2018 sec-intro.tex
+-rw-r--r--   1 will  wheel    12K Mar  7  2018 sec-projection.tex
+-rw-r--r--   1 will  wheel    32K Mar  7  2018 sec-thin-shell.tex
+
+./figs:
+total 15000
+-rw-r--r--@ 1 will  wheel    19K Mar  2  2018 000-400-Pi-vs-Dtheta.pdf
+-rw-r--r--@ 1 will  wheel    81K Mar  2  2018 000-400-planitude-alatude.pdf
+-rw-r--r--@ 1 will  wheel    19K Mar  2  2018 069-601-Pi-vs-Dtheta.pdf
+-rw-r--r--@ 1 will  wheel    81K Mar  2  2018 069-601-planitude-alatude.pdf
+-rw-r--r--@ 1 will  wheel   1.6M Feb 22  2018 M17-composite.pdf
+-rw-r--r--@ 1 will  wheel    87K Nov 11  2017 ancantoid-Pi-lambda-true.pdf
+-rw-r--r--@ 1 will  wheel    90K Nov 12  2017 ancantoid-R90-vs-Rc-a.pdf
+-rw-r--r--@ 1 will  wheel    90K Nov 12  2017 ancantoid-R90-vs-Rc-b.pdf
+-rw-r--r--@ 1 will  wheel   101K Nov 12  2017 ancantoid-R90-vs-Rc-lobeta-a.pdf
+-rw-r--r--@ 1 will  wheel    32K Nov 10  2017 ancantoid-angles.pdf
+-rw-r--r--@ 1 will  wheel    25K Nov 10  2017 ancantoid-shape.pdf
+-rw-r--r--@ 1 will  wheel    40K Nov  7  2017 anisotropic-arrows.pdf
+-rw-r--r--@ 1 will  wheel    47K Nov  1  2017 bow-terminology.pdf
+-rw-r--r--@ 1 will  wheel   104K Feb  7  2017 bowshock-crw-variables.pdf
+-rw-r--r--@ 1 will  wheel    68K Dec  6  2017 bowshock-unit-vectors.pdf
+-rw-r--r--@ 1 will  wheel    92K Dec  6  2017 characteristic-radii.pdf
+-rw-r--r--@ 1 will  wheel    22K Nov 25  2017 conic-departure.pdf
+-rw-r--r--@ 1 will  wheel    26K Nov  3  2017 conic1.pdf
+-rw-r--r--@ 1 will  wheel    33K Nov 26  2017 crw-departure-k38.pdf
+-rw-r--r--@ 1 will  wheel    30K Nov 26  2017 crw-departure.pdf
+-rw-r--r--@ 1 will  wheel    23K Dec  4  2017 depart-cheby-M17-HD2040.pdf
+-rw-r--r--@ 1 will  wheel    23K Dec  4  2017 depart-cheby-M17-MHD2040-AllB7.pdf
+-rw-r--r--@ 1 will  wheel    27K Nov  3  2017 ellipse_edited.pdf
+-rw-r--r--@ 1 will  wheel   731K Dec  6  2017 generic-bowshock.jpg
+-rw-r--r--@ 1 will  wheel    40K Nov  3  2017 hyperbola_edited.pdf
+-rw-r--r--@ 1 will  wheel    23K Dec  4  2017 m17-histograms.pdf
+-rw-r--r--@ 1 will  wheel    91K Dec  4  2017 m17-planitude-alatude.pdf
+-rw-r--r--@ 1 will  wheel    26K Dec  4  2017 m17-r0-prime.pdf
+-rw-r--r--@ 1 will  wheel   1.1M Feb 28  2018 new-two-arc-multi-fig.pdf
+-rw-r--r--@ 1 will  wheel    38K Nov 25  2017 projected-R0-vs-i.pdf
+-rw-r--r--@ 1 will  wheel   1.7M Nov 25  2017 projected-R90-Rc-snapshots.pdf
+-rw-r--r--@ 1 will  wheel    97K Nov 25  2017 projected-R90-vs-Rc.pdf
+-rw-r--r--@ 1 will  wheel    37K Nov 25  2017 projected-R90-vs-i.pdf
+-rw-r--r--@ 1 will  wheel    38K Nov 25  2017 projected-Rc-vs-i.pdf
+-rw-r--r--@ 1 will  wheel   463K Jun 14  2016 projection-pos.pdf
+-rw-r--r--@ 1 will  wheel    35K Nov 12  2017 test_xyprime.pdf
+-rw-r--r--@ 1 will  wheel    30K Nov 12  2017 test_xyprime_ancantoid.pdf
+-rw-r--r--@ 1 will  wheel    38K Dec  4  2017 test_xyprime_simulation.pdf
+#+end_example
+
+#+BEGIN_SRC sh
+  TMPDIR=/tmp/ms-bows02-test
+  cd $TMPDIR
+  pdflatex quadrics-bowshock
+  bibtex quadrics-bowshock
+  pdflatex quadrics-bowshock
+  pdflatex quadrics-bowshock
+  cp quadrics-bowshock.pdf $OLDPWD/ms-bows02.pdf
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh
+open ms-bows02.pdf
+#+END_SRC
+
+#+RESULTS:
+
+* DONE Select all and only those files needed to submit
+CLOSED: [2017-12-06 Wed 09:59]
+** LaTeX and BibTeX files
+
+#+name: srcfiles
+#+BEGIN_SRC sh
+srcfiles="quadrics-bowshock.tex sec-intro.tex sec-projection.tex sec-conic.tex sec-thin-shell.tex sec-conclusions.tex app-parabola.tex app-shape-parameters.tex app-rcurv-empirical.tex quadrics-bowshock.bbl bowshocks-biblio.bib aastex-compat.sty astrojournals.sty"
+#+END_SRC
+** Figure PDF files
+#+BEGIN_SRC sh :noweb yes :results verbatim
+cd ../Papers1234
+<<srcfiles>>
+grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+figs/bow-terminology
+figs/generic-bowshock
+figs/bowshock-crw-variables
+figs/characteristic-radii
+figs/projection-pos
+figs/bowshock-unit-vectors
+figs/ellipse_edited
+figs/hyperbola_edited
+figs/conic1
+figs/conic-departure
+figs/projected-Rc-vs-i
+figs/projected-R90-vs-i
+figs/projected-R90-vs-Rc
+figs/projected-R0-vs-i
+figs/projected-R90-Rc-snapshots
+figs/anisotropic-arrows
+figs/ancantoid-shape
+figs/ancantoid-Pi-lambda-true
+figs/ancantoid-angles
+figs/crw-departure
+figs/crw-departure-k38
+figs/test_xyprime
+figs/test_xyprime_ancantoid
+figs/ancantoid-R90-vs-Rc-a
+figs/ancantoid-R90-vs-Rc-b
+figs/ancantoid-R90-vs-Rc-lobeta-a
+figs/depart-cheby-M17-MHD2040-AllB7
+figs/depart-cheby-M17-HD2040
+figs/test_xyprime_simulation
+figs/m17-planitude-alatude
+figs/m17-r0-prime
+figs/m17-histograms
+#+end_example
+
+For the following snippet I did query-replace of NEWLINE to ".pdf " in the previous list.  The only jpeg is Fig 2 - generic-bowshock.jpg
+#+name: figfiles
+#+BEGIN_SRC sh
+  figfiles="figs/bow-terminology.pdf figs/generic-bowshock.jpg figs/bowshock-crw-variables.pdf figs/characteristic-radii.pdf figs/projection-pos.pdf figs/bowshock-unit-vectors.pdf figs/ellipse_edited.pdf figs/hyperbola_edited.pdf figs/conic1.pdf figs/conic-departure.pdf figs/projected-Rc-vs-i.pdf figs/projected-R90-vs-i.pdf figs/projected-R90-vs-Rc.pdf figs/projected-R0-vs-i.pdf figs/projected-R90-Rc-snapshots.pdf figs/anisotropic-arrows.pdf figs/ancantoid-shape.pdf figs/ancantoid-Pi-lambda-true.pdf figs/ancantoid-angles.pdf figs/crw-departure.pdf figs/crw-departure-k38.pdf figs/test_xyprime.pdf figs/test_xyprime_ancantoid.pdf figs/ancantoid-R90-vs-Rc-a.pdf figs/ancantoid-R90-vs-Rc-b.pdf figs/ancantoid-R90-vs-Rc-lobeta-a.pdf figs/depart-cheby-M17-MHD2040-AllB7.pdf figs/depart-cheby-M17-HD2040.pdf figs/test_xyprime_simulation.pdf figs/m17-planitude-alatude.pdf figs/m17-r0-prime.pdf figs/m17-histograms.pdf"
+#+END_SRC
+
+** List them all and look at file sizes
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  ls -lh $srcfiles $figfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-r--r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--  1 will  staff   3.0K Dec  2 22:20 app-parabola.tex
+-rw-r--r--  1 will  staff   3.2K Dec  4 18:54 app-rcurv-empirical.tex
+-rw-r--r--  1 will  staff   7.9K Dec  2 22:21 app-shape-parameters.tex
+-rw-r--r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--  1 will  staff    35K Dec  4 19:01 bowshocks-biblio.bib
+-rw-r--r--@ 1 will  staff    87K Nov 11 15:33 figs/ancantoid-Pi-lambda-true.pdf
+-rw-r--r--@ 1 will  staff    90K Nov 12 13:06 figs/ancantoid-R90-vs-Rc-a.pdf
+-rw-r--r--@ 1 will  staff    90K Nov 12 13:06 figs/ancantoid-R90-vs-Rc-b.pdf
+-rw-r--r--@ 1 will  staff   101K Nov 12 19:42 figs/ancantoid-R90-vs-Rc-lobeta-a.pdf
+-rw-r--r--@ 1 will  staff    32K Nov 10 13:24 figs/ancantoid-angles.pdf
+-rw-r--r--@ 1 will  staff    25K Nov 10 23:17 figs/ancantoid-shape.pdf
+-rw-r--r--@ 1 will  staff    40K Nov  7 11:16 figs/anisotropic-arrows.pdf
+-rw-r--r--@ 1 will  staff    47K Nov  1 11:20 figs/bow-terminology.pdf
+-rw-r--r--@ 1 will  staff   104K Feb  7  2017 figs/bowshock-crw-variables.pdf
+-rw-r--r--@ 1 will  staff    68K Dec  6 10:19 figs/bowshock-unit-vectors.pdf
+-rw-r--r--@ 1 will  staff    92K Dec  6 10:24 figs/characteristic-radii.pdf
+-rw-r--r--@ 1 will  staff    22K Nov 25 21:57 figs/conic-departure.pdf
+-rw-r--r--@ 1 will  staff    26K Nov  3 12:19 figs/conic1.pdf
+-rw-r--r--@ 1 will  staff    33K Nov 26 18:35 figs/crw-departure-k38.pdf
+-rw-r--r--@ 1 will  staff    30K Nov 26 18:34 figs/crw-departure.pdf
+-rw-r--r--@ 1 will  staff    23K Dec  4 10:05 figs/depart-cheby-M17-HD2040.pdf
+-rw-r--r--@ 1 will  staff    23K Dec  4 10:05 figs/depart-cheby-M17-MHD2040-AllB7.pdf
+-rw-r--r--@ 1 will  staff    27K Nov  3 12:08 figs/ellipse_edited.pdf
+-rw-r--r--@ 1 will  staff   731K Dec  6 10:43 figs/generic-bowshock.jpg
+-rw-r--r--@ 1 will  staff    40K Nov  3 12:08 figs/hyperbola_edited.pdf
+-rw-r--r--@ 1 will  staff    23K Dec  4 10:05 figs/m17-histograms.pdf
+-rw-r--r--@ 1 will  staff    91K Dec  4 10:05 figs/m17-planitude-alatude.pdf
+-rw-r--r--@ 1 will  staff    26K Dec  4 10:05 figs/m17-r0-prime.pdf
+-rw-r--r--@ 1 will  staff    38K Nov 25 21:57 figs/projected-R0-vs-i.pdf
+-rw-r--r--@ 1 will  staff   1.7M Nov 25 21:57 figs/projected-R90-Rc-snapshots.pdf
+-rw-r--r--@ 1 will  staff    97K Nov 25 21:57 figs/projected-R90-vs-Rc.pdf
+-rw-r--r--@ 1 will  staff    37K Nov 25 21:57 figs/projected-R90-vs-i.pdf
+-rw-r--r--@ 1 will  staff    38K Nov 25 21:57 figs/projected-Rc-vs-i.pdf
+-rw-r--r--@ 1 will  staff   463K Jun 14  2016 figs/projection-pos.pdf
+-rw-r--r--@ 1 will  staff    35K Nov 12 08:44 figs/test_xyprime.pdf
+-rw-r--r--@ 1 will  staff    30K Nov 12 08:41 figs/test_xyprime_ancantoid.pdf
+-rw-r--r--@ 1 will  staff    38K Dec  4 10:05 figs/test_xyprime_simulation.pdf
+-rw-r--r--  1 will  staff   8.5K Dec  4 23:31 quadrics-bowshock.bbl
+-rw-r--r--  1 will  staff   5.0K Dec  5 22:48 quadrics-bowshock.tex
+-rw-r--r--  1 will  staff    19K Dec  4 23:34 sec-conclusions.tex
+-rw-r--r--  1 will  staff    26K Dec  2 22:38 sec-conic.tex
+-rw-r--r--  1 will  staff    15K Dec  4 18:39 sec-intro.tex
+-rw-r--r--  1 will  staff    10K Dec  2 22:39 sec-projection.tex
+-rw-r--r--  1 will  staff    32K Dec  2 22:38 sec-thin-shell.tex
+#+end_example
+
+Biggest file is [[file:~/Work/Bowshocks/Jorge/bowshock-shape/papers/Papers1234/figs/projected-R90-Rc-snapshots.pdf][projected-R90-Rc-snapshots.pdf]] at 1.7MB.  We could maybe reduce that by converting to JPG but I can't be bothered. 
+* DONE Make the tar file to submit
+CLOSED: [2017-12-06 Wed 09:59]
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bows01.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+  #+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/paper1-submit
+: total 19192
+: -rw-r--r--@ 1 will  staff   5.5M Dec  6 10:37 ms-bows01.pdf
+: -rw-r--r--  1 will  staff   3.8M Dec  6 10:48 ms-bows01.tar.gz
+: -rw-r--r--  1 will  staff   8.1K Dec  6 09:59 paper1-submit.org
+* DONE Test the compilation in a temp folder
+CLOSED: [2017-12-06 Wed 09:59]
+
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bows01-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bows01.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bows01-test not found
+/tmp/ms-bows01-test
+total 392
+-rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--   1 will  wheel   3.0K Dec  2 22:20 app-parabola.tex
+-rw-r--r--   1 will  wheel   3.2K Dec  4 18:54 app-rcurv-empirical.tex
+-rw-r--r--   1 will  wheel   7.9K Dec  2 22:21 app-shape-parameters.tex
+-rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--   1 will  wheel    35K Dec  4 19:01 bowshocks-biblio.bib
+drwxr-xr-x  34 will  wheel   1.1K Mar  7 09:02 figs
+-rw-r--r--   1 will  wheel   8.5K Dec  4 23:31 quadrics-bowshock.bbl
+-rw-r--r--   1 will  wheel   5.0K Dec  5 22:48 quadrics-bowshock.tex
+-rw-r--r--   1 will  wheel    19K Dec  4 23:34 sec-conclusions.tex
+-rw-r--r--   1 will  wheel    26K Dec  2 22:38 sec-conic.tex
+-rw-r--r--   1 will  wheel    15K Dec  4 18:39 sec-intro.tex
+-rw-r--r--   1 will  wheel    10K Dec  2 22:39 sec-projection.tex
+-rw-r--r--   1 will  wheel    32K Dec  2 22:38 sec-thin-shell.tex
+
+./figs:
+total 8984
+-rw-r--r--@ 1 will  wheel    87K Nov 11 15:33 ancantoid-Pi-lambda-true.pdf
+-rw-r--r--@ 1 will  wheel    90K Nov 12 13:06 ancantoid-R90-vs-Rc-a.pdf
+-rw-r--r--@ 1 will  wheel    90K Nov 12 13:06 ancantoid-R90-vs-Rc-b.pdf
+-rw-r--r--@ 1 will  wheel   101K Nov 12 19:42 ancantoid-R90-vs-Rc-lobeta-a.pdf
+-rw-r--r--@ 1 will  wheel    32K Nov 10 13:24 ancantoid-angles.pdf
+-rw-r--r--@ 1 will  wheel    25K Nov 10 23:17 ancantoid-shape.pdf
+-rw-r--r--@ 1 will  wheel    40K Nov  7 11:16 anisotropic-arrows.pdf
+-rw-r--r--@ 1 will  wheel    47K Nov  1 11:20 bow-terminology.pdf
+-rw-r--r--@ 1 will  wheel   104K Feb  7  2017 bowshock-crw-variables.pdf
+-rw-r--r--@ 1 will  wheel    68K Dec  6 10:19 bowshock-unit-vectors.pdf
+-rw-r--r--@ 1 will  wheel    92K Dec  6 10:24 characteristic-radii.pdf
+-rw-r--r--@ 1 will  wheel    22K Nov 25 21:57 conic-departure.pdf
+-rw-r--r--@ 1 will  wheel    26K Nov  3 12:19 conic1.pdf
+-rw-r--r--@ 1 will  wheel    33K Nov 26 18:35 crw-departure-k38.pdf
+-rw-r--r--@ 1 will  wheel    30K Nov 26 18:34 crw-departure.pdf
+-rw-r--r--@ 1 will  wheel    23K Dec  4 10:05 depart-cheby-M17-HD2040.pdf
+-rw-r--r--@ 1 will  wheel    23K Dec  4 10:05 depart-cheby-M17-MHD2040-AllB7.pdf
+-rw-r--r--@ 1 will  wheel    27K Nov  3 12:08 ellipse_edited.pdf
+-rw-r--r--@ 1 will  wheel   731K Dec  6 10:43 generic-bowshock.jpg
+-rw-r--r--@ 1 will  wheel    40K Nov  3 12:08 hyperbola_edited.pdf
+-rw-r--r--@ 1 will  wheel    23K Dec  4 10:05 m17-histograms.pdf
+-rw-r--r--@ 1 will  wheel    91K Dec  4 10:05 m17-planitude-alatude.pdf
+-rw-r--r--@ 1 will  wheel    26K Dec  4 10:05 m17-r0-prime.pdf
+-rw-r--r--@ 1 will  wheel    38K Nov 25 21:57 projected-R0-vs-i.pdf
+-rw-r--r--@ 1 will  wheel   1.7M Nov 25 21:57 projected-R90-Rc-snapshots.pdf
+-rw-r--r--@ 1 will  wheel    97K Nov 25 21:57 projected-R90-vs-Rc.pdf
+-rw-r--r--@ 1 will  wheel    37K Nov 25 21:57 projected-R90-vs-i.pdf
+-rw-r--r--@ 1 will  wheel    38K Nov 25 21:57 projected-Rc-vs-i.pdf
+-rw-r--r--@ 1 will  wheel   463K Jun 14  2016 projection-pos.pdf
+-rw-r--r--@ 1 will  wheel    35K Nov 12 08:44 test_xyprime.pdf
+-rw-r--r--@ 1 will  wheel    30K Nov 12 08:41 test_xyprime_ancantoid.pdf
+-rw-r--r--@ 1 will  wheel    38K Dec  4 10:05 test_xyprime_simulation.pdf
+#+end_example
+
+
+#+BEGIN_SRC sh
+  TMPDIR=/tmp/ms-bows01-test
+  cd $TMPDIR
+  pdflatex quadrics-bowshock
+  bibtex quadrics-bowshock
+  pdflatex quadrics-bowshock
+  pdflatex quadrics-bowshock
+  cp quadrics-bowshock.pdf $OLDPWD/ms-bows01.pdf
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results silent
+open ms-bows01.pdf
+#+END_SRC
+* DONE Upload to MNRAS website
+CLOSED: [2017-12-06 Wed 11:12]
++ [X] Problem with two of the figures in the combined PDF file - some lines appear dashed that should not
+  + [X] Fig 4 - put things in more layers to try and work round it 
+  + [X] Fig 6 - ditto
+  + [X] Remake the PDF and re-upload
+  + [X] Aagh! that worked, but now Figure 2 is messed up
+    + Couldn't fix it with more layers, so switching to JPG
+* DONE Submit to arxiv
+CLOSED: [2017-12-06 Wed 12:05]
+** Abstract
+#+BEGIN_EXAMPLE
+  Astrophysical bow shocks are a common result of the interaction
+  between two supersonic plasma flows, such as winds or jets from
+  stars or active galaxies, or streams due to the relative motion
+  between a star and the interstellar medium.
+  For cylindrically symmetric bow shocks, we develop a general theory
+  for the effects of inclination angle on the apparent shape. We
+  propose a new two-dimensional classification scheme for bow shapes,
+  which is based on dimensionless geometric ratios that can be
+  estimated from observational images.  The two ratios are related to
+  the flatness of the bow's apex, which we term "planitude" and
+  the openness of its wings, which we term "alatude".  We
+  calculate the expected distribution in the planitude--alatude plane
+  for a variety of simple geometrical and physical models: quadrics of
+  revolution, wilkinoids, cantoids, and ancantoids.  We further test
+  our methods against numerical magnetohydrodynamical simulations of
+  stellar bow shocks and find that the apparent planitude and alatude
+  measured from infrared dust continuum maps serve as accurate
+  diagnostics of the shape of the contact discontinuity, which can be
+  used to discriminate between different physical models.
+
+#+END_EXAMPLE
+** Revised abstract
+#+BEGIN_EXAMPLE
+  Astrophysical bow shocks are a common result of the interaction between two supersonic plasma flows, such as winds or jets from stars or active galaxies, or streams due to the relative motion between a star and the interstellar medium.  For cylindrically symmetric bow shocks, we develop a general theory for the effects of inclination angle on the apparent shape. We propose a new two-dimensional classification scheme for bow shapes, which is based on dimensionless geometric ratios that can be estimated from observational images.  The two ratios are related to the flatness of the bow's apex, which we term planitude and the openness of its wings, which we term alatude.  We calculate the expected distribution in the planitude-alatude plane for a variety of simple geometrical and physical models: quadrics of revolution, wilkinoids, cantoids, and ancantoids.  We further test our methods against numerical magnetohydrodynamical simulations of stellar bow shocks and find that the apparent planitude and alatude measured from infrared dust continuum maps serve as accurate diagnostics of the shape of the contact discontinuity, which can be used to discriminate between different physical models.  We present an algorithm that can determine the planitude and alatude from observed bow shock emission maps with a precision of 10 to 20%.
+
+#+END_EXAMPLE
+** Authors
+#+BEGIN_EXAMPLE
+  Instituto de Radioastronomía y Astrofísica, Universidad Nacional Autónoma de México, Apartado Postal 3-72, 58090 Morelia, Michoacán, México
+#+END_EXAMPLE
+* Revised version
+** Using latexdiff to highlight changes
+
+First of all, we expand out all the included files
+
+#+BEGIN_SRC sh :results verbatim
+  # Target output directory
+  D=$PWD/latexdiff
+
+  # Expand version 2 from the working directory
+  cd ../Papers1234
+  ln -svf $PWD/figs $D 
+  cp -fv aastex-compat.sty $D
+  latexpand quadrics-bowshock.tex \
+            --verbose --keep-comments --explain \
+            --expand-bbl quadrics-bowshock.bbl \
+            --show-graphics \
+            -o $D/ms-bows02-expand.tex
+
+  # Expand version 1 from the tar file (run block above to populate TMPDIR first)
+  TMPDIR=/tmp/ms-bows01-test
+  cd $TMPDIR
+  latexpand quadrics-bowshock.tex \
+            --verbose --keep-comments --explain \
+            --expand-bbl quadrics-bowshock.bbl \
+            --show-graphics \
+            -o $D/ms-bows01-expand.tex
+
+#+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/paper1-submit/latexdiff/figs -> /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/Papers1234/figs
+: aastex-compat.sty -> /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/paper1-submit/latexdiff/aastex-compat.sty
+
++ They both compile with no problems
+
+#+name: run-latexdiff
+#+header: :var FILE_A="ms-bows01-expand.tex"
+#+header: :var FILE_B="ms-bows02-expand.tex"
+#+header: :var FILE_DIFF="ms-bows-diff-0102.tex"
+#+header: :var OPTIONS="--type=CFONT --ignore-warnings --math-markup=off"
+#+BEGIN_SRC sh :eval no 
+  cd latexdiff
+  latexdiff $OPTIONS --verbose $FILE_A $FILE_B > $FILE_DIFF 2> latexdiff.log
+  echo $FILE_DIFF
+#+END_SRC
+
++ This is where we actually run it
+
+#+call: run-latexdiff(OPTIONS="--preamble=wjh-latexdiff-preamble.tex --append-context2cmd='label' --packages=amsmath,hyperref,siunitx --verbose --ignore-warnings --math-markup=0 --allow-spaces") :results output verbatim :eval yes
+
+#+RESULTS:
+: ms-bows-diff-0102.tex
+
++ It worked fine, once I decided to skip the displayed math
+
+#+BEGIN_SRC sh
+cd latexdiff
+pdflatex ms-bows-diff-0102
+pdflatex ms-bows-diff-0102
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh
+open latexdiff/ms-bows-diff-0102.pdf
+#+END_SRC
+
+#+RESULTS:
+
+
+** Reply to referee: Tarango-Yong and Henney
+:PROPERTIES:
+:EXPORT_FILE_NAME: bow-reply
+:EXPORT_OPTIONS: toc:nil num:nil author:nil
+:END:
+We thank the referee for a most helpful and thoughtful report.  We
+have followed nearly all of the suggestions, as detailed below.  
+
+*** Appendix
+: My main recommendation is to expand the Appendix to show how one can
+: derive all formulae that do not appear too trivial.
+
+We have chosen to add a two new appendices that provides intermediate
+steps for many of the results in sections 2 and 3.
+
+*** Equation 3
+: I confess I had problems already with Eq. 3., possibly related to the
+: fact that the dimensions to not seem quite right (compared to
+: e.g. Eq. 4, where the second derivative is multiplied by the square of
+: the angle theta).
+
+The equation is correct, but for clarity we have now added an appendix
+that outlines its derivation.  There is no problem with the dimensions
+because theta is effectively dimensionless in this context when
+measured in radians.  To see that this is so, consider the path length
+along a circular arc: s = R * theta (if theta is expressed in
+radians).  Since "s" and "R" both have dimensions of length, it
+follows that theta must be dimensionless.  To quote from Wikipedia:
+"Although the radian is a unit of measure, it is a dimensionless
+quantity."  For more details (and a critique of the previous
+argument), see Mohr & Phillips (2015), which we now cite in the
+paper. [http://iopscience.iop.org/article/10.1088/0026-1394/52/1/40]
+It seems that the situation is actually rather complicated, due to the
+laxness of us scientists in failing to distinguish "theta" from
+"{theta}"!  The paper has many other fascinating insights about units,
+as do some of the more recent papers that cite it, especially Quincey
+& Brown (2017)
+[http://iopscience.iop.org/article/10.1088/1681-7575/aa7160/meta].  We
+are grateful to the referee for leading us to discover this
+literature.
+
+*** Intermediate steps in Eqs 12, 13, 15, 18
+: Eq. 12 and 13 would benefit from an intermediate step; also the first
+: part of Eq. 15, Eq. 18... et cetera.
+
+This is a fair point.  We now introduce explicit rotation matrices
+about the x and y axes: A_x(phi) and A_y(i), which we use in a new
+appendix to fill in some intermediate steps.  While looking at this we
+realised that our derivation of equation (15) was needlessly complex.
+We hope that the new version is more transparent.  We have added an
+additional step in the derivation of eq. 18
+
+*** Symmetry axis of projected tangent line
+: From a conceptual point of view, my main question is about the
+: possibility of finding the symmetry axis of a projected tangent
+: line. Once the surface has been rotated to account for the observer
+: line of sight, the real vertex gets decoupled from the apparent
+: vertex. The apparent vertex is no more on the x axis, where the star
+: and center of curvature are located and therefore the reuse of Eq. 4
+: (now Eq. 22) may require some justification.
+
+The referee is correct that the apparent vertex is not on the x axis,
+but it /is/ on the x' axis (for a cylindrically symmetric bow), so
+long as (x', y') is considered as a projective plane, and not strictly
+speaking as a geometrical plane in 3D Euclidean space.  For a
+projective plane, the "points" are really lines (lines of sight
+passing through the observer) and so the z' coordinate of the apex is
+irrelevant, We have added a short discussion after equation (8) in sec
+3.1 to clarify this point.
+
+Putting it another way: Equation (22) is entirely in terms of observed
+quantities: lengths and angles that are measured on the "plane of the
+sky".  The star, apparent apex, and apparent center of curvature are
+all on the x' axis. The tangent line has reflection symmetry about the
+axis, and therefore d R' / d theta' = 0 at the apparent apex (\theta' =
+0). This again allows use of the simplified version of the radius of
+curvature equation.  We have expanded the discussion of this equation
+to try and make this all more explicit.
+
+*** Meyer comparison 
+: Figure 24 and relative caption must be fixed making it homogeneous
+: with Figure 15; in general, the comparison with the simulations
+: presented by Meyer et al. could be made more transparent. It would be
+: useful to reproduce their images to show directly how the shapes have
+: been drawn.
+
+We are not sure that we understand what the referee is asking for in
+the first part of this comment.  Fig 24 is different from Fig 15 in
+two ways.  First, it is showing projected rather than true quantities
+(in this sense, it is more similar to Figs 20 and 21).  Second, as
+mentioned in the caption, it has logarithmic instead of linear axis
+scales, and slightly different axis limits that are tailored to the
+particular case.  The reason for using logarithmic scales is so that
+the point at \Pi' = 6 can be included, while at the same time giving a
+detailed view of the region around \Pi' = 1.5 - 2.  If we were to use a
+linear scale that extended far enough to show the i=0 point on the
+orange track, then the other interesting points would be squashed much
+too close together.
+
+As to the second part of the comment, we have added a new figure with an extensive caption that describes the process.
+
+*** Observational comparison
+: The application of the methods to the bow shock presented in Figure 1
+: would provide a most effective conclusion of the paper.
+
+We had been saving the observational comparison for a following paper,
+but we agree that a small preview would be useful here.  So we have
+added a new section where we apply the methods to that bow shock and
+another similar one.
+
+** Referee report
+Reviewer's Comments:
+
+This paper, the first in a series of 4, sets the groundwork for a refined interpretation of the bow shocks created by wind-wind interactions. The paper largely deals with the geometry of the problem, in particular on how different bow shock shapes appear projected on the sky and how the fundamental parameters can be obtained by an analysis of their projected shapes.
+
+The sections follow a most logical order: shell geometry, projection of a generic surface on the plane of the sky, application to analytical surfaces, application to the shapes predicted by wind-wind models, application to recent  numerical simulations. The depth of the treatment justifies the introduction of new nomenclature (planitude, alatude, wilkinoids, cantoids, alcantoids) that hopefully will be adopted by the community.
+
+The paper is heavy on the mathematical side and the reader who wants to reproduce the results has to brace for an analytical tour-de-force. The authors have added an Appendix to explain how certain results have been obtained. My main recommendation is to expand the Appendix to show how one can derive all formulae that do not appear too trivial.
+
+I confess I had problems already with Eq. 3., possibly related to the fact that the dimensions to not seem quite right (compared to e.g. Eq. 4, where the second derivative is multiplied by the square of the angle theta). Eq. 12 and 13 would benefit from an intermediate step; also the first part of Eq. 15, Eq. 18... et cetera.
+
+From a conceptual point of view, my main question is about the possibility of finding the symmetry axis of a projected tangent line. Once the surface has been rotated to account for the observer line of sight, the real vertex gets decoupled from the apparent vertex. The apparent vertex is no more on the x axis, where the star and center of curvature are located and therefore the reuse of Eq. 4 (now Eq. 22) may require some justification.
+
+Figure 24 and relative caption must be fixed making it homogeneous with Figure 15; in general, the comparison with the simulations presented by Meyer et al. could be made more transparent. It would be useful to reproduce their images to show directly how the shapes have been drawn.  The application of the methods to the bow shock presented in Figure 1 would provide a most effective conclusion of the paper.
+** Unsolicited comments on arxiv paper
+*** Frank Wilkin
++ The projection section was already done in his PhD thesis appendix
+  + \citep{Wilkin:1997a}
++ [X] Should mention that at end of our sec 3.3
+*** Stephen Ng
++ Derived shape of wilkinoid in recent paper \citep{Ng:2017a}
+  + http://adsabs.harvard.edu/abs/2017ApJ...842..100N
++ [X] Can maybe cite them in section 5.3 first para, and cite Cox as well, together with Wilkin's thesis again.

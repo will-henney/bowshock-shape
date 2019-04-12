@@ -158,10 +158,19 @@ total 2064
 open ms-bsbwdw01.pdf
 #+END_SRC
 
-** Upload revised version to MNRAS website
+** DONE Upload revised version to MNRAS website
+CLOSED: [2019-04-11 Thu 09:04]
 #+BEGIN_QUOTE
 Dust waves and bow waves result from the action of a star’s radiation pressure on a stream of dusty plasma that flows past it. They are an alternative mechanism to hydrodynamic bow shocks for explaining the curved arcs of infrared emission seen around some stars. When gas and grains are perfectly coupled, for a broad class of stellar parameters, wind-supported bow shocks predominate when the ambient density is below 100 cm−3. At higher densities radiation-supported bows can form, tending to be optically thin bow waves around B stars, or optically thick bow shocks around early O stars. For OB stars with particularly weak stellar winds, radiation-supported bow shells become more prevalent.
 #+END_QUOTE
+
+** DONE Submit revised version to arxiv
+CLOSED: [2019-04-11 Thu 09:04]
+
+** DONE Sign license agreement 
+CLOSED: [2019-04-11 Thu 09:04]
+[[file:stz1043_licence.pdf]]
+
 
 * Initial version
 

@@ -17,7 +17,6 @@ grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
 figs/All-sources-eta-tau
 figs/K17-tau-comparison
 figs/Mdot-vs-lum-combo-edited
-figs/K18-emissivity-vs-U
 figs/K18-mdot-Ux8-comparison
 figs/xsec-dust-ratd-ism_10
 figs/K18-mdot-corrected-comparison-R0-edited
@@ -31,7 +30,7 @@ figs/sed-comparison
 
 #+name: figfiles
 #+BEGIN_SRC sh
-  figfiles="figs/All-sources-eta-tau.pdf figs/K17-tau-comparison.pdf figs/Mdot-vs-lum-combo-edited.pdf figs/K18-emissivity-vs-U.pdf figs/K18-mdot-Ux8-comparison.pdf figs/xsec-dust-ratd-ism_10.pdf figs/K18-mdot-corrected-comparison-R0-edited.pdf figs/mdot_correlations_edited.pdf figs/H_versus_ell_annotated.pdf figs/cygnus-bows-midir-combo.pdf figs/grain-T-vs-U.pdf figs/grain-j70-vs-U-edited.pdf figs/sed-comparison.pdf"
+  figfiles="figs/All-sources-eta-tau.pdf figs/K17-tau-comparison.pdf figs/Mdot-vs-lum-combo-edited.pdf figs/K18-mdot-Ux8-comparison.pdf figs/xsec-dust-ratd-ism_10.pdf figs/K18-mdot-corrected-comparison-R0-edited.pdf figs/mdot_correlations_edited.pdf figs/H_versus_ell_annotated.pdf figs/cygnus-bows-midir-combo.pdf figs/grain-T-vs-U.pdf figs/grain-j70-vs-U-edited.pdf figs/sed-comparison.pdf"
 #+END_SRC
 
 ** List files and look at sizes
@@ -48,23 +47,22 @@ figs/sed-comparison
 -rw-r--r--  1 will  staff    15K Mar 30 19:31 app-cloudy-dust-heating.tex
 -rw-r--r--  1 will  staff   6.7K Mar 16 22:23 app-k17-k18.tex
 -rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
--rw-r--r--  1 will  staff    23K Mar 30 23:00 bs-bw-dw-03.bbl
--rw-r--r--  1 will  staff    17K Mar 30 22:52 bs-bw-dw-03.tex
+-rw-r--r--  1 will  staff    23K Apr 11 11:11 bs-bw-dw-03.bbl
+-rw-r--r--  1 will  staff    18K Apr 11 11:11 bs-bw-dw-03.tex
 -rw-r--r--  1 will  staff   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
 -rw-r--r--  1 will  staff   314K Feb 22 22:47 figs/All-sources-eta-tau.pdf
 -rw-r--r--  1 will  staff    75K Mar 21 22:46 figs/H_versus_ell_annotated.pdf
 -rw-r--r--  1 will  staff    21K Mar 30 20:27 figs/K17-tau-comparison.pdf
--rw-r--r--  1 will  staff    19K Feb 11 16:01 figs/K18-emissivity-vs-U.pdf
 -rw-r--r--  1 will  staff    19K Mar 30 20:29 figs/K18-mdot-Ux8-comparison.pdf
 -rw-r--r--  1 will  staff   126K Mar 30 19:31 figs/K18-mdot-corrected-comparison-R0-edited.pdf
--rw-r--r--  1 will  staff   417K Mar 27 11:58 figs/Mdot-vs-lum-combo-edited.pdf
+-rw-r--r--  1 will  staff   417K Apr  2 13:12 figs/Mdot-vs-lum-combo-edited.pdf
 -rw-r--r--  1 will  staff   3.4M Mar 24 18:13 figs/cygnus-bows-midir-combo.pdf
 -rw-r--r--  1 will  staff    30K Mar 30 18:43 figs/grain-T-vs-U.pdf
 -rw-r--r--  1 will  staff    68K Mar 30 18:41 figs/grain-j70-vs-U-edited.pdf
 -rw-r--r--  1 will  staff   206K Mar 30 19:47 figs/mdot_correlations_edited.pdf
 -rw-r--r--  1 will  staff    25K Feb 13 17:59 figs/sed-comparison.pdf
 -rw-r--r--  1 will  staff    20K Mar 23 23:20 figs/xsec-dust-ratd-ism_10.pdf
--rw-r--r--  1 will  staff    68K Mar 30 22:52 sec-observational-diagnostics.tex
+-rw-r--r--  1 will  staff    68K Apr  7 16:43 sec-observational-diagnostics.tex
 #+end_example
 
 
@@ -80,9 +78,12 @@ figs/sed-comparison
 
 #+RESULTS:
 : /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-03-submit
-: total 10272
-: -rw-r--r--  1 will  staff   7.8K Mar 18 18:06 bs-bw-dw-03-submit.org
-: -rw-r--r--  1 will  staff   4.6M Mar 30 23:14 ms-bsbwdw03.tar.gz
+: total 41608
+: -rw-r--r--  1 will  staff   7.1K Apr  1 09:31 bs-bw-dw-03-submit.org
+: -r--------@ 1 will  staff   5.2M Mar 30 23:41 bsbwdw03-v1-arxiv.pdf
+: -r--------@ 1 will  staff   5.1M Mar 30 23:36 bsbwdw03-v1-processed.pdf
+: -rw-r--r--@ 1 will  staff   5.0M Mar 30 23:14 ms-bsbwdw03.pdf
+: -rw-r--r--  1 will  staff   4.6M Apr 11 11:15 ms-bsbwdw03.tar.gz
 
 
 ** Test compilation in a temp folder
@@ -161,4 +162,5 @@ Stellar bow shocks, bow waves, and dust waves all result from the action of a st
 #+END_QUOTE
 
 
-** TODO Upload to arxiv
+** DONE Upload to arxiv
+CLOSED: [2019-04-11 Thu 11:04]

@@ -51,9 +51,9 @@ figs/frozen-trajectories-multi
 -rw-rw-r--  1 will  staff   7.9K Mar  8 11:41 app-dust-equations.tex
 -rw-rw-r--  1 will  staff    16K Mar 18 10:21 app-dust-wave.tex
 -rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
--rw-r--r--  1 will  staff    16K Mar 18 16:40 bs-bw-dw-02.bbl
--rw-r--r--  1 will  staff    14K Mar 18 09:28 bs-bw-dw-02.tex
--rw-r--r--  1 will  staff   2.1K Mar 18 16:22 bs-bw-dw-defs.tex
+-rw-r--r--  1 will  staff    16K Apr 11 08:35 bs-bw-dw-02.bbl
+-rw-r--r--  1 will  staff    14K Mar 30 17:15 bs-bw-dw-02.tex
+-rw-r--r--  1 will  staff   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
 -rw-r--r--  1 will  staff    88K Mar 18 11:36 figs/cloudy-ism-dust-opacity.pdf
 -rw-r--r--  1 will  staff    83K Jan 18 12:55 figs/drift-pratio-4panel.pdf
 -rw-rw-r--@ 1 will  staff    25K Nov 15  2017 figs/dust-divergent.pdf
@@ -87,8 +87,12 @@ figs/frozen-trajectories-multi
 
 #+RESULTS:
 : /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-02-submit
-: total 5296
-: -rw-r--r--  1 will  staff   2.6M Mar 18 17:13 ms-bsbwdw02.tar.gz
+: total 27456
+: -rw-r--r--  1 will  staff   7.8K Mar 18 18:06 bs-bw-dw-02-submit.org
+: -r--------@ 1 will  staff   3.3M Mar 18 18:00 bsbwdw02-v1-arxiv.pdf
+: -r--------@ 1 will  staff   3.1M Mar 18 17:51 bsbwdw02-v1-processed.pdf
+: -rw-r--r--@ 1 will  staff   3.0M Mar 18 17:19 ms-bsbwdw02.pdf
+: -rw-r--r--  1 will  staff   2.6M Apr 11 11:27 ms-bsbwdw02.tar.gz
 
 
 ** Test compilation in a temp folder
