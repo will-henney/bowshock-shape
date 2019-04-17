@@ -12,7 +12,6 @@
 \usepackage{enumerate}
 \usepackage{pdflscape}
 \usepackage{rotating}
-\usepackage{xr-hyper}
 \usepackage{hyperref}
 
 \usepackage[T1]{fontenc} 
@@ -71,10 +70,6 @@
 
 \input{bs-bw-dw-defs.tex}
 
-\externaldocument[Q-]{quadrics-bowshock}
-%\externaldocument[I-]{bs-bw-dw-01}
-%\externaldocument[III-]{bs-bw-dw-03}
-
 \defcitealias{Tarango-Yong:2018a}{Paper~I}
 \newcommand\PaperI{\citetalias{Tarango-Yong:2018a}}
 
@@ -130,11 +125,14 @@ radiation from warm dust, and free-free radio continuum are common
 \citep{Canto:2005a, Acreman:2016a, Meyer:2016a}.  In nearly all cases,
 stellar bow shocks are easily spatially resolved and mapped, allowing
 their shapes to be compared with theoretical predictions
-\citep{Wilkin:1996a, Tarango-Yong:2018a}.  A different class of
-stellar bow shocks are found in interacting binary systems
-\citep{Stevens:1992a}, but these typically emit by non-thermal
-mechanisms and are only resolvable using radio interferometry
-techniques \citep{Contreras:1999a, Dzib:2013a}.
+\citep{Wilkin:1996a, Tarango-Yong:2018a}.  A different variety of
+stellar bow shock is found in interacting binary systems
+\citep{Stevens:1992a}, which frequently involve a Wolf-Rayet star and
+typically emit by non-thermal mechanisms.  The closest and widest of
+such binary systems, WR~147, is marginally resolved in x~ray
+observations \citep{Pittard:2002a, Zhekov:2010a} but most
+are only mappable using radio interferometry techniques
+\citep{Contreras:1999a, Dzib:2013a}.
 
 In \citet{Henney:2019a} (hereafter, Paper~I) we studied the formation
 of bows around OB stars by the combined action of their winds and
@@ -318,7 +316,9 @@ México, through grants Programa de Apoyo a Proyectos de Investigación
 e Inovación Tecnológica IN112816 and IN107019.  This work has made
 extensive use of Python language libraries from the SciPy
 \citep{Jones:2001a} and AstroPy \citep{Astropy-Collaboration:2013a,
-  Astropy-Collaboration:2018a} projects.  We thank Olga Katushkina for useful discussions. 
+  Astropy-Collaboration:2018a} projects.  We thank Olga Katushkina for
+useful discussions and the anonymous referee for a careful and
+helpful report.
 
 
 \bibliographystyle{mnras}

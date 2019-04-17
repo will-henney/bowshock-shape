@@ -1,0 +1,41 @@
+		      ____________________________
+
+		       RESPONSE TO REFEREE REPORT
+		      ____________________________
+
+
+We thank the referee for a careful and helpful report.
+
+| 1) Introduction, last sentence of 1st paragraph: It is not quite true
+| that colliding wind binary shocks are only resolvable in the
+| radio. The widest binary on the sky (WR147) is just (but barely)
+| resolved (see Pittard et al. 2002, A&A, 388, 335; Zhekov & Park 2010,
+| ApJ 709, L119; 2010, ApJ, 721, 518).
+
+We have corrected the text and added references to these x-ray
+observations.
+
+| 2) I really like the coloured triplets in Fig.14 which allows the
+| reader to gain a good feeling for the grain dynamics. However, I
+| suggest that the figure might be made even more clear if the coloured
+| triplets were made bolder (for instance the light green and yellow
+| colours for the first right-most sets are quite faint, especially
+| against the grey background), and/or the background made slightly
+| fainter.
+
+We agree. We have made the colors darker and also added sub-figure
+labels (abcd).
+
+| 3) Sec 6.3, 2nd paragraph - the authors refer to "a very strong
+| perpendicular magnetic field v_A = 20 km/s" - however, this is not a
+| direct measure of the field strength, since there is a density
+| dependence in the Alfven speed.
+
+It is true that we are using "strong" in a loose sense here, since the
+Alfven speed does not directly determine the field strength, as the
+referee rightly notes.  To fix this, we have added the value of the
+magnetic flux density B.
+
+| Typos:
+
+All fixed - thank you.

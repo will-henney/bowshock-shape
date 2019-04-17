@@ -306,6 +306,8 @@
     "Hyde:2017a"
     "Meyer:2014a"
     "Pikelner:1968a"
-    "van-Buren:1990a"))
+    "van-Buren:1990a"
+    "Zhekov:2010a"
+    "Pittard:2002a"))
  :bibtex)
 

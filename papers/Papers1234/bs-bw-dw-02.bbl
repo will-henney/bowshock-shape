@@ -300,6 +300,12 @@ Landau L.,  Lifshitz E.,  1976, Mechanics, 3rd edn.
 {Ochsendorf} B.~B.,  {Verdolini} S.,  {Cox} N.~L.~J.,  {Bern{\'e}} O.,  {Kaper}
   L.,   {Tielens} A.~G.~G.~M.,  2014b, \aap, 566, A75
 
+\bibitem[\protect\citeauthoryear{{Pittard}, {Stevens}, {Williams}, {Pollock},
+  {Skinner}, {Corcoran}  \& {Moffat}}{{Pittard} et~al.}{2002}]{Pittard:2002a}
+{Pittard} J.~M.,  {Stevens} I.~R.,  {Williams} P.~M.,  {Pollock} A.~M.~T.,
+  {Skinner} S.~L.,  {Corcoran} M.~F.,   {Moffat} A.~F.~J.,  2002, \aap, 388,
+  335
+
 \bibitem[\protect\citeauthoryear{{Povich}, {Benjamin}, {Whitney}, {Babler},
   {Indebetouw}, {Meade}  \& {Churchwell}}{{Povich} et~al.}{2008}]{Povich:2008a}
 {Povich} M.~S.,  {Benjamin} R.~A.,  {Whitney} B.~A.,  {Babler} B.~L.,
@@ -353,6 +359,10 @@ New York: Wiley-Interscience
 
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31
+
+\bibitem[\protect\citeauthoryear{{Zhekov} \& {Park}}{{Zhekov} \&
+  {Park}}{2010}]{Zhekov:2010a}
+{Zhekov} S.~A.,  {Park} S.,  2010, \apjl, 709, L119
 
 \bibitem[\protect\citeauthoryear{{van Hoof}, {Weingartner}, {Martin}, {Volk}
   \& {Ferland}}{{van Hoof} et~al.}{2004}]{van-Hoof:2004a}

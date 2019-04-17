@@ -78,7 +78,7 @@ single grain considered in isolation, rather than a well-coupled dusty
 plasma.  Since we are here ignoring collisional effects, there is no
 pressure, and therefore nothing to stop the spatial coexistence of an
 inbound and outbound dust stream.  For the well-coupled case, this is
-not possible and a shocked shell must form (see Paper~I's Fig.~5b).
+not possible and a shocked shell must form (see Paper~I's Fig.~6).
 
 For \(b > 0\), the problem is formally identical to that of Rutherford
 scattering, or (modulo a change of sign) planetary orbits.  The method
@@ -107,15 +107,15 @@ by the radiative force will form a bow-shaped dust wave around the
 radiation source, as shown in Figure~\ref{fig:dust-trajectories}.
 However, the inner edge of the dust wave, \(R_{\text{in}}(\theta)\) is not
 given by the closest approach along individual trajectories,
-\(R\grain(\thm; b)\), but instead must found by minimizing
+\(R\grain(\thm; b)\), but instead must be found by minimizing
 \(R\grain(\theta; b)\) over all \(b\) for each value of \(\theta\), which yields
 \begin{equation}
   \label{eq:dust-r-in}
   \frac{R_{\text{in}}(\theta)} {R\starstar} = \frac{2}{1 + \cos\theta} \ .
 \end{equation}
 This is the polar form of the equation for the confocal parabola,
-which is discussed in detail in \S~\ref{Q-sec:conic} and
-Appendix~\ref{Q-app:parabola} of \citet{Tarango-Yong:2018a}.  In that
+which is discussed in detail in \S~4 and
+Appendix~C of \citet{Tarango-Yong:2018a}.  In that
 paper, the dimensionless quantities \textit{planitude} \(\Pi\) and
 \textit{alatude} \(\Lambda\) are introduced as a way of efficiently
 characterizing bow shapes.  The confocal parabola has planitude and
@@ -135,7 +135,7 @@ described by equation~\eqref{eq:dust-r-theta}, except that the
 trajectory axes for \(b > 0\) are no longer aligned with the global
 symmetry axis, so we must make the substitution
 \(\theta \to \theta + \theta_1(b)\), where \(\sin \theta_1 = b / D\) (see
-Fig.~\ref{Q-fig:crw-schema} of \citealp{Tarango-Yong:2018a}). We
+Fig.~3 of \citealp{Tarango-Yong:2018a}). We
 parameterize the degree of divergence as \(\mu = R\starstar / D\) and, as
 before, \(R\grain(\theta + \theta_1(b, \mu); b)\) is minimized over all
 trajectories to find the shape of the bow wave's inner edge.  This
@@ -161,10 +161,10 @@ both equal: \(\Pi = \Lambda = 1 + \varepsilon_\mu\)
   \caption{Dust wave formed by action of radiation forces on grains
     that are tightly coupled to a uniform parallel magnetic field.
     Two example trajectories, one with \(b > R\starstar\) (upper) and
-    one with \(b < R\starstar\) (lower) are shown schematically in
-    orange.  The orientation of the magnetic field lines is shown in
-    blue.  The grayscale image shows the resultant dust density
-    distribution.}
+    one with \(b < R\starstar\) (lower) are shown schematically by
+    black lines with arrows.  The orientation of the magnetic field
+    lines is shown in blue.  The grayscale image shows the resultant
+    dust density distribution.}
   \label{fig:inertia-thB0}
 \end{figure}
 
@@ -294,7 +294,7 @@ the motion in the \(y\) direction obeys the ODE:
 We have been unable to find an analytic solution to this equation, but
 a numerical solution is shown in Figure~\ref{fig:inertia-thB90}a.
 When the impact parameter is larger than \(b \sim R\starstar\), the
-trajectories are very similar to in the non-magnetic case
+trajectories are very similar to those of the non-magnetic case
 (Fig.~\ref{fig:dust-trajectories}a).  As shown in
 Figure~\ref{fig:inertia-thB90}b, the interaction of the grain with the
 radiation field in this large-\(b\) regime can be approximated as an

@@ -1,3 +1,254 @@
+
+* Revised version
+
+** Response to referee report
+:PROPERTIES:
+:EXPORT_FILE_NAME: reply-to-referee
+:EXPORT_OPTIONS: toc:nil author:nil
+:END:
+
+We thank the referee for a careful and helpful report.
+
+: 1) Introduction, last sentence of 1st paragraph: It is not quite true
+: that colliding wind binary shocks are only resolvable in the
+: radio. The widest binary on the sky (WR147) is just (but barely)
+: resolved (see Pittard et al. 2002, A&A, 388, 335; Zhekov & Park 2010,
+: ApJ 709, L119; 2010, ApJ, 721, 518).
+We have corrected the text and added references to these x-ray observations.
+
+: 2) I really like the coloured triplets in Fig.14 which allows the
+: reader to gain a good feeling for the grain dynamics. However, I
+: suggest that the figure might be made even more clear if the coloured
+: triplets were made bolder (for instance the light green and yellow
+: colours for the first right-most sets are quite faint, especially
+: against the grey background), and/or the background made slightly
+: fainter.
+We agree. We have made the colors darker and also added sub-figure labels (abcd). 
+
+: 3) Sec 6.3, 2nd paragraph - the authors refer to "a very strong
+: perpendicular magnetic field v_A = 20 km/s" - however, this is not a
+: direct measure of the field strength, since there is a density
+: dependence in the Alfven speed.
+It is true that we are using "strong" in a loose sense here, since the Alfven speed does not directly determine the field strength, as the referee rightly notes.  To fix this, we have added the value of the magnetic flux density B. 
+
+: Typos:
+All fixed - thank you. 
+
+
+** Referee report
+#+begin_quote
+Comments to the Author
+This is a report on the submitted paper "Bow shocks, bow waves, and dust waves. II. Beyond the rip point" by Henney and Arthur. This is a very interesting and well-written paper. It extends the work of paper I by considering the weak coupling case between the gas and dust. As in paper I, the authors clearly examine the range of parameter space where the radiation pressure becomes so strong that it overwhelms the gas-grain coupling and where a separate dust wave may form. The paper is carefully and clearly written, and can also be expected to be a very useful future reference for this phenomena. The work throughout is of a high quality, such the calculation of the grain charge.
+
+I can recommend publication once the following minor points are addressed:
+
+1) Introduction, last sentence of 1st paragraph: It is not quite true that colliding wind binary shocks are only resolvable in the radio. The widest binary on the sky (WR147) is just (but barely) resolved (see Pittard et al. 2002, A&A, 388, 335; Zhekov & Park 2010, ApJ 709, L119; 2010, ApJ, 721, 518).
+
+2) I really like the coloured triplets in Fig.14 which allows the reader to gain a good feeling for the grain dynamics. However, I suggest that the figure might be made even more clear if the coloured triplets were made bolder (for instance the light green and yellow colours for the first right-most sets are quite faint, especially against the grey background), and/or the background made slightly fainter.
+
+3) Sec 6.3, 2nd paragraph - the authors refer to "a very strong perpendicular magnetic field v_A = 20 km/s" - however, this is not a direct measure of the field strength, since there is a density dependence in the Alfven speed.
+
+
+Typos:
+
+1) Sec 3.1, line 6 - "must be found"
+2) Sec 3.1 and 3.2 - there are unresolved Section and Fig references.
+3) Fig. 2 caption - "orange" -> "black"
+4) Text 4 lines after Eq. 19 - "to the"
+5) Sec 6.1 - the text refers to Fig 14ab and 14cd. However, the panels in Fig 14 are not labelled as such. Please address either as "upper/lower panels" or add panel labels.
+6) Sec 6.3, first line - "describe"
+#+end_quote
+
+Typo corrections:
+1. [X] 
+2. [X] 
+3. [X] 
+4. [X] 
+5. [X] 
+6. [X] 
+
+
+
+
+** Select files for revised version
+#+name: srcfiles
+#+BEGIN_SRC sh
+  srcfiles="bs-bw-dw-02.tex app-dust-wave.tex sec-weak-coupling.tex sec-dust-wave-discussion.tex app-dust-equations.tex bs-bw-dw-defs.tex bs-bw-dw-02.bbl aastex-compat.sty astrojournals.sty"
+#+END_SRC
+
+#+RESULTS: srcfiles
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+cd ../Papers1234
+<<srcfiles>>
+grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+figs/dust-trajectories
+figs/dust-divergent
+figs/parallel-bfield-dust-wave-inertia
+figs/perp-bfield-dust-wave-inertia
+figs/test-Fdrag-components
+figs/test-Fdrag-param-space
+figs/cloudy-ism-dust-opacity
+figs/multi-dustprops
+figs/phi-versus-xi-annotate
+figs/gas-grain-drag-photoionized
+figs/drift-pratio-4panel
+figs/existence-dust-wave
+figs/dust-wave-phase-trajectories-annotate
+figs/onaxis-stats-plot-MS10-v080-gra002
+figs/frozen-stream-map-multi
+figs/frozen-trajectories-multi
+#+end_example
+
+#+name: figfiles
+#+BEGIN_SRC sh
+  figfiles="figs/dust-trajectories.pdf figs/dust-divergent.pdf figs/parallel-bfield-dust-wave-inertia.pdf figs/perp-bfield-dust-wave-inertia.pdf figs/test-Fdrag-components.pdf figs/test-Fdrag-param-space.pdf figs/cloudy-ism-dust-opacity.pdf figs/multi-dustprops.pdf figs/phi-versus-xi-annotate.pdf figs/gas-grain-drag-photoionized.pdf figs/drift-pratio-4panel.pdf figs/existence-dust-wave.pdf figs/dust-wave-phase-trajectories-annotate.pdf figs/onaxis-stats-plot-MS10-v080-gra002.pdf figs/frozen-stream-map-multi.pdf figs/frozen-trajectories-multi.pdf" 
+#+END_SRC
+
+** List files for revised version and look at sizes
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  ls -lh $srcfiles $figfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-rw-r--  1 will  staff   7.9K Mar  8 11:41 app-dust-equations.tex
+-rw-rw-r--  1 will  staff    16K Apr 17 12:58 app-dust-wave.tex
+-rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--  1 will  staff    17K Apr 17 12:58 bs-bw-dw-02.bbl
+-rw-r--r--  1 will  staff    14K Apr 17 12:04 bs-bw-dw-02.tex
+-rw-r--r--  1 will  staff   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
+-rw-r--r--  1 will  staff    88K Mar 18 11:36 figs/cloudy-ism-dust-opacity.pdf
+-rw-r--r--  1 will  staff    83K Jan 18 12:55 figs/drift-pratio-4panel.pdf
+-rw-rw-r--@ 1 will  staff    25K Nov 15  2017 figs/dust-divergent.pdf
+-rw-rw-r--@ 1 will  staff    25K Nov 25  2017 figs/dust-trajectories.pdf
+-rw-r--r--@ 1 will  staff   392K Jun  2  2018 figs/dust-wave-phase-trajectories-annotate.pdf
+-rw-rw-r--@ 1 will  staff   545K Mar 18 14:07 figs/existence-dust-wave.pdf
+-rw-r--r--@ 1 will  staff   329K Apr 17 12:02 figs/frozen-stream-map-multi.pdf
+-rw-r--r--@ 1 will  staff    49K Jun 26  2018 figs/frozen-trajectories-multi.pdf
+-rw-rw-r--@ 1 will  staff    66K May 29  2018 figs/gas-grain-drag-photoionized.pdf
+-rw-rw-r--  1 will  staff    78K Apr 25  2018 figs/multi-dustprops.pdf
+-rw-r--r--  1 will  staff    28K Mar 18 16:17 figs/onaxis-stats-plot-MS10-v080-gra002.pdf
+-rw-r--r--@ 1 will  staff   297K Mar 18 09:43 figs/parallel-bfield-dust-wave-inertia.pdf
+-rw-r--r--@ 1 will  staff   701K Mar 18 10:20 figs/perp-bfield-dust-wave-inertia.pdf
+-rw-rw-r--@ 1 will  staff    98K Jan 18 18:28 figs/phi-versus-xi-annotate.pdf
+-rw-rw-r--  1 will  staff    20K May 26  2018 figs/test-Fdrag-components.pdf
+-rw-rw-r--  1 will  staff    52K May 26  2018 figs/test-Fdrag-param-space.pdf
+-rw-r--r--  1 will  staff    18K Apr 17 12:58 sec-dust-wave-discussion.tex
+-rw-r--r--  1 will  staff    62K Apr 17 12:39 sec-weak-coupling.tex
+#+end_example
+
+
+** Make revised version tar file to submit
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles>>
+  <<figfiles>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bsbwdw02.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-02-submit
+total 40624
+-r--------@ 1 will  staff   3.1M Apr 17 13:32 _system_appendPDF_proof_hi.pdf
+-rw-r--r--  1 will  staff    19K Apr 17 13:23 bs-bw-dw-02-submit.org
+-r--------@ 1 will  staff   3.3M Mar 18 18:00 bsbwdw02-v1-arxiv.pdf
+-r--------@ 1 will  staff   3.1M Mar 18 17:51 bsbwdw02-v1-processed.pdf
+-r--------@ 1 will  staff   3.3M Apr 11 11:30 bsbwdw02-v2-arxiv.pdf
+-rw-r--r--@ 1 will  staff   3.1M Apr 17 13:25 ms-bsbwdw02.pdf
+-rw-r--r--  1 will  staff   2.6M Apr 17 13:40 ms-bsbwdw02.tar.gz
+-rw-r--r--  1 will  staff   1.5K Apr 17 13:24 reply-to-referee.txt
+#+end_example
+
+
+** Test compilation of revised version
+
+Make folder
+
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bsbwdw02-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bsbwdw02.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bsbwdw02-test found and removed
+/tmp/ms-bsbwdw02-test
+total 320
+-rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--   1 will  wheel   7.9K Mar  8 11:41 app-dust-equations.tex
+-rw-r--r--   1 will  wheel    16K Apr 17 13:40 app-dust-wave.tex
+-rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--   1 will  wheel    17K Apr 17 12:58 bs-bw-dw-02.bbl
+-rw-r--r--   1 will  wheel    14K Apr 17 13:36 bs-bw-dw-02.tex
+-rw-r--r--   1 will  wheel   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
+drwxr-xr-x  18 will  wheel   576B Apr 17 13:40 figs
+-rw-r--r--   1 will  wheel    18K Apr 17 12:58 sec-dust-wave-discussion.tex
+-rw-r--r--   1 will  wheel    62K Apr 17 12:39 sec-weak-coupling.tex
+
+./figs:
+total 5824
+-rw-r--r--  1 will  wheel    88K Mar 18 11:36 cloudy-ism-dust-opacity.pdf
+-rw-r--r--  1 will  wheel    83K Jan 18 12:55 drift-pratio-4panel.pdf
+-rw-r--r--@ 1 will  wheel    25K Nov 15  2017 dust-divergent.pdf
+-rw-r--r--@ 1 will  wheel    25K Nov 25  2017 dust-trajectories.pdf
+-rw-r--r--@ 1 will  wheel   392K Jun  2  2018 dust-wave-phase-trajectories-annotate.pdf
+-rw-r--r--@ 1 will  wheel   545K Mar 18 14:07 existence-dust-wave.pdf
+-rw-r--r--@ 1 will  wheel   329K Apr 17 12:02 frozen-stream-map-multi.pdf
+-rw-r--r--@ 1 will  wheel    49K Jun 26  2018 frozen-trajectories-multi.pdf
+-rw-r--r--@ 1 will  wheel    66K May 29  2018 gas-grain-drag-photoionized.pdf
+-rw-r--r--  1 will  wheel    78K Apr 25  2018 multi-dustprops.pdf
+-rw-r--r--  1 will  wheel    28K Mar 18 16:17 onaxis-stats-plot-MS10-v080-gra002.pdf
+-rw-r--r--@ 1 will  wheel   297K Mar 18 09:43 parallel-bfield-dust-wave-inertia.pdf
+-rw-r--r--@ 1 will  wheel   701K Mar 18 10:20 perp-bfield-dust-wave-inertia.pdf
+-rw-r--r--@ 1 will  wheel    98K Jan 18 18:28 phi-versus-xi-annotate.pdf
+-rw-r--r--  1 will  wheel    20K May 26  2018 test-Fdrag-components.pdf
+-rw-r--r--  1 will  wheel    52K May 26  2018 test-Fdrag-param-space.pdf
+#+end_example
+
+We don't run bibtex since that will destroy the .bbl file, and we aren't including the .bib file since arxiv does not like it
+
+#+BEGIN_SRC sh
+  TMPDIR=/tmp/ms-bsbwdw02-test
+  cd $TMPDIR
+  pdflatex bs-bw-dw-02
+  pdflatex bs-bw-dw-02
+  cp bs-bw-dw-02.pdf $OLDPWD/ms-bsbwdw02.pdf
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results silent
+open ms-bsbwdw02.pdf
+#+END_SRC
+** TODO Upload revised version to MNRAS website
+#+BEGIN_QUOTE
+Dust waves are a result of gas-grain decoupling in a stream of dusty plasma that flows past a luminous star.  The radiation field is sufficiently strong to overcome the collisional coupling between grains and gas at a "rip-point", where the ratio of radiation pressure to gas pressure exceeds a critical value of roughly 1000.  When the rip point occurs outside the hydrodynamic bow shock, a separate dust wave may form, decoupled from the gas shell, which can either be drag-confined or inertia-confined, depending on the stream density and relative velocity.  In the drag-confined case, there is a minimum stream velocity of roughly 60 km/s that allows a steady-state stagnant drift solution for the dust wave apex.  For lower relative velocities, the dust dynamics close to the axis exhibit a limit cycle behavior (rip and snap back) between two different radii.  Strong coupling of charged grains to the plasma's magnetic field can modify these effects, but for a quasi-parallel field orientation the results are qualitatively similar to the non-magnetic case. For a quasi-perpendicular field, on the other hand, the formation of a decoupled dust wave is strongly suppressed.
+#+END_QUOTE
+
+197 words in abstract
+
 * Initial version
 
 ** Select files
