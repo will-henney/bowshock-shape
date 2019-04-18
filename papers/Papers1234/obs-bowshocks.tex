@@ -27,6 +27,7 @@
 % Define a fermata symbol for use inline with text
 % 04 Jul 2017 WJH
 % Based on info in Secs 18.4.1 and 24.1 of musixdoc.pdf
+\let\ORIGna\na
 \usepackage{musixtex}
 \makeatletter
 \newcommand\textfermata{%
@@ -38,6 +39,7 @@
       \notes\fermataup{-2}\en
       \zendextract}}}
 \makeatother
+\let\na\ORIGna
 
 % % The \eye command is in the dingbat package, but we need to take care
 % % of a naming conflict with the AMS package
@@ -48,7 +50,7 @@
 % The "eye" symbol is drawn with the \faEye command of the fontawesome
 % package
 \usepackage{fontawesome}
-% The ``irregular'' symbol is drawn from the Icelandic Sorcery and Witchcraft 
+% The ``irregular'' symbol is drawn from the Icelandic Sorcery and Witchcraft
 \usepackage{staves}
 
 \hypersetup{colorlinks=True, linkcolor=blue!50!black, citecolor=black,
@@ -68,7 +70,7 @@
 \usepackage{aastex-compat}
 
 % Definitions needed in abstract
-\newcommand\hii{\ion{H}{ii}}
+\input{bs-bw-dw-defs}
 
 \defcitealias{Tarango-Yong:2018a}{Paper~I}
 \newcommand\PaperI{\citetalias{Tarango-Yong:2018a}}

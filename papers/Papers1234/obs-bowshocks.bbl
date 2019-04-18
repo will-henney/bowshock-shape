@@ -21,15 +21,41 @@
   Darling}{1952}]{Anderson:1952a}
 Anderson T.~W.,  Darling D.~A.,  1952, Ann. Math. Statist., 23, 193
 
+\bibitem[\protect\citeauthoryear{{Arthur} \& {Hoare}}{{Arthur} \&
+  {Hoare}}{2006}]{Arthur:2006a}
+{Arthur} S.~J.,  {Hoare} M.~G.,  2006, \apjs, 165, 283
+
+\bibitem[\protect\citeauthoryear{{Bally} \& {Reipurth}}{{Bally} \&
+  {Reipurth}}{2001}]{Bally:2001a}
+{Bally} J.,  {Reipurth} B.,  2001, \apj, 546, 299
+
+\bibitem[\protect\citeauthoryear{{Bally}, {Sutherland}, {Devine}  \&
+  {Johnstone}}{{Bally} et~al.}{1998}]{Bally:1998a}
+{Bally} J.,  {Sutherland} R.~S.,  {Devine} D.,   {Johnstone} D.,  1998, \aj,
+  116, 293
+
+\bibitem[\protect\citeauthoryear{{Bally}, {O'Dell}  \& {McCaughrean}}{{Bally}
+  et~al.}{2000}]{Bally:2000a}
+{Bally} J.,  {O'Dell} C.~R.,   {McCaughrean} M.~J.,  2000, \aj, 119, 2919
+
 \bibitem[\protect\citeauthoryear{{Baranov}, {Krasnobaev}  \&
   {Kulikovskii}}{{Baranov} et~al.}{1970}]{Baranov:1970a}
 {Baranov} V.~B.,  {Krasnobaev} K.~V.,   {Kulikovskii} A.~G.,  1970, Akademiia
   Nauk SSSR Doklady, 194, 41
 
+\bibitem[\protect\citeauthoryear{{Baranov}, {Krasnobaev}  \&
+  {Kulikovskii}}{{Baranov} et~al.}{1971}]{Baranov:1971a}
+{Baranov} V.~B.,  {Krasnobaev} K.~V.,   {Kulikovskii} A.~G.,  1971, Soviet
+  Physics Doklady, 15, 791
+
 \bibitem[\protect\citeauthoryear{{Benaglia}, {Romero}, {Mart{\'{\i}}}, {Peri}
   \& {Araudo}}{{Benaglia} et~al.}{2010}]{Benaglia:2010a}
 {Benaglia} P.,  {Romero} G.~E.,  {Mart{\'{\i}}} J.,  {Peri} C.~S.,   {Araudo}
   A.~T.,  2010, \aap, 517, L10
+
+\bibitem[\protect\citeauthoryear{{Blondin} \& {Koerwer}}{{Blondin} \&
+  {Koerwer}}{1998}]{Blondin:1998a}
+{Blondin} J.~M.,  {Koerwer} J.~F.,  1998, \na, 3, 571
 
 \bibitem[\protect\citeauthoryear{{Bodensteiner}, {Baade}, {Greiner}  \&
   {Langer}}{{Bodensteiner} et~al.}{2018}]{Bodensteiner:2018a}
@@ -44,6 +70,16 @@ Anderson T.~W.,  Darling D.~A.,  1952, Ann. Math. Statist., 23, 193
   Forsythe}{1974}]{Brown:1974a}
 Brown M.~B.,  Forsythe A.~B.,  1974, Journal of the American Statistical
   Association, 69, 364
+
+\bibitem[\protect\citeauthoryear{{Brownsberger} \& {Romani}}{{Brownsberger} \&
+  {Romani}}{2014}]{Brownsberger:2014a}
+{Brownsberger} S.,  {Romani} R.~W.,  2014, \apj, 784, 154
+
+\bibitem[\protect\citeauthoryear{{Canto}, {Raga}  \& {Wilkin}}{{Canto}
+  et~al.}{1996}]{Canto:1996}
+{Canto} J.,  {Raga} A.~C.,   {Wilkin} F.~P.,  1996, \mn@doi [\apj]
+  {10.1086/177820}, \href {http://adsabs.harvard.edu/abs/1996ApJ...469..729C}
+  {469, 729}
 
 \bibitem[\protect\citeauthoryear{{Carey} et~al.,}{{Carey}
   et~al.}{2009}]{Carey:2009a}
@@ -64,16 +100,14 @@ Colquhoun D.,  2014, \mn@doi [Royal Society Open Science]
 \bibitem[\protect\citeauthoryear{Cureton}{Cureton}{1956}]{Cureton:1956a}
 Cureton E.~E.,  1956, Psychometrika, 21, 287
 
+\bibitem[\protect\citeauthoryear{{Cyganowski}, {Reid}, {Fish}  \&
+  {Ho}}{{Cyganowski} et~al.}{2003}]{Cyganowski:2003a}
+{Cyganowski} C.~J.,  {Reid} M.~J.,  {Fish} V.~L.,   {Ho} P.~T.~P.,  2003, \apj,
+  596, 344
+
 \bibitem[\protect\citeauthoryear{Delaney \& Vargha}{Delaney \&
   Vargha}{2002}]{Delaney:2002a}
 Delaney H.~D.,  Vargha A.,  2002, Psychological Methods, 7, 485
-
-\bibitem[\protect\citeauthoryear{{Dyson}}{{Dyson}}{1975}]{Dyson:1975a}
-{Dyson} J.~E.,  1975, \apss, 35, 299
-
-\bibitem[\protect\citeauthoryear{{Dyson} \& {Ghanbari}}{{Dyson} \&
-  {Ghanbari}}{1989}]{Dyson:1989a}
-{Dyson} J.~E.,  {Ghanbari} J.,  1989, \aap, 226, 270
 
 \bibitem[\protect\citeauthoryear{{Dyson} \& {de Vries}}{{Dyson} \& {de
   Vries}}{1972}]{Dyson:1972a}
@@ -87,6 +121,11 @@ Delaney H.~D.,  Vargha A.,  2002, Psychological Methods, 7, 485
   {Arthur}}{{Garc{\'{\i}}a-Arredondo} et~al.}{2001}]{Garcia-Arredondo:2001a}
 {Garc{\'{\i}}a-Arredondo} F.,  {Henney} W.~J.,   {Arthur} S.~J.,  2001, \apj,
   561, 830
+
+\bibitem[\protect\citeauthoryear{{Geballe}, {Rigaut}, {Roy}  \&
+  {Draine}}{{Geballe} et~al.}{2004}]{Geballe:2004a}
+{Geballe} T.~R.,  {Rigaut} F.,  {Roy} J.-R.,   {Draine} B.~T.,  2004, \apj,
+  602, 770
 
 \bibitem[\protect\citeauthoryear{Goodman}{Goodman}{1999a}]{Goodman:1999a}
 Goodman S.~N.,  1999a, Ann Intern Med, 130, 995
@@ -102,9 +141,17 @@ Goodman S.~N.,  1999b, Ann Intern Med, 130, 1005
   {Sofia}}{1979}]{Gull:1979a}
 {Gull} T.~R.,  {Sofia} S.,  1979, \apj, 230, 782
 
+\bibitem[\protect\citeauthoryear{Guti{\'e}rrez-Soto}{Guti{\'e}rrez-Soto}{2015}]{Gutierrez-Soto:2015a}
+Guti{\'e}rrez-Soto L.~{\'A}.,  2015, Master's thesis, Universidad Nacional
+  Aut{\'o}noma de M{\'e}xico
+
 \bibitem[\protect\citeauthoryear{{Gvaramadze} \& {Bomans}}{{Gvaramadze} \&
   {Bomans}}{2008}]{Gvaramadze:2008a}
 {Gvaramadze} V.~V.,  {Bomans} D.~J.,  2008, \aap, 490, 1071
+
+\bibitem[\protect\citeauthoryear{{Hayward}, {Houck}  \& {Miles}}{{Hayward}
+  et~al.}{1994}]{Hayward:1994a}
+{Hayward} T.~L.,  {Houck} J.~R.,   {Miles} J.~W.,  1994, \apj, 433, 157
 
 \bibitem[\protect\citeauthoryear{Head, Holman, Lanfear, Kahn  \& Jennions}{Head
   et~al.}{2015}]{Head:2015a}
@@ -131,20 +178,33 @@ Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
   {O'Dell}}{1999}]{Henney:1999a}
 {Henney} W.~J.,  {O'Dell} C.~R.,  1999, \aj, 118, 2350
 
-\bibitem[\protect\citeauthoryear{{Hyde}, {Russell}, {Ritter}, {Filipović},
-  {Kaper}, {Grieve}  \& {O'Brien}}{{Hyde} et~al.}{2017}]{Hyde:2017a}
-{Hyde} E.~A.,  {Russell} D.~M.,  {Ritter} A.,  {Filipović} M.~D.,  {Kaper} L.,
-   {Grieve} K.,   {O'Brien} A.~N.,  2017, \pasp, 129, 094201
+\bibitem[\protect\citeauthoryear{{Henney}, {Garc{\'{\i}}a-D{\'{\i}}az},
+  {O'Dell}  \& {Rubin}}{{Henney} et~al.}{2013}]{Henney:2013a}
+{Henney} W.~J.,  {Garc{\'{\i}}a-D{\'{\i}}az} M.~T.,  {O'Dell} C.~R.,   {Rubin}
+  R.~H.,  2013, \mnras, 428, 691
+
+\bibitem[\protect\citeauthoryear{{Immer}, {Cyganowski}, {Reid}  \&
+  {Menten}}{{Immer} et~al.}{2014}]{Immer:2014a}
+{Immer} K.,  {Cyganowski} C.,  {Reid} M.~J.,   {Menten} K.~M.,  2014, \aap,
+  563, A39
 
 \bibitem[\protect\citeauthoryear{{Indebetouw} et~al.,}{{Indebetouw}
   et~al.}{2005}]{Indebetouw:2005a}
 {Indebetouw} R.,  et~al., 2005, \apj, 619, 931
+
+\bibitem[\protect\citeauthoryear{{Johnstone}, {Hollenbach}  \&
+  {Bally}}{{Johnstone} et~al.}{1998}]{Johnstone:1998a}
+{Johnstone} D.,  {Hollenbach} D.,   {Bally} J.,  1998, \apj, 499, 758
 
 \bibitem[\protect\citeauthoryear{{Joye} \& {Mandel}}{{Joye} \&
   {Mandel}}{2003}]{Joye:2003a}
 {Joye} W.~A.,  {Mandel} E.,  2003, in {Payne} H.~E.,  {Jedrzejewski} R.~I.,
   {Hook} R.~N.,  eds,  Astronomical Society of the Pacific Conference Series
   Vol. 295, Astronomical Data Analysis Software and Systems XII. p.~489
+
+\bibitem[\protect\citeauthoryear{{Klaassen} et~al.,}{{Klaassen}
+  et~al.}{2018}]{Klaassen:2018a}
+{Klaassen} P.~D.,  et~al., 2018, \aap, 611, A99
 
 \bibitem[\protect\citeauthoryear{{Kobulnicky}, {Gilbert}  \&
   {Kiminki}}{{Kobulnicky} et~al.}{2010}]{Kobulnicky:2010a}
@@ -154,11 +214,20 @@ Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
   et~al.}{2016}]{Kobulnicky:2016a}
 {Kobulnicky} H.~A.,  et~al., 2016, \apjs, 227, 18
 
+\bibitem[\protect\citeauthoryear{{Kulkarni} \& {Hester}}{{Kulkarni} \&
+  {Hester}}{1988}]{Kulkarni:1988a}
+{Kulkarni} S.~R.,  {Hester} J.~J.,  1988, \nat, 335, 801
+
 \bibitem[\protect\citeauthoryear{Leiva-Murillo \&
   Art{\'e}s-Rodr\'{\i}guez}{Leiva-Murillo \&
   Art{\'e}s-Rodr\'{\i}guez}{2012}]{Leiva-Murillo:2012a}
 Leiva-Murillo J.~M.,  Art{\'e}s-Rodr\'{\i}guez A.,  2012, Pattern Recogn.
   Lett., 33, 1717
+
+\bibitem[\protect\citeauthoryear{{Mac Low}, {van Buren}, {Wood}  \&
+  {Churchwell}}{{Mac Low} et~al.}{1991}]{Mac-Low:1991a}
+{Mac Low} M.-M.,  {van Buren} D.,  {Wood} D.~O.~S.,   {Churchwell} E.,  1991,
+  \apj, 369, 395
 
 \bibitem[\protect\citeauthoryear{{Mackey}, {Gvaramadze}, {Mohamed}  \&
   {Langer}}{{Mackey} et~al.}{2015}]{Mackey:2015a}
@@ -194,12 +263,26 @@ Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
 {Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
   459, 1146
 
+\bibitem[\protect\citeauthoryear{{Noriega-Crespo}, {van Buren}  \&
+  {Dgani}}{{Noriega-Crespo} et~al.}{1997}]{Noriega-Crespo:1997b}
+{Noriega-Crespo} A.,  {van Buren} D.,   {Dgani} R.,  1997, \aj, 113, 780
+
 \bibitem[\protect\citeauthoryear{{O'Dell}}{{O'Dell}}{2001}]{ODell:2001c}
 {O'Dell} C.~R.,  2001, \aj, 122, 2662
 
 \bibitem[\protect\citeauthoryear{{O'Dell} \& {Wen}}{{O'Dell} \&
   {Wen}}{1994}]{ODell:1994a}
 {O'Dell} C.~R.,  {Wen} Z.,  1994, \apj, 436, 194
+
+\bibitem[\protect\citeauthoryear{{O'Dell}, {Wen}  \& {Hu}}{{O'Dell}
+  et~al.}{1993}]{ODell:1993a}
+{O'Dell} C.~R.,  {Wen} Z.,   {Hu} X.,  1993, \apj, 410, 696
+
+\bibitem[\protect\citeauthoryear{{O'Dell}, {Muench}, {Smith}  \&
+  {Zapata}}{{O'Dell} et~al.}{2008}]{ODell:2008b}
+{O'Dell} C.~R.,  {Muench} A.,  {Smith} N.,   {Zapata} L.,  2008, {Star
+  Formation in the Orion Nebula II: Gas, Dust, Proplyds and Outflows}.
+p.~544
 
 \bibitem[\protect\citeauthoryear{{Peri}, {Benaglia}, {Brookes}, {Stevens}  \&
   {Isequilla}}{{Peri} et~al.}{2012}]{Peri:2012a}
@@ -222,12 +305,30 @@ Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
   et~al.}{1996}]{Puls:1996a}
 {Puls} J.,  et~al., 1996, \aap, 305, 171
 
+\bibitem[\protect\citeauthoryear{{Reid} \& {Ho}}{{Reid} \&
+  {Ho}}{1985}]{Reid:1985a}
+{Reid} M.~J.,  {Ho} P.~T.~P.,  1985, \apjl, 288, L17
+
+\bibitem[\protect\citeauthoryear{{Robberto} et~al.,}{{Robberto}
+  et~al.}{2005}]{Robberto:2005a}
+{Robberto} M.,  et~al., 2005, \aj, 129, 1534
+
 \bibitem[\protect\citeauthoryear{Ruscio}{Ruscio}{2008}]{Ruscio:2008a}
 Ruscio J.,  2008, Psychol Methods, 13, 19
 
 \bibitem[\protect\citeauthoryear{{Sahai} \& {Chronopoulos}}{{Sahai} \&
   {Chronopoulos}}{2010}]{Sahai:2010a}
 {Sahai} R.,  {Chronopoulos} C.~K.,  2010, \apjl, 711, L53
+
+\bibitem[\protect\citeauthoryear{{Sahai}, {Güsten}  \& {Morris}}{{Sahai}
+  et~al.}{2012}]{Sahai:2012b}
+{Sahai} R.,  {Güsten} R.,   {Morris} M.~R.,  2012, \apjl, 761, L21
+
+\bibitem[\protect\citeauthoryear{{Sanchez-Bermudez}, {Schödel}, {Alberdi},
+  {Muzić}, {Hummel}  \& {Pott}}{{Sanchez-Bermudez}
+  et~al.}{2014}]{Sanchez-Bermudez:2014a}
+{Sanchez-Bermudez} J.,  {Schödel} R.,  {Alberdi} A.,  {Muzić} K.,  {Hummel}
+  C.~A.,   {Pott} J.-U.,  2014, \aap, 567, A21
 
 \bibitem[\protect\citeauthoryear{Scholz \& Stephens}{Scholz \&
   Stephens}{1987}]{Scholz:1987a}
@@ -254,9 +355,22 @@ Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
 {Smith} N.,  {Bally} J.,  {Shuping} R.~Y.,  {Morris} M.,   {Kassis} M.,  2005,
   \aj, 130, 1763
 
+\bibitem[\protect\citeauthoryear{{Steggles}, {Hoare}  \& {Pittard}}{{Steggles}
+  et~al.}{2017}]{Steggles:2017a}
+{Steggles} H.~G.,  {Hoare} M.~G.,   {Pittard} J.~M.,  2017, \mnras, 466, 4573
+
+\bibitem[\protect\citeauthoryear{{Tanner}, {Ghez}, {Morris}  \&
+  {Christou}}{{Tanner} et~al.}{2005}]{Tanner:2005a}
+{Tanner} A.,  {Ghez} A.~M.,  {Morris} M.~R.,   {Christou} J.~C.,  2005, \apj,
+  624, 742
+
 \bibitem[\protect\citeauthoryear{{Tarango-Yong} \& {Henney}}{{Tarango-Yong} \&
   {Henney}}{2018}]{Tarango-Yong:2018a}
 {Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431
+
+\bibitem[\protect\citeauthoryear{{Ueta} et~al.,}{{Ueta}
+  et~al.}{2006}]{Ueta:2006a}
+{Ueta} T.,  et~al., 2006, \apjl, 648, L39
 
 \bibitem[\protect\citeauthoryear{{Ueta} et~al.,}{{Ueta}
   et~al.}{2008}]{Ueta:2008a}
@@ -269,9 +383,16 @@ Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31
 
+\bibitem[\protect\citeauthoryear{{Wood} \& {Churchwell}}{{Wood} \&
+  {Churchwell}}{1989}]{Wood:1989a}
+{Wood} D.~O.~S.,  {Churchwell} E.,  1989, \apjs, 69, 831
+
 \bibitem[\protect\citeauthoryear{{Wright} et~al.,}{{Wright}
   et~al.}{2010}]{Wright:2010a}
 {Wright} E.~L.,  et~al., 2010, \aj, 140, 1868
+
+\bibitem[\protect\citeauthoryear{{Zuckerman}}{{Zuckerman}}{1973}]{Zuckerman:1973a}
+{Zuckerman} B.,  1973, \apj, 183, 863
 
 \bibitem[\protect\citeauthoryear{{van Buren} \& {McCray}}{{van Buren} \&
   {McCray}}{1988}]{van-Buren:1988a}

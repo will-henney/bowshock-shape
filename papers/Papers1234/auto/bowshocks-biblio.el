@@ -308,6 +308,26 @@
     "Pikelner:1968a"
     "van-Buren:1990a"
     "Zhekov:2010a"
-    "Pittard:2002a"))
+    "Pittard:2002a"
+    "Bally:1998a"
+    "Bally:2001a"
+    "Cyganowski:2003a"
+    "Immer:2014a"
+    "Johnstone:1998a"
+    "Klaassen:2018a"
+    "Kulkarni:1988a"
+    "Mohamed:2012a"
+    "Noriega-Crespo:1997b"
+    "ODell:1993a"
+    "ODell:2008b"
+    "Reid:1985a"
+    "Sahai:2012b"
+    "Steggles:2017a"
+    "Tanner:2005a"
+    "Ueta:2006a"
+    "Villaver:2012a"
+    "Wood:1989a"
+    "Zuckerman:1973a"
+    "Baranov:1971a"))
  :bibtex)
 
