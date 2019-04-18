@@ -2,14 +2,7 @@
 \documentclass[useAMS, usenatbib, a4paper]{mnras}
 \pdfsuppresswarningpagegroup=1
 
-% The following is needed to fix the margins if using Letter-size paper
-% REMOVE if your LaTeX uses A4 paper by default
-%\addtolength\topmargin{-1.8cm}
-
 % Standard LaTeX packages
-% \usepackage[varg]{txfonts}
-\usepackage[varg]{newtxmath}
-\usepackage{newtxtext}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{xcolor}
@@ -20,9 +13,19 @@
 \usepackage{enumerate}
 \usepackage{pdflscape}
 \usepackage{rotating}
-\usepackage{xr-hyper}
 \usepackage{hyperref}
-\externaldocument[Q-]{quadrics-bowshock}
+
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+
+% Fonts 
+\usepackage{newtxtext}
+% Note: newtxmath must come AFTER newtxtext
+\usepackage[varvw,smallerops]{newtxmath}
+
+\usepackage{chemgreek}
+\activatechemgreekmapping{newtx}
+
 
 % Define a fermata symbol for use inline with text
 % 04 Jul 2017 WJH
@@ -60,6 +63,14 @@
 \robustify\bfseries
 \robustify\itshape
 
+%% The following hack solves a problem with
+%% ERROR: \pdfendlink ended up in different nesting level than \pdfstartlink.
+%% See https://tex.stackexchange.com/a/249743
+\makeatletter
+\patchcmd\@combinedblfloats{\box\@outputbox}{\unvbox\@outputbox}{}{%
+  \errmessage{\noexpand\@combinedblfloats could not be patched}%
+}%
+\makeatother
 
 %% Bold italic
 \newcommand\hmmax{0}            % we don't need heavy fonts
@@ -69,10 +80,7 @@
 %% Bundled custom packages
 \usepackage{aastex-compat}
 
-% Definitions needed in abstract
-\input{bs-bw-dw-defs}
-
-\defcitealias{Tarango-Yong:2018a}{Paper~I}
+\defcitealias{Tarango-Yong:2018a}{Paper~0}
 \newcommand\PaperI{\citetalias{Tarango-Yong:2018a}}
 
 
@@ -92,7 +100,18 @@
   \\
   \AddressCRyA
 }
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2019}
+
+\input{bs-bw-dw-defs}
+
 \begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
 \maketitle
 \begin{abstract}
   Stellar bow shocks are the result of the supersonic interaction
@@ -105,30 +124,43 @@
   the shape of such bow shocks, which we here apply to three very
   different observational datasets: (1)~mid-infrared arcs
   around hot main-sequence stars (\(N = 227\)); (2)~far-infrared arcs
-  around luminous cool stars (\(N = 7\)); and (3)~emission-line arcs
+  around luminous cool stars (\(N = 16\)); and (3)~emission-line arcs
   around proplyds and other young stars in the Orion Nebula
   (\(N = 18\)).  We find significant differences between the three
   datasets: cool star bow shocks have markedly more closed wings than
   hot star bow shocks, while differences in the shape of the apex
   region are only marginally significant.  The Orion Nebula arcs, on
   the other hand, have both significantly more open wings and
-  significantly flatter apices than the hot star bow shocks.  We
+  significantly flatter apexes than the hot star bow shocks.  We
   discuss the implications of these differences for understanding the
   physics of the bow shock interaction in the three classes of
   sources.
 \end{abstract}
 
+\begin{keywords}
+  circumstellar matter -- methods: statistical -- stars: winds, outflows
+\end{keywords}
+
 \input{sec-obs-intro}
-\clearpage
 \input{sec-quadrics-observations}
 \input{sec-standing-wave}
 \input{sec-obs-conclusions}
-\clearpage
+
+\section*{Acknowledgements}
+We are grateful for financial support provided by Dirección General de
+Asuntos del Personal Académico, Universidad Nacional Autónoma de
+México, through grants Programa de Apoyo a Proyectos de Investigación
+e Inovación Tecnológica IN111215 and IN107019.  
+
 \bibliographystyle{mnras}
 %% All references should be put in the BibTeX file bowshocks-biblio.bib
 \bibliography{bowshocks-biblio}
 \appendix
 \input{app-p-values}
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
 
 \end{document}
 
