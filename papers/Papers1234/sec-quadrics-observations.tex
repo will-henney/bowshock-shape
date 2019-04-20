@@ -84,10 +84,15 @@ by the MIPSGAL \citep{Carey:2009a} survey, which includes most of the
 sources with Galactic longitude within \(\pm 60\degr\) of the Galactic
 center.
 
-We developed a methodology for automatically tracing the arcs as follows:
+We have developed a method for automatically tracing the arcs and
+determining their planitude and alatude, which is an extension of the
+method described in Appendix~E of Paper~0.  The steps of the method
+are as follows:
 \begin{enumerate}[1.]
 \item Calculate arrays of celestial coordinates, \(C\), for each pixel
-  of the image.
+  of the image. In our implementation of the method we use functions
+  from the Python library \texttt{astropy.coordinates}
+  \citep{Astropy-Collaboration:2018a}.
 \item Using the central source coordinates, \(C_0\) and nominal
   bowshock radius, \(R_0\) from \citet{Kobulnicky:2016a}, construct a
   pixel mask that includes only those pixels with separations from the
@@ -118,14 +123,16 @@ We developed a methodology for automatically tracing the arcs as follows:
   over only those pixels that satisfy
   \(|\text{PA}(C, C_1) - \text{PA}_k| < \frac12 \delta\theta\), where
   \(\delta\theta = 120/50 = 2.4\degr\), which defines a thin radial wedge from
-  \(C_1\).  The results are shown as red and blue dots superimposed
-  on the images in Figure~\ref{fig:mipsgal-examples}. Each of the two
+  \(C_1\).  The results are shown as red and blue dots superimposed on
+  the images in Figure~\ref{fig:mipsgal-examples}. Each of the two
   methods, ``peak'' and ``mean'', works better in some objects and
   worse in others (according to the subjective judgment of
   ``correctly'' tracing the bow shock shape).  We therefore take the
   average by amalgamating all the \(C_{k,\text{peak}}\) and
-  \(C_{k,\text{mean}}\) points into a single set, \(C_{k}\), for
-  the following steps.
+  \(C_{k,\text{mean}}\) points into a single set, \(C_{k}\), for the
+  following steps.  We have found that the use of the step-back point
+  greatly improves the reliability of the method, as compared with the
+  simpler option of tracing rays from the stellar source.
 \item For each of the points \(C_{k}\), determine the radial
   separation from the central source, \(R_k = |C_k - C_0|\) and the
   angle from the bow shock axis about the central source
@@ -147,7 +154,7 @@ We developed a methodology for automatically tracing the arcs as follows:
   to all those points within \(\pm 45\degr\) of the nominal axis
   (\(|\theta_k| < 45\degr\)), but after excluding any point with
   \(R_k < \frac12 R_m\) or \(R_k > 2 R_m\), where \(R_m\) is the median
-  \(R_k\) for \(|\theta_k| < 45\degr\).
+  \(R_k\) for \(|\theta_k| < 45\degr\).\label{step:Rc}
 \item Determine two separate estimates, \(R_{90+}\) and \(R_{90-}\),
   of the perpendicular radius, \(R_{90}\), by taking the mean of
   \(R_k\) over all points \(C_k\) with
@@ -155,14 +162,20 @@ We developed a methodology for automatically tracing the arcs as follows:
   \(|\theta_k + 90\degr| \le 10\degr\) for \(R_{90-}\).  The average of the
   two standard deviations of the \(R_k\) that contribute to
   \(R_{90+}\) and \(R_{90-}\) is denoted by \(\epsilon(R_{90})\).\label{step:R90}
+\item The planitude is determined as \(\Pi = R_c / R_0\) and the mean
+  alatude as \(\Lambda = \frac12 (R_{90+} + R_{90-}) / R_0\).  We also
+  calculate an alatude asymmetry as
+  \(\Delta\Lambda = \frac12 (R_{90+} - R_{90-}) / R_0\). Note that in this paper
+  we simplify the notation of Paper~0 by no longer using the prime
+  symbol (\('\)) to distinguish projected from intrinsic quantities.
+  All planitudes and alatudes should be understood as specifying the
+  projected bow shock shape on the plane of the sky unless noted
+  otherwise.\label{step:Pi-Lambda}
 \end{enumerate}
-
-
-\subsubsection{Subjective evaluation of the fit quality}
+% \subsubsection{Subjective evaluation of the fit quality}
 \label{sec:subj-eval-fit}
-
-
-After these automatic steps, we subjectively evaluate the results by giving a star rating to each source:
+After these automatic steps, we subjectively evaluate the resulting
+fit quality by giving a star rating to each source:
 
 \paragraph*{0 stars} The fitting algorithm failed for some reason. 
 
@@ -196,9 +209,9 @@ Figure~\ref{fig:mipsgal-examples}b.
 large, sharply defined bow shocks, whose shape is determined with high
 precision. An example of a 5-star fit is shown in
 Figure~\ref{fig:mipsgal-examples}c.
-
 \bigskip
-%
+
+% 
 Figure~\ref{fig:mipsgal-examples}d compares the bow shock size,
 \(R_0\), determined by our fits (vertical axis) with the corresponding
 value given in the \citet{Kobulnicky:2016a} catalog (horizontal axis).
@@ -280,39 +293,50 @@ lower left panels of Figure~\ref{fig:mipsgal-examples}a and c.
 \label{sec:ob-shapes}
 
 The derived bowshock shapes of all the 3-, 4-, and 5-star sources are
-shown in Figure~\ref{fig:mipsgal-shapes} on the plane of \(R_c/R_0\)
-versus \(R_{90} / R_0\).  Panel a shows the individual points
-superimposed on the theoretical results for quadrics of revolution
-(see figure caption and \S~\ref{sec:conic}), while panel b shows
-contours of the kernel density estimator (KDE, see
-\citealp{Leiva-Murillo:2012a, Scott:2015a}) of the two-dimensional
-distribution of points on the \(R_c\)--\(R_{90}\) plane.  The
-horizontal axis corresponds to the shape of the head of the bow shock
-near its apex, ranging from sharper, pointier shapes with
-\(R_c/R_0 < 1\) to flatter, snubber shapes with \(R_c/R_0 \gg 1\), where
-it must be understood that all judgments of sharpness/flatness are
-with respect to the axial separation, \(R_0\), between the source and
-the bow shock apex.  The vertical axis corresponds to the shape of the
-bow shock wings, ranging from closed ``C'' shapes for smaller values
-of \(R_{90} / R_0\) to open ``V'' shapes for larger values of
-\(R_{90} / R_0\).  The boundary between closed and open corresponds to
-the paraboloids, and is shown by the solid curved line that divides
-the shaded from the unshaded regions of the graph.
+shown in Figure~\ref{fig:mipsgal-shapes} on the \(\Pi\)--\(\Lambda\) plane,
+which was discussed extensively in Paper~0.  Panel a shows each
+individual source with horizontal error bars that represent the
+dispersion of traced points from the circle fit (step~\ref{step:Rc} of
+the previous section) and vertical error bars that show the wing
+asymmetry \(\Delta\Lambda\) (step~\ref{step:Pi-Lambda}).  The horizontal error
+bars, which are a proxy for observational uncertainties, become very
+small for the 4- and 5-star sources, whereas the vertical error bars
+remain at roughly the \(10\%\) level since they reflect real
+asymmetries in the shapes of the bow shocks.
 
-The KDE contours in Figure~\ref{fig:mipsgal-shapes}b show that the
-distribution of 3-star sources is very similar to that of 4- and
-5-star sources, although the higher-rated sources are shifted slightly
-to the upper right.  Possible reasons for this are discussed in
-\S~\ref{sec:corr-shape} below.
+The horizontal axis corresponds to the shape of the head of the bow
+shock near its apex, ranging from sharper, pointier shapes with
+\(\Pi < 1\) to flatter, snubber shapes with \(\Pi \gg 1\), where it must be
+understood that all judgments of sharpness/flatness are with respect
+to the axial separation, \(R_0\), between the source and the bow shock
+apex.  The vertical axis corresponds to the shape of the bow shock
+wings, ranging from closed ``C'' shapes for smaller values of
+\(\Lambda\) to open ``V'' shapes for larger values of \(\Lambda\).  The background
+shading shows the regions of the \(\Pi\)--\(\Lambda\) plane occupied by simple
+quadric shapes (see \S~4 of Paper~0): oblate spheroids (light gray),
+prolate spheroids (dark gray), and hyperboloids (white). The boundary
+between closed and open corresponds to the paraboloids, and is shown
+by the solid curved line that divides the dark gray and white regions
+of the graph.
+
+In Figure~\ref{fig:mipsgal-shapes}b, we present a smoothed version of
+the same data.  The contours show the kernel density estimator (KDE,
+see \citealp{Leiva-Murillo:2012a, Scott:2015a}) of the two-dimensional
+distribution of points on the \(\Pi\)--\(\Lambda\) plane.  The KDE contours
+indicate that the distribution of 3-star sources is very similar to
+that of 4- and 5-star sources, although the higher-rated sources are
+shifted slightly to the upper right.  Possible reasons for this are
+discussed in \S~\ref{sec:corr-shape} below.
 % This is probably due to higher-rated sources
 % being on average bigger, as will be discussed further below.
 The bulk of the sources are concentrated around the paraboloid line,
-with \(1 < R_c/R_0 < 2.5\), and \(1.2 < R_{90}/R_0 < 2\).  But
-significant minorities are found in three other regions: (1)~a clump
-with \(R_c/R_0 \la 1\); (2)~a vertical spur towards higher \(R_{90}\)
-at \(R_c/R_0 \approx 2\); and (3)~a broad horizontal tail towards higher
-\(R_c\) at \(R_{90}/R_0 \la 2\).
-
+with \(1 < \Pi < 3\), and \(1.2 < \Lambda < 2\).  But significant minorities
+are found in three other regions: (1)~a clump with \(\Pi \la 1\); (2)~a
+vertical spur towards higher \(\Lambda\) at \(\Pi \approx 1.8\); and (3)~a broad
+horizontal tail towards higher \(\Pi\) at \(\Lambda \la 2\).  Thumbnail images
+of the \SI{24}{\um} emission of selected sources from different
+regions of the distribution are shown, in order to illustrate the
+range of bow shock morphologies encountered.
 
 \subsection{Correlations between non-shape parameters of the OB sources}
 \label{sec:corr-size}
