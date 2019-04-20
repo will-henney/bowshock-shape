@@ -228,11 +228,12 @@ indicated by the dotted horizontal line in te figure).
 
 \begin{figure*}
   \centering
+  \setlength\tabcolsep{0pt}
   \begin{tabular}{ll}
     (a) & (b) \\
-    \includegraphics[width=0.45\textwidth, trim=0 0 30 0]
+    \includegraphics[width=0.5\textwidth]
     {figs/mipsgal-Rc-R90-zoom-annotated}
-        & \includegraphics[width=0.45\textwidth, trim=0 0 30 0]
+        & \includegraphics[width=0.5\textwidth]
           {figs/mipsgal-Rc-R90-thumbnails} 
   \end{tabular}
   \caption[]{MIPSGAL sources on the bow shock shape diagnostic diagram
@@ -343,7 +344,7 @@ range of bow shock morphologies encountered.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=0.8\textwidth]{figs/mipsgal-pairplot}
+  \includegraphics[width=0.85\textwidth]{figs/mipsgal-pairplot}
   \caption[]{Matrix of pair plots that illustrate distributions of and
     correlations between the non-shape parameters of all MIPSGAL bow
     shock sources from \citet{Kobulnicky:2016a}.  Plots on the leading
@@ -389,11 +390,11 @@ same reddening law gives \(A_H = 1.55 A_K\), and this is used to
 derive extinction-corrected \(H\)-band apparent magnitudes, \(H_0\).
 
 \begin{figure*}
-  \centering
+  \setlength\tabcolsep{0pt}
   \begin{tabular}{ll}
     (a) & (b) \\
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-environment} &
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-candidates} 
+    \includegraphics[width=0.5\textwidth]{figs/mipsgal-Rc-R90-environment} &
+    \includegraphics[width=0.5\textwidth]{figs/mipsgal-Rc-R90-candidates} 
   \end{tabular}
   \caption[]{Example comparisons between the distribution of bowshock
     shapes when the sources are divided into two or more sub-samples
@@ -413,6 +414,23 @@ derive extinction-corrected \(H\)-band apparent magnitudes, \(H_0\).
     symbols and orange-brown hollow continuous contours).}
   \label{fig:mipsgal-uncorrelated}
 \end{figure*}
+\begin{figure*}
+  \setlength\tabcolsep{0pt}
+  \begin{tabular}{ll}
+    (a) & (b) \\
+    \includegraphics[width=0.5\textwidth]{figs/mipsgal-Rc-R90-R0} &
+    \includegraphics[width=0.5\textwidth]{figs/mipsgal-Rc-R90-Mag} 
+  \end{tabular}
+  \caption[]{As Fig.~\ref{fig:mipsgal-uncorrelated} but for median
+    splits of continuous parameters. (a)~Bow shock angular size,
+    \(R_0\), divided into two equal-sized sub-samples: large (blue
+    symbols and blue filled contours) and small (red symbols and red
+    hollow contours).  (b)~Extinction-corrected \(H\)-band magnitude
+    of the stellar source, divided into two equal-sized sub-samples:
+    bright (red symbols and orange filled contours) and faint (green
+    symbols and green hollow contours).}
+  \label{fig:mipsgal-correlated}
+\end{figure*}
 
 The most significant linear correlation between any pair of parameters
 in Figure~\ref{fig:mipsgal-pairplot} is that between bow shock size
@@ -431,8 +449,8 @@ farther away from the \(H\)~band, resulting in
 the upper main-sequence mass--luminosity and mass--radius scalings from
 \citet{Eker:2015a}. It is true that evolved OB supergiants can be much
 brighter, reaching \(M_H \approx -7\), but such stars are expected to be
-rare.  Assuming a B2V star (\(M_H = -2\)), then the observed range
-\(H_0 = 5\)--\(12\) corresponds to distances
+relatively rare.  Assuming a B2V star (\(M_H = -2\)), then the
+observed range \(H_0 = 5\)--\(12\) corresponds to distances
 \(d = 100\)--\SI{6300}{pc}, and the histogram peak at
 \(H_0 \approx 9.5\) corresponds to \(d \approx \SI{2000}{pc}\), which is all
 perfectly reasonable.
@@ -490,63 +508,39 @@ case of runaways, if more luminous stars tended to be faster moving.
 
 A third factor that may influence \(R_0\) is the inclination, \(i\),
 of the bow shock axis with respect to the plane of the sky.
-Figure~\ref{fig:quadric-projection}b shows that for \(R_c > 1\), then
-the projected \(R_0'\) becomes larger than the true \(R_0\) as \(|i|\)
-increases.  This is further illustrated in
-Figure~\ref{fig:projected-R90-Rc-snapshots} for simple quadric shapes
-(spheroids, paraboloids, hyperboloids) and in
-Figure~\ref{fig:thin-shell-R90-Rc-snapshots} for the wilkinoid,
-cantoids, and ancantoids.  It can be seen that the effect is
-relatively modest for bow shocks with projected shapes falling in the
-range \(1 < R_c/R_0 < 3\) and \(R_{90}/R_0 < 3\), as the vast majority
-of our observed sources do.  The increase in \(R_0\) is no more than a
-factor of 2 to 3 for moderate inclinations of \(30\) to \(60\degr\),
-although it can reach a factor of 5 to 10 for some shapes at more
-extreme inclinations.
+Figure~11b of Paper~0 shows that for \(\Pi > 1\), then the projected
+\(R_0'\) becomes larger than the true \(R_0\) as \(|i|\) increases
+(see also Figs.~26 and 27 of Paper~0).  It can be seen that the effect
+is relatively modest, with an increase in \(R_0\) of no more than a
+factor of 2 to 3.
 
 %% Maybe talk about the other correlations later if we have time
 
 \subsection{Correlation between bow shock shape and other parameters}
 \label{sec:corr-shape}
-\begin{figure*}
-  \centering
-  \begin{tabular}{ll}
-    (a) & (b) \\
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-R0} &
-    \includegraphics[width=0.45\textwidth]{figs/mipsgal-Rc-R90-Mag} 
-  \end{tabular}
-  \caption[]{As Fig.~\ref{fig:mipsgal-uncorrelated} but for median
-    splits of continuous parameters. (a)~Bow shock angular size,
-    \(R_0\), divided into two equal-sized sub-samples: large (blue
-    symbols and blue filled contours) and small (red symbols and red
-    hollow contours).  (b)~Extinction-corrected \(H\)-band magnitude
-    of the stellar source, divided into two equal-sized sub-samples:
-    bright (red symbols and orange filled contours) and faint (green
-    symbols and green hollow contours).}
-  \label{fig:mipsgal-correlated}
-\end{figure*}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]
   {figs/mipsgal-boxplot-Rc-R90-versus-R0}
   \caption{Box plots of the distributions of bow shock shape
-    parameters, \(\Pi\) and \(\Lambda\), together with a
-    measure of the tail asymmetry, \(|\Lambda_{+} - \Lambda_{-}| / \Lambda\),
-    after partitioning on the bow shock size, \(R_0\).  All 3-, 4-,
-    and 5-star sources are sorted according to \(R_0\) and divided
-    into 5 non-overlapping sub-samples of roughly equal size, each
-    labelled by their median value of \(R_0\) in arcseconds, as
-    illustrated in the lower panel.  The colored boxes show the
-    interquartile range, with the median indicated by a horizontal
-    line, the 1st-to-9th interdecile range by error bars, and outliers
-    by diamonds.  A 5-sample Anderson--Darling test and Brown--Forsythe
-    test is performed for each dependent variable, with resultant
-    \(p\)-value given at the bottom of each panel.   It is apparent
-    that the dispersion in \(\Lambda\) (upper panel) increases
+    parameters, \(\Pi\) and \(\Lambda\), together with a measure of the tail
+    asymmetry, \(2 |\Delta\Lambda| / \Lambda\), after partitioning on the bow shock
+    size, \(R_0\).  All 3-, 4-, and 5-star sources are sorted
+    according to \(R_0\) and divided into 5 non-overlapping
+    sub-samples of roughly equal size, each labelled by their median
+    value of \(R_0\) in arcseconds, as illustrated in the lower panel.
+    The colored boxes show the interquartile range of the data, with
+    the median indicated by a horizontal line and the notch showing
+    the 90\% confidence limits of the median, as determined from 1000
+    bootstrap resamplings.  The 5th-to-95th centile range of the data
+    is indicated by error bars.  A 5-sample Anderson--Darling test and
+    Brown--Forsythe test is performed for each dependent variable, with
+    resultant \(p\)-value given at the bottom of each panel.  It is
+    apparent that the dispersion in \(\Lambda\) (upper panel) increases
     systematically with \(R_0\), although the central value is roughly
-    constant.  No clear systematic changes are apparent in
-    \(\Pi\) (middle panel).}
+    constant.  No clear systematic changes are apparent in \(\Pi\)
+    (middle panel).}
   \label{fig:mipsgal-boxplot}
 \end{figure}
 
@@ -564,12 +558,12 @@ correlated with any other parameters via the following methodology:
   environment, or the presence/absence of \SI{8}{\um} emission, in
   which case the sub-samples are of unequal size.
 \item We plot the KDEs of the two sub-samples separately on the
-  \(R_c\)--\(R_{90}\) plane (see Figs.~\ref{fig:mipsgal-correlated} and
+  \(\Pi\)--\(\Lambda\) plane (see Figs.~\ref{fig:mipsgal-correlated} and
   \ref{fig:mipsgal-uncorrelated}) to check for any obvious
   differences.
 \item We check if there is any statistically significant difference
   between the bow shock shapes of the sub-samples by applying three
-  different non-parametric tests to \(R_c/R_0\) and \(R_{90}/R_0\)
+  different non-parametric tests to \(\Pi\) and \(\Lambda\)
   separately.  
 \end{enumerate}
 
@@ -582,18 +576,19 @@ two sub-samples would be as large as it is purely by chance if they
 were all were drawn from the same distribution.  We consider two
 different thresholds for significance: \(p < 0.05\) (approximately
 2-\(\sigma\) for a normal distribution) and \(p < 0.003\) (approximately
-3-\(\sigma\)).  We show in Appendix~\ref{sec:distr-p-values} that the more
-stringent \(p < 0.003\) condition is required in order to confidently
-reject the null hypothesis and declare a ``significant'' difference
-between the two sub-samples, but we also consider the less strict
-threshold of \(p < 0.05\) as an indicator of ``possible'' difference.
-We supplement the general-purpose Anderson--Darling test with two tests
-that probe specific features of the sample distributions: the
-Mann--Whitney--Wilcoxon \(U\) test \citep{Mann:1947a}, which is
-sensitive to differences in the central value (e.g., median) and the
-Brown--Forsythe test \citep{Brown:1974a}, which is sensitive to
-differences in the variance, or width, of the distribution (see
-Appendix~\ref{sec:distr-p-values} for details).
+3-\(\sigma\)).  We show in Appendix~\ref{sec:distr-p-values} that, given
+the large number of potential relationships that we are testing, the
+more stringent \(p < 0.003\) condition is required in order to
+confidently reject the null hypothesis and declare a ``significant''
+difference between the two sub-samples, but we also consider the less
+strict threshold of \(p < 0.05\) as an indicator of ``possible''
+difference.  We supplement the general-purpose Anderson--Darling test
+with two tests that probe specific features of the sample
+distributions: the Mann--Whitney--Wilcoxon \(U\) test
+\citep{Mann:1947a}, which is sensitive to differences in the central
+value (e.g., median) and the Brown--Forsythe test \citep{Brown:1974a},
+which is sensitive to differences in the variance, or width, of the
+distribution (see Appendix~\ref{sec:distr-p-values} for details).
   
 As shown in detail in Table~\ref{tab:big-p}, there is remarkably
 little variation in the bow shock shape distributions as a function of
@@ -601,26 +596,26 @@ most of the other parameters.  Two examples in which there is
 \textit{no} significant shape difference between the sub-samples are
 shown in Figure~\ref{fig:mipsgal-uncorrelated}.  This lack of
 difference is interesting because in both examples there are a priori
-grounds to suspect that differences might exist.  The first example (Fig.~\ref{fig:mipsgal-uncorrelated}a) is
-the bow shock environment, which was categorized in
-\citet{Kobulnicky:2016a} as ``Isolated'' (I), ``Facing a large \hii{}
-region'' (FH), ``Facing a \SI{8}{\um} bright-rimmed cloud'' (FB), and
-``Within a giant \hii{} region'' (H), and where we have merged the FH
-and FB categories, labelled ``Facing'' in the figure.\footnote{Similar
-  results are also found for the FB and FH categories separately.}
-The shapes might be expected to vary with environment because the FB
-and FH categories should be associated with ``weather vane''
-interactions \citep{Povich:2008a} between the stellar wind and a
-divergent photoevaporation flow.  This is expected to give a more open
-bow shock than in the ``runaway'' case of interaction of a moving star
-with a static environment.  In the thin-shell approximation, the
-predicted shapes are a cantoid for weather vanes and a wilkinoid
-for runaways, see \S~\ref{sec:crw-scenario}.  The fact that no such
-difference is detected could be explained in one of two ways: (i)~the
-momentum ratio \(\beta\) for the weather vanes could be small, since the
-cantoid becomes indistinguishable from the wilkinoid as
-\(\beta \to 0\), or (ii)~many of the bow shocks classified as ``Isolated''
-might also be weather vanes rather than runaways.
+grounds to suspect that differences might exist.  The first example
+(Fig.~\ref{fig:mipsgal-uncorrelated}a) is the bow shock environment,
+which was categorized in \citet{Kobulnicky:2016a} as ``Isolated'' (I),
+``Facing a large \hii{} region'' (FH), ``Facing a \SI{8}{\um}
+bright-rimmed cloud'' (FB), and ``Within a giant \hii{} region'' (H),
+and where we have merged the FH and FB categories, labelled ``Facing''
+in the figure.\footnote{Similar results are also found for the FB and
+  FH categories separately.}  The shapes might be expected to vary
+with environment because the FB and FH categories should be associated
+with ``weather vane'' interactions \citep{Povich:2008a} between the
+stellar wind and a divergent photoevaporation flow.  This is expected
+to give a more open bow shock than in the ``runaway'' case of
+interaction of a moving star with a static environment.  In the
+thin-shell approximation, the predicted shapes are a cantoid for
+weather vanes and a wilkinoid for runaways, see \S~6 of Paper~0.  The
+fact that no such difference is detected could be explained in one of
+two ways: (i)~the momentum ratio \(\beta\) for the weather vanes could be
+small, since the cantoid becomes indistinguishable from the wilkinoid
+as \(\beta \to 0\), or (ii)~many of the bow shocks classified as
+``Isolated'' might also be weather vanes rather than runaways.
 
 The second example (Fig.~\ref{fig:mipsgal-uncorrelated}b) divides the
 sources according to whether or not \citet{Kobulnicky:2016a} judged
@@ -628,10 +623,10 @@ there to be multiple candidates for the identity of the central star
 that drives the bow shock.  If the central star were to be
 misidentified in a significant number of sources, then the measured
 value of \(R_0\) for those sources would be erroneous, which would
-increase the scatter in both \(R_c/R_0\) and \(R_{90}/R_0\).  The
-fact that no significant difference is seen in the shape distributions
-between sources with/without multiple candidates implies that such
-mistakes in identification of the central star must be rare.
+increase the scatter in both \(\Pi\) and \(\Lambda\).  The fact that no
+significant difference is seen in the shape distributions between
+sources with/without multiple candidates implies that such mistakes in
+identification of the central star must be rare.
 
 We also tested all the other source parameters listed in
 \citeauthor{Kobulnicky:2016a}'s catalog, finding no significant shape
@@ -639,7 +634,7 @@ differences for sources with/without \SI{8}{\um} emission, with
 low/high extinction, closer/farther from the Galactic plane, or
 closer/farther from the Galactic center. Details are given in
 Table~\ref{tab:big-p}.  In all these cases, differences in mean or
-median \(R_{90}/R_0\) less than \(0.06\) and in \(R_c/R_0\) less than
+median \(\Lambda\) less than \(0.06\) and in \(\Pi\) less than
 \(0.16\) are found, corresponding to rank biserial correlation
 coefficients (a non-parametric dimensionless measure of the difference
 between two samples, see Appendix~\ref{sec:distr-p-values}) of
@@ -650,7 +645,7 @@ the bowshock shape are the bow shock angular size, \(R_0\), and the
 extinction-corrected magnitude of the central star, \(H_0\), which are
 illustrated in Figure~\ref{fig:mipsgal-correlated}.  In both cases,
 the general purpose Anderson--Darling test indicates differences in the
-sub-sample distributions of \(R_{90} / R_0\) at the 2-\(\sigma\) level.  It
+sub-sample distributions of \(\Lambda\) at the 2-\(\sigma\) level.  It
 is apparent from the histograms shown in the right-hand inset graphs
 of Figure~\ref{fig:mipsgal-correlated}a that in the case of the
 small/large \(R_0\) sub-samples it is the width rather than the
@@ -663,53 +658,54 @@ feature of the distributions differ.
 
 In order to investigate these effects in more detail and look for
 systematic trends, we divide the independent parameter (\(R_0\) or
-\(H_0\)) into 5 rather than 2 equal-sized sub-samples, with results
-shown as box plots in Figure~\ref{fig:mipsgal-boxplot}.  A systematic
-increase with \(R_0\) in the dispersion of \(R_{90}/R_0\) (upper panel
-of Fig.~\ref{fig:mipsgal-boxplot}a) is apparent from both the
+\(H_0\)) into 5 rather than 2 equal-sized sub-samples, with results in
+the case of \(R_0\) shown as box plots in
+Figure~\ref{fig:mipsgal-boxplot}.  A systematic increase with \(R_0\)
+in the dispersion of \(\Lambda\) (upper panel of
+Fig.~\ref{fig:mipsgal-boxplot}a) is apparent from both the
 interquartile range (colored boxes) and interdecile range (error
 bars).  As a check on whether observational uncertainties might be
 contributing to this trend, the third and fourth rows of box plots
 show the statistics for, respectively, the fractional asymmetry of the
-bowshock wings and the standard deviation, \(\epsilon(R_{90})\), of the
-individual points on the bow shock that go into determining \(R_{90}\)
-(see step~\ref{step:R90} of the tracing/fitting methodology described
-in \S~\ref{sec:autom-trac-fitt}).  It can be seen that neither of
-these quantities tends to increase with \(R_0\), and in fact there is
-a significant \emph{decrease} in \(\epsilon(R_{90})\) with \(R_0\).  This
-implies that the increase with angular size of the diversity of bow
-shock wing shapes is real, and not due to observational uncertainties.  
-On the other hand, the fact that no clear trends are evident as a
-function of source magnitude \(H_0\) (Fig.~\ref{fig:mipsgal-boxplot}b)
-leads us to suspect that the \(p < 0.05\) result obtained for the
-2-sample Anderson--Darling test was a \emph{false positive}, which is
-also supported by the analysis in Appendix~\ref{sec:distr-p-values}
-and Figure~\ref{fig:histo-p-values}.
+bowshock wings and the standard deviation, \(\epsilon(\Lambda)\), of the individual
+points on the bow shock that go into determining \(\Lambda\) (see
+step~\ref{step:R90} of the tracing/fitting methodology described in
+\S~\ref{sec:autom-trac-fitt}).  It can be seen that neither of these
+quantities tends to increase with \(R_0\), and in fact there is a
+significant \emph{decrease} in \(\epsilon(\Lambda)\) with \(R_0\).  This implies
+that the increase with angular size of the diversity of bow shock wing
+shapes is real, and not due to observational uncertainties.  On the
+other hand, we find that no clear trends are evident as a function of
+source magnitude \(H_0\) (not illustrated), which leads us to suspect
+that the \(p < 0.05\) result obtained for the 2-sample
+Anderson--Darling test was a \emph{false positive}, as is also
+supported by the analysis in Appendix~\ref{sec:distr-p-values} and
+Figure~\ref{fig:histo-p-values}.
 
-So, the only correlation that survives scrutiny is the increase in
-dispersion of \(R_{90}/R_0\) with increasing \(R_0\), which is finally
-presented in the greatest detail in
-Figure~\ref{fig:mipsgal-heteroscedastic}, where we eschew any binning
-and perform linear regressions of the individual sources as a function
-of \(\log_{10} R_0\).  As expected from the previous 2-sample and
-5-sample analyses, the regression of \(R_{90}/R_0\) is almost flat,
-with a low correlation coefficient, whereas a regression of the
-absolute residuals to this fit against \(\log_{10} R_0\) shows a
-significant positive slope.  This increase in dispersion of shape with
-angular size is only evident for \(R_0 < 30''\), becoming flat at the
-largest sizes (see middle panel of
-Fig.~\ref{fig:mipsgal-heteroscedastic}).
+% So, the only correlation that survives scrutiny is the increase in
+% dispersion of \(R_{90}/R_0\) with increasing \(R_0\), which is finally
+% presented in the greatest detail in
+% Figure~\ref{fig:mipsgal-heteroscedastic}, where we eschew any binning
+% and perform linear regressions of the individual sources as a function
+% of \(\log_{10} R_0\).  As expected from the previous 2-sample and
+% 5-sample analyses, the regression of \(R_{90}/R_0\) is almost flat,
+% with a low correlation coefficient, whereas a regression of the
+% absolute residuals to this fit against \(\log_{10} R_0\) shows a
+% significant positive slope.  This increase in dispersion of shape with
+% angular size is only evident for \(R_0 < 30''\), becoming flat at the
+% largest sizes (see middle panel of
+% Fig.~\ref{fig:mipsgal-heteroscedastic}).
 
 As mentioned in \S~\ref{sec:ob-shapes} there is also a shape
 difference between the 3-star sources and the 4/5-star sources (see
 Fig.~\ref{fig:mipsgal-shapes}b).  The \(p\)-values of statistical
 tests (see Table~\ref{tab:big-p}) indicate that this is much more
 significant than any correlation with the other parameters discussed
-in this section (\(p < 10^{-4}\) for \(R_{90}/R_0\) and
-\(p < 10^{-5}\) for \(R_c/R_0\)).  This means that it cannot be simply
-due to the tendency of the higher-rated sources to have larger angular
-sizes.  However, the subjective nature of the star ratings makes this
-result hard to interpret.
+in this section (\(p < 10^{-4}\) for \(\Lambda\) and \(p < 10^{-5}\) for
+\(\Pi\)).  This means that it cannot be simply due to the tendency of
+the higher-rated sources to have larger angular sizes.  However, the
+subjective nature of the star ratings makes this result hard to
+interpret.
 
 \section{Far-infrared arcs around late-type stars}
 \label{sec:far-infrared-arcs}
