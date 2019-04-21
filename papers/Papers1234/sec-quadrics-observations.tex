@@ -344,7 +344,7 @@ range of bow shock morphologies encountered.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=0.85\textwidth]{figs/mipsgal-pairplot}
+  \includegraphics[width=0.86\textwidth]{figs/mipsgal-pairplot}
   \caption[]{Matrix of pair plots that illustrate distributions of and
     correlations between the non-shape parameters of all MIPSGAL bow
     shock sources from \citet{Kobulnicky:2016a}.  Plots on the leading
@@ -653,7 +653,7 @@ central tendency of the distributions that is different, which is
 confirmed by the more specific Brown--Forsythe test, which indicates a
 difference between the sub-sample dispersions at the 3-\(\sigma\) level.
 In the case of the faint/bright \(H_0\) sub-samples
-(Fig.~\ref{fig:mipsgal-heteroscedastic}b), it is less clear what
+(Fig.~\ref{fig:mipsgal-correlated}b), it is less clear what
 feature of the distributions differ.
 
 In order to investigate these effects in more detail and look for
@@ -712,21 +712,21 @@ interpret.
 
 
 \begin{figure*}
-  \centering
-  \setkeys{Gin}{width=0.48\linewidth}
-  \begin{tabular}{@{}ll@{}}
+  \setlength\tabcolsep{0pt}
+  \setkeys{Gin}{width=0.5\linewidth}
+  \begin{tabular}{ll}
     (a) & (b) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/alphaori-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/mucep-imageplot}\\
+    \includegraphics[trim=10 0 65 20, clip]{figs/alphaori-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/mucep-imageplot}\\
     (c) & (d) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/rhya-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/rleo-imageplot}\\
+    \includegraphics[trim=10 0 65 20, clip]{figs/rhya-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/rleo-imageplot}\\
     (e) & (f) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/uuaur-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/v1943sgr-imageplot}\\
+    \includegraphics[trim=10 0 65 20, clip]{figs/uuaur-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/v1943sgr-imageplot}\\
     (g) & (h) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/xpav-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/rcas-imageplot}
+    \includegraphics[trim=10 0 65 20, clip]{figs/xpav-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/rcas-imageplot}
   \end{tabular}
   \caption{RSG and AGB shells observed with Herschel.  Selected
     Class~I sources (``fermata-like'') from the MESS survey
@@ -742,21 +742,21 @@ interpret.
 \end{figure*}
 
 \begin{figure*}
-  \centering
-  \setkeys{Gin}{width=0.48\linewidth}
-  \begin{tabular}{@{}ll@{}}
+  \setlength\tabcolsep{0pt}
+  \setkeys{Gin}{width=0.5\linewidth}
+  \begin{tabular}{ll}
     (a) & (b) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/cwleo-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/epaqr-imageplot} \\
+    \includegraphics[trim=10 0 65 20, clip]{figs/cwleo-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/epaqr-imageplot} \\
     (c) & (d) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/khicyg-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/rtvir-imageplot} \\
+    \includegraphics[trim=10 0 65 20, clip]{figs/khicyg-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/rtvir-imageplot} \\
     (e) & (f) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/waql-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/wpic-imageplot} \\
+    \includegraphics[trim=10 0 65 20, clip]{figs/waql-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/wpic-imageplot} \\
     (g) & (h) \\
-    \includegraphics[trim=10 0 60 30, clip]{figs/rscl-imageplot}
-    & \includegraphics[trim=10 0 60 30, clip]{figs/tetaps-imageplot}
+    \includegraphics[trim=10 0 65 20, clip]{figs/rscl-imageplot}
+    & \includegraphics[trim=10 0 65 20, clip]{figs/tetaps-imageplot}
   \end{tabular}
   \caption{As Fig~\ref{fig:herschel-arc-fits}, but for a further 8
     Class~I sources from \citet{Cox:2012a} where the arc structure is
@@ -776,16 +776,14 @@ interpret.
     arcs (large red symbols and hollow red contours) and MIPSGAL OB
     star arcs (small purple symbols and filled purple contours).
     Other details of the plots are as in
-    Figs.~\ref{fig:mipsgal-shapes} and~\ref{fig:mipsgal-uncorrelated},
-    except that the diagnostic plots are zoomed in slightly to show
-    more detail, and a smaller KDE smoothing bandwidth of
-    \(0.12 \times 0.08\) is used.}
+    Figs.~\ref{fig:mipsgal-shapes}, \ref{fig:mipsgal-uncorrelated},
+    and \ref{fig:mipsgal-correlated}.}
   \label{fig:herschel-compare-mipsgal}
 \end{figure}
 
 We obtain a second sample of bow shocks from a far-infrared survey
-\citep{Cox:2012a} of circumstellar shells around asymptotic giant
-branch (AGB) stars and cool supergiants, obtained as part of the
+\citep{Cox:2012a} of circumstellar shells around known asymptotic
+giant branch (AGB) stars and cool supergiants, obtained as part of the
 \textit{Herschel} MESS (Mass-loss of Evolved StarS) program
 \citep{Groenewegen:2011a}.  The survey sources were divided into four
 classes by \citeauthor{Cox:2012a}, according to the overall shape of
@@ -814,39 +812,36 @@ bow shock size is much better than in the MIPSGAL sources, we judge
 that the arc tracing is best performed by eye and this is carried out
 using the SAOImage~DS9 FITS viewer \citep{Joye:2003a}, with results
 shown as small red open circles in Figures~\ref{fig:herschel-arc-fits}
-and~\ref{fig:herschel-arc-fits-poor}.  Subsequently, the bow shock
-parameters \(R_0\), \(R_{90}\), and \(R_c\) are determined by circle
-fits, as in steps 5--8 of \S~\ref{sec:autom-trac-fitt}, with results
-shown in magenta on the figures.
+and~\ref{fig:herschel-arc-fits-poor} (more details of this technique
+are given in \S\S~6 and 7 of Paper~0).  Subsequently, the bow shock
+parameters \(R_0\), \(\Pi\), and \(\Lambda\) are determined by circle fits, as
+in steps 5--9 of \S~\ref{sec:autom-trac-fitt}, with results shown in
+magenta on the figures.
 
 Figure~\ref{fig:herschel-compare-mipsgal} compares the distributions
 of bow shock shapes between the Herschel (RSG/AGB) and MIGSGAL (OB
 star) samples.  The Anderson--Darling test gives a highly significant
-difference between the \(R_{90}/R_0\) ratio distributions of the two
-samples, but only a marginally significant difference between the
-\(R_c/R_0\) ratio distributions (detailed results are shown in
-Table~\ref{tab:big-p}).  The Herschel sources show considerably
-smaller \(R_{90}\) ratio (median \(R_{90}/R_0 \approx 1.4\), implying bow
-shock wings that are more closed than in the MIPSGAL sources (median
-\(R_{90}/R_0 \approx 1.7\)).  For the radius of curvature ratio, there is
-only a slight difference in average values: median
-\(R_c/R_0 \approx 1.5\) for Herschel versus \(\approx 1.6\) for MIPSGAL, which is
-not statistically significant (rank biserial \(p = 0.29\)).  On the
-other hand, the dispersion in \(R_c/R_0\) is four times smaller for
-the Herschel sample, which is marginally significant (Brown--Forsythe
-\(p = 0.015\)).  In particular, the MIPSGAL sample shows a significant
-minority of very flat-nosed shapes (\(R_c/R_0 > 2\)), but these are
-absent in the Herschel sample.  The same can be seen directly by
-comparing the RSG/AGB bow shock shapes in
-Figures~\ref{fig:herschel-arc-fits}
+difference between the \(\Lambda\) distributions of the two samples, but
+only a marginally significant difference between the \(\Pi\)
+distributions (detailed results are shown in Table~\ref{tab:big-p}).
+The Herschel sources show considerably smaller planitude (median
+\(\Lambda \approx 1.4\)), implying bow shock wings that are more closed than in
+the MIPSGAL sources (median \(\Lambda \approx 1.7\)).  For the planitude, there is
+only a slight difference in average values: median \(\Pi \approx 1.5\) for
+Herschel versus \(\approx 1.6\) for MIPSGAL, which is not statistically
+significant (rank biserial \(p = 0.29\)).  On the other hand, the
+dispersion in \(\Pi\) is four times smaller for the Herschel sample,
+which is marginally significant (Brown--Forsythe \(p = 0.015\)).  In
+particular, the MIPSGAL sample shows a substantial minority of very
+flat-nosed shapes (\(\Pi > 2\)), but these are absent in the Herschel
+sample.  The same can be seen directly by comparing the RSG/AGB bow
+shock shapes in Figures~\ref{fig:herschel-arc-fits}
 and~\ref{fig:herschel-arc-fits-poor} with the representative OB bow
 shocks of Figure~\ref{fig:mipsgal-shapes}b.  The MIPSGAL sources K489
 and K123 have shapes that are similar to specific Herschel sources
 (UU~Aur and R~Hya, respectively), while sources such as K447 (extreme
 flat head) or K517 (extreme open wings) have no analog among the
 Herschel sources.
-
-
 
 \section{Stationary emission line arcs in M42}
 \label{sec:stat-emiss-line}
