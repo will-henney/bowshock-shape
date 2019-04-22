@@ -1,0 +1,31 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:35:05.6368,-5:25:19.448) # point=circle
+point(5:35:05.7710,-5:25:18.261) # point=x color=black
+point(5:35:05.7769,-5:25:18.610) # point=x color=black
+point(5:35:05.7815,-5:25:18.923) # point=x color=black
+point(5:35:05.7827,-5:25:19.254) # point=x color=black
+point(5:35:05.7850,-5:25:19.672) # point=x color=black
+point(5:35:05.7850,-5:25:20.020) # point=x color=black
+point(5:35:05.7792,-5:25:20.491) # point=x color=black
+point(5:35:05.7699,-5:25:20.961) # point=x color=black
+point(5:35:05.7615,-5:25:21.839) # point=x color=black
+point(5:35:05.7489,-5:25:22.362) # point=x color=black
+point(5:35:05.7279,-5:25:22.968) # point=x color=black
+point(5:35:05.7027,-5:25:23.616) # point=x color=black
+point(5:35:05.6817,-5:25:23.992) # point=x color=black
+point(5:35:05.6565,-5:25:24.535) # point=x color=black
+point(5:35:05.7589,-5:25:17.840) # point=x color=black
+point(5:35:05.7428,-5:25:17.403) # point=x color=black
+point(5:35:05.7377,-5:25:17.126) # point=x color=black
+point(5:35:05.7304,-5:25:16.857) # point=x color=black
+point(5:35:05.7220,-5:25:16.588) # point=x color=black
+point(5:35:05.7119,-5:25:16.378) # point=x color=black
+point(5:35:05.7029,-5:25:16.160) # point=x color=black
+point(5:35:05.6927,-5:25:15.928) # point=x color=black
+point(5:35:05.6806,-5:25:15.666) # point=x color=black
+point(5:35:05.6698,-5:25:15.424) # point=x color=black
+point(5:35:05.6522,-5:25:15.111) # point=x color=black
+point(5:35:05.6046,-5:25:14.213) # point=x color=black
+point(5:35:05.5612,-5:25:13.314) # point=x color=black

@@ -1,0 +1,11 @@
+{
+    "info": "Last iterated fit from circle_fit.py",
+    "region file": "new-w012-407-ridge.reg",
+    "FITS file": "w012-407-Bally_01-extract.fits",
+    "d theta": 50,
+    "Pi": 2.1515040849237725,
+    "Lambda": 2.5824927122616206,
+    "d Lambda": -0.19542643822964378,
+    "R0": 28.28962472083792,
+    "axis angle": -41.50159392220878
+}

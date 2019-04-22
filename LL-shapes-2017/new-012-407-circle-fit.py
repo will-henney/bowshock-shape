@@ -2,7 +2,7 @@ import sys
 sys.path.append("/Users/will/Dropbox/circle-fit")
 import circle_fit
 
-id_ = "w109-246"
+id_ = "w012-407"
 for arc in ["ridge"]:
     for delta_theta in 45, 50, 55, 60, 65, 70, 75, 80:
         plotfile = f"{id_}-{arc}-{delta_theta:02d}.pdf"
