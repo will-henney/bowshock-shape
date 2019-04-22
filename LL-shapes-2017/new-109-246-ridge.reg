@@ -1,0 +1,27 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:35:10.8960,-5:22:46.320) # point=circle
+point(5:35:11.0067,-5:22:46.528) # point=x color=black tag={109-246 ridge}
+point(5:35:10.9283,-5:22:48.644) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0344,-5:22:45.533) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0198,-5:22:46.064) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0702,-5:22:42.452) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0481,-5:22:44.764) # point=x color=black tag={109-246 ridge}
+point(5:35:10.9535,-5:22:48.067) # point=x color=black tag={109-246 ridge}
+point(5:35:10.9736,-5:22:47.590) # point=x color=black tag={109-246 ridge}
+point(5:35:10.9871,-5:22:47.214) # point=x color=black tag={109-246 ridge}
+point(5:35:10.9955,-5:22:46.838) # point=x color=black tag={109-246 ridge}
+point(5:35:10.7318,-5:22:51.403) # point=x color=black tag={109-246 ridge}
+point(5:35:10.7704,-5:22:50.926) # point=x color=black tag={109-246 ridge}
+point(5:35:10.7973,-5:22:50.600) # point=x color=black tag={109-246 ridge}
+point(5:35:10.8527,-5:22:49.973) # point=x color=black tag={109-246 ridge}
+point(5:35:10.9014,-5:22:49.120) # point=x color=black tag={109-246 ridge}
+point(5:35:10.7049,-5:22:51.754) # point=x color=black tag={109-246 ridge}
+point(5:35:10.6444,-5:22:52.456) # point=x color=black tag={109-246 ridge}
+point(5:35:10.8275,-5:22:50.299) # point=x color=black tag={109-246 ridge}
+point(5:35:10.8779,-5:22:49.597) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0719,-5:22:41.650) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0585,-5:22:40.697) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0568,-5:22:44.108) # point=x color=black tag={109-246 ridge}
+point(5:35:11.0685,-5:22:43.255) # point=x color=black tag={109-246 ridge}

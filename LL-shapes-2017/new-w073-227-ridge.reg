@@ -1,0 +1,32 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:35:07.2700,-5:22:26.500) # point=circle
+point(5:35:07.3193,-5:22:27.661) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3096,-5:22:27.835) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.2999,-5:22:28.009) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.2717,-5:22:28.561) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3523,-5:22:26.921) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3271,-5:22:27.530) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.2620,-5:22:28.735) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.2415,-5:22:29.040) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.1638,-5:22:29.824) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.2931,-5:22:28.184) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.2833,-5:22:28.387) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.1375,-5:22:30.143) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.1162,-5:22:30.463) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.2172,-5:22:29.260) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.1900,-5:22:29.548) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.0913,-5:22:30.827) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.0477,-5:22:31.080) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3601,-5:22:26.747) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3650,-5:22:26.543) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3669,-5:22:25.905) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3349,-5:22:27.284) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3466,-5:22:27.116) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3679,-5:22:25.672) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3660,-5:22:25.295) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3679,-5:22:25.034) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3679,-5:22:26.326) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3669,-5:22:26.122) # point=x color=black tag={w073-227 ridge}
+point(5:35:07.3595,-5:22:24.482) # point=x color=black tag={w073-227 ridge}

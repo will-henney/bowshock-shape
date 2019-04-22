@@ -301,6 +301,158 @@ python observed-R90-vs-Rc.py
   5. And check the numbers in ~SOURCE-arcdata.json~ too
      - Iterate if necessary
 + We are mainly using the outer boundary of the arcs, but we have also measured the inner edge in some cases
+** Doing the ridge for all 18 sources
++ [2019-04-21 Sun] Updating the Paper IV LL section to use the new algorithms
++ And concentrate on the ridge since that is the closest to what we did with the MIPSGAL sources
++ [ ] Write the fit data to a json file, so that we can more easily process it later
+*** w073-227
+#+BEGIN_SRC python :eval no :tangle new-073-227-circle-fit.py
+  import sys 
+  sys.path.append("/Users/will/Dropbox/circle-fit")
+  import circle_fit
+
+  id_ = "w073-227"
+  for arc in ["ridge"]:
+      for delta_theta in 45, 50, 55, 60, 65, 70, 75, 80:
+          plotfile = f"{id_}-{arc}-{delta_theta:02d}.pdf"
+          print('#### '*10)
+          print("Creating", plotfile)
+          circle_fit.plot_solution(
+              f"new-{id_}-{arc}.reg",
+              f"{id_}-Bally_01-extract.fits",
+              plotfile,
+              delta_theta=delta_theta, vmin=8.0, vmax=13.0, sigma=1.5)
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+python new-073-227-circle-fit.py
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-45.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 2.269, Lambda = 2.766, dLambda = -0.894)
+CircleFit(Pi = 3.486, Lambda = 2.866, dLambda = -0.974)
+CircleFit(Pi = 3.486, Lambda = 2.866, dLambda = -0.974)
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-50.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 1.980, Lambda = 2.719, dLambda = -0.858)
+CircleFit(Pi = 3.200, Lambda = 2.572, dLambda = -0.679)
+CircleFit(Pi = 3.200, Lambda = 2.572, dLambda = -0.679)
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-55.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 2.159, Lambda = 2.510, dLambda = -0.646)
+CircleFit(Pi = 2.653, Lambda = 2.461, dLambda = -0.580)
+CircleFit(Pi = 2.653, Lambda = 2.461, dLambda = -0.580)
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-60.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 2.470, Lambda = 2.417, dLambda = -0.542)
+CircleFit(Pi = 2.891, Lambda = 2.377, dLambda = -0.486)
+CircleFit(Pi = 2.891, Lambda = 2.377, dLambda = -0.486)
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-65.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 2.675, Lambda = 2.341, dLambda = -0.458)
+CircleFit(Pi = 2.945, Lambda = 2.327, dLambda = -0.432)
+CircleFit(Pi = 2.675, Lambda = 2.341, dLambda = -0.458)
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-70.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 3.181, Lambda = 2.317, dLambda = -0.410)
+CircleFit(Pi = 3.181, Lambda = 2.317, dLambda = -0.410)
+CircleFit(Pi = 3.181, Lambda = 2.317, dLambda = -0.410)
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-75.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 3.181, Lambda = 2.317, dLambda = -0.410)
+CircleFit(Pi = 3.181, Lambda = 2.317, dLambda = -0.410)
+CircleFit(Pi = 3.181, Lambda = 2.317, dLambda = -0.410)
+#### #### #### #### #### #### #### #### #### #### 
+Creating w073-227-ridge-80.pdf
+CircleFit(Pi = 6.024, Lambda = 2.552, dLambda = -0.455)
+CircleFit(Pi = 3.353, Lambda = 2.291, dLambda = -0.372)
+CircleFit(Pi = 3.353, Lambda = 2.291, dLambda = -0.372)
+CircleFit(Pi = 3.353, Lambda = 2.291, dLambda = -0.372)
+#+end_example
+*** 109-246
+#+BEGIN_SRC python :eval no :tangle new-109-246-circle-fit.py
+  import sys 
+  sys.path.append("/Users/will/Dropbox/circle-fit")
+  import circle_fit
+
+  id_ = "109-246"
+  for arc in ["ridge"]:
+      for delta_theta in 45, 50, 55, 60, 65, 70, 75, 80:
+          plotfile = f"{id_}-{arc}-{delta_theta:02d}.pdf"
+          print('#### '*10)
+          print("Creating", plotfile)
+          circle_fit.plot_solution(
+              f"new-{id_}-{arc}.reg",
+              f"{id_}-Bally_01-extract.fits",
+              plotfile,
+              delta_theta=delta_theta, vmin=30.0, vmax=42.0, sigma=1.5)
+#+END_SRC
+
+#+BEGIN_SRC sh :results verbatim
+python new-109-246-circle-fit.py
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-45.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 7.598, Lambda = 3.586, dLambda = 0.087)
+CircleFit(Pi = 7.598, Lambda = 3.586, dLambda = 0.087)
+CircleFit(Pi = 7.598, Lambda = 3.586, dLambda = 0.087)
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-50.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 10.225, Lambda = 3.603, dLambda = 0.051)
+CircleFit(Pi = 10.225, Lambda = 3.603, dLambda = 0.051)
+CircleFit(Pi = 10.225, Lambda = 3.603, dLambda = 0.051)
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-55.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 8.498, Lambda = 3.609, dLambda = 0.010)
+CircleFit(Pi = 8.498, Lambda = 3.609, dLambda = 0.010)
+CircleFit(Pi = 8.498, Lambda = 3.609, dLambda = 0.010)
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-60.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 8.498, Lambda = 3.609, dLambda = 0.010)
+CircleFit(Pi = 8.498, Lambda = 3.609, dLambda = 0.010)
+CircleFit(Pi = 8.498, Lambda = 3.609, dLambda = 0.010)
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-65.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 7.178, Lambda = 3.603, dLambda = -0.012)
+CircleFit(Pi = 7.178, Lambda = 3.603, dLambda = -0.012)
+CircleFit(Pi = 7.178, Lambda = 3.603, dLambda = -0.012)
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-70.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 7.227, Lambda = 3.596, dLambda = 0.012)
+CircleFit(Pi = 7.227, Lambda = 3.596, dLambda = 0.012)
+CircleFit(Pi = 7.227, Lambda = 3.596, dLambda = 0.012)
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-75.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 7.175, Lambda = 3.596, dLambda = 0.009)
+CircleFit(Pi = 7.175, Lambda = 3.596, dLambda = 0.009)
+CircleFit(Pi = 7.175, Lambda = 3.596, dLambda = 0.009)
+#### #### #### #### #### #### #### #### #### #### 
+Creating 109-246-ridge-80.pdf
+CircleFit(Pi = 7.272, Lambda = 3.624, dLambda = 0.014)
+CircleFit(Pi = 7.207, Lambda = 3.605, dLambda = -0.020)
+CircleFit(Pi = 7.207, Lambda = 3.605, dLambda = -0.020)
+CircleFit(Pi = 7.207, Lambda = 3.605, dLambda = -0.020)
+#+end_example
 
 
 ** Turns out that it should have been 069-601 all along
@@ -473,7 +625,6 @@ CircleFit(Planitude = 2.199865758779868, Alatude = [ 2.23592603  2.06508013])
 CircleFit(Planitude = 2.275794733312182, Alatude = [ 2.26513094  2.05658014])
 CircleFit(Planitude = 2.275794733312182, Alatude = [ 2.26513094  2.05658014])
 #+end_example
-
 
 
 
