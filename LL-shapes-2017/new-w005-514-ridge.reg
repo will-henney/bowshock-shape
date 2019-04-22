@@ -1,0 +1,36 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:35:00.4710,-5:25:14.210) # point=circle
+point(5:35:00.5584,-5:25:13.630) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5494,-5:25:13.364) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5047,-5:25:12.671) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5698,-5:25:14.442) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5687,-5:25:13.979) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5638,-5:25:13.761) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4814,-5:25:12.445) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4627,-5:25:12.234) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4125,-5:25:11.680) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5386,-5:25:13.159) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5236,-5:25:12.953) # point=x color=black tag={005-514 ridge}
+point(5:35:00.3971,-5:25:11.535) # point=x color=black tag={005-514 ridge}
+point(5:35:00.3647,-5:25:11.366) # point=x color=black tag={005-514 ridge}
+point(5:35:00.2440,-5:25:11.033) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4384,-5:25:11.995) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4222,-5:25:11.801) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5698,-5:25:14.618) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5687,-5:25:14.736) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5568,-5:25:15.339) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5704,-5:25:14.131) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5704,-5:25:14.299) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5453,-5:25:15.601) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5271,-5:25:15.823) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4840,-5:25:16.799) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5676,-5:25:14.896) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5656,-5:25:15.027) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4655,-5:25:17.060) # point=x color=black tag={005-514 ridge}
+point(5:35:00.5102,-5:25:16.277) # point=x color=black tag={005-514 ridge}
+point(5:35:00.4976,-5:25:16.552) # point=x color=black tag={005-514 ridge}
+point(5:35:00.1956,-5:25:11.093) # point=x color=black tag={005-514 ridge}
+point(5:35:00.3197,-5:25:11.168) # point=x color=black tag={005-514 ridge}
+point(5:35:00.2843,-5:25:11.093) # point=x color=black tag={005-514 ridge}
