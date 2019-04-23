@@ -1,0 +1,45 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+point(5:35:31.3980,-5:28:16.360) # point=circle
+point(5:35:31.3751,-5:28:14.608) # point=x color=black
+point(5:35:31.3403,-5:28:14.764) # point=x color=black
+point(5:35:31.3020,-5:28:15.024) # point=x color=black
+point(5:35:31.2833,-5:28:15.219) # point=x color=black
+point(5:35:31.2581,-5:28:15.395) # point=x color=black
+point(5:35:31.2363,-5:28:15.545) # point=x color=black
+point(5:35:31.2010,-5:28:15.771) # point=x color=black
+point(5:35:31.1742,-5:28:16.022) # point=x color=black
+point(5:35:31.1540,-5:28:16.247) # point=x color=black
+point(5:35:31.1019,-5:28:16.849) # point=x color=black
+point(5:35:31.3993,-5:28:14.517) # point=x color=black
+point(5:35:31.4278,-5:28:14.366) # point=x color=black
+point(5:35:31.4547,-5:28:14.291) # point=x color=black
+point(5:35:31.4799,-5:28:14.266) # point=x color=black
+point(5:35:31.5034,-5:28:14.216) # point=x color=black
+point(5:35:31.5252,-5:28:14.291) # point=x color=black
+point(5:35:31.5521,-5:28:14.241) # point=x color=black
+point(5:35:31.5790,-5:28:14.241) # point=x color=black
+point(5:35:31.6143,-5:28:14.165) # point=x color=black
+point(5:35:31.6361,-5:28:14.191) # point=x color=black
+point(5:35:31.6680,-5:28:14.266) # point=x color=black
+point(5:35:31.6949,-5:28:14.291) # point=x color=black
+point(5:35:31.7218,-5:28:14.441) # point=x color=black
+point(5:35:31.7675,-5:28:14.575) # point=x color=black
+point(5:35:31.8352,-5:28:14.503) # point=x color=black
+point(5:35:31.9266,-5:28:14.495) # point=x color=black
+point(5:35:32.0279,-5:28:14.587) # point=x color=black
+point(5:35:32.1115,-5:28:14.587) # point=x color=black
+point(5:35:31.0314,-5:28:17.621) # point=x color=black
+point(5:35:30.9652,-5:28:18.609) # point=x color=black
+point(5:35:30.9050,-5:28:19.598) # point=x color=black
+point(5:35:30.8568,-5:28:20.676) # point=x color=black
+point(5:35:31.3214,-5:28:14.862) # point=x color=black
+point(5:35:31.3587,-5:28:14.635) # point=x color=black
+point(5:35:31.1116,-5:28:17.995) # point=x color=black
+point(5:35:31.1116,-5:28:19.118) # point=x color=black
+point(5:35:31.1167,-5:28:20.317) # point=x color=black
+point(5:35:31.1016,-5:28:21.290) # point=x color=black
+point(5:35:31.7737,-5:28:15.224) # point=x color=black
+point(5:35:31.8991,-5:28:16.048) # point=x color=black
+point(5:35:31.9493,-5:28:16.572) # point=x color=black
