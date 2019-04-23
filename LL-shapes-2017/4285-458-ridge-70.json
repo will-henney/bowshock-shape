@@ -1,0 +1,11 @@
+{
+    "info": "Last iterated fit from circle_fit.py",
+    "region file": "new-4285-458-ridge.reg",
+    "FITS file": "4285-458-Robberto_ACS_1r_f658n-extract.fits",
+    "d theta": 70,
+    "Pi": 2.7975208775251543,
+    "Lambda": 2.1210520764977447,
+    "d Lambda": -0.1969245001418598,
+    "R0": 29.74079440884291,
+    "axis angle": -83.66538228363456
+}
