@@ -304,7 +304,7 @@ python observed-R90-vs-Rc.py
 ** Doing the ridge for all 18 sources
 + [2019-04-21 Sun] Updating the Paper IV LL section to use the new algorithms
 + And concentrate on the ridge since that is the closest to what we did with the MIPSGAL sources
-+ [ ] Write the fit data to a json file, so that we can more easily process it later
++ [X] Write the fit data to a json file, so that we can more easily process it later
 *** w073-227
 #+BEGIN_SRC python :eval no :tangle new-073-227-circle-fit.py
   import sys 
@@ -1788,6 +1788,63 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
 CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
 CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
 #+end_example
+
+** Collate LL ridge data from JSON files
+#+begin_src python :return output_tab
+  import glob
+  import json
+  import numpy as np
+  from astropy.table import Table
+  import pandas as pd
+
+  SOURCES = [
+      "w073-227", "109-246", "w000-400", "w005-514", "w012-407", "w030-524",
+      "042-628", "LL1", "w069-601", "4285-458", "LL3", "LL4",
+      "4468-605", "116-3101", "w266-558", "308-3036", "LL5", "LL6"
+  ]
+
+  output_tab = [
+      ["source", "Pi", "Lambda", "dLambda"],
+      None
+  ]
+  for id_ in SOURCES:
+      files = glob.glob(f"{id_}-ridge-*.json")
+      datalist = []
+      for file_ in files:
+          datalist.append(json.load(open(file_)))
+      #datatable = pd.DataFrame(data=datalist)
+      datatable = Table(rows=datalist)
+
+      # Just use the d theta between 55 and 70
+      m = (datatable["d theta"] >= 55) & (datatable["d theta"] <= 70)
+      output_row = [id_]
+      for colname in "Pi", "Lambda", "d Lambda":
+          output_row.append(list(datatable[m][colname].data.round(2)))
+      output_tab.append(output_row)
+
+#+end_src
+
+#+RESULTS:
+| source   | Pi                    | Lambda                | dLambda                   |
+|----------+-----------------------+-----------------------+---------------------------|
+| w073-227 | (3.18 2.89 2.65 2.68) | (2.32 2.38 2.46 2.34) | (-0.41 -0.49 -0.58 -0.46) |
+| 109-246  | (8.5 7.23 7.18 8.5)   | (3.61 3.6 3.6 3.61)   | (0.01 0.01 -0.01 0.01)    |
+| w000-400 | (4.22 4.34 3.26 3.66) | (2.76 2.79 2.73 2.73) | (-0.56 -0.73 -0.64 -0.49) |
+| w005-514 | (1.42 1.5 1.5 1.42)   | (1.7 1.68 1.68 1.7)   | (0.36 0.29 0.29 0.36)     |
+| w012-407 | (2.22 2.76 2.72 2.22) | (2.59 2.61 2.6 2.59)  | (-0.22 -0.1 -0.09 -0.22)  |
+| w030-524 | (4.25 6.47 4.25 3.71) | (2.17 2.18 2.17 2.16) | (-0.24 -0.21 -0.24 -0.25) |
+| 042-628  | (2.48 2.01 1.92 2.54) | (2.06 2.03 2.02 2.06) | (-0.32 -0.16 -0.13 -0.31) |
+| LL1      | (2.54 2.83 2.7 2.05)  | (2.34 2.36 2.34 2.31) | (0.13 0.12 0.1 0.03)      |
+| w069-601 | (2.62 2.38 2.5 3.05)  | (2.18 2.17 2.18 2.2)  | (-0.06 -0.05 -0.07 -0.03) |
+| 4285-458 | (2.96 2.85 2.82 2.8)  | (2.14 2.13 2.13 2.12) | (-0.22 -0.23 -0.23 -0.2)  |
+| LL3      | (4.58 3.16 2.48 3.16) | (3.09 3.0 2.82 3.0)   | (-1.27 -1.11 -0.88 -1.11) |
+| LL4      | (2.81 3.22 2.85 2.52) | (3.29 3.38 3.32 3.32) | (-0.78 -0.64 -0.33 -0.42) |
+| 4468-605 | (1.36 1.14 1.36 1.46) | (1.75 1.84 1.75 1.78) | (0.29 0.44 0.29 0.31)     |
+| 116-3101 | (1.56 1.37 1.32 1.39) | (1.64 1.61 1.61 1.61) | (-0.06 -0.01 0.01 -0.0)   |
+| w266-558 | (1.55 2.1 2.1 1.63)   | (2.67 2.45 2.45 2.75) | (0.59 0.19 0.19 0.7)      |
+| 308-3036 | (1.33 1.35 1.32 1.27) | (1.63 1.57 1.55 1.61) | (0.41 0.3 0.28 0.38)      |
+| LL5      | (5.78 5.38 5.09 4.66) | (3.5 3.52 3.48 3.36)  | (0.31 0.16 0.25 0.26)     |
+| LL6      | (4.92 6.94 5.94 3.09) | (4.38 4.37 4.37 4.38) | (0.68 0.21 0.43 1.14)     |
 
 ** Turns out that it should have been 069-601 all along
 
