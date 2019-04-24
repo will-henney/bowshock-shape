@@ -1794,7 +1794,7 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
   import glob
   import json
   import numpy as np
-  from astropy.table import Table
+  from astropy.table import Table, vstack
   import pandas as pd
 
   SOURCES = [
@@ -1807,6 +1807,7 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
       ["source", "Pi", "Lambda", "dLambda"],
       None
   ]
+  datatablelist = []
   for id_ in SOURCES:
       files = glob.glob(f"{id_}-ridge-*.json")
       datalist = []
@@ -1814,13 +1815,28 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
           datalist.append(json.load(open(file_)))
       #datatable = pd.DataFrame(data=datalist)
       datatable = Table(rows=datalist)
-
+    
       # Just use the d theta between 55 and 70
       m = (datatable["d theta"] >= 55) & (datatable["d theta"] <= 70)
+
+      # Save in a list of all the Tables, which we combine later
+      datatablelist.append(datatable[m])
+    
+      # And save a version for printing in org file
       output_row = [id_]
       for colname in "Pi", "Lambda", "d Lambda":
           output_row.append(list(datatable[m][colname].data.round(2)))
       output_tab.append(output_row)
+
+    
+  # Also save the data in two astropy tables
+  # First with all the fitted circle parameters
+  alldatatable = vstack(datatablelist).group_by("region file")
+  alldatatable.write("new-ll-arcs-all.tab", format="ascii.tab")
+
+  # Second with the median values for each source
+  mediantable = alldatatable.groups.aggregate(np.median)
+  mediantable.write("new-ll-arcs-median.tab", format="ascii.tab")
 
 #+end_src
 
