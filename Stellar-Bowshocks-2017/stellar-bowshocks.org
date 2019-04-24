@@ -5615,6 +5615,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
   from scipy.stats import ks_2samp, anderson_ksamp
   from astropy.table import Table
   from matplotlib import pyplot as plt
+  import matplotlib
   from matplotlib.colors import PowerNorm
   import matplotlib.ticker as mticker
   import seaborn as sns
@@ -5657,7 +5658,8 @@ This is the one I am tending towards - close together on the sky, clearly showin
   tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
   tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
 
-  otab = Table.read('../LL-shapes-2017/ll-arcs-radii.tab', format='ascii.tab')
+  otab = Table.read('../LL-shapes-2017/new-ll-arcs-all.tab', format='ascii.tab')
+  omtab = Table.read('../LL-shapes-2017/new-ll-arcs-median.tab', format='ascii.tab')
 
   fig, ax = plt.subplots(figsize=(6, 6))
   Rc_grid = np.linspace(0.0, 10.0, 2000)
@@ -5703,24 +5705,27 @@ This is the one I am tending towards - close together on the sky, clearly showin
                   n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
                   levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
-                  bw=(0.045, 0.03),
+                  bw=(0.045, 0.03), 
                   shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
 
-      sns.kdeplot(otab['Rc out'].data, otab['R90'].data, 
+      sns.kdeplot(otab['Pi'].data, otab['Lambda'].data, 
                   n_levels=8, cmap='Greens_d', linewidths=1, norm=PowerNorm(gamma),
                   linestyles=ls, 
                   #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
-                  bw=(0.09, 0.06),
+                  bw=(0.06, 0.045),
                   shade=False, shade_lowest=False, ax=ax, alpha=alpha)
-    
+
   # masks5 = m5, 
   # colors = 'purple', 
   # alphas = 0.8, 
   # labels = 'MIPSGAL',
 
-  ax.plot(tab['Rc'][m5], tab['R90'][m5], 
-          'o', ms=4, alpha=0.5, c='purple', label='MIPSGAL arcs')
-  ax.plot(otab['Rc out'], otab['R90'], 
+  # Fake a legend for the NIPSGAL contours
+  cmap = matplotlib.cm.get_cmap(cmaps[0])
+  ax.fill_between([], [],
+                  color=cmap(0.7), alpha=alpha, label='MIPSGAL arcs')
+  # Only put points for the LL arcs
+  ax.plot(omtab['Pi'], omtab['Lambda'], 
           'o', ms=7, alpha=0.8, c='g', mec='w', mew=1, label='M42 arcs')
 
   ax.legend(frameon=True, loc='lower right', title='')
@@ -5765,7 +5770,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
 
       # Back to the original masks that include 5, 4, 3-star sources
       yq0, dyq = 0.1, 0.05
-      datasets = tab['Rc'][m], otab['Rc out']
+      datasets = tab['Rc'][m], omtab['Pi']
       for data, c, axx in zip(datasets, colors, [ax_y_Rc, ax_n_Rc]):
           sns.distplot(data, bins=bins_, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
@@ -5796,7 +5801,7 @@ This is the one I am tending towards - close together on the sky, clearly showin
       ax_y_Rc.tick_params(labelbottom='off') 
 
       # Back to the original masks that include 5, 4, 3-star sources
-      datasets = tab['R90'][m], otab['R90']
+      datasets = tab['R90'][m], omtab['Lambda']
       for data, c, axx in zip(datasets, colors, [ax_y_R90, ax_n_R90]):
           sns.distplot(data, bins=binsx, hist_kws={'range': range_},
                        color=c, kde=False, ax=axx)
