@@ -1,4 +1,10 @@
 
+* Page proofs
++ It was very hard to get the actual PDF file of the proofs
++ I had to dig down about 50 levels with the source editor
++ Finally found here
+  + http://powerxeditor.aptaracorp.com/pxestore/assets/pxeoup///MNRAS/proofpdf/stz1043.pdf
+  + File is [[file:stz1043-page-proofs.pdf]]
 * Revised version
 ** Ref report
 #+BEGIN_QUOTE
