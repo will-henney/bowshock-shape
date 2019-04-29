@@ -244,10 +244,10 @@ indicated by the dotted horizontal line in te figure).
     paraboloids (curved black line); hyperboloids (white background).
     (a) Individual sources with bow shock fit quality rating of 3-star
     or above.  All 5-star sources plus those 4-star sources with
-    \(\Pi < 1\) are labelled with their \cite{Kobulnicky:2016a}
-    catalog number.  Horizontal error bars do not directly reflect the
-    uncertainty in \(\Pi\) but are instead simply the standard
-    deviation from the circle fit of bowshock points \(R_k\) within
+    \(\Pi < 1\) are labelled with their \cite{Kobulnicky:2016a} catalog
+    number.  Horizontal error bars do not directly reflect the
+    uncertainty in \(\Pi\) but are instead simply the standard deviation
+    from the circle fit of bowshock points \(R_k\) within
     \(\pm 45\degr\) of the axis.  Values on the vertical axis
     represent the average of \(\Lambda_{+}\) and \(\Lambda_{-}\), with thin
     vertical error bars showing the difference between \(\Lambda_{+}\) and
@@ -258,11 +258,11 @@ indicated by the dotted horizontal line in te figure).
     distribution for 3-star sources (blue, filled contours) and 4-
     plus 5-star sources (orange/brown, unfilled contours).  The KDE
     uses an anisotropic gaussian kernel with bandwidths of
-    \(0.18 \times 0.12\). Thumbnail images of representative 4- and 5-star
-    sources at different points on the \(\Pi\)--\(\Lambda\) plane are
-    also shown. The angular scale of each image is indicated by a
-    yellow circle of diameter \(7.5''\), centered on the stellar
-    source.}
+    \(0.06 \times 0.04\) in \(\log_{10}\) units. Thumbnail images of
+    representative 4- and 5-star sources at different points on the
+    \(\Pi\)--\(\Lambda\) plane are also shown. The angular scale of each image
+    is indicated by a yellow circle of diameter \(7.5''\), centered on
+    the stellar source.}
   \label{fig:mipsgal-shapes}
 \end{figure*}
 
@@ -864,9 +864,8 @@ Herschel sources.
   \caption[]{Shape comparison between Orion Nebula arcs and OB star
     bow shocks.  Other details of the plots are as in
     Figs.~\ref{fig:mipsgal-shapes} and~\ref{fig:mipsgal-uncorrelated},
-    except that the diagnostic plots are zoomed out to encompass
-    larger ratio values, and a larger KDE smoothing bandwidth of
-    \(0.3 \times 0.2\) is used.}
+    except that a larger KDE smoothing bandwidth of
+    \(0.06 \times 0.045\) is used for the Orion Nebula sample.}
   \label{fig:ll-compare-mipsgal}
 \end{figure}
 
@@ -900,6 +899,30 @@ the same source with different \(\Delta\theta\), which we find to be
 \(\approx 1 \%\), but in this case the accuracy is limited by the asymmetry
 of the wings, as characterized by \(\Delta\Lambda/\Lambda\) with an RMS value of
 \(\approx 15\%\).
+
+The resultant shape distribution for the Orion Nebula arcs is shown in
+Figure~\ref{fig:ll-compare-mipsgal}, where it is compared with the OB
+star shapes from \S~\ref{sec:ob-shapes}.  It can be seen that both the
+planitude and alatude distributions are shifted towards higher values,
+with median values of \(\Pi = 2.70\) and \(\Lambda = 2.55\).  The difference
+from the MIPSGAL sources (\(\Pi = 1.57\) and \(\Lambda = 1.69\)) is highly
+statistically significant, as indicated by extremely low \(p\)-values
+for the Anderson--Darling tests.  It is also at least 4 times larger
+than the systematic fitting uncertainties discussed in the previous
+paragraph.  On closer inspection, it appears that the shape
+distribution is bimodal.  Four of the sources (005--514, 4468--605,
+116--3101, 308--3036) are similar to typical OB stars, with
+\(\Lambda \approx \Pi \approx 1.5\), whereas the remainder are concentrated in the range
+\(\Pi = 2\) to \(4\), with an extended tail towards higher planitude.
+The alatudes mainly follow the line for parabolas,
+\(\Lambda = (2\Pi)^{1/2}\) (see App.~C of Paper~0), and the deviations from
+this line can be readily understood in terms of peculiar morphologies
+of the source (Fig.~\ref{fig:ll-arcs}).  For instance, LL~4 and
+266--558 both show large alatudes for their respective planitudes and
+these are both sources where the bow shock wings seem to bend outwards
+instead of following the curve from the apex region.  In contrast,
+030--524 has a small alatude for its planitude and this is a very
+asymmetric source with an apparent corner to the shell on one side.
 
 %Mention future JWST observations with \(0.85\arcsec\) resolution at \SI{22}{\um}. 
 

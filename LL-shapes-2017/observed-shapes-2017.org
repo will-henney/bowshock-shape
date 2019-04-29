@@ -1866,6 +1866,9 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
 | LL5      | (5.78 5.38 5.09 4.66) | (3.5 3.52 3.48 3.36)  | (0.31 0.16 0.25 0.26)     |
 | LL6      | (4.92 6.94 5.94 3.09) | (4.38 4.37 4.37 4.38) | (0.68 0.21 0.43 1.14)     |
 
++ Similar to OB stars:
+  + \Pi < 1.7
+  + 005-514, 4468-605, 116-3101, 308-3036
 
 *** Look at the collated data median and sigma
 #+begin_src python :return outtab
