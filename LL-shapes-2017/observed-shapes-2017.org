@@ -1829,7 +1829,7 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
       output_tab.append(output_row)
 
     
-  # Also save the data in two astropy tables
+  # Also save the data in some astropy tables
   # First with all the fitted circle parameters
   alldatatable = vstack(datatablelist).group_by("region file")
   alldatatable.write("new-ll-arcs-all.tab", format="ascii.tab")
@@ -1837,6 +1837,10 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
   # Second with the median values for each source
   mediantable = alldatatable.groups.aggregate(np.median)
   mediantable.write("new-ll-arcs-median.tab", format="ascii.tab")
+
+  # Third with the spread of values for each source
+  sigmatable = alldatatable.groups.aggregate(np.std)
+  sigmatable.write("new-ll-arcs-sigma.tab", format="ascii.tab")
 
 #+end_src
 
@@ -1861,6 +1865,38 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
 | 308-3036 | (1.33 1.35 1.32 1.27) | (1.63 1.57 1.55 1.61) | (0.41 0.3 0.28 0.38)      |
 | LL5      | (5.78 5.38 5.09 4.66) | (3.5 3.52 3.48 3.36)  | (0.31 0.16 0.25 0.26)     |
 | LL6      | (4.92 6.94 5.94 3.09) | (4.38 4.37 4.37 4.38) | (0.68 0.21 0.43 1.14)     |
+
+
+*** Look at the collated data median and sigma
+#+begin_src python :return outtab
+  from astropy.table import Table, join
+  import pandas as pd
+
+  medtab = Table.read("new-ll-arcs-median.tab", format="ascii.tab")
+  sigtab = Table.read("new-ll-arcs-sigma.tab", format="ascii.tab")
+
+  tab = join(medtab, sigtab, keys="region file", table_names=["", "d"])
+
+  tab["source"] = [s.replace("-ridge.reg", "").replace("new-", "") for s in tab["region file"].data]
+  tab["sig(Pi)/Pi"] = tab["Pi_d"]/tab["Pi_"]
+  tab["sig(Lambda)/Lambda"] = tab["Lambda_d"]/tab["Lambda_"]
+  tab["dLambda/Lambda"] = tab["d Lambda_"]/tab["Lambda_"]
+  columns = ["source", "Pi_", "sig(Pi)/Pi", "Lambda_", "sig(Lambda)/Lambda", "dLambda/Lambda"]
+  df = tab[columns].to_pandas()
+
+  outtab = df.describe()
+#+end_src
+
+#+RESULTS:
+:        Pi_        sig(Pi)/Pi    Lambda_  sig(Lambda)/Lambda  dLambda/Lambda
+: count  18.000000   18.000000  18.000000           18.000000       18.000000
+: mean    3.089523    0.110211   2.531904            0.012901       -0.021935
+: std     1.713879    0.072785   0.770988            0.013216        0.161002
+: min     1.329569    0.022372   1.586594            0.000682       -0.369143
+: 25%     1.957806    0.076708   2.067633            0.003453       -0.114877
+: 50%     2.702843    0.092726   2.351606            0.008106       -0.014720
+: 75%     3.744471    0.118936   2.935224            0.019011        0.113438
+: max     7.862616    0.262075   4.373517            0.051801        0.212751
 
 ** Turns out that it should have been 069-601 all along
 

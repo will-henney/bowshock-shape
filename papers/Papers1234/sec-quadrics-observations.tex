@@ -849,18 +849,24 @@ Herschel sources.
 \begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/annotated-ll-arcs}
-  \caption[]{Stationary bow shock arcs in the Orion Nebula.}
+  \caption[]{Stationary bow shock arcs in the Orion Nebula.  Images
+    are of H\(\alpha\) plus [\ion{N}{ii}] emission through the HST ACS f658n
+    filter. The angular scale of each image is different, with the
+    yellow horizontal lines indicating \(5''\), corresponding to a
+    physical scale of \(\approx\SI{0.01}{pc}\).  Orange arrows indicate the
+    direction to the principal ionizing star, \thC. }
   \label{fig:ll-arcs}
 \end{figure*}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/mipsgal-Rc-R90-vs-Orion}
-  \caption[]{Comparison of Orion with OB stars.  Other details of the
-    plots are as in Figs.~\ref{fig:mipsgal-shapes}
-    and~\ref{fig:mipsgal-uncorrelated}, except that the diagnostic
-    plots are zoomed out to encompass larger ratio values, and a
-    larger KDE smoothing bandwidth of \(0.3 \times 0.2\) is used.}
+  \caption[]{Shape comparison between Orion Nebula arcs and OB star
+    bow shocks.  Other details of the plots are as in
+    Figs.~\ref{fig:mipsgal-shapes} and~\ref{fig:mipsgal-uncorrelated},
+    except that the diagnostic plots are zoomed out to encompass
+    larger ratio values, and a larger KDE smoothing bandwidth of
+    \(0.3 \times 0.2\) is used.}
   \label{fig:ll-compare-mipsgal}
 \end{figure}
 
@@ -876,14 +882,26 @@ sources are shown in Figure~\ref{fig:ll-arcs}.  Some of the sources
 were identified as LL~Orionis-type objects by \citet{Bally:2001a} and
 are identified as LL~1--6. The remaining sources are labeled by their
 coordinate-based designation according to the system of
-\citet{ODell:1994a}.
+\citet{ODell:1994a}.  The determination of the bow shock shape for
+each source was carried out as described in \S~7 of Paper~0, using the
+``ridge'' method for manually tracing the arc (see Fig.~28 of
+Paper~0).  The planitude and alatude are found by circle fitting using
+the algorithm described in Paper~0's Appendix~E, as implemented in the
+python program
+\texttt{circle-fit.py}.\footnote{\url{https://github.com/div-B-equals-0/circle-fit}}
+The only adjustable parameter of the algorithm is \(\Delta\theta\), the maximum
+angle from the bow shock axis of points that are included in the
+circle fit.  We tested all values of \(\Delta\theta\) in \ang{5} increments from
+\ang{45} to \ang{80} and found that \(\Delta\theta = \ang{55}\) to \ang{70}
+gives stable results for all sources.  The accuracy of the fitted
+planitudes can be estimated from the dispersion in values of \(\Pi\) for
+the same source with different \(\Delta\theta\), which we find to be
+\(\approx 10\%\).  The fitted alatudes have a much smaller dispersion
+\(\approx 1 \%\), but in this case the accuracy is limited by the asymmetry
+of the wings, as characterized by \(\Delta\Lambda/\Lambda\) with an RMS value of
+\(\approx 15\%\).
 
-In \S~7 of Paper~0, we discussed in detail 
-Two of the sources, 000--400 and 069--641, were discussed in detail in
-.
-
-
-Mention future JWST observations with \(0.85\arcsec\) resolution at \SI{22}{\um}. 
+%Mention future JWST observations with \(0.85\arcsec\) resolution at \SI{22}{\um}. 
 
 
 %%% Local Variables:
