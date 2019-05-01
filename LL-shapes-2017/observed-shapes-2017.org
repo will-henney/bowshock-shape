@@ -1815,27 +1815,30 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
           datalist.append(json.load(open(file_)))
       #datatable = pd.DataFrame(data=datalist)
       datatable = Table(rows=datalist)
-    
+
       # Just use the d theta between 55 and 70
       m = (datatable["d theta"] >= 55) & (datatable["d theta"] <= 70)
 
       # Save in a list of all the Tables, which we combine later
       datatablelist.append(datatable[m])
-    
+
       # And save a version for printing in org file
       output_row = [id_]
       for colname in "Pi", "Lambda", "d Lambda":
           output_row.append(list(datatable[m][colname].data.round(2)))
       output_tab.append(output_row)
 
-    
+
   # Also save the data in some astropy tables
   # First with all the fitted circle parameters
   alldatatable = vstack(datatablelist).group_by("region file")
   alldatatable.write("new-ll-arcs-all.tab", format="ascii.tab")
 
   # Second with the median values for each source
-  mediantable = alldatatable.groups.aggregate(np.median)
+  # Take the absolute value because the d Lambda can be negative
+  mediantable = alldatatable.groups.aggregate(
+      lambda x: np.median(np.abs(x))
+  )
   mediantable.write("new-ll-arcs-median.tab", format="ascii.tab")
 
   # Third with the spread of values for each source
@@ -1891,15 +1894,15 @@ CircleFit(Pi = 8.277, Lambda = 4.248, dLambda = 0.503)
 #+end_src
 
 #+RESULTS:
-:        Pi_        sig(Pi)/Pi    Lambda_  sig(Lambda)/Lambda  dLambda/Lambda
+: Pi_  sig(Pi)/Pi    Lambda_  sig(Lambda)/Lambda  dLambda/Lambda
 : count  18.000000   18.000000  18.000000           18.000000       18.000000
-: mean    3.089523    0.110211   2.531904            0.012901       -0.021935
-: std     1.713879    0.072785   0.770988            0.013216        0.161002
-: min     1.329569    0.022372   1.586594            0.000682       -0.369143
-: 25%     1.957806    0.076708   2.067633            0.003453       -0.114877
-: 50%     2.702843    0.092726   2.351606            0.008106       -0.014720
-: 75%     3.744471    0.118936   2.935224            0.019011        0.113438
-: max     7.862616    0.262075   4.373517            0.051801        0.212751
+: mean    3.089523    0.110211   2.531904            0.012901        0.130583
+: std     1.713879    0.072785   0.770988            0.013216        0.091531
+: min     1.329569    0.022372   1.586594            0.000682        0.002955
+: 25%     1.957806    0.076708   2.067633            0.003453        0.064773
+: 50%     2.702843    0.092726   2.351606            0.008106        0.121632
+: 75%     3.744471    0.118936   2.935224            0.019011        0.187135
+: max     7.862616    0.262075   4.373517            0.051801        0.369143
 
 ** Turns out that it should have been 069-601 all along
 
@@ -2076,7 +2079,7 @@ CircleFit(Planitude = 2.275794733312182, Alatude = [ 2.26513094  2.05658014])
 
 
 
-* 069-601 summary tables for \Delta\theta = 60 \to 80\deg
+** 069-601 summary tables for \Delta\theta = 60 \to 80\deg
 #+name: 069-601-inner-stats
 |    |              Pi |              \Lambda- |              \Lambda+ |               \Lambda |              \Delta\Lambda |
 |----+-----------------+-----------------+-----------------+-----------------+-----------------|
@@ -2143,7 +2146,7 @@ CircleFit(Planitude = 2.275794733312182, Alatude = [ 2.26513094  2.05658014])
 #+TBLFM: $5=vmean([$-1, $-2]);f3::$6=($-3 - $-2)/2 ;f3::@17$2..@17$6=vmeane(@I..@II);f2::@18$2..@18$6=vsdev(@I..@II);f2
 
 
-*** 069-601 results for \Delta\theta = 75
+**** 069-601 results for \Delta\theta = 75
  | Curve |               \Pi |              \Lambda- |              \Lambda+ |
  |-------+-----------------+-----------------+-----------------|
  | Inner |           3.728 |           3.375 |           2.435 |
@@ -2153,7 +2156,7 @@ CircleFit(Planitude = 2.275794733312182, Alatude = [ 2.26513094  2.05658014])
  |       | 2.794 +/- 0.496 | 2.577 +/- 0.401 | 2.212 +/- 0.113 |
   #+TBLFM: @5$2..@5$4=vmeane(@I..@II);f3
  
-*** 069-601 results for \Delta\theta = 60
+**** 069-601 results for \Delta\theta = 60
  | Curve |               \Pi |              \Lambda- |              \Lambda+ |
  |-------+-----------------+-----------------+-----------------|
  | Inner |           4.209 |           3.299 |           2.501 |
@@ -2164,7 +2167,7 @@ CircleFit(Planitude = 2.275794733312182, Alatude = [ 2.26513094  2.05658014])
   #+TBLFM: @5$2..@5$4=vmeane(@I..@II);f3
  
 
-*** 069-601 results for \Pi vs \Delta\theta
+**** 069-601 results for \Pi vs \Delta\theta
 #+name: planitude-Dtheta-069-601
 | D theta | Outer | Ridge | Inner |
 |---------+-------+-------+-------|
@@ -2224,7 +2227,7 @@ python 069-601-Pi-vs-Dtheta.py
 [[file:069-601-Pi-vs-Dtheta.pdf]]
 
 
-*** 069-601 planitude-alatude graph
+**** 069-601 planitude-alatude graph
 
 Just copied from the 000-400 one with different data
 
@@ -2318,7 +2321,7 @@ python 069-601-planitude-alatude.py
 [[file:069-601-planitude-alatude.pdf]]
 
 
-** Summary of M42 bows
+*** Summary of M42 bows
 + Taking the (mean +/- sigma) values over \Delta\theta
   + Note that this is /not/ the ~vmeane~ values on the original tables, since those were (mean +/- sigma/n^{1/2}), which is inappropriate for systematic errors
 
@@ -2365,13 +2368,13 @@ Table of parameters from Luis Angel paper
 + So, located at about 0.5 pc from Trapezium.
   + Whereas LV knots are at about 0.015 pc, which is 30 times closer
  
-** Focus on 000-400 for referee reply
+*** Focus on 000-400 for referee reply
 + I have entirely re-implemented the circle fitting
   + [[file:~/Dropbox/circle-fit/]]
   + Follows algorithm described in Appendix E
 
 
-*** Redo 000-400 images based on experience with 069-601
+**** Redo 000-400 images based on experience with 069-601
 #+BEGIN_SRC python :eval no :tangle new-000-400-circle-fit.py
   import sys 
   sys.path.append("/Users/will/Dropbox/circle-fit")
@@ -2543,7 +2546,7 @@ CircleFit(Planitude = 3.6421288513183048, Alatude = [ 3.13032277  2.32781293])
 
 
 
-*** 000-400 summary tables for \Delta\theta = 60\deg \to 80\deg
+**** 000-400 summary tables for \Delta\theta = 60\deg \to 80\deg
 + Note that the error form ~vmeane~ gives +/- std err of mean, which is \sigma/\sqrt{n}
 + However, since the uncertainties are systematic, not random, we should not be dividing by \sqrt{n} at all
 + So the last row gives the actual \sigma (~vsdev~), which is a better estimate of the uncertainty 
@@ -2610,7 +2613,7 @@ CircleFit(Planitude = 3.6421288513183048, Alatude = [ 3.13032277  2.32781293])
 |    |          0.54 |          0.37 |          0.21 |          0.15 |          0.16 |
 #+TBLFM: $5=vmean([$-1, $-2]);f3::$6=($-3 - $-2)/$2 ;f3::@17$2..@17$6=vmeane(@I..@II);f2::@18$2..@18$6=vsdev(@I..@II);f2
 
-*** Results of fits
+**** Results of fits
 + Results using |\theta| < 75\deg:
   | Curve   |               \Pi |              \Lambda- |              \Lambda+ |
   |---------+-----------------+-----------------+-----------------|
@@ -2750,7 +2753,7 @@ cp -v $FILES ../papers/Papers1234/figs
 : 069-601-Pi-vs-Dtheta.pdf -> ../papers/Papers1234/figs/069-601-Pi-vs-Dtheta.pdf
 
 
-*** Look at the variation in \Pi' with \Delta\theta
+**** Look at the variation in \Pi' with \Delta\theta
 #+name: planitude-Dtheta
 | D theta | Outer | Ridge | Inner |
 |---------+-------+-------+-------|
@@ -2831,7 +2834,7 @@ python 000-400-Pi-vs-Dtheta.py
 #+RESULTS:
 [[file:000-400-Pi-vs-Dtheta.pdf]]
 
-** TODO Making images of the LL object fits
+*** TODO Making images of the LL object fits
 Copy region files because we will need them
 #+BEGIN_SRC sh :results verbatim  :eval no
 cp -v ~/Dropbox/LuisBowshocks/j8oc*_wcs/*-forma.reg .

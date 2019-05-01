@@ -1,49 +1,6 @@
-\clearpage
-
-% Landscape table needs to go on its own page, so we need to manually
-% adjust the section counter so that it will ``belong'' to the next
-% section
-\addtocounter{section}{1}
-\sisetup{detect-all=true, detect-inline-weight=math}
-\sisetup{round-mode=figures, round-precision=2}
-\begin{landscape}
-\begin{table}
-  \setlength\tabcolsep{3pt}
-  \caption{Results of all statistical tests performed on observed bow shock shape parameters. Significant correlations are shown in \textbf{bold}, marginally significant correlations in \textit{italic}}
-  \label{tab:big-p}
-  \input{figs/mipsgal-summary-stats-table-body.tex}
-\end{table}
-\end{landscape}
-\begin{table}
-  \contcaption{Results of all statistical tests performed on observed
-    bow shock shape parameters.}
-  \begin{tabular}{p{0.9\linewidth}}
-    \toprule
-    \textit{Description of columns:}
-    (Col.~1)~How the two A/B source sub-samples are defined, also giving the size of each sub-sample, \(n_{\text{A}}\) and~\(n_{\text{B}}\).
-    (Col.~2)~Dependent variable whose distribution is compared between the two sub-samples.
-    (Cols.~3--6)~Mean and standard deviation, \(\sigma\), of the dependent variable for each of the two sub-samples.
-    (Cols.~7--8)~Mean over each sub-sample of the observational dispersion (\(\epsilon\), standard deviation) of radii that contribute to the dependent variable for each individual source, as in steps~\ref{step:R0} and \ref{step:R90} of \S~\ref{sec:autom-trac-fitt}.  Note that in the case of \(R_c\), this is \(\epsilon(R_0)\), and so is not a direct measure of the observational uncertainty in \(R_c\). 
-    (Cols.~9--10)~``Standard error of the mean'' (s.e.m.) of the dependent variable for each of the two sub-samples. 
-    (Cols.~11--13)~Standardized ``effect sizes'', which are dimensionless measures of the difference in the distribution of the dependent variable between the two sub-samples.
-    (Col.~11)~Rank biserial correlation coefficient \citep{Cureton:1956a}, which is obtained by considering all \(n_{\text{A}} n_{\text{B}}\) pair-wise comparisons of the dependent variable between a source in sub-sample~A and a source in sub-sample~B.  It is the difference between the fraction of such comparisons ``won'' by sub-sample~A and those ``won'' by sub-sample~B, and thus may vary between \(-1\) and \(+1\). 
-    (Col.~12)~Cohen's \(d\), which is a dimensionless mean difference: \(d = (\langle \text{A} \rangle - \langle \text{B} \rangle) / \sigma_{\text{pool}} \), where \(\sigma_{\text{pool}} = (n_{\text{A}} \sigma_{\text{A}}^2 + n_{\text{B}} \sigma_{\text{B}}^2)^{1/2} / \sqrt{n_{\text{A}} + n_{\text{B}}}\) is the pooled standard deviation.
-    (Col.~13)~Ratio of standard deviations between the two sub-samples.
-    (Cols.~14--16)~Probabilities (\(p\)-values) of the two sub-samples being as different as observed if they were to be drawn from the same population, according to three different non-parametric tests.
-    (Col.~14)~Anderson--Darling 2-sample test, which is a general test of similarity between two distributions that is designed to retain sensitivity to differences in the tails of the distributions.
-    (Col.~15)~Mann--Whitney--Wilcoxon \(U\) test \citep{Mann:1947a}, which is sensitive to differences in the central value of the distributions.
-    (Col.~16)~Brown--Forsythe test for equality of variance \citep{Brown:1974a}
-    \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\addtocounter{section}{-1}
 
 \section{Distribution of p-values for all correlations tested}
 \label{sec:distr-p-values}
-\addtocounter{table}{1}
-
 
 \begin{figure}
   (a)\\
@@ -69,43 +26,43 @@
 Results from all the statistical tests discussed in \S~\ref{sec:corr-shape} are given in Table~\ref{tab:big-p}.  
 
 
-\begin{table}
-  \caption{Lower bounds on the Type~I error rate, \(\alpha\)}
-  \label{tab:type-I}
-  \centering
-  \begin{tabular}{lrr} \toprule
-    Correlation & \(p\) & \(\alpha\) \\
-    \midrule
-    \multicolumn{3}{l}{\itshape Quantitative \dotfill}\\
-    \(R_c\) vs \(R_0\) & \textit{0.0054} & \textit{0.0712} \\
-    \(R_{90}\) vs \(R_0\) & \textbf{0.0001} & \textbf{0.0025} \\
-    \(R_c\) vs \(H_0\) & 0.1229 & 0.4119 \\
-    \(R_{90}\) vs \(H_0\) & \textit{0.0215} & \textit{0.1833} \\
-    \(R_c\) vs \(A_K\) & 0.19 & 0.4617 \\
-    \(R_{90}\) vs \(A_K\) & 0.63 & 1 \\
-    \(R_c\) vs \(|b|\) & 0.19 & 0.4617 \\
-    \(R_{90}\) vs \(|b|\) & 0.31 & 0.4967 \\
-    \(R_c\) vs \(\cos(\ell)\) & 1.00 & 1 \\
-    \(R_{90}\) vs \(\cos(\ell)\) & 0.36 & 0.4999 \\
-    \midrule
-    \multicolumn{3}{l}{\itshape Categorical} \dotfill\\
-    \(R_c\) vs Facing & 0.71 & 1 \\
-    \(R_c\) vs H II & 0.50 & 1 \\
-    \(R_{90}\) vs Facing & 0.60 & 1 \\
-    \(R_{90}\) vs H II & 0.52 & 1 \\
-    \(R_c\) vs Multiple & 1.00 & 1 \\
-    \(R_{90}\) vs Multiple & 0.34 & 0.4993 \\
-    \(R_c\) vs \SI{8}{\um} & 0.82 & 1 \\
-    \(R_{90}\) vs \SI{8}{\um} & 0.6 & 1 \\
-    \midrule
-    \multicolumn{3}{l}{\itshape Other datasets} \dotfill\\
-    \(R_c\) vs Herschel & 0.074 & 0.3437 \\
-    \(R_{90}\) vs Herschel & \textbf{0.00052} & \textbf{0.0106} \\
-    \(R_c\) vs M42 & \textbf{0.00048} & \textbf{0.0099} \\
-    \(R_{90}\) vs M42 & \textbf{0.0000105} & \textbf{0.0003} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+% \begin{table}
+%   \caption{Lower bounds on the Type~I error rate, \(\alpha\)}
+%   \label{tab:type-I}
+%   \centering
+%   \begin{tabular}{lrr} \toprule
+%     Correlation & \(p\) & \(\alpha\) \\
+%     \midrule
+%     \multicolumn{3}{l}{\itshape Quantitative \dotfill}\\
+%     \(R_c\) vs \(R_0\) & \textit{0.0054} & \textit{0.0712} \\
+%     \(R_{90}\) vs \(R_0\) & \textbf{0.0001} & \textbf{0.0025} \\
+%     \(R_c\) vs \(H_0\) & 0.1229 & 0.4119 \\
+%     \(R_{90}\) vs \(H_0\) & \textit{0.0215} & \textit{0.1833} \\
+%     \(R_c\) vs \(A_K\) & 0.19 & 0.4617 \\
+%     \(R_{90}\) vs \(A_K\) & 0.63 & 1 \\
+%     \(R_c\) vs \(|b|\) & 0.19 & 0.4617 \\
+%     \(R_{90}\) vs \(|b|\) & 0.31 & 0.4967 \\
+%     \(R_c\) vs \(\cos(\ell)\) & 1.00 & 1 \\
+%     \(R_{90}\) vs \(\cos(\ell)\) & 0.36 & 0.4999 \\
+%     \midrule
+%     \multicolumn{3}{l}{\itshape Categorical} \dotfill\\
+%     \(R_c\) vs Facing & 0.71 & 1 \\
+%     \(R_c\) vs H II & 0.50 & 1 \\
+%     \(R_{90}\) vs Facing & 0.60 & 1 \\
+%     \(R_{90}\) vs H II & 0.52 & 1 \\
+%     \(R_c\) vs Multiple & 1.00 & 1 \\
+%     \(R_{90}\) vs Multiple & 0.34 & 0.4993 \\
+%     \(R_c\) vs \SI{8}{\um} & 0.82 & 1 \\
+%     \(R_{90}\) vs \SI{8}{\um} & 0.6 & 1 \\
+%     \midrule
+%     \multicolumn{3}{l}{\itshape Other datasets} \dotfill\\
+%     \(R_c\) vs Herschel & 0.074 & 0.3437 \\
+%     \(R_{90}\) vs Herschel & \textbf{0.00052} & \textbf{0.0106} \\
+%     \(R_c\) vs M42 & \textbf{0.00048} & \textbf{0.0099} \\
+%     \(R_{90}\) vs M42 & \textbf{0.0000105} & \textbf{0.0003} \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
 
 
 The \(p\)-values are the probability of finding a difference between
@@ -179,7 +136,44 @@ Under the more conservative Holm--Bonferroni method, only comparisons with \(p <
 
 The p-curve \citep{Head:2015a}
 
+% \begin{table}
+%   \caption{Results of all statistical tests performed on observed
+%     bow shock shape parameters.}
+%   \begin{tabular}{p{0.95\linewidth}}
+%     \toprule
+%     \textit{Description of columns:}
+%     (Col.~1)~How the two A/B source sub-samples are defined, also giving the size of each sub-sample, \(n_{\text{A}}\) and~\(n_{\text{B}}\).
+%     (Col.~2)~Dependent variable whose distribution is compared between the two sub-samples.
+%     (Cols.~3--6)~Mean and standard deviation, \(\sigma\), of the dependent variable for each of the two sub-samples.
+%     (Cols.~7--8)~Mean over each sub-sample of the observational dispersion (\(\epsilon\), standard deviation) of radii that contribute to the dependent variable for each individual source, as in steps~\ref{step:R0} and \ref{step:R90} of \S~\ref{sec:autom-trac-fitt}.  Note that in the case of \(R_c\), this is \(\epsilon(R_0)\), and so is not a direct measure of the observational uncertainty in \(R_c\). 
+%     (Cols.~9--10)~``Standard error of the mean'' (s.e.m.) of the dependent variable for each of the two sub-samples. 
+%     (Cols.~11--13)~Standardized ``effect sizes'', which are dimensionless measures of the difference in the distribution of the dependent variable between the two sub-samples.
+%     (Col.~11)~Rank biserial correlation coefficient \citep{Cureton:1956a}, which is obtained by considering all \(n_{\text{A}} n_{\text{B}}\) pair-wise comparisons of the dependent variable between a source in sub-sample~A and a source in sub-sample~B.  It is the difference between the fraction of such comparisons ``won'' by sub-sample~A and those ``won'' by sub-sample~B, and thus may vary between \(-1\) and \(+1\). 
+%     (Col.~12)~Cohen's \(d\), which is a dimensionless mean difference: \(d = (\langle \text{A} \rangle - \langle \text{B} \rangle) / \sigma_{\text{pool}} \), where \(\sigma_{\text{pool}} = (n_{\text{A}} \sigma_{\text{A}}^2 + n_{\text{B}} \sigma_{\text{B}}^2)^{1/2} / \sqrt{n_{\text{A}} + n_{\text{B}}}\) is the pooled standard deviation.
+%     (Col.~13)~Ratio of standard deviations between the two sub-samples.
+%     (Cols.~14--16)~Probabilities (\(p\)-values) of the two sub-samples being as different as observed if they were to be drawn from the same population, according to three different non-parametric tests.
+%     (Col.~14)~Anderson--Darling 2-sample test, which is a general test of similarity between two distributions that is designed to retain sensitivity to differences in the tails of the distributions.
+%     (Col.~15)~Mann--Whitney--Wilcoxon \(U\) test \citep{Mann:1947a}, which is sensitive to differences in the central value of the distributions.
+%     (Col.~16)~Brown--Forsythe test for equality of variance \citep{Brown:1974a}
+%     \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+
+\sisetup{detect-all=true, detect-inline-weight=math}
+\sisetup{round-mode=figures, round-precision=2}
+\sisetup{table-align-exponent = false}
+\begin{table*}
+  \setlength\tabcolsep{2pt}
+  \caption{Results of all statistical tests performed on observed bow shock shape parameters. Significant correlations are shown in \textbf{bold}, marginally significant correlations in \textit{italic}}
+  \label{tab:big-p}
+  \input{figs/mipsgal-summary-stats-table-body.tex}
+\end{table*}
+
+
+
+
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "quadrics-bowshock"
+%%% TeX-master: "obs-bowshocks"
 %%% End:
