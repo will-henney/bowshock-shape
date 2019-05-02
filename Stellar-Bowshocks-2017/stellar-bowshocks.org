@@ -4530,10 +4530,10 @@ CLOSED: [2017-03-20 Mon 10:48]
   ctab = Table.read('../LL-shapes-2017/rsg-arcs-radii.tab', format='ascii.tab')
   otab['Rc'] = otab['Pi']
   otab['R90'] = otab['Lambda']
-  otab['R90_asym'] = 2*otab['d Lambda']
+  otab['R90_asym'] = otab['d Lambda']
   otab['R90_asym'][otab['R90_asym'] == 0.0] = np.nan
   ctab['Rc'] = ctab['Rc out']
-  ctab['R90_asym'] = 2*ctab['dR90']
+  ctab['R90_asym'] = ctab['dR90']
   ctab['R90_asym'][ctab['R90_asym'] == 0.0] = np.nan
 
 
@@ -4824,6 +4824,26 @@ CLOSED: [2017-03-20 Mon 10:48]
     (Col.~14)~Brown--Forsythe test for equality of variance \citep{Brown:1974a}
   }
 #+end_src
+
+#+RESULTS: table-description-snippet
+#+begin_export latex
+\multicolumn{14}{@{}p{\linewidth}@{}}{
+  \textit{Description of columns:}
+  (Col.~1)~How the two A/B source sub-samples are defined, also giving the size of each sub-sample, \(n_{\text{A}}\) and~\(n_{\text{B}}\).
+  (Col.~2)~Dependent variable whose distribution is compared between the two sub-samples.
+  (Cols.~3--6)~Mean and standard deviation, \(\sigma\), of the dependent variable for each of the two sub-samples.
+  (Cols.~7--8)~Mean over each sub-sample of the observational dispersion (\(\epsilon\), standard deviation) of radii that contribute to the dependent variable for each individual source, as in steps~\ref{step:R0} and \ref{step:R90} of \S~\ref{sec:autom-trac-fitt}.  Note that in the case of \(\Pi\), this is \(\epsilon(R_0)\), and so is not a direct measure of the observational uncertainty in \(\Pi\). 
+  % (Cols.~9--10)~``Standard error of the mean'' (s.e.m.) of the dependent variable for each of the two sub-samples. 
+  (Cols.~9--11)~Standardized ``effect sizes'', which are dimensionless measures of the difference in the distribution of the dependent variable between the two sub-samples.
+  (Col.~9)~Rank biserial correlation coefficient \citep{Cureton:1956a}, which is obtained by considering all \(n_{\text{A}} n_{\text{B}}\) pair-wise comparisons of the dependent variable between a source in sub-sample~A and a source in sub-sample~B.  It is the difference between the fraction of such comparisons ``won'' by sub-sample~A and those ``won'' by sub-sample~B, and thus may vary between \(-1\) and \(+1\). 
+  (Col.~10)~Cohen's \(d\), which is a dimensionless mean difference: \(d = (\langle \text{A} \rangle - \langle \text{B} \rangle) / \sigma_{\text{pool}} \), where \(\sigma_{\text{pool}} = (n_{\text{A}} \sigma_{\text{A}}^2 + n_{\text{B}} \sigma_{\text{B}}^2)^{1/2} / \sqrt{n_{\text{A}} + n_{\text{B}}}\) is the pooled standard deviation.
+  (Col.~11)~Ratio of standard deviations between the two sub-samples.
+  (Cols.~12--14)~Probabilities (\(p\)-values) of the two sub-samples being as different as observed if they were to be drawn from the same population, according to three different non-parametric tests.
+  (Col.~12)~Anderson--Darling 2-sample test, which is a general test of similarity between two distributions that is designed to retain sensitivity to differences in the tails of the distributions.
+  (Col.~13)~Mann--Whitney--Wilcoxon \(U\) test \citep{Mann:1947a}, which is sensitive to differences in the central value of the distributions.
+  (Col.~14)~Brown--Forsythe test for equality of variance \citep{Brown:1974a}
+}
+#+end_export
 
 #+header: :var table_header=table-header-snippet table_desc=table-description-snippet
 #+BEGIN_SRC python :return outfile :results file
