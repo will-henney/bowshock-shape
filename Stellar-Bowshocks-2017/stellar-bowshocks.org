@@ -4459,6 +4459,7 @@ CLOSED: [2017-03-20 Mon 10:48]
 #+BEGIN_SRC python :return tabfile :results file
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp, mannwhitneyu, ttest_ind, levene
+  from astropy.stats import kuiper_two
   import astropy.coordinates as coord
   from astropy.table import Table
   import astropy.units as u
@@ -4599,6 +4600,7 @@ CLOSED: [2017-03-20 Mon 10:48]
   test_stats = {
       'Welch t-test for mean': lambda x, y: ttest_ind(x, y, equal_var=False),
       'Anderson-Darling': lambda x, y: anderson_ksamp([x, y], midrank=False)[::2],
+      'Kuiper': kuiper_two, 
       'Kolmogorov-Smirnov': ks_2samp, 
       'Rank biserial coefficient': rank_biserial,
       'Brown-Forsythe test for dispersion': levene,
@@ -4737,7 +4739,8 @@ CLOSED: [2017-03-20 Mon 10:48]
              'd_c': (data['Sample B']['mean'] - data['Sample A']['mean'])/sig_pool,
              'sig/tau': sigB / sigA,
              # p-values
-             'K-S p': data['A vs B Tests']['Kolmogorov-Smirnov'][1],
+             # 'K-S p': data['A vs B Tests']['Kolmogorov-Smirnov'][1],
+             'K-S p': data['A vs B Tests']['Kuiper'][1],
              'r_b p': data['A vs B Tests']['Rank biserial coefficient'][1],
              'B-F p': data['A vs B Tests']['Brown-Forsythe test for dispersion'][1],
           }
