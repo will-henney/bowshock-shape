@@ -1,4 +1,8 @@
 
+* TODO Page proofs [2019-05-03 Fri]
++ http://powerxeditor.aptaracorp.com/pxestore/assets/pxeoup///MNRAS/proofpdf/stz1130.pdf
++ [[file:stz1130.pdf]]
++ 
 * Revised version
 
 ** Response to referee report
