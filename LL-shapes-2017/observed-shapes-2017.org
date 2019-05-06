@@ -2926,6 +2926,21 @@ python ../read-shapes-LL/plot-image.py 042-628 --image Bally_16
 #+END_SRC
 
 
+
+
+* The LV knots, combining Smith:2005a and Jorge thesis
++ From Smith:2005a MIR observations, they supposedly measured R90 for the LV knots
++ And we have R_C, either from Luis Angel or from Jorge
++ So, we can put these on the \Pi-\Lambda diagram
+| Source |  R0/D | R90/D |    \Lambda | \Pi(JT) | \Pi(LAG) |
+|--------+-------+-------+------+-------+--------|
+| LV 1   | 0.175 |  0.38 | 2.17 |       |   3.20 |
+| LV 2   |  0.31 |  0.37 | 1.19 |  1.15 |   1.68 |
+| LV 3   |  0.45 |  0.50 | 1.11 |  1.80 |   2.11 |
+| LV 4   |  0.19 |  0.41 | 2.16 |  2.65 |   2.59 |
+| LV 5   |  0.20 |  0.33 | 1.65 |  1.55 |   1.58 |
+#+TBLFM: $4=$3/$2;f2::@2$6=3.04/0.95;f2::@3$6=3.29/1.96;f2::@4$6=4.90/2.32;f2::@5$6=3.01/1.16;f2::@6$6=2.92/1.85;f2
++ We just don't have enough sources to say very much menaingful
 * The red supergiants and AGB stars 
 :PROPERTIES:
 :ID:       A3F62646-04B8-448B-91FF-8E1DC04A9C41
