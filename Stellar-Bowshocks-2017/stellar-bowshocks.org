@@ -8,7 +8,7 @@
 + Consider R_0 and R_90
   + 
 ** Observations of O star bow shocks 
-+ Use Kubulnicky (2016), who have 709 objects!
++ Use Kobulnicky (2016), who have 709 objects!
 + Best observations are 24 micron Spitzer MIPSGAL images
 *** Catalog of Kobulnicky bow shocks 
 + [[file:OB/Kobulnicky2016/table1.dat]]
@@ -8252,28 +8252,62 @@ CLOSED: [2017-07-05 Wed 19:07]
     - Looks like bow, but pointing wrong way
   + Several others, none look convincing
 ** Cox sources - what are they?
-| Fig |   | Name      | Type  |
-|-----+---+-----------+-------|
-|   8 | a | \alpha Ori     | RSG   |
-|   8 | b | \mu Cep     | RSG   |
-|   8 | c | R Hya     | AGB   |
-|   8 | d | R Leo     | AGB   |
-|   8 | e | UU Aur    | C-AGB |
-|   8 | f | V1934 Sgr | AGB   |
-|   8 | g | X Pav     | AGB   |
-|   8 | h | R Cas     | AGB   |
-|-----+---+-----------+-------|
-|   9 | a | CW Leo    | C-AGB |
-|   9 | b | EP Aqr    | AGB   |
-|   9 | c | \chi Cyg     | S-RSG |
-|   9 | d | RT Vir    | AGB   |
-|   9 | e | W Aql     | S-AGB |
-|   9 | f | W Pic     | C-AGB |
-|   9 | g | R ScI     | C-AGB |
-|   9 | h | \theta Aps     | AGB   |
+| Fig |   | Name      | Type  | R_0 (pc) | V_w (km/s) |  t (1000 y) |
+|-----+---+-----------+-------+---------+-----------+-------------|
+|   8 | a | \alpha Ori     | RSG   |    0.19 |        14 |        13.3 |
+|   8 | b | \mu Cep     | RSG   |   0.094 |        35 |         2.6 |
+|   8 | c | R Hya     | AGB   |   0.053 |      12.5 |         4.1 |
+|   8 | d | R Leo     | AGB   |   0.026 |       9.0 |         2.8 |
+|   8 | e | UU Aur    | C-AGB |   0.131 |        11 |        11.6 |
+|   8 | f | V1934 Sgr | AGB   |    0.06 |       5.4 |        10.9 |
+|   8 | g | X Pav     | AGB   |   0.061 |        11 |         5.4 |
+|   8 | h | R Cas     | AGB   |    0.06 |      13.5 |         4.3 |
+|-----+---+-----------+-------+---------+-----------+-------------|
+|   9 | a | CW Leo    | C-AGB |    0.23 |      14.5 |        15.5 |
+|   9 | b | EP Aqr    | AGB   |    0.07 |      11.5 |         6.0 |
+|   9 | c | \chi Cyg     | S-RSG |    0.29 |       8.5 |        33.4 |
+|   9 | d | RT Vir    | AGB   |     0.1 |       8.9 |        11.0 |
+|   9 | e | W Aql     | S-AGB |    0.13 |        20 |         6.4 |
+|   9 | f | W Pic     | C-AGB |   0.085 |         7 |        11.9 |
+|   9 | g | R ScI     | C-AGB |   0.095 |        17 |         5.5 |
+|   9 | h | \theta Aps     | AGB   |   0.041 |       4.5 |         8.9 |
+|-----+---+-----------+-------+---------+-----------+-------------|
+|     |   |           |       |         |           | 9.6 +/- 1.9 |
+#+TBLFM: $7=$5 $pc / $6 $km $yr 1e3 ;f1::@18$7=vmeane(@I..@III);f1
 
 So only 3 out of 16 are supergiants
-
+* Bow shock shapes from simulations
+** Meyer:2016a
++ Fig 2 gives axis ratio that is 1/\Lambda
+  + Full range is 0.52 \to 0.64 so \Lambda = 1.56 \to 1.92
+  + Complete table
+    | M_* | n_ism |   R_0 |   1/\Lambda |             \Lambda |
+    |----+------+------+-------+---------------|
+    | 10 | 0.79 | 0.03 | 0.585 |          1.71 |
+    | 10 | 0.79 | 0.06 | 0.586 |          1.71 |
+    | 10 |   10 | 0.08 | 0.566 |          1.77 |
+    | 10 |  0.1 | 0.09 | 0.566 |          1.77 |
+    | 10 | 0.79 | 0.13 | 0.595 |          1.68 |
+    | 20 |   10 | 0.14 | 0.580 |          1.72 |
+    | 10 |   10 | 0.15 | 0.580 |          1.72 |
+    | 10 |  0.1 | 0.15 | 0.595 |          1.68 |
+    | 40 |   10 | 0.30 | 0.520 |          1.92 |
+    | 10 | 0.01 | 0.33 | 0.563 |          1.78 |
+    | 20 | 0.79 | 0.40 | 0.563 |          1.78 |
+    | 10 |   10 | 0.30 | 0.590 |          1.69 |
+    | 20 |   10 | 0.30 | 0.620 |          1.61 |
+    | 10 |  0.1 | 0.40 | 0.630 |          1.59 |
+    | 40 |   10 | 0.60 | 0.570 |          1.75 |
+    | 20 | 0.79 | 0.60 | 0.581 |          1.72 |
+    | 10 | 0.01 | 0.60 | 0.586 |          1.71 |
+    | 20 |  0.1 |  1.0 |  0.58 |          1.72 |
+    | 20 | 0.79 |  1.2 | 0.592 |          1.69 |
+    | 10 | 0.01 |  1.2 | 0.612 |               |
+    | 40 |   10 |  1.4 |       |               |
+    |    |      |      |       |               |
+    |----+------+------+-------+---------------|
+    |    |      |      |       | 1.72 +/- 0.02 |
+    #+TBLFM: $5=1/$-1;f2::@24$5=vmeane(@I..@II);f3
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs

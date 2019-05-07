@@ -102,6 +102,10 @@ Routledge
 Colquhoun D.,  2014, \mn@doi [Royal Society Open Science]
   {10.1098/rsos.140216}, 1
 
+\bibitem[\protect\citeauthoryear{{Comeron} \& {Kaper}}{{Comeron} \&
+  {Kaper}}{1998}]{Comeron:1998a}
+{Comeron} F.,  {Kaper} L.,  1998, \aap, 338, 273
+
 \bibitem[\protect\citeauthoryear{{Cox} et~al.,}{{Cox} et~al.}{2012}]{Cox:2012a}
 {Cox} N.~L.~J.,  et~al., 2012, \aap, 537, A35
 
@@ -116,6 +120,14 @@ Cureton E.~E.,  1956, Psychometrika, 21, 287
 \bibitem[\protect\citeauthoryear{Delaney \& Vargha}{Delaney \&
   Vargha}{2002}]{Delaney:2002a}
 Delaney H.~D.,  Vargha A.,  2002, Psychological Methods, 7, 485
+
+\bibitem[\protect\citeauthoryear{{Dgani}, {van Buren}  \&
+  {Noriega-Crespo}}{{Dgani} et~al.}{1996a}]{Dgani:1996a}
+{Dgani} R.,  {van Buren} D.,   {Noriega-Crespo} A.,  1996a, \apj, 461, 372
+
+\bibitem[\protect\citeauthoryear{{Dgani}, {van Buren}  \&
+  {Noriega-Crespo}}{{Dgani} et~al.}{1996b}]{Dgani:1996b}
+{Dgani} R.,  {van Buren} D.,   {Noriega-Crespo} A.,  1996b, \apj, 461, 927
 
 \bibitem[\protect\citeauthoryear{{Dyson} \& {de Vries}}{{Dyson} \& {de
   Vries}}{1972}]{Dyson:1972a}
@@ -271,6 +283,11 @@ Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
 {Meyer} D.~M.-A.,  {van Marle} A.-J.,  {Kuiper} R.,   {Kley} W.,  2016, \mnras,
   459, 1146
 
+\bibitem[\protect\citeauthoryear{{Meyer}, {Mignone}, {Kuiper}, {Raga}  \&
+  {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
+{Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
+  2017, \mnras, 464, 3229
+
 \bibitem[\protect\citeauthoryear{{Noriega-Crespo}, {van Buren}  \&
   {Dgani}}{{Noriega-Crespo} et~al.}{1997}]{Noriega-Crespo:1997b}
 {Noriega-Crespo} A.,  {van Buren} D.,   {Dgani} R.,  1997, \aj, 113, 780
@@ -378,7 +395,7 @@ Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
 
 \bibitem[\protect\citeauthoryear{{Tarango-Yong} \& {Henney}}{{Tarango-Yong} \&
   {Henney}}{2018}]{Tarango-Yong:2018a}
-{Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431
+{Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431 (Paper 0)
 
 \bibitem[\protect\citeauthoryear{{Ueta} et~al.,}{{Ueta}
   et~al.}{2006}]{Ueta:2006a}

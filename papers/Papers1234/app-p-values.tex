@@ -176,29 +176,11 @@ The p-curve \citep{Head:2015a}
 
 
 
-% \begin{figure*}
-%   \centering
-%   \includegraphics[width=\linewidth]
-%   {figs/wave_xyprime-A005-N20-ancantoid-xi080-beta000500}
-%   \caption{Plane-of-sky projections of perturbed bow shapes.  In all
-%     cases, the base bow shape is ancantoid with \(\xi = 0.8\),
-%     \(\beta = 0.005\) and the perturbation is the same as in the central
-%     panel of Fig.~\ref{fig:perturb-shapes}, with amplitude
-%     \(A = 0.05\) and wave number \(N = 2.0\). Results are shown for
-%     inclination angles \(i = 0\) to \(i = 75^\circ\) (indicated by line
-%     color and thickness, see key) and for different fractional phases
-%     of the oscillation: (a)~\(\varphi = 0.0\), (b)~\(\varphi = 0.25\),
-%     (c)~\(\varphi = 0.50\). Unlike in Fig.~\ref{fig:perturb-shapes},
-%     the spatial coordinates are normalized to the instantaneous
-%     projected apex radius \(R_0'\) at each phase, so the apex does not
-%     appear to move.}.
-%   \label{fig:perturb-xy-prime}
-% \end{figure*}
 
 \section{Perturbed bows}
 \label{sec:perturbed-bows}
 
-\begin{figure*}[t!]
+\begin{figure*}
   \centering
   \includegraphics[width=\linewidth]{figs/compare_xyprime_wave-wilkinoid}
   \caption{Small-amplitude standing wave perturbations to wilkinoid
@@ -206,21 +188,36 @@ The p-curve \citep{Head:2015a}
     at phases \(\phi = 0\) (blue line) and \(\phi = 0.5\) (red line), while
     the perturbation is zero at \(\phi = 0.25\) and \(0.75\) (black
     line).  Results are shown left to right for increasing wave
-    numbers \(N\) and decreasing amplitudes \(A\): (a)~\(A = 0.1\),
-    \(N = 1.0\), (b)~\(A = 0.05\), \(N = 2.0\), (a)~\(A = 0.02\),
-    \(N = 5.0\).}
+    numbers \(N\) and decreasing amplitudes \(A\): (a)~\(A = 0.2\),
+    \(N = 1.0\), (b)~\(A = 0.1\), \(N = 2.0\), (a)~\(A = 0.04\),
+    \(N = 5.0\).  The maximum curvature, proportional to \(A N\) is
+    the same in all three cases.}
   \label{fig:perturb-shapes}
 \end{figure*}
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]
+  {figs/wave_xyprime-A010-N20-ancantoid-xi080-beta000500}
+  \caption{Plane-of-sky projections of perturbed bow shapes.  In all
+    cases, the base bow shape is ancantoid with \(\xi = 0.8\),
+    \(\beta = 0.005\) and the perturbation is the same as in the central
+    panel of Fig.~\ref{fig:perturb-shapes}, with amplitude
+    \(A = 0.05\) and wave number \(N = 2.0\). Results are shown for
+    inclination angles \(i = 0\) to \(i = 75^\circ\) (indicated by line
+    color and thickness, see key) and for different fractional phases
+    of the oscillation: (a)~\(\varphi = 0.0\), (b)~\(\varphi = 0.25\),
+    (c)~\(\varphi = 0.50\). Unlike in Fig.~\ref{fig:perturb-shapes},
+    the spatial coordinates are normalized to the instantaneous
+    projected apex radius \(R_0'\) at each phase, so the apex does not
+    appear to move.}.
+  \label{fig:perturb-xy-prime}
+\end{figure*}
 
-Instability of bow \citep{Blondin:1998a}
-
-The bow shock models that we have considered so far have been
-steady-state: although material is moving throughout the bow, the
-pattern of its structure does not vary with time.  In this section, we
-consider small, time-varying perturbations to such a steady-state
-structure.  These may be due to periodic variations in the
-momentum-loss rate of one of the winds, or due to dynamical
-instabilities in the shocked shell.
+In this appendix, we present a highly idealized model for small,
+time-varying perturbations to a steady-state bow shock shape, such as
+those discussed in \S~5 of Paper~0.  These perturbations may be due to
+periodic variations in the momentum-loss rate of one of the winds, or
+due to dynamical instabilities in the shocked shell.
 
 We consider fractional perturbations \(\Delta(\theta, t)\) of a base shape
 \(R(\theta)\), such that
@@ -264,21 +261,21 @@ If the bow shape is viewed at different inclinations, then the effect
 of the oscillations on the projected shape will vary.  In particular,
 the apex-to-wing interval in body-frame angle changes from
 \(\theta = [0, \pi/2]\) at \(i = 0\) to
-\(\theta = [\theta_0, \theta_{90}]\) for general \(i\), see
-equations~\eqref{Q-eq:thetapar} and \eqref{Q-eq:th90} of \PaperI{}.
-The difference \(\theta_{90} - \theta_0\) is always a declining function of
-\(|i|\), so the oscillations of the tangent line become increasingly
-stretched out as the inclination increases.  This effect can be seen
-in Figure~\ref{fig:perturb-xy-prime}, which shows an example of the
-variation in projected perturbed shape with inclination angle for 3
-different phases, this time for an ancantoid base shape and the
-\(N = 2.0\) perturbation shown in Figure~\ref{fig:perturb-shapes}b.
-The most marked changes with phase are seen for low inclinations,
-whereas the changes are smaller, although still noticeable, for
-\(|i| \ge 45^\circ\). If \(A N\) exceeds about 0.5, then the local curvature
-of the perturbations is so extreme that multiple tangent lines exist
-at intermediate inclinations, which produces the appearance of
-additional incomplete bright arcs inside the main arc of the bow.
+\(\theta = [\theta_0, \theta_{90}]\) for general \(i\), see equations~(18) and (21)
+of Paper~0.  The difference \(\theta_{90} - \theta_0\) is always a declining
+function of \(|i|\), so the oscillations of the tangent line become
+increasingly stretched out as the inclination increases.  This effect
+can be seen in Figure~\ref{fig:perturb-xy-prime}, which shows an
+example of the variation in projected perturbed shape with inclination
+angle for 3 different phases, this time for an ancantoid base shape
+and the \(N = 2.0\) perturbation shown in
+Figure~\ref{fig:perturb-shapes}b.  The most marked changes with phase
+are seen for low inclinations, whereas the changes are smaller,
+although still noticeable, for \(|i| \ge 45^\circ\). If \(A N\) exceeds
+about 0.5, then the local curvature of the perturbations is so extreme
+that multiple tangent lines exist at intermediate inclinations, which
+produces the appearance of additional incomplete bright arcs inside
+the main arc of the bow.
 
 
 %%% Local Variables:
