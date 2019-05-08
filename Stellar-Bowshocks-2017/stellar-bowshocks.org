@@ -5929,6 +5929,265 @@ This is the one I am tending towards - close together on the sky, clearly showin
 [[file:mipsgal-Rc-R90-vs-Orion.pdf]]
 
 
+**** Orion sources but colored by R_0/D
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.stats import kuiper_two
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import matplotlib
+  from matplotlib.colors import PowerNorm
+  from matplotlib.legend_handler import HandlerTuple
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+  import seaborn.distributions 
+
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-vs-Orion-R0-D.pdf'
+
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab['R0_fit']
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  otab = Table.read('../LL-shapes-2017/new-ll-arcs-all.tab', format='ascii.tab')
+  omtab = Table.read('../LL-shapes-2017/new-ll-arcs-extras.tab', format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.7, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  R0_median = np.nanmedian(tab['R0_fit'][mgood])
+
+  myes = tab['R0'] >= R0_median
+  mno = tab['R0'] < R0_median
+
+  masks = mgood, 
+  shades = True, 
+  alphas = 0.5, 
+  cmaps = 'Purples', 
+  gammas = 0.5, 
+  lss = None, 
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma, ls in zip(
+          masks, alphas, cmaps, shades, gammas, lss):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.045, 0.03), 
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+      sns.kdeplot(otab['Pi'].data, otab['Lambda'].data, 
+                  n_levels=8, cmap='Greens_d', linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  #levels=[0.05, 0.1, 0.3, 0.7, 0.9, 1.0, 1.2, 1.4, 1.6],
+                  bw=(0.06, 0.045),
+                  shade=False, shade_lowest=False, ax=ax, alpha=alpha)
+
+  # masks5 = m5, 
+  # colors = 'purple', 
+  # alphas = 0.8, 
+  # labels = 'MIPSGAL',
+
+  # Fake a legend for the NIPSGAL contours
+  cmap = matplotlib.cm.get_cmap(cmaps[0])
+  p1 = ax.fill_between([], [],
+                  color=cmap(0.7), alpha=alpha, label='MIPSGAL arcs')
+  # Only put points for the LL arcs
+  ll_cmap = sns.dark_palette((0.4, 0.8, 0.4), n_colors=256, as_cmap=True)
+  g = ax.scatter(omtab['Pi'], omtab['Lambda'], 
+                 marker='o', alpha=0.8, s=70, zorder=100,
+                 c=np.log10(omtab['1000 R_0/D']), cmap=ll_cmap,
+                 edgecolors='w', linewidths=1, label='_nolabel_')
+  p2, = ax.plot([], [], 'o', mec='w', mew=1, ms=7,
+               color=ll_cmap(0.1), alpha=0.8, label='M42 arcs')
+  p3, = ax.plot([], [], 'o', mec='w', mew=1, ms=7,
+               color=ll_cmap(0.5), alpha=0.8, label='M42 arcs')
+  p4, = ax.plot([], [], 'o', mec='w', mew=1, ms=7,
+               color=ll_cmap(0.9), alpha=0.8, label='M42 arcs')
+
+  ax.legend([p1, (p2, p3, p4)], ['MIPSGAL arcs', 'M42 arcs'],
+            frameon=True, loc='lower right', title='',
+            handler_map={tuple: HandlerTuple(ndivide=None)},
+  )
+
+  ax.set(
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  ## Histograms of marginal distributions
+  subwin_w = 0.2
+  subwin_h = 0.1
+  subwin_x0 = 0.17
+  subwin_y0 = 0.75
+  subwin_xmargin = 0.06
+  subwin_ymargin = 0.02
+
+  colors = 'purple', 'g'
+  alphas = 0.8, 0.8
+  labels = 'MIPSGAL', 'M42'
+
+  with sns.plotting_context(
+          rc={'axes.labelsize': 9,
+              'xtick.labelsize': 9,
+              'ytick.labelsize': 9,}):
+
+      ax_y_Rc = fig.add_axes((subwin_x0, subwin_y0 + subwin_h + subwin_ymargin,
+                              subwin_w, subwin_h))
+      ax_n_Rc = fig.add_axes((subwin_x0, subwin_y0,
+                              subwin_w, subwin_h))
+      ax_y_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + subwin_h + subwin_ymargin,
+                               subwin_w, subwin_h))
+      ax_n_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0,
+                               subwin_w, subwin_h))
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      yq0, dyq = 0.1, 0.05
+      datasets = tab['Rc'][m], omtab['Pi']
+      for data, c, axx in zip(datasets, colors, [ax_y_Rc, ax_n_Rc]):
+          sns.distplot(data, bins=bins_, hist_kws={'range': range_},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(data,
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(data, datasets[0])
+              AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
+                                                 midrank=False)
+              Ku, pKu = kuiper_two(data, datasets[0])
+              axx.text(1.0, 0.9, fr'K-S $p = {pKu:.5f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+      #
+      ax_n_Rc.set(xlabel=r'$\Pi$')
+      ax_y_Rc.set(xlabel='_nolabel_')
+      ax_y_Rc.tick_params(labelbottom='off') 
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      datasets = tab['R90'][m], omtab['Lambda']
+      for data, c, axx in zip(datasets, colors, [ax_y_R90, ax_n_R90]):
+          sns.distplot(data, bins=binsx, hist_kws={'range': range_},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(data,
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          axx.text(1.0, 0.4, fr'$N = {len(data)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = ks_2samp(data, datasets[0])
+              AD, levelsAD, pAD = anderson_ksamp([data, datasets[0]],
+                                                 midrank=False)
+              Ku, pKu = kuiper_two(data, datasets[0])
+              axx.text(1.0, 0.9, fr'K-S $p = {pKu:.5f}$',
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+      ax_n_R90.set(xlabel=r'$\Lambda$')
+      ax_y_R90.set(xlabel='_nolabel_')
+      ax_y_R90.tick_params(labelbottom='off') 
+
+      for axx in ax_y_Rc, ax_n_Rc, ax_y_R90, ax_n_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-vs-Orion-R0-D.pdf]]
+
+
 *** Comparison with the Herschel AGB/RSG sources
 
 #+BEGIN_SRC python :return figfile :results file
@@ -8276,38 +8535,71 @@ CLOSED: [2017-07-05 Wed 19:07]
 #+TBLFM: $7=$5 $pc / $6 $km $yr 1e3 ;f1::@18$7=vmeane(@I..@III);f1
 
 So only 3 out of 16 are supergiants
+** CW Leo GALEX observations
++ From circle fits of Matthews:2015a
+  + R_0 = 1280/2 - 110 = 530 arcsec = 0.33 pc
+    + I found 7.8 arcmin = 468 arcsec
+  + \Pi = (1280/2) / (1280/2 - 110) = 1.21
+  + R_90+ = 11 arcmin
+  + R_90- = 13 arcmin
+  + \Lambda = 12 60 / 530 = 1.36  
 * Bow shock shapes from simulations
 ** Meyer:2016a
 + Fig 2 gives axis ratio that is 1/\Lambda
   + Full range is 0.52 \to 0.64 so \Lambda = 1.56 \to 1.92
   + Complete table
-    | M_* | n_ism |   R_0 |   1/\Lambda |             \Lambda |
-    |----+------+------+-------+---------------|
-    | 10 | 0.79 | 0.03 | 0.585 |          1.71 |
-    | 10 | 0.79 | 0.06 | 0.586 |          1.71 |
-    | 10 |   10 | 0.08 | 0.566 |          1.77 |
-    | 10 |  0.1 | 0.09 | 0.566 |          1.77 |
-    | 10 | 0.79 | 0.13 | 0.595 |          1.68 |
-    | 20 |   10 | 0.14 | 0.580 |          1.72 |
-    | 10 |   10 | 0.15 | 0.580 |          1.72 |
-    | 10 |  0.1 | 0.15 | 0.595 |          1.68 |
-    | 40 |   10 | 0.30 | 0.520 |          1.92 |
-    | 10 | 0.01 | 0.33 | 0.563 |          1.78 |
-    | 20 | 0.79 | 0.40 | 0.563 |          1.78 |
-    | 10 |   10 | 0.30 | 0.590 |          1.69 |
-    | 20 |   10 | 0.30 | 0.620 |          1.61 |
-    | 10 |  0.1 | 0.40 | 0.630 |          1.59 |
-    | 40 |   10 | 0.60 | 0.570 |          1.75 |
-    | 20 | 0.79 | 0.60 | 0.581 |          1.72 |
-    | 10 | 0.01 | 0.60 | 0.586 |          1.71 |
-    | 20 |  0.1 |  1.0 |  0.58 |          1.72 |
-    | 20 | 0.79 |  1.2 | 0.592 |          1.69 |
-    | 10 | 0.01 |  1.2 | 0.612 |               |
-    | 40 |   10 |  1.4 |       |               |
-    |    |      |      |       |               |
-    |----+------+------+-------+---------------|
-    |    |      |      |       | 1.72 +/- 0.02 |
-    #+TBLFM: $5=1/$-1;f2::@24$5=vmeane(@I..@II);f3
+    | M_* | n_ism |   R_0 |   1/\Lambda |               \Lambda |
+    |----+------+------+-------+-----------------|
+    | 10 | 0.79 | 0.03 | 0.585 |            1.71 |
+    | 10 | 0.79 | 0.06 | 0.586 |            1.71 |
+    | 10 |   10 | 0.08 | 0.566 |            1.77 |
+    | 10 |  0.1 | 0.09 | 0.566 |            1.77 |
+    | 10 | 0.79 | 0.13 | 0.595 |            1.68 |
+    | 20 |   10 | 0.14 | 0.580 |            1.72 |
+    | 10 |   10 | 0.15 | 0.580 |            1.72 |
+    | 10 |  0.1 | 0.15 | 0.595 |            1.68 |
+    | 40 |   10 | 0.30 | 0.520 |            1.92 |
+    | 10 | 0.01 | 0.33 | 0.563 |            1.78 |
+    | 20 | 0.79 | 0.40 | 0.563 |            1.78 |
+    | 10 |   10 | 0.30 | 0.590 |            1.69 |
+    | 20 |   10 | 0.30 | 0.620 |            1.61 |
+    | 10 |  0.1 | 0.40 | 0.630 |            1.59 |
+    | 40 |   10 | 0.60 | 0.570 |            1.75 |
+    |----+------+------+-------+-----------------|
+    | 20 | 0.79 | 0.60 | 0.581 |            1.72 |
+    | 10 | 0.01 | 0.60 | 0.586 |            1.71 |
+    | 20 |  0.1 |  1.0 |  0.58 |            1.72 |
+    | 20 | 0.79 |  1.2 | 0.592 |            1.69 |
+    | 10 | 0.01 |  1.2 | 0.612 |            1.63 |
+    | 40 |   10 |  1.4 |  0.64 |            1.56 |
+    | 40 | 0.79 |  1.6 | 0.585 |            1.71 |
+    | 20 |  0.1 |  2.0 |  0.60 |            1.67 |
+    | 40 | 0.79 |  2.7 | 0.595 |            1.68 |
+    | 20 | 0.01 |  4.0 | 0.560 |            1.79 |
+    | 20 |  0.1 |  4.3 | 0.620 |            1.61 |
+    | 40 |  0.1 |  5.0 | 0.590 |            1.69 |
+    | 40 | 0.79 |  6.0 | 0.598 |            1.67 |
+    | 20 | 0.01 |  8.0 | 0.580 |            1.72 |
+    |----+------+------+-------+-----------------|
+    |    |      |      |       | 1.725 +/- 0.020 |
+    |    |      |      |       | 1.684 +/- 0.015 |
+    |----+------+------+-------+-----------------|
+    |    |      |      |       | 1.705 +/- 0.013 |
+    #+TBLFM: $5=1/$-1;f2::@31$5=vmeane(@I..@II);f3::@32$5=vmeane(@II..@III);f3::@33$5=vmeane(@I..@III);f3
+** van-Marle:2014a
++ Fig 2
+  + t = 2e4 yr
+    + B = 0 : \Lambda = 1.38
+    + B = 3 \micro{}G
+  + t = 5e4 yr
+    + B = 0
+    + B = 3 \micro{}G
+  + t = 1e5 yr
+    + B = 0
+    + B = 3 \micro{}G
++ Fig 3: t = 1e5 yr
+  + 1.4 \micro{}G - \Lambda = 1.62
+  + 5.0 \micro{}G - \Lambda = 1.54
 
 * Convert images to FITS
 + This has not been necessary yet, but may be needed for the O star arcs
