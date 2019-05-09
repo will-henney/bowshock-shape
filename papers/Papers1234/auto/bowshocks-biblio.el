@@ -332,6 +332,9 @@
     "Robberto:2013a"
     "Dgani:1996a"
     "Dgani:1996b"
-    "van-Marle:2014a"))
+    "van-Marle:2014a"
+    "Landau:1987a"
+    "Dzib:2017a"
+    "Kim:2018b"))
  :bibtex)
 

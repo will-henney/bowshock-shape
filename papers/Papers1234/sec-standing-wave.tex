@@ -137,12 +137,12 @@ particular dynamical model of these oscillations, we instead crudely
 simulate their effect by assuming a constant amplitude standing wave
 perturbation to the base shape, as described in
 Appendix~\ref{sec:perturbed-bows}.  Example results are shown in
-Figure~\ref{fig:perturb-Rc-R90} for an ensemble of bows with different
-orientations and phases of oscillation, considering three different
-underlying base shapes.  It can be seen that modest amplitudes of 10
-to 20\% can give rise to a distribution in \(\Pi\) and \(\Lambda\) similar to
-that observed for the MIPSGAL sources when the oscillation wavelength
-is of same order as the bow shock size.
+Figure~\ref{fig:perturb-Rc-R90} for an ensemble of bow shocks with
+different orientations and phases of oscillation, considering three
+different underlying base shapes.  It can be seen that modest
+amplitudes of 10 to 20\% can give rise to a distribution in \(\Pi\) and
+\(\Lambda\) similar to that observed for the MIPSGAL sources when the
+oscillation wavelength is of the same order as the bow shock size.
 
 An attractive feature of the oscillation hypothesis is that it
 naturally explains why we find little correlation between the bow
@@ -222,9 +222,116 @@ the latter.
 In the case of the Orion Nebula bow shocks
 (\S~\ref{sec:stat-emiss-line}), we have the opposite situation, where
 the alatude and planitude are both significantly larger on average
-than for the OB star sources (Fig.~\ref{fig:ll-compare-mipsgal}).  
+than for the OB star sources (Fig.~\ref{fig:ll-compare-mipsgal}).  On
+the face of it, this is surprising because there are two differences
+between the source classes that would tend to work in the other
+direction.  First, many of the Orion sources are proplyds, or
+externally illuminated photoevaporating disks \citep{ODell:2008b}, in
+which the inner wind is not isotropic but instead is mildly
+concentrated towards the symmetry axis \citep{Garcia-Arredondo:2001a},
+so that simple models predict an \textit{ancantoid} shape
+\citep[\S~5]{Tarango-Yong:2018a} that is less open than for an
+isotropic wind.  Second, as was the case with the cool star sources,
+both the shocked inner wind and the shocked outer stream are expected
+to contribute to the emission arcs.  Indeed, in several of the sources
+of Figure~\ref{fig:ll-arcs} (LL~3, 116--3101, 266-558, 308-3036, and
+LL~5), a two-component emission structure is apparent.  In the case of
+the cool star bow shocks, we invoked this as a possible explanation of
+their \emph{low} planitude and alatude (see previous paragraph), so
+some stronger countervailing factor is necessary in order to explain
+why the opposite is seen in the Orion Nebula bow shocks.
 
-None of these sources have high velocities, but instead follow the   
+
+Four possible origins for this countervailing factor suggest
+themselves: (i)~the external flow may be more divergent in the Orion
+sources; (ii)~the Mach number of the external flow may be
+systematically lower; (iii)~the fact that the arcs are observed in
+recombination line emission instead of dust continuum may cause
+different observational biases; (iv)~the shapes may be influenced by
+collimated jet outflows from the young stars.  We now address each of
+these in turn.
+
+In case~(i) one would expect \(\Pi\) and \(\Lambda\) to be positively
+correlated with \(R_0/D\), where \(R_0\) is the bow shock size
+(star--apex separation) and \(D\) is the distance from the center of
+divergence of the external flow.  In \S~\ref{sec:stat-emiss-line} we
+found that these are indeed correlated, but only weakly.  A more
+serious objection to this idea is that according to hypersonic
+thin-shell models \citep{Canto:1996} the momentum ratio parameter
+\(\beta\) must be relatively large in order to give significantly open bow
+shock shapes.  From Figure~20 of Paper~0 we see that
+\(\beta > \num{e-3}\) is required in order to give
+\(\Pi, \Lambda > 2\).  However, for small \(\beta\) one has
+\(\beta \approx (R_0/D)^2\), which yields \(\beta = \num{4e-6}\) to \num{3e-4} for
+our sources, so that divergence ought to have little effect on the
+shapes.
+
+Case~(ii) arises from the fact that, if the hypersonic assumption is
+relaxed, then the opening angle between the outer bow shock and the
+contact discontinuity in the wings becomes increasingly large as the
+Mach number, \(\M\), drops towards unity.  This is a consequence of
+the \textit{shock polar} relation for oblique shocks \citep[\S\S~92
+and 113]{Landau:1987a} and applies to both the radiative and
+non-radiative case.  It will tend to produce more open shapes, at
+least in the case that the emission is dominated by the outer shell.
+At the same time, the relative thickness of the shell, \(h/R_0\), is
+predicted to increase as \(\M\) decreases \citetext{e.g., eq~[35] of
+  Paper~I}.  We have therefore measured \(h/R_0\) for the Orion
+sources, finding values ranging from \numrange{0.3}{0.8} with median
+of \num{0.5}.  We have not measured \(h/R_0\) for the full MIPSGAL
+sample, but Figure~11 of Paper~III gives the values for the sub-sample
+of OB bow shocks studied by \citep{Kobulnicky:2018a}.  The median
+value is 0.2, implying thinner shells than in the Orion Nebula bow
+shocks, which lends support to the idea that the Mach number may be
+lower in the latter.  However, among the Orion sources we find that
+\(h/R_0\) is completely uncorrelated with either \(\Pi\) or
+\(\Lambda\) (\(r = 0.02\) and \(-0.05\), respectively).
+
+Case~(iii) attempts to explain the difference in shapes as a result of
+an ``optical illusion'' whereby the OB star bow shocks are in reality
+more open than they appear. The hydrogen recombination line surface
+brightness from an isothermal shell is proportional to the emission
+measure (line of sight integral of the product of proton and electron
+densities), whereas the mid-infrared surface brightness is not simply
+proportional to the dust column density, since it results from the
+reprocessing of stellar radiation.  For typical bow shock grain
+temperatures \citetext{\(T = 50\) to \SI{150}{K},
+  \citealp{Kobulnicky:2017a}} the \SI{24}{\um} band used for the OB
+star sample lies on the short wavelength Wien side of the dust
+emission spectrum, which gives a very steep radial dependence of the
+emissivity.  \citet{Acreman:2016a} calculate synthetic emission maps
+from hydrodynamical simulations and show that, even for a relatively
+thin bow shock shell, the emission arc seen in H\(\alpha\) tends to be more
+open than the arc seen in the mid-infrared (see their Fig.~3).  The
+effect should be even larger for thicker shells, as demonstrated by
+\citet{Mackey:2016a}, who simulate the \emph{subsonic} motion of an O
+star through its \hii{} region and show that this can give rise to an
+\emph{apparent} bow shock at \SI{24}{\um} even when there is no
+corresponding dense shell at all.
+
+Finally, case~(iv) arises from the observation that several of the
+Orion sources possess high velocity (\(> \SI{100}{km.s^{-1}}\))
+collimated jets \citep{Bally:2006a}, which produce strings of emission
+knots that partially overlap the wings of the bow shock.  In the case
+of 109--246, LL~1, LL~4, LL~5, and LL~6, the projected jet axis is
+roughly perpendicular to the projected bow shock axis, and two of
+these (109--246 and LL~6) have the most extreme high values of \(\Pi\)
+and \(\Lambda\).  There are several other Orion Nebula bow shock sources
+with perpendicular jets (LL~2, 203--3039, 261--3018, 344--3020, and
+LL~7), which we omitted from our sample because of difficulty in
+measuring \(\Lambda\), but the majority also have large planitudes
+\(\Pi > 5\). Only one source, 4468--605, has a jet oriented parallel to
+the bow shock axis, and this has the smallest \(\Pi\) and third-smallest
+\(\Lambda\) of the sample.  The circumstantial evidence thus points towards
+the jets playing some role in shaping the bow shocks when they are
+oriented perpendicular to the axis, even though we took care when
+tracing the bow shock ridges to avoid any region with superimposed jet
+knots.  This would break the cylindrical symmetry of the bow shock,
+which should have a kinematic signature.  However, in the only two
+sources that have been studied kinematically \citep{Henney:2013a}, the
+bow shock shell does not show any sign of the red/blue asymmetry that
+is seen in the jet knots, which argues against any such an
+association.
 
 %%% Local Variables:
 %%% mode: latex
