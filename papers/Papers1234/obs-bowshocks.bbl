@@ -198,6 +198,11 @@ Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
   {O'Dell}}{1999}]{Henney:1999a}
 {Henney} W.~J.,  {O'Dell} C.~R.,  1999, \aj, 118, 2350
 
+\bibitem[\protect\citeauthoryear{{Henney}, {Arthur}  \&
+  {Garc{\'{\i}}a-D{\'{\i}}az}}{{Henney} et~al.}{2005}]{Henney:2005a}
+{Henney} W.~J.,  {Arthur} S.~J.,   {Garc{\'{\i}}a-D{\'{\i}}az} M.~T.,  2005,
+  \apj, 627, 813
+
 \bibitem[\protect\citeauthoryear{{Henney}, {Garc{\'{\i}}a-D{\'{\i}}az},
   {O'Dell}  \& {Rubin}}{{Henney} et~al.}{2013}]{Henney:2013a}
 {Henney} W.~J.,  {Garc{\'{\i}}a-D{\'{\i}}az} M.~T.,  {O'Dell} C.~R.,   {Rubin}
@@ -287,6 +292,10 @@ Mann H.~B.,  Whitney D.~R.,  1947, The Annals of Mathematical Statistics, 18,
   {Kley}}{{Meyer} et~al.}{2017}]{Meyer:2017a}
 {Meyer} D.~M.-A.,  {Mignone} A.,  {Kuiper} R.,  {Raga} A.~C.,   {Kley} W.,
   2017, \mnras, 464, 3229
+
+\bibitem[\protect\citeauthoryear{{Mohamed}, {Mackey}  \& {Langer}}{{Mohamed}
+  et~al.}{2012}]{Mohamed:2012a}
+{Mohamed} S.,  {Mackey} J.,   {Langer} N.,  2012, \aap, 541, A1
 
 \bibitem[\protect\citeauthoryear{{Noriega-Crespo}, {van Buren}  \&
   {Dgani}}{{Noriega-Crespo} et~al.}{1997}]{Noriega-Crespo:1997b}
@@ -405,6 +414,10 @@ Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
   et~al.}{2008}]{Ueta:2008a}
 {Ueta} T.,  et~al., 2008, \pasj, 60, S407
 
+\bibitem[\protect\citeauthoryear{{Weilbacher} et~al.,}{{Weilbacher}
+  et~al.}{2015}]{Weilbacher:2015a}
+{Weilbacher} P.~M.,  et~al., 2015, \aap, 582, A114
+
 \bibitem[\protect\citeauthoryear{{Werner} et~al.,}{{Werner}
   et~al.}{2004}]{Werner:2004a}
 {Werner} M.~W.,  et~al., 2004, \apjs, 154, 1
@@ -435,6 +448,10 @@ Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
 \bibitem[\protect\citeauthoryear{{van Buren}, {Noriega-Crespo}  \&
   {Dgani}}{{van Buren} et~al.}{1995}]{van-Buren:1995a}
 {van Buren} D.,  {Noriega-Crespo} A.,   {Dgani} R.,  1995, \aj, 110, 2914
+
+\bibitem[\protect\citeauthoryear{{van Marle}, {Decin}  \& {Meliani}}{{van
+  Marle} et~al.}{2014}]{van-Marle:2014a}
+{van Marle} A.~J.,  {Decin} L.,   {Meliani} Z.,  2014, \aap, 561, A152
 
 \makeatother
 \end{thebibliography}

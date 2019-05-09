@@ -860,12 +860,16 @@ Herschel sources.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{figs/mipsgal-Rc-R90-vs-Orion}
-  \caption[]{Shape comparison between Orion Nebula arcs and OB star
-    bow shocks.  Other details of the plots are as in
+  \includegraphics[width=\linewidth]{figs/mipsgal-Rc-R90-vs-Orion-R0-D}
+  \caption[]{Shape comparison between Orion Nebula arcs (green) and OB
+    star bow shocks (purple).  Other details of the plots are as in
     Figs.~\ref{fig:mipsgal-shapes} and~\ref{fig:mipsgal-uncorrelated},
     except that a larger KDE smoothing bandwidth of
-    \(0.06 \times 0.045\) is used for the Orion Nebula sample.}
+    \(0.06 \times 0.045\) is used for the Orion Nebula sample.  The colors
+    of the individual points for the Orion Nebula sample show the
+    size-to-distance ratio, \(R_0/D\), on a logarithmic scale from
+    \(R_0/D = 0.002\) (dark green) to \(R_0/D = 0.018\) (light
+    green).}
   \label{fig:ll-compare-mipsgal}
 \end{figure}
 
@@ -929,6 +933,33 @@ these are both sources where the bow shock wings seem to bend outwards
 instead of following the curve from the apex region.  In contrast,
 030--524 has a small alatude for its planitude and this is a very
 asymmetric source with an apparent corner to the shell on one side.
+
+Uniquely among the three bow shock datasets, for the Orion Nebula arcs
+we know the source of the external flow.  This is not the stellar wind
+from the high-mass stars at the center of the cluster, which has
+insufficient momentum at the position of the arcs \citep{Bally:2000a},
+nor is it due to stars' own motions, since the space velocities of all
+these sources are very low, conforming to the velocity dispersion
+\(\sigma_{\text{1D}} \approx \SI{2}{km.s^{-1}}\) of the Orion Nebular Cluster
+\citep{Dzib:2017a, Kim:2018b}.  Instead it is due to the transonic
+champagne flow of photoionized gas away from the core of the nebula
+\citep{Zuckerman:1973a, Henney:2005a}, which has its density peak in
+the Orion~S region \citep{Weilbacher:2015a}, located roughly \(30''\)
+SW of the dominant Trapezium star \thC.  The bow shock sources are
+located at much larger distances of \(D = 90''\) to \(700''\) from
+\thC, so that the ratio \(R_0/D\) can be used as a proxy for the local
+divergence of the champagne flow on the scale of the bow shock (notice
+that the symmetry axes of the bow shocks in Fig.~\ref{fig:ll-arcs} are
+always roughly parallel to the direction to \thC{}).  This is
+indicated by the color of the points in
+Figure~\ref{fig:ll-compare-mipsgal}, with lighter colors corresponding
+to a larger \(R_0/D\) and hence a more divergent external flow.  It
+can be seen that there is some correlation between the bow shock
+shapes and \(R_0/D\): the source with the largest \(\Pi\), 109--246, also
+has the largest \(R_0/D\), while the four sources with low \(\Pi\) and
+\(\Lambda\) all have low \(R_0/D\).  However, the correlation is far from
+perfect, with a Pearson correlation coefficient of only \(r = 0.47\)
+between \(\Pi\) and \(R_0/D\).
 
 %Mention future JWST observations with \(0.85\arcsec\) resolution at \SI{22}{\um}. 
 

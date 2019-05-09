@@ -146,18 +146,32 @@ is of same order as the bow shock size.
 
 An attractive feature of the oscillation hypothesis is that it
 naturally explains why we find little correlation between the bow
-shock shape and other source parameters (\S~\ref{sec:corr-shape}).
+shock shape and other source parameters (\S~\ref{sec:corr-shape}),
+since the instantaneous shape at any instant is largely a matter of
+chance rather than being due to any intrinsic property of the source.
 The one significant correlation that we do find is that the alatude
 distribution is broader for bow shocks with larger angular sizes.
 This might be explained if the relative amplitude of oscillations were
-higher for sources with more powerful winds.  However, in that case it
-is hard to understand why no such variation is seen in the width of
-the planitude distribution.
+higher for sources with more powerful winds. \citet{Meyer:2016a} in
+their Fig.~2 plot the ``axis ratio'' (which is our \(\Lambda^{-1}\)) as a
+function of apex distance for a large set of hydrodynamic bow shock
+simulations.  They find the most unstable bow shocks (with the largest
+spread in \(\Lambda\)) to be those associated with the highest mass stars in
+a relatively dense medium, which have apex distances of
+\SIrange{0.3}{1}{pc}.  This corresponds to \(R_0 > 15''\) for
+distances less than \SI{4}{kpc}, which is larger than the median
+angular size for the MIPSGAL sources, making this a plausible explanation for our statistical result.
+% However, in that case it
+% is hard to understand why no such variation is seen in the width of
+% the planitude distribution.
 
 We now address the difference in shape distribution between the
 different classes of source.  Compared with the OB star bow shocks,
-the cool star sample from \citet{Cox:2012a} shows a significantly
-smaller alatude of \(\Lambda = 1.41 \pm 0.03\) (see
+the cool star sample from \citet{Cox:2012a}\footnote{Three of these
+  sources are high-mass red supergiant (RSG) stars, while the
+  remaining 13 are intermediate-mass asymptotic giant branch (AGB)
+  stars.} shows a significantly smaller alatude of
+\(\Lambda = 1.41 \pm 0.03\) (see
 Fig.~\ref{fig:herschel-compare-mipsgal}).\footnote{Although the
   planitude also appears to be slightly smaller, this is not very
   statistically significant due to the small number of cool star
@@ -169,9 +183,48 @@ given that the emission shells in these sources are relatively narrow
 and~\ref{fig:herschel-arc-fits-poor}), so one might have thought that
 the thin-shell approximation of \citet{Wilkin:1996a} would be
 \emph{more} appropriate than for the OB stars, but this is clearly not
-the case.  One possible explanation for this 
+the case.  One possible explanation for this might be that the bow
+shocks have not had time to reach a steady-state configuration, as was
+suggested by \citet{Mohamed:2012a} for the case of \(\alpha\)~Ori.  The
+dynamical timescales, \(R_0 / V\wind\), for the cool star bow shocks
+are of order \SI{e4}{yr} and numerical simulations \citetext{e.g.,
+  Fig.~11 of \citealp{Mohamed:2012a} and Fig.~2 of
+  \citealp{van-Marle:2014a}} show that the bow shock wings take of
+order \SIrange{3e4}{e5}{yr} to fully unfold.  However, this is still
+short compared with typical RSG and AGB lifetimes, so while it might
+apply to a single source it does not work as an explanation for an
+entire class of sources, especially given that the alatude and
+planitude distributions for these sources are so narrow
+(Fig.~\ref{fig:herschel-compare-mipsgal}).  A more promising
+explanation is that the shape difference reflects a different origin
+for the infrared-emitting dust.  In hot stars, the stellar wind is
+dust-free, so the only dust shell comes from the interstellar medium
+and lies outside the astropause (contact discontinuity).  In cool
+stars, the stellar wind is dusty, which could give rise to significant
+infrared emission from near the stellar wind's termination shock.
+This is certainly the case for at least one of our cool star sources,
+the C-AGB star CW~Leo (IRC+10216), where ultraviolet GALEX
+observations \citep{Sahai:2010a} clearly show \emph{both} the outer
+shock and the wind termination shock, and comparison with the Herschel
+images demonstrate that the infrared dust emission is associated with
+the latter.
 
 
+% However, in order for the dust emission arc to be less open than the
+% wilkinoid case, one would require the shocked stellar wind shell to be
+% relatively thick, which means that either the Mach number must be low
+% or the post-shock cooling must be inefficient (see Paper~I).  In some
+% red supergiants, the stellar wind is heated and photoionized by the
+% ambient radiation field before reaching the bow shock
+% \citep{Morris:1983a, Mackey:2014a}, which would tend to produce a low
+% Mach number shock.
+
+In the case of the Orion Nebula bow shocks
+(\S~\ref{sec:stat-emiss-line}), we have the opposite situation, where
+the alatude and planitude are both significantly larger on average
+than for the OB star sources (Fig.~\ref{fig:ll-compare-mipsgal}).  
+
+None of these sources have high velocities, but instead follow the   
 
 %%% Local Variables:
 %%% mode: latex
