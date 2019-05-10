@@ -17,7 +17,6 @@
     "sec:distr-p-values"
     "fig:histo-p-values"
     "tab:big-p"
-    "eq:type-I"
     "sec:perturbed-bows"
     "fig:perturb-shapes"
     "fig:perturb-xy-prime"

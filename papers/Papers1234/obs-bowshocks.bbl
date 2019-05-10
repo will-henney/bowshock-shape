@@ -97,15 +97,6 @@ Brown M.~B.,  Forsythe A.~B.,  1974, Journal of the American Statistical
   et~al.}{2009}]{Carey:2009a}
 {Carey} S.~J.,  et~al., 2009, \pasp, 121, 76
 
-\bibitem[\protect\citeauthoryear{Cohen}{Cohen}{1988}]{Cohen:1988a}
-Cohen J.,  1988, Statistical Power Analysis for the Behavioral Sciences, 2nd
-  edn.
-Routledge
-
-\bibitem[\protect\citeauthoryear{Colquhoun}{Colquhoun}{2014}]{Colquhoun:2014a}
-Colquhoun D.,  2014, \mn@doi [Royal Society Open Science]
-  {10.1098/rsos.140216}, 1
-
 \bibitem[\protect\citeauthoryear{{Comeron} \& {Kaper}}{{Comeron} \&
   {Kaper}}{1998}]{Comeron:1998a}
 {Comeron} F.,  {Kaper} L.,  1998, \aap, 338, 273
@@ -120,10 +111,6 @@ Cureton E.~E.,  1956, Psychometrika, 21, 287
   {Ho}}{{Cyganowski} et~al.}{2003}]{Cyganowski:2003a}
 {Cyganowski} C.~J.,  {Reid} M.~J.,  {Fish} V.~L.,   {Ho} P.~T.~P.,  2003, \apj,
   596, 344
-
-\bibitem[\protect\citeauthoryear{Delaney \& Vargha}{Delaney \&
-  Vargha}{2002}]{Delaney:2002a}
-Delaney H.~D.,  Vargha A.,  2002, Psychological Methods, 7, 485
 
 \bibitem[\protect\citeauthoryear{{Dgani}, {van Buren}  \&
   {Noriega-Crespo}}{{Dgani} et~al.}{1996a}]{Dgani:1996a}
@@ -154,12 +141,6 @@ Delaney H.~D.,  Vargha A.,  2002, Psychological Methods, 7, 485
   {Draine}}{{Geballe} et~al.}{2004}]{Geballe:2004a}
 {Geballe} T.~R.,  {Rigaut} F.,  {Roy} J.-R.,   {Draine} B.~T.,  2004, \apj,
   602, 770
-
-\bibitem[\protect\citeauthoryear{Goodman}{Goodman}{1999a}]{Goodman:1999a}
-Goodman S.~N.,  1999a, Ann Intern Med, 130, 995
-
-\bibitem[\protect\citeauthoryear{Goodman}{Goodman}{1999b}]{Goodman:1999b}
-Goodman S.~N.,  1999b, Ann Intern Med, 130, 1005
 
 \bibitem[\protect\citeauthoryear{{Groenewegen} et~al.,}{{Groenewegen}
   et~al.}{2011}]{Groenewegen:2011a}
@@ -197,6 +178,12 @@ Head M.~L.,  Holman L.,  Lanfear R.,  Kahn A.~T.,   Jennions M.~D.,  2015, PLOS
 {Henney} W.~J.,  {Arthur} S.~J.,  2019b, arXiv e-prints, \href
   {http://adsabs.harvard.edu/abs/2019arXiv190307774H} {1903.07774 MNRAS
   submitted (Paper II)}
+
+\bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
+  {Arthur}}{2019c}]{Henney:2019c}
+{Henney} W.~J.,  {Arthur} S.~J.,  2019c, arXiv e-prints, \href
+  {http://adsabs.harvard.edu/abs/2019arXiv190400343H} {1904.00343 MNRAS
+  submitted (Paper III)}
 
 \bibitem[\protect\citeauthoryear{{Henney}, {Arthur}  \&
   {Garc{\'{\i}}a-D{\'{\i}}az}}{{Henney} et~al.}{2005}]{Henney:2005a}
@@ -379,9 +366,6 @@ p.~544
   et~al.}{2013}]{Robberto:2013a}
 {Robberto} M.,  et~al., 2013, \apjs, 207, 10
 
-\bibitem[\protect\citeauthoryear{Ruscio}{Ruscio}{2008}]{Ruscio:2008a}
-Ruscio J.,  2008, Psychol Methods, 13, 19
-
 \bibitem[\protect\citeauthoryear{{Sahai} \& {Chronopoulos}}{{Sahai} \&
   {Chronopoulos}}{2010}]{Sahai:2010a}
 {Sahai} R.,  {Chronopoulos} C.~K.,  2010, \apjl, 711, L53
@@ -405,11 +389,6 @@ Scholz F.~W.,  Stephens M.~A.,  1987, Journal of the American Statistical
 Scott D.~W.,  2015, Multivariate density estimation: theory, practice, and
   visualization, 2nd edn.
 John Wiley \& Sons
-
-\bibitem[\protect\citeauthoryear{Sellke, Bayarri  \& Berger}{Sellke
-  et~al.}{2001}]{Sellke:2001a}
-Sellke T.,  Bayarri M.~J.,   Berger J.~O.,  2001, The American Statistician,
-  55, 62
 
 \bibitem[\protect\citeauthoryear{{Sexton}, {Povich}, {Smith}, {Babler}, {Meade}
    \& {Rudolph}}{{Sexton} et~al.}{2015}]{Sexton:2015b}
