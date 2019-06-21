@@ -281,6 +281,94 @@ discussions.
 \bibliographystyle{mnras}
 \bibliography{bowshocks-biblio}
 \appendix
+
+\section{Dust opacity and optical depth}
+\label{app:dust-opacity}
+
+In the main body of the paper we use a frequency-averaged dust optical
+depth, \(\tau\), which we here relate to the frequency-dependent optical
+properties of the grains.  For simplicity, we assume a dust model that
+consists of a set \(k \in \{1 \dots N\}\) of discrete populations of
+solid spherical grains \citep[e.g.][]{Desert:1990a}, each with its own
+chemical composition and size distribution:
+\(y_{a,k} \equiv n_k^{-1} (d n_k / d a)\), where \(n_k\) is the volume
+density of the \(k\)-th population (\si{grain.cm^{-3}}) and \(a\) is
+the grain radius. The frequency-dependent dust opacity per unit mass
+of gas and dust is \(\kappa_\nu\), with units \si{cm^2.g^{-1}}, which can be
+expressed as
+\begin{equation}
+  \label{eq:dust-opacity-frequency}
+  \kappa_\nu = \rho^{-1} \sum_{k=1}^{N} \left[  n_k \int_0^\infty \!\!y_{a,k} \, Q_{a,k,\nu} \,\pi a^2 \, da\right]\ ,
+\end{equation}
+where \(\rho\) is the total material mass density and \(Q_{a,k,\nu}\) is
+the size-, composition-, and frequency-dependent dimensionless grain
+optical efficiency, which can be calculated from the grain refractive
+indices using Mie theory \citep{Bohren:1983a}.  There are different
+varieties of \(Q\), and therefore different varieties of opacity,
+according to whether one is interested in true absorption,
+\(Q_{\text{abs}}\), scattering, \(Q_{\text{scat}}\), or total
+extinction, \(Q_{\text{ext}} = Q_{\text{abs}} + Q_{\text{scat}}\).
+The relative importance of scattering is described by the grain
+albedo: \(\varpi = Q_{\text{scat}}/Q_{\text{ext}}\).  The radiation
+pressure acting on the grains is determined by a fourth variety of
+optical efficiency:
+\(Q_P = Q_{\text{abs}} + (1 - g) Q_{\text{scat}}\), where \(g\) is the
+mean scattering cosine.
+
+The monochromatic optical depth of a medium (in any of these 4
+varieties) along a path \(s\) is given by
+\begin{equation}
+  \label{eq:tau-monochromatic}
+  \tau_\nu = \int \rho \kappa_\nu \, ds \ .
+\end{equation}
+If the effects of multiple scattering are ignored, then the fraction
+of stellar radiation of frequency \(\nu\) that is absorbed by the shell
+is \(1 - e^{-\tau_\nu}\), in which the integral is performed with
+\(s\) along the radial direction, assuming the star to be effectively
+a point source at the position of the shell.  To find the fraction of
+radiative \emph{energy}, \(\kappa_\nu\) must be calculated using
+\(Q_{\text{abs}}\), whereas to find the fraction of radiative
+\emph{momentum}, it must be calculated using \(Q_P\).  This
+single-scattering regime \citep[e.g.][]{Wibking:2018a} is a good
+approximation so long as \(\varpi\) is not close to unity and the
+shell is optically thin at infrared wavelengths, which is always true
+for stellar bow shocks.
+
+The frequency-averaged optical depth \(\tau\) is defined such that the
+fraction of the frequency-integrated stellar radiative momentum
+absorbed by the shell is \(1 - e^{-\tau}\).  For a stellar spectrum of
+shape \(F_\nu\), this implies the formal relation
+\begin{equation}
+  \label{eq:tau-averaged}
+  \tau = - \ln \left[ \frac{\int_0^\infty F_\nu \, e^{-\tau_\nu} \, d\nu}{\int_0^\infty F_\nu  \, d\nu} \right] \ .
+\end{equation}
+Note that this equation is valid regardless of the physical units of
+\(F_\nu\) (e.g., flux or luminosity).  More approximately, \(\tau\) can
+simply be estimated by \(\tau_\nu\) at the peak frequency of the stellar
+radiation, which typically falls in the far-ultraviolet range,
+although this approximation breaks down if \(\tau_\nu > 1\) over a
+significant portion of the stellar spectrum.
+
+In the main body of the paper, we use \(\tau\) for the radiation pressure
+optical depth and \(\tau'\) for the absorption optical depth.  These are
+related by the ratio of the corresponding frequency-averaged optical
+efficiencies:
+\begin{equation}
+  \label{eq:tau_tauprime}
+  \tau = \frac{Q_P}{Q_{\text{abs}}} \tau' = \left(  1 + \varpi \frac{1 - g}{1 - \varpi}\right) \tau'\ .
+\end{equation}
+Specific results were given in Figure~6a of Paper~II for an example
+grain mixture, designed to reproduce average interstellar medium dust
+properties \citep{Weingartner:2001b, Abel:2008a, Ferland:2013a,
+  Ferland:2017a}.  For such a mixture the albedo is roughly constant
+at \(\varpi \approx 0.5\) throughout the ultraviolet and visible bands,
+falling to low values in the infrared.  The asymmetry parameter, or
+mean scattering cosine, falls across the ultraviolet band from
+\(g \approx 1\) at the highest frequencies to \(g\approx 0.5\) in the FUV.\@ This
+yields a conversion factor of
+\(Q_P / Q_{\text{abs}} = \text{\numrange{1.2}{1.3}}\) at EUV/FUV
+wavelengths.  
+
 \input{app-k17-k18}
 
 % \section{Notes on particular sources}

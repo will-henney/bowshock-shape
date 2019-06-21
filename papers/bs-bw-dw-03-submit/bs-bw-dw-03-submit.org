@@ -1,3 +1,49 @@
+
+* Revised version
+
+** Referee report
++ Received [2019-05-14 Tue]
+  + Didn't do anything for 9 days
++ [2019-05-23 Thu] Working on it at last
++ Summary of points in report that need addressing
+  1. [0/4] Define all symbols where they are introduced. In particular
+     - [ ] R_0, R_pc
+     - [ ] relative velocity
+     - [ ] \Xi and \Xi_sh
+     - [ ] n_\infty and v_\infty
+  2. [2/2] 
+     - [X] Define more carefully \tau and \kappa given that they are not frequency dependent
+       + We have written a new appendix that addresses this question in a more rigorous way, where we discuss the relation between these frequency-averaged quantities and the frequency-dependent optical properties of the grains. This allows us to simplify the discussion in the main text.  We have also introduced a symbol tau-prime in order to more clearly distinguish between the optical depths for energy and momentum transfer. 
+     - [X] also \varpi and g
+       + We now refer to Fig 6 of Paper II for the provenance of these
+  3. [0/1] Minor points
+     - [ ] Give reference for f_UV in sec 4.0
+
+#+begin_quote
+Comments to the Author
+This is the third instalment in an good series of papers on bow-shocks and related phenomena. This paper focusses on a specific observational diagnostic - namely the [tau, eta_shell] diagram. I found the discussion thought provoking. From Figure 1, it seems that most of the observed bow shocks are wind driven bow shocks, which is
+perhaps not a surprise, but the paper does highlight some objects that should be looked at more closely and may be due to related phenomenon (which the paper then goes on to discuss). The discussion of mass-loss rates determinations made for interesting reading too and gave some thought provoking results.
+
+Having said all that, I did find this a rather difficult paper to read, which meant quite a bit of time having to refer back to results in Paper I and II (and then checking whether I understood where those results came from). The small changes in definition of symbols between papers added to my confusion.
+
+Related to this, the paper is a bit light on defining terms where they are first used, which in turn led to quite a bit of chasing through the paper (compounded with there being lots of slightly different R's, h's, eta's, u, Q's, V's and F's and so on).
+
+The paper is worth publishing and I think the general thrust of the discussion is valid. I would like a number of changes to improve the readability. I know these changes are a bit of a pain and they are not very specific and are a bit more general. But I think the paper would benefit from going through and looking at each symbol and making
+sure it is defined carefully.
+
+1) My main comment is whether you can define terms where they are first used.  This is especially acute in section 2 - what is R_0, R_pc. The "Relative velocity" of what to what. What is the difference between capital xi_{sh} and capital xi. I had assumed this was just a typo, but then see Section 4.0
+
+Other examples - what is n_\infinity - is it just n.
+
+Use of v_\infinity - not for the wind terminal velocity (a bit confusing as it is the standard symbol for wind terminal velocity). Though I recognise the need for consistency through the papers (as much as possible).
+
+2) As part of this, can you define tau and kappa a bit more closely. These quantities are usually frequency dependent, but here you are using an effective (or averaged) values. There is the footnote in Section 2, but even that had to read closely as to determine whether tau (Paper I) or tau (Paper II) was the larger. Where do the
+assumed values of w and g come from for Q_p/Q_abs.
+
+I know what was meant after re-reading it a few times, but the overall effect was confusing (and involved reading parts of Paper I and Paper II to understand what was going on).
+
+Minor points - the values of f_UV in Sect 4.0 - can you provide reference.
+#+end_quote
 * Initial version
 
 ** Select files

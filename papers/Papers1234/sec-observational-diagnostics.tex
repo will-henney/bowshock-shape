@@ -57,38 +57,34 @@
 \end{figure*}
 
 
-A fundamental parameter is the optical depth, \(\tau\), of the bow
-shell to UV radiation, which determines what fraction of the stellar
-photon momentum is available to support the shell (see
-\S~2.1 of Paper~I).  But the same photons also heat the
-dust grains in the bow, which re-radiate that energy predominantly at
-mid-infrared wavelengths (roughly \SIrange{10}{100}{\um}) with
-luminosity \(L\IR\).  Assuming that Ly\(\alpha\) and mechanical
-heating of the dust shell is negligible (see
+A fundamental parameter is the average optical depth, \(\tau\), of the
+bow shell to the stellar radiation. In Appendix~\ref{app:dust-opacity}
+we discuss in detail the relation between \(\tau\) and the optical
+properties of the grains.  In the single-scattering approximation, a
+fraction \(1 - e^{-\tau}\) of the stellar photon momentum is available to
+support the shell (see \S~2.1 of Paper~I).  But the same photons also
+heat the dust grains in the bow, which re-radiate that energy
+predominantly at mid-infrared wavelengths (roughly
+\SIrange{10}{100}{\um}) with luminosity \(L\IR\).  Assuming that
+Ly\(\alpha\) and mechanical heating of the dust shell is negligible (see
 \S~\ref{sec:unimp-other-heat}) and that the emitting shell subtends a
-solid angle \(\Omega\), as seen from the star, then the optical depth
-can be estimated as
+solid angle \(\Omega\), as seen from the star, then an absorption optical depth can
+be estimated as
 \begin{equation}
   \label{eq:tau-empirical}
-  \tau = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
+  \tau' = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
   \approx \frac{2 L\IR}{L_*} \ ,
 \end{equation}
-where the last approximate equality holds if \(\tau \ll 1\) and the shell
-emission covers one hemisphere.\footnote{%
-  Note that the \(\tau\) of Paper~I is not exactly the same as the
-  \(\tau\) of equation~\eqref{eq:tau-empirical}, but is larger by a
-  factor of
-  \(Q_P / Q_{\text{abs}} = 1 + \varpi (1 - g)/(1 - \varpi)\), where
-  \(\varpi\) is the grain albedo and \(g\) the scattering asymmetry.
-  For standard ISM grain mixtures,
-  \(Q_P / Q_{\text{abs}} = \text{\numrange{1.2}{1.3}}\) at EUV/FUV
-  wavelengths.}
-% This is plotted in Figure~6a of Paper~II for Cloudy's default ISM
-% grain mixture (see \S~\ref{sec:grain-temp-emiss} below), where it
-% can be seen that
-% \(Q_P / Q_{\text{abs}} = \text{\numrange{1.2}{1.3}}\) at EUV/FUV
-% wavelengths (\(\lambda = \text{\SIrange{0.05}{0.2}{\um}}\)), so the
-% correction is small.
+where the last approximate equality holds if \(\tau' \ll 1\) and the shell
+emission covers one hemisphere.  The two optical depths, \(\tau\) and
+\(\tau'\), are not exactly the same, see
+equation~\eqref{eq:tau_tauprime}.  The first, \(\tau\), represents
+radiative momentum transfer, which is governed by the grain radiation
+pressure efficiency, \(Q_P\).  The second, \(\tau'\), represents
+radiative energy transfer, which is governed by the grain absorption
+efficiency, \(Q_{\text{abs}}\).  We adopt \(\tau = 1.25 \tau'\) based on
+Cloudy models of a standard ISM dust mixture, see Figure~6 of
+Paper~II and Appendix~\ref{app:dust-opacity}.
 
 A second important parameter is the thermal plus magnetic pressure in
 the shocked shell, which is doubly useful since in a steady state it

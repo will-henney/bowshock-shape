@@ -17,6 +17,11 @@
   {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
   mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
 
+\bibitem[\protect\citeauthoryear{{Abel}, {Hoof}, {Shaw}, {Ferland}  \&
+  {Elwert}}{{Abel} et~al.}{2008}]{Abel:2008a}
+{Abel} N.~P.,  {Hoof} P.~A.~M.~v.,  {Shaw} G.,  {Ferland} G.~J.,   {Elwert} T.,
+   2008, \apj, 686, 1125
+
 \bibitem[\protect\citeauthoryear{{Acreman}, {Stevens}  \& {Harries}}{{Acreman}
   et~al.}{2016}]{Acreman:2016a}
 {Acreman} D.~M.,  {Stevens} I.~R.,   {Harries} T.~J.,  2016, \mnras, 456, 136
@@ -61,6 +66,12 @@
   {Langer}}{{Bodensteiner} et~al.}{2018}]{Bodensteiner:2018a}
 {Bodensteiner} J.,  {Baade} D.,  {Greiner} J.,   {Langer} N.,  2018, \aap, 618,
   A110
+
+\bibitem[\protect\citeauthoryear{Bohren \& Huffman}{Bohren \&
+  Huffman}{1983}]{Bohren:1983a}
+Bohren C.~F.,  Huffman D.,  1983, Absorption and scattering of light by small
+  particles.
+Wiley-VCH
 
 \bibitem[\protect\citeauthoryear{{Brand} \& {Blitz}}{{Brand} \&
   {Blitz}}{1993}]{Brand:1993a}
@@ -181,15 +192,13 @@
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019a}]{Henney:2019a}
-{Henney} W.~J.,  {Arthur} S.~J.,  2019a, arXiv e-prints, \href
-  {http://adsabs.harvard.edu/abs/2019arXiv190303737H} {1903.03737 MNRAS
-  submitted (Paper I)}
+{Henney} W.~J.,  {Arthur} S.~J.,  2019a, \mnras, \href
+  {http://adsabs.harvard.edu/abs/2019arXiv190303737H} {486, 3423 (Paper I)}
 
 \bibitem[\protect\citeauthoryear{{Henney} \& {Arthur}}{{Henney} \&
   {Arthur}}{2019b}]{Henney:2019b}
-{Henney} W.~J.,  {Arthur} S.~J.,  2019b, arXiv e-prints, \href
-  {http://adsabs.harvard.edu/abs/2019arXiv190307774H} {1903.07774 MNRAS
-  submitted (Paper II)}
+{Henney} W.~J.,  {Arthur} S.~J.,  2019b, \mnras, \href
+  {http://adsabs.harvard.edu/abs/2019arXiv190307774H} {486, 4423 (Paper II)}
 
 \bibitem[\protect\citeauthoryear{{Hirabayashi}}{{Hirabayashi}}{2015}]{Hirabayashi:2015a}
 {Hirabayashi} M.,  2015, \mnras, 454, 2249
@@ -459,7 +468,7 @@ New York: Wiley-Interscience
 
 \bibitem[\protect\citeauthoryear{{Tarango-Yong} \& {Henney}}{{Tarango-Yong} \&
   {Henney}}{2018}]{Tarango-Yong:2018a}
-{Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431
+{Tarango-Yong} J.~A.,  {Henney} W.~J.,  2018, \mnras, 477, 2431 (Paper 0)
 
 \bibitem[\protect\citeauthoryear{{Tielens} \& {Hollenbach}}{{Tielens} \&
   {Hollenbach}}{1985}]{Tielens:1985a}
@@ -485,12 +494,21 @@ New York: Wiley-Interscience
 {Vink} J.~S.,  {de Koter} A.,   {Lamers} H.~J.~G.~L.~M.,  2000, \aap, 362, 295
 
 \bibitem[\protect\citeauthoryear{{Weingartner} \& {Draine}}{{Weingartner} \&
-  {Draine}}{2001}]{Weingartner:2001a}
-{Weingartner} J.~C.,  {Draine} B.~T.,  2001, \apj, 548, 296
+  {Draine}}{2001a}]{Weingartner:2001b}
+{Weingartner} J.~C.,  {Draine} B.~T.,  2001a, \apjs, 134, 263
+
+\bibitem[\protect\citeauthoryear{{Weingartner} \& {Draine}}{{Weingartner} \&
+  {Draine}}{2001b}]{Weingartner:2001a}
+{Weingartner} J.~C.,  {Draine} B.~T.,  2001b, \apj, 548, 296
 
 \bibitem[\protect\citeauthoryear{{Wendker}, {Higgs}  \& {Landecker}}{{Wendker}
   et~al.}{1991}]{Wendker:1991a}
 {Wendker} H.~J.,  {Higgs} L.~A.,   {Landecker} T.~L.,  1991, \aap, 241, 551
+
+\bibitem[\protect\citeauthoryear{{Wibking}, {Thompson}  \&
+  {Krumholz}}{{Wibking} et~al.}{2018}]{Wibking:2018a}
+{Wibking} B.~D.,  {Thompson} T.~A.,   {Krumholz} M.~R.,  2018, \mnras, 477,
+  4665
 
 \bibitem[\protect\citeauthoryear{{Wilkin}}{{Wilkin}}{1996}]{Wilkin:1996a}
 {Wilkin} F.~P.,  1996, \apjl, 459, L31
