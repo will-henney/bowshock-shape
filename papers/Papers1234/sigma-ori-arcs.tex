@@ -119,7 +119,7 @@
 \pagerange{\pageref{firstpage}--\pageref{lastpage}}
 \maketitle
 \begin{abstract}
-  We critically evaluate the role of radiation and hydrodynamics in
+  We critically evaluate the role of radiation and ram pressure in
   providing internal support for the bow-shaped infrared arc around
   the massive triple star system \(\sigma\)~Ori Aa/Ab/B in the IC434 \hii{}
   region.  We present evidence for hydrogen recombination line
@@ -142,6 +142,16 @@
 \section{Why the inner arc cannot be a decoupled dust wave}
 \label{sec:why-not-dust}
 
+We downloaded optical images of \(\sigma\)~Ori from the Astronomical Data
+Centre of the Cambridge Astronomy Survey
+Unit.\footnote{\url{http://casu.ast.cam.ac.uk/surveys-projects/adc}}
+These were obtained on 2008-11-19 with the Wide Field Camera of the
+Isaac Newton Telescope from an observational program of Rafael
+Barrena.  We use images in two filters: a narrow-band H\(\alpha\) filter
+(central wavelength, \(\lambda_0 = \SI{656.8}{nm}\), full-width half
+maximum, \(\Delta\lambda = \SI{9.5}{nm}\)) and a broad-band Sloan Gunn
+\(R\) filter (\(\lambda_0 = \SI{624.0}{nm}\), \(\Delta\lambda = \SI{134.7}{nm}\)).  We have removed the bias v
+
 \section{Why the inner arc cannot be radiation-supported}
 \label{sec:why-not-radiation}
 
@@ -150,21 +160,30 @@ SEDs of the two arcs
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/sigma-ori-comparison}
-  \caption{Optical and infrared images of $\sigma$~Ori}
+  \caption{Optical and infrared images of $\sigma$~Ori and its
+    surroundings.  (a)~Optical image in in the H\(\alpha\) line, shown in
+    negative grayscale.  (b)~Mid-infrared image in three Spitzer
+    bands: MIPS \SI{23.7}{\um} (red), IRAC \SI{7.87}{\um} (green), and
+    IRAC \SI{5.73}{\um} (blue).  The yellow dashed box shows the slit
+    for which profiles are extracted in Fig.~\ref{fig:sig-ori-cuts}.}
   \label{fig:sig-ori}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/sigma-ori-eastwest-cuts}
-  \caption{Brightness profiles through $\sigma$~Ori inner arc.}
+  \caption{Brightness profiles through $\sigma$~Ori inner arc.  (a)~H\(\alpha\) and  All
+    profiles are extracted in a \(40''\) wide slit, offset by \(80''\)
+    to the south of \(\sigma\)~Ori, as indicated in
+    Fig.~\ref{fig:sig-ori}b. }
   \label{fig:sig-ori-cuts}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{figs/sigma-ori-inner-outer}
-  \caption{Combined mid-infrared and far-infrared views of the inner and outer arcs around $\sigma$~Ori}
+  \caption{Combined mid-infrared and far-infrared views of the inner
+    and outer arcs around $\sigma$~Ori}
   \label{fig:sig-ori-outer}
 \end{figure}
 
@@ -187,7 +206,24 @@ SEDs of the two arcs
 \section{Conclusions}
 \label{sec:conclusions}
 
+\section*{Acknowledgements}
 
+We are grateful for financial support provided by Dirección General de
+Asuntos del Personal Académico, Universidad Nacional Autónoma de
+México, through grant Programa de Apoyo a Proyectos de Investigación e
+Inovación Tecnológica IN107019.  We thank Bo Reipurth for advice on
+astronomical data archives.  This work is based in part on
+observations made in the Observatorios de Canarias del IAC with the
+Isaac Newton Telescope operated on the island of La Palma by the
+Instituto de Astrofísica de Canarias in the Observatorio del Roque de
+los Muchachos. 
+% Based in part on observations made with the Isaac Newton Telescope
+% under Director’s Discretionary Time of Spain’s Instituto de
+% Astrofísica de Canarias.
+This work is based in part on observations made with the Spitzer Space
+Telescope, which is operated by the Jet Propulsion Laboratory,
+California Institute of Technology under a contract with NASA.\@ This
+work makes use of imagery from David Mittelman Astrophotography.
 
 \bibliographystyle{mnras}
 \bibliography{bowshocks-biblio}
