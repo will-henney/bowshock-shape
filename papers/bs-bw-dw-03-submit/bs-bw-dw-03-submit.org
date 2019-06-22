@@ -45,6 +45,119 @@ I know what was meant after re-reading it a few times, but the overall effect wa
 
 Minor points - the values of f_UV in Sect 4.0 - can you provide reference.
 #+end_quote
+
+** Using latexdiff to highlight changes
+
++ Get temp dir with old version
++ I had to check out an old git version to get this since I had stupidly written over it
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bsbwdw03-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bsbwdw03-submitted-v1.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bsbwdw03-test found and removed
+/tmp/ms-bsbwdw03-test
+total 312
+-rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--   1 will  wheel    15K Mar 30 19:31 app-cloudy-dust-heating.tex
+-rw-r--r--   1 will  wheel   6.7K Mar 16 22:23 app-k17-k18.tex
+-rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--   1 will  wheel    23K Mar 30 23:00 bs-bw-dw-03.bbl
+-rw-r--r--   1 will  wheel    17K Mar 30 22:52 bs-bw-dw-03.tex
+-rw-r--r--   1 will  wheel   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
+drwxr-xr-x  15 will  wheel   480B Jun 21 23:16 figs
+-rw-r--r--   1 will  wheel    68K Mar 30 22:52 sec-observational-diagnostics.tex
+
+./figs:
+total 9736
+-rw-r--r--  1 will  wheel   314K Feb 22 22:47 All-sources-eta-tau.pdf
+-rw-r--r--  1 will  wheel    75K Mar 21 22:46 H_versus_ell_annotated.pdf
+-rw-r--r--  1 will  wheel    21K Mar 30 20:27 K17-tau-comparison.pdf
+-rw-r--r--  1 will  wheel    19K Feb 11 16:01 K18-emissivity-vs-U.pdf
+-rw-r--r--  1 will  wheel    19K Mar 30 20:29 K18-mdot-Ux8-comparison.pdf
+-rw-r--r--  1 will  wheel   126K Mar 30 19:31 K18-mdot-corrected-comparison-R0-edited.pdf
+-rw-r--r--  1 will  wheel   417K Mar 27 11:58 Mdot-vs-lum-combo-edited.pdf
+-rw-r--r--  1 will  wheel   3.4M Mar 24 18:13 cygnus-bows-midir-combo.pdf
+-rw-r--r--  1 will  wheel    30K Mar 30 18:43 grain-T-vs-U.pdf
+-rw-r--r--  1 will  wheel    68K Mar 30 18:41 grain-j70-vs-U-edited.pdf
+-rw-r--r--  1 will  wheel   206K Mar 30 19:47 mdot_correlations_edited.pdf
+-rw-r--r--  1 will  wheel    25K Feb 13 17:59 sed-comparison.pdf
+-rw-r--r--  1 will  wheel    20K Mar 23 23:20 xsec-dust-ratd-ism_10.pdf
+#+end_example
+
+
+#+BEGIN_SRC sh :results verbatim
+  # Target output directory
+  D=$PWD/latexdiff
+
+  # Expand version 2 from the working directory
+  cd ../Papers1234
+  ln -svf $PWD/figs $D 
+  cp -fv aastex-compat.sty $D
+  latexpand bs-bw-dw-03.tex \
+            --verbose --keep-comments --explain \
+            --expand-bbl bs-bw-dw-03.bbl \
+            --show-graphics \
+            -o $D/ms03-v2-expand.tex
+
+  # Expand version 1 from the tar file (run block below to populate TMPDIR first)
+  TMPDIR=/tmp/ms-bsbwdw03-test
+  cd $TMPDIR
+  latexpand bs-bw-dw-03.tex \
+            --verbose --keep-comments --explain \
+            --expand-bbl bs-bw-dw-03.bbl \
+            --show-graphics \
+            -o $D/ms03-v1-expand.tex
+
+#+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-03-submit/latexdiff/figs -> /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/Papers1234/figs
+: aastex-compat.sty -> /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-03-submit/latexdiff/aastex-compat.sty
+
+#+name: run-latexdiff
+#+header: :var FILE_A="ms03-v1-expand.tex"
+#+header: :var FILE_B="ms03-v2-expand.tex"
+#+header: :var FILE_DIFF="ms03-diff-v1v2.tex"
+#+header: :var OPTIONS="--type=CFONT --ignore-warnings --math-markup=off"
+#+BEGIN_SRC sh :eval no 
+  cd latexdiff
+  latexdiff $OPTIONS --verbose $FILE_A $FILE_B > $FILE_DIFF 2> latexdiff.log
+  echo $FILE_DIFF
+#+END_SRC
+
+Copy wjh-latexdiff-preamble.tex from the Jorge paper folder
+
+#+call: run-latexdiff(OPTIONS="--preamble=wjh-latexdiff-preamble.tex --append-context2cmd='label' --packages=amsmath,hyperref,siunitx --verbose --ignore-warnings --math-markup=1 --allow-spaces") :results output verbatim :eval yes
+
+#+RESULTS:
+: ms03-diff-v1v2.tex
+
+#+BEGIN_SRC sh :results silent
+cd latexdiff
+pdflatex ms03-diff-v1v2
+pdflatex ms03-diff-v1v2
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent
+open latexdiff/ms03-diff-v1v2.pdf
+#+END_SRC
+
+This even works with the math markup diffs. 
+
+
 * Initial version
 
 ** Select files
@@ -134,6 +247,9 @@ figs/sed-comparison
 
 
 ** Test compilation in a temp folder
+:PROPERTIES:
+:ID:       A61B735A-E813-46B2-BC28-56F06C7FD920
+:END:
 
 Make folder
 
@@ -154,28 +270,27 @@ Make folder
 
 #+RESULTS:
 #+begin_example
-/tmp/ms-bsbwdw03-test found and removed
+/tmp/ms-bsbwdw03-test not found
 /tmp/ms-bsbwdw03-test
 total 312
 -rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
 -rw-r--r--   1 will  wheel    15K Mar 30 19:31 app-cloudy-dust-heating.tex
 -rw-r--r--   1 will  wheel   6.7K Mar 16 22:23 app-k17-k18.tex
 -rw-r--r--   1 will  wheel   4.4K Apr 15  2013 astrojournals.sty
--rw-r--r--   1 will  wheel    23K Mar 30 23:00 bs-bw-dw-03.bbl
--rw-r--r--   1 will  wheel    17K Mar 30 22:52 bs-bw-dw-03.tex
+-rw-r--r--   1 will  wheel    23K Apr 11 11:11 bs-bw-dw-03.bbl
+-rw-r--r--   1 will  wheel    18K Apr 11 11:11 bs-bw-dw-03.tex
 -rw-r--r--   1 will  wheel   2.2K Mar 25 11:44 bs-bw-dw-defs.tex
-drwxr-xr-x  15 will  wheel   480B Mar 30 23:14 figs
--rw-r--r--   1 will  wheel    68K Mar 30 22:52 sec-observational-diagnostics.tex
+drwxr-xr-x  14 will  wheel   448B Jun 21 22:41 figs
+-rw-r--r--   1 will  wheel    68K Apr  7 16:43 sec-observational-diagnostics.tex
 
 ./figs:
-total 9736
+total 9696
 -rw-r--r--  1 will  wheel   314K Feb 22 22:47 All-sources-eta-tau.pdf
 -rw-r--r--  1 will  wheel    75K Mar 21 22:46 H_versus_ell_annotated.pdf
 -rw-r--r--  1 will  wheel    21K Mar 30 20:27 K17-tau-comparison.pdf
--rw-r--r--  1 will  wheel    19K Feb 11 16:01 K18-emissivity-vs-U.pdf
 -rw-r--r--  1 will  wheel    19K Mar 30 20:29 K18-mdot-Ux8-comparison.pdf
 -rw-r--r--  1 will  wheel   126K Mar 30 19:31 K18-mdot-corrected-comparison-R0-edited.pdf
--rw-r--r--  1 will  wheel   417K Mar 27 11:58 Mdot-vs-lum-combo-edited.pdf
+-rw-r--r--  1 will  wheel   417K Apr  2 13:12 Mdot-vs-lum-combo-edited.pdf
 -rw-r--r--  1 will  wheel   3.4M Mar 24 18:13 cygnus-bows-midir-combo.pdf
 -rw-r--r--  1 will  wheel    30K Mar 30 18:43 grain-T-vs-U.pdf
 -rw-r--r--  1 will  wheel    68K Mar 30 18:41 grain-j70-vs-U-edited.pdf
