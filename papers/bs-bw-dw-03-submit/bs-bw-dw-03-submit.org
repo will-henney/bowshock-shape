@@ -6,18 +6,19 @@
   + Didn't do anything for 9 days
 + [2019-05-23 Thu] Working on it at last
 + Summary of points in report that need addressing
-  1. [0/4] Define all symbols where they are introduced. In particular
-     - [ ] R_0, R_pc
-     - [ ] relative velocity
-     - [ ] \Xi and \Xi_sh
-     - [ ] n_\infty and v_\infty
+  1. [4/4] Define all symbols where they are introduced. In particular
+     - [X] R_0, R_pc
+     - [X] relative velocity
+     - [X] \Xi and \Xi_sh
+     - [X] n_\infty and v
+       - We have removed all references to n_\infty.  In Paper I we distinguished between the density at large distances, n_\infty, and the density just outside the shock, n. 
   2. [2/2] 
      - [X] Define more carefully \tau and \kappa given that they are not frequency dependent
-       + We have written a new appendix that addresses this question in a more rigorous way, where we discuss the relation between these frequency-averaged quantities and the frequency-dependent optical properties of the grains. This allows us to simplify the discussion in the main text.  We have also introduced a symbol tau-prime in order to more clearly distinguish between the optical depths for energy and momentum transfer. 
+       + We have written a new appendix that addresses this question in a more rigorous way, where we discuss the relation between these frequency-averaged quantities and the frequency-dependent optical properties of the grains. This allows us to simplify the discussion in the main text.  We also take more care to clearly distinguish between the optical depths for energy and momentum transfer, using tau_P and tau_abs where necessary. 
      - [X] also \varpi and g
        + We now refer to Fig 6 of Paper II for the provenance of these
-  3. [0/1] Minor points
-     - [ ] Give reference for f_UV in sec 4.0
+  3. [1/1] Minor points
+     - [X] Give reference for f_UV in sec 4.0
 
 #+begin_quote
 Comments to the Author

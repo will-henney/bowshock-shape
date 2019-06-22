@@ -60,31 +60,35 @@
 A fundamental parameter is the average optical depth, \(\tau\), of the
 bow shell to the stellar radiation. In Appendix~\ref{app:dust-opacity}
 we discuss in detail the relation between \(\tau\) and the optical
-properties of the grains.  In the single-scattering approximation, a
-fraction \(1 - e^{-\tau}\) of the stellar photon momentum is available to
-support the shell (see \S~2.1 of Paper~I).  But the same photons also
-heat the dust grains in the bow, which re-radiate that energy
-predominantly at mid-infrared wavelengths (roughly
-\SIrange{10}{100}{\um}) with luminosity \(L\IR\).  Assuming that
-Ly\(\alpha\) and mechanical heating of the dust shell is negligible (see
-\S~\ref{sec:unimp-other-heat}) and that the emitting shell subtends a
-solid angle \(\Omega\), as seen from the star, then an absorption optical depth can
-be estimated as
+properties of the grains, as well as the slight differences between
+the optical depths for absorption, \(\tau_{\text{abs}}\), scattering,
+\(\tau_{\text{scat}}\), and radiation pressure, \(\tau_P\).  In the
+single-scattering approximation, a fraction \(1 - e^{-\tau_P}\) of the
+stellar photon momentum is available to support the shell (see \S~2.1
+of Paper~I).  But the same photons also heat the dust grains in the
+bow, which re-radiate that energy predominantly at mid-infrared
+wavelengths (roughly \SIrange{10}{100}{\um}) with luminosity \(L\IR\).
+Assuming that Ly\(\alpha\) and mechanical heating of the dust shell is
+negligible (see \S~\ref{sec:unimp-other-heat}) and that the emitting
+shell subtends a solid angle \(\Omega\), as seen from the star, then an
+absorption optical depth can be estimated as
 \begin{equation}
   \label{eq:tau-empirical}
-  \tau' = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
+  \tau_{\text{abs}} = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
   \approx \frac{2 L\IR}{L_*} \ ,
 \end{equation}
-where the last approximate equality holds if \(\tau' \ll 1\) and the shell
-emission covers one hemisphere.  The two optical depths, \(\tau\) and
-\(\tau'\), are not exactly the same, see
-equation~\eqref{eq:tau_tauprime}.  The first, \(\tau\), represents
-radiative momentum transfer, which is governed by the grain radiation
-pressure efficiency, \(Q_P\).  The second, \(\tau'\), represents
+where the last approximate equality holds if
+\(\tau_{\text{abs}} \ll 1\) and the shell emission covers one hemisphere.
+The two optical depths, \(\tau_P\) and \(\tau_{\text{abs}}\), are not
+exactly the same, see equation~\eqref{eq:tau_tauprime}.  The first
+represents radiative momentum transfer, which is governed by the grain
+radiation pressure efficiency, \(Q_P\), while the second represents
 radiative energy transfer, which is governed by the grain absorption
-efficiency, \(Q_{\text{abs}}\).  We adopt \(\tau = 1.25 \tau'\) based on
-Cloudy models of a standard ISM dust mixture, see Figure~6 of
-Paper~II and Appendix~\ref{app:dust-opacity}.
+efficiency, \(Q_{\text{abs}}\).  We adopt
+\(\tau_P = 1.25 \tau_{\text{abs}}\) based on Cloudy models of a standard ISM
+dust mixture, see Figure~6 of Paper~II and
+Appendix~\ref{app:dust-opacity}.  In the remainder of the paper, we
+drop the subscript and set \(\tau = \tau_{\text{abs}}\).
 
 A second important parameter is the thermal plus magnetic pressure in
 the shocked shell, which is doubly useful since in a steady state it
@@ -123,20 +127,24 @@ where \(c\) is the speed of light. In the last step we have assumed
 ionized gas at temperature \(\num{e4}\,T_4\,\si{K}\) with negligible
 magnetic support (\(v\alfven \ll \sound\)) and written the stellar
 luminosity and shell parameters in terms of typical values, which we
-summarize below.  Note that the shell momentum efficiency is simply
-the reciprocal of the radiation parameter from Paper~II's
-equation~(23): \(\eta\shell = \Xi\shell^{-1}\), which provides yet a third
-use for \(\eta\shell\), since \(\Xi\) is paramount in determining whether
-the grains and gas remain well-coupled (see \S~4.4 of Paper~II).
+summarize below.  In equation~(23) of Paper~II, we defined a radiation
+parameter as the ratio of the radiation pressure to gas pressure,
+\(\Xi = P\rad/P\gas\). The value of \(\Xi\) in the shell is therefore
+\(\Xi\shell = \eta\shell^{-1}\) if magnetic pressure is negligible, which
+provides yet a third use for \(\eta\shell\), since the radiation
+parameter is paramount in determining whether the grains and gas
+remain well-coupled (see \S~4.4 of Paper~II).
+
 
 In this section and the remainder of the paper, we employ
-dimensionless versions of the stellar bolometric luminosity, \(L_*\),
-wind mass-loss rate, \(\dot{M}\), and terminal velocity, \(V\wind\),
-together with the ambient stream's mass density, \(\rho\), relative
-velocity \(v_\infty\), and effective dust opacity, \(\kappa\).  These are
-defined as follows:
+dimensionless versions of the star--apex distance, \(R_0\), stellar
+bolometric luminosity, \(L_*\), wind mass-loss rate, \(\dot{M}\), and
+terminal velocity, \(V\wind\), together with the ambient stream's mass
+density, \(\rho\), stream--star relative velocity \(v_\infty\), and effective
+dust opacity, \(\kappa\).  These are defined as follows:
 \begin{align*}
   % \label{eq:stellar-parameters}
+  R_{\text{pc}} &= R_0 / \bigl( \SI{1}{pc} \bigr) \\
   \dot{M}_{-7} &= \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
   V_3 &= V\wind / \bigl(\SI{1000}{km.s^{-1}}\bigr) \\
   L_4 &= L_* / \bigl(\SI{e4}{L_\odot}\bigr) \\
@@ -182,12 +190,11 @@ fraction of stellar radiative \emph{momentum} that is imparted to the
 shell, either directly by absorption, or indirectly by the stellar
 wind (which is itself radiatively driven).  Radiatively supported bows
 (DW, RBW, or RBS cases) should lie on the diagonal line
-\(\eta\shell = ( Q_P / Q_{\text{abs}}) \tau \approx 1.25 \tau\), where we have used
-the ratio of grain radiation pressure efficiency to absorption
-efficiency found in the FUV band for the dust mixture shown in
-Paper~II's Figure~6.  Wind-supported bows should lie above this line
-and no bows should lie below the \(\eta\shell = \tau\) line, since
-\(Q_P\) cannot be smaller than \(Q_{\text{abs}}\).
+\(\eta\shell = ( Q_P / Q_{\text{abs}}) \tau \approx 1.25 \tau\), see discussion
+following equation~\eqref{eq:tau-empirical}.  Wind-supported bows
+should lie above this line and no bows should lie below the
+\(\eta\shell = \tau\) line, since \(Q_P\) cannot be smaller than
+\(Q_{\text{abs}}\).
 
 We have calculated \(\eta\shell\) and \(\tau\) using the above-described
 methods for the 20 mid-infrared sources studied by
@@ -556,6 +563,8 @@ and the surrounding \hii{} region.  It has the advantage of depending
 on fewer free parameters than the other methods, but can only be used
 in the case of isolated stars, whereas the majority of the sources
 considered here are in cluster environments.
+
+
 
 \subsection{Mass loss determination from the \boldmath \(\tau\)--\(\eta\shell\) diagram}
 \label{sec:mass-loss-determ}
