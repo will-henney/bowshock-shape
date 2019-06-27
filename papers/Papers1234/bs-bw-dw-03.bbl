@@ -203,10 +203,11 @@ Wiley-VCH
 \bibitem[\protect\citeauthoryear{{Hirabayashi}}{{Hirabayashi}}{2015}]{Hirabayashi:2015a}
 {Hirabayashi} M.,  2015, \mnras, 454, 2249
 
-\bibitem[\protect\citeauthoryear{{Hoang}, {Tram}, {Lee}  \& {Ahn}}{{Hoang}
-  et~al.}{2018}]{Hoang:2018a}
-{Hoang} T.,  {Tram} L.~N.,  {Lee} H.,   {Ahn} S.-H.,  2018, arXiv, \href
-  {http://adsabs.harvard.edu/abs/2018arXiv181005557H} {1810.05557}
+\bibitem[\protect\citeauthoryear{Hoang, Tram, Lee  \& Ahn}{Hoang
+  et~al.}{2019}]{Hoang:2019b}
+Hoang T.,  Tram L.~N.,  Lee H.,   Ahn S.-H.,  2019, \mn@doi [Nature Astronomy]
+  {10.1038/s41550-019-0763-6}, \href
+  {https://ui.adsabs.harvard.edu/abs/2019NatAs.tmp..319H} {}
 
 \bibitem[\protect\citeauthoryear{{Hoogerwerf}, {de Bruijne}  \& {de
   Zeeuw}}{{Hoogerwerf} et~al.}{2001}]{Hoogerwerf:2001a}

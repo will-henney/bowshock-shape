@@ -327,13 +327,13 @@ the optical depths for absorption, \(\tau_{\text{abs}}\), scattering,
 \(\tau_{\text{scat}}\), and radiation pressure, \(\tau_P\).  In the
 single-scattering approximation, a fraction \(1 - e^{-\tau_P}\) of the
 stellar photon momentum is available to support the shell (see \S~2.1
-of Paper~I).  But the same photons also heat the dust grains in the
-bow, which re-radiate that energy predominantly at mid-infrared
-wavelengths (roughly \SIrange{10}{100}{\um}) with luminosity \(L\IR\).
-Assuming that Ly\(\alpha\) and mechanical heating of the dust shell is
-negligible (see \S~\ref{sec:unimp-other-heat}) and that the emitting
-shell subtends a solid angle \(\Omega\), as seen from the star, then an
-absorption optical depth can be estimated as
+of Paper~I).  On the other hand, the same photons also heat the dust
+grains in the bow, which re-radiate that energy predominantly at
+mid-infrared wavelengths (roughly \SIrange{10}{100}{\um}) with
+luminosity \(L\IR\).  Assuming that Ly\(\alpha\) and mechanical heating of
+the dust shell is negligible (see \S~\ref{sec:unimp-other-heat}) and
+that the emitting shell subtends a solid angle \(\Omega\), as seen from the
+star, then an absorption optical depth can be estimated as
 \begin{equation}
   \label{eq:tau-empirical}
   \tau_{\text{abs}} = -\ln \left( 1 - \frac{4\pi}{\Omega} \frac{L\IR}{L_*} \right)
@@ -402,7 +402,7 @@ In this section and the remainder of the paper, we employ
 dimensionless versions of the star--apex distance, \(R_0\), stellar
 bolometric luminosity, \(L_*\), wind mass-loss rate, \(\dot{M}\), and
 terminal velocity, \(V\wind\), together with the ambient stream's mass
-density, \(\rho\), stream--star relative velocity \(v_\infty\), and effective
+density, \(\rho\), stream--star relative velocity \(v\), and effective
 dust opacity, \(\kappa\).  These are defined as follows:
 \begin{align*}
   % \label{eq:stellar-parameters}
@@ -410,7 +410,7 @@ dust opacity, \(\kappa\).  These are defined as follows:
   \dot{M}_{-7} &= \dot{M} / \bigl(\SI{e-7}{M_\odot.yr^{-1}}\bigr) \\
   V_3 &= V\wind / \bigl(\SI{1000}{km.s^{-1}}\bigr) \\
   L_4 &= L_* / \bigl(\SI{e4}{L_\odot}\bigr) \\
-  v_{10} &= v_\infty / \bigl( \SI{10}{km.s^{-1}} \bigr) \\
+  v_{10} &= v / \bigl( \SI{10}{km.s^{-1}} \bigr) \\
   n &= (\rho / \bar{m}) / \bigl( \SI{1}{cm^{-3}} \bigr) \\
   \kappa_{600} &= \kappa / \bigl( \SI{600}{cm^2.g^{-1}} \bigr) \ ,
 \end{align*}
@@ -693,7 +693,7 @@ estimate are large and different results are obtained in other
 regions, such as W3(A) \citep{Salgado:2012a}.  It is even possible
 that the FUV dust opacity may be larger than the ISM value if the
 abundance of very small grains is enhanced through radiative torque
-disruption of larger grains \citep{Hoang:2018a}.
+disruption of larger grains \citep{Hoang:2019b}.
 
 \subsubsection{Shell gas temperature}
 \label{sec:shell-gas-temp}
@@ -1003,7 +1003,7 @@ conditions must all hold:
 \item A significant fraction of the shock energy must be radiated by
   dust.  This requires that the post-shock temperature be greater than
   \SI{e6}{K}, which requires a stream velocity
-  \(v_\infty > \SI{200}{km.s^{-1}}\) \citep{Draine:1981a}.  This also
+  \(v > \SI{200}{km.s^{-1}}\) \citep{Draine:1981a}.  This also
   coincides with the range of shock velocities where the smaller
   grains will start to be destroyed by sputtering in the post-shock
   gas.
@@ -1012,10 +1012,10 @@ conditions must all hold:
   absorbed and reprocessed by the bow shell.
 \end{enumerate}
 It turns out that the third condition is the most stringent, so we
-will consider it in detail.  The kinetic energy flux through the outer shock for an ambient stream of density \(\rho_\infty\) and velocity \(v_\infty\) is
+will consider it in detail.  The kinetic energy flux through the outer shock for an ambient stream of density \(\rho\) and velocity \(v\) is
 \begin{equation}
   \label{eq:Fkin}
-  F\ke = \tfrac12 \rho_\infty v_\infty^3 = \tfrac12 P\shell v_\infty \ , 
+  F\ke = \tfrac12 \rho v^3 = \tfrac12 P\shell v \ , 
 \end{equation}
 while the stellar radiative energy flux absorbed by the shell is
 \begin{equation}
@@ -1029,15 +1029,15 @@ internal stellar wind (see
 \S~2.1 of Paper~I), so that the ratio of the two energy fluxes is
 \begin{equation}
   \label{eq:F-ratio-shock}
-  \frac{F\ke}{F\trap} = \frac12 \frac{\eta\wind}{\tau} \frac{v_\infty}{c} \ .
+  \frac{F\ke}{F\trap} = \frac12 \frac{\eta\wind}{\tau} \frac{v}{c} \ .
 \end{equation}
 An upper limit to the stellar wind momentum efficiency \(\eta\wind\) is
 the shell momentum efficiency \(\eta\shell\) that is derived
 observationally in \S~\ref{sec:energy-trapp-vers}, where it is found
 that \(\eta\shell / \tau < 30\) for all sources considered.  Therefore, for
-a stream velocity \(v_\infty = \SI{200}{km.s^{-1}}\), we have
+a stream velocity \(v = \SI{200}{km.s^{-1}}\), we have
 \(F\ke/F\trap < 0.01\) and the shock-excited dust emission is still
-negligible.  Only in stars with \(v_\infty > \SI{1000}{km.s^{-1}}\) would
+negligible.  Only in stars with \(v > \SI{1000}{km.s^{-1}}\) would
 the shock emission start to be significant, and such hyper-velocity
 stars \citep{Brown:2015a} do not show detectable bow shocks.
 
@@ -1379,7 +1379,7 @@ distribution.  At the small end, sub-nanometer sized particles, such
 as PAHs can be destroyed by hard EUV photons
 \citep{Lebouteiller:2007a, Lebouteiller:2011a}.  Larger grains, on the
 other hand, are most vulnerable to Radiative Torque Disruption
-\citep[RATD;][]{Hoang:2018a}, see discussion in \S~6.4 of Paper~II.\@
+\citep[RATD;][]{Hoang:2019b}, see discussion in \S~6.4 of Paper~II.\@
 This is important for our diagnostics because it would tend to reduce
 the average grain size, while maintaining the same total grain mass,
 which would have the effect of increasing the ultraviolet opacity,
@@ -1420,7 +1420,7 @@ number of similarly sized pieces, as observed in asteroid P/2013~R3
 strength and angular velocity are both far higher than in the asteroid
 case, but we expect a similar behavior so that the fragment size
 should be predominantly within a factor of about two below the
-critical size given in equation~(28) of \citet{Hoang:2018a}, as we
+critical size given in equation~(28) of \citet{Hoang:2019b}, as we
 assumed in Figure~\ref{fig:ratd}.
 
 
@@ -1617,7 +1617,7 @@ size distribution.  This is because it depends on the average grain
 opacity over a broad range of ultraviolet wavelengths, rather than the
 emissivity in a single infrared band.  Additionally, many bows are
 weak emitters at \SI{70}{\um}, whereas the background emission from
-the PDRs surrounding \hii{} regions is very bright and variable.  The
+the PDRs surrounding \hii{} regions is ion papervery bright and variable.  The
 contrast of the bow against the background is usually much higher at
 \SI{24}{\um}, but K18 avoid this waveband on the grounds that it may
 be dominated by emission from stochastic heating of very small grains.
@@ -1672,7 +1672,7 @@ the theory developed in Paper~I.  Radiation-supported bows are predicted
 to occur either in high-density environments
 (\(n > \SI{100}{cm^{-3}}\)) or for stars with particularly weak winds.
 In either case, the bow is expected to be smaller than \SI{0.1}{pc}
-for \(v_\infty \ge \SI{20}{km.s^{-1}}\), see Figures~2a,b and~8 of
+for \(v \ge \SI{20}{km.s^{-1}}\), see Figures~2a,b and~8 of
 Paper~I.\@
 
 Another common property of these sources is that they all have high
@@ -1978,7 +1978,8 @@ Python language libraries from the SciPy \citep{Jones:2001a}, AstroPy
 \citep{Astropy-Collaboration:2013a, Astropy-Collaboration:2018a} and
 Pandas \citep{McKinney:2010a} projects.  We thank Chip Kobulnicky for
 sharing results in advance of publication and Thiem Hoang for useful
-discussions.
+discussions.  We thank the anonymous referee for a useful report that
+led to improvements in the presentation of our results.
 
 
 
@@ -2188,10 +2189,11 @@ Wiley-VCH
 \bibitem[\protect\citeauthoryear{{Hirabayashi}}{{Hirabayashi}}{2015}]{Hirabayashi:2015a}
 {Hirabayashi} M.,  2015, \mnras, 454, 2249
 
-\bibitem[\protect\citeauthoryear{{Hoang}, {Tram}, {Lee}  \& {Ahn}}{{Hoang}
-  et~al.}{2018}]{Hoang:2018a}
-{Hoang} T.,  {Tram} L.~N.,  {Lee} H.,   {Ahn} S.-H.,  2018, arXiv, \href
-  {http://adsabs.harvard.edu/abs/2018arXiv181005557H} {1810.05557}
+\bibitem[\protect\citeauthoryear{Hoang, Tram, Lee  \& Ahn}{Hoang
+  et~al.}{2019}]{Hoang:2019b}
+Hoang T.,  Tram L.~N.,  Lee H.,   Ahn S.-H.,  2019, \mn@doi [Nature Astronomy]
+  {10.1038/s41550-019-0763-6}, \href
+  {https://ui.adsabs.harvard.edu/abs/2019NatAs.tmp..319H} {}
 
 \bibitem[\protect\citeauthoryear{{Hoogerwerf}, {de Bruijne}  \& {de
   Zeeuw}}{{Hoogerwerf} et~al.}{2001}]{Hoogerwerf:2001a}

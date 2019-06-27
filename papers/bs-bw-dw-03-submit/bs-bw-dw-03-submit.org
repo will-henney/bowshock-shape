@@ -1,6 +1,59 @@
 
 * Revised version
 
+** Reply to the referee
+:PROPERTIES:
+:EXPORT_FILE_NAME: reply-to-referee
+:EXPORT_OPTIONS: toc:nil author:nil
+:END:
+
+We thank the referee for a most helpful report, which is full of useful recommendations that we have tried to follow.  We comment on the specific requests below.  We include a version of the manuscript with differences highlighted, which was generated automatically using latexdiff.  New material is in red and underlined.  Removed material is in gray and struck through. 
+
+: 
+: 1) My main comment is whether you can define terms where they are
+: first used.  This is especially acute in section 2 - what is R_0,
+: R_pc. The "Relative velocity" of what to what. What is the difference
+: between capital xi_{sh} and capital xi. I had assumed this was just a
+: typo, but then see Section 4.0
+
+This is a fair point.  We have tried to address these complaints by more carefully defining the terms and relying less on the previous papers.  The "relative velocity" is between the star and the ambient stream.  The symbol Xi refers to the general concept of the radiation parameter, which in Paper II was applied in the ambient stream (outside the shell), whereas Xi_sh refers to the value of Xi in the shell, which is generally lower (since the gas pressure goes up in the shock). 
+
+: Other examples - what is n_\infinity - is it just n.
+: 
+
+Yes, we have removed references to n_\infty.  This was a hold-over from a distinction that we made in Paper I that is not important for this paper.
+
+: Use of v_\infinity - not for the wind terminal velocity (a bit
+: confusing as it is the standard symbol for wind terminal
+: velocity). Though I recognise the need for consistency through the
+: papers (as much as possible).
+
+Again, the difference was important in Paper I, but not for this paper.  So we agree that it is cleaner to remove the subscript \infty.  
+
+: 2) As part of this, can you define tau and kappa a bit more
+: closely. These quantities are usually frequency dependent, but here
+: you are using an effective (or averaged) values. There is the footnote
+: in Section 2, but even that had to read closely as to determine
+: whether tau (Paper I) or tau (Paper II) was the larger. Where do the
+: assumed values of w and g come from for Q_p/Q_abs.
+
+Yes. On reflection, these do deserve a much fuller explanation.  Rather than litter the text with footnotes, we have added a new appendix A in order to address this. There we discuss the derivation of monochromatic opacities from the dust model, including the differences between scattering, absorption, and radiation pressure.  We describe the frequency dependence of w, g and Q_p/Q_abs. Then we give the formal equation for the frequency averaging process.  
+
+: 
+: I know what was meant after re-reading it a few times, but the overall
+: effect was confusing (and involved reading parts of Paper I and Paper
+: II to understand what was going on).
+
+: Minor points - the values of f_UV in Sect 4.0 - can you provide reference.
+
+The values were calculated from TLUSTY atmosphere models.  References now given. 
+
+We made two further changes to the paper, which we hope are acceptable to the referee.  
+
+First, we have slightly toned down the critique of the Kobulnicky+ (2018) paper in sec 5.2.  It turns out that the authors were partially aware of their mistake about the emissivities and are addressing it in a follow-up paper (in preparation).  We have therefore removed the corresponding figure (Fig 7 in original MS). 
+
+Second, we changed the wording of conclusion 8 following conversations with Thiem Hoang (lead author of the Radiative Torque Disruption papers). 
+
 ** Referee report
 + Received [2019-05-14 Tue]
   + Didn't do anything for 9 days
@@ -138,7 +191,8 @@ total 9736
   echo $FILE_DIFF
 #+END_SRC
 
-Copy wjh-latexdiff-preamble.tex from the Jorge paper folder
++ Copy wjh-latexdiff-preamble.tex from the Jorge paper folder
++ Make it so the removed text is not so small
 
 #+call: run-latexdiff(OPTIONS="--preamble=wjh-latexdiff-preamble.tex --append-context2cmd='label' --packages=amsmath,hyperref,siunitx --verbose --ignore-warnings --math-markup=1 --allow-spaces") :results output verbatim :eval yes
 
@@ -148,7 +202,7 @@ Copy wjh-latexdiff-preamble.tex from the Jorge paper folder
 #+BEGIN_SRC sh :results silent
 cd latexdiff
 pdflatex ms03-diff-v1v2
-pdflatex ms03-diff-v1v2
+#pdflatex ms03-diff-v1v2
 #+END_SRC
 
 #+BEGIN_SRC sh :results silent
@@ -157,6 +211,71 @@ open latexdiff/ms03-diff-v1v2.pdf
 
 This even works with the math markup diffs. 
 
+
+
+* Revised version
+#+name: srcfiles2
+#+BEGIN_SRC sh
+  srcfiles="bs-bw-dw-03.tex sec-observational-diagnostics.tex app-cloudy-dust-heating.tex app-k17-k18.tex bs-bw-dw-defs.tex bs-bw-dw-03.bbl aastex-compat.sty astrojournals.sty"
+#+END_SRC
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+cd ../Papers1234
+<<srcfiles2>>
+grep figs/ $srcfiles |grep -v :% |cut -d{ -f2 | cut -d} -f1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+figs/All-sources-eta-tau
+figs/K17-tau-comparison
+figs/Mdot-vs-lum-combo-edited
+figs/K18-mdot-Ux8-comparison
+figs/xsec-dust-ratd-ism_10
+figs/K18-mdot-corrected-comparison-R0-edited
+figs/mdot_correlations_edited
+figs/H_versus_ell_annotated
+figs/cygnus-bows-midir-combo
+figs/grain-T-vs-U
+figs/grain-j70-vs-U-edited
+figs/sed-comparison
+#+end_example
+
+#+name: figfiles2
+#+BEGIN_SRC sh
+  figfiles="figs/All-sources-eta-tau.pdf figs/K17-tau-comparison.pdf figs/Mdot-vs-lum-combo-edited.pdf figs/K18-mdot-Ux8-comparison.pdf figs/xsec-dust-ratd-ism_10.pdf figs/K18-mdot-corrected-comparison-R0-edited.pdf figs/mdot_correlations_edited.pdf figs/H_versus_ell_annotated.pdf figs/cygnus-bows-midir-combo.pdf figs/grain-T-vs-U.pdf figs/grain-j70-vs-U-edited.pdf figs/sed-comparison.pdf"
+#+END_SRC
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles2>>
+  <<figfiles2>>
+  cd ../Papers1234
+  ls -lh $srcfiles $figfiles
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--  1 will  staff    15K Jun 22 19:58 app-cloudy-dust-heating.tex
+-rw-r--r--  1 will  staff   6.7K Jun 21 23:07 app-k17-k18.tex
+-rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
+-rw-r--r--  1 will  staff    24K Jun 22 19:58 bs-bw-dw-03.bbl
+-rw-r--r--  1 will  staff    22K Jun 22 17:31 bs-bw-dw-03.tex
+-rw-r--r--  1 will  staff   2.3K Jun 21 23:07 bs-bw-dw-defs.tex
+-rw-r--r--  1 will  staff   314K Feb 22 22:47 figs/All-sources-eta-tau.pdf
+-rw-r--r--  1 will  staff    75K Mar 21 22:46 figs/H_versus_ell_annotated.pdf
+-rw-r--r--  1 will  staff    21K Jun 21 23:07 figs/K17-tau-comparison.pdf
+-rw-r--r--  1 will  staff    19K Jun 21 23:07 figs/K18-mdot-Ux8-comparison.pdf
+-rw-r--r--  1 will  staff   126K Mar 30 19:31 figs/K18-mdot-corrected-comparison-R0-edited.pdf
+-rw-r--r--  1 will  staff   417K Jun 21 23:07 figs/Mdot-vs-lum-combo-edited.pdf
+-rw-r--r--  1 will  staff   3.4M Mar 24 18:13 figs/cygnus-bows-midir-combo.pdf
+-rw-r--r--  1 will  staff    30K Mar 30 18:43 figs/grain-T-vs-U.pdf
+-rw-r--r--  1 will  staff    68K Mar 30 18:41 figs/grain-j70-vs-U-edited.pdf
+-rw-r--r--  1 will  staff   206K Mar 30 19:47 figs/mdot_correlations_edited.pdf
+-rw-r--r--  1 will  staff    25K Feb 13 17:59 figs/sed-comparison.pdf
+-rw-r--r--  1 will  staff    20K Mar 23 23:20 figs/xsec-dust-ratd-ism_10.pdf
+-rw-r--r--  1 will  staff    69K Jun 22 20:18 sec-observational-diagnostics.tex
+#+end_example
 
 * Initial version
 
@@ -192,6 +311,32 @@ figs/sed-comparison
 #+BEGIN_SRC sh
   figfiles="figs/All-sources-eta-tau.pdf figs/K17-tau-comparison.pdf figs/Mdot-vs-lum-combo-edited.pdf figs/K18-mdot-Ux8-comparison.pdf figs/xsec-dust-ratd-ism_10.pdf figs/K18-mdot-corrected-comparison-R0-edited.pdf figs/mdot_correlations_edited.pdf figs/H_versus_ell_annotated.pdf figs/cygnus-bows-midir-combo.pdf figs/grain-T-vs-U.pdf figs/grain-j70-vs-U-edited.pdf figs/sed-comparison.pdf"
 #+END_SRC
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles2>>
+  <<figfiles2>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bsbwdw03-v2.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-03-submit
+total 70608
+-rw-r--r--   1 will  staff    19K Jun 22 20:06 bs-bw-dw-03-submit.org
+-r--------@  1 will  staff   5.2M Mar 30 23:41 bsbwdw03-v1-arxiv.pdf
+-r--------@  1 will  staff   5.1M Mar 30 23:36 bsbwdw03-v1-processed.pdf
+-rw-r--r--   1 will  staff   5.2M Jun 21 23:07 bsbwdw03-v2-arxiv.pdf
+drwxr-xr-x  21 will  staff   672B Jun 22 20:19 latexdiff
+-rw-r--r--   1 will  staff   4.6M Jun 21 23:05 ms-bsbwdw03-submitted-v1.tar.gz
+-rw-r--r--   1 will  staff   4.6M Jun 22 20:35 ms-bsbwdw03-v2.tar.gz
+-rw-r--r--@  1 will  staff   5.0M Mar 30 23:14 ms-bsbwdw03.pdf
+-rw-r--r--   1 will  staff   4.6M Jun 21 23:07 ms-bsbwdw03.tar.gz
+-rw-r--r--   1 will  staff   3.6K Jun 22 20:27 reply-to-referee.txt
+#+end_example
+
 
 ** List files and look at sizes
 #+BEGIN_SRC sh :noweb yes :results verbatim

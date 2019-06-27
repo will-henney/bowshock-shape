@@ -1,0 +1,96 @@
+			 ━━━━━━━━━━━━━━━━━━━━━━
+			  REPLY TO THE REFEREE
+			 ━━━━━━━━━━━━━━━━━━━━━━
+
+
+We thank the referee for a most helpful report, which is full of useful
+recommendations that we have tried to follow.  We comment on the
+specific requests below.  We include a version of the manuscript with
+differences highlighted, which was generated automatically using
+latexdiff.  New material is in red and underlined.  Removed material is
+in gray and struck through.
+
+┌────
+│ 
+│ 1) My main comment is whether you can define terms where they are
+│ first used.  This is especially acute in section 2 - what is R_0,
+│ R_pc. The "Relative velocity" of what to what. What is the difference
+│ between capital xi_{sh} and capital xi. I had assumed this was just a
+│ typo, but then see Section 4.0
+└────
+
+
+This is a fair point.  We have tried to address these complaints by more
+carefully defining the terms and relying less on the previous papers.
+The "relative velocity" is between the star and the ambient stream.  The
+symbol Xi refers to the general concept of the radiation parameter,
+which in Paper II was applied in the ambient stream (outside the shell),
+whereas Xi_sh refers to the value of Xi in the shell, which is generally
+lower (since the gas pressure goes up in the shock).
+
+┌────
+│ Other examples - what is n_\infinity - is it just n.
+└────
+
+
+Yes, we have removed references to n_∞.  This was a hold-over from a
+distinction that we made in Paper I that is not important for this
+paper.
+
+┌────
+│ Use of v_\infinity - not for the wind terminal velocity (a bit
+│ confusing as it is the standard symbol for wind terminal
+│ velocity). Though I recognise the need for consistency through the
+│ papers (as much as possible).
+└────
+
+
+Again, the difference was important in Paper I, but not for this paper.
+So we agree that it is cleaner to remove the subscript ∞.
+
+┌────
+│ 2) As part of this, can you define tau and kappa a bit more
+│ closely. These quantities are usually frequency dependent, but here
+│ you are using an effective (or averaged) values. There is the footnote
+│ in Section 2, but even that had to read closely as to determine
+│ whether tau (Paper I) or tau (Paper II) was the larger. Where do the
+│ assumed values of w and g come from for Q_p/Q_abs.
+└────
+
+
+Yes. On reflection, these do deserve a much fuller explanation.  Rather
+than litter the text with footnotes, we have added a new appendix A in
+order to address this. There we discuss the derivation of monochromatic
+opacities from the dust model, including the differences between
+scattering, absorption, and radiation pressure.  We describe the
+frequency dependence of w, g and Q_p/Q_abs. Then we give the formal
+equation for the frequency averaging process.
+
+┌────
+│ 
+│ I know what was meant after re-reading it a few times, but the overall
+│ effect was confusing (and involved reading parts of Paper I and Paper
+│ II to understand what was going on).
+└────
+
+
+┌────
+│ Minor points - the values of f_UV in Sect 4.0 - can you provide reference.
+└────
+
+
+The values were calculated from TLUSTY atmosphere models.  References
+now given.
+
+We made two further changes to the paper, which we hope are acceptable
+to the referee.
+
+First, we have slightly toned down the critique of the Kobulnicky+
+(2018) paper in sec 5.2.  It turns out that the authors were partially
+aware of their mistake about the emissivities and are addressing it in a
+follow-up paper (in preparation).  We have therefore removed the
+corresponding figure (Fig 7 in original MS).
+
+Second, we changed the wording of conclusion 8 following conversations
+with Thiem Hoang (lead author of the Radiative Torque Disruption
+papers).
