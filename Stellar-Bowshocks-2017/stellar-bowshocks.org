@@ -1339,6 +1339,7 @@ Plot KDE of the distribution
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.stats import kuiper_two
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -1499,12 +1500,12 @@ Plot KDE of the distribution
           )
           # Calculate K-S and A-D statistics
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
+              KS, pKS = kuiper_two(tab['Rc'][m], tab['Rc'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]], midrank=False)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
+              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
       ax_h_Rc.set(xlabel=r'$\Pi$')
@@ -1530,12 +1531,12 @@ Plot KDE of the distribution
                    transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
+              KS, pKS = kuiper_two(tab['R90'][m], tab['R90'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]], midrank=False)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
               #          fontsize=8, ha='right', va='top',
               #          transform=axx.transAxes)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
+              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
       ax_h_R90.set(xlabel=r'$\Lambda$')
@@ -1770,6 +1771,7 @@ Plot KDE of the distribution
   import sys
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.stats import kuiper_two
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -1924,9 +1926,9 @@ Plot KDE of the distribution
           )
           # Calculate K-S statistic
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
+              KS, pKS = kuiper_two(tab['Rc'][m], tab['Rc'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]], midrank=False)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
+              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
@@ -1955,9 +1957,9 @@ Plot KDE of the distribution
                    transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
+              KS, pKS = kuiper_two(tab['R90'][m], tab['R90'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]], midrank=False)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
+              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
@@ -2383,6 +2385,7 @@ Plot KDE of the distribution
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp, mannwhitneyu
+  from astropy.stats import kuiper_two
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -2546,10 +2549,10 @@ Plot KDE of the distribution
           )
           # Calculate K-S statistic
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
+              KS, pKS = kuiper_two(tab['Rc'][m], tab['Rc'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
 						 midrank=False)
-              s = fr'A-D $p = {pAD:.4f}$'
+              s = fr'K-S $p = {pKS:.4f}$'
               rb, pMW = rank_biserial(tab['Rc'][m], tab['Rc'][masks[0]])
               s += '\n' + fr'$r_b = {rb:.2f}$'
               axx.text(1.0, 0.9, s,
@@ -2583,10 +2586,10 @@ Plot KDE of the distribution
                    transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
+              KS, pKS = kuiper_two(tab['R90'][m], tab['R90'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
 						 midrank=False)
-              s = fr'A-D $p = {pAD:.4f}$'
+              s = fr'K-S $p = {pKS:.4f}$'
               rb, pMW = rank_biserial(tab['R90'][m], tab['R90'][masks[0]])
   #            s += '\n' + fr'$r_b = {rb:.2f}$'
               axx.text(1.0, 0.9, s,
@@ -3182,6 +3185,7 @@ CLOSED: [2017-03-20 Mon 14:01]
 #+BEGIN_SRC python :results file :return figfile
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp, pearsonr, levene
+  from astropy.stats import kuiper_two
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -3410,6 +3414,7 @@ CLOSED: [2017-03-20 Mon 11:31]
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
   from scipy.stats import ks_2samp, anderson_ksamp
+  from astropy.stats import kuiper_two
   from astropy.table import Table
   from matplotlib import pyplot as plt
   from matplotlib.colors import PowerNorm
@@ -3573,10 +3578,10 @@ CLOSED: [2017-03-20 Mon 11:31]
           )
           # Calculate K-S statistic
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
+              KS, pKS = kuiper_two(tab['Rc'][m], tab['Rc'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
 						 midrank=False)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.4f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
@@ -3606,10 +3611,10 @@ CLOSED: [2017-03-20 Mon 11:31]
                    transform=axx.transAxes)
           # Calculate K-S statistic
           if c != colors[0]:
-              KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
+              KS, pKS = kuiper_two(tab['R90'][m], tab['R90'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
 						 midrank=False)
-              axx.text(1.0, 0.9, fr'A-D $p = {pAD:.4f}$',
+              axx.text(1.0, 0.9, fr'K-S $p = {pKS:.4f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
               # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
@@ -4000,7 +4005,7 @@ CLOSED: [2017-03-20 Mon 14:22]
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['Rc'][m], tab['Rc'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
-						 midrank=False)
+                                                 midrank=False)
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)
@@ -4032,7 +4037,7 @@ CLOSED: [2017-03-20 Mon 14:22]
           if c != colors[0]:
               KS, pKS = ks_2samp(tab['R90'][m], tab['R90'][masks[0]])
               AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
-						 midrank=False)
+                                                 midrank=False)
               axx.text(1.0, 0.9, fr'A-D $p = {pAD:.2f}$',
                        fontsize=8, ha='right', va='top',
                        transform=axx.transAxes)

@@ -4,55 +4,48 @@
 \label{sec:comp-with-observ}
 
 \begin{figure*}
-  \setlength\tabcolsep{0pt}
-  \begin{tabular}{ll}
-    (a)
-    & (b) \\
-    \includegraphics
-    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0510-3-star}
-    & \includegraphics
-      [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0506-4-star} \\
-    (c)
-    & (d) \\
-    \includegraphics
-    [width=0.5\linewidth, trim=20 15 30 10, clip]{figs/0517-5-star}
-    & \multicolumn{1}{c}
-      {\includegraphics[width=0.35\linewidth, trim=20 20 20 20]
-      {figs/mipsgal-r0-r0-plus-dPA-edited}}
-  \end{tabular}
+  \includegraphics[width=\linewidth]{figs/mipsgal-example-panels}
   \caption[]{Examples of typical fits to the bow shock shapes of
-    MIPSGAL sources with different star ratings: (a) K510, 3-star
-    rating; (b) K506, 4-star rating; (c) K517, 5-star rating.  Right
-    panels of parts (a)--(c) show a 4\('\) square \SI{24}{\um} image,
-    centered on each source.  Contours are ten linearly spaced levels
-    between the median brightness of the entire image and the maximum
-    brightness of the bow shock arc. Grids of galactic coordinates
-    (light blue lines, parallel to the box sides) and equatorial
-    coordinates (tilted magenta lines) are shown.  The stellar source
-    and the bow shock axis, as determined by \citet{Kobulnicky:2016a}
-    are indicated by an orange star and an orange line, respectively,
-    where the line extends from \(-2 R_0\) to \(+2 R_0\).  The
-    automatically traced arc shapes using the ``mean'' and ``peak''
-    methods (see text) are shown by blue and red dots, respectively.
-    The magenta circle shows the fit to the arc points within
-    \(\pm 45^\circ\) of the nominal bowshock axis, with the magenta dot
-    showing the center of curvature and the magenta line showing the
-    fitted bow shock axis, which is the line passing through the
-    source and the center of curvature.  Left panels of parts (a)--(c)
-    show the radius measured from the source (upper panel) and
-    brightness (lower panel) of the arc points, plotted as a function
-    of angle \(\theta\) from the nominal bow shock axis, and with the same
-    color coding as used on the image. Angular ranges of
-    \(\theta = \pm 45\degr\) and \(\pm 90\degr\) are shown by gray shaded
-    boxes In the upper panel, the \(R_0\) value tabulated by
-    \citet{Kobulnicky:2016a} is shown by a horizontal blue line. (d)
-    Comparison of the bow shock sizes (scatter plot) and position
-    angles (inset histograms) determined from our fits with those
-    tabulated by \citet{Kobulnicky:2016a} for the MIPSGAL sources.
-    The horizontal dotted line on the main plot shows the MIPS
-    \SI{24}{\um} point spread function FWHM of \(5.5\arcsec\).  The
-    standard deviation (s.d.) of the position angle differences is
-    shown on each inset histogram.}
+    MIPSGAL sources.  %
+    (a)~Scatter plot of the bow shock sizes determined from our fits,
+    as compared with those tabulated by \citet[K16]{Kobulnicky:2016a}
+    for the MIPSGAL sources.  Different symbol sizes and colors
+    correspond to different star ratings, which indicate our
+    subjective judgement of the quality of the fit.  The horizontal
+    dotted line shows the MIPS \SI{24}{\um} point spread function
+    FWHM of \(5.5\arcsec\).  %
+    (b)~Histograms of the difference in bow shock position angles
+    between our fits and the K16 values for sources with 3- to 5-star
+    ratings.  %
+    (c--e)~Source K510, with a 3-star rating. %
+    (f--h)~Source K506, with a 4-star rating. %
+    (i--k)~Source K517, with a 5-star rating. %
+    Panels~(c, f, i) show a \SI{24}{\um} gray-scale image of a
+    \(160'' \times 160''\) field of view, centered on each source.
+    Contours are ten linearly spaced levels between the median
+    brightness of the entire image and the maximum brightness of the
+    bow shock arc. Grids of galactic coordinates (light blue lines,
+    parallel to the box sides) and equatorial coordinates (tilted
+    magenta lines) are shown.  The stellar source and the bow shock
+    axis, as determined by \citet{Kobulnicky:2016a} are indicated by
+    an orange star and an orange line, respectively, where the line
+    extends from \(-2 R_0\) to \(+2 R_0\).  The automatically traced
+    arc shapes using the ``mean'' and ``peak'' methods (see text) are
+    shown by blue and red dots, respectively.  The magenta circle
+    shows the fit to the arc points within \(\pm 45^\circ\) of the nominal
+    bowshock axis, with the magenta dot showing the center of
+    curvature and the magenta line showing the fitted bow shock axis,
+    which is the line passing through the source and the center of
+    curvature. %
+    Panels~(d, g, j) show plots of the radius measured from the source
+    of the arc points, plotted as a function of angle \(\theta\) from the
+    nominal bow shock axis, and with the same color coding as used on
+    the image. Angular ranges of \(\theta = \pm 45\degr\) and
+    \(\pm 90\degr\) are shown by gray shaded boxes.  The \(R_0\) value
+    tabulated by \citet{Kobulnicky:2016a} is shown by a horizontal
+    blue line. %
+    Panels~(e, h, k) show equivalent plots for the surface brightness.
+  }
   \label{fig:mipsgal-examples}
 \end{figure*}
 
@@ -224,7 +217,7 @@ correlated with the bow shock size, with larger bow shocks tending to
 receive higher ratings, although there is considerable overlap.  In
 particular, most of the 1- and 2-star sources are close to the
 resolution limit of the MIPSGAL \SI{24}{\um} images (\(6\arcsec\),
-indicated by the dotted horizontal line in te figure).
+indicated by the dotted horizontal line in the figure).
 
 \begin{figure*}
   \centering
@@ -239,10 +232,10 @@ indicated by the dotted horizontal line in te figure).
   \vspace*{-\baselineskip}
   \caption[]{MIPSGAL sources on the bow shock shape diagnostic diagram
     of dimensionless radius of curvature versus perpendicular radius.
-    The regions corresponding to different classes of cuadrics are
+    The regions corresponding to different classes of quadrics are
     shown by shading (see \S~4 of Paper~0): oblate spheroids (light
     gray background); prolate spheroids (darker gray background);
-    paraboloids (curved black line); hyperboloids (white background).
+    paraboloids (black line); hyperboloids (white background).
     (a) Individual sources with bow shock fit quality rating of 3-star
     or above.  All 5-star sources plus those 4-star sources with
     \(\Pi < 1\) are labelled with their \cite{Kobulnicky:2016a} catalog
@@ -296,15 +289,16 @@ lower left panels of Figure~\ref{fig:mipsgal-examples}a and c.
 
 The derived bowshock shapes of all the 3-, 4-, and 5-star sources are
 shown in Figure~\ref{fig:mipsgal-shapes} on the \(\Pi\)--\(\Lambda\) plane,
-which was discussed extensively in Paper~0.  Panel a shows each
-individual source with horizontal error bars that represent the
-dispersion of traced points from the circle fit (step~\ref{step:Rc} of
-the previous section) and vertical error bars that show the wing
-asymmetry \(\Delta\Lambda\) (step~\ref{step:Pi-Lambda}).  The horizontal error
-bars, which are a proxy for observational uncertainties, become very
-small for the 4- and 5-star sources, whereas the vertical error bars
-remain at roughly the \(10\%\) level since they reflect real
-asymmetries in the shapes of the bow shocks.
+which was discussed extensively in Paper~0.
+Figure~\ref{fig:mipsgal-shapes}a shows each individual source with
+horizontal error bars that represent the dispersion of traced points
+from the circle fit (step~\ref{step:Rc} of the previous section) and
+vertical error bars that show the wing asymmetry \(\Delta\Lambda\)
+(step~\ref{step:Pi-Lambda}).  The horizontal error bars, which are a
+proxy for observational uncertainties, become very small for the 4-
+and 5-star sources, whereas the vertical error bars remain at roughly
+the \(10\%\) level since they reflect real asymmetries in the shapes
+of the bow shocks.
 
 The horizontal axis corresponds to the shape of the head of the bow
 shock near its apex, ranging from sharper, pointier shapes with
@@ -318,7 +312,7 @@ larger values of \(\Lambda\).  The background shading shows the regions of
 the \(\Pi\)--\(\Lambda\) plane occupied by simple quadric shapes (see \S~4 of
 Paper~0): oblate spheroids (light gray), prolate spheroids (dark
 gray), and hyperboloids (white). The boundary between closed and open
-corresponds to the paraboloids, and is shown by the solid curved line
+corresponds to the paraboloids, and is shown by the solid line
 that divides the dark gray and white regions of the graph.
 
 In Figure~\ref{fig:mipsgal-shapes}b, we present a smoothed version of
@@ -378,11 +372,11 @@ Figure~\ref{fig:mipsgal-pairplot} with \citeauthor{Kobulnicky:2016a}'s
 Figure~8.
 
 The catalog gives the \(K\)-band extinction, \(A_K\), derived using
-the method of \citet{Majewski:2011a}, but that assumes an intrinsic
-color of \((H - [\SI{4.5}{\um}])_0 = +0.08\) magnitudes, which is too
-red if the sources are assumed to be OB stars.  We therefore re-derive
-\(A_K\) from the catalog magnitudes combined with the
-\citet{Indebetouw:2005a} reddening law, but assuming
+the method of \citet{Majewski:2011a}. However, that assumes an
+intrinsic color of \((H - [\SI{4.5}{\um}])_0 = +0.08\) magnitudes,
+which is too red if the sources are assumed to be OB stars.  We
+therefore re-derive \(A_K\) from the catalog magnitudes combined with
+the \citet{Indebetouw:2005a} reddening law, but assuming
 \((H - [\SI{4.5}{\um}])_0 = -0.1\) magnitudes, which is more typical
 of early type stars.  This does not make very much difference (compare
 the top-right plot of our Fig.~\ref{fig:mipsgal-pairplot} with
@@ -428,11 +422,11 @@ derive extinction-corrected \(H\)-band apparent magnitudes, \(H_0\).
   \caption[]{As Fig.~\ref{fig:mipsgal-uncorrelated} but for median
     splits of continuous parameters. (a)~Bow shock angular size,
     \(R_0\), divided into two equal-sized sub-samples: large (blue
-    symbols and blue filled contours) and small (red symbols and red
-    hollow contours).  (b)~Extinction-corrected \(H\)-band magnitude
-    of the stellar source, divided into two equal-sized sub-samples:
-    bright (red symbols and orange filled contours) and faint (green
-    symbols and green hollow contours).}
+    symbols and blue filled contours) and small (red hollow contours).
+    (b)~Extinction-corrected \(H\)-band magnitude of the stellar
+    source, divided into two equal-sized sub-samples: bright (red
+    symbols and orange filled contours) and faint (green symbols and
+    green hollow contours).}
   \label{fig:mipsgal-correlated}
 \end{figure*}
 
@@ -545,7 +539,7 @@ factor of 2 to 3.
     apparent that the dispersion in \(\Lambda\) (upper panel) increases
     systematically with \(R_0\), although the central value is roughly
     constant.  No clear systematic changes are apparent in \(\Pi\)
-    (middle panel).}
+    (second panel).}
   \label{fig:mipsgal-boxplot}
 \end{figure}
 
@@ -563,8 +557,8 @@ correlated with any other parameters via the following methodology:
   environment, or the presence/absence of \SI{8}{\um} emission, in
   which case the sub-samples are of unequal size.
 \item We plot the KDEs of the two sub-samples separately on the
-  \(\Pi\)--\(\Lambda\) plane (see Figs.~\ref{fig:mipsgal-correlated} and
-  \ref{fig:mipsgal-uncorrelated}) to check for any obvious
+  \(\Pi\)--\(\Lambda\) plane (see Figs.~\ref{fig:mipsgal-uncorrelated} and
+  \ref{fig:mipsgal-correlated}) to check for any obvious
   differences.
 \item We check if there is any statistically significant difference
   between the bow shock shapes of the sub-samples by applying three
@@ -572,8 +566,8 @@ correlated with any other parameters via the following methodology:
   separately.  
 \end{enumerate}
 
-The principal test used is the two-sample Anderson--Darling test
-\citep{Anderson:1952a, Scholz:1987a, Makarov:2017a}, which is a
+The principal test used is Kuiper's variant of the two-sample
+Kolmogorov--Smirnov test \citep[e.g.,][]{Stephens:1970a, Paltani:2004a}, as implemented by the Python library function \texttt{astropy.stats.kuiper\_two} \citep{Astropy-Collaboration:2018a}.   This is a
 general test of the \textit{null hypothesis} that the two sub-samples
 are drawn from the same distribution.  It returns a \(p\)-value, which
 is the estimated probability that the observed difference between the
@@ -587,7 +581,7 @@ more stringent \(p < 0.003\) condition is required in order to
 confidently reject the null hypothesis and declare a ``significant''
 difference between the two sub-samples, but we also consider the less
 strict threshold of \(p < 0.05\) as an indicator of ``possible''
-difference.  We supplement the general-purpose Anderson--Darling test
+difference.  We supplement the general-purpose Kuiper test
 with two tests that probe specific features of the sample
 distributions: the Mann--Whitney--Wilcoxon \(U\) test
 \citep{Mann:1947a}, which is sensitive to differences in the central
@@ -648,44 +642,46 @@ between two samples, see Appendix~\ref{sec:distr-p-values}) of
 The only parameters that \emph{do} show a possible correlation with
 the bowshock shape are the bow shock angular size, \(R_0\), and the
 extinction-corrected magnitude of the central star, \(H_0\), which are
-illustrated in Figure~\ref{fig:mipsgal-correlated}.  In both cases,
-the general purpose Anderson--Darling test indicates differences in the
-sub-sample distributions of \(\Lambda\) at the 2-\(\sigma\) level.  It
-is apparent from the histograms shown in the right-hand inset graphs
-of Figure~\ref{fig:mipsgal-correlated}a that in the case of the
-small/large \(R_0\) sub-samples it is the width rather than the
-central tendency of the distributions that is different, which is
-confirmed by the more specific Brown--Forsythe test, which indicates a
-difference between the sub-sample dispersions at the 3-\(\sigma\) level.
-In the case of the faint/bright \(H_0\) sub-samples
-(Fig.~\ref{fig:mipsgal-correlated}b), it is less clear what
-feature of the distributions differ.
+illustrated in Figure~\ref{fig:mipsgal-correlated}.  The general
+purpose Kuiper test indicates differences in the sub-sample
+distributions of \(\Lambda\) at the 2-\(\sigma\) level for \(H_0\) and at the
+3-\(\sigma\) level for \(R_0\).  It is apparent from the histograms shown
+in the right-hand inset graphs of Figure~\ref{fig:mipsgal-correlated}a
+that in the case of the small/large \(R_0\) sub-samples it is the
+width rather than the central tendency of the distributions that is
+different, which is confirmed by the more specific Brown--Forsythe
+test, which indicates a difference between the sub-sample dispersions
+at the 3-\(\sigma\) level.  In the case of the faint/bright \(H_0\)
+sub-samples (Fig.~\ref{fig:mipsgal-correlated}b), it is less clear
+what feature of the distributions differ.
 
 In order to investigate these effects in more detail and look for
 systematic trends, we divide the independent parameter (\(R_0\) or
 \(H_0\)) into 5 rather than 2 equal-sized sub-samples, with results in
 the case of \(R_0\) shown as box plots in
-Figure~\ref{fig:mipsgal-boxplot}.  A systematic increase with \(R_0\)
-in the dispersion of \(\Lambda\) (upper panel of
-Fig.~\ref{fig:mipsgal-boxplot}a) is apparent from both the
-interquartile range (colored boxes) and interdecile range (error
-bars).  As a check on whether observational uncertainties might be
-contributing to this trend, the third and fourth rows of box plots
-show the statistics for, respectively, the fractional asymmetry of the
-bowshock wings and the standard deviation, \(\epsilon(\Lambda)\), of the individual
-points on the bow shock that go into determining \(\Lambda\) (see
-step~\ref{step:R90} of the tracing/fitting methodology described in
-\S~\ref{sec:autom-trac-fitt}).  It can be seen that neither of these
-quantities tends to increase with \(R_0\), and in fact there is a
-significant \emph{decrease} in \(\epsilon(\Lambda)\) with \(R_0\).  This implies
-that the increase with angular size of the diversity of bow shock wing
-shapes is real, and not due to observational uncertainties.  On the
-other hand, we find that no clear trends are evident as a function of
-source magnitude \(H_0\) (not illustrated), which leads us to suspect
-that the \(p < 0.05\) result obtained for the 2-sample
-Anderson--Darling test was a \emph{false positive}, as is also
-supported by the analysis in Appendix~\ref{sec:distr-p-values} and
-Figure~\ref{fig:histo-p-values}.
+Figure~\ref{fig:mipsgal-boxplot}.  This time the \(k\)-sample
+Anderson--Darling test \citep{Anderson:1952a, Scholz:1987a,
+  Makarov:2017a} is used to determine the statistical significance of
+any observed differences.  A systematic increase with \(R_0\) in the
+dispersion of \(\Lambda\) (upper panel of Fig.~\ref{fig:mipsgal-boxplot}a)
+is apparent from both the interquartile range (colored boxes) and
+interdecile range (error bars).  As a check on whether observational
+uncertainties might be contributing to this trend, the third and
+fourth rows of box plots show the statistics for, respectively, the
+fractional asymmetry of the bowshock wings and the standard deviation,
+\(\epsilon(\Lambda)\), of the individual points on the bow shock that go into
+determining \(\Lambda\) (see step~\ref{step:R90} of the tracing/fitting
+methodology described in \S~\ref{sec:autom-trac-fitt}).  It can be
+seen that neither of these quantities tends to increase with \(R_0\),
+and in fact there is a significant \emph{decrease} in
+\(\epsilon(\Lambda)\) with \(R_0\).  This implies that the increase with angular
+size of the diversity of bow shock wing shapes is real, and not due to
+observational uncertainties.  On the other hand, we find that no clear
+trends are evident as a function of source magnitude \(H_0\) (not
+illustrated), which leads us to suspect that the \(p < 0.05\) result
+obtained for the 2-sample Kuiper test was a \emph{false positive}, as
+is also supported by the analysis in Appendix~\ref{sec:distr-p-values}
+and Figure~\ref{fig:histo-p-values}.
 
 % So, the only correlation that survives scrutiny is the increase in
 % dispersion of \(R_{90}/R_0\) with increasing \(R_0\), which is finally
@@ -793,13 +789,14 @@ giant branch (AGB) stars and cool supergiants, obtained as part of the
 \textit{Herschel} MESS (Mass-loss of Evolved StarS) program
 \citep{Groenewegen:2011a}.  The survey sources were divided into four
 classes by \citeauthor{Cox:2012a}, according to the overall shape of
-the extended emission at \SI{70}{\um}: ``fermata~\textfermata'', or
-arcs (Class~I); ``eyes~\faEye'' (Class~II); ``rings~{\Large
-  \(\odot\)}'' (Class~III), and ``irregular~\staveXXV'' (Class~IV).  Of
-these, only the Class~I sources clearly correspond to bow shocks,
-which represent 22 out of 50 total sources detected with extended
-emission.  For our sample, we select the 16 Class~I sources where the
-shape parameters can be reliably measured, and which are shown in
+the extended emission at \SI{70}{\um} (see their Table~4):
+``fermata~\textfermata'', or arcs (Class~I); ``eyes~\faEye''
+(Class~II); ``rings~{\Large \(\odot\)}'' (Class~III), and
+``irregular~\staveXXV'' (Class~IV).  Of these, only the Class~I
+sources clearly correspond to bow shocks, which represent 22 out of 50
+total sources detected with extended emission.  For our sample, we
+select the 16 Class~I sources where the shape parameters can be
+reliably measured, and which are shown in
 Figures~\ref{fig:herschel-arc-fits}
 and~\ref{fig:herschel-arc-fits-poor}. The remaining six Class~I
 sources (Fig.~1 of \citealp{Cox:2012a}) are too asymmetrical or
@@ -826,11 +823,11 @@ magenta on the figures.
 
 Figure~\ref{fig:herschel-compare-mipsgal} compares the distributions
 of bow shock shapes between the Herschel (RSG/AGB) and MIGSGAL (OB
-star) samples.  The Anderson--Darling test gives a highly significant
+star) samples.  The Kuiper test gives a highly significant
 difference between the \(\Lambda\) distributions of the two samples, but
 only a marginally significant difference between the \(\Pi\)
 distributions (detailed results are shown in Table~\ref{tab:big-p}).
-The Herschel sources show considerably smaller planitude (median
+The Herschel sources show considerably smaller alatude (median
 \(\Lambda \approx 1.4\)), implying bow shock wings that are more closed than in
 the MIPSGAL sources (median \(\Lambda \approx 1.7\)).  For the planitude, there is
 only a slight difference in average values: median \(\Pi \approx 1.5\) for
@@ -925,7 +922,7 @@ planitude and alatude distributions are shifted towards higher values,
 with median values of \(\Pi = 2.70\) and \(\Lambda = 2.55\).  The difference
 from the MIPSGAL sources (\(\Pi = 1.57\) and \(\Lambda = 1.69\)) is highly
 statistically significant, as indicated by extremely low \(p\)-values
-for the Anderson--Darling tests.  It is also at least 4 times larger
+for the Kuiper tests.  It is also at least 4 times larger
 than the systematic fitting uncertainties discussed in the previous
 paragraph.  On closer inspection, it appears that the shape
 distribution is bimodal.  Four of the sources (005--514, 4468--605,
@@ -966,8 +963,7 @@ can be seen that there is some correlation between the bow shock
 shapes and \(R_0/D\): the source with the largest \(\Pi\), 109--246, also
 has the largest \(R_0/D\), while the four sources with low \(\Pi\) and
 \(\Lambda\) all have low \(R_0/D\).  However, the correlation is far from
-perfect, with a Pearson correlation coefficient of only \(r = 0.47\)
-between \(\Pi\) and \(R_0/D\).
+perfect, with a Pearson correlation coefficient of only \(r = 0.47\).
 
 %Mention future JWST observations with \(0.85\arcsec\) resolution at \SI{22}{\um}. 
 
