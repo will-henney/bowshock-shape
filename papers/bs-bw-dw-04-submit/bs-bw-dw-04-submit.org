@@ -1,0 +1,180 @@
+* Initial version
+
+** Use ~latexexpand~ to make a single ~.tex~ file
++ We also find the figure files using grep
+
+#+name: figfiles
+#+begin_src sh :results verbatim
+  cd ../Papers1234/
+  latexpand obs-bowshocks.tex \
+      --verbose --explain \
+      --expand-bbl obs-bowshocks.bbl \
+      --show-graphics \
+      -o bsbwdw-04-v1-expand.tex
+  grep '{figs/' bsbwdw-04-v1-expand.tex |grep -v :% |cut -d{ -f2 | cut -d} -f1 > figlist04.txt
+  cat figlist04.txt | tr '\n' '@' | sed -e 's/@/.pdf /g' 
+#+end_src
+
+#+RESULTS: figfiles
+: figs/obs-shape-terminology.pdf figs/mipsgal-example-panels.pdf figs/mipsgal-Rc-R90-zoom-annotated.pdf figs/mipsgal-Rc-R90-thumbnails.pdf figs/mipsgal-pairplot.pdf figs/mipsgal-Rc-R90-environment.pdf figs/mipsgal-Rc-R90-candidates.pdf figs/mipsgal-Rc-R90-R0.pdf figs/mipsgal-Rc-R90-Mag.pdf figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf figs/alphaori-imageplot.pdf figs/mucep-imageplot.pdf figs/rhya-imageplot.pdf figs/rleo-imageplot.pdf figs/uuaur-imageplot.pdf figs/v1943sgr-imageplot.pdf figs/xpav-imageplot.pdf figs/rcas-imageplot.pdf figs/cwleo-imageplot.pdf figs/epaqr-imageplot.pdf figs/khicyg-imageplot.pdf figs/rtvir-imageplot.pdf figs/waql-imageplot.pdf figs/wpic-imageplot.pdf figs/rscl-imageplot.pdf figs/tetaps-imageplot.pdf figs/mipsgal-Rc-R90-vs-Herschel.pdf figs/annotated-ll-arcs.pdf figs/mipsgal-Rc-R90-vs-Orion-R0-D.pdf figs/wave-R90-vs-Rc-A020-N10.pdf figs/wave-R90-vs-Rc-A010-N20.pdf figs/p-value-histogram-new-linear.pdf figs/p-value-histogram-new.pdf figs/compare_xyprime_wave-wilkinoid.pdf figs/wave_xyprime-A010-N20-ancantoid-xi080-beta000500.pdf 
+
+
+** List files and look at sizes
+#+name: files
+#+begin_src sh
+files="bsbwdw-04-v1-expand.tex aastex-compat.sty"
+#+end_src
+
+#+BEGIN_SRC sh :noweb yes :var input=figfiles :results verbatim
+  <<files>>
+  cd ../Papers1234
+  ls -lh  $files $input
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+-rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--  1 will  staff   125K Jun 28 18:56 bsbwdw-04-v1-expand.tex
+-rw-rw-r--@ 1 will  staff   704K Jun  8  2017 figs/alphaori-imageplot.pdf
+-rw-r--r--  1 will  staff   3.5M Jun 21 23:07 figs/annotated-ll-arcs.pdf
+-rw-r--r--  1 will  staff    22K Jun 21 23:07 figs/compare_xyprime_wave-wilkinoid.pdf
+-rw-rw-r--@ 1 will  staff   386K Jul  5  2017 figs/cwleo-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   224K Jul  5  2017 figs/epaqr-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   297K Jul  5  2017 figs/khicyg-imageplot.pdf
+-rw-r--r--  1 will  staff   109K Jun 27 23:17 figs/mipsgal-Rc-R90-Mag.pdf
+-rw-r--r--  1 will  staff   111K Jun 27 23:14 figs/mipsgal-Rc-R90-R0.pdf
+-rw-r--r--  1 will  staff   108K Jun 27 23:12 figs/mipsgal-Rc-R90-candidates.pdf
+-rw-r--r--  1 will  staff   115K Jun 27 23:09 figs/mipsgal-Rc-R90-environment.pdf
+-rw-r--r--  1 will  staff   1.8M Jun 21 23:07 figs/mipsgal-Rc-R90-thumbnails.pdf
+-rw-r--r--  1 will  staff   101K Jun 21 23:07 figs/mipsgal-Rc-R90-vs-Herschel.pdf
+-rw-r--r--  1 will  staff   105K Jun 21 23:07 figs/mipsgal-Rc-R90-vs-Orion-R0-D.pdf
+-rw-r--r--  1 will  staff   274K Jun 21 23:07 figs/mipsgal-Rc-R90-zoom-annotated.pdf
+-rw-r--r--  1 will  staff    24K Jun 21 23:07 figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf
+-rw-r--r--  1 will  staff   685K Jun 27 13:23 figs/mipsgal-example-panels.pdf
+-rw-rw-r--@ 1 will  staff   130K Apr  3  2017 figs/mipsgal-pairplot.pdf
+-rw-rw-r--@ 1 will  staff   413K Jun  8  2017 figs/mucep-imageplot.pdf
+-rw-r--r--  1 will  staff    85K Jun 21 23:07 figs/obs-shape-terminology.pdf
+-rw-r--r--  1 will  staff    19K Jun 21 23:07 figs/p-value-histogram-new-linear.pdf
+-rw-r--r--  1 will  staff    21K Jun 21 23:07 figs/p-value-histogram-new.pdf
+-rw-rw-r--@ 1 will  staff   580K Jul  5  2017 figs/rcas-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   577K Jun  8  2017 figs/rhya-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   535K Jun  8  2017 figs/rleo-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   183K Jul  5  2017 figs/rscl-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   557K Jul  5  2017 figs/rtvir-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   368K Jul  5  2017 figs/tetaps-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   592K Jun  8  2017 figs/uuaur-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   278K Jun  8  2017 figs/v1943sgr-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   159K Jul  5  2017 figs/waql-imageplot.pdf
+-rw-r--r--  1 will  staff   171K Jun 21 23:07 figs/wave-R90-vs-Rc-A010-N20.pdf
+-rw-r--r--  1 will  staff   170K Jun 21 23:07 figs/wave-R90-vs-Rc-A020-N10.pdf
+-rw-r--r--  1 will  staff    29K Jun 21 23:07 figs/wave_xyprime-A010-N20-ancantoid-xi080-beta000500.pdf
+-rw-rw-r--@ 1 will  staff   140K Jul  5  2017 figs/wpic-imageplot.pdf
+-rw-rw-r--@ 1 will  staff   273K Jun  8  2017 figs/xpav-imageplot.pdf
+#+end_example
+
+** Make tar file to submit
+
+#+BEGIN_SRC sh :noweb yes :var input=figfiles :results verbatim
+  <<files>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bsbwdw04-v1.tar.gz $files $input
+  cd -
+  ls -lh
+#+END_SRC
+
+#+RESULTS:
+: /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-04-submit
+: total 28704
+: -rw-r--r--  1 will  staff   4.8K Jun 28 18:35 bs-bw-dw-04-submit.org
+: -rw-r--r--  1 will  staff    13M Jun 28 18:57 ms-bsbwdw04-v1.tar.gz
+
+
+* Test compilation in a temp folder
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bsbwdw04-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bsbwdw04-v1.tar.gz
+  ls -lhR
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bsbwdw04-test found and removed
+/tmp/ms-bsbwdw04-test
+total 264
+-rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
+-rw-r--r--   1 will  wheel   125K Jun 28 18:57 bsbwdw-04-v1-expand.tex
+drwxr-xr-x  37 will  wheel   1.2K Jun 28 18:57 figs
+
+./figs:
+total 28184
+-rw-r--r--@ 1 will  wheel   704K Jun  8  2017 alphaori-imageplot.pdf
+-rw-r--r--  1 will  wheel   3.5M Jun 21 23:07 annotated-ll-arcs.pdf
+-rw-r--r--  1 will  wheel    22K Jun 21 23:07 compare_xyprime_wave-wilkinoid.pdf
+-rw-r--r--@ 1 will  wheel   386K Jul  5  2017 cwleo-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   224K Jul  5  2017 epaqr-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   297K Jul  5  2017 khicyg-imageplot.pdf
+-rw-r--r--  1 will  wheel   109K Jun 27 23:17 mipsgal-Rc-R90-Mag.pdf
+-rw-r--r--  1 will  wheel   111K Jun 27 23:14 mipsgal-Rc-R90-R0.pdf
+-rw-r--r--  1 will  wheel   108K Jun 27 23:12 mipsgal-Rc-R90-candidates.pdf
+-rw-r--r--  1 will  wheel   115K Jun 27 23:09 mipsgal-Rc-R90-environment.pdf
+-rw-r--r--  1 will  wheel   1.8M Jun 21 23:07 mipsgal-Rc-R90-thumbnails.pdf
+-rw-r--r--  1 will  wheel   101K Jun 21 23:07 mipsgal-Rc-R90-vs-Herschel.pdf
+-rw-r--r--  1 will  wheel   105K Jun 21 23:07 mipsgal-Rc-R90-vs-Orion-R0-D.pdf
+-rw-r--r--  1 will  wheel   274K Jun 21 23:07 mipsgal-Rc-R90-zoom-annotated.pdf
+-rw-r--r--  1 will  wheel    24K Jun 21 23:07 mipsgal-boxplot-Rc-R90-versus-R0.pdf
+-rw-r--r--  1 will  wheel   685K Jun 27 13:23 mipsgal-example-panels.pdf
+-rw-r--r--@ 1 will  wheel   130K Apr  3  2017 mipsgal-pairplot.pdf
+-rw-r--r--@ 1 will  wheel   413K Jun  8  2017 mucep-imageplot.pdf
+-rw-r--r--  1 will  wheel    85K Jun 21 23:07 obs-shape-terminology.pdf
+-rw-r--r--  1 will  wheel    19K Jun 21 23:07 p-value-histogram-new-linear.pdf
+-rw-r--r--  1 will  wheel    21K Jun 21 23:07 p-value-histogram-new.pdf
+-rw-r--r--@ 1 will  wheel   580K Jul  5  2017 rcas-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   577K Jun  8  2017 rhya-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   535K Jun  8  2017 rleo-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   183K Jul  5  2017 rscl-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   557K Jul  5  2017 rtvir-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   368K Jul  5  2017 tetaps-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   592K Jun  8  2017 uuaur-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   278K Jun  8  2017 v1943sgr-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   159K Jul  5  2017 waql-imageplot.pdf
+-rw-r--r--  1 will  wheel   171K Jun 21 23:07 wave-R90-vs-Rc-A010-N20.pdf
+-rw-r--r--  1 will  wheel   170K Jun 21 23:07 wave-R90-vs-Rc-A020-N10.pdf
+-rw-r--r--  1 will  wheel    29K Jun 21 23:07 wave_xyprime-A010-N20-ancantoid-xi080-beta000500.pdf
+-rw-r--r--@ 1 will  wheel   140K Jul  5  2017 wpic-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   273K Jun  8  2017 xpav-imageplot.pdf
+#+end_example
+
+#+BEGIN_SRC sh 
+  TMPDIR=/tmp/ms-bsbwdw04-test
+  cd $TMPDIR
+  pdflatex bsbwdw-04-v1-expand
+  pdflatex bsbwdw-04-v1-expand
+  cp bsbwdw-04-v1-expand.pdf $OLDPWD/ms-bsbwdw04.pdf
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh :results silent
+open ms-bsbwdw04.pdf
+#+END_SRC
+
+
+** DONE Upload to MNRAS website
+CLOSED: [2019-06-28 Fri 19:56]
+Bow shocks, bow waves, and dust waves. IV. Shell shape statistics
+
++ [[file:bsbwdw04-v1-processed.pdf]]
+
+** Upload to arxiv
+#+begin_example
+  Stellar bow shocks result from relative motions between stars and their environment. The interaction of the stellar wind and radiation with gas and dust in the interstellar medium produces curved arcs of emission at optical, infrared, and radio wavelengths. We recently proposed a new two-dimensional classification scheme for the shape of such bow shocks, which we here apply to three very different observational datasets: mid-infrared arcs around hot OB stars; far-infrared arcs around luminous cool stars; and H alpha emission-line arcs around proplyds and other young stars in the Orion Nebula. For OB stars, the average shape is consistent with simple thin-shell models for the interaction of a spherical wind with a parallel stream, but the diversity of observed shapes is many times larger than such models predict. We propose that this may be caused by time-dependent oscillations in the bow shocks, due to either instabilities or wind variability. Cool star bow shocks have markedly more closed wings than hot star bow shocks, which may be due to the dust emission arising in the shocked stellar wind instead of the shocked interstellar medium. The Orion Nebula arcs, on the other hand, have both significantly more open wings and significantly flatter apexes than the hot star bow shocks. We test several possible explanations for this difference (divergent ambient stream, low Mach number, observational biases, and influence of collimated jets), but the evidence for each is inconclusive.
+#+end_example
