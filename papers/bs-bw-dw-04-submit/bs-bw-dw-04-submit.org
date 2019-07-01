@@ -12,11 +12,11 @@
       --show-graphics \
       -o bsbwdw-04-v1-expand.tex
   grep '{figs/' bsbwdw-04-v1-expand.tex |grep -v :% |cut -d{ -f2 | cut -d} -f1 > figlist04.txt
-  cat figlist04.txt | tr '\n' '@' | sed -e 's/@/.pdf /g' 
+  cat figlist04.txt | tr '\n' '@' | sed -e 's/@/.pdf /g' | sed -e 's/annotated-ll-arcs\.pdf/annotated-ll-arcs.jpg/' 
 #+end_src
 
 #+RESULTS: figfiles
-: figs/obs-shape-terminology.pdf figs/mipsgal-example-panels.pdf figs/mipsgal-Rc-R90-zoom-annotated.pdf figs/mipsgal-Rc-R90-thumbnails.pdf figs/mipsgal-pairplot.pdf figs/mipsgal-Rc-R90-environment.pdf figs/mipsgal-Rc-R90-candidates.pdf figs/mipsgal-Rc-R90-R0.pdf figs/mipsgal-Rc-R90-Mag.pdf figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf figs/alphaori-imageplot.pdf figs/mucep-imageplot.pdf figs/rhya-imageplot.pdf figs/rleo-imageplot.pdf figs/uuaur-imageplot.pdf figs/v1943sgr-imageplot.pdf figs/xpav-imageplot.pdf figs/rcas-imageplot.pdf figs/cwleo-imageplot.pdf figs/epaqr-imageplot.pdf figs/khicyg-imageplot.pdf figs/rtvir-imageplot.pdf figs/waql-imageplot.pdf figs/wpic-imageplot.pdf figs/rscl-imageplot.pdf figs/tetaps-imageplot.pdf figs/mipsgal-Rc-R90-vs-Herschel.pdf figs/annotated-ll-arcs.pdf figs/mipsgal-Rc-R90-vs-Orion-R0-D.pdf figs/wave-R90-vs-Rc-A020-N10.pdf figs/wave-R90-vs-Rc-A010-N20.pdf figs/p-value-histogram-new-linear.pdf figs/p-value-histogram-new.pdf figs/compare_xyprime_wave-wilkinoid.pdf figs/wave_xyprime-A010-N20-ancantoid-xi080-beta000500.pdf 
+: figs/obs-shape-terminology.pdf figs/mipsgal-example-panels.pdf figs/mipsgal-Rc-R90-zoom-annotated.pdf figs/mipsgal-Rc-R90-thumbnails.pdf figs/mipsgal-pairplot.pdf figs/mipsgal-Rc-R90-environment.pdf figs/mipsgal-Rc-R90-candidates.pdf figs/mipsgal-Rc-R90-R0.pdf figs/mipsgal-Rc-R90-Mag.pdf figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf figs/alphaori-imageplot.pdf figs/mucep-imageplot.pdf figs/rhya-imageplot.pdf figs/rleo-imageplot.pdf figs/uuaur-imageplot.pdf figs/v1943sgr-imageplot.pdf figs/xpav-imageplot.pdf figs/rcas-imageplot.pdf figs/cwleo-imageplot.pdf figs/epaqr-imageplot.pdf figs/khicyg-imageplot.pdf figs/rtvir-imageplot.pdf figs/waql-imageplot.pdf figs/wpic-imageplot.pdf figs/rscl-imageplot.pdf figs/tetaps-imageplot.pdf figs/mipsgal-Rc-R90-vs-Herschel.pdf figs/annotated-ll-arcs.jpg figs/mipsgal-Rc-R90-vs-Orion-R0-D.pdf figs/wave-R90-vs-Rc-A020-N10.pdf figs/wave-R90-vs-Rc-A010-N20.pdf figs/p-value-histogram-new-linear.pdf figs/p-value-histogram-new.pdf figs/compare_xyprime_wave-wilkinoid.pdf figs/wave_xyprime-A010-N20-ancantoid-xi080-beta000500.pdf 
 
 
 ** List files and look at sizes
@@ -34,9 +34,9 @@ files="bsbwdw-04-v1-expand.tex aastex-compat.sty"
 #+RESULTS:
 #+begin_example
 -rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
--rw-r--r--  1 will  staff   125K Jun 28 18:56 bsbwdw-04-v1-expand.tex
+-rw-r--r--  1 will  staff   125K Jul  1 10:33 bsbwdw-04-v1-expand.tex
 -rw-rw-r--@ 1 will  staff   704K Jun  8  2017 figs/alphaori-imageplot.pdf
--rw-r--r--  1 will  staff   3.5M Jun 21 23:07 figs/annotated-ll-arcs.pdf
+-rw-r--r--@ 1 will  staff   419K Jul  1 10:24 figs/annotated-ll-arcs.jpg
 -rw-r--r--  1 will  staff    22K Jun 21 23:07 figs/compare_xyprime_wave-wilkinoid.pdf
 -rw-rw-r--@ 1 will  staff   386K Jul  5  2017 figs/cwleo-imageplot.pdf
 -rw-rw-r--@ 1 will  staff   224K Jul  5  2017 figs/epaqr-imageplot.pdf
@@ -45,7 +45,7 @@ files="bsbwdw-04-v1-expand.tex aastex-compat.sty"
 -rw-r--r--  1 will  staff   111K Jun 27 23:14 figs/mipsgal-Rc-R90-R0.pdf
 -rw-r--r--  1 will  staff   108K Jun 27 23:12 figs/mipsgal-Rc-R90-candidates.pdf
 -rw-r--r--  1 will  staff   115K Jun 27 23:09 figs/mipsgal-Rc-R90-environment.pdf
--rw-r--r--  1 will  staff   1.8M Jun 21 23:07 figs/mipsgal-Rc-R90-thumbnails.pdf
+-rw-r--r--@ 1 will  staff   1.0M Jul  1 10:33 figs/mipsgal-Rc-R90-thumbnails.pdf
 -rw-r--r--  1 will  staff   101K Jun 21 23:07 figs/mipsgal-Rc-R90-vs-Herschel.pdf
 -rw-r--r--  1 will  staff   105K Jun 21 23:07 figs/mipsgal-Rc-R90-vs-Orion-R0-D.pdf
 -rw-r--r--  1 will  staff   274K Jun 21 23:07 figs/mipsgal-Rc-R90-zoom-annotated.pdf
@@ -84,9 +84,13 @@ files="bsbwdw-04-v1-expand.tex aastex-compat.sty"
 
 #+RESULTS:
 : /Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-04-submit
-: total 28704
-: -rw-r--r--  1 will  staff   4.8K Jun 28 18:35 bs-bw-dw-04-submit.org
-: -rw-r--r--  1 will  staff    13M Jun 28 18:57 ms-bsbwdw04-v1.tar.gz
+: total 120184
+: -rw-r--r--  1 will  staff    10K Jun 28 20:22 bs-bw-dw-04-submit.org
+: -r--------@ 1 will  staff    14M Jun 28 20:03 bsbwdw04-v1-arxiv.pdf
+: -r--------@ 1 will  staff    14M Jun 28 19:45 bsbwdw04-v1-processed.pdf
+: -rw-r--r--@ 1 will  staff    11M Jul  1 10:30 ms-bsbwdw04-compressed.pdf
+: -rw-r--r--  1 will  staff   8.7M Jul  1 10:39 ms-bsbwdw04-v1.tar.gz
+: -rw-r--r--@ 1 will  staff   9.9M Jul  1 10:35 ms-bsbwdw04.pdf
 
 
 * Test compilation in a temp folder
@@ -111,13 +115,13 @@ files="bsbwdw-04-v1-expand.tex aastex-compat.sty"
 /tmp/ms-bsbwdw04-test
 total 264
 -rw-r--r--   1 will  wheel   1.4K Apr 15  2013 aastex-compat.sty
--rw-r--r--   1 will  wheel   125K Jun 28 18:57 bsbwdw-04-v1-expand.tex
-drwxr-xr-x  37 will  wheel   1.2K Jun 28 18:57 figs
+-rw-r--r--   1 will  wheel   125K Jul  1 10:39 bsbwdw-04-v1-expand.tex
+drwxr-xr-x  37 will  wheel   1.2K Jul  1 10:39 figs
 
 ./figs:
-total 28184
--rw-r--r--@ 1 will  wheel   704K Jun  8  2017 alphaori-imageplot.pdf
--rw-r--r--  1 will  wheel   3.5M Jun 21 23:07 annotated-ll-arcs.pdf
+total 18992
+-rw-r--r--@ 1 will  wheel    92K Jul  1 10:38 alphaori-imageplot.pdf
+-rw-r--r--@ 1 will  wheel   419K Jul  1 10:24 annotated-ll-arcs.jpg
 -rw-r--r--  1 will  wheel    22K Jun 21 23:07 compare_xyprime_wave-wilkinoid.pdf
 -rw-r--r--@ 1 will  wheel   386K Jul  5  2017 cwleo-imageplot.pdf
 -rw-r--r--@ 1 will  wheel   224K Jul  5  2017 epaqr-imageplot.pdf
@@ -126,7 +130,7 @@ total 28184
 -rw-r--r--  1 will  wheel   111K Jun 27 23:14 mipsgal-Rc-R90-R0.pdf
 -rw-r--r--  1 will  wheel   108K Jun 27 23:12 mipsgal-Rc-R90-candidates.pdf
 -rw-r--r--  1 will  wheel   115K Jun 27 23:09 mipsgal-Rc-R90-environment.pdf
--rw-r--r--  1 will  wheel   1.8M Jun 21 23:07 mipsgal-Rc-R90-thumbnails.pdf
+-rw-r--r--@ 1 will  wheel   1.0M Jul  1 10:35 mipsgal-Rc-R90-thumbnails.pdf
 -rw-r--r--  1 will  wheel   101K Jun 21 23:07 mipsgal-Rc-R90-vs-Herschel.pdf
 -rw-r--r--  1 will  wheel   105K Jun 21 23:07 mipsgal-Rc-R90-vs-Orion-R0-D.pdf
 -rw-r--r--  1 will  wheel   274K Jun 21 23:07 mipsgal-Rc-R90-zoom-annotated.pdf
