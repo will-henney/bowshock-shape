@@ -256,10 +256,10 @@ figs/sed-comparison
 #+RESULTS:
 #+begin_example
 -rw-rw-r--  1 will  staff   1.4K Apr 15  2013 aastex-compat.sty
--rw-r--r--  1 will  staff    15K Jun 22 19:58 app-cloudy-dust-heating.tex
+-rw-r--r--  1 will  staff    15K Aug 13 16:42 app-cloudy-dust-heating.tex
 -rw-r--r--  1 will  staff   6.7K Jun 21 23:07 app-k17-k18.tex
 -rw-rw-r--  1 will  staff   4.4K Apr 15  2013 astrojournals.sty
--rw-r--r--  1 will  staff    24K Jun 22 19:58 bs-bw-dw-03.bbl
+-rw-r--r--  1 will  staff    24K Aug 13 16:43 bs-bw-dw-03.bbl
 -rw-r--r--  1 will  staff    22K Jun 22 17:31 bs-bw-dw-03.tex
 -rw-r--r--  1 will  staff   2.3K Jun 21 23:07 bs-bw-dw-defs.tex
 -rw-r--r--  1 will  staff   314K Feb 22 22:47 figs/All-sources-eta-tau.pdf
@@ -274,8 +274,2490 @@ figs/sed-comparison
 -rw-r--r--  1 will  staff   206K Mar 30 19:47 figs/mdot_correlations_edited.pdf
 -rw-r--r--  1 will  staff    25K Feb 13 17:59 figs/sed-comparison.pdf
 -rw-r--r--  1 will  staff    20K Mar 23 23:20 figs/xsec-dust-ratd-ism_10.pdf
--rw-r--r--  1 will  staff    69K Jun 22 20:18 sec-observational-diagnostics.tex
+-rw-r--r--  1 will  staff    69K Aug 13 16:43 sec-observational-diagnostics.tex
 #+end_example
+
+#+BEGIN_SRC sh :noweb yes :results verbatim
+  <<srcfiles2>>
+  <<figfiles2>>
+  cd ../Papers1234
+  tar cvzf $OLDPWD/ms-bsbwdw03-v3.tar.gz $srcfiles $figfiles
+  cd - 
+  ls -lh
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/Users/will/Work/Bowshocks/Jorge/bowshock-shape/papers/bs-bw-dw-03-submit
+total 80136
+-rw-r--r--   1 will  staff    23K Jun 24 09:45 bs-bw-dw-03-submit.org
+-r--------@  1 will  staff   5.2M Mar 30 23:41 bsbwdw03-v1-arxiv.pdf
+-r--------@  1 will  staff   5.1M Mar 30 23:36 bsbwdw03-v1-processed.pdf
+-rw-r--r--   1 will  staff   5.2M Jun 21 23:07 bsbwdw03-v2-arxiv.pdf
+drwxr-xr-x  21 will  staff   672B Jun 22 20:19 latexdiff
+-rw-r--r--   1 will  staff   4.6M Jun 21 23:05 ms-bsbwdw03-submitted-v1.tar.gz
+-rw-r--r--   1 will  staff   4.6M Jun 22 20:35 ms-bsbwdw03-v2.tar.gz
+-rw-r--r--   1 will  staff   4.6M Aug 13 17:05 ms-bsbwdw03-v3.tar.gz
+-rw-r--r--@  1 will  staff   5.0M Mar 30 23:14 ms-bsbwdw03.pdf
+-rw-r--r--   1 will  staff   4.6M Jun 21 23:07 ms-bsbwdw03.tar.gz
+-rw-r--r--   1 will  staff   3.8K Jun 22 20:39 reply-to-referee.txt
+#+end_example
+
+#+BEGIN_SRC bash :results verbatim
+  TMPDIR=/tmp/ms-bsbwdw03-test
+  if test -e $TMPDIR; then
+      echo "$TMPDIR found and removed"
+      rm -fr $TMPDIR
+  else
+      echo "$TMPDIR not found"
+  fi
+  mkdir -p $TMPDIR
+  cd $TMPDIR
+  pwd
+  tar xzf $OLDPWD/ms-bsbwdw03-v3.tar.gz
+  pdflatex bs-bw-dw-03
+  pdflatex bs-bw-dw-03
+  cp bs-bw-dw-03.pdf $OLDPWD/ms-bsbwdw03-v3.pdf
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/tmp/ms-bsbwdw03-test found and removed
+/tmp/ms-bsbwdw03-test
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./bs-bw-dw-03.tex
+LaTeX2e <2017-04-15>
+Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/mnras/mnras.cls
+Document Class: mnras 2015/05/22\ v3.0\ LaTeX2e MNRAS document class
+MNRAS document style v3.0, released 2015/05/22
+
+Package mnras Warning: Unknown option `a4paper' on input line 113.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifvtex.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fixltx2e.sty
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty)
+
+Package hyperref Warning: Option `pdfpagelabels' is turned off
+(hyperref)                because \thepage is undefined.
+
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/siunitx/siunitx.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3-code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/l3pdfmode.def))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/array.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+(/Users/will/Library/texmf/tex/latex/translator/base/translator.sty
+(/Users/will/Library/texmf/tex/latex/translator/base/translator-language-mappin
+gs.tex))) (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/enumerate.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/pdflscape.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/lscape.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/rotating.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/xr-hyper.sty
+
+Package xr-hyper Warning: Load package `hyperref' after `xr-hyper'.
+
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/omsenc.dfu)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/newtxtext.sty
+`newtxtext' v1.521, 2017/03/11 Text macros taking advantage of TeX-Gyre Termes 
+fonts (msharpe)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/fontaxes/fontaxes.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1enc.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1enc.dfu))))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/newtxmath.sty
+`newtxmath' v1.518, 2017/02/12 Math macros based on txfonts (msharpe)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/kastrup/binhex.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/chemgreek/chemgreek.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/bm.sty)
+(./aastex-compat.sty) (./bs-bw-dw-defs.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxtlf.fd)
+No file bs-bw-dw-03.aux.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/omlntxmi.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxexa.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmsntxsy.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmxntxexx.fd)
+,*geometry* driver: auto-detecting
+,*geometry* detected driver: pdftex
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/Users/will/Library/texmf/tex/latex/translator/dicts/translator-basic-dictiona
+ry/translator-basic-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd)
+
+LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
+(Font)              size <5> substituted on input line 74.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/ueur.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-eur.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxmia.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsym.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsyc.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tex-gyre/t1qhv.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxtt.fd)
+
+LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <10.5> not available
+(Font)              size <10.95> substituted on input line 77.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxsups.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd)
+
+Package natbib Warning: Citation `Gull:1979a' on page 1 undefined on input line
+ 109.
+
+
+Package natbib Warning: Citation `Cox:2012a' on page 1 undefined on input line 
+109.
+
+
+Package natbib Warning: Citation `Cordes:1993a' on page 1 undefined on input li
+ne 109.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 110.
+
+
+Package natbib Warning: Citation `Wilkin:1996a' on page 1 undefined on input li
+ne 113.
+
+
+Package natbib Warning: Citation `van-Buren:1995a' on page 1 undefined on input
+ line 114.
+
+
+Package natbib Warning: Citation `Blaauw:1961a' on page 1 undefined on input li
+ne 115.
+
+
+Package natbib Warning: Citation `Hoogerwerf:2001a' on page 1 undefined on inpu
+t line 115.
+
+
+Package natbib Warning: Citation `Huthoff:2002a' on page 1 undefined on input l
+ine 120.
+
+
+Package natbib Warning: Citation `Peri:2012a' on page 1 undefined on input line
+ 120.
+
+
+Package natbib Warning: Citation `Peri:2015a' on page 1 undefined on input line
+ 120.
+
+
+Package natbib Warning: Citation `Prisegen:2019a' on page 1 undefined on input 
+line 120.
+
+
+Package natbib Warning: Citation `Povich:2008a' on page 1 undefined on input li
+ne 122.
+
+
+Package natbib Warning: Citation `Kobulnicky:2010a' on page 1 undefined on inpu
+t line 122.
+
+
+Package natbib Warning: Citation `Sexton:2015b' on page 1 undefined on input li
+ne 123.
+
+
+Package natbib Warning: Citation `Povich:2008a' on page 1 undefined on input li
+ne 126.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 128.
+
+
+Package natbib Warning: Citation `Kobulnicky:2017a' on page 1 undefined on inpu
+t line 128.
+
+
+Package natbib Warning: Citation `Bodensteiner:2018a' on page 1 undefined on in
+put line 129.
+
+
+Package natbib Warning: Citation `van-Buren:1992a' on page 1 undefined on input
+ line 132.
+
+
+Package natbib Warning: Citation `Wilkin:1996a' on page 1 undefined on input li
+ne 132.
+
+
+Package natbib Warning: Citation `Canto:1996' on page 1 undefined on input line
+ 132.
+
+
+Package natbib Warning: Citation `Wilkin:2000a' on page 1 undefined on input li
+ne 134.
+
+
+Package natbib Warning: Citation `Henney:2002a' on page 1 undefined on input li
+ne 134.
+
+
+Package natbib Warning: Citation `Canto:2005a' on page 1 undefined on input lin
+e 134.
+
+
+Package natbib Warning: Citation `Tarango-Yong:2018a' on page 1 undefined on in
+put line 134.
+
+
+Package natbib Warning: Citation `Matsuda:1989a' on page 1 undefined on input l
+ine 137.
+
+
+Package natbib Warning: Citation `Raga:1997a' on page 1 undefined on input line
+ 137.
+
+
+Package natbib Warning: Citation `Comeron:1998a' on page 1 undefined on input l
+ine 137.
+
+
+Package natbib Warning: Citation `Arthur:2006a' on page 1 undefined on input li
+ne 137.
+
+
+Package natbib Warning: Citation `Meyer:2014b' on page 1 undefined on input lin
+e 137.
+
+
+Package natbib Warning: Citation `Mackey:2015a' on page 1 undefined on input li
+ne 137.
+
+
+Package natbib Warning: Citation `Meyer:2017a' on page 1 undefined on input lin
+e 138.
+
+
+Package natbib Warning: Citation `Katushkina:2017a' on page 1 undefined on inpu
+t line 138.
+
+
+Package natbib Warning: Citation `Katushkina:2018a' on page 1 undefined on inpu
+t line 138.
+
+
+Package natbib Warning: Citation `Meyer:2016a' on page 1 undefined on input lin
+e 140.
+
+
+Package natbib Warning: Citation `Acreman:2016a' on page 1 undefined on input l
+ine 140.
+
+
+Package natbib Warning: Citation `Mackey:2016a' on page 1 undefined on input li
+ne 140.
+
+
+Package natbib Warning: Citation `Henney:2019a' on page 1 undefined on input li
+ne 150.
+
+
+Package natbib Warning: Citation `Henney:2019b' on page 1 undefined on input li
+ne 150.
+
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 1 undefined on input l
+ine 184.
+
+
+LaTeX Warning: Reference `sec:eta-tau-diagnostic' on page 1 undefined on input 
+line 186.
+
+
+LaTeX Warning: Reference `sec:cand-radi-supp' on page 1 undefined on input line
+ 189.
+
+
+LaTeX Warning: Reference `sec:grain-temp-emiss' on page 1 undefined on input li
+ne 191.
+
+
+LaTeX Warning: Reference `sec:stellar-wind-mass' on page 1 undefined on input l
+ine 193.
+
+
+LaTeX Warning: Reference `sec:discussion' on page 1 undefined on input line 195
+.
+
+
+LaTeX Warning: Reference `sec:conclusions' on page 1 undefined on input line 19
+7.
+
+
+Underfull \vbox (badness 7944) has occurred while \output is active
+
+LaTeX Warning: Reference `firstpage' on page 1 undefined on input line 198.
+
+
+LaTeX Warning: Reference `lastpage' on page 1 undefined on input line 198.
+
+[1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./sec-observational-diagnostics.tex
+<figs/All-sources-eta-tau.pdf, id=25, 569.05505pt x 578.16pt>
+<use figs/All-sources-eta-tau.pdf>
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 2 undefined on inpu
+t line 55.
+
+
+LaTeX Warning: Reference `tab:observations' on page 2 undefined on input line 5
+5.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 2 undefined on inpu
+t line 55.
+
+
+LaTeX Warning: Reference `tab:observations' on page 2 undefined on input line 5
+5.
+
+
+LaTeX Warning: Reference `app:dust-opacity' on page 2 undefined on input line 6
+1.
+
+
+LaTeX Warning: Reference `sec:unimp-other-heat' on page 2 undefined on input li
+ne 72.
+
+
+LaTeX Warning: Reference `eq:tau_tauprime' on page 2 undefined on input line 83
+.
+
+
+LaTeX Warning: Reference `app:dust-opacity' on page 2 undefined on input line 9
+0.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 2 undefined on input line
+ 112.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 2 undefined on input
+ line 185.
+
+
+LaTeX Warning: Reference `eq:tau-empirical' on page 2 undefined on input line 1
+94.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 2 undefined on inpu
+t line 201.
+
+
+LaTeX Warning: Reference `tab:observations' on page 2 undefined on input line 2
+05.
+
+
+Package natbib Warning: Citation `Smith:2005a' on page 2 undefined on input lin
+e 206.
+
+
+Package natbib Warning: Citation `ODell:2001c' on page 2 undefined on input lin
+e 206.
+
+
+Package natbib Warning: Citation `Ochsendorf:2014b' on page 2 undefined on inpu
+t line 210.
+
+
+Package natbib Warning: Citation `Ochsendorf:2015a' on page 2 undefined on inpu
+t line 210.
+
+
+LaTeX Warning: Reference `firstpage' on page 2 undefined on input line 212.
+
+
+LaTeX Warning: Reference `lastpage' on page 2 undefined on input line 212.
+
+[2pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.212 
+      ]
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 3 undefined on inpu
+t line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\begingroup' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\NAT@ctype' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ne' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\new@ifnextchar' on input line 214.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 3 undefined on inpu
+t line 217.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 3 undefined on inpu
+t line 220.
+
+
+Package natbib Warning: Citation `Kobulnicky:2017a' on page 3 undefined on inpu
+t line 220.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 3 undefined on inpu
+t line 220.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 3 undefined on inpu
+t line 225.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 3 undefined on input line
+ 226.
+
+
+Package natbib Warning: Citation `Kobulnicky:2019a' on page 3 undefined on inpu
+t line 228.
+
+
+LaTeX Warning: Reference `sec:anomalous-b-star' on page 3 undefined on input li
+ne 232.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active
+Underfull \vbox (badness 10000) has occurred while \output is active
+
+LaTeX Warning: Reference `firstpage' on page 3 undefined on input line 235.
+
+
+LaTeX Warning: Reference `lastpage' on page 3 undefined on input line 235.
+
+[3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.235 
+       <./figs/All-sources-eta-tau.pdf>]
+
+LaTeX Warning: Reference `eq:tau-empirical' on page 4 undefined on input line 2
+37.
+
+
+Package natbib Warning: Citation `Martins:2005a' on page 4 undefined on input l
+ine 262.
+
+<figs/K17-tau-comparison.pdf, id=246, 578.16pt x 722.7pt>
+<use figs/K17-tau-comparison.pdf>
+
+LaTeX Warning: Reference `fig:k17-k18-comparison' on page 4 undefined on input 
+line 274.
+
+
+LaTeX Warning: Reference `sec:stellar-wind-mass' on page 4 undefined on input l
+ine 308.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 4 undefined on inpu
+t line 316.
+
+
+Package natbib Warning: Citation `Martins:2005a' on page 4 undefined on input l
+ine 323.
+
+
+Package natbib Warning: Citation `Kobulnicky:2017a' on page 4 undefined on inpu
+t line 333.
+
+
+LaTeX Warning: Reference `eq:total-ir-flux' on page 4 undefined on input line 3
+34.
+
+
+Package natbib Warning: Citation `Kobulnicky:2017a' on page 4 undefined on inpu
+t line 337.
+
+
+Package natbib Warning: Citation `Balog:2014a' on page 4 undefined on input lin
+e 338.
+
+
+Package natbib Warning: Citation `Engelbracht:2007a' on page 4 undefined on inp
+ut line 339.
+
+
+Package natbib Warning: Citation `Tarango-Yong:2018a' on page 4 undefined on in
+put line 349.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 4 undefined on inpu
+t line 352.
+
+
+LaTeX Warning: Reference `firstpage' on page 4 undefined on input line 354.
+
+
+LaTeX Warning: Reference `lastpage' on page 4 undefined on input line 354.
+
+[4pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.354 
+       <./figs/K17-tau-comparison.pdf>]
+
+LaTeX Warning: Reference `sec:comb-uncert-covar' on page 5 undefined on input l
+ine 370.
+
+
+LaTeX Warning: Reference `P1' on page 5 undefined on input line 388.
+
+
+LaTeX Warning: Reference `P3' on page 5 undefined on input line 388.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 5 undefined on input
+ line 393.
+
+
+Package natbib Warning: Citation `Kobulnicky:2017a' on page 5 undefined on inpu
+t line 410.
+
+
+Package natbib Warning: Citation `Weingartner:2001a' on page 5 undefined on inp
+ut line 420.
+
+
+Package natbib Warning: Citation `Fitzpatrick:2007a' on page 5 undefined on inp
+ut line 422.
+
+
+Package natbib Warning: Citation `Schlafly:2016a' on page 5 undefined on input 
+line 423.
+
+
+Package natbib Warning: Citation `Beitia-Antero:2017a' on page 5 undefined on i
+nput line 424.
+
+
+Package natbib Warning: Citation `Salgado:2016a' on page 5 undefined on input l
+ine 428.
+
+
+Package natbib Warning: Citation `Salgado:2012a' on page 5 undefined on input l
+ine 431.
+
+
+Package natbib Warning: Citation `Hoang:2019b' on page 5 undefined on input lin
+e 434.
+
+
+LaTeX Warning: Reference `tab:observations' on page 5 undefined on input line 4
+62.
+
+
+Package natbib Warning: Citation `ODell:2001c' on page 5 undefined on input lin
+e 465.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 5 undefined on input
+ line 468.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 5 undefined on input
+ line 474.
+
+
+Package natbib Warning: Citation `Robberto:2005a' on page 5 undefined on input 
+line 480.
+
+
+Package natbib Warning: Citation `Smith:2005a' on page 5 undefined on input lin
+e 480.
+
+
+Package natbib Warning: Citation `Salgado:2016a' on page 5 undefined on input l
+ine 483.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 5 undefined on input
+ line 491.
+
+
+LaTeX Warning: Reference `sec:notes-part-sourc' on page 5 undefined on input li
+ne 497.
+
+
+LaTeX Warning: Reference `firstpage' on page 5 undefined on input line 506.
+
+
+LaTeX Warning: Reference `lastpage' on page 5 undefined on input line 506.
+
+[5]
+
+LaTeX Warning: Reference `sec:syst-uncert-due' on page 6 undefined on input lin
+e 510.
+
+(./app-cloudy-dust-heating.tex
+
+Package natbib Warning: Citation `Ferland:2013a' on page 6 undefined on input l
+ine 10.
+
+
+Package natbib Warning: Citation `Ferland:2017a' on page 6 undefined on input l
+ine 10.
+
+<figs/grain-T-vs-U.pdf, id=328, 289.08pt x 289.08pt>
+<use figs/grain-T-vs-U.pdf>
+
+LaTeX Warning: Reference `fig:grain-T-vs-U' on page 6 undefined on input line 3
+2.
+
+
+Package natbib Warning: Citation `Mathis:1983a' on page 6 undefined on input li
+ne 37.
+
+
+LaTeX Warning: Reference `fig:grain-T-vs-U' on page 6 undefined on input line 4
+2.
+
+
+LaTeX Warning: Reference `sec:unimp-other-heat' on page 6 undefined on input li
+ne 45.
+
+<figs/grain-j70-vs-U-edited.pdf, id=329, 291.0875pt x 289.08pt>
+<use figs/grain-j70-vs-U-edited.pdf>
+
+LaTeX Warning: Reference `fig:grain-T-vs-U' on page 6 undefined on input line 6
+6.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 66.
+
+
+LaTeX Warning: Reference `fig:sed-comparison' on page 6 undefined on input line
+ 66.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 66.
+
+
+LaTeX Warning: Reference `fig:grain-T-vs-U' on page 6 undefined on input line 6
+6.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 66.
+
+
+LaTeX Warning: Reference `fig:sed-comparison' on page 6 undefined on input line
+ 66.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 66.
+
+
+LaTeX Warning: Reference `fig:grain-j70' on page 6 undefined on input line 72.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 74.
+
+
+LaTeX Warning: Reference `fig:sed-comparison' on page 6 undefined on input line
+ 77.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 77.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 88.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 6 undefined on input li
+ne 91.
+
+
+Package natbib Warning: Citation `Giard:1994a' on page 6 undefined on input lin
+e 94.
+
+
+Package natbib Warning: Citation `Lebouteiller:2011a' on page 6 undefined on in
+put line 94.
+
+<figs/sed-comparison.pdf, id=330, 433.62pt x 216.81pt>
+<use figs/sed-comparison.pdf>
+
+Package natbib Warning: Citation `Mathis:1983a' on page 6 undefined on input li
+ne 107.
+
+
+Package natbib Warning: Citation `Mathis:1983a' on page 6 undefined on input li
+ne 107.
+
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 6 undefined on input l
+ine 112.
+
+
+LaTeX Warning: Reference `firstpage' on page 6 undefined on input line 117.
+
+
+LaTeX Warning: Reference `lastpage' on page 6 undefined on input line 117.
+
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.117 \end{equation}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.117 \end{equation}
+                     <./figs/grain-T-vs-U.pdf> <./figs/grain-j70-vs-U-edited.pd
+f>]
+
+Package natbib Warning: Citation `Tielens:1985a' on page 7 undefined on input l
+ine 133.
+
+
+Package natbib Warning: Citation `Habing:1968a' on page 7 undefined on input li
+ne 135.
+
+
+Package natbib Warning: Citation `Lanz:2003a' on page 7 undefined on input line
+ 151.
+
+
+Package natbib Warning: Citation `Lanz:2007a' on page 7 undefined on input line
+ 151.
+
+
+Package natbib Warning: Citation `Duley:1973a' on page 7 undefined on input lin
+e 169.
+
+
+Package natbib Warning: Citation `Draine:2001a' on page 7 undefined on input li
+ne 172.
+
+
+Package natbib Warning: Citation `Draine:2001a' on page 7 undefined on input li
+ne 173.
+
+
+Package natbib Warning: Citation `Desert:1990a' on page 7 undefined on input li
+ne 180.
+
+
+Package natbib Warning: Citation `Xie:2018a' on page 7 undefined on input line 
+182.
+
+
+Package natbib Warning: Citation `Spitzer:1978a' on page 7 undefined on input l
+ine 193.
+
+
+Package natbib Warning: Citation `Henney:1998b' on page 7 undefined on input li
+ne 198.
+
+
+LaTeX Warning: Reference `eq:U-from-ambient' on page 7 undefined on input line 
+203.
+
+
+Package natbib Warning: Citation `Draine:1981a' on page 7 undefined on input li
+ne 231.
+
+
+LaTeX Warning: Reference `firstpage' on page 7 undefined on input line 249.
+
+
+LaTeX Warning: Reference `lastpage' on page 7 undefined on input line 249.
+
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.249 \end{equation}
+                     <./figs/sed-comparison.pdf>]
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 8 undefined on input l
+ine 261.
+
+
+Package natbib Warning: Citation `Brown:2015a' on page 8 undefined on input lin
+e 267.
+
+
+LaTeX Warning: Reference `eq:F-ratio-shock' on page 8 undefined on input line 2
+72.
+
+
+Package natbib Warning: Citation `Tuthill:1999a' on page 8 undefined on input l
+ine 275.
+
+
+Package natbib Warning: Citation `Callingham:2019a' on page 8 undefined on inpu
+t line 275.
+
+
+Package natbib Warning: Citation `Arthur:2011a' on page 8 undefined on input li
+ne 286.
+
+
+Package natbib Warning: Citation `Planck-Collaboration:2016c' on page 8 undefin
+ed on input line 286.
+
+
+Package natbib Warning: Citation `Katushkina:2017a' on page 8 undefined on inpu
+t line 291.
+
+
+Package natbib Warning: Citation `Gvaramadze:2018a' on page 8 undefined on inpu
+t line 291.
+
+
+Package natbib Warning: Citation `Meyer:2017a' on page 8 undefined on input lin
+e 296.
+
+) <figs/Mdot-vs-lum-combo-edited.pdf, id=490, 1134.2375pt x 652.4375pt>
+<use figs/Mdot-vs-lum-combo-edited.pdf>
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 8 undefined on inpu
+t line 545.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 8 undefined on input line
+ 545.
+
+
+LaTeX Warning: Reference `tab:observations' on page 8 undefined on input line 5
+45.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 8 undefined on input
+ line 545.
+
+
+Package natbib Warning: Citation `Simon-Diaz:2015a' on page 8 undefined on inpu
+t line 545.
+
+
+Package natbib Warning: Citation `Vink:2000a' on page 8 undefined on input line
+ 545.
+
+
+Package natbib Warning: Citation `Krticka:2017a' on page 8 undefined on input l
+ine 545.
+
+
+Package natbib Warning: Citation `Krticka:2014a' on page 8 undefined on input l
+ine 545.
+
+
+Package natbib Warning: Citation `Marcolino:2009a' on page 8 undefined on input
+ line 545.
+
+
+Package natbib Warning: Citation `Najarro:2011a' on page 8 undefined on input l
+ine 545.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 8 undefined on inpu
+t line 545.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 8 undefined on input line
+ 545.
+
+
+LaTeX Warning: Reference `tab:observations' on page 8 undefined on input line 5
+45.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 8 undefined on input
+ line 545.
+
+
+Package natbib Warning: Citation `Simon-Diaz:2015a' on page 8 undefined on inpu
+t line 545.
+
+
+Package natbib Warning: Citation `Vink:2000a' on page 8 undefined on input line
+ 545.
+
+
+Package natbib Warning: Citation `Krticka:2017a' on page 8 undefined on input l
+ine 545.
+
+
+Package natbib Warning: Citation `Krticka:2014a' on page 8 undefined on input l
+ine 545.
+
+
+Package natbib Warning: Citation `Marcolino:2009a' on page 8 undefined on input
+ line 545.
+
+
+Package natbib Warning: Citation `Najarro:2011a' on page 8 undefined on input l
+ine 545.
+
+
+Package natbib Warning: Citation `Kobulnicky:2010a' on page 8 undefined on inpu
+t line 555.
+
+
+Package natbib Warning: Citation `Gvaramadze:2012a' on page 8 undefined on inpu
+t line 555.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 8 undefined on inpu
+t line 555.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 8 undefined on inpu
+t line 559.
+
+
+Package natbib Warning: Citation `Kobulnicky:2010a' on page 8 undefined on inpu
+t line 560.
+
+
+Package natbib Warning: Citation `Gvaramadze:2012a' on page 8 undefined on inpu
+t line 561.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@edoc' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@last@\math@version' on input line
+ 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@math@weight' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@code' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@last@\math@version' on input line
+ 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\tau' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\eta' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 569.
+
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 8 undefined on input l
+ine 587.
+
+
+LaTeX Warning: Reference `eq:tau-empirical' on page 8 undefined on input line 5
+95.
+
+
+LaTeX Warning: Reference `eq:eta-shell' on page 8 undefined on input line 596.
+
+
+LaTeX Warning: Reference `eq:mdot-tau-eta' on page 8 undefined on input line 60
+3.
+
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 8 undefined on i
+nput line 609.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 8 undefined on input
+ line 610.
+
+
+LaTeX Warning: Reference `sec:comb-uncert-covar' on page 8 undefined on input l
+ine 615.
+
+
+Package natbib Warning: Citation `Vink:2000a' on page 8 undefined on input line
+ 621.
+
+
+Package natbib Warning: Citation `Krticka:2014a' on page 8 undefined on input l
+ine 622.
+
+
+Package natbib Warning: Citation `Krticka:2017a' on page 8 undefined on input l
+ine 623.
+
+
+Package natbib Warning: Citation `Marcolino:2009a' on page 8 undefined on input
+ line 625.
+
+
+Package natbib Warning: Citation `Vink:2000a' on page 8 undefined on input line
+ 626.
+
+
+Package natbib Warning: Citation `Krticka:2017a' on page 8 undefined on input l
+ine 627.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 8 undefined on inpu
+t line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\begingroup' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\NAT@ctype' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\z@' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\new@ifnextchar' on input line 629.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 8 undefined on input li
+ne 666.
+
+
+LaTeX Warning: Reference `K1' on page 8 undefined on input line 682.
+
+
+LaTeX Warning: Reference `K3' on page 8 undefined on input line 682.
+
+
+LaTeX Warning: Reference `P1' on page 8 undefined on input line 682.
+
+
+LaTeX Warning: Reference `P3' on page 8 undefined on input line 682.
+
+
+LaTeX Warning: Reference `P1' on page 8 undefined on input line 683.
+
+
+LaTeX Warning: Reference `K1' on page 8 undefined on input line 685.
+
+
+LaTeX Warning: Reference `P2' on page 8 undefined on input line 687.
+
+
+LaTeX Warning: Reference `K2' on page 8 undefined on input line 689.
+
+
+LaTeX Warning: Reference `K3' on page 8 undefined on input line 690.
+
+
+LaTeX Warning: Reference `P3' on page 8 undefined on input line 703.
+
+
+LaTeX Warning: Reference `firstpage' on page 8 undefined on input line 705.
+
+
+LaTeX Warning: Reference `lastpage' on page 8 undefined on input line 705.
+
+[8]
+
+LaTeX Warning: Reference `sec:grain-temp-emiss' on page 9 undefined on input li
+ne 709.
+
+
+Package natbib Warning: Citation `Draine:2007a' on page 9 undefined on input li
+ne 711.
+
+
+Package natbib Warning: Citation `Kobulnicky:2019a' on page 9 undefined on inpu
+t line 715.
+
+<figs/K18-mdot-Ux8-comparison.pdf, id=509, 578.16pt x 722.7pt>
+<use figs/K18-mdot-Ux8-comparison.pdf>
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 9 undefined on i
+nput line 748.
+
+
+LaTeX Warning: Reference `fig:k18-mdot-corrected-emissivity' on page 9 undefine
+d on input line 751.
+
+
+LaTeX Warning: Reference `sec:evolution-grain-size' on page 9 undefined on inpu
+t line 782.
+
+
+LaTeX Warning: Reference `sec:underst-diff-betw' on page 9 undefined on input l
+ine 787.
+
+
+LaTeX Warning: Reference `sec:comm-prop-cand' on page 9 undefined on input line
+ 788.
+
+
+LaTeX Warning: Reference `sec:anomalous-b-star' on page 9 undefined on input li
+ne 790.
+
+
+LaTeX Warning: Reference `firstpage' on page 9 undefined on input line 792.
+
+
+LaTeX Warning: Reference `lastpage' on page 9 undefined on input line 792.
+
+[9pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.792 \subsection
+                 {Evolution of grain size} <./figs/Mdot-vs-lum-combo-edited.pdf
+>] <figs/xsec-dust-ratd-ism_10.pdf, id=740, 361.35pt x 216.81pt>
+<use figs/xsec-dust-ratd-ism_10.pdf>
+
+Package natbib Warning: Citation `Lebouteiller:2007a' on page 10 undefined on i
+nput line 814.
+
+
+Package natbib Warning: Citation `Lebouteiller:2011a' on page 10 undefined on i
+nput line 814.
+
+
+Package natbib Warning: Citation `Hoang:2019b' on page 10 undefined on input li
+ne 816.
+
+
+LaTeX Warning: Reference `sec:grain-temp-emiss' on page 10 undefined on input l
+ine 829.
+
+
+LaTeX Warning: Reference `fig:ratd' on page 10 undefined on input line 833.
+
+
+Package natbib Warning: Citation `Hirabayashi:2015a' on page 10 undefined on in
+put line 849.
+
+
+Package natbib Warning: Citation `Zhang:2018a' on page 10 undefined on input li
+ne 849.
+
+
+Package natbib Warning: Citation `Jewitt:2014a' on page 10 undefined on input l
+ine 853.
+
+
+Package natbib Warning: Citation `Hoang:2019b' on page 10 undefined on input li
+ne 857.
+
+
+LaTeX Warning: Reference `fig:ratd' on page 10 undefined on input line 858.
+
+
+<figs/K18-mdot-corrected-comparison-R0-edited.pdf, id=742, 602.25pt x 578.16pt>
+<use figs/K18-mdot-corrected-comparison-R0-edited.pdf>
+<figs/mdot_correlations_edited.pdf, id=743, 1947.275pt x 602.25pt>
+<use figs/mdot_correlations_edited.pdf>
+
+LaTeX Warning: Reference `sec:mass-loss-determ' on page 10 undefined on input l
+ine 889.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 10 undefined on input lin
+e 889.
+
+
+LaTeX Warning: Reference `sec:mass-loss-determ' on page 10 undefined on input l
+ine 889.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 10 undefined on input lin
+e 889.
+
+<figs/H_versus_ell_annotated.pdf, id=744, 458.71375pt x 306.14375pt>
+<use figs/H_versus_ell_annotated.pdf>
+
+LaTeX Warning: Reference `eq:h-R0' on page 10 undefined on input line 906.
+
+
+LaTeX Warning: Reference `eq:h-R0' on page 10 undefined on input line 906.
+
+
+LaTeX Warning: Reference `eq:h-R0' on page 10 undefined on input line 906.
+
+
+LaTeX Warning: Reference `eq:h-R0' on page 10 undefined on input line 906.
+
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 10 undefined on 
+input line 912.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 10 undefined on inpu
+t line 920.
+
+
+LaTeX Warning: Reference `fig:mass-loss-comparison' on page 10 undefined on inp
+ut line 921.
+
+
+LaTeX Warning: Reference `tab:error-ellipse' on page 10 undefined on input line
+ 932.
+
+
+LaTeX Warning: Reference `sec:comb-uncert-covar' on page 10 undefined on input 
+line 932.
+
+
+LaTeX Warning: Reference `fig:mass-loss-comparison' on page 10 undefined on inp
+ut line 934.
+
+
+LaTeX Warning: Reference `firstpage' on page 10 undefined on input line 946.
+
+
+LaTeX Warning: Reference `lastpage' on page 10 undefined on input line 946.
+
+[10pdfTeX warning (ext4): destination with the same identifier (name{figure.7})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.946 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.946 
+       <./figs/K18-mdot-Ux8-comparison.pdf> <./figs/xsec-dust-ratd-ism_10.pdf>]
+
+LaTeX Warning: Reference `fig:mass-loss-comparison' on page 11 undefined on inp
+ut line 947.
+
+
+LaTeX Warning: Reference `fig:correlations' on page 11 undefined on input line 
+952.
+
+
+LaTeX Warning: Reference `K2' on page 11 undefined on input line 1000.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 11 undefined on input lin
+e 1000.
+
+
+LaTeX Warning: Reference `P2' on page 11 undefined on input line 1003.
+
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 11 undefined on input 
+line 1004.
+
+
+Package natbib Warning: Citation `Tarango-Yong:2018a' on page 11 undefined on i
+nput line 1009.
+
+
+LaTeX Warning: Reference `fig:H-versus-ell' on page 11 undefined on input line 
+1010.
+
+
+LaTeX Warning: Reference `fig:H-versus-ell' on page 11 undefined on input line 
+1016.
+
+
+LaTeX Warning: Reference `fig:mass-loss-comparison' on page 11 undefined on inp
+ut line 1027.
+
+
+LaTeX Warning: Reference `eq:eta-shell' on page 11 undefined on input line 1028
+.
+
+
+LaTeX Warning: Reference `eq:mdot-tau-eta' on page 11 undefined on input line 1
+029.
+
+
+LaTeX Warning: Reference `sec:stoch-single-phot' on page 11 undefined on input 
+line 1059.
+
+
+Package natbib Warning: Citation `Draine:2001a' on page 11 undefined on input l
+ine 1061.
+
+
+Package natbib Warning: Citation `Desert:1990a' on page 11 undefined on input l
+ine 1064.
+
+
+Package natbib Warning: Citation `Lebouteiller:2007a' on page 11 undefined on i
+nput line 1066.
+
+
+LaTeX Warning: Reference `eq:tau-empirical' on page 11 undefined on input line 
+1073.
+
+
+LaTeX Warning: Reference `firstpage' on page 11 undefined on input line 1075.
+
+
+LaTeX Warning: Reference `lastpage' on page 11 undefined on input line 1075.
+
+[11pdfTeX warning (ext4): destination with the same identifier (name{figure.9})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1075 
+        <./figs/K18-mdot-corrected-comparison-R0-edited.pdf>]
+
+LaTeX Warning: Reference `sec:mass-loss-determ' on page 12 undefined on input l
+ine 1082.
+
+
+Package natbib Warning: Citation `Petit:2008a' on page 12 undefined on input li
+ne 1102.
+
+
+Package natbib Warning: Citation `Alecian:2013a' on page 12 undefined on input 
+line 1102.
+
+
+LaTeX Warning: Reference `fig:H-versus-ell' on page 12 undefined on input line 
+1114.
+
+
+LaTeX Warning: Reference `eq:h-R0' on page 12 undefined on input line 1119.
+
+
+LaTeX Warning: Reference `eq:eta-shell' on page 12 undefined on input line 1124
+.
+
+
+LaTeX Warning: Reference `firstpage' on page 12 undefined on input line 1126.
+
+
+LaTeX Warning: Reference `lastpage' on page 12 undefined on input line 1126.
+
+[12pdfTeX warning (ext4): destination with the same identifier (name{figure.10}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1126 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.11}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1126 
+        <./figs/mdot_correlations_edited.pdf> <./figs/H_versus_ell_annotated.pd
+f>] <figs/cygnus-bows-midir-combo.pdf, id=974, 2409.0pt x 1170.3725pt>
+<use figs/cygnus-bows-midir-combo.pdf>
+
+Package natbib Warning: Citation `Kobulnicky:2010a' on page 13 undefined on inp
+ut line 1148.
+
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 13 undefined on 
+input line 1152.
+
+
+LaTeX Warning: Reference `fig:cygnus-bows' on page 13 undefined on input line 1
+157.
+
+
+Package natbib Warning: Citation `Schneider:2016a' on page 13 undefined on inpu
+t line 1161.
+
+
+Package natbib Warning: Citation `Smith:2005a' on page 13 undefined on input li
+ne 1168.
+
+
+Package natbib Warning: Citation `Sexton:2015b' on page 13 undefined on input l
+ine 1169.
+
+
+Package natbib Warning: Citation `Mackey:2015a' on page 13 undefined on input l
+ine 1171.
+
+
+Package natbib Warning: Citation `Mackey:2016a' on page 13 undefined on input l
+ine 1171.
+
+
+Package natbib Warning: Citation `Kobulnicky:2010a' on page 13 undefined on inp
+ut line 1175.
+
+
+Package natbib Warning: Citation `Sexton:2015b' on page 13 undefined on input l
+ine 1180.
+
+
+Package natbib Warning: Citation `Ngoumou:2013a' on page 13 undefined on input 
+line 1180.
+
+
+Package natbib Warning: Citation `Hartigan:2015a' on page 13 undefined on input
+ line 1180.
+
+
+Package natbib Warning: Citation `Kobulnicky:2012a' on page 13 undefined on inp
+ut line 1183.
+
+
+LaTeX Warning: Reference `eq:total-ir-flux' on page 13 undefined on input line 
+1187.
+
+
+Package natbib Warning: Citation `Kobulnicky:2017a' on page 13 undefined on inp
+ut line 1190.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 13 undefined on inpu
+t line 1195.
+
+
+LaTeX Warning: Reference `fig:mass-loss-comparison' on page 13 undefined on inp
+ut line 1201.
+
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 13 undefined on input 
+line 1223.
+
+
+LaTeX Warning: Reference `sec:mass-loss-determ' on page 13 undefined on input l
+ine 1224.
+
+
+LaTeX Warning: Reference `eq:tau-trap-rbw' on page 13 undefined on input line 1
+229.
+
+
+LaTeX Warning: Reference `eq:tau-trap-wbs' on page 13 undefined on input line 1
+234.
+
+
+LaTeX Warning: Reference `eq:eta-shell-components' on page 13 undefined on inpu
+t line 1237.
+
+
+Package natbib Warning: Citation `Pecaut:2013a' on page 13 undefined on input l
+ine 1247.
+
+
+Package natbib Warning: Citation `Lanz:2007a' on page 13 undefined on input lin
+e 1249.
+
+
+LaTeX Warning: Reference `eq:tau-trap-rbw' on page 13 undefined on input line 1
+250.
+
+
+LaTeX Warning: Reference `eq:tau-empirical' on page 13 undefined on input line 
+1253.
+
+
+Package natbib Warning: Citation `Wright:2015a' on page 13 undefined on input l
+ine 1258.
+
+
+Package natbib Warning: Citation `Wendker:1991a' on page 13 undefined on input 
+line 1268.
+
+
+Package natbib Warning: Citation `Tung:2017a' on page 13 undefined on input lin
+e 1268.
+
+
+Package natbib Warning: Citation `Schneider:2016a' on page 13 undefined on inpu
+t line 1271.
+
+
+Package natbib Warning: Citation `Beerer:2010a' on page 13 undefined on input l
+ine 1273.
+
+
+LaTeX Warning: Reference `firstpage' on page 13 undefined on input line 1275.
+
+
+LaTeX Warning: Reference `lastpage' on page 13 undefined on input line 1275.
+
+[13pdfTeX warning (ext4): destination with the same identifier (name{figure.12}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1275 
+        <./figs/cygnus-bows-midir-combo.pdf>])
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 14 undefined on input 
+line 214.
+
+
+LaTeX Warning: Reference `sec:energy-trapp-vers' on page 14 undefined on input 
+line 220.
+
+
+LaTeX Warning: Reference `sec:eta-tau-diagnostic' on page 14 undefined on input
+ line 222.
+
+
+Package natbib Warning: Citation `Kobulnicky:2018a' on page 14 undefined on inp
+ut line 231.
+
+
+LaTeX Warning: Reference `sec:cand-radi-supp' on page 14 undefined on input lin
+e 233.
+
+
+LaTeX Warning: Reference `sec:comm-prop-cand' on page 14 undefined on input lin
+e 234.
+
+
+LaTeX Warning: Reference `sec:mass-loss-determ' on page 14 undefined on input l
+ine 238.
+
+
+LaTeX Warning: Reference `app:bow-shock-data' on page 14 undefined on input lin
+e 239.
+
+
+LaTeX Warning: Reference `sec:underst-diff-betw' on page 14 undefined on input 
+line 246.
+
+
+LaTeX Warning: Reference `sec:evolution-grain-size' on page 14 undefined on inp
+ut line 257.
+
+
+Package natbib Warning: Citation `Jones:2001a' on page 14 undefined on input li
+ne 273.
+
+
+Package natbib Warning: Citation `Astropy-Collaboration:2013a' on page 14 undef
+ined on input line 274.
+
+
+Package natbib Warning: Citation `Astropy-Collaboration:2018a' on page 14 undef
+ined on input line 274.
+
+
+Package natbib Warning: Citation `McKinney:2010a' on page 14 undefined on input
+ line 275.
+
+(./bs-bw-dw-03.bbl
+
+LaTeX Warning: Reference `firstpage' on page 14 undefined on input line 186.
+
+
+LaTeX Warning: Reference `lastpage' on page 14 undefined on input line 186.
+
+[14]
+
+Package hyperref Warning: Suppressing empty link on input line 210.
+
+)
+
+Package natbib Warning: Citation `Desert:1990a' on page 15 undefined on input l
+ine 293.
+
+
+Package natbib Warning: Citation `Bohren:1983a' on page 15 undefined on input l
+ine 307.
+
+
+LaTeX Warning: Reference `firstpage' on page 15 undefined on input line 318.
+
+
+LaTeX Warning: Reference `lastpage' on page 15 undefined on input line 318.
+
+[15]
+
+Package natbib Warning: Citation `Wibking:2018a' on page 16 undefined on input 
+line 333.
+
+
+Package natbib Warning: Citation `Weingartner:2001b' on page 16 undefined on in
+put line 364.
+
+
+Package natbib Warning: Citation `Abel:2008a' on page 16 undefined on input lin
+e 364.
+
+
+Package natbib Warning: Citation `Ferland:2013a' on page 16 undefined on input 
+line 364.
+
+
+Package natbib Warning: Citation `Ferland:2017a' on page 16 undefined on input 
+line 364.
+
+(./app-k17-k18.tex
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 16 undefined on 
+input line 45.
+
+
+LaTeX Warning: Reference `tab:derived-parameters' on page 16 undefined on input
+ line 56.
+
+
+LaTeX Warning: Reference `fig:python-covar' on page 16 undefined on input line 
+64.
+
+
+LaTeX Warning: Reference `sec:distance' on page 16 undefined on input line 66.
+
+
+LaTeX Warning: Reference `sec:stell-wind-veloc' on page 16 undefined on input l
+ine 66.
+
+
+LaTeX Warning: Reference `tab:derived-parameters' on page 16 undefined on input
+ line 67.
+
+
+LaTeX Warning: Reference `tab:covariance' on page 16 undefined on input line 68
+.
+
+
+LaTeX Warning: Reference `tab:error-ellipse' on page 16 undefined on input line
+ 111.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 16 undefined on inpu
+t line 113.
+
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 16 undefined on 
+input line 114.
+
+
+LaTeX Warning: Reference `fig:mass-loss-comparison' on page 16 undefined on inp
+ut line 115.
+
+
+LaTeX Warning: Reference `fig:All-sources-eta-tau' on page 16 undefined on inpu
+t line 126.
+
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 16 undefined on 
+input line 127.
+
+
+LaTeX Warning: Reference `fig:mass-loss-vs-luminosity' on page 16 undefined on 
+input line 128.
+
+
+LaTeX Warning: Reference `fig:mass-loss-comparison' on page 16 undefined on inp
+ut line 129.
+
+
+LaTeX Warning: Reference `firstpage' on page 16 undefined on input line 132.
+
+
+LaTeX Warning: Reference `lastpage' on page 16 undefined on input line 132.
+
+[16pdfTeX warning (ext4): destination with the same identifier (name{table.A2.1
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.132 \end{table}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{table.A2.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.132 \end{table}
+                 ]
+
+LaTeX Warning: Reference `tab:covariance' on page 17 undefined on input line 15
+6.
+
+
+LaTeX Warning: Reference `eq:covariance' on page 17 undefined on input line 156
+.
+
+
+LaTeX Warning: Reference `tab:covariance' on page 17 undefined on input line 15
+6.
+
+
+LaTeX Warning: Reference `eq:covariance' on page 17 undefined on input line 156
+.
+
+)
+
+Package natbib Warning: Citation `Tjin-A-Djie:2001a' on page 17 undefined on in
+put line 384.
+
+
+Package natbib Warning: Citation `Pogodin:2006a' on page 17 undefined on input 
+line 384.
+
+
+Package natbib Warning: Citation `Tjin-A-Djie:2001a' on page 17 undefined on in
+put line 388.
+
+
+Package natbib Warning: Citation `van-Leeuwen:2007a' on page 17 undefined on in
+put line 391.
+
+
+Package natbib Warning: Citation `Gaia-Collaboration:2016a' on page 17 undefine
+d on input line 392.
+
+
+Package natbib Warning: Citation `Gaia-Collaboration:2018a' on page 17 undefine
+d on input line 392.
+
+
+Package natbib Warning: Citation `Luri:2018a' on page 17 undefined on input lin
+e 392.
+
+
+Overfull \hbox (21.30481pt too wide) in paragraph at lines 395--395
+$[]$ [][][][]$\T1/ntxtt/m/n/8 https : / / github . com / agabrown / astrometry-
+[]inference-[]tutorials/$[][]\T1/ntxtlf/m/n/8 (-20) .| 
+
+Package natbib Warning: Citation `Quireza:2006b' on page 17 undefined on input 
+line 399.
+
+
+Package natbib Warning: Citation `Quireza:2006a' on page 17 undefined on input 
+line 402.
+
+
+Package natbib Warning: Citation `Brand:1993a' on page 17 undefined on input li
+ne 403.
+
+
+Package natbib Warning: Citation `Stark:1984a' on page 17 undefined on input li
+ne 405.
+
+
+Package natbib Warning: Citation `Matzner:2002a' on page 17 undefined on input 
+line 406.
+
+
+Package natbib Warning: Citation `Lee:2012a' on page 17 undefined on input line
+ 406.
+
+
+Package natbib Warning: Citation `Hawley:1978a' on page 17 undefined on input l
+ine 411.
+
+
+Package natbib Warning: Citation `Fairlamb:2015a' on page 17 undefined on input
+ line 413.
+
+
+Package natbib Warning: Citation `Fairlamb:2015a' on page 17 undefined on input
+ line 421.
+
+
+Package natbib Warning: Citation `Fairlamb:2015a' on page 17 undefined on input
+ line 426.
+
+
+Package natbib Warning: Citation `Nieva:2013a' on page 17 undefined on input li
+ne 427.
+
+
+Package natbib Warning: Citation `Quireza:2006b' on page 17 undefined on input 
+line 438.
+
+
+Package natbib Warning: Citation `Sternberg:2003a' on page 17 undefined on inpu
+t line 446.
+
+
+Package natbib Warning: Citation `Fairlamb:2015a' on page 17 undefined on input
+ line 448.
+
+
+Package natbib Warning: There were undefined citations.
+
+
+LaTeX Warning: Reference `firstpage' on page 17 undefined on input line 472.
+
+
+LaTeX Warning: Reference `lastpage' on page 17 undefined on input line 472.
+
+[17pdfTeX warning (ext4): destination with the same identifier (name{table.A2.3
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.472 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.A2.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.472 \end{document}
+                    ] (./bs-bw-dw-03.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
+
+Package rerunfilecheck Warning: File `bs-bw-dw-03.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 4.247pt have occurred.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-sc.enc}{/u
+sr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texliv
+e/2017/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/local/texlive/2017/t
+exmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{/usr/local/texlive/2017/texmf-
+dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}</usr/local/texlive/2017/texmf-dist/f
+onts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2017/texmf-di
+st/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2017/texmf-dist/fon
+ts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
+e1/public/tex-gyre/qtmri.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
+blic/newtx/rntxmi.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ne
+wtx/rntxmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rn
+txmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rtxbmi-r
+ev.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rtxmi5.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></usr/local/t
+exlive/2017/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2017/t
+exmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/txfonts/txmia.pfb></usr/local/texlive/2017/texmf-dist/font
+s/type1/public/newtx/txsys.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
+urw/times/utmri8a.pfb>
+Output written on bs-bw-dw-03.pdf (17 pages, 5198127 bytes).
+Transcript written on bs-bw-dw-03.log.
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./bs-bw-dw-03.tex
+LaTeX2e <2017-04-15>
+Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/mnras/mnras.cls
+Document Class: mnras 2015/05/22\ v3.0\ LaTeX2e MNRAS document class
+MNRAS document style v3.0, released 2015/05/22
+
+Package mnras Warning: Unknown option `a4paper' on input line 113.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifvtex.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fixltx2e.sty
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty)
+
+Package hyperref Warning: Option `pdfpagelabels' is turned off
+(hyperref)                because \thepage is undefined.
+
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/siunitx/siunitx.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3-code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/l3pdfmode.def))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/array.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+(/Users/will/Library/texmf/tex/latex/translator/base/translator.sty
+(/Users/will/Library/texmf/tex/latex/translator/base/translator-language-mappin
+gs.tex))) (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/enumerate.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/pdflscape.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/lscape.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/rotating.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/xr-hyper.sty
+
+Package xr-hyper Warning: Load package `hyperref' after `xr-hyper'.
+
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/omsenc.dfu)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/newtxtext.sty
+`newtxtext' v1.521, 2017/03/11 Text macros taking advantage of TeX-Gyre Termes 
+fonts (msharpe)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/fontaxes/fontaxes.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1enc.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1enc.dfu))))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/newtxmath.sty
+`newtxmath' v1.518, 2017/02/12 Math macros based on txfonts (msharpe)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/kastrup/binhex.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/chemgreek/chemgreek.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/bm.sty)
+(./aastex-compat.sty) (./bs-bw-dw-defs.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxtlf.fd)
+(./bs-bw-dw-03.aux)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/omlntxmi.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxexa.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmsntxsy.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmxntxexx.fd)
+,*geometry* driver: auto-detecting
+,*geometry* detected driver: pdftex
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(./bs-bw-dw-03.out) (./bs-bw-dw-03.out)
+(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/Users/will/Library/texmf/tex/latex/translator/dicts/translator-basic-dictiona
+ry/translator-basic-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd)
+
+LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
+(Font)              size <5> substituted on input line 74.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/ueur.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-eur.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxmia.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsym.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsyc.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tex-gyre/t1qhv.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxtt.fd)
+
+LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <10.5> not available
+(Font)              size <10.95> substituted on input line 77.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxsups.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd)
+Underfull \vbox (badness 10000) has occurred while \output is active [1{/usr/lo
+cal/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./sec-observational-diagnostics.tex
+<figs/All-sources-eta-tau.pdf, id=238, 569.05505pt x 578.16pt>
+<use figs/All-sources-eta-tau.pdf> [2pdfTeX warning (ext4): destination with th
+e same identifier (name{table.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.198 
+      ]
+Underfull \vbox (badness 10000) has occurred while \output is active
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\begingroup' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\NAT@ctype' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ne' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 214.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\new@ifnextchar' on input line 214.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [3pdfTeX w
+arning (ext4): destination with the same identifier (name{figure.1}) has been a
+lready used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.235 
+       <./figs/All-sources-eta-tau.pdf>]
+<figs/K17-tau-comparison.pdf, id=509, 578.16pt x 722.7pt>
+<use figs/K17-tau-comparison.pdf> [4pdfTeX warning (ext4): destination with the
+ same identifier (name{figure.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.343 
+       <./figs/K17-tau-comparison.pdf>] [5] (./app-cloudy-dust-heating.tex
+<figs/grain-T-vs-U.pdf, id=665, 289.08pt x 289.08pt>
+<use figs/grain-T-vs-U.pdf>
+<figs/grain-j70-vs-U-edited.pdf, id=671, 291.0875pt x 289.08pt>
+<use figs/grain-j70-vs-U-edited.pdf>
+<figs/sed-comparison.pdf, id=696, 433.62pt x 216.81pt>
+<use figs/sed-comparison.pdf> [6pdfTeX warning (ext4): destination with the sam
+e identifier (name{figure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.144 \begin{equation}
+                       <./figs/grain-T-vs-U.pdf>] [7pdfTeX warning (ext4): dest
+ination with the same identifier (name{figure.4}) has been already used, duplic
+ate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.228 \item A
+              significant fraction of the shock energy must be radiated bypdfTe
+X warning (ext4): destination with the same identifier (name{figure.5}) has bee
+n already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.228 \item A
+              significant fraction of the shock energy must be radiated by <./f
+igs/grain-j70-vs-U-edited.pdf> <./figs/sed-comparison.pdf>])
+<figs/Mdot-vs-lum-combo-edited.pdf, id=918, 1134.2375pt x 652.4375pt>
+<use figs/Mdot-vs-lum-combo-edited.pdf>
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@edoc' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@last@\math@version' on input line
+ 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@math@weight' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@code' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\fontaxes@last@\math@version' on input line
+ 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\tau' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\eta' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 569.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\begingroup' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\NAT@ctype' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\z@' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\let' on input line 629.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\new@ifnextchar' on input line 629.
+
+[8]
+Underfull \vbox (badness 2547) has occurred while \output is active [9pdfTeX wa
+rning (ext4): destination with the same identifier (name{figure.6}) has been al
+ready used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.716 
+       <./figs/Mdot-vs-lum-combo-edited.pdf>]
+<figs/K18-mdot-Ux8-comparison.pdf, id=1274, 578.16pt x 722.7pt>
+<use figs/K18-mdot-Ux8-comparison.pdf>
+<figs/xsec-dust-ratd-ism_10.pdf, id=1281, 361.35pt x 216.81pt>
+<use figs/xsec-dust-ratd-ism_10.pdf> [10pdfTeX warning (ext4): destination with
+ the same identifier (name{figure.7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.859 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.859 
+       <./figs/K18-mdot-Ux8-comparison.pdf> <./figs/xsec-dust-ratd-ism_10.pdf>]
+
+<figs/K18-mdot-corrected-comparison-R0-edited.pdf, id=1407, 602.25pt x 578.16pt
+> <use figs/K18-mdot-corrected-comparison-R0-edited.pdf>
+<figs/mdot_correlations_edited.pdf, id=1408, 1947.275pt x 602.25pt>
+<use figs/mdot_correlations_edited.pdf>
+<figs/H_versus_ell_annotated.pdf, id=1413, 458.71375pt x 306.14375pt>
+<use figs/H_versus_ell_annotated.pdf>
+Underfull \vbox (badness 10000) has occurred while \output is active [11pdfTeX 
+warning (ext4): destination with the same identifier (name{figure.9}) has been 
+already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1015 \end{equation}
+                      <./figs/K18-mdot-corrected-comparison-R0-edited.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active [12pdfTeX 
+warning (ext4): destination with the same identifier (name{figure.10}) has been
+ already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1077 \subsection
+                  {Common characteristics of radiation-supported candidates}pdf
+TeX warning (ext4): destination with the same identifier (name{figure.11}) has 
+been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1077 \subsection
+                  {Common characteristics of radiation-supported candidates} <.
+/figs/mdot_correlations_edited.pdf> <./figs/H_versus_ell_annotated.pdf>]
+<figs/cygnus-bows-midir-combo.pdf, id=1585, 2409.0pt x 1170.3725pt>
+<use figs/cygnus-bows-midir-combo.pdf> [13pdfTeX warning (ext4): destination wi
+th the same identifier (name{figure.12}) has been already used, duplicate ignor
+ed
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1214 \end{equation}
+                      <./figs/cygnus-bows-midir-combo.pdf>]) (./bs-bw-dw-03.bbl
+[14]
+
+Package hyperref Warning: Suppressing empty link on input line 210.
+
+[15]) (./app-k17-k18.tex [16pdfTeX warning (ext4): destination with the same id
+entifier (name{table.A2.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.59 \begin{equation}
+                     ])
+Overfull \hbox (21.30481pt too wide) in paragraph at lines 395--395
+$[]$ [][][][]$\T1/ntxtt/m/n/8 https : / / github . com / agabrown / astrometry-
+[]inference-[]tutorials/$[][]\T1/ntxtlf/m/n/8 (-20) .| 
+[17pdfTeX warning (ext4): destination with the same identifier (name{table.A2.2
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.450 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.A
+2.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.450 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+A2.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.450 
+      ] [18] (./bs-bw-dw-03.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 4.247pt have occurred.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-sc.enc}{/u
+sr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texliv
+e/2017/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/local/texlive/2017/t
+exmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{/usr/local/texlive/2017/texmf-
+dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}</usr/local/texlive/2017/texmf-dist/f
+onts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2017/texmf-di
+st/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2017/texmf-dist/fon
+ts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
+e1/public/tex-gyre/qtmri.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
+blic/newtx/rntxmi.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ne
+wtx/rntxmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rn
+txmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rtxbmi-r
+ev.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rtxmi5.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></usr/local/t
+exlive/2017/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2017/t
+exmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/txfonts/txmia.pfb></usr/local/texlive/2017/texmf-dist/font
+s/type1/public/newtx/txsys.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
+urw/times/utmri8a.pfb>
+Output written on bs-bw-dw-03.pdf (18 pages, 5223501 bytes).
+Transcript written on bs-bw-dw-03.log.
+#+end_example
+
+#+BEGIN_SRC sh :results silent
+open ms-bsbwdw03-v3.pdf
+#+END_SRC
+
 
 * Initial version
 
