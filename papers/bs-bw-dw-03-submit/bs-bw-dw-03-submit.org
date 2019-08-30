@@ -1,4 +1,37 @@
 
+* DONE Page proofs [2019-08-30 Fri]
+CLOSED: [2019-08-30 Fri 12:22]
+
++ http://powerxeditor.aptaracorp.com/pxestore/assets/pxeoup///MNRAS/proofpdf/stz2283.pdf
+
+** Queries
+1. [X] Running header up to 45 chars.
+   - This is 56
+     : Bow shocks, bow waves, and dust waves – III. Diagnostics
+   - This is 45
+     : Bow shocks, bow waves, and dust waves – III.
+   - This is 21 - even better!
+     : Bow shock diagnostics
+2. [X] Third party material - none
+3. [X] Colour in print - confirm no
+4. [X] Answer all queries! - also fixed some accents on Alfvén 
+5. [X] Surname tagging - confirmed
+6. [X] Email - confirmed
+7. [X] Cite databases - none I think
+8. [X] Keywords - add "infrared: ISM"
+9. [X] Upright - pi
+10. [X] small caps cloudy - ok
+11. [X] Figures - all fine
+12. [X] Capital letter for Galaxy - ok
+13. [X] Editor fixed a spurious paste 
+14. [X] Expand acronym PDR - ok
+15. [X] Funding info - correct
+16. [X] Wiley adress - New York
+17. [X] Hoang paper - give vol, page
+18. [X] Scipy authors - confirm many
+19. [X] McKinney pub details - I dumped everything I have
+
+
 * Revised version
 
 ** Reply to the referee
