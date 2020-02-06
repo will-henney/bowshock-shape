@@ -50,7 +50,7 @@ OVERRIDE = {
     650: {'R0': 50},
 }
 STEP_BACK_FACTOR = 2.0
-CIRCLE_THETA = 45.0*u.deg
+CIRCLE_THETA = 60.0*u.deg
 
 THMIN, THMAX = coord.Angle([-160.0*u.deg, 160.0*u.deg])
 

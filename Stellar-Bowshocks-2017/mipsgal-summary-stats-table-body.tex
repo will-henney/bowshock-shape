@@ -1,0 +1,112 @@
+%%% MIPSGAL summary statistics
+%%% Table automatically generated from mipsgal-summary-stats.tab
+%%% 2020-02-05 22:21:40.747825
+%%%
+% \Width is used to align number under col header in first column
+	\newlength\Width\settowidth\Width{Comparison}
+	\begin{tabular}{
+	  @{} ll @{\quad }
+	  % Mean
+	  S[round-mode=places]S[round-mode=places]
+	  % Std Dev
+	  S[round-mode=places]S[round-mode=places]
+	  % Obs Disp
+	  SS
+	  % Effect sizes
+	  @{\quad} SSS[round-mode=places]
+	  % p values
+	  @{\quad}
+	  S[table-format = +1.2e1]
+	  S[table-format = +1.2e1]
+	  S[table-format = +1.2e1] @{}
+	  }\toprule
+	  & {Dependent}
+	  & \multicolumn{2}{c}{Mean}
+	  & \multicolumn{2}{c}{Std.\ Dev.}
+	  & \multicolumn{2}{c}{Obs.\ Disp.}
+	  & \multicolumn{3}{c @{} }{\dotfill Effect sizes\dotfill }
+	  & \multicolumn{3}{c @{}}{Non-parametric test \(p\)-values} \\ 
+	  {Comparison} & {Variable}
+	  & {\(\langle \text{A} \rangle\)} & {\(\langle \text{B} \rangle\)}
+	  & {\(\sigma_{\text{A}}\)} & {\(\sigma_{\text{B}}\)}
+	  & {\(\langle \epsilon_{\text{A}} \rangle\)} & {\(\langle \epsilon_{\text{B}} \rangle\)}
+	  & {\(r_b\)} & {Cohen \(d\)} & {\(\sigma_{\text{A}}/\sigma_{\text{B}}\)}
+	  & {K--S} & {Rank} &  {B--F}\\
+	  {\makebox[\Width]{(1)}} & \multicolumn{1}{c@{\quad}}{(2)}
+	  & {(3)} & {(4)}
+	  & {(5)} & {(6)}
+	  & {(7)} & {(8)}
+	  & {(9)} & {(10)} & {(11)}
+	  & {(12)} & {(13)} & {(14)}  \\  
+	  \midrule\multicolumn{10}{@{} l @{}}{\itshape Median split of continuous independent variables}\\
+\addlinespace
+Faint/bright & \(\Pi\) & 1.701 & 1.872 & 0.605 & 0.806 & 0.101 & 0.084 & 0.103 & 0.24 & 1.333 & 0.379 & 0.182 & 0.0588\\
+\(H\) magnitude & \(\Lambda\) & 1.655 & 1.724 & 0.255 & 0.322 & 0.238 & 0.232 & 0.147 & 0.237 & 1.262 & \itshape 0.018 & 0.057 & 0.0884\\
+\(n_{\text{A}} =  n_{\text{B}} = 113\) & \(\Delta \Lambda\) & 0.176 & 0.196 & 0.152 & 0.155 &   &   & 0.087 & 0.13 & 1.019 & 0.921 & 0.261 & 0.833\\
+\addlinespace
+Low/high & \(\Pi\) & 1.696 & 1.874 & 0.668 & 0.75 & 0.115 & 0.07 & \itshape 0.171 & \itshape 0.251 & 1.123 & 0.431 & \itshape 0.0261 & 0.66\\
+bow shock size, \(R_0\) & \(\Lambda\) & 1.67 & 1.71 & 0.266 & 0.314 & 0.251 & 0.22 & 0.103 & 0.135 & 1.18 & \itshape 0.0351 & 0.18 & 0.184\\
+\(n_{\text{A}} =  n_{\text{B}} = 113\) & \(\Delta \Lambda\) & 0.174 & 0.197 & 0.148 & 0.159 &   &   & 0.049 & 0.148 & 1.073 & 0.345 & 0.521 & 0.201\\
+\addlinespace
+Low/high & \(\Pi\) & 1.769 & 1.805 & 0.761 & 0.672 & 0.096 & 0.088 & 0.067 & 0.05 & 0.883 & 0.771 & 0.388 & 0.477\\
+extinction, \(A_K\) & \(\Lambda\) & 1.681 & 1.697 & 0.269 & 0.314 & 0.234 & 0.236 & 0.021 & 0.055 & 1.168 & 0.771 & 0.789 & 0.415\\
+\(n_{\text{A}} =  n_{\text{B}} = 113\) & \(\Delta \Lambda\) & 0.189 & 0.184 & 0.139 & 0.168 &   &   & -0.069 & -0.032 & 1.207 & 0.572 & 0.373 & 0.306\\
+\addlinespace
+Low/high & \(\Pi\) & 1.769 & 1.804 & 0.713 & 0.719 & 0.089 & 0.095 & 0.01 & 0.049 & 1.009 & 0.974 & 0.896 & 0.771\\
+\(\vert{}b\vert\) & \(\Lambda\) & 1.69 & 1.691 & 0.315 & 0.266 & 0.242 & 0.228 & 0.015 & 0.004 & 0.844 & 0.653 & 0.85 & 0.534\\
+\(n_{\text{A}} =  n_{\text{B}} = 113\) & \(\Delta \Lambda\) & 0.182 & 0.19 & 0.151 & 0.157 &   &   & 0.045 & 0.05 & 1.04 & 0.415 & 0.556 & 0.683\\
+\addlinespace
+High/low & \(\Pi\) & 1.797 & 1.771 & 0.714 & 0.719 & 0.094 & 0.089 & -0.027 & -0.035 & 1.007 & 0.724 & 0.728 & 0.999\\
+\(\cos \ell\) & \(\Lambda\) & 1.7 & 1.676 & 0.284 & 0.302 & 0.236 & 0.234 & -0.021 & -0.081 & 1.063 & 0.973 & 0.792 & 0.937\\
+\(n_{\text{A}}, n_{\text{B}} = 137, 90\) & \(\Delta \Lambda\) & 0.174 & 0.204 & 0.146 & 0.164 &   &   & 0.088 & 0.197 & 1.124 & 0.871 & 0.262 & 0.327\\
+\midrule
+\multicolumn{10}{@{} l @{}}{\itshape Categorical independent variables}\\
+\addlinespace
+Environment: & \(\Pi\) & 1.802 & 1.784 & 0.705 & 0.738 & 0.093 & 0.085 & -0.035 & -0.026 & 1.046 & 0.259 & 0.727 & 0.671\\
+Isolated vs Facing & \(\Lambda\) & 1.699 & 1.674 & 0.281 & 0.304 & 0.239 & 0.223 & -0.078 & -0.088 & 1.081 & 0.883 & 0.439 & 0.919\\
+\(n_{\text{A}}, n_{\text{B}} = 170, 41\) & \(\Delta \Lambda\) & 0.182 & 0.201 & 0.153 & 0.16 &   &   & 0.061 & 0.12 & 1.042 & 0.69 & 0.549 & 0.549\\
+\addlinespace
+Environment: & \(\Pi\) & 1.802 & 1.62 & 0.705 & 0.756 & 0.093 & 0.105 & -0.265 & -0.257 & 1.072 & \itshape 0.0201 & 0.0804 & 0.422\\
+Isolated vs \hii & \(\Lambda\) & 1.699 & 1.636 & 0.281 & 0.36 & 0.239 & 0.22 & -0.224 & -0.216 & 1.279 & 0.11 & 0.14 & 0.0601\\
+\(n_{\text{A}}, n_{\text{B}} = 170, 16\) & \(\Delta \Lambda\) & 0.182 & 0.185 & 0.153 & 0.147 &   &   & 0.067 & 0.02 & 0.963 & 0.465 & 0.658 & 0.323\\
+\addlinespace
+Single/multiple & \(\Pi\) & 1.738 & 1.919 & 0.668 & 0.82 & 0.094 & 0.087 & 0.134 & 0.254 & 1.228 & 0.779 & 0.125 & 0.258\\
+source candidate & \(\Lambda\) & 1.678 & 1.723 & 0.291 & 0.292 & 0.234 & 0.239 & 0.099 & 0.153 & 1.005 & 0.554 & 0.257 & 0.613\\
+\(n_{\text{A}}, n_{\text{B}} = 167, 60\) & \(\Delta \Lambda\) & 0.182 & 0.197 & 0.157 & 0.145 &   &   & 0.067 & 0.097 & 0.927 & 0.544 & 0.439 & 0.379\\
+\addlinespace
+With/without & \(\Pi\) & 1.749 & 1.796 & 0.545 & 0.753 & 0.099 & 0.09 & -0.039 & 0.065 & 1.382 & 0.882 & 0.688 & 0.233\\
+\SI{8}{\um} emission & \(\Lambda\) & 1.687 & 1.691 & 0.298 & 0.29 & 0.222 & 0.238 & 0.012 & 0.014 & 0.973 & 0.91 & 0.9 & 0.89\\
+\(n_{\text{A}}, n_{\text{B}} = 45, 182\) & \(\Delta \Lambda\) & 0.198 & 0.183 & 0.193 & 0.142 &   &   & 0.028 & -0.098 & 0.738 & 0.771 & 0.772 & 0.226\\
+\addlinespace
+3-star vs (4+5)-star & \(\Pi\) & 1.615 & 2.026 & 0.618 & 0.773 & 0.108 & 0.07 & \bfseries 0.39 & \bfseries 0.599 & 1.25 & \bfseries 0.000411 & \bfseries 5.64e-07 & 0.128\\
+ & \(\Lambda\) & 1.621 & 1.787 & 0.276 & 0.286 & 0.244 & 0.223 & \bfseries 0.369 & \bfseries 0.592 & 1.036 & \bfseries 0.000183 & \bfseries 2.24e-06 & 0.852\\
+\(n_{\text{A}}, n_{\text{B}} = 133, 94\) & \(\Delta \Lambda\) & 0.183 & 0.189 & 0.153 & 0.156 &   &   & -0.0 & 0.039 & 1.017 & 0.479 & 0.999 & 0.4\\
+\midrule
+\multicolumn{10}{@{} l @{}}{\itshape Intercomparison with other datasets}\\
+\addlinespace
+MIPS vs Orion & \(\Pi\) & 1.787 & 3.09 & 0.716 & 1.666 &   &   & \bfseries 0.557 & \bfseries 1.581 & \bfseries 2.325 & \bfseries 0.000456 & \bfseries 8.48e-05 & \bfseries 2.42e-05\\
+ & \(\Lambda\) & 1.69 & 2.532 & 0.292 & 0.749 &   &   & \bfseries 0.735 & \bfseries 2.428 & \bfseries 2.568 & \bfseries 4.28e-06 & \bfseries 2.13e-07 & \bfseries 1.26e-08\\
+\(n_{\text{A}}, n_{\text{B}} = 227, 18\) & \(\Delta \Lambda\) & 0.186 & 0.329 & 0.154 & 0.257 &   &   & \itshape 0.349 & \itshape 0.874 & \itshape 1.666 & \itshape 0.0185 & \itshape 0.0137 & \itshape 0.0199\\
+\addlinespace
+MIPS vs RSG & \(\Pi\) & 1.787 & 1.479 & 0.716 & 0.227 &   &   & -0.238 & -0.443 & \itshape 0.317 & \bfseries 0.0011 & 0.112 & \itshape 0.0108\\
+ & \(\Lambda\) & 1.69 & 1.41 & 0.292 & 0.101 &   &   & \bfseries -0.648 & \bfseries -0.99 & \itshape 0.345 & \bfseries 2.19e-05 & \bfseries 1.5e-05 & \itshape 0.00549\\
+\(n_{\text{A}}, n_{\text{B}} = 227, 16\) & \(\Delta \Lambda\) & 0.186 & 0.073 & 0.154 & 0.038 &   &   & \itshape -0.442 & \itshape -0.743 & \itshape 0.246 & \itshape 0.013 & \itshape 0.0181 & \itshape 0.00698
+\\
+\bottomrule
+\multicolumn{14}{@{}p{\linewidth}@{}}{
+  \textit{Description of columns:}
+  (Col.~1)~How the two A/B source sub-samples are defined, also giving the size of each sub-sample, \(n_{\text{A}}\) and~\(n_{\text{B}}\).
+  (Col.~2)~Dependent variable whose distribution is compared between the two sub-samples.
+  (Cols.~3--6)~Mean and standard deviation, \(\sigma\), of the dependent variable for each of the two sub-samples.
+  (Cols.~7--8)~Mean over each sub-sample of the observational dispersion (\(\epsilon\), standard deviation) of radii that contribute to the dependent variable for each individual source, as in steps~\ref{step:R0} and \ref{step:R90} of \S~\ref{sec:autom-trac-fitt}.  Note that in the case of \(\Pi\), this is \(\epsilon(R_0)\), and so is not a direct measure of the observational uncertainty in \(\Pi\). 
+  % (Cols.~9--10)~``Standard error of the mean'' (s.e.m.) of the dependent variable for each of the two sub-samples. 
+  (Cols.~9--11)~Standardized ``effect sizes'', which are dimensionless measures of the difference in the distribution of the dependent variable between the two sub-samples.
+  (Col.~9)~Rank biserial correlation coefficient \citep{Cureton:1956a}, which is obtained by considering all \(n_{\text{A}} n_{\text{B}}\) pair-wise comparisons of the dependent variable between a source in sub-sample~A and a source in sub-sample~B.  It is the difference between the fraction of such comparisons ``won'' by sub-sample~A and those ``won'' by sub-sample~B, and thus may vary between \(-1\) and \(+1\). 
+  (Col.~10)~Cohen's \(d\), which is a dimensionless mean difference: \(d = (\langle \text{A} \rangle - \langle \text{B} \rangle) / \sigma_{\text{pool}} \), where \(\sigma_{\text{pool}} = (n_{\text{A}} \sigma_{\text{A}}^2 + n_{\text{B}} \sigma_{\text{B}}^2)^{1/2} / \sqrt{n_{\text{A}} + n_{\text{B}}}\) is the pooled standard deviation.
+  (Col.~11)~Ratio of standard deviations between the two sub-samples.
+  (Cols.~12--14)~Probabilities (\(p\)-values) of the two sub-samples being as different as observed if they were to be drawn from the same population, according to three different non-parametric tests.
+  (Col.~12)~Anderson--Darling 2-sample test, which is a general test of similarity between two distributions that is designed to retain sensitivity to differences in the tails of the distributions.
+  (Col.~13)~Mann--Whitney--Wilcoxon \(U\) test \citep{Mann:1947a}, which is sensitive to differences in the central value of the distributions.
+  (Col.~14)~Brown--Forsythe test for equality of variance \citep{Brown:1974a}
+}
+\end{tabular}
