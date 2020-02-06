@@ -955,6 +955,69 @@ First, radius versus radius
 #+RESULTS:
 [[file:mipsgal-r0-r0.pdf]]
 
+Look at thickness vs R0
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-r0-h0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  Q = tab['R0_fit']/tab['R0_sigma']
+
+  # Make quality classes
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = (m1 | m2), m3, m4, m5
+  alphas = 0.05, 0.3, 0.5, 0.8
+  labels = '1- or 2-star', '3-star', '4-star', '5-star'
+  colors = 'k', 'c', 'r', 'b'
+  sizes = 3, 5, 7, 10
+
+
+  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
+      ax.errorbar('R0_g', 'H_g', xerr='R0_sigma', data=tab[m],
+                  fmt='o', lw=1, c=c, ms=ms, alpha=alpha,
+                  label=f'{label} ($N = {m.sum()}$)')
+  for source in tab[m5]:
+      ax.text(source['R0_g'], source['H_g'], f'{source["Seq"]}',
+              fontsize=5, color='orange', ha='center', va='center')
+  # for source in tab[m4 & (np.abs(np.log10(tab['H_g']/tab['R0_g'])) > 0.15)]:
+  for source in tab[m4]:
+      ax.text(source['R0_g'], source['H_g'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
+
+  ax.plot([1.0, 200.0], [1.0, 200.0])
+  ax.axhline(5.5, 0.0, 0.55, ls=':', lw=1, color='k')
+  ax.legend()
+  ax.set(
+      xlim=[2, 110], ylim=[2, 110],
+      xlabel='Radius $R_0$, arcsec',
+      ylabel='Thickness $H_0$, arcsec',
+      xscale='log', yscale='log')
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-r0-h0.pdf]]
+
 And now, Rc versus R90
 #+BEGIN_SRC python :return figfile :results file
   import numpy as np
@@ -1259,7 +1322,7 @@ Plot KDE of the distribution
   for source in tab[m5]:
       ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
               fontsize=5, color='orange', ha='center', va='center')
-  for source in tab[m4 & (tab['Rc'] < 1.0)]:
+  for source in tab[m4 & ((tab['Rc'] <= 1.2) | (tab['R90'] >= 2.0) | (tab['Rc'] >= 2.5))]:
       ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
               fontsize=4, color='white', ha='center', va='center')
 
