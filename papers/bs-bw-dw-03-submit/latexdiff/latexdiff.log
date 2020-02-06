@@ -1,0 +1,89 @@
+This is LATEXDIFF 1.2.0  (Algorithm::Diff 1.15 so, Perl v5.18.4)
+  (c) 2004-2016 F J Tilmann
+Reading preamble file wjh-latexdiff-preamble.tex
+(0.49 s)
+Splitting into latex tokens 
+Parsing ms03-v1-expand.tex 
+Parsing ms03-v2-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  13 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  13 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Splitting into latex tokens 
+Parsing ms03-v1-expand.tex 
+Parsing ms03-v2-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  14 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  14 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Splitting into latex tokens 
+Parsing ms03-v1-expand.tex 
+Parsing ms03-v2-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  3 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  3 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Splitting into latex tokens 
+Parsing ms03-v1-expand.tex 
+Parsing ms03-v2-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  10 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  10 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+Adding sgn to the list of safe commands
+Adding Sin to the list of safe commands
+Adding Cos to the list of safe commands
+Adding Cot to the list of safe commands
+Adding GammaFunc to the list of safe commands
+Adding thD to the list of safe commands
+Adding thC to the list of safe commands
+hyperref package detected.
+Preamble Internal Type HYPERREF
+Differencing preamble.
+siunitx package detected.
+amsmath package detected.
+Preprocessing body.  (0.83 s)
+Splitting into latex tokens 
+Parsing ms03-v1-expand.tex 
+Parsing ms03-v2-expand.tex 
+(0.15 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  16670 matching  tokens in 87 blocks.
+  247 discarded tokens in 64 blocks.
+  1149 appended  tokens in 76 blocks.
+(6.45 s)
+Pass 2: inserting DIF tokens and mark up.  
+  16636 matching  tokens. 
+  95 discarded tokens in 44 blocks.
+  365 appended  tokens in 55 blocks.
+(6.11 s)
+Postprocessing body. 
+(0.220000000000001 s)
+Done.

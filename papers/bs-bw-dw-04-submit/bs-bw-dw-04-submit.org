@@ -6,27 +6,97 @@
 
 ** Initial comments on report
 
+: Having read the paper: Bow shocks, Bow waves and Dust waves IV: Shell shape statistics by Henney at al. It is my conclusion that the paper needs a major revision. Because it required a somewhat lengthy explanation, I have added my report as a separate file. 
+
+We thank the referee for the report.  Although the call is for major revision, we note that the report contains little criticism of the content of our work, but is framed largely as a series of questions about whether there is any point at all to our endeavor.  We strongly feel that the work is indeed worthwhile, and we are sorry that the referee did not seem to see this.  We have therefore taken the opportunity to revise the presentation in order to emphasize the more positive and novel aspects of our findings.  
+
 : The big problem with this paper is the lack of a clear purpose. After reading it, my main question is: “What does this tell us?”
 : 
 : The authors have introduced a classification scheme for bow shocks/waves and are now fitting existing observations of shells into this scheme. But why? What does this classification scheme give us? How does it help? Perhaps this was explained more clearly in previous papers, but we need to see at least a summary here, because as it is presented now, in this paper, the exercise seems pointless.
 : 
-: For example: In the paper by Cox et al 2012, which the authors cite, a classification scheme was introduced in an attempt to determine the interactions that shape the shell: fast moving star, slow- moving star, stationary star, etc. Similar arguments lay behind various other classification schemes for circumstellar shells that labeled them as bipolar, monopolar, ellipsoid etc. Here that does not seem to be the case. The hot and cold star shells occupy adjacent positions that tend to overlap and the young stars are spread over such a wide area that identification is almost impossible.  Perhaps this kind of differentiation make it possible to determine the nature of the progenitor star based upon a shell’s position within the classification scheme, but is that really useful? Direct observation of the star seems a more effective method.  So, I ask again, what do we gain from this new system and all the work that has gone in to automating the classification process? The authors have made an attempt to draw some conclusions from the way these starts fit within their classification scheme, but the results are either inconclusive or already known. E.g.
+
+
+
+: For example: In the paper by Cox et al 2012, which the authors cite, a classification scheme was introduced in an attempt to determine the interactions that shape the shell: fast moving star, slow- moving star, stationary star, etc. Similar arguments lay behind various other classification schemes for circumstellar shells that labeled them as bipolar, monopolar, ellipsoid etc. Here that does not seem to be the case. The hot and cold star shells occupy adjacent positions that tend to overlap and the young stars are spread over such a wide area that identification is almost impossible.  Perhaps this kind of differentiation make it possible to determine the nature of the progenitor star based upon a shell’s position within the classification scheme, but is that really useful? Direct observation of the star seems a more effective method.  So, I ask again, what do we gain from this new system and all the work that has gone in to automating the classification process? 
+
+The two classification schemes that the referee mentions here are rather different from what we are doing in this paper.  Both are qualitative categorical classifications, based on gross features of the nebula shape (e.g., fermata, eyes, irregular, rings in Cox).  Our method, on the other hand is a quantitative continuous classification along the two shape axes, planitude and alatude, but applied to sources that all have the same gross shape (bow shocks).  As such, they are complementary approaches and are not in competition.   Both approaches have their advantages and disadvantages, and the referee quite correctly draws attention to some of our disadvantages: that there is some overlap between different source populations in our scheme, and there is as-yet no single physical interpretation of what a high alatude, for instance, actually "means". 
+
+But there are advantages to our approach too.  The automated nature of the classification, should in principle lead to more objective and reproducible results.  The fact that the classification is continuous implies that not only the mean value, but the width of the distribution can be compared between populations.  
+
+We also point out that the disadvantages of our scheme, as described above, also apply to more traditional qualitative classifications.  For instance, the physical explanation for the shape classification of planetary nebulae (spherical, elliptical, bipolar) was not obvious when the classification was first devised, and it is still the subject of active investigation.   Furthermore, although there are clear correlations between planetary nebula shape and other physical parameters (e.g., central star effective temperature, nebular abundances), there is always considerable overlap in the distributions (e.g., Corradi & Schwarz 1995A&A...293..871C). 
+
+
+: The authors have made an attempt to draw some conclusions from the way these starts fit within their classification scheme, but the results are either inconclusive or already known. E.g.
 : 
 : • One of the main ‘conclusions’ seems to be that bow shocks of OB stars are highly diverse owing to hydrodynamical instabilities in the shell. True, but that is common knowledge, and has been since the ’90s.
 : 
+
+This is indeed one of our proposed explanations for the dispersion in shapes of OB bow shocks, and it was the one emphasized in the summary (although in sec 5.1 we also discuss the role of inclination effects).  The referee is of course right that   
+
 : • The ‘young star shells’ are also extremely diverse. Again, not a surprise as they have asymmetrical winds and tend to exist in the highly diverse environment of a stellar nursery. No classification system based on two parameters is going to effectively capture the influence of so many independent variables.
 : 
+
+Classification systems based on two parameters have been highly successful in many branches of astronomy, even in the presence of many independent variables.  The classic example is the Hertzsprung-Russell diagram.  Another example is the BPT "Seagull" diagram of line ratios [O III]/H beta versus [N II]/H alpha. 
+
+Of course, there is no guarantee that   
+
+
+
 : To summarize: In this paper, the authors take previously published observations of bowshock shells and try to classify them with a previously published classification scheme. The results are, by and large, inconclusive. As such, I am unsure whether the paper contains a sufficient amount of original content to warrant publication. Instead it appears to be a lengthy exercise that requires a great deal of effort to re-shuffle existing data without actually achieving something.
 : 
+
+We are puzzled by the attitude that the referee expresses here.  Of course it is true that this paper draws on two strands of previously published work: (1) our own theoretical study in Paper 0 that developed a framework for characterizing bow shock shapes, and (2) observations by many authors of three different classes of stellar bow shocks.  But applying the first to the second is precisely what constitutes the "original content" of this paper.  Much of science consists of interpreting existing observations in terms of existing theory, but it is no less worthwhile for that.  
+
+In Paper 0, the planitude-alatude framework was applied to two example bow shocks in Orion.
+Is the referee really suggesting that we should simply have stopped there and never attempted to apply the ideas to larger and more diverse samples of bow shocks?
+
+Additionally, we reject the accusation that we are merely "re-shuffl[ing] existing data".  That might be understandable as a criticism of Figure 4, where we investigate correlations between different variables in the catalog of Kobulnicky et al (2016).  But our measurements of the bow shock shape parameters (as presented, e.g., in Fig 3) are completely new, since the Kobulnicky catalog did not consider shapes.  We measured the radii R_0, R_c, and R_90 directly from the original MIPSGAL survey images, using the algorithm described in section 2.1. 
+
+Finally, we rebut the assertion that the results are "by and large, inconclusive".  In the Summary, we give 5 principal findings of our study, of which two could perhaps be criticised as "inconclusive": #2 is a negative result, and #5 proffers three possible explanations without deciding between them.  
+
 : There are other issues with this paper as well, but without a clearly defined purpose I cannot fully judge how serious they are. Still, the authors need to look at the following:
 : 
 : • The title is a problem: “Bow shocks, bow waves and dust waves.” Except neither bow waves or dust waves are mentioned anywhere in the text. I understand that the authors see this paper as one in a series, but as it is, the title is deceptive. Are some of the shells discussed in this paper either bow waves or dust waves? If so, that needs to be stated explicitly and discussed. If not, the problem can be fixed at least somewhat by rewriting the extended title to emphasize ‘bowshocks’, rather than the generic ‘shells’.
 :  
+
+This is a good point.  The empirical determination of whether a source is a bow shock, bow wave, or dust wave is precisely the subject of our Paper III.  Unfortunately, this requires a spectral classification and luminosity estimate for the driving star, which is not available for the majority of the sources in the current paper.  Therefore, we do not know which they are, although the presumption is that the majority are bow shocks.  We should have made this more clear *SO HAVE ADDED THE FOLLOWING ....* 
+
 : • Regarding timescales: The authors claim that it is safe to assume that observed bowshocks are fully formed, because the formation time is small compared to the total lifetime, based on Mohammed et al. 2012 and Marle et al. 2014. Although these papers give an indication as to the timescale at which a bowshock forms, this is inevitably going to depend on the interstellar medium density. This is particularly important for stars with a low wind velocity: If they travel through a low density medium, it will take a long time to form the bow shock, simply because it will take a long time for the stellar wind to travel the distance to R_0, let alone reach a hydrodynamical equilibrium. Is that included in the time-estimate?
 : 
+
+The short answer is "yes".  As we state in the text that the referee refers to, "The dynamical timescales, R0/Vw, for the cool star bow shocks are of order 10^4 yr".  The simulations we refer to seem to show that the bow shock shape reaches an equilibrium configuration after a few times this timescale. We would also take issue with the referee's characterization of our argument. Nowhere do we "claim that it is safe to assume that observed bowshocks are fully formed".  Rather, we claim that it is unlikely that *all* cool star bow shocks are not yet fully formed. 
+
 : • Something that does not get mentioned in this paper but may well be of paramount importance is the separation between dust and gas concentrations. The analytical/numerical models of bowshocks predict the morphology of the gas. However, van Marle et al. 2011 (2011ApJ...734L..26V) showed that the dust distribution in space may not follow the gas distribution for a red supergiant bowshock and van Marle et al. 2015 (2015JPhCS.577a2024V) showed something similar for an O-star. This limits the reliability of mid/far infrared continuum observations for tracing bow shocks.
 : 
+
+We are well aware of this issue and have written an entire paper on the theory of gas-grain coupling in bow shocks (Paper II).  It is very dispiriting that the referee does not seem to have read or even be aware of this paper, since we mention it in the first paragraph of the introduction (so it is not true that it "does not get mentioned in this paper"). The case where strong radiation forces produce separation of dust from the gas is what we refer to as "dust waves" (following Ochsendorf et al 2014).  In Paper II we did cite the van Marle 2011 paper, but not the van Marle et al. 2015 conference proceedings.  Unfortunately, there is not enough detail in that paper to evaluate the simulation of an O star bow shock.  No mention is made of the radiation force on the grains, nor of whether the charging is calculated self-consistently as the grains approach the star.  Both of these are critical in determining the gas-grain coupling. 
+
+Furthermore, in Paper III we analyzed a sample of particularly well-studied OB star bows, and find only one (sigma Ori) that was a potential candidate for gas/grain separation.  However, a more detailed follow-up study (so far unpublished) shows that even for this source the gas emission and dust emission are coincident.  So examples of dust waves remain elusive.  
+
 : • Another issue that receives no mention in this paper is the influence of the interstellar magnetic field, which can change the shape of the bow shock. Arnal 1992 already discussed the potential influence of interstellar magnetic fields on circumstellar bubbles and it was shown numerically in papers such as van Marle et al. 2014, which the authors quote elsewhere.
+
+Again, this is already covered in considerable detail in previous papers of the series.  For instance, the difference in shapes between magnetized and non-magnetized bow shocks is discussed in section 6 of Paper 0 (and this is mentioned in sec 5.1.1 of the current paper), while the physics of grain dynamics in the presence of a magnetic field are investigated in sections 3.3 and 5 of Paper II.
+
+
+
+** Changes to make
++ Justify difference between qualitative classification schemes and our quantitative one. 
++ Smaller dispersion in shapes for cool stars might imply absence of instabilities.  Relation with magnetic field (Van Marle 2014)
++ Mention future comparisons with synthetic observations from simulations - do the instabilities really reproduce the distribution of shapes?
++ Make summary point 5 more definite
++ Add more about bow waves and dust waves
++ Add more about magnetic fields
++ Mention possible contamination of MIPSGAL sample with cool-star sources (reference new Kobulnicky paper)
++ Calculate shell thicknesses for MIPSGAL sample and the angular brightness width
++ Look for evidence of shorter wavelength shell instabilities - maybe in K018
++ On-axis bulge as evidence for high inclination, e.g. K675
+
+
+** Working files for the revised version
+
++ For the first version, we used ~latexexpand~ to make a single file
++ But what we should actually edit is [[file:~/Work/Bowshocks/Jorge/bowshock-shape/papers/Papers1234/obs-bowshocks.tex][obs-bowshocks.tex]]
++ Then we can run ~latexexpand~ again when we are done, which will give us two versions to run latexdiff on
 
 
 
