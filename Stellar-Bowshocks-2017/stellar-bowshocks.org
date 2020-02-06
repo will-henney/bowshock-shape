@@ -316,7 +316,7 @@ CLOSED: [2017-03-28 Tue 13:24]
       650: {'R0': 50},
   }
   STEP_BACK_FACTOR = 2.0
-  CIRCLE_THETA = 45.0*u.deg
+  CIRCLE_THETA = 60.0*u.deg
 
   THMIN, THMAX = coord.Angle([-160.0*u.deg, 160.0*u.deg])
 
@@ -3069,7 +3069,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   s = 'LOWESS regression'
   axr.annotate(
       s=s, xy=(lowess[223,0], lowess[223,1]),
-      ripcords='data', color='g',
+      xycoords='data', color='g',
       xytext=(1.6, -0.1), textcoords='data', fontsize='x-small',
       arrowprops={'arrowstyle': '-|>', 'color': 'g'},
       ha='center', va='center')
@@ -3319,6 +3319,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   sns.set_color_codes('dark')
   sns.set_palette('muted')
 
+
   figfile = 'mipsgal-boxplot-Rc-R90-versus-R0.pdf'
 
   combo_file = 'mipsgal-arcfit.tab'
@@ -3520,6 +3521,249 @@ Try the same with H_0
 
 
 
+
+
+**** New correlation with thickness
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from scipy.stats import ks_2samp, anderson_ksamp, mannwhitneyu
+  from astropy.stats import kuiper_two
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  from matplotlib.colors import PowerNorm
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+  import seaborn.distributions 
+
+  # Save original version of KDE function
+  smkde_original = seaborn.distributions._statsmodels_bivariate_kde
+  def smkde_logxy(x, y, bw, gridsize, cut, clip):
+      """Calculate KDE on logarithmic grid for x and y"""
+      xx, yy, z = smkde_original(np.log10(x), np.log10(y), bw, gridsize, cut, clip)
+      xx = 10**xx
+      yy = 10**yy
+      return xx, yy, z
+  # Monkey patch the function that sns.kdeplot uses to calculate the KDE
+  seaborn.distributions._statsmodels_bivariate_kde = smkde_logxy
+
+  def rank_biserial(a, b):
+      U = mannwhitneyu(a, b, alternative='two-sided')
+      rb = 1.0 - 2*U.statistic/(len(a)*len(b))
+      return rb, U.pvalue
+
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-R90-thick.pdf'
+
+  # Limits and ticks for new log scale (used in xlim and histograms)
+  range_ = [0.35, 9.5]
+  nhist = 15
+  bins_ = np.logspace(np.log10(range_[0]), np.log10(range_[1]), nhist+1)
+  binsx = np.logspace(np.log10(range_[0]), np.log10(range_[1]), 2*nhist+1)
+  ticks2 = [0.5, 1.0, 2.0, 5.0]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  R0var = 'R0_fit'
+
+  for col in ['Rc', 'Rc_sigma', 'R90p', 'R90p_sigma', 'R90n', 'R90n_sigma']:
+      tab[col] /= tab[R0var]
+
+  tab['R90'] = 0.5*(tab['R90p'] + tab['R90n'])
+
+  tab['R90_sigma'] = np.sqrt( 0.5*(tab['R90n_sigma']**2 + tab['R90p_sigma']**2) )
+  tab['R90_asym'] =  0.5*np.abs(tab['R90p'] - tab['R90n'])
+
+  tab['Rcp'] = tab['Rc'] + 0.3*tab['Rc_sigma']
+  tab['Rcn'] = tab['Rc'] - 0.3*tab['Rc_sigma']
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+  Rc_grid = np.linspace(0.0, 10.0, 2000)
+  R90_T0_grid = np.sqrt(2*Rc_grid)
+  R90_T1_grid = np.sqrt(2*Rc_grid - 1.0)
+  R90_T1_grid[~np.isfinite(R90_T1_grid)] = 0.0 
+
+  ax.fill_between(Rc_grid, R90_T1_grid, R90_T0_grid, color='k', alpha=0.2)
+  ax.fill_between(Rc_grid, R90_T0_grid, color='k', alpha=0.1)
+  ax.plot(Rc_grid, R90_T0_grid, c='k', lw=0.5)
+  ax.axhline(1.0, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.axvline(1.0, ymax=0.6, lw=0.5, alpha=0.5, color='k', zorder=-1)
+  ax.plot([0.0, 10.0], [0.0, 10.0], lw=0.5, alpha=0.5, color='k', zorder=-1)
+
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  mgood = m5 | m4 | m3
+
+  # Dimensionless thickness ❤️
+  Thick = tab["H_g"]/tab[R0var]
+
+  Thick_median = np.nanmedian(Thick[mgood])
+  # Force a more logical cut-off
+  Thick_median = 1.0
+
+
+  myes = Thick >= Thick_median
+  mno = Thick < Thick_median
+
+  masks = myes & mgood, mno & mgood
+  shades = True, False
+  alphas = 0.8, 0.8
+  cmaps = 'Blues', 'Reds_d'
+  gammas = 0.5, 0.5
+  lss = None, 'solid'
+
+  # m = m5 | m4 | m3
+  # sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+  #             n_levels=30, cmap='Cyans',
+  #             shade=True, shade_lowest=False, ax=ax, alpha=0.8)
+
+  for m, alpha, cmap, shade, gamma, ls in zip(
+          masks, alphas, cmaps, shades, gammas, lss):
+      sns.kdeplot(tab['Rc'][m].data, tab['R90'][m].data,
+                  n_levels=8, cmap=cmap, linewidths=1, norm=PowerNorm(gamma),
+                  linestyles=ls, 
+                  levels=[0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+                  bw=(0.045, 0.03),
+                  shade=shade, shade_lowest=False, ax=ax, alpha=alpha)
+
+  masks5 = myes & m5, mno & m5
+  colors = 'c', 'r'
+  alphas = 0.8, 0.8
+  labels = fr"$h_0 > {Thick_median:.1f}$", fr"$h_0 < {Thick_median:.1f}$"
+
+  for m, alpha, c, label in zip(masks5, alphas, colors, labels):
+      ax.plot(tab['Rc'][m], tab['R90'][m], 
+              'o', ms=7, alpha=alpha, c=c, label=label)
+
+  ax.legend(frameon=True, loc='upper right', title='Relative\nshell thickness')
+
+
+  #ax.legend(frameon=True, loc='upper right')
+  ax.set(
+      xlim=range_, ylim=range_,
+      xlabel=r'Planitude: $\Pi = R_c/R_0$',
+      ylabel=r'Alatude: $\Lambda = R_{90}/R_0$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  ## Histograms of marginal distributions
+  subwin_w = 0.2
+  subwin_h = 0.1
+  subwin_x0 = 0.2
+  subwin_y0 = 0.75
+  subwin_xmargin = 0.06
+  subwin_ymargin = 0.02
+
+
+  with sns.plotting_context(
+          rc={'axes.labelsize': 9,
+              'xtick.labelsize': 9,
+              'ytick.labelsize': 9,}):
+
+      ax_y_Rc = fig.add_axes((subwin_x0, subwin_y0 + subwin_h + subwin_ymargin,
+                              subwin_w, subwin_h))
+      ax_n_Rc = fig.add_axes((subwin_x0, subwin_y0,
+                              subwin_w, subwin_h))
+      ax_y_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0 + subwin_h + subwin_ymargin,
+                               subwin_w, subwin_h))
+      ax_n_R90 = fig.add_axes((subwin_x0 + subwin_w + subwin_xmargin,
+                               subwin_y0,
+                               subwin_w, subwin_h))
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      yq0, dyq = 0.1, 0.05
+      for m, c, axx in zip(masks, colors, [ax_y_Rc, ax_n_Rc]):
+          sns.distplot(tab['Rc'][m], bins=bins_, hist_kws={'range': range_},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(tab['Rc'][m],
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = kuiper_two(tab['Rc'][m], tab['Rc'][masks[0]])
+              AD, levelsAD, pAD = anderson_ksamp([tab['Rc'][m], tab['Rc'][masks[0]]],
+                                                 midrank=False)
+              s = fr'K-S $p = {pKS:.4f}$'
+              rb, pMW = rank_biserial(tab['Rc'][m], tab['Rc'][masks[0]])
+              s += '\n' + fr'$r_b = {rb:.2f}$'
+              axx.text(1.0, 0.9, s,
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+      #
+      ax_n_Rc.set(xlabel=r'$\Pi$')
+      ax_y_Rc.set(xlabel='_nolabel_')
+      ax_y_Rc.tick_params(labelbottom='off') 
+
+      # Back to the original masks that include 5, 4, 3-star sources
+      for m, c, axx in zip(masks, colors, [ax_y_R90, ax_n_R90]):
+          sns.distplot(tab['R90'][m], bins=binsx, hist_kws={'range': range_},
+                       color=c, kde=False, ax=axx)
+          q10, q25, q50, q75, q90 = np.nanpercentile(tab['R90'][m],
+                                                     [10, 25, 50, 75, 90])
+          axx.axvspan(q10, q25, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q75, q90, yq0 - dyq/4, yq0 + dyq/4, color='k', alpha=0.7)
+          axx.axvspan(q25, q75, yq0 - dyq, yq0 + dyq, color='w', alpha=0.7)
+          axx.axvline(q50, yq0 - dyq, yq0 + dyq, color='k', lw=2)
+          axx.annotate(s=f'{q50:.2f}', xy=(q50, 0.0), xycoords='data',
+                       xytext=(0.0, 8), textcoords='offset points',
+                       fontsize=8, ha='center', va='bottom'
+          )
+          axx.text(1.0, 0.4, fr'$N = {np.sum(m.data)}$',
+                   fontsize=8, ha='right', va='top',
+                   transform=axx.transAxes)
+          # Calculate K-S statistic
+          if c != colors[0]:
+              KS, pKS = kuiper_two(tab['R90'][m], tab['R90'][masks[0]])
+              AD, levelsAD, pAD = anderson_ksamp([tab['R90'][m], tab['R90'][masks[0]]],
+                                                 midrank=False)
+              s = fr'K-S $p = {pKS:.4f}$'
+              rb, pMW = rank_biserial(tab['R90'][m], tab['R90'][masks[0]])
+  #            s += '\n' + fr'$r_b = {rb:.2f}$'
+              axx.text(1.0, 0.9, s,
+                       fontsize=8, ha='right', va='top',
+                       transform=axx.transAxes)
+              # axx.text(1.0, 0.9, fr'K-S $p = {pKS:.2f}$',
+              #          fontsize=8, ha='right', va='top',
+              #          transform=axx.transAxes)
+      ax_n_R90.set(xlabel=r'$\Lambda$')
+      ax_y_R90.set(xlabel='_nolabel_')
+      ax_y_R90.tick_params(labelbottom='off') 
+      for axx in ax_y_Rc, ax_n_Rc, ax_y_R90, ax_n_R90:
+          axx.set(
+              xlim=range_,
+              xscale='log',
+          )
+          axx.xaxis.set_major_locator(mticker.FixedLocator(ticks2))
+          axx.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.tight_layout(pad=1.0)
+  fig.savefig(figfile)
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-R90-thick.pdf]]
 
 **** DONE Stellar magnitude
 CLOSED: [2017-03-20 Mon 11:31]
