@@ -1,0 +1,102 @@
+This is LATEXDIFF 1.2.0  (Algorithm::Diff 1.15 so, Perl v5.18.2)
+  (c) 2004-2016 F J Tilmann
+Reading preamble file wjh-latexdiff-preamble.tex
+(0.5 s)
+Splitting into latex tokens 
+Parsing ms-bows01-expand.tex 
+Parsing ms-bows02-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  14 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  14 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Splitting into latex tokens 
+Parsing ms-bows01-expand.tex 
+Parsing ms-bows02-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  3 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  3 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Splitting into latex tokens 
+Parsing ms-bows01-expand.tex 
+Parsing ms-bows02-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  10 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  10 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Splitting into latex tokens 
+Parsing ms-bows01-expand.tex 
+Parsing ms-bows02-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  7 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  7 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Splitting into latex tokens 
+Parsing ms-bows01-expand.tex 
+Parsing ms-bows02-expand.tex 
+(0 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  3 matching  tokens in 0 blocks.
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+(0 s)
+Pass 2: inserting DIF tokens and mark up.  
+  3 matching  tokens. 
+  0 discarded tokens in 0 blocks.
+  0 appended  tokens in 0 blocks.
+Adding sgn to the list of safe commands
+Adding Sin to the list of safe commands
+Adding Cos to the list of safe commands
+Adding Cot to the list of safe commands
+Adding GammaFunc to the list of safe commands
+Adding Depart to the list of safe commands
+hyperref package detected.
+Preamble Internal Type HYPERREF
+Differencing preamble.
+siunitx package detected.
+amsmath package detected.
+Preprocessing body.  (4.34 s)
+Splitting into latex tokens 
+Parsing ms-bows01-expand.tex 
+Parsing ms-bows02-expand.tex 
+(0.140000000000001 s)
+Pass 1: Expanding text commands and merging isolated identities with changed blocks  
+  12656 matching  tokens in 99 blocks.
+  144 discarded tokens in 55 blocks.
+  3212 appended  tokens in 94 blocks.
+(4.24 s)
+Pass 2: inserting DIF tokens and mark up.  
+  12653 matching  tokens. 
+  96 discarded tokens in 37 blocks.
+  906 appended  tokens in 65 blocks.
+(3.71 s)
+Postprocessing body. 
+(0.469999999999999 s)
+Done.

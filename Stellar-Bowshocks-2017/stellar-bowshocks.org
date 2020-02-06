@@ -230,6 +230,12 @@ CLOSED: [2017-03-28 Tue 13:24]
   + [X] Do the Rc and R90 fits
   + [X] (/ABANDONED/) Deal with cases where the object dows not fit in the box:
     + 534, 542
++ New improvements [2020-02-04 Tue 18:18]
+  + [X] Measure bowshock thickness
+  + [X] Measure angular brightness width
+  + [X] Same but via a Gaussian fit
+  + [X] Option to restrict to a subset of sources
+  + [ ] Include star ratings
 + List of the nicest sources
   + 001 - Rc/R0 = 0.8, R90/R0 = 1.4 (misidentified source)
   + 018 - Rc/R0 = 1.26, R90/R0 = 1.7 in hyperbola zone
@@ -239,6 +245,7 @@ CLOSED: [2017-03-28 Tue 13:24]
   + 123 - Beautiful case of Rc/R0 = 1.42 and R90/R0 = 1.72
   + 127 - Another nice case of Rc/R0 = 2
   + 133 - small and flat
+  + 231 - inner and outer shell
   + 274 - good pointed wings
   + 285 - nice open wings
   + 292 - big and flat, but asymmetric wings
@@ -252,13 +259,14 @@ CLOSED: [2017-03-28 Tue 13:24]
   + 530 - smaller pointy one
   + 595 - nice pointy wings
   + 598 - textbook example of Rc/R0 = 2
-  + 634 - big cometary shape
+  + 634 - big cometary shape - boxy contours suggest double shell
   + 635 - flatter and big
   + 667 - nice curvy one
   + 677, 678 - these two overlap
 #+BEGIN_SRC python :eval no :tangle mipsgal-trace-arc.py
   import glob
   import os
+  import sys
   from collections import OrderedDict
   import numpy as np
   from astropy.table import Table, QTable
@@ -266,6 +274,7 @@ CLOSED: [2017-03-28 Tue 13:24]
   from astropy.wcs import WCS
   import astropy.units as u
   import astropy.coordinates as coord
+  from astropy.modeling import models, fitting
   from astropy.visualization.wcsaxes import SphericalCircle
   from matplotlib import pyplot as plt
   import seaborn as sns
@@ -273,6 +282,7 @@ CLOSED: [2017-03-28 Tue 13:24]
 
   sns.set_style('white')
 
+  DEBUG = False
 
   SOURCE_DIR = 'OB/Kobulnicky2016'
   source_table = Table.read(
@@ -282,6 +292,11 @@ CLOSED: [2017-03-28 Tue 13:24]
   )
 
   IMAGE_DIR = 'OB/MipsGal'
+
+  try:
+      iseq_min, iseq_max = int(sys.argv[1]), int(sys.argv[2])
+  except:
+      iseq_min, iseq_max = 0, 999_999_999
 
   ENVIRONMENTS = {
       'I': 'Isolated',
@@ -326,10 +341,16 @@ CLOSED: [2017-03-28 Tue 13:24]
       """Like numpy.concatenate but ensures result is of coordinate type"""
       return coord.SkyCoord(np.concatenate(array_tuple, **kwds))
 
+  fitter = fitting.LevMarLSQFitter()
 
   for source_data in source_table:
 
+      if not iseq_min <= source_data['Seq'] <= iseq_max:
+          # Skip this source if not in the requested range
+          continue
+
       print(source_data)
+
       # Override data from table where necessary
       if source_data['Seq'] in OVERRIDE:
           for k, v in OVERRIDE[source_data['Seq']].items():
@@ -406,9 +427,9 @@ CLOSED: [2017-03-28 Tue 13:24]
       sb_offset_frame = c_sb.skyoffset_frame(rotation=pa0)
 
 
-      # Loop over a grid of angles between +/- 60 degrees
-      ntheta = 51
-      theta_grid, dtheta = np.linspace(-60.0, 60.0, ntheta, retstep=True)
+      # Loop over a grid of angles between +/- 80 degrees
+      ntheta = 68
+      theta_grid, dtheta = np.linspace(-80.0, 80.0, ntheta, retstep=True)
       # Make everything be a longitude in range [-180:180]
       th_sb_grid = coord.Longitude(theta_grid, unit=u.degree, wrap_angle=180*u.degree)
       dtheta = coord.Longitude(dtheta, unit=u.degree, wrap_angle=180*u.degree)
@@ -428,6 +449,7 @@ CLOSED: [2017-03-28 Tue 13:24]
               r_sb_mean = np.nan*u.deg
               bright_max = np.nan
               bmean = np.nan
+              print("Empty mask for theta =", th_sb)
           else:            
               # Try a variety of methods for determining the arc radius
               # at this theta ...
@@ -443,16 +465,18 @@ CLOSED: [2017-03-28 Tue 13:24]
               # relative to a background floor, which is either the
               # median over the whole image or, if the peak in the wedge
               # is lower than that, then the minimum over the image
-              bright_max = hdu.data[m].max()
+              bright_max = np.nanmax(hdu.data[m])
               bright_floor = bright_median if bright_max > bright_median else bright_min
               mb = (hdu.data - bright_floor) > 0.5*(bright_max - bright_floor)
               weights = (hdu.data[m & mb] - bright_floor)/r_sb_pix[m & mb]
               try: 
-                  r_sb_mean = np.average(r_sb_pix[m & mb], weights=weights)*u.arcsec
+                  r_sb_mean = np.average(r_sb_pix[m & mb], weights=weights)
                   bmean = np.average(hdu.data[m & mb], weights=weights)
               except ZeroDivisionError:
                   r_sb_mean = np.nan*u.deg
                   bmean = np.nan
+              if DEBUG:
+                  print("Bright max, mean = ", bright_max, bmean, "for theta =", th_sb)
 
           # Fit Gaussian to profile - TODO?
 
@@ -492,7 +516,7 @@ CLOSED: [2017-03-28 Tue 13:24]
           wrap_angle=180*u.degree)
       rpeak_grid = c.separation(rpeak_coords).to(u.arcsec)
       theta_peak_grid = coord.Longitude(
-          c.position_angle(rpeak_coords).to(u.degree) - pa0,
+      c.position_angle(rpeak_coords).to(u.degree) - pa0,
           wrap_angle=180*u.degree)
 
       # Fit circle to peak points within CIRCLE_THETA of axis
@@ -502,6 +526,7 @@ CLOSED: [2017-03-28 Tue 13:24]
       try: 
           points2fit = coord_concat((rpeak_coords[cmask_peak],
                                      rmean_coords[cmask_mean]))
+          # points2fit = rpeak_coords[cmask_peak]
           # Winnow out the points with radii too far from median
           r2fit = c.separation(points2fit).to(u.arcsec)
           rmed = np.median(r2fit)
@@ -543,13 +568,18 @@ CLOSED: [2017-03-28 Tue 13:24]
       # Find our estimate of R0
       #
       # Make some masks selecting points within 10 deg of pa_circ
-      m0_peak = np.abs(theta_peak_grid - delta_pa) <= 10.0*u.deg
-      m0_mean = np.abs(theta_mean_grid - delta_pa) <= 10.0*u.deg
+      # m0_peak = np.abs(theta_peak_grid - delta_pa) <= 10.0*u.deg
+      # m0_mean = np.abs(theta_mean_grid - delta_pa) <= 10.0*u.deg
+      # 05 Feb 2020 - change to using nominal PA, instead of PA_circ to define axis
+      m0_peak = np.abs(theta_peak_grid) <= 10.0*u.deg
+      m0_mean = np.abs(theta_mean_grid) <= 10.0*u.deg
+
       # Then concatenate all the R values that meet this condition
       R0_grid = coord.Angle(
           np.concatenate((rpeak_grid.value[m0_peak],
                           rmean_grid.value[m0_mean])),
           unit=u.arcsec)
+
       R0_fit, R0_sigma = R0_grid.mean(), R0_grid.std()
       fit_msg = f'Fitted R0 = {R0_fit.arcsec:.1f} +/- {R0_sigma.arcsec:.1f} arcsec' + '\n'
 
@@ -592,6 +622,68 @@ CLOSED: [2017-03-28 Tue 13:24]
       fit_msg += f'R90+ = {R90p.arcsec:.1f} +/- {R90p_sigma.arcsec:.1f} arcsec' + '\n'
       fit_msg += f'R90- = {R90n.arcsec:.1f} +/- {R90n_sigma.arcsec:.1f} arcsec' + '\n'
 
+      # Calculate angular fwhm width of brightness distribution
+      x, y = theta_peak_grid.value, bmax_grid - bright_median
+      try:
+          b_halfmax = 0.5*(np.nanmax(bmax_grid[m0_peak]) - bright_median)
+      except ValueError:
+          print('ABORT - No valid pixels in m0_peak, cannot continue')
+          continue
+
+      if not np.isfinite(b_halfmax):
+          print("Axis peak brightnesses:", bmax_grid[m0_peak])
+          print("Setting to 10 x median:", bright_median)
+          b_halfmax = 10*bright_median
+
+      # Trap the case where the brightness never falls to half maximum 
+      try:
+          theta_peak_left = np.max(x[(y < b_halfmax) & (x < 0.0)])
+      except ValueError:
+          theta_peak_left = x.min()
+      try:
+          theta_peak_right = np.min(x[(y < b_halfmax) & (x > 0.0)])
+      except ValueError:
+          theta_peak_right = x.max()
+
+      # Another attempt at angular half width using Gaussian fit
+      g_init = (models.Gaussian1D(amplitude=2*b_halfmax, mean=0.0, stddev=60.0)
+                + models.Const1D(amplitude=0.1*b_halfmax))
+      g_fit = fitter(g_init, x, y)
+
+      # Finally fit the width on the axis
+
+      # THE RADIAL BRIGHTNESS PROFILE
+      #
+      # This is to try and measure h, the bow thickness
+      #
+      # Use the offset_pix frame, centered on the star, with
+      # offset_pix.lat along the axis and offset_pix.lon across the axis.
+
+      # Restrict to a strip of width 0.3 times fitted radius
+      m = np.abs(offset_pix.lon) < 0.15*R0_fit
+      # Also restrict to points not too far from star
+      m = m & (rpix < 4.0*R0_fit) 
+      x, y, across = offset_pix.lat[m].arcsec, hdu.data[m], offset_pix.lon[m].arcsec
+
+      gg_init = (
+          models.Gaussian1D(amplitude=np.nanmax(y),
+                            mean=R0_fit.arcsec,
+                            stddev=0.5*R0_fit.arcsec)
+          + models.Gaussian1D(amplitude=0.1*np.nanmax(y),
+                              mean=0.0,
+                              stddev=6.0)
+          + models.Polynomial1D(degree=2, c0=bright_median)
+          )
+      gg_fit = fitter(gg_init, x, y)
+
+      # Save derived values from fitting the brightness profile
+      R0_from_bright_fit = gg_fit[0].mean.value
+      # Multiply sigma by 2 sqrt(2 ln(2)) to get FWHM
+      H_from_bright_fit = 2.35*gg_fit[0].stddev.value
+      Peak_from_bright_fit = gg_fit[0].amplitude.value
+      # Note we need to unpack a length-1 array here
+      BG_from_bright_fit, = gg_fit(R0_from_bright_fit) - Peak_from_bright_fit
+      Contrast_fom_bright_fit = Peak_from_bright_fit / BG_from_bright_fit
 
       # Save the fit data for each source
       table_file_name = image_name.replace('.fits', '-arcfit.tab')
@@ -607,12 +699,20 @@ CLOSED: [2017-03-28 Tue 13:24]
           ['R90p_sigma', R90p_sigma.arcsec],
           ['R90n', R90n.arcsec],
           ['R90n_sigma', R90n_sigma.arcsec],
+          ['th_p', theta_peak_right],
+          ['th_m', theta_peak_left],
+          ['th_g', g_fit.mean_0.value],
+          ['dth_g', 2.35*g_fit.stddev_0.value],
+          ['H_g', H_from_bright_fit],
+          ['R0_g', R0_from_bright_fit],
+          ['Peak24', Peak_from_bright_fit],
+          ['Contrast', Contrast_fom_bright_fit],
       ]
       colnames, colvals = zip(*save_vars)
       Table(rows=[list(colvals)],
             names=list(colnames)).write(table_file_name,
-					format='ascii.tab',
-					overwrite=True)
+                                        format='ascii.tab',
+                                        overwrite=True)
 
       # Save a figure for each source
       fig = plt.figure(figsize=(12, 8))
@@ -624,7 +724,7 @@ CLOSED: [2017-03-28 Tue 13:24]
       ax_r.plot(theta_mean_grid, rmean_grid, 'o', c='c', label='mean')
       ax_r.plot(theta_peak_grid, rpeak_grid, 'o', c='r', label='peak')
       ax_r.plot(circ_theta, circ_radius,
-		'--', c='m', label='circle fit')
+                '--', c='m', label='circle fit')
       ax_r.axhline(R0.value)
       ax_r.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
       ax_r.axvspan(-CIRCLE_THETA.value, CIRCLE_THETA.value, facecolor='k', alpha=0.05)
@@ -634,21 +734,26 @@ CLOSED: [2017-03-28 Tue 13:24]
                ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
       ax_b.plot(theta_mean_grid, bmean_grid - bright_median, 'o', c='c', label='mean')
       ax_b.plot(theta_peak_grid, bmax_grid - bright_median, 'o', c='r', label='peak')
+      ax_b.plot([theta_peak_left, theta_peak_right], [b_halfmax, b_halfmax],
+                "-", c="r", alpha=0.2, lw=5, label="_nolabel_")
+      thgrid = np.linspace(THMIN.deg, THMAX.deg, 101)
+      ax_b.plot(thgrid, g_fit(thgrid), '--', c="r", alpha=0.3, lw=3, label="_nolabel_")
       ax_b.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
       ax_b.axvspan(-CIRCLE_THETA.value, CIRCLE_THETA.value, facecolor='k', alpha=0.05)
       ax_b.axvline(0.0, c='k', ls='--')
       ax_b.legend()
       ax_b.set(xlim=[THMIN.deg, THMAX.deg], xlabel='Angle from nominal axis, degree',
-               ylim=[0.0, None], ylabel='Bow shock brightness',
+               ylim=[0.0, 1.4*2*b_halfmax],
+               ylabel='Bow shock brightness',
       )
 
       # And also plot the image
       ax_i.imshow(hdu.data,
-                  vmin=bright_min, vmax=bmean_grid.max(), origin='lower')
+                  vmin=bright_min, vmax=bmean_grid[m0_peak].max(), origin='lower')
 
       # And contours
-      if bmax_grid.max() > bright_median:
-          clevels = np.linspace(bright_median, bmax_grid.max(), 10)
+      if bmax_grid[m0_peak].max() > bright_median:
+          clevels = np.linspace(bright_median, bmax_grid[m0_peak].max(), 10)
       else:
           clevels = np.linspace(bright_median, hdu.data.max(), 10)
       ax_i.contour(hdu.data, levels=clevels, alpha=0.5)
@@ -666,7 +771,7 @@ CLOSED: [2017-03-28 Tue 13:24]
           [0.0*u.deg, 0.0*u.deg], [-2*R0, 2*R0],
           frame=offset_frame).transform_to('icrs')
       ax_i.plot(PA_coords.ra.deg, PA_coords.dec.deg,
-		transform=wtran, c='orange', lw=2, alpha=0.8)
+                transform=wtran, c='orange', lw=2, alpha=0.8)
 
       # And plot the fitted circle
       circ = SphericalCircle((center.ra, center.dec), Rc,
@@ -678,7 +783,7 @@ CLOSED: [2017-03-28 Tue 13:24]
           [0.0*u.deg, 0.0*u.deg], [-1.2*Rc, 1.2*Rc],
           frame=circ_offset_frame).transform_to('icrs')
       ax_i.plot(PA_fit_coords.ra.deg, PA_fit_coords.dec.deg,
-		transform=wtran, c='m', lw=1.5, alpha=0.6)
+                transform=wtran, c='m', lw=1.5, alpha=0.6)
       # And the center of curvature
       ax_i.scatter(center.ra.deg, center.dec.deg, transform=wtran,
                    marker='o', s=30, edgecolor='k', facecolor='m')
@@ -698,16 +803,32 @@ CLOSED: [2017-03-28 Tue 13:24]
 
       # Add title
       ax_i.text(0.5, 1.7, description_from_table_row(source_data),
-		transform=ax_i.transAxes, ha='center', va='bottom'
+                transform=ax_i.transAxes, ha='center', va='bottom'
       )
       ax_i.text(0.5, 1.6, fit_msg,
-		transform=ax_i.transAxes, ha='center', va='top'
+                transform=ax_i.transAxes, ha='center', va='top'
       )
 
-      fig.savefig(image_name.replace('.fits', '-multiplot.png'))
+      fig.savefig(image_name.replace('.fits', '-multiplot.pdf'))
       # Important to close figure explicitly so as not to leak resources
       plt.close(fig)
 
+
+
+      # And another fig for the radial brightness profile
+      fig, ax = plt.subplots()
+      ax.scatter(x, y, c=across, marker='.', alpha=0.2)
+      xgrid = np.linspace(x.min(), x.max(), 101)
+      ax.plot(xgrid, gg_fit(xgrid), '-', color="k")
+      ax.plot(xgrid, gg_fit[0](xgrid), '--', lw=0.5, color="k")
+      ax.axvline(0.0, c="k", ls="--")
+      ax.axvline(R0_fit.arcsec, c="k", ls=":")
+      ax.set(
+          xlabel = "Offset along axis, arcsec",
+          ylabel = r"Brightness in strip of width $0.3 \times R_0$",
+      )
+      fig.savefig(image_name.replace('.fits', '-rad-bright.pdf'))
+      plt.close(fig)
 #+END_SRC
 **** Updated routines for circle fitting
 + Updated version of [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/fit-circle-shell.py]]
@@ -757,11 +878,13 @@ CLOSED: [2017-03-28 Tue 13:24]
 
   IMAGE_DIR = 'OB/MipsGal'
 
+  NCOLUMNS = 19                   # What it *should* be
   list_of_rows = []
   tabfiles = glob.glob(f"{IMAGE_DIR}/*-arcfit.tab")
   for tabfile in tabfiles:
       t = Table.read(tabfile, format='ascii.tab')
-      list_of_rows.append(t[0])
+      if len(t.colnames) == NCOLUMNS:
+          list_of_rows.append(t[0])
 
   fit_table = Table(rows=list_of_rows, names=t.colnames)
   star_table = Table.read('star-ratings.tab', format='ascii.tab')
@@ -2946,7 +3069,7 @@ CLOSED: [2017-03-20 Mon 14:01]
   s = 'LOWESS regression'
   axr.annotate(
       s=s, xy=(lowess[223,0], lowess[223,1]),
-      xycoords='data', color='g',
+      ripcords='data', color='g',
       xytext=(1.6, -0.1), textcoords='data', fontsize='x-small',
       arrowprops={'arrowstyle': '-|>', 'color': 'g'},
       ha='center', va='center')

@@ -1,0 +1,6719 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  28 AUG 2017 18:52
+entering extended mode
+ \write18 enabled.
+ %&-line parsing enabled.
+**\nonstopmode\nofiles\PassOptionsToPackage{active,tightpage,auctex}{preview}\A
+tBeginDocument{\ifx\ifPreview\undefined\RequirePackage[displaymath,floats,graph
+ics,textmath,sections,footnotes]{preview}[2004/11/05]\fi} \input _region_.tex
+(./_region_.tex  !name(quadrics-bowshock.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/mnras/mnras.cls
+Document Class: mnras 2015/05/22\ v3.0\ LaTeX2e MNRAS document class
+MNRAS document style v3.0, released 2015/05/22
+
+Package mnras Warning: Unknown option `a4paper' on input line 113.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count79
+\Gm@cntv=\count80
+\c@Gm@tempcnt=\count81
+\Gm@bindingoffset=\dimen102
+\Gm@wd@mp=\dimen103
+\Gm@odd@mp=\dimen104
+\Gm@even@mp=\dimen105
+\Gm@layoutwidth=\dimen106
+\Gm@layoutheight=\dimen107
+\Gm@layouthoffset=\dimen108
+\Gm@layoutvoffset=\dimen109
+\Gm@dimlist=\toks15
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fixltx2e.sty
+Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
+Applying: [2015/01/01] Old fixltx2e package on input line 46.
+
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+Already applied: [0000/00/00] Old fixltx2e package on input line 53.
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2017/03/14 v6.85a Hypertext links for LaTeX
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen110
+\Hy@linkcounter=\count82
+\Hy@pagecounter=\count83
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2017/03/14 v6.85a Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count84
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4498.
+Package hyperref Info: Link nesting OFF on input line 4503.
+Package hyperref Info: Hyper index ON on input line 4506.
+Package hyperref Info: Plain pages OFF on input line 4513.
+Package hyperref Info: Backreferencing OFF on input line 4518.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4751.
+\c@Hy@tempcnt=\count85
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5104.
+\XeTeXLinkMargin=\dimen111
+\Fld@menulength=\count86
+\Field@Width=\dimen112
+\Fld@charsize=\dimen113
+Package hyperref Info: Hyper figures OFF on input line 6358.
+Package hyperref Info: Link nesting OFF on input line 6363.
+Package hyperref Info: Hyper index ON on input line 6366.
+Package hyperref Info: backreferencing OFF on input line 6373.
+Package hyperref Info: Link coloring OFF on input line 6378.
+Package hyperref Info: Link coloring with OCG OFF on input line 6383.
+Package hyperref Info: PDF/A mode OFF on input line 6388.
+LaTeX Info: Redefining \ref on input line 6428.
+LaTeX Info: Redefining \pageref on input line 6432.
+
+
+Package hyperref Warning: Option `pdfpagelabels' is turned off
+(hyperref)                because \thepage is undefined.
+
+\c@Item=\count87
+\c@Hfootnote=\count88
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2017/03/14 v6.85a Hyperref driver for pdfTeX
+\Fld@listcount=\count89
+\c@bookmark@seq@number=\count90
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip41
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 123.
+\math@groups=\toks16
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/cmsy/b/n on input line 276.
+\symbmisymbols=\mathgroup4
+\symUPM=\mathgroup5
+LaTeX Font Info:    Overwriting symbol font `UPM' in version `bold'
+(Font)                  U/eur/m/n --> U/eur/b/n on input line 313.
+\symAMSa=\mathgroup6
+\SFB@measure=\dimen114
+\realparindent=\skip42
+\c@part=\count91
+\c@section=\count92
+\c@subsection=\count93
+\c@subsubsection=\count94
+\c@paragraph=\count95
+\c@subparagraph=\count96
+\@indentskip=\skip43
+\smallindent=\skip44
+\@footindent=\skip45
+\@leftskip=\skip46
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip47
+\bibsep=\skip48
+LaTeX Info: Redefining \cite on input line 694.
+
+
+! LaTeX Error: \makeindex undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.795 \renewcommand\makeindex
+                             {\NAT@makeindex
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+\c@NAT@ctr=\count97
+)
+\c@table=\count98
+\c@figure=\count99
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/newtxmath.sty
+Package: newtxmath 2017/02/12 v1.518
+
+`newtxmath' v1.518, 2017/02/12 Math macros based on txfonts (msharpe)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/11/05 v2.16a AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen115
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen116
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count100
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count101
+\leftroot@=\count102
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count103
+\DOTSCASE@=\count104
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen117
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count105
+\c@MaxMatrixCols=\count106
+\dotsspace@=\muskip11
+\c@parentequation=\count107
+\dspbrk@lvl=\count108
+\tag@help=\toks18
+\row@=\count109
+\column@=\count110
+\maxfields@=\count111
+\andhelp@=\toks19
+\eqnshift@=\dimen118
+\alignsep@=\dimen119
+\tagshift@=\dimen120
+\tagwidth@=\dimen121
+\totwidth@=\dimen122
+\lineht@=\dimen123
+\@envbody=\toks20
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks22
+\XKV@tempa@toks=\toks23
+)
+\XKV@depth=\count112
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/kastrup/binhex.tex)
+\tx@Isdigit=\count113
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 153.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/m/n on input line 153.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/cmr/m/n on input line 153.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/b/n on input line 154.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 160.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 160.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 160.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 161.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/cmr/m/it on input line 161.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/cmr/m/it on input line 161.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 162.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 162.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 162.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 164.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/cmr/b/n on input line 164.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/cmr/b/n on input line 164.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/m/it --> OT1/cmr/b/it on input line 165.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 166.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 167.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 218.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ntxmi/m/it on input line 218.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ntxmi/m/it on input line 218.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/ntxmi/m/it --> OML/ntxmi/b/it on input line 219.
+\symlettersA=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `lettersA' in version `bold'
+(Font)                  U/ntxmia/m/it --> U/ntxmia/b/it on input line 235.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 256.
+LaTeX Font Info:    Encoding `OMS' has changed to `LMS' for symbol font
+(Font)              `symbols' in the math version `normal' on input line 256.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> LMS/ntxsy/m/n on input line 256.
+LaTeX Font Info:    Encoding `OMS' has changed to `LMS' for symbol font
+(Font)              `symbols' in the math version `bold' on input line 256.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> LMS/ntxsy/m/n on input line 256.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  LMS/ntxsy/m/n --> LMS/ntxsy/b/n on input line 257.
+\symAMSm=\mathgroup8
+LaTeX Font Info:    Overwriting symbol font `AMSm' in version `bold'
+(Font)                  U/ntxsym/m/n --> U/ntxsym/b/n on input line 280.
+\symsymbolsC=\mathgroup9
+LaTeX Font Info:    Overwriting symbol font `symbolsC' in version `bold'
+(Font)                  U/ntxsyc/m/n --> U/ntxsyc/b/n on input line 301.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 314.
+LaTeX Font Info:    Encoding `OMX' has changed to `LMX' for symbol font
+(Font)              `largesymbols' in the math version `normal' on input line 3
+14.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> LMX/ntxexx/m/n on input line 314.
+LaTeX Font Info:    Encoding `OMX' has changed to `LMX' for symbol font
+(Font)              `largesymbols' in the math version `bold' on input line 314
+.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> LMX/ntxexx/m/n on input line 314.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  LMX/ntxexx/m/n --> LMX/ntxexx/b/n on input line 315.
+\symlargesymbolsTXA=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `largesymbolsTXA' in version `bold'
+
+(Font)                  U/ntxexa/m/n --> U/ntxexa/b/n on input line 329.
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 500.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 501.
+LaTeX Font Info:    Redeclaring math delimiter \lmoustache on input line 502.
+LaTeX Font Info:    Redeclaring math delimiter \rmoustache on input line 503.
+LaTeX Font Info:    Redeclaring math delimiter \lfloor on input line 509.
+LaTeX Font Info:    Redeclaring math delimiter \rfloor on input line 510.
+LaTeX Font Info:    Redeclaring math delimiter \lceil on input line 511.
+LaTeX Font Info:    Redeclaring math delimiter \rceil on input line 512.
+LaTeX Font Info:    Redeclaring math delimiter \lbrace on input line 513.
+LaTeX Font Info:    Redeclaring math delimiter \rbrace on input line 514.
+LaTeX Font Info:    Redeclaring math delimiter \langle on input line 515.
+LaTeX Font Info:    Redeclaring math delimiter \rangle on input line 517.
+LaTeX Font Info:    Redeclaring math symbol \mid on input line 519.
+LaTeX Font Info:    Redeclaring math delimiter \arrowvert on input line 521.
+LaTeX Font Info:    Redeclaring math delimiter \vert on input line 522.
+LaTeX Font Info:    Redeclaring math symbol \parallel on input line 523.
+LaTeX Font Info:    Redeclaring math delimiter \Arrowvert on input line 524.
+LaTeX Font Info:    Redeclaring math delimiter \Vert on input line 525.
+LaTeX Font Info:    Redeclaring math delimiter \updownarrow on input line 527.
+LaTeX Font Info:    Redeclaring math delimiter \Updownarrow on input line 528.
+LaTeX Font Info:    Redeclaring math delimiter \lvert on input line 533.
+LaTeX Font Info:    Redeclaring math delimiter \rvert on input line 534.
+LaTeX Font Info:    Redeclaring math delimiter \lVert on input line 535.
+LaTeX Font Info:    Redeclaring math delimiter \rVert on input line 536.
+LaTeX Info: Redefining \not on input line 2099.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/newtxtext.sty
+Package: newtxtext 2017/03/11 v1.521
+
+`newtxtext' v1.521, 2017/03/11 Text macros taking advantage of TeX-Gyre Termes 
+fonts (msharpe)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/fontaxes/fontaxes.sty
+Package: fontaxes 2014/03/23 v1.0d Font selection axes
+LaTeX Info: Redefining \upshape on input line 29.
+LaTeX Info: Redefining \itshape on input line 31.
+LaTeX Info: Redefining \slshape on input line 33.
+LaTeX Info: Redefining \scshape on input line 37.
+)
+\ntx@fs=\dimen124
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2017/01/02 v2.4 e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count114
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2017/04/05 v2.0i Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
+Package textcomp Info: Changing ? sub-encoding to TS1/0 on input line 80.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+\Gread@gobject=\count115
+))
+\Gin@req@height=\dimen125
+\Gin@req@width=\dimen126
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2016/05/14 v2.6a Micro-typographical refinements (RS)
+\MT@toks=\toks24
+\MT@count=\count116
+LaTeX Info: Redefining \textls on input line 774.
+\MT@outer@kern=\dimen127
+LaTeX Info: Redefining \textmicrotypecontext on input line 1310.
+\MT@listname@count=\count117
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2016/05/14 v2.6a Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 916.
+LaTeX Info: Redefining \lslig on input line 916.
+\MT@outer@space=\skip52
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2016/05/14 v2.6a microtype main configuration file (RS)
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen128
+\lightrulewidth=\dimen129
+\cmidrulewidth=\dimen130
+\belowrulesep=\dimen131
+\belowbottomsep=\dimen132
+\aboverulesep=\dimen133
+\abovetopsep=\dimen134
+\cmidrulesep=\dimen135
+\cmidrulekern=\dimen136
+\defaultaddspace=\dimen137
+\@cmidla=\count118
+\@cmidlb=\count119
+\@aboverulesep=\dimen138
+\@belowrulesep=\dimen139
+\@thisruleclass=\count120
+\@lastruleclass=\count121
+\@thisrulewidth=\dimen140
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/siunitx/siunitx.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2017/05/13 L3 programming layer (loader) 
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+Package: expl3 2017/05/13 L3 programming layer (code)
+\c_max_int=\count122
+\l_tmpa_int=\count123
+\l_tmpb_int=\count124
+\g_tmpa_int=\count125
+\g_tmpb_int=\count126
+\g__prg_map_int=\count127
+\c_log_iow=\count128
+\l_iow_line_count_int=\count129
+\l__iow_line_target_int=\count130
+\l__iow_one_indent_int=\count131
+\l__iow_indent_int=\count132
+\c_zero_dim=\dimen141
+\c_max_dim=\dimen142
+\l_tmpa_dim=\dimen143
+\l_tmpb_dim=\dimen144
+\g_tmpa_dim=\dimen145
+\g_tmpb_dim=\dimen146
+\c_zero_skip=\skip53
+\c_max_skip=\skip54
+\l_tmpa_skip=\skip55
+\l_tmpb_skip=\skip56
+\g_tmpa_skip=\skip57
+\g_tmpb_skip=\skip58
+\c_zero_muskip=\muskip12
+\c_max_muskip=\muskip13
+\l_tmpa_muskip=\muskip14
+\l_tmpb_muskip=\muskip15
+\g_tmpa_muskip=\muskip16
+\g_tmpb_muskip=\muskip17
+\l_keys_choice_int=\count133
+\c__fp_leading_shift_int=\count134
+\c__fp_middle_shift_int=\count135
+\c__fp_trailing_shift_int=\count136
+\c__fp_big_leading_shift_int=\count137
+\c__fp_big_middle_shift_int=\count138
+\c__fp_big_trailing_shift_int=\count139
+\c__fp_Bigg_leading_shift_int=\count140
+\c__fp_Bigg_middle_shift_int=\count141
+\c__fp_Bigg_trailing_shift_int=\count142
+\c__fp_rand_size_int=\count143
+\c__fp_rand_four_int=\count144
+\c__fp_rand_eight_int=\count145
+\l__sort_length_int=\count146
+\l__sort_min_int=\count147
+\l__sort_top_int=\count148
+\l__sort_max_int=\count149
+\l__sort_true_max_int=\count150
+\l__sort_block_int=\count151
+\l__sort_begin_int=\count152
+\l__sort_end_int=\count153
+\l__sort_A_int=\count154
+\l__sort_B_int=\count155
+\l__sort_C_int=\count156
+\c_empty_box=\box28
+\l_tmpa_box=\box29
+\l_tmpb_box=\box30
+\g_tmpa_box=\box31
+\g_tmpb_box=\box32
+\l__box_top_dim=\dimen147
+\l__box_bottom_dim=\dimen148
+\l__box_left_dim=\dimen149
+\l__box_right_dim=\dimen150
+\l__box_top_new_dim=\dimen151
+\l__box_bottom_new_dim=\dimen152
+\l__box_left_new_dim=\dimen153
+\l__box_right_new_dim=\dimen154
+\l__box_internal_box=\box33
+\l__coffin_internal_box=\box34
+\l__coffin_internal_dim=\dimen155
+\l__coffin_offset_x_dim=\dimen156
+\l__coffin_offset_y_dim=\dimen157
+\l__coffin_x_dim=\dimen158
+\l__coffin_y_dim=\dimen159
+\l__coffin_x_prime_dim=\dimen160
+\l__coffin_y_prime_dim=\dimen161
+\c_empty_coffin=\box35
+\l__coffin_aligned_coffin=\box36
+\l__coffin_aligned_internal_coffin=\box37
+\l_tmpa_coffin=\box38
+\l_tmpb_coffin=\box39
+\l__coffin_display_coffin=\box40
+\l__coffin_display_coord_coffin=\box41
+\l__coffin_display_pole_coffin=\box42
+\l__coffin_display_offset_dim=\dimen162
+\l__coffin_display_x_dim=\dimen163
+\l__coffin_display_y_dim=\dimen164
+\l__coffin_bounding_shift_dim=\dimen165
+\l__coffin_left_corner_dim=\dimen166
+\l__coffin_right_corner_dim=\dimen167
+\l__coffin_bottom_corner_dim=\dimen168
+\l__coffin_top_corner_dim=\dimen169
+\l__coffin_scaled_total_height_dim=\dimen170
+\l__coffin_scaled_width_dim=\dimen171
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
+File: l3pdfmode.def 2017/03/18 v L3 Experimental driver: PDF mode
+\l__driver_color_stack_int=\count157
+\l__driver_tmp_box=\box43
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2017/05/13 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count158
+\g__xparse_grabber_int=\count159
+\l__xparse_m_args_int=\count160
+\l__xparse_mandatory_args_int=\count161
+\l__xparse_v_nesting_int=\count162
+)
+Package: siunitx 2017/05/19 v2.7g A comprehensive (SI) units package
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen172
+\extrarowheight=\dimen173
+\NC@list=\toks25
+\extratabsurround=\skip59
+\backup@length=\skip60
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+Package: l3keys2e 2017/05/13 LaTeX2e option processing using LaTeX3 keys
+)
+\l__siunitx_tmp_box=\box44
+\l__siunitx_tmp_dim=\dimen174
+\l__siunitx_tmp_int=\count163
+\l__siunitx_number_mantissa_length_int=\count164
+\l__siunitx_number_uncert_length_int=\count165
+\l__siunitx_round_int=\count166
+\l__siunitx_process_decimal_int=\count167
+\l__siunitx_process_uncertainty_int=\count168
+\l__siunitx_process_fixed_int=\count169
+\l__siunitx_process_integer_min_int=\count170
+\l__siunitx_process_precision_int=\count171
+\l__siunitx_group_min_int=\count172
+\l__siunitx_angle_marker_box=\box45
+\l__siunitx_angle_unit_box=\box46
+\l__siunitx_angle_marker_dim=\dimen175
+\l__siunitx_angle_unit_dim=\dimen176
+\l__siunitx_unit_int=\count173
+\l__siunitx_unit_denominator_int=\count174
+\l__siunitx_unit_numerator_int=\count175
+\l__siunitx_unit_prefix_int=\count176
+\l__siunitx_unit_prefix_base_int=\count177
+\l__siunitx_unit_prefix_gram_int=\count178
+\l__siunitx_number_product_int=\count179
+\c__siunitx_one_fill_skip=\skip61
+\l__siunitx_table_unit_align_skip=\skip62
+\l__siunitx_table_exponent_dim=\dimen177
+\l__siunitx_table_integer_dim=\dimen178
+\l__siunitx_table_mantissa_dim=\dimen179
+\l__siunitx_table_marker_dim=\dimen180
+\l__siunitx_table_result_dim=\dimen181
+\l__siunitx_table_uncert_dim=\dimen182
+\l__siunitx_table_fill_pre_dim=\dimen183
+\l__siunitx_table_fill_post_dim=\dimen184
+\l__siunitx_table_fill_mid_dim=\dimen185
+\l__siunitx_table_pre_box=\box47
+\l__siunitx_table_post_box=\box48
+\l__siunitx_table_mantissa_box=\box49
+\l__siunitx_table_result_box=\box50
+\l__siunitx_table_number_align_skip=\skip63
+\l__siunitx_table_text_align_skip=\skip64
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareBinaryPrefix with sig. 'mmm' on line 7251.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareSIPostPower with sig. 'mm' on line 7254.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareSIPrefix with sig. 'mmm' on line 7257.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareSIPrePower with sig. 'mm' on line 7260.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareSIQualifier with sig. 'mm' on line 7263.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareSIUnit with sig. 'O{}mm' on line 7266.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareSIUnitWithOptions with sig. 'mmm' on line 7269.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \ang with sig. 'o>{\SplitArgument {2}{;}}m' on line 7284.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \num with sig. 'om' on line 7293.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \numlist with sig. 'o>{\SplitList {;}}m' on line 7302.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \numrange with sig. 'omm' on line 7311.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \SIlist with sig. 'o>{\SplitList {;}}mm' on line 7323.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \SIrange with sig. 'ommm' on line 7335.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \SI with sig. 'omom' on line 7347.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \sisetup with sig. 'm' on line 7350.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \tablenum with sig. 'om' on line 7365.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \si with sig. 'om' on line 7377.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \numInBookmark with sig. 'om' on line 7424.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \numrangeInBookmark with sig. 'omm' on line 7426.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \SIInBookmark with sig. 'omom' on line 7428.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \SIlistInBookmark with sig. 'omm' on line 7430.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \SIrangeInBookmark with sig. 'ommm' on line 7432.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \siInBookmark with sig. 'om' on line 7433.
+.................................................
+\g__file_internal_ior=\read1
+(/Users/will/Library/texmf/tex/latex/translator/base/translator.sty
+Package: translator 2007/03/11 ver 1.00
+
+(/Users/will/Library/texmf/tex/latex/translator/base/translator-language-mappin
+gs.tex))) (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks26
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/pdflscape.sty
+Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count180
+\rotFPtop=\skip65
+\rotFPbot=\skip66
+\rot@float@box=\box51
+\rot@mess@toks=\toks27
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/musixtex/musixtex.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/musixtex/musixtex.tex
+MusiXTeX(c) 1.24 <2017-02-28>
+\n@i=\count181
+\n@ii=\count182
+\n@iii=\count183
+\n@iv=\count184
+\n@v=\count185
+\n@vi=\count186
+\n@vii=\count187
+\n@viii=\count188
+\count@=\count189
+\toks@box=\box52
+\w@rkbox=\box53
+\n@otebox=\box54
+\y@=\dimen186
+\y@i=\dimen187
+\y@ii=\dimen188
+\y@iii=\dimen189
+\y@iv=\dimen190
+\y@v=\dimen191
+\group@no=\count190
+\interinstrument=\dimen192
+\N@s=\count191
+\s@Y=\dimen193
+\lin@pos=\dimen194
+\meet@minus@n@iv=\count192
+\interbeam=\dimen195
+\b@amthick=\dimen196
+\Interligne=\dimen197
+\Internote=\dimen198
+\ch@box=\box55
+\musicsize=\count193
+\qd@skip=\dimen199
+\qn@width=\dimen256
+\wn@width=\dimen257
+\txt@ff=\skip67
+\s@indent=\skip68
+\big@spc=\skip69
+\lthick=\dimen258
+\afterruleskip=\skip70
+\staffbotmarg=\dimen259
+\stafftopmarg=\dimen260
+\line@width=\dimen261
+\interportee=\dimen262
+\noport@@=\count194
+\noinstrum@nt=\count195
+\altportee=\dimen263
+\systemheight=\dimen264
+\altplancher=\dimen265
+\instrum@in@group=\skip71
+\boxitsep=\skip72
+\barsinpi@c@=\count196
+\barno=\count197
+\startbarno=\count198
+\sign@skip=\dimen266
+\maxsign@skip=\dimen267
+\x@skip=\dimen268
+\n@skip=\dimen269
+\beforeruleskip=\skip73
+\widthtyp@=\count199
+\lastbarno=\count266
+\cut@v=\skip74
+\init@volta@pos=\skip75
+\volta@startcor=\skip76
+\volta@endcor=\skip77
+\writ@volta@box=\box56
+\barsinlin@=\count267
+\maxbarsinlin@=\count268
+\lastbarpos=\skip78
+\ut@ref=\count269
+\meterskip=\skip79
+\t@c=\toks28
+\clef@skip=\skip80
+\noteskip=\dimen270
+\transpose=\count270
+\normaltranspose=\count271
+\locx@skip=\dimen271
+\elemskip=\dimen272
+\@l@mskip=\dimen273
+\inh@alt=\count272
+\st@bot=\dimen274
+\st@top=\dimen275
+\stem@skip=\dimen276
+\s@lope=\dimen277
+\y@vi=\dimen278
+\lift@rest=\dimen279
+\accshift=\skip81
+\@icresc=\skip82
+\pdl@pos=\dimen280
+\bigwedgebox=\box57
+\@itrillei=\skip83
+\@itrilleii=\skip84
+\@itrilleiii=\skip85
+\@itrilleiv=\skip86
+\@itrillev=\skip87
+\@itrillevi=\skip88
+\tr@number=\count273
+\tr@nspose=\count274
+\o@swz=\toks29
+\o@number=\count275
+\y@vii=\dimen281
+\y@viii=\dimen282
+\y@ix=\dimen283
+\tuptxtb@x=\box58
+\notes@open=\count276
+\k@ii=\skip89
+\i@ni=\dimen284
+\b@xi=\dimen285
+\b@zi=\dimen286
+\c@xi=\dimen287
+\c@zi=\skip90
+\d@xi=\dimen288
+\d@zi=\skip91
+\e@xi=\dimen289
+\e@zi=\skip92
+\b@pi=\count277
+\b@ni=\count278
+\n@pi=\count279
+\a@si=\count280
+\o@si=\count281
+\a@ci=\toks30
+\o@ci=\toks31
+\m@ti=\toks32
+\k@iii=\skip93
+\i@nii=\dimen290
+\b@xii=\dimen291
+\b@zii=\dimen292
+\c@xii=\dimen293
+\c@zii=\skip94
+\d@xii=\dimen294
+\d@zii=\skip95
+\e@xii=\dimen295
+\e@zii=\skip96
+\b@pii=\count282
+\b@nii=\count283
+\n@pii=\count284
+\a@sii=\count285
+\o@sii=\count286
+\a@cii=\toks33
+\o@cii=\toks34
+\m@tii=\toks35
+\k@iiii=\skip97
+\i@niii=\dimen296
+\b@xiii=\dimen297
+\b@ziii=\dimen298
+\c@xiii=\dimen299
+\c@ziii=\skip98
+\d@xiii=\dimen300
+\d@ziii=\skip99
+\e@xiii=\dimen301
+\e@ziii=\skip100
+\b@piii=\count287
+\b@niii=\count288
+\n@piii=\count289
+\a@siii=\count290
+\o@siii=\count291
+\a@ciii=\toks36
+\o@ciii=\toks37
+\m@tiii=\toks38
+\k@iiv=\skip101
+\i@niv=\dimen302
+\b@xiv=\dimen303
+\b@ziv=\dimen304
+\c@xiv=\dimen305
+\c@ziv=\skip102
+\d@xiv=\dimen306
+\d@ziv=\skip103
+\e@xiv=\dimen307
+\e@ziv=\skip104
+\b@piv=\count292
+\b@niv=\count293
+\n@piv=\count294
+\a@siv=\count295
+\o@siv=\count296
+\a@civ=\toks39
+\o@civ=\toks40
+\m@tiv=\toks41
+\k@iv=\skip105
+\i@nv=\dimen308
+\b@xv=\dimen309
+\b@zv=\dimen310
+\c@xv=\dimen311
+\c@zv=\skip106
+\d@xv=\dimen312
+\d@zv=\skip107
+\e@xv=\dimen313
+\e@zv=\skip108
+\b@pv=\count297
+\b@nv=\count298
+\n@pv=\count299
+\a@sv=\count300
+\o@sv=\count301
+\a@cv=\toks42
+\o@cv=\toks43
+\m@tv=\toks44
+\k@ivi=\skip109
+\i@nvi=\dimen314
+\b@xvi=\dimen315
+\b@zvi=\dimen316
+\c@xvi=\dimen317
+\c@zvi=\skip110
+\d@xvi=\dimen318
+\d@zvi=\skip111
+\e@xvi=\dimen319
+\e@zvi=\skip112
+\b@pvi=\count302
+\b@nvi=\count303
+\n@pvi=\count304
+\a@svi=\count305
+\o@svi=\count306
+\a@cvi=\toks45
+\o@cvi=\toks46
+\m@tvi=\toks47
+maxinstruments=6
+\f@xi=\dimen320
+\f@zi=\skip113
+\f@xii=\dimen321
+\f@zii=\skip114
+\f@xiii=\dimen322
+\f@ziii=\skip115
+\f@xiv=\dimen323
+\f@ziv=\skip116
+\f@xv=\dimen324
+\f@zv=\skip117
+\f@xvi=\dimen325
+\f@zvi=\skip118
+ max128beams=6
+\g@bi=\skip119
+\g@hi=\skip120
+\g@bii=\skip121
+\g@hii=\skip122
+\g@biii=\skip123
+\g@hiii=\skip124
+ maxgroups=3
+\s@xi=\dimen326
+\s@si=\toks48
+\s@Yi=\dimen327
+\s@ai=\skip125
+\s@yi=\count307
+\s@Ni=\count308
+\s@zi=\count309
+\s@di=\toks49
+\s@xii=\dimen328
+\s@sii=\toks50
+\s@Yii=\dimen329
+\s@aii=\skip126
+\s@yii=\count310
+\s@Nii=\count311
+\s@zii=\count312
+\s@dii=\toks51
+\s@xiii=\dimen330
+\s@siii=\toks52
+\s@Yiii=\dimen331
+\s@aiii=\skip127
+\s@yiii=\count313
+\s@Niii=\count314
+\s@ziii=\count315
+\s@diii=\toks53
+\s@xiv=\dimen332
+\s@siv=\toks54
+\s@Yiv=\dimen333
+\s@aiv=\skip128
+\s@yiv=\count316
+\s@Niv=\count317
+\s@ziv=\count318
+\s@div=\toks55
+\s@xv=\dimen334
+\s@sv=\toks56
+\s@Yv=\dimen335
+\s@av=\skip129
+\s@yv=\count319
+\s@Nv=\count320
+\s@zv=\count321
+\s@dv=\toks57
+\s@xvi=\dimen336
+\s@svi=\toks58
+\s@Yvi=\dimen337
+\s@avi=\skip130
+\s@yvi=\count322
+\s@Nvi=\count323
+\s@zvi=\count324
+\s@dvi=\toks59
+ maxslurs=6
+\tr@xi=\skip131
+\tr@swi=\toks60
+\tr@yi=\skip132
+\tr@xii=\skip133
+\tr@swii=\toks61
+\tr@yii=\skip134
+\tr@xiii=\skip135
+\tr@swiii=\toks62
+\tr@yiii=\skip136
+\tr@xiv=\skip137
+\tr@swiv=\toks63
+\tr@yiv=\skip138
+\tr@xv=\skip139
+\tr@swv=\toks64
+\tr@yv=\skip140
+\tr@xvi=\skip141
+\tr@swvi=\toks65
+\tr@yvi=\skip142
+ maxtrills=6
+\o@xi=\skip143
+\o@yi=\skip144
+\o@swi=\toks66
+\o@xii=\skip145
+\o@yii=\skip146
+\o@swii=\toks67
+\o@xiii=\skip147
+\o@yiii=\skip148
+\o@swiii=\toks68
+\o@xiv=\skip149
+\o@yiv=\skip150
+\o@swiv=\toks69
+\o@xv=\skip151
+\o@yv=\skip152
+\o@swv=\toks70
+\o@xvi=\skip153
+\o@yvi=\skip154
+\o@swvi=\toks71
+
+maxoctlines=6
+\outmux=\write3
+\mulooseness=\count325
+\linegoal=\count326
+\l@eftrightbox=\box59
+\inmux=\read2
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/musixtex/musixltx.tex
+MusiXLaTeX T.61 <25 September 1996>
+)) (/usr/local/texlive/2017/texmf-dist/tex/latex/fontawesome/fontawesome.sty
+Package: fontawesome 2016/05/15 v4.6.3.1 font awesome icons
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/fontawesome/fontawesomesymbols-ge
+neric.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/fontawesome/fontawesomesymbols-pd
+ftex.tex)) (/usr/local/texlive/2017/texmf-dist/tex/latex/staves/staves.sty)
+Package hyperref Info: Option `colorlinks' set `true' on input line 53.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup11
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
+LaTeX Info: Redefining \bm on input line 207.
+)
+(./aastex-compat.sty
+\table@note@skip=\skip155
+)
+LaTeX Font Info:    Try loading font information for T1+ntxtlf on input line 81
+.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxtlf.fd
+File: t1ntxtlf.fd 2015/01/17 v1.0 font definition file for T1/ntx/tlf
+)
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 9.0pt on input line 81.
+
+No file _region_.aux.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 81.
+LaTeX Font Info:    Try loading font information for OML+ntxmi on input line 81
+.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/omlntxmi.fd
+File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
+)
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for U/icelandic/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 81.
+LaTeX Font Info:    Try loading font information for LMS+ntxsy on input line 81
+.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmsntxsy.fd
+File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
+)
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 81.
+LaTeX Font Info:    Try loading font information for LMX+ntxexx on input line 8
+1.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmxntxexx.fd
+File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
+)
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 81.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 81.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 81.
+
+(/Users/will/.emacs.d/elpa/auctex-11.90.2/latex/preview.sty
+Package: preview 2010/02/14 11.90 (AUCTeX/preview-latex)
+
+
+Package preview Warning: Your document class has a bad definition
+ of \endfigure, most likely
+ \let\endfigure=\end@float
+ which has now been changed to
+ \def\endfigure{\end@float}
+ because otherwise subsequent changes to \end@float
+ (like done by several packages changing float behaviour)
+ can't take effect on \endfigure.
+ Please complain to your document class author.
+
+
+Package preview Warning: Your document class has a bad definition
+ of \endtable, most likely
+ \let\endtable=\end@float
+ which has now been changed to
+ \def\endtable{\end@float}
+ because otherwise subsequent changes to \end@float
+ (like done by several packages changing float behaviour)
+ can't take effect on \endtable.
+ Please complain to your document class author.
+
+(/Users/will/.emacs.d/elpa/auctex-11.90.2/latex/prtightpage.def
+\PreviewBorder=\dimen338
+)
+(/Users/will/.emacs.d/elpa/auctex-11.90.2/latex/prauctex.def
+No auxiliary output files.
+
+
+\hbadness=\count327
+\hfuzz=\dimen339
+(/Users/will/.emacs.d/elpa/auctex-11.90.2/latex/prauctex.cfg))
+(/Users/will/.emacs.d/elpa/auctex-11.90.2/latex/prfootnotes.def)
+\pr@snippet=\count328
+\pr@box=\box60
+\pr@output=\toks72
+
+Preview: Fontsize 9pt
+Preview: PDFoutput 1
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(71.70166pt, 418.25368pt, 107.55254pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=504.0pt
+* \textheight=682.0pt
+* \oddsidemargin=-30.0pt
+* \evensidemargin=-30.0pt
+* \topmargin=0.0pt
+* \headheight=14.0pt
+* \headsep=15.0pt
+* \topskip=9.0pt
+* \footskip=22.0pt
+* \marginparwidth=48.0pt
+* \marginparsep=6.0pt
+* \columnsep=24.0pt
+* \skip\footins=19.5pt plus 12.0pt minus 1.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumntrue
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\AtBeginShipoutBox=\box61
+Package hyperref Info: Link coloring ON on input line 81.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count329
+)
+LaTeX Info: Redefining \ref on input line 81.
+LaTeX Info: Redefining \pageref on input line 81.
+LaTeX Info: Redefining \nameref on input line 81.
+\c@mv@tabular=\count330
+\c@mv@boldtabular=\count331
+
+(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count332
+\scratchdimen=\dimen340
+\scratchbox=\box62
+\nofMPsegments=\count333
+\nofMParguments=\count334
+\everyMPshowfont=\toks73
+\MPscratchCnt=\count335
+\MPscratchDim=\dimen341
+\MPnumerator=\count336
+\makeMPintoPDFobject=\count337
+\everyMPtoPDFconversion=\toks74
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Info: Redefining \microtypecontext on input line 81.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+Package microtype Info: Loading generic settings for font family
+(microtype)             `ntxtlf' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+(/Users/will/Library/texmf/tex/latex/translator/dicts/translator-basic-dictiona
+ry/translator-basic-dictionary-English.dict
+Dictionary: translator-basic-dictionary, Language: English 
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
+File: siunitx-abbreviations.cfg 2017/05/19 v2.7g siunitx: Abbreviated units
+)
+\c__siunitx_mathsf_int=\count338
+ (/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 81.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <5.5> not available
+(Font)              size <5> substituted on input line 81.
+
+LaTeX Font Info:    Try loading font information for U+eur on input line 81.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/ueur.fd
+File: ueur.fd 2013/01/14 v3.01 Euler Roman
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-eur.cfg
+File: mt-eur.cfg 2006/07/31 v1.1 microtype config. file: AMS Euler Roman (RS)
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 81.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Try loading font information for U+ntxmia on input line 81.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxmia.fd
+File: untxmia.fd 2016/01/31 Fontinst v1.933 font definitions for U/ntxmia.
+)
+LaTeX Font Info:    Try loading font information for U+ntxsym on input line 81.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsym.fd
+File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
+)
+LaTeX Font Info:    Try loading font information for U+ntxsyc on input line 81.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsyc.fd
+File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
+)
+LaTeX Font Info:    Try loading font information for U+ntxexa on input line 81.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxexa.fd
+File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
+)
+
+LaTeX Font Warning: Font shape `OT1/cmr/b/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 81.
+
+Package microtype Info: Loading generic settings for font family
+(microtype)             `cmss' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 81.
+
+\c__siunitx_mathtt_int=\count339
+Package microtype Info: Loading generic settings for font family
+(microtype)             `cmtt' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+LaTeX Font Warning: Font shape `OT1/cmtt/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 81.
+
+\openout3 = `_region_.mx1'.
+
+ !name(sec-quadrics-observations.tex) !offset(-83) 
+! Preview: Snippet 1 started.
+<-><->
+      
+l.84 \section
+             {Comparison with observations}
+Not a real error.
+
+LaTeX Font Info:    Font shape `T1/ntxtlf/bx/n' in size <9> not available
+(Font)              Font shape `T1/ntxtlf/b/n' tried instead on input line 84.
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 9.0pt on input line 84.
+Preview: Tightpage -32891 -32891 32891 32891
+! Preview: Snippet 1 ended.(406094+10911x15728640).
+<-><->
+      
+l.84 \section{Comparison with observations}
+                                           
+Not a real error.
+
+[1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+]
+! Preview: Snippet 2 started.
+<-><->
+      
+l.88 Placing various classes of objects on the \(
+                                                 R_{90}\)--\(R_c\) plane:
+Not a real error.
+
+! Preview: Snippet 2 ended.(388104+88473x923878).
+<-><->
+      
+l.88 ...rious classes of objects on the \(R_{90}\)
+                                                  --\(R_c\) plane:
+Not a real error.
+
+[2]
+! Preview: Snippet 3 started.
+<-><->
+      
+l.88 ...s classes of objects on the \(R_{90}\)--\(
+                                                  R_c\) plane:
+Not a real error.
+
+! Preview: Snippet 3 ended.(388104+93017x674581).
+<-><->
+      
+l.88 ...sses of objects on the \(R_{90}\)--\(R_c\)
+                                                   plane:
+Not a real error.
+
+[3]
+! Preview: Snippet 4 started.
+<-><->
+      
+l.95 \subsection
+                {Mid-infrared arcs around early-type stars}
+Not a real error.
+
+! Preview: Snippet 4 ended.(406094+120619x15728640).
+<-><->
+      
+l.95 ...Mid-infrared arcs around early-type stars}
+                                                  
+Not a real error.
+
+[4
+
+]
+! Preview: Snippet 5 started.
+<-><->
+      
+l.98 \begin{figure*}
+                    
+Not a real error.
+
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 8.0pt on input line 98.
+<figs/0510-3-star.png, id=22, 867.24pt x 578.16pt>
+File: figs/0510-3-star.png Graphic file (type png)
+ <use figs/0510-3-star.png>
+Package pdftex.def Info: figs/0510-3-star.png used on input line 104.
+(pdftex.def)             Requested size: 252.0pt x 170.57951pt.
+
+<figs/0506-4-star.png, id=25, 867.24pt x 578.16pt>
+File: figs/0506-4-star.png Graphic file (type png)
+ <use figs/0506-4-star.png>
+Package pdftex.def Info: figs/0506-4-star.png used on input line 106.
+(pdftex.def)             Requested size: 252.0pt x 170.57951pt.
+
+<figs/0517-5-star.png, id=27, 867.24pt x 578.16pt>
+File: figs/0517-5-star.png Graphic file (type png)
+ <use figs/0517-5-star.png>
+Package pdftex.def Info: figs/0517-5-star.png used on input line 110.
+(pdftex.def)             Requested size: 252.0pt x 170.57951pt.
+
+<figs/mipsgal-r0-r0-plus-dPA-edited.pdf, id=29, 433.62pt x 433.62pt>
+File: figs/mipsgal-r0-r0-plus-dPA-edited.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-r0-r0-plus-dPA-edited.pdf>
+Package pdftex.def Info: figs/mipsgal-r0-r0-plus-dPA-edited.pdf used on input l
+ine 113.
+(pdftex.def)             Requested size: 176.40308pt x 176.39938pt.
+LaTeX Font Info:    Font shape `T1/ntxtlf/bx/n' in size <8> not available
+(Font)              Font shape `T1/ntxtlf/b/n' tried instead on input line 147.
+
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 8.0pt on input line 147.
+LaTeX Font Info:    Try loading font information for TS1+ntxtlf on input line 1
+47.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd
+File: ts1ntxtlf.fd 2015/01/18 v1.0 fd file for TS1/ntxtlf
+)
+LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
+(Font)              scaled to size 8.0pt on input line 147.
+Package microtype Info: Loading generic settings for font family
+(microtype)             `ntxtlf' (encoding: TS1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 6.2pt on input line 147.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 5.5pt on input line 147.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 147.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 147.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 147.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 147.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 147.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 147.
+
+! Preview: Snippet 5 ended.(33273607+0x33030144).
+<-><->
+      
+l.149 \end{figure*}
+                   
+Not a real error.
+
+[5
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.149 \end{figure*}
+                   
+
+ <./figs/0510-3-star.png> <./figs/0506-4-star.png> <./figs/0517-5-star.png> <./
+figs/mipsgal-r0-r0-plus-dPA-edited.pdf>]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 153.
+
+
+Package natbib Warning: Citation `Werner:2004a' on page 1 undefined on input li
+ne 155.
+
+
+Package natbib Warning: Citation `Wright:2010a' on page 1 undefined on input li
+ne 157.
+
+
+Package natbib Warning: Citation `Gvaramadze:2008a' on page 1 undefined on inpu
+t line 160.
+
+
+Package natbib Warning: Citation `Povich:2008a' on page 1 undefined on input li
+ne 162.
+
+! Preview: Snippet 6 started.
+<-><->
+      
+l.165 \subsubsection
+                    {Automatic tracing and fitting of bow shocks}
+Not a real error.
+
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
+(Font)              scaled to size 9.0pt on input line 165.
+! Preview: Snippet 6 ended.(401080+121798x15728640).
+<-><->
+      
+l.165 ...omatic tracing and fitting of bow shocks}
+                                                  
+Not a real error.
+
+[6
+
+]
+! Preview: Snippet 7 started.
+<-><->
+      
+l.170 ...Infrared Science Archive archive\footnote
+                                                  {
+Not a real error.
+
+LaTeX Font Info:    Try loading font information for T1+ntxtt on input line 171
+.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/t1ntxtt.fd
+File: t1ntxtt.fd 2012/04/20 v3.1
+)
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 8.0pt on input line 171.
+Package microtype Info: Loading generic settings for font family
+(microtype)             `ntxtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+! Preview: Snippet 7 ended.(509746+0x294003).
+<-><->
+      
+l.171 .../docs/program_interface/api_images.html}}
+                                                  
+Not a real error.
+
+[7]
+LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
+(Font)              scaled to size 9.0pt on input line 172.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 7.3pt on input line 172.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 174.
+
+
+Package natbib Warning: Citation `Carey:2009a' on page 1 undefined on input lin
+e 175.
+
+! Preview: Snippet 8 started.
+<-><->
+      
+l.176 sources with Galactic longitude within \(
+                                               \pm 60\degr\) of the Galactic
+Not a real error.
+
+! Preview: Snippet 8 ended.(431783+0x1251870).
+<-><->
+      
+l.176 ...Galactic longitude within \(\pm 60\degr\)
+                                                   of the Galactic
+Not a real error.
+
+[8]
+! Preview: Snippet 9 started.
+<-><->
+      
+l.181 ...ulate arrays of celestial coordinates, \(
+                                                  C\), for each pixel
+Not a real error.
+
+! Preview: Snippet 9 ended.(388104+9437x412876).
+<-><->
+      
+l.181 ...te arrays of celestial coordinates, \(C\)
+                                                  , for each pixel
+Not a real error.
+
+[9]
+! Preview: Snippet 10 started.
+<-><->
+      
+l.183 ... Using the central source coordinates, \(
+                                                  C_0\) and nominal
+Not a real error.
+
+! Preview: Snippet 10 ended.(388104+88473x664412).
+<-><->
+      
+l.183 ...g the central source coordinates, \(C_0\)
+                                                   and nominal
+Not a real error.
+
+[10]
+! Preview: Snippet 11 started.
+<-><->
+      
+l.184   bowshock radius, \(
+                           R_0\) from \citet{Kobulnicky:2016a}, construct a
+Not a real error.
+
+! Preview: Snippet 11 ended.(388104+88473x662643).
+<-><->
+      
+l.184   bowshock radius, \(R_0\)
+                                 from \citet{Kobulnicky:2016a}, construct a
+Not a real error.
+
+[11]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 184.
+
+! Preview: Snippet 12 started.
+<-><->
+      
+l.186   source that satisfy \(
+                              \frac12 R_0 \le |C - C_0| \le 3 R_0\).  This mask
+
+Not a real error.
+
+! Preview: Snippet 12 ended.(528030+203489x5664632).
+<-><->
+      
+l.186 ...y \(\frac12 R_0 \le |C - C_0| \le 3 R_0\)
+                                                  .  This mask
+Not a real error.
+
+[12]
+! Preview: Snippet 13 started.
+<-><->
+      
+l.190 \item Define a ``step-back'' point, \(
+                                            C_1\), which is located at a
+Not a real error.
+
+! Preview: Snippet 13 ended.(388104+88473x664412).
+<-><->
+      
+l.190 \item Define a ``step-back'' point, \(C_1\)
+                                                 , which is located at a
+Not a real error.
+
+[13]
+! Preview: Snippet 14 started.
+<-><->
+      
+l.191   separation \(
+                     2 R_0\) from the source, but in the opposite direction
+Not a real error.
+
+! Preview: Snippet 14 ended.(388104+88473x965745).
+<-><->
+      
+l.191   separation \(2 R_0\)
+                             from the source, but in the opposite direction
+Not a real error.
+
+[14]
+! Preview: Snippet 15 started.
+<-><->
+      
+l.193 ...egr{} from the nominal position angle, \(
+                                                  \text{PA}_0\), of the
+Not a real error.
+
+! Preview: Snippet 15 ended.(398720+88473x994713).
+<-><->
+      
+l.193 ...e nominal position angle, \(\text{PA}_0\)
+                                                  , of the
+Not a real error.
+
+[15]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 196.
+
+! Preview: Snippet 16 started.
+<-><->
+      
+l.197 ...ing over a grid of 50 position angles, \(
+                                                  \text{PA}_k\),
+Not a real error.
+
+! Preview: Snippet 16 ended.(398720+125363x1007129).
+<-><->
+      
+l.197 ...id of 50 position angles, \(\text{PA}_k\)
+                                                  ,
+Not a real error.
+
+[16]
+! Preview: Snippet 17 started.
+<-><->
+      
+l.198   within \(
+                 \pm 60\degr\) of \(\text{PA}_0\), estimate the location of
+Not a real error.
+
+! Preview: Snippet 17 ended.(431783+0x1251870).
+<-><->
+      
+l.198   within \(\pm 60\degr\)
+                               of \(\text{PA}_0\), estimate the location of
+Not a real error.
+
+[17]
+! Preview: Snippet 18 started.
+<-><->
+      
+l.198   within \(\pm 60\degr\) of \(
+                                    \text{PA}_0\), estimate the location of
+Not a real error.
+
+! Preview: Snippet 18 ended.(398720+88473x994713).
+<-><->
+      
+l.198   within \(\pm 60\degr\) of \(\text{PA}_0\)
+                                                 , estimate the location of
+Not a real error.
+
+[18]
+! Preview: Snippet 19 started.
+<-><->
+      
+l.203     \(
+            C_{k,\text{peak}}\) (red dots in
+Not a real error.
+
+! Preview: Snippet 19 ended.(388104+224395x1707805).
+<-><->
+      
+l.203     \(C_{k,\text{peak}}\)
+                                (red dots in
+Not a real error.
+
+[19]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 204.
+
+! Preview: Snippet 20 started.
+<-><->
+      
+l.205 ...an brightness-weighted separation from \(
+                                                  C_1\), with
+Not a real error.
+
+! Preview: Snippet 20 ended.(388104+88473x664412).
+<-><->
+      
+l.205 ...ightness-weighted separation from \(C_1\)
+                                                  , with
+Not a real error.
+
+[20]
+! Preview: Snippet 21 started.
+<-><->
+      
+l.206     coordinates \(
+                        C_{k,\text{mean}}\) (light blue dots in
+Not a real error.
+
+! Preview: Snippet 21 ended.(388104+189710x1840804).
+<-><->
+      
+l.206     coordinates \(C_{k,\text{mean}}\)
+                                            (light blue dots in
+Not a real error.
+
+[21]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 207.
+
+! Preview: Snippet 22 started.
+<-><->
+      
+l.209   For each \(
+                   \text{PA}_k\) in the grid, the calculation is performed
+Not a real error.
+
+! Preview: Snippet 22 ended.(398720+125363x1007129).
+<-><->
+      
+l.209   For each \(\text{PA}_k\)
+                                 in the grid, the calculation is performed
+Not a real error.
+
+[22]
+! Preview: Snippet 23 started.
+<-><->
+      
+l.211   \(
+          |\text{PA}(C, C_1) - \text{PA}_k| < \frac12 \delta\theta\), where
+Not a real error.
+
+! Preview: Snippet 23 ended.(528030+203489x6106261).
+<-><->
+      
+l.211 ...) - \text{PA}_k| < \frac12 \delta\theta\)
+                                                  , where
+Not a real error.
+
+[23]
+! Preview: Snippet 24 started.
+<-><->
+      
+l.212   \(
+          \delta\theta = 120/50 = 2.4\degr\), which defines a thin radial we...
+
+Not a real error.
+
+! Preview: Snippet 24 ended.(431783+115900x4833595).
+<-><->
+      
+l.212   \(\delta\theta = 120/50 = 2.4\degr\)
+                                            , which defines a thin radial we...
+
+Not a real error.
+
+[24]
+! Preview: Snippet 25 started.
+<-><->
+      
+l.213   \(
+          C_1\).  The results are shown as red and blue dots superimposed
+Not a real error.
+
+! Preview: Snippet 25 ended.(388104+88473x664412).
+<-><->
+      
+l.213   \(C_1\)
+               .  The results are shown as red and blue dots superimposed
+Not a real error.
+
+[25]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 214.
+
+! Preview: Snippet 26 started.
+<-><->
+      
+l.218   average by amalgamating all the \(
+                                          C_{k,\text{peak}}\) and
+Not a real error.
+
+! Preview: Snippet 26 ended.(388104+224395x1707805).
+<-><->
+      
+l.218 ...malgamating all the \(C_{k,\text{peak}}\)
+                                                   and
+Not a real error.
+
+[26]
+! Preview: Snippet 27 started.
+<-><->
+      
+l.219   \(
+          C_{k,\text{mean}}\) points into a single set, \(C_{k}\), for
+Not a real error.
+
+! Preview: Snippet 27 ended.(388104+189710x1840804).
+<-><->
+      
+l.219   \(C_{k,\text{mean}}\)
+                              points into a single set, \(C_{k}\), for
+Not a real error.
+
+[27]
+! Preview: Snippet 28 started.
+<-><->
+      
+l.219 ...ext{mean}}\) points into a single set, \(
+                                                  C_{k}\), for
+Not a real error.
+
+! Preview: Snippet 28 ended.(388104+125363x676828).
+<-><->
+      
+l.219 ...n}}\) points into a single set, \(C_{k}\)
+                                                  , for
+Not a real error.
+
+[28]
+! Preview: Snippet 29 started.
+<-><->
+      
+l.221 \item For each of the points \(
+                                     C_{k}\), determine the radial
+Not a real error.
+
+! Preview: Snippet 29 ended.(388104+125363x676828).
+<-><->
+      
+l.221 \item For each of the points \(C_{k}\)
+                                            , determine the radial
+Not a real error.
+
+[29]
+! Preview: Snippet 30 started.
+<-><->
+      
+l.222   separation from the central source, \(
+                                              R_k = |C_k - C_0|\) and the
+Not a real error.
+
+! Preview: Snippet 30 ended.(417300+125363x3686675).
+<-><->
+      
+l.222 ...the central source, \(R_k = |C_k - C_0|\)
+                                                   and the
+Not a real error.
+
+[30]
+! Preview: Snippet 31 started.
+<-><->
+      
+l.224   \(
+          \theta_k = \text{PA}(C_k, C_0) - \text{PA}_0\).  These are plotted in
+
+Not a real error.
+
+! Preview: Snippet 31 ended.(417300+125363x5581558).
+<-><->
+      
+l.224 ...a_k = \text{PA}(C_k, C_0) - \text{PA}_0\)
+                                                  .  These are plotted in
+Not a real error.
+
+[31]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 225.
+
+! Preview: Snippet 32 started.
+<-><->
+      
+l.226 ...rays are cast from the step-back point \(
+                                                  C_1\)
+Not a real error.
+
+! Preview: Snippet 32 ended.(388104+88473x664412).
+<-><->
+      
+l.226 ...are cast from the step-back point \(C_1\)
+                                                  
+Not a real error.
+
+[32]
+! Preview: Snippet 33 started.
+<-><->
+      
+l.227   within \(
+                 \pm 60\degr\) of \(\text{PA}_0\), the angles \(\theta_k\) are
+Not a real error.
+
+! Preview: Snippet 33 ended.(431783+0x1251870).
+<-><->
+      
+l.227   within \(\pm 60\degr\)
+                               of \(\text{PA}_0\), the angles \(\theta_k\) are
+Not a real error.
+
+[33]
+! Preview: Snippet 34 started.
+<-><->
+      
+l.227   within \(\pm 60\degr\) of \(
+                                    \text{PA}_0\), the angles \(\theta_k\) are
+Not a real error.
+
+! Preview: Snippet 34 ended.(398720+88473x994713).
+<-><->
+      
+l.227   within \(\pm 60\degr\) of \(\text{PA}_0\)
+                                                 , the angles \(\theta_k\) are
+Not a real error.
+
+[34]
+! Preview: Snippet 35 started.
+<-><->
+      
+l.227 ...\degr\) of \(\text{PA}_0\), the angles \(
+                                                  \theta_k\) are
+Not a real error.
+
+! Preview: Snippet 35 ended.(388104+125363x595432).
+<-><->
+      
+l.227 ... \(\text{PA}_0\), the angles \(\theta_k\)
+                                                   are
+Not a real error.
+
+[35]
+! Preview: Snippet 36 started.
+<-><->
+      
+l.228   measured from the source, \(
+                                    C_0\), which is closer to the bow shock
+Not a real error.
+
+! Preview: Snippet 36 ended.(388104+88473x664412).
+<-><->
+      
+l.228   measured from the source, \(C_0\)
+                                         , which is closer to the bow shock
+Not a real error.
+
+[36]
+! Preview: Snippet 37 started.
+<-><->
+      
+l.229   than \(
+               C_1\) and therefore \(|\theta_k|\) can be much larger than
+Not a real error.
+
+! Preview: Snippet 37 ended.(388104+88473x664412).
+<-><->
+      
+l.229   than \(C_1\)
+                     and therefore \(|\theta_k|\) can be much larger than
+Not a real error.
+
+[37]
+! Preview: Snippet 38 started.
+<-><->
+      
+l.229   than \(C_1\) and therefore \(
+                                     |\theta_k|\) can be much larger than
+Not a real error.
+
+! Preview: Snippet 38 ended.(417300+125363x925730).
+<-><->
+      
+l.229   than \(C_1\) and therefore \(|\theta_k|\)
+                                                  can be much larger than
+Not a real error.
+
+[38]
+! Preview: Snippet 39 started.
+<-><->
+      
+l.230   \(
+          60\degr\).
+Not a real error.
+
+! Preview: Snippet 39 ended.(431783+0x876743).
+<-><->
+      
+l.230   \(60\degr\)
+                   .
+Not a real error.
+
+[39]
+! Preview: Snippet 40 started.
+<-><->
+      
+l.231 ...ke our own estimate of the axial size, \(
+                                                  R_0\), of the bow
+Not a real error.
+
+! Preview: Snippet 40 ended.(388104+88473x662643).
+<-><->
+      
+l.231 ...r own estimate of the axial size, \(R_0\)
+                                                  , of the bow
+Not a real error.
+
+[40]
+! Preview: Snippet 41 started.
+<-><->
+      
+l.232   shock by calculating the mean of \(
+                                           R_k\) over all points \(C_k\)
+Not a real error.
+
+! Preview: Snippet 41 ended.(388104+125363x675059).
+<-><->
+      
+l.232   shock by calculating the mean of \(R_k\)
+                                                 over all points \(C_k\)
+Not a real error.
+
+[41]
+! Preview: Snippet 42 started.
+<-><->
+      
+l.232 ...ng the mean of \(R_k\) over all points \(
+                                                  C_k\)
+Not a real error.
+
+! Preview: Snippet 42 ended.(388104+125363x676828).
+<-><->
+      
+l.232 ...e mean of \(R_k\) over all points \(C_k\)
+                                                  
+Not a real error.
+
+[42]
+! Preview: Snippet 43 started.
+<-><->
+      
+l.233   with \(
+               |\theta_k| \le 10\degr\).  Note that this is distinct from the
+Not a real error.
+
+! Preview: Snippet 43 ended.(431783+125363x2588906).
+<-><->
+      
+l.233   with \(|\theta_k| \le 10\degr\)
+                                       .  Note that this is distinct from the
+Not a real error.
+
+[43]
+! Preview: Snippet 44 started.
+<-><->
+      
+l.234   nominal value of \(
+                           R_0\) given in the \citet{Kobulnicky:2016a}
+Not a real error.
+
+! Preview: Snippet 44 ended.(388104+88473x662643).
+<-><->
+      
+l.234   nominal value of \(R_0\)
+                                 given in the \citet{Kobulnicky:2016a}
+Not a real error.
+
+[44]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 234.
+
+! Preview: Snippet 45 started.
+<-><->
+      
+l.236   \(
+          \epsilon(R_0)\) the standard deviation of the \(R_k\) that go into
+Not a real error.
+
+! Preview: Snippet 45 ended.(417300+115900x1340349).
+<-><->
+      
+l.236   \(\epsilon(R_0)\)
+                          the standard deviation of the \(R_k\) that go into
+Not a real error.
+
+[45]
+! Preview: Snippet 46 started.
+<-><->
+      
+l.236 ...n(R_0)\) the standard deviation of the \(
+                                                  R_k\) that go into
+Not a real error.
+
+! Preview: Snippet 46 ended.(388104+125363x675059).
+<-><->
+      
+l.236 ...)\) the standard deviation of the \(R_k\)
+                                                   that go into
+Not a real error.
+
+[46]
+! Preview: Snippet 47 started.
+<-><->
+      
+l.237   calculating \(
+                      R_0\).\label{step:R0}
+Not a real error.
+
+! Preview: Snippet 47 ended.(388104+88473x662643).
+<-><->
+      
+l.237   calculating \(R_0\)
+                           .\label{step:R0}
+Not a real error.
+
+[47]
+! Preview: Snippet 48 started.
+<-><->
+      
+l.238 \item Estimate the radius of curvature, \(
+                                                R_c\), by fitting a circle
+Not a real error.
+
+! Preview: Snippet 48 ended.(388104+93017x674581).
+<-><->
+      
+l.238 ...Estimate the radius of curvature, \(R_c\)
+                                                  , by fitting a circle
+Not a real error.
+
+[48]
+! Preview: Snippet 49 started.
+<-><->
+      
+l.239   to all those points within \(
+                                     \pm 45\degr\) of the nominal axis
+Not a real error.
+
+! Preview: Snippet 49 ended.(431783+0x1251870).
+<-><->
+      
+l.239   to all those points within \(\pm 45\degr\)
+                                                   of the nominal axis
+Not a real error.
+
+[49]
+! Preview: Snippet 50 started.
+<-><->
+      
+l.240   (\(
+           |\theta_k| < 45\degr\)), but after excluding any point with
+Not a real error.
+
+! Preview: Snippet 50 ended.(431783+125363x2530643).
+<-><->
+      
+l.240   (\(|\theta_k| < 45\degr\)
+                                 ), but after excluding any point with
+Not a real error.
+
+[50]
+! Preview: Snippet 51 started.
+<-><->
+      
+l.241   \(
+          R_k < \frac12 R_m\) or \(R_k > 2 R_m\), where \(R_m\) is the median
+Not a real error.
+
+! Preview: Snippet 51 ended.(528030+203489x2627416).
+<-><->
+      
+l.241   \(R_k < \frac12 R_m\)
+                              or \(R_k > 2 R_m\), where \(R_m\) is the median
+Not a real error.
+
+[51]
+! Preview: Snippet 52 started.
+<-><->
+      
+l.241   \(R_k < \frac12 R_m\) or \(
+                                   R_k > 2 R_m\), where \(R_m\) is the median
+Not a real error.
+
+! Preview: Snippet 52 ended.(388104+125363x2511997).
+<-><->
+      
+l.241   \(R_k < \frac12 R_m\) or \(R_k > 2 R_m\)
+                                                , where \(R_m\) is the median
+Not a real error.
+
+[52]
+! Preview: Snippet 53 started.
+<-><->
+      
+l.241 ...frac12 R_m\) or \(R_k > 2 R_m\), where \(
+                                                  R_m\) is the median
+Not a real error.
+
+! Preview: Snippet 53 ended.(388104+93017x805666).
+<-><->
+      
+l.241 ...2 R_m\) or \(R_k > 2 R_m\), where \(R_m\)
+                                                   is the median
+Not a real error.
+
+[53]
+! Preview: Snippet 54 started.
+<-><->
+      
+l.242   \(
+          R_k\) for \(|\theta_k| < 45\degr\).
+Not a real error.
+
+! Preview: Snippet 54 ended.(388104+125363x675059).
+<-><->
+      
+l.242   \(R_k\)
+                for \(|\theta_k| < 45\degr\).
+Not a real error.
+
+[54]
+! Preview: Snippet 55 started.
+<-><->
+      
+l.242   \(R_k\) for \(
+                      |\theta_k| < 45\degr\).
+Not a real error.
+
+! Preview: Snippet 55 ended.(431783+125363x2530643).
+<-><->
+      
+l.242   \(R_k\) for \(|\theta_k| < 45\degr\)
+                                            .
+Not a real error.
+
+[55]
+! Preview: Snippet 56 started.
+<-><->
+      
+l.243 \item Determine two separate estimates, \(
+                                                R_{90+}\) and \(R_{90-}\),
+Not a real error.
+
+! Preview: Snippet 56 ended.(388104+88473x1228148).
+<-><->
+      
+l.243 ...rmine two separate estimates, \(R_{90+}\)
+                                                   and \(R_{90-}\),
+Not a real error.
+
+[56]
+! Preview: Snippet 57 started.
+<-><->
+      
+l.243 ...wo separate estimates, \(R_{90+}\) and \(
+                                                  R_{90-}\),
+Not a real error.
+
+! Preview: Snippet 57 ended.(388104+88473x1228148).
+<-><->
+      
+l.243 ...te estimates, \(R_{90+}\) and \(R_{90-}\)
+                                                  ,
+Not a real error.
+
+[57]
+! Preview: Snippet 58 started.
+<-><->
+      
+l.244   of the perpendicular radius, \(
+                                       R_{90}\), by taking the mean of
+Not a real error.
+
+! Preview: Snippet 58 ended.(388104+88473x923878).
+<-><->
+      
+l.244   of the perpendicular radius, \(R_{90}\)
+                                               , by taking the mean of
+Not a real error.
+
+[58]
+! Preview: Snippet 59 started.
+<-><->
+      
+l.245   \(
+          R_k\) over all points \(C_k\) with
+Not a real error.
+
+! Preview: Snippet 59 ended.(388104+125363x675059).
+<-><->
+      
+l.245   \(R_k\)
+                over all points \(C_k\) with
+Not a real error.
+
+[59]
+! Preview: Snippet 60 started.
+<-><->
+      
+l.245   \(R_k\) over all points \(
+                                  C_k\) with
+Not a real error.
+
+! Preview: Snippet 60 ended.(388104+125363x676828).
+<-><->
+      
+l.245   \(R_k\) over all points \(C_k\)
+                                        with
+Not a real error.
+
+[60]
+! Preview: Snippet 61 started.
+<-><->
+      
+l.246   \(
+          |\theta_k - 90\degr| \le 10\degr\) for \(R_{90+}\), and with
+Not a real error.
+
+! Preview: Snippet 61 ended.(431783+125363x4102920).
+<-><->
+      
+l.246   \(|\theta_k - 90\degr| \le 10\degr\)
+                                             for \(R_{90+}\), and with
+Not a real error.
+
+[61]
+! Preview: Snippet 62 started.
+<-><->
+      
+l.246 ...|\theta_k - 90\degr| \le 10\degr\) for \(
+                                                  R_{90+}\), and with
+Not a real error.
+
+! Preview: Snippet 62 ended.(388104+88473x1228148).
+<-><->
+      
+l.246 ... - 90\degr| \le 10\degr\) for \(R_{90+}\)
+                                                  , and with
+Not a real error.
+
+[62]
+! Preview: Snippet 63 started.
+<-><->
+      
+l.247   \(
+          |\theta_k + 90\degr| \le 10\degr\) for \(R_{90-}\).  The average o...
+
+Not a real error.
+
+! Preview: Snippet 63 ended.(431783+125363x4102920).
+<-><->
+      
+l.247   \(|\theta_k + 90\degr| \le 10\degr\)
+                                             for \(R_{90-}\).  The average o...
+
+Not a real error.
+
+[63]
+! Preview: Snippet 64 started.
+<-><->
+      
+l.247 ...|\theta_k + 90\degr| \le 10\degr\) for \(
+                                                  R_{90-}\).  The average of...
+
+Not a real error.
+
+! Preview: Snippet 64 ended.(388104+88473x1228148).
+<-><->
+      
+l.247 ... + 90\degr| \le 10\degr\) for \(R_{90-}\)
+                                                  .  The average of the
+Not a real error.
+
+[64]
+! Preview: Snippet 65 started.
+<-><->
+      
+l.248   two standard deviations of the \(
+                                         R_k\) that contribute to
+Not a real error.
+
+! Preview: Snippet 65 ended.(388104+125363x675059).
+<-><->
+      
+l.248   two standard deviations of the \(R_k\)
+                                               that contribute to
+Not a real error.
+
+[65]
+! Preview: Snippet 66 started.
+<-><->
+      
+l.249   \(
+          R_{90+}\) and \(R_{90-}\) is denoted by \(\epsilon(R_{90})\).\labe...
+
+Not a real error.
+
+! Preview: Snippet 66 ended.(388104+88473x1228148).
+<-><->
+      
+l.249   \(R_{90+}\)
+                    and \(R_{90-}\) is denoted by \(\epsilon(R_{90})\).\labe...
+
+Not a real error.
+
+[66]
+! Preview: Snippet 67 started.
+<-><->
+      
+l.249   \(R_{90+}\) and \(
+                          R_{90-}\) is denoted by \(\epsilon(R_{90})\).\labe...
+
+Not a real error.
+
+! Preview: Snippet 67 ended.(388104+88473x1228148).
+<-><->
+      
+l.249   \(R_{90+}\) and \(R_{90-}\)
+                                    is denoted by \(\epsilon(R_{90})\).\labe...
+
+Not a real error.
+
+[67]
+! Preview: Snippet 68 started.
+<-><->
+      
+l.249 ..._{90+}\) and \(R_{90-}\) is denoted by \(
+                                                  \epsilon(R_{90})\).\label{...
+
+Not a real error.
+
+! Preview: Snippet 68 ended.(417300+115900x1601584).
+<-><->
+      
+l.249 ...90-}\) is denoted by \(\epsilon(R_{90})\)
+                                                  .\label{step:R90}
+Not a real error.
+
+[68]
+! Preview: Snippet 69 started.
+<-><->
+      
+l.253 \subsubsection
+                    {Subjective evaluation of the fit quality}
+Not a real error.
+
+! Preview: Snippet 69 ended.(401080+121798x15728640).
+<-><->
+      
+l.253 ...Subjective evaluation of the fit quality}
+                                                  
+Not a real error.
+
+[69
+
+]
+! Preview: Snippet 70 started.
+<-><->
+      
+l.259 \paragraph
+                *{0 stars} The fitting algorithm failed for some reason.
+Not a real error.
+
+! Preview: Snippet 70 ended.(406094+7962x1660353).
+<-><->
+      
+l.259 \paragraph*{0 stars}
+                           The fitting algorithm failed for some reason.
+Not a real error.
+
+[70]
+! Preview: Snippet 71 started.
+<-><->
+      
+l.261 \paragraph
+                *{1 star} The fit was formally successful, but the results
+Not a real error.
+
+! Preview: Snippet 71 ended.(406094+7962x1430912).
+<-><->
+      
+l.261 \paragraph*{1 star}
+                          The fit was formally successful, but the results
+Not a real error.
+
+[71]
+! Preview: Snippet 72 started.
+<-><->
+      
+l.262 for \(
+            R_c\) or \(R_{90}\) are far removed from what a human would
+Not a real error.
+
+! Preview: Snippet 72 ended.(388104+93017x674581).
+<-><->
+      
+l.262 for \(R_c\)
+                  or \(R_{90}\) are far removed from what a human would
+Not a real error.
+
+[72]
+! Preview: Snippet 73 started.
+<-><->
+      
+l.262 for \(R_c\) or \(
+                       R_{90}\) are far removed from what a human would
+Not a real error.
+
+! Preview: Snippet 73 ended.(388104+88473x923878).
+<-><->
+      
+l.262 for \(R_c\) or \(R_{90}\)
+                                are far removed from what a human would
+Not a real error.
+
+[73]
+! Preview: Snippet 74 started.
+<-><->
+      
+l.265 beam, the dispersion in \(
+                                R_k\) can be a significant fraction of
+Not a real error.
+
+! Preview: Snippet 74 ended.(388104+125363x675059).
+<-><->
+      
+l.265 beam, the dispersion in \(R_k\)
+                                      can be a significant fraction of
+Not a real error.
+
+[74]
+! Preview: Snippet 75 started.
+<-><->
+      
+l.266 \(
+        R_0\), in which case our algorithm tends to erroneously favor
+Not a real error.
+
+! Preview: Snippet 75 ended.(388104+88473x662643).
+<-><->
+      
+l.266 \(R_0\)
+             , in which case our algorithm tends to erroneously favor
+Not a real error.
+
+[75]
+! Preview: Snippet 76 started.
+<-><->
+      
+l.267 \(
+        R_c < R_0\).
+Not a real error.
+
+! Preview: Snippet 76 ended.(388104+93017x2065394).
+<-><->
+      
+l.267 \(R_c < R_0\)
+                   .
+Not a real error.
+
+[76]
+! Preview: Snippet 77 started.
+<-><->
+      
+l.269 \paragraph
+                *{2 stars} The fit results are not totally outlandish, but
+Not a real error.
+
+! Preview: Snippet 77 ended.(406094+7962x1660353).
+<-><->
+      
+l.269 \paragraph*{2 stars}
+                           The fit results are not totally outlandish, but
+Not a real error.
+
+[77]
+! Preview: Snippet 78 started.
+<-><->
+      
+l.276 \paragraph
+                *{3 stars} A good fit, but where the dispersion in \(R_k\)
+Not a real error.
+
+! Preview: Snippet 78 ended.(406094+7962x1660353).
+<-><->
+      
+l.276 \paragraph*{3 stars}
+                           A good fit, but where the dispersion in \(R_k\)
+Not a real error.
+
+[78]
+! Preview: Snippet 79 started.
+<-><->
+      
+l.276 ... good fit, but where the dispersion in \(
+                                                  R_k\)
+Not a real error.
+
+! Preview: Snippet 79 ended.(388104+125363x675059).
+<-><->
+      
+l.276 ... fit, but where the dispersion in \(R_k\)
+                                                  
+Not a real error.
+
+[79]
+! Preview: Snippet 80 started.
+<-><->
+      
+l.278 determination of \(
+                         R_c\) and \(R_{90}\), giving subjectively estimated
+Not a real error.
+
+! Preview: Snippet 80 ended.(388104+93017x674581).
+<-><->
+      
+l.278 determination of \(R_c\)
+                               and \(R_{90}\), giving subjectively estimated
+Not a real error.
+
+[80]
+! Preview: Snippet 81 started.
+<-><->
+      
+l.278 determination of \(R_c\) and \(
+                                     R_{90}\), giving subjectively estimated
+Not a real error.
+
+! Preview: Snippet 81 ended.(388104+88473x923878).
+<-><->
+      
+l.278 determination of \(R_c\) and \(R_{90}\)
+                                             , giving subjectively estimated
+Not a real error.
+
+[81]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 280.
+
+! Preview: Snippet 82 started.
+<-><->
+      
+l.282 \paragraph
+                *{4 stars} A high quality fit, with subjectively estimated
+Not a real error.
+
+! Preview: Snippet 82 ended.(406094+7962x1660353).
+<-><->
+      
+l.282 \paragraph*{4 stars}
+                           A high quality fit, with subjectively estimated
+Not a real error.
+
+[82]
+! Preview: Snippet 83 started.
+<-><->
+      
+l.283 uncertainties in \(
+                         R_c\) and \(R_{90}\) around the 10\% level. An
+Not a real error.
+
+! Preview: Snippet 83 ended.(388104+93017x674581).
+<-><->
+      
+l.283 uncertainties in \(R_c\)
+                               and \(R_{90}\) around the 10\% level. An
+Not a real error.
+
+[83]
+! Preview: Snippet 84 started.
+<-><->
+      
+l.283 uncertainties in \(R_c\) and \(
+                                     R_{90}\) around the 10\% level. An
+Not a real error.
+
+! Preview: Snippet 84 ended.(388104+88473x923878).
+<-><->
+      
+l.283 uncertainties in \(R_c\) and \(R_{90}\)
+                                              around the 10\% level. An
+Not a real error.
+
+[84]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 285.
+
+! Preview: Snippet 85 started.
+<-><->
+      
+l.287 \paragraph
+                *{5 stars} The highest-quality fit, usually corresponding to
+Not a real error.
+
+! Preview: Snippet 85 ended.(406094+7962x1660353).
+<-><->
+      
+l.287 \paragraph*{5 stars}
+                           The highest-quality fit, usually corresponding to
+Not a real error.
+
+[85]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 290.
+
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 294.
+
+! Preview: Snippet 86 started.
+<-><->
+      
+l.295 \(
+        R_0\), determined by our fits (vertical axis) with the corresponding
+Not a real error.
+
+! Preview: Snippet 86 ended.(388104+88473x662643).
+<-><->
+      
+l.295 \(R_0\)
+             , determined by our fits (vertical axis) with the corresponding
+Not a real error.
+
+[86]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 296.
+
+! Preview: Snippet 87 started.
+<-><->
+      
+l.298 to within \(
+                  \pm 20\%\), but there are a small number of sources with a
+Not a real error.
+
+! Preview: Snippet 87 ended.(442368+32767x1486501).
+<-><->
+      
+l.298 to within \(\pm 20\%\)
+                            , but there are a small number of sources with a
+Not a real error.
+
+[87]
+! Preview: Snippet 88 started.
+<-><->
+      
+l.300 checked, we believe that our estimates of \(
+                                                  R_0\) are more accurate
+Not a real error.
+
+! Preview: Snippet 88 ended.(388104+88473x662643).
+<-><->
+      
+l.300 ... we believe that our estimates of \(R_0\)
+                                                   are more accurate
+Not a real error.
+
+[88]
+! Preview: Snippet 89 started.
+<-><->
+      
+l.305 ...it of the MIPSGAL \SI{24}{\um} images (\(
+                                                  6\arcsec\),
+Not a real error.
+
+! Preview: Snippet 89 ended.(431783+0x677454).
+<-><->
+      
+l.305 ...MIPSGAL \SI{24}{\um} images (\(6\arcsec\)
+                                                  ,
+Not a real error.
+
+[89]
+! Preview: Snippet 90 started.
+<-><->
+      
+l.308 \begin{figure*}
+                     
+Not a real error.
+
+<figs/mipsgal-Rc-R90-zoom-annotated.pdf, id=364, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-zoom-annotated.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-zoom-annotated.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-zoom-annotated.pdf used on input l
+ine 313.
+(pdftex.def)             Requested size: 226.79846pt x 243.72539pt.
+
+<figs/mipsgal-Rc-R90-thumbnails.pdf, id=365, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-thumbnails.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-thumbnails.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-thumbnails.pdf used on input line 
+315.
+(pdftex.def)             Requested size: 226.79846pt x 243.72539pt.
+
+
+LaTeX Warning: Reference `sec:conic' on page 1 undefined on input line 343.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 343.
+
+
+LaTeX Warning: Reference `sec:conic' on page 1 undefined on input line 343.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 343.
+
+! Preview: Snippet 90 ended.(24049445+0x33030144).
+<-><->
+      
+l.345 \end{figure*}
+                   
+Not a real error.
+
+[90
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.345 \end{figure*}
+                   
+
+ <./figs/mipsgal-Rc-R90-zoom-annotated.pdf> <./figs/mipsgal-Rc-R90-thumbnails.p
+df>]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 355.
+
+! Preview: Snippet 91 started.
+<-><->
+      
+l.356 ...difference between the position angle, \(
+                                                  \text{PA}_0\) determined
+Not a real error.
+
+! Preview: Snippet 91 ended.(398720+88473x994713).
+<-><->
+      
+l.356 ...tween the position angle, \(\text{PA}_0\)
+                                                   determined
+Not a real error.
+
+[91]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 357.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 1 undefined on inpu
+t line 361.
+
+! Preview: Snippet 92 started.
+<-><->
+      
+l.361 \citeauthor{Kobulnicky:2016a} catalog \(
+                                              \text{PA}_0\) values are
+Not a real error.
+
+! Preview: Snippet 92 ended.(398720+88473x994713).
+<-><->
+      
+l.361 ...Kobulnicky:2016a} catalog \(\text{PA}_0\)
+                                                   values are
+Not a real error.
+
+[92]
+! Preview: Snippet 93 started.
+<-><->
+      
+l.363 our fitted \(
+                   \text{PA}_0\) values are determined by the point in the
+Not a real error.
+
+! Preview: Snippet 93 ended.(398720+88473x994713).
+<-><->
+      
+l.363 our fitted \(\text{PA}_0\)
+                                 values are determined by the point in the
+Not a real error.
+
+[93]
+! Preview: Snippet 94 started.
+<-><->
+      
+l.365 reason, we use the catalog \(
+                                   \text{PA}_0\) values for defining the
+Not a real error.
+
+! Preview: Snippet 94 ended.(398720+88473x994713).
+<-><->
+      
+l.365 reason, we use the catalog \(\text{PA}_0\)
+                                                 values for defining the
+Not a real error.
+
+[94]
+! Preview: Snippet 95 started.
+<-><->
+      
+l.366 axis when measuring \(
+                            R_{90+}\) and \(R_{90-}\). On the other hand,
+Not a real error.
+
+! Preview: Snippet 95 ended.(388104+88473x1228148).
+<-><->
+      
+l.366 axis when measuring \(R_{90+}\)
+                                      and \(R_{90-}\). On the other hand,
+Not a real error.
+
+[95]
+! Preview: Snippet 96 started.
+<-><->
+      
+l.366 axis when measuring \(R_{90+}\) and \(
+                                            R_{90-}\). On the other hand,
+Not a real error.
+
+! Preview: Snippet 96 ended.(388104+88473x1228148).
+<-><->
+      
+l.366 ...hen measuring \(R_{90+}\) and \(R_{90-}\)
+                                                  . On the other hand,
+Not a real error.
+
+[96]
+! Preview: Snippet 97 started.
+<-><->
+      
+l.367 the fitted values of \(
+                             \text{PA}_0\) are better correlated with the
+Not a real error.
+
+! Preview: Snippet 97 ended.(398720+88473x994713).
+<-><->
+      
+l.367 the fitted values of \(\text{PA}_0\)
+                                           are better correlated with the
+Not a real error.
+
+[97]
+
+LaTeX Warning: Reference `fig:mipsgal-examples' on page 1 undefined on input li
+ne 369.
+
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 12.0pt on input line 370.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
+(Font)              scaled to size 12.0pt on input line 370.
+! Preview: Snippet 98 started.
+<-><->
+      
+l.371 \subsubsection
+                    {OB bow shock shapes on the diagnostic plane}
+Not a real error.
+
+! Preview: Snippet 98 ended.(401080+121798x15728640).
+<-><->
+      
+l.371 ...bow shock shapes on the diagnostic plane}
+                                                  
+Not a real error.
+
+[98
+
+]
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 2 undefined on input line
+ 375.
+
+! Preview: Snippet 99 started.
+<-><->
+      
+l.375 ...ef{fig:mipsgal-shapes} on the plane of \(
+                                                  R_c/R_0\)
+Not a real error.
+
+! Preview: Snippet 99 ended.(417300+115900x1608543).
+<-><->
+      
+l.375 ...psgal-shapes} on the plane of \(R_c/R_0\)
+                                                  
+Not a real error.
+
+[99]
+! Preview: Snippet 100 started.
+<-><->
+      
+l.376 versus \(
+               R_{90} / R_0\).  Panel a shows the individual points
+Not a real error.
+
+! Preview: Snippet 100 ended.(417300+115900x1857840).
+<-><->
+      
+l.376 versus \(R_{90} / R_0\)
+                             .  Panel a shows the individual points
+Not a real error.
+
+[100]
+
+LaTeX Warning: Reference `sec:conic' on page 2 undefined on input line 378.
+
+
+Package natbib Warning: Citation `Leiva-Murillo:2012a' on page 2 undefined on i
+nput line 380.
+
+
+Package natbib Warning: Citation `Scott:2015a' on page 2 undefined on input lin
+e 380.
+
+! Preview: Snippet 101 started.
+<-><->
+      
+l.381 distribution of points on the \(
+                                      R_c\)--\(R_{90}\) plane.  The
+Not a real error.
+
+! Preview: Snippet 101 ended.(388104+93017x674581).
+<-><->
+      
+l.381 distribution of points on the \(R_c\)
+                                           --\(R_{90}\) plane.  The
+Not a real error.
+
+[101]
+! Preview: Snippet 102 started.
+<-><->
+      
+l.381 distribution of points on the \(R_c\)--\(
+                                               R_{90}\) plane.  The
+Not a real error.
+
+! Preview: Snippet 102 ended.(388104+88473x923878).
+<-><->
+      
+l.381 ...tion of points on the \(R_c\)--\(R_{90}\)
+                                                   plane.  The
+Not a real error.
+
+[102]
+! Preview: Snippet 103 started.
+<-><->
+      
+l.384 \(
+        R_c/R_0 < 1\) to flatter, snubber shapes with \(R_c/R_0 \gg 1\), where
+Not a real error.
+
+! Preview: Snippet 103 ended.(417300+115900x2639815).
+<-><->
+      
+l.384 \(R_c/R_0 < 1\)
+                      to flatter, snubber shapes with \(R_c/R_0 \gg 1\), where
+Not a real error.
+
+[103]
+! Preview: Snippet 104 started.
+<-><->
+      
+l.384 ... < 1\) to flatter, snubber shapes with \(
+                                                  R_c/R_0 \gg 1\), where
+Not a real error.
+
+! Preview: Snippet 104 ended.(417300+115900x2798477).
+<-><->
+      
+l.384 ...er, snubber shapes with \(R_c/R_0 \gg 1\)
+                                                  , where
+Not a real error.
+
+[104]
+! Preview: Snippet 105 started.
+<-><->
+      
+l.386 with respect to the axial separation, \(
+                                              R_0\), between the source and
+Not a real error.
+
+! Preview: Snippet 105 ended.(388104+88473x662643).
+<-><->
+      
+l.386 ... respect to the axial separation, \(R_0\)
+                                                  , between the source and
+Not a real error.
+
+[105]
+! Preview: Snippet 106 started.
+<-><->
+      
+l.389 of \(
+           R_{90} / R_0\) to open ``V'' shapes for larger values of
+Not a real error.
+
+! Preview: Snippet 106 ended.(417300+115900x1857840).
+<-><->
+      
+l.389 of \(R_{90} / R_0\)
+                          to open ``V'' shapes for larger values of
+Not a real error.
+
+[106]
+! Preview: Snippet 107 started.
+<-><->
+      
+l.390 \(
+        R_{90} / R_0\).  The boundary between closed and open corresponds to
+Not a real error.
+
+! Preview: Snippet 107 ended.(417300+115900x1857840).
+<-><->
+      
+l.390 \(R_{90} / R_0\)
+                      .  The boundary between closed and open corresponds to
+Not a real error.
+
+[107]
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 2 undefined on input line
+ 394.
+
+
+LaTeX Warning: Reference `sec:corr-shape' on page 2 undefined on input line 398
+.
+
+! Preview: Snippet 108 started.
+<-><->
+      
+l.402 with \(
+             1 < R_c/R_0 < 2.5\), and \(1.2 < R_{90}/R_0 < 2\).  But
+Not a real error.
+
+! Preview: Snippet 108 ended.(417300+115900x4141109).
+<-><->
+      
+l.402 with \(1 < R_c/R_0 < 2.5\)
+                                , and \(1.2 < R_{90}/R_0 < 2\).  But
+Not a real error.
+
+[108]
+! Preview: Snippet 109 started.
+<-><->
+      
+l.402 with \(1 < R_c/R_0 < 2.5\), and \(
+                                        1.2 < R_{90}/R_0 < 2\).  But
+Not a real error.
+
+! Preview: Snippet 109 ended.(417300+115900x4390406).
+<-><->
+      
+l.402 ...R_0 < 2.5\), and \(1.2 < R_{90}/R_0 < 2\)
+                                                  .  But
+Not a real error.
+
+[109]
+! Preview: Snippet 110 started.
+<-><->
+      
+l.404 with \(
+             R_c/R_0 \la 1\); (2)~a vertical spur towards higher \(R_{90}\)
+Not a real error.
+
+! Preview: Snippet 110 ended.(430324+135412x2698078).
+<-><->
+      
+l.404 with \(R_c/R_0 \la 1\)
+                            ; (2)~a vertical spur towards higher \(R_{90}\)
+Not a real error.
+
+[110]
+! Preview: Snippet 111 started.
+<-><->
+      
+l.404 ...\); (2)~a vertical spur towards higher \(
+                                                  R_{90}\)
+Not a real error.
+
+! Preview: Snippet 111 ended.(388104+88473x923878).
+<-><->
+      
+l.404 ...a vertical spur towards higher \(R_{90}\)
+                                                  
+Not a real error.
+
+[111]
+! Preview: Snippet 112 started.
+<-><->
+      
+l.405 at \(
+           R_c/R_0 \approx 2\); and (3)~a broad horizontal tail towards higher
+Not a real error.
+
+! Preview: Snippet 112 ended.(417300+115900x2614452).
+<-><->
+      
+l.405 at \(R_c/R_0 \approx 2\)
+                              ; and (3)~a broad horizontal tail towards higher
+Not a real error.
+
+[112]
+! Preview: Snippet 113 started.
+<-><->
+      
+l.406 \(
+        R_c\) at \(R_{90}/R_0 \la 2\).
+Not a real error.
+
+! Preview: Snippet 113 ended.(388104+93017x674581).
+<-><->
+      
+l.406 \(R_c\)
+              at \(R_{90}/R_0 \la 2\).
+Not a real error.
+
+[113]
+! Preview: Snippet 114 started.
+<-><->
+      
+l.406 \(R_c\) at \(
+                   R_{90}/R_0 \la 2\).
+Not a real error.
+
+! Preview: Snippet 114 ended.(430324+135412x2947375).
+<-><->
+      
+l.406 \(R_c\) at \(R_{90}/R_0 \la 2\)
+                                     .
+Not a real error.
+
+[114]
+! Preview: Snippet 115 started.
+<-><->
+      
+l.409 \subsubsection
+                    {Correlation between bow shock size and other parameters}
+Not a real error.
+
+! Preview: Snippet 115 ended.(401080+121798x15728640).
+<-><->
+      
+l.409 ...ween bow shock size and other parameters}
+                                                  
+Not a real error.
+
+[115
+
+]
+! Preview: Snippet 116 started.
+<-><->
+      
+l.412 \begin{figure*}
+                     
+Not a real error.
+
+<figs/mipsgal-pairplot.pdf, id=633, 521.71156pt x 523.13503pt>
+File: figs/mipsgal-pairplot.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-pairplot.pdf>
+Package pdftex.def Info: figs/mipsgal-pairplot.pdf used on input line 414.
+(pdftex.def)             Requested size: 403.20154pt x 404.3159pt.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 2 undefined on inpu
+t line 431.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 2 undefined on inpu
+t line 431.
+
+! Preview: Snippet 116 ended.(31329347+0x33030144).
+<-><->
+      
+l.433 \end{figure*}
+                   
+Not a real error.
+
+[116
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.433 \end{figure*}
+                   
+
+ <./figs/mipsgal-pairplot.pdf>]
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 2 undefined on input li
+ne 435.
+
+! Preview: Snippet 117 started.
+<-><->
+      
+l.438 extinction.  For the bow shock size, \(
+                                             R_0\), we use the results from
+Not a real error.
+
+! Preview: Snippet 117 ended.(388104+88473x662643).
+<-><->
+      
+l.438 extinction.  For the bow shock size, \(R_0\)
+                                                  , we use the results from
+Not a real error.
+
+[117]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 2 undefined on inpu
+t line 440.
+
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 2 undefined on input li
+ne 442.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 2 undefined on inpu
+t line 442.
+
+! Preview: Snippet 118 started.
+<-><->
+      
+l.445 The catalog gives the \(
+                              K\)-band extinction, \(A_K\), derived using
+Not a real error.
+
+! Preview: Snippet 118 ended.(388104+0x447675).
+<-><->
+      
+l.445 The catalog gives the \(K\)
+                                 -band extinction, \(A_K\), derived using
+Not a real error.
+
+[118]
+! Preview: Snippet 119 started.
+<-><->
+      
+l.445 ...talog gives the \(K\)-band extinction, \(
+                                                  A_K\), derived using
+Not a real error.
+
+! Preview: Snippet 119 ended.(388104+102879x841075).
+<-><->
+      
+l.445 ... gives the \(K\)-band extinction, \(A_K\)
+                                                  , derived using
+Not a real error.
+
+[119]
+
+Package natbib Warning: Citation `Majewski:2011a' on page 2 undefined on input 
+line 446.
+
+! Preview: Snippet 120 started.
+<-><->
+      
+l.447 color of \(
+                 (H - [\SI{4.5}{\um}])_0 = +0.08\) magnitudes, which is too
+Not a real error.
+
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 4.01501pt on input line 447.
+! Preview: Snippet 120 ended.(417300+127991x6016805).
+<-><->
+      
+l.447 color of \((H - [\SI{4.5}{\um}])_0 = +0.08\)
+                                                   magnitudes, which is too
+Not a real error.
+
+[120]
+! Preview: Snippet 121 started.
+<-><->
+      
+l.449 \(
+        A_K\) from the catalog magnitudes combined with the
+Not a real error.
+
+! Preview: Snippet 121 ended.(388104+102879x841075).
+<-><->
+      
+l.449 \(A_K\)
+              from the catalog magnitudes combined with the
+Not a real error.
+
+[121]
+
+Package natbib Warning: Citation `Indebetouw:2005a' on page 2 undefined on inpu
+t line 450.
+
+! Preview: Snippet 122 started.
+<-><->
+      
+l.451 \(
+        (H - [\SI{4.5}{\um}])_0 = -0.1\) magnitudes, which is more typical
+Not a real error.
+
+! Preview: Snippet 122 ended.(417300+127991x5713703).
+<-><->
+      
+l.451 \((H - [\SI{4.5}{\um}])_0 = -0.1\)
+                                         magnitudes, which is more typical
+Not a real error.
+
+[122]
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 2 undefined on input li
+ne 453.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 2 undefined on inpu
+t line 454.
+
+! Preview: Snippet 123 started.
+<-><->
+      
+l.456 same reddening law gives \(
+                                 A_H = 1.55 A_K\), and this is used to
+Not a real error.
+
+! Preview: Snippet 123 ended.(388104+102879x3497064).
+<-><->
+      
+l.456 same reddening law gives \(A_H = 1.55 A_K\)
+                                                 , and this is used to
+Not a real error.
+
+[123]
+! Preview: Snippet 124 started.
+<-><->
+      
+l.457 derive extinction-corrected \(
+                                    H\)-band apparent magnitudes, \(H_0\).
+Not a real error.
+
+! Preview: Snippet 124 ended.(388104+0x474217).
+<-><->
+      
+l.457 derive extinction-corrected \(H\)
+                                       -band apparent magnitudes, \(H_0\).
+Not a real error.
+
+[124]
+! Preview: Snippet 125 started.
+<-><->
+      
+l.457 ...rected \(H\)-band apparent magnitudes, \(
+                                                  H_0\).
+Not a real error.
+
+! Preview: Snippet 125 ended.(388104+88473x720445).
+<-><->
+      
+l.457 ...d \(H\)-band apparent magnitudes, \(H_0\)
+                                                  .
+Not a real error.
+
+[125]
+! Preview: Snippet 126 started.
+<-><->
+      
+l.459 \begin{figure*}
+                     
+Not a real error.
+
+<figs/mipsgal-Rc-R90-environment.pdf, id=738, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-environment.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-environment.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-environment.pdf used on input line
+ 463.
+(pdftex.def)             Requested size: 226.79846pt x 226.80038pt.
+
+<figs/mipsgal-Rc-R90-candidates.pdf, id=739, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-candidates.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-candidates.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-candidates.pdf used on input line 
+464.
+(pdftex.def)             Requested size: 226.79846pt x 226.80038pt.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/sc' will be
+(Font)              scaled to size 8.0pt on input line 481.
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/ntxtlf/m/sc/8'.
+(microtype)             Ignoring protrusion settings for this character.
+
+! Preview: Snippet 126 ended.(20954507+0x33030144).
+<-><->
+      
+l.483 \end{figure*}
+                   
+Not a real error.
+
+[126
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.483 \end{figure*}
+                   
+
+ <./figs/mipsgal-Rc-R90-environment.pdf> <./figs/mipsgal-Rc-R90-candidates.pdf>
+]
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 2 undefined on input li
+ne 486.
+
+! Preview: Snippet 127 started.
+<-><->
+      
+l.487 and stellar source brightness: \(
+                                       H_0\) versus \(\log_{10} R_0\), with
+Not a real error.
+
+! Preview: Snippet 127 ended.(388104+88473x720445).
+<-><->
+      
+l.487 and stellar source brightness: \(H_0\)
+                                             versus \(\log_{10} R_0\), with
+Not a real error.
+
+[127]
+! Preview: Snippet 128 started.
+<-><->
+      
+l.487 ...llar source brightness: \(H_0\) versus \(
+                                                  \log_{10} R_0\), with
+Not a real error.
+
+! Preview: Snippet 128 ended.(409600+138608x2099199).
+<-><->
+      
+l.487 ...ghtness: \(H_0\) versus \(\log_{10} R_0\)
+                                                  , with
+Not a real error.
+
+[128]
+! Preview: Snippet 129 started.
+<-><->
+      
+l.488 correlation coefficient \(
+                                r = -0.43\).  The distribution of \(H_0\)
+Not a real error.
+
+! Preview: Snippet 129 ended.(380108+7962x2418991).
+<-><->
+      
+l.488 correlation coefficient \(r = -0.43\)
+                                           .  The distribution of \(H_0\)
+Not a real error.
+
+[129]
+! Preview: Snippet 130 started.
+<-><->
+      
+l.488 ...nt \(r = -0.43\).  The distribution of \(
+                                                  H_0\)
+Not a real error.
+
+! Preview: Snippet 130 ended.(388104+88473x720445).
+<-><->
+      
+l.488 ...r = -0.43\).  The distribution of \(H_0\)
+                                                  
+Not a real error.
+
+[130]
+! Preview: Snippet 131 started.
+<-><->
+      
+l.489 depends on the absolute magnitude, \(
+                                           M_H\), and the distance, \(d\),
+Not a real error.
+
+! Preview: Snippet 131 ended.(388104+102879x990202).
+<-><->
+      
+l.489 depends on the absolute magnitude, \(M_H\)
+                                                , and the distance, \(d\),
+Not a real error.
+
+[131]
+! Preview: Snippet 132 started.
+<-><->
+      
+l.489 ... magnitude, \(M_H\), and the distance, \(
+                                                  d\),
+Not a real error.
+
+! Preview: Snippet 132 ended.(400785+9437x339738).
+<-><->
+      
+l.489 ...gnitude, \(M_H\), and the distance, \(d\)
+                                                  ,
+Not a real error.
+
+[132]
+! Preview: Snippet 133 started.
+<-><->
+      
+l.490 ...ource.  It is likely that variation in \(
+                                                  d\) is the more
+Not a real error.
+
+! Preview: Snippet 133 ended.(400785+9437x339738).
+<-><->
+      
+l.490 ...ce.  It is likely that variation in \(d\)
+                                                   is the more
+Not a real error.
+
+[133]
+! Preview: Snippet 134 started.
+<-><->
+      
+l.491 important of the two because \(
+                                     M_H\) changes relatively little for
+Not a real error.
+
+! Preview: Snippet 134 ended.(388104+102879x990202).
+<-><->
+      
+l.491 important of the two because \(M_H\)
+                                           changes relatively little for
+Not a real error.
+
+[134]
+! Preview: Snippet 135 started.
+<-><->
+      
+l.492 main-sequence OB stars, ranging from \(
+                                             M_H \approx -4\) (early-O) to
+Not a real error.
+
+! Preview: Snippet 135 ended.(388104+102879x2371238).
+<-><->
+      
+l.492 ...OB stars, ranging from \(M_H \approx -4\)
+                                                   (early-O) to
+Not a real error.
+
+[135]
+! Preview: Snippet 136 started.
+<-><->
+      
+l.493 \(
+        M_H \approx -1.5\) (mid-B).  This is because part of the increase in
+Not a real error.
+
+! Preview: Snippet 136 ended.(388104+102879x2841260).
+<-><->
+      
+l.493 \(M_H \approx -1.5\)
+                           (mid-B).  This is because part of the increase in
+Not a real error.
+
+[136]
+! Preview: Snippet 137 started.
+<-><->
+      
+l.494 bolometric luminosity, \(
+                               L\), as one ascends the main sequence is
+Not a real error.
+
+! Preview: Snippet 137 ended.(388104+0x385154).
+<-><->
+      
+l.494 bolometric luminosity, \(L\)
+                                  , as one ascends the main sequence is
+Not a real error.
+
+[137]
+! Preview: Snippet 138 started.
+<-><->
+      
+l.496 \(
+        T_{\text{eff}}\), which shifts the peak of the stellar spectrum
+Not a real error.
+
+! Preview: Snippet 138 ended.(388104+119145x814165).
+<-><->
+      
+l.496 \(T_{\text{eff}}\)
+                        , which shifts the peak of the stellar spectrum
+Not a real error.
+
+[138]
+! Preview: Snippet 139 started.
+<-><->
+      
+l.497 farther away from the \(
+                              H\)~band, resulting in
+Not a real error.
+
+! Preview: Snippet 139 ended.(388104+0x474217).
+<-><->
+      
+l.497 farther away from the \(H\)
+                                 ~band, resulting in
+Not a real error.
+
+[139]
+! Preview: Snippet 140 started.
+<-><->
+      
+l.498 \(
+        L_H \propto L / T_{\text{eff}}^3 \sim L^{0.53}\), where the last ste...
+
+Not a real error.
+
+! Preview: Snippet 140 ended.(509746+245248x5069477).
+<-><->
+      
+l.498 ...opto L / T_{\text{eff}}^3 \sim L^{0.53}\)
+                                                  , where the last step uses
+Not a real error.
+
+[140]
+
+Package natbib Warning: Citation `Eker:2015a' on page 2 undefined on input line
+ 500.
+
+! Preview: Snippet 141 started.
+<-><->
+      
+l.501 brighter, reaching \(
+                           M_H \approx -7\), but such stars are expected to be
+Not a real error.
+
+! Preview: Snippet 141 ended.(388104+102879x2371238).
+<-><->
+      
+l.501 brighter, reaching \(M_H \approx -7\)
+                                           , but such stars are expected to be
+Not a real error.
+
+[141]
+! Preview: Snippet 142 started.
+<-><->
+      
+l.502 rare.  Assuming a B2V star (\(
+                                    M_H = -2\)), then the observed range
+Not a real error.
+
+! Preview: Snippet 142 ended.(388104+102879x2371238).
+<-><->
+      
+l.502 rare.  Assuming a B2V star (\(M_H = -2\)
+                                              ), then the observed range
+Not a real error.
+
+[142]
+! Preview: Snippet 143 started.
+<-><->
+      
+l.503 \(
+        H_0 = 5\)--\(12\) corresponds to distances
+Not a real error.
+
+! Preview: Snippet 143 ended.(388104+88473x1726354).
+<-><->
+      
+l.503 \(H_0 = 5\)
+                 --\(12\) corresponds to distances
+Not a real error.
+
+[143]
+! Preview: Snippet 144 started.
+<-><->
+      
+l.503 \(H_0 = 5\)--\(
+                     12\) corresponds to distances
+Not a real error.
+
+! Preview: Snippet 144 ended.(380108+0x606204).
+<-><->
+      
+l.503 \(H_0 = 5\)--\(12\)
+                          corresponds to distances
+Not a real error.
+
+[144]
+! Preview: Snippet 145 started.
+<-><->
+      
+l.504 \(
+        d = 100\)--\SI{6300}{pc}, and the histogram peak at
+Not a real error.
+
+! Preview: Snippet 145 ended.(400785+9437x1951851).
+<-><->
+      
+l.504 \(d = 100\)
+                 --\SI{6300}{pc}, and the histogram peak at
+Not a real error.
+
+[145]
+! Preview: Snippet 146 started.
+<-><->
+      
+l.505 \(
+        H_0 \approx 9.5\) corresponds to \(d \approx \SI{2000}{pc}\), which ...
+
+Not a real error.
+
+! Preview: Snippet 146 ended.(388104+88473x2196376).
+<-><->
+      
+l.505 \(H_0 \approx 9.5\)
+                          corresponds to \(d \approx \SI{2000}{pc}\), which ...
+
+Not a real error.
+
+[146]
+! Preview: Snippet 147 started.
+<-><->
+      
+l.505 \(H_0 \approx 9.5\) corresponds to \(
+                                           d \approx \SI{2000}{pc}\), which ...
+
+Not a real error.
+
+! Preview: Snippet 147 ended.(400785+114688x2976300).
+<-><->
+      
+l.505 ...orresponds to \(d \approx \SI{2000}{pc}\)
+                                                  , which is all
+Not a real error.
+
+[147]
+! Preview: Snippet 148 started.
+<-><->
+      
+l.508 ...istribution of bow shock angular size, \(
+                                                  R_0\),
+Not a real error.
+
+! Preview: Snippet 148 ended.(388104+88473x662643).
+<-><->
+      
+l.508 ...bution of bow shock angular size, \(R_0\)
+                                                  ,
+Not a real error.
+
+[148]
+! Preview: Snippet 149 started.
+<-><->
+      
+l.511 \(
+        R_0 \propto d^{-1}\).  For instance, if we assume that the physical ...
+
+Not a real error.
+
+! Preview: Snippet 149 ended.(509746+88473x2303461).
+<-><->
+      
+l.511 \(R_0 \propto d^{-1}\)
+                            .  For instance, if we assume that the physical ...
+
+Not a real error.
+
+[149]
+! Preview: Snippet 150 started.
+<-><->
+      
+l.513 stars is \(
+                 M_H = -2\), as above, then we find the relation
+Not a real error.
+
+! Preview: Snippet 150 ended.(388104+102879x2371238).
+<-><->
+      
+l.513 stars is \(M_H = -2\)
+                           , as above, then we find the relation
+Not a real error.
+
+[150]
+! Preview: Snippet 151 started.
+<-><->
+      
+l.514 \(
+        H_0 = 14.57 - 5 \log_{10} R_0\) if \(R_0\) is measured in
+Not a real error.
+
+! Preview: Snippet 151 ended.(409600+138608x5940456).
+<-><->
+      
+l.514 \(H_0 = 14.57 - 5 \log_{10} R_0\)
+                                        if \(R_0\) is measured in
+Not a real error.
+
+[151]
+! Preview: Snippet 152 started.
+<-><->
+      
+l.514 \(H_0 = 14.57 - 5 \log_{10} R_0\) if \(
+                                             R_0\) is measured in
+Not a real error.
+
+! Preview: Snippet 152 ended.(388104+88473x662643).
+<-><->
+      
+l.514 \(H_0 = 14.57 - 5 \log_{10} R_0\) if \(R_0\)
+                                                   is measured in
+Not a real error.
+
+[152]
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 2 undefined on input li
+ne 516.
+
+! Preview: Snippet 153 started.
+<-><->
+      
+l.516 ...ef{fig:mipsgal-pairplot} for values of \(
+                                                  R_0\) that
+Not a real error.
+
+! Preview: Snippet 153 ended.(388104+88473x662643).
+<-><->
+      
+l.516 ...g:mipsgal-pairplot} for values of \(R_0\)
+                                                   that
+Not a real error.
+
+[153]
+! Preview: Snippet 154 started.
+<-><->
+      
+l.517 correspond to \(
+                      d = \SI{300}{pc}\) to \SI{8000}{pc}.  It can be seen
+Not a real error.
+
+! Preview: Snippet 154 ended.(400785+114688x2673198).
+<-><->
+      
+l.517 correspond to \(d = \SI{300}{pc}\)
+                                         to \SI{8000}{pc}.  It can be seen
+Not a real error.
+
+[154]
+! Preview: Snippet 155 started.
+<-><->
+      
+l.520 \(
+        r = -0.43\) means in broad terms that only a fraction
+Not a real error.
+
+! Preview: Snippet 155 ended.(380108+7962x2418991).
+<-><->
+      
+l.520 \(r = -0.43\)
+                    means in broad terms that only a fraction
+Not a real error.
+
+[155]
+! Preview: Snippet 156 started.
+<-><->
+      
+l.521 \(
+        r^2 \approx 20\%\) of the total variance in \(H_0\) is ``explained'' by
+
+Not a real error.
+
+! Preview: Snippet 156 ended.(509746+32767x2373015).
+<-><->
+      
+l.521 \(r^2 \approx 20\%\)
+                           of the total variance in \(H_0\) is ``explained'' by
+
+Not a real error.
+
+[156]
+! Preview: Snippet 157 started.
+<-><->
+      
+l.521 ...approx 20\%\) of the total variance in \(
+                                                  H_0\) is ``explained'' by
+Not a real error.
+
+! Preview: Snippet 157 ended.(388104+88473x720445).
+<-><->
+      
+l.521 ...x 20\%\) of the total variance in \(H_0\)
+                                                   is ``explained'' by
+Not a real error.
+
+[157]
+! Preview: Snippet 158 started.
+<-><->
+      
+l.522 changes in \(
+                   R_0\), and vice~versa, implying that one or both of
+Not a real error.
+
+! Preview: Snippet 158 ended.(388104+88473x662643).
+<-><->
+      
+l.522 changes in \(R_0\)
+                        , and vice~versa, implying that one or both of
+Not a real error.
+
+[158]
+! Preview: Snippet 159 started.
+<-><->
+      
+l.523 \(
+        H_0\) and \(R_0\) is only a very imperfect proxy for \(d\).  We have
+Not a real error.
+
+! Preview: Snippet 159 ended.(388104+88473x720445).
+<-><->
+      
+l.523 \(H_0\)
+              and \(R_0\) is only a very imperfect proxy for \(d\).  We have
+Not a real error.
+
+[159]
+! Preview: Snippet 160 started.
+<-><->
+      
+l.523 \(H_0\) and \(
+                    R_0\) is only a very imperfect proxy for \(d\).  We have
+Not a real error.
+
+! Preview: Snippet 160 ended.(388104+88473x662643).
+<-><->
+      
+l.523 \(H_0\) and \(R_0\)
+                          is only a very imperfect proxy for \(d\).  We have
+Not a real error.
+
+[160]
+! Preview: Snippet 161 started.
+<-><->
+      
+l.523 ...0\) is only a very imperfect proxy for \(
+                                                  d\).  We have
+Not a real error.
+
+! Preview: Snippet 161 ended.(400785+9437x339738).
+<-><->
+      
+l.523 ... is only a very imperfect proxy for \(d\)
+                                                  .  We have
+Not a real error.
+
+[161]
+! Preview: Snippet 162 started.
+<-><->
+      
+l.524 already seen that the spread in \(
+                                        H_0\) probably \emph{is} mostly due
+Not a real error.
+
+! Preview: Snippet 162 ended.(388104+88473x720445).
+<-><->
+      
+l.524 already seen that the spread in \(H_0\)
+                                              probably \emph{is} mostly due
+Not a real error.
+
+[162]
+! Preview: Snippet 163 started.
+<-><->
+      
+l.525 ...d in distance, rather than a spread in \(
+                                                  H\)-band stellar
+Not a real error.
+
+! Preview: Snippet 163 ended.(388104+0x474217).
+<-><->
+      
+l.525 ...n distance, rather than a spread in \(H\)
+                                                  -band stellar
+Not a real error.
+
+[163]
+! Preview: Snippet 164 started.
+<-><->
+      
+l.526 ...If this is true, it follows that it is \(
+                                                  R_0\) that
+Not a real error.
+
+! Preview: Snippet 164 ended.(388104+88473x662643).
+<-><->
+      
+l.526 ...is is true, it follows that it is \(R_0\)
+                                                   that
+Not a real error.
+
+[164]
+! Preview: Snippet 165 started.
+<-><->
+      
+l.527 depends only weakly on \(
+                               d\) and is more influenced by other factors.
+Not a real error.
+
+! Preview: Snippet 165 ended.(400785+9437x339738).
+<-><->
+      
+l.527 depends only weakly on \(d\)
+                                   and is more influenced by other factors.
+Not a real error.
+
+[165]
+! Preview: Snippet 166 started.
+<-><->
+      
+l.530 \(
+        \beta\), between the two supersonic flows that form the bow shock.  All
+
+Not a real error.
+
+! Preview: Snippet 166 ended.(388104+121503x349764).
+<-><->
+      
+l.530 \(\beta\)
+               , between the two supersonic flows that form the bow shock.  All
+
+Not a real error.
+
+[166]
+! Preview: Snippet 167 started.
+<-><->
+      
+l.531 other things being equal, we have \(
+                                          R_0 \propto \beta^{1/2}\) for
+Not a real error.
+
+! Preview: Snippet 167 ended.(552582+121503x2490521).
+<-><->
+      
+l.531 ...qual, we have \(R_0 \propto \beta^{1/2}\)
+                                                   for
+Not a real error.
+
+[167]
+! Preview: Snippet 168 started.
+<-><->
+      
+l.532 \(
+        \beta \ll 1\), as is typically the case.  If the environment flow is
+Not a real error.
+
+! Preview: Snippet 168 ended.(388104+121503x1539698).
+<-><->
+      
+l.532 \(\beta \ll 1\)
+                     , as is typically the case.  If the environment flow is
+Not a real error.
+
+[168]
+! Preview: Snippet 169 started.
+<-><->
+      
+l.533 ...nd the OB star wind has mass-loss rate \(
+                                                  \dot{M}\) and
+Not a real error.
+
+! Preview: Snippet 169 ended.(507248+0x565640).
+<-><->
+      
+l.533 ... star wind has mass-loss rate \(\dot{M}\)
+                                                   and
+Not a real error.
+
+[169]
+! Preview: Snippet 170 started.
+<-><->
+      
+l.534 terminal velocity \(
+                          V_\infty\), then
+Not a real error.
+
+! Preview: Snippet 170 ended.(388104+88473x736356).
+<-><->
+      
+l.534 terminal velocity \(V_\infty\)
+                                    , then
+Not a real error.
+
+[170]
+! Preview: Snippet 171 started.
+<-><->
+      
+l.535 \(
+        \beta \propto \dot{M}{V_\infty}\).  Empirical and theoretical studie...
+
+Not a real error.
+
+! Preview: Snippet 171 ended.(507248+121503x2354567).
+<-><->
+      
+l.535 \(\beta \propto \dot{M}{V_\infty}\)
+                                         .  Empirical and theoretical studie...
+
+Not a real error.
+
+[171]
+
+Package natbib Warning: Citation `Puls:1996a' on page 2 undefined on input line
+ 536.
+
+! Preview: Snippet 172 started.
+<-><->
+      
+l.537 \(
+        \dot{M}{V_\infty} \sim L^{1.88} R^{-1/2} \sim L^{1.80} \sim L_H^{3.4...
+
+Not a real error.
+
+! Preview: Snippet 172 ended.(552582+233526x8946933).
+<-><->
+      
+l.537 ... R^{-1/2} \sim L^{1.80} \sim L_H^{3.40}\)
+                                                  , where
+Not a real error.
+
+[172]
+
+Package natbib Warning: Citation `Eker:2015a' on page 2 undefined on input line
+ 539.
+
+! Preview: Snippet 173 started.
+<-><->
+      
+l.540 star with \(
+                  M_H = -2\) has a bow shock physical size of \SI{0.1}{pc},
+Not a real error.
+
+! Preview: Snippet 173 ended.(388104+102879x2371238).
+<-><->
+      
+l.540 star with \(M_H = -2\)
+                             has a bow shock physical size of \SI{0.1}{pc},
+Not a real error.
+
+[173]
+! Preview: Snippet 174 started.
+<-><->
+      
+l.541 ...sider a sequence of stars with varying \(
+                                                  H\)-band luminosities
+Not a real error.
+
+! Preview: Snippet 174 ended.(388104+0x474217).
+<-><->
+      
+l.541 ...er a sequence of stars with varying \(H\)
+                                                  -band luminosities
+Not a real error.
+
+[174]
+! Preview: Snippet 175 started.
+<-><->
+      
+l.542 but all at a fixed distance of \(
+                                       d = \SI{2000}{pc}\), then we find the
+Not a real error.
+
+! Preview: Snippet 175 ended.(400785+114688x2976300).
+<-><->
+      
+l.542 ...a fixed distance of \(d = \SI{2000}{pc}\)
+                                                  , then we find the
+Not a real error.
+
+[175]
+! Preview: Snippet 176 started.
+<-><->
+      
+l.543 relation \(
+                 H_0 = 8.02 - 1.49 \log_{10} R_0\).  This is shown as a
+Not a real error.
+
+! Preview: Snippet 176 ended.(409600+138608x6410478).
+<-><->
+      
+l.543 relation \(H_0 = 8.02 - 1.49 \log_{10} R_0\)
+                                                  .  This is shown as a
+Not a real error.
+
+[176]
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 2 undefined on input li
+ne 545.
+
+! Preview: Snippet 177 started.
+<-><->
+      
+l.546 \(
+        M_H = -3.6\) (O6V) to \(M_H = -1.5\) (B5V).  It can be seen that
+Not a real error.
+
+! Preview: Snippet 177 ended.(388104+102879x2841260).
+<-><->
+      
+l.546 \(M_H = -3.6\)
+                     (O6V) to \(M_H = -1.5\) (B5V).  It can be seen that
+Not a real error.
+
+[177]
+! Preview: Snippet 178 started.
+<-><->
+      
+l.546 \(M_H = -3.6\) (O6V) to \(
+                                M_H = -1.5\) (B5V).  It can be seen that
+Not a real error.
+
+! Preview: Snippet 178 ended.(388104+102879x2841260).
+<-><->
+      
+l.546 \(M_H = -3.6\) (O6V) to \(M_H = -1.5\)
+                                             (B5V).  It can be seen that
+Not a real error.
+
+[178]
+! Preview: Snippet 179 started.
+<-><->
+      
+l.548 predicts a much larger spread in \(
+                                         R_0\) over a narrow range in
+Not a real error.
+
+! Preview: Snippet 179 ended.(388104+88473x662643).
+<-><->
+      
+l.548 predicts a much larger spread in \(R_0\)
+                                               over a narrow range in
+Not a real error.
+
+[179]
+! Preview: Snippet 180 started.
+<-><->
+      
+l.549 \(
+        H_0\) than is observed.  This could mean one of two things: first,
+Not a real error.
+
+! Preview: Snippet 180 ended.(388104+88473x720445).
+<-><->
+      
+l.549 \(H_0\)
+              than is observed.  This could mean one of two things: first,
+Not a real error.
+
+[180]
+! Preview: Snippet 181 started.
+<-><->
+      
+l.554 environmental flow, with the result that \(
+                                                 \beta\) varies less steeply
+Not a real error.
+
+! Preview: Snippet 181 ended.(388104+121503x349764).
+<-><->
+      
+l.554 ...ntal flow, with the result that \(\beta\)
+                                                   varies less steeply
+Not a real error.
+
+[181]
+! Preview: Snippet 182 started.
+<-><->
+      
+l.555 with \(
+             L_H\) than we have assumed.  That could arise if more luminous
+Not a real error.
+
+! Preview: Snippet 182 ended.(388104+102879x838028).
+<-><->
+      
+l.555 with \(L_H\)
+                   than we have assumed.  That could arise if more luminous
+Not a real error.
+
+[182]
+! Preview: Snippet 183 started.
+<-><->
+      
+l.559 A third factor that may influence \(
+                                          R_0\) is the inclination, \(i\),
+Not a real error.
+
+! Preview: Snippet 183 ended.(388104+88473x662643).
+<-><->
+      
+l.559 A third factor that may influence \(R_0\)
+                                                is the inclination, \(i\),
+Not a real error.
+
+[183]
+! Preview: Snippet 184 started.
+<-><->
+      
+l.559 ... influence \(R_0\) is the inclination, \(
+                                                  i\),
+Not a real error.
+
+! Preview: Snippet 184 ended.(388104+4718x174882).
+<-><->
+      
+l.559 ...fluence \(R_0\) is the inclination, \(i\)
+                                                  ,
+Not a real error.
+
+[184]
+
+LaTeX Warning: Reference `fig:quadric-projection' on page 2 undefined on input 
+line 561.
+
+! Preview: Snippet 185 started.
+<-><->
+      
+l.561 ...ig:quadric-projection}b shows that for \(
+                                                  R_c > 1\), then
+Not a real error.
+
+! Preview: Snippet 185 ended.(388104+93017x1705853).
+<-><->
+      
+l.561 ...c-projection}b shows that for \(R_c > 1\)
+                                                  , then
+Not a real error.
+
+[185]
+! Preview: Snippet 186 started.
+<-><->
+      
+l.562 the projected \(
+                      R_0'\) becomes larger than the true \(R_0\) as \(|i|\)
+Not a real error.
+
+! Preview: Snippet 186 ended.(431783+213654x662643).
+<-><->
+      
+l.562 the projected \(R_0'\)
+                             becomes larger than the true \(R_0\) as \(|i|\)
+Not a real error.
+
+[186]
+! Preview: Snippet 187 started.
+<-><->
+      
+l.562 ... \(R_0'\) becomes larger than the true \(
+                                                  R_0\) as \(|i|\)
+Not a real error.
+
+! Preview: Snippet 187 ended.(388104+88473x662643).
+<-><->
+      
+l.562 ...0'\) becomes larger than the true \(R_0\)
+                                                   as \(|i|\)
+Not a real error.
+
+[187]
+! Preview: Snippet 188 started.
+<-><->
+      
+l.562 ...ecomes larger than the true \(R_0\) as \(
+                                                  |i|\)
+Not a real error.
+
+! Preview: Snippet 188 ended.(417300+115900x505180).
+<-><->
+      
+l.562 ...s larger than the true \(R_0\) as \(|i|\)
+                                                  
+Not a real error.
+
+[188]
+
+LaTeX Warning: Reference `fig:projected-R90-Rc-snapshots' on page 2 undefined o
+n input line 564.
+
+
+LaTeX Warning: Reference `fig:thin-shell-R90-Rc-snapshots' on page 2 undefined 
+on input line 566.
+
+! Preview: Snippet 189 started.
+<-><->
+      
+l.569 \(
+        1 < R_c/R_0 < 3\) and \(R_{90}/R_0 < 3\), as the vast majority of
+Not a real error.
+
+! Preview: Snippet 189 ended.(417300+115900x3671087).
+<-><->
+      
+l.569 \(1 < R_c/R_0 < 3\)
+                          and \(R_{90}/R_0 < 3\), as the vast majority of
+Not a real error.
+
+[189]
+! Preview: Snippet 190 started.
+<-><->
+      
+l.569 \(1 < R_c/R_0 < 3\) and \(
+                                R_{90}/R_0 < 3\), as the vast majority of
+Not a real error.
+
+! Preview: Snippet 190 ended.(417300+115900x2889112).
+<-><->
+      
+l.569 \(1 < R_c/R_0 < 3\) and \(R_{90}/R_0 < 3\)
+                                                , as the vast majority of
+Not a real error.
+
+[190]
+! Preview: Snippet 191 started.
+<-><->
+      
+l.570 our observed sources do.  The increase in \(
+                                                  R_0\) is no more than a
+Not a real error.
+
+! Preview: Snippet 191 ended.(388104+88473x662643).
+<-><->
+      
+l.570 ...rved sources do.  The increase in \(R_0\)
+                                                   is no more than a
+Not a real error.
+
+[191]
+! Preview: Snippet 192 started.
+<-><->
+      
+l.571 ...of 2 to 3 for moderate inclinations of \(
+                                                  30\) to \(60\degr\),
+Not a real error.
+
+! Preview: Snippet 192 ended.(380108+0x606204).
+<-><->
+      
+l.571 ... to 3 for moderate inclinations of \(30\)
+                                                   to \(60\degr\),
+Not a real error.
+
+[192]
+! Preview: Snippet 193 started.
+<-><->
+      
+l.571 ...for moderate inclinations of \(30\) to \(
+                                                  60\degr\),
+Not a real error.
+
+! Preview: Snippet 193 ended.(431783+0x876743).
+<-><->
+      
+l.571 ...ate inclinations of \(30\) to \(60\degr\)
+                                                  ,
+Not a real error.
+
+[193]
+! Preview: Snippet 194 started.
+<-><->
+      
+l.577 \subsubsection
+                    {Correlation between bow shock shape and other parameters}
+Not a real error.
+
+! Preview: Snippet 194 ended.(401080+121798x15728640).
+<-><->
+      
+l.577 ...een bow shock shape and other parameters}
+                                                  
+Not a real error.
+
+[194
+
+]
+! Preview: Snippet 195 started.
+<-><->
+      
+l.579 \begin{figure*}
+                     
+Not a real error.
+
+<figs/mipsgal-Rc-R90-R0.pdf, id=1097, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-R0.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-R0.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-R0.pdf used on input line 583.
+(pdftex.def)             Requested size: 226.79846pt x 226.80038pt.
+
+<figs/mipsgal-Rc-R90-Mag.pdf, id=1098, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-Mag.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-Mag.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-Mag.pdf used on input line 584.
+(pdftex.def)             Requested size: 226.79846pt x 226.80038pt.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 2 undefined on inpu
+t line 593.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 2 undefined on inpu
+t line 593.
+
+! Preview: Snippet 195 ended.(18352728+0x33030144).
+<-><->
+      
+l.595 \end{figure*}
+                   
+Not a real error.
+
+[195
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.595 \end{figure*}
+                   
+
+ <./figs/mipsgal-Rc-R90-R0.pdf> <./figs/mipsgal-Rc-R90-Mag.pdf>]
+! Preview: Snippet 196 started.
+<-><->
+      
+l.597 \begin{figure}
+                    
+Not a real error.
+
+<figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf, id=1243, 216.81pt x 578.16pt>
+File: figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf>
+Package pdftex.def Info: figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf used on inpu
+t line 603.
+(pdftex.def)             Requested size: 105.0303pt x 280.08179pt.
+
+<figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf, id=1244, 216.81pt x 578.16pt>
+File: figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf>
+Package pdftex.def Info: figs/mipsgal-boxplot-Rc-R90-versus-H0.pdf used on inpu
+t line 605.
+(pdftex.def)             Requested size: 105.0303pt x 280.08179pt.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
+(Font)              scaled to size 8.0pt on input line 628.
+
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 3 undefined on input li
+ne 628.
+
+
+LaTeX Warning: Reference `fig:mipsgal-pairplot' on page 3 undefined on input li
+ne 628.
+
+! Preview: Snippet 196 ended.(31019618+0x15728640).
+<-><->
+      
+l.630 \end{figure}
+                  
+Not a real error.
+
+[196
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.630 \end{figure}
+                  
+
+ <./figs/mipsgal-boxplot-Rc-R90-versus-R0.pdf> <./figs/mipsgal-boxplot-Rc-R90-v
+ersus-H0.pdf>]
+! Preview: Snippet 197 started.
+<-><->
+      
+l.632 \begin{figure}
+                    
+Not a real error.
+
+
+<figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf, id=1402, 433.62pt x 650.
+43pt>
+File: figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf Graphic file (type p
+df)
+ <use figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf>
+Package pdftex.def Info: figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf u
+sed on input line 634.
+(pdftex.def)             Requested size: 240.0pt x 360.00044pt.
+
+
+Package natbib Warning: Citation `Cleveland:1979a' on page 3 undefined on input
+ line 654.
+
+
+Package natbib Warning: Citation `Cleveland:1988a' on page 3 undefined on input
+ line 654.
+
+
+Package natbib Warning: Citation `Cleveland:1979a' on page 3 undefined on input
+ line 654.
+
+
+Package natbib Warning: Citation `Cleveland:1988a' on page 3 undefined on input
+ line 654.
+
+! Preview: Snippet 197 ended.(35634049+0x15728640).
+<-><->
+      
+l.656 \end{figure}
+                  
+Not a real error.
+
+[197
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.656 \end{figure}
+                  
+
+ <./figs/mipsgal-R90-ratio-versus-R0-heteroscedastic.pdf>]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 3 undefined on inpu
+t line 661.
+
+! Preview: Snippet 198 started.
+<-><->
+      
+l.671   \(
+          R_c\)--\(R_{90}\) plane (see Figs.~\ref{fig:mipsgal-correlated} and
+Not a real error.
+
+! Preview: Snippet 198 ended.(388104+93017x674581).
+<-><->
+      
+l.671   \(R_c\)
+               --\(R_{90}\) plane (see Figs.~\ref{fig:mipsgal-correlated} and
+Not a real error.
+
+[198]
+! Preview: Snippet 199 started.
+<-><->
+      
+l.671   \(R_c\)--\(
+                   R_{90}\) plane (see Figs.~\ref{fig:mipsgal-correlated} and
+Not a real error.
+
+! Preview: Snippet 199 ended.(388104+88473x923878).
+<-><->
+      
+l.671   \(R_c\)--\(R_{90}\)
+                            plane (see Figs.~\ref{fig:mipsgal-correlated} and
+Not a real error.
+
+[199]
+
+LaTeX Warning: Reference `fig:mipsgal-correlated' on page 3 undefined on input 
+line 671.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 3 undefined on inpu
+t line 672.
+
+! Preview: Snippet 200 started.
+<-><->
+      
+l.676   different non-parametric tests to \(
+                                            R_c/R_0\) and \(R_{90}/R_0\)
+Not a real error.
+
+! Preview: Snippet 200 ended.(417300+115900x1608543).
+<-><->
+      
+l.676 ...erent non-parametric tests to \(R_c/R_0\)
+                                                   and \(R_{90}/R_0\)
+Not a real error.
+
+[200]
+! Preview: Snippet 201 started.
+<-><->
+      
+l.676 ...on-parametric tests to \(R_c/R_0\) and \(
+                                                  R_{90}/R_0\)
+Not a real error.
+
+! Preview: Snippet 201 ended.(417300+115900x1857840).
+<-><->
+      
+l.676 ...c tests to \(R_c/R_0\) and \(R_{90}/R_0\)
+                                                  
+Not a real error.
+
+[201]
+
+Package natbib Warning: Citation `Anderson:1952a' on page 3 undefined on input 
+line 679.
+
+
+Package natbib Warning: Citation `Scholz:1987a' on page 3 undefined on input li
+ne 679.
+
+
+Package natbib Warning: Citation `Makarov:2017a' on page 3 undefined on input l
+ine 679.
+
+! Preview: Snippet 202 started.
+<-><->
+      
+l.681   distribution.  It returns a \(
+                                      p\)-value, which is the estimated
+Not a real error.
+
+! Preview: Snippet 202 ended.(260702+121503x320274).
+<-><->
+      
+l.681   distribution.  It returns a \(p\)
+                                         -value, which is the estimated
+Not a real error.
+
+[202]
+! Preview: Snippet 203 started.
+<-><->
+      
+l.685   thresholds for significance: \(
+                                       p < 0.05\) (approximately
+Not a real error.
+
+! Preview: Snippet 203 ended.(380108+121503x2124670).
+<-><->
+      
+l.685   thresholds for significance: \(p < 0.05\)
+                                                  (approximately
+Not a real error.
+
+[203]
+! Preview: Snippet 204 started.
+<-><->
+      
+l.686   2-\(
+            \sigma\) for a normal distribution) and \(p < 0.003\) (approxima...
+
+Not a real error.
+
+! Preview: Snippet 204 ended.(260702+7962x429981).
+<-><->
+      
+l.686   2-\(\sigma\)
+                     for a normal distribution) and \(p < 0.003\) (approxima...
+
+Not a real error.
+
+[204]
+! Preview: Snippet 205 started.
+<-><->
+      
+l.686 ...sigma\) for a normal distribution) and \(
+                                                  p < 0.003\) (approximately
+Not a real error.
+
+! Preview: Snippet 205 ended.(380108+121503x2427772).
+<-><->
+      
+l.686 ... a normal distribution) and \(p < 0.003\)
+                                                   (approximately
+Not a real error.
+
+[205]
+! Preview: Snippet 206 started.
+<-><->
+      
+l.687   3-\(
+            \sigma\)).  We show in Appendix~\ref{sec:distr-p-values} that the
+Not a real error.
+
+! Preview: Snippet 206 ended.(260702+7962x429981).
+<-><->
+      
+l.687   3-\(\sigma\)
+                    ).  We show in Appendix~\ref{sec:distr-p-values} that the
+Not a real error.
+
+[206]
+
+LaTeX Warning: Reference `sec:distr-p-values' on page 3 undefined on input line
+ 687.
+
+! Preview: Snippet 207 started.
+<-><->
+      
+l.688   more stringent \(
+                         p < 0.003\) condition is required in order to
+Not a real error.
+
+! Preview: Snippet 207 ended.(380108+121503x2427772).
+<-><->
+      
+l.688   more stringent \(p < 0.003\)
+                                     condition is required in order to
+Not a real error.
+
+[207]
+! Preview: Snippet 208 started.
+<-><->
+      
+l.691   less strict threshold of \(
+                                   p < 0.05\) as an indicator of
+Not a real error.
+
+! Preview: Snippet 208 ended.(380108+121503x2124670).
+<-><->
+      
+l.691   less strict threshold of \(p < 0.05\)
+                                              as an indicator of
+Not a real error.
+
+[208]
+! Preview: Snippet 209 started.
+<-><->
+      
+l.694 ...ributions: the Mann--Whitney--Wilcoxon \(
+                                                  U\) test
+Not a real error.
+
+! Preview: Snippet 209 ended.(388104+9437x445316).
+<-><->
+      
+l.694 ...utions: the Mann--Whitney--Wilcoxon \(U\)
+                                                   test
+Not a real error.
+
+[209]
+
+Package natbib Warning: Citation `Mann:1947a' on page 3 undefined on input line
+ 695.
+
+
+Package natbib Warning: Citation `Brown:1974a' on page 3 undefined on input lin
+e 697.
+
+
+LaTeX Warning: Reference `sec:distr-p-values' on page 3 undefined on input line
+ 699.
+
+
+LaTeX Warning: Reference `tab:big-p' on page 3 undefined on input line 702.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 3 undefined on inpu
+t line 706.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 3 undefined on inpu
+t line 708.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 3 undefined on inpu
+t line 710.
+
+! Preview: Snippet 210 started.
+<-><->
+      
+l.713 ...belled ``Facing'' in the figure.\footnote
+                                                  {Similar
+Not a real error.
+
+! Preview: Snippet 210 ended.(509746+0x294003).
+<-><->
+      
+l.714 ...for the FB and FH categories separately.}
+                                                  
+Not a real error.
+
+[210]
+
+Package natbib Warning: Citation `Povich:2008a' on page 3 undefined on input li
+ne 717.
+
+
+LaTeX Warning: Reference `sec:crw-scenario' on page 3 undefined on input line 7
+22.
+
+! Preview: Snippet 211 started.
+<-><->
+      
+l.724 momentum ratio \(
+                       \beta\) for the weather vanes could be small, since the
+Not a real error.
+
+! Preview: Snippet 211 ended.(388104+121503x349764).
+<-><->
+      
+l.724 momentum ratio \(\beta\)
+                               for the weather vanes could be small, since the
+Not a real error.
+
+[211]
+! Preview: Snippet 212 started.
+<-><->
+      
+l.726 \(
+        \beta \to 0\), or (ii)~many of the bow shocks classified as ``Isolat...
+
+Not a real error.
+
+! Preview: Snippet 212 ended.(388104+121503x1584525).
+<-><->
+      
+l.726 \(\beta \to 0\)
+                     , or (ii)~many of the bow shocks classified as ``Isolat...
+
+Not a real error.
+
+[212]
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 3 undefined on inpu
+t line 729.
+
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 3 undefined on inpu
+t line 730.
+
+! Preview: Snippet 213 started.
+<-><->
+      
+l.734 value of \(
+                 R_0\) for those sources would be erroneous, which would
+Not a real error.
+
+! Preview: Snippet 213 ended.(388104+88473x662643).
+<-><->
+      
+l.734 value of \(R_0\)
+                       for those sources would be erroneous, which would
+Not a real error.
+
+[213]
+! Preview: Snippet 214 started.
+<-><->
+      
+l.735 increase the scatter in both \(
+                                     R_c/R_0\) and \(R_{90}/R_0\).  The
+Not a real error.
+
+! Preview: Snippet 214 ended.(417300+115900x1608543).
+<-><->
+      
+l.735 increase the scatter in both \(R_c/R_0\)
+                                               and \(R_{90}/R_0\).  The
+Not a real error.
+
+[214]
+! Preview: Snippet 215 started.
+<-><->
+      
+l.735 ...se the scatter in both \(R_c/R_0\) and \(
+                                                  R_{90}/R_0\).  The
+Not a real error.
+
+! Preview: Snippet 215 ended.(417300+115900x1857840).
+<-><->
+      
+l.735 ...er in both \(R_c/R_0\) and \(R_{90}/R_0\)
+                                                  .  The
+Not a real error.
+
+[215]
+
+Package natbib Warning: Citation `Kobulnicky:2016a' on page 3 undefined on inpu
+t line 741.
+
+
+LaTeX Warning: Reference `tab:big-p' on page 3 undefined on input line 745.
+
+! Preview: Snippet 216 started.
+<-><->
+      
+l.746 median \(
+               R_{90}/R_0\) less than \(0.06\) and in \(R_c/R_0\) less than
+Not a real error.
+
+! Preview: Snippet 216 ended.(417300+115900x1857840).
+<-><->
+      
+l.746 median \(R_{90}/R_0\)
+                            less than \(0.06\) and in \(R_c/R_0\) less than
+Not a real error.
+
+[216]
+! Preview: Snippet 217 started.
+<-><->
+      
+l.746 median \(R_{90}/R_0\) less than \(
+                                        0.06\) and in \(R_c/R_0\) less than
+Not a real error.
+
+! Preview: Snippet 217 ended.(380108+7962x1076226).
+<-><->
+      
+l.746 median \(R_{90}/R_0\) less than \(0.06\)
+                                               and in \(R_c/R_0\) less than
+Not a real error.
+
+[217]
+! Preview: Snippet 218 started.
+<-><->
+      
+l.746 ...R_{90}/R_0\) less than \(0.06\) and in \(
+                                                  R_c/R_0\) less than
+Not a real error.
+
+! Preview: Snippet 218 ended.(417300+115900x1608543).
+<-><->
+      
+l.746 ...0\) less than \(0.06\) and in \(R_c/R_0\)
+                                                   less than
+Not a real error.
+
+[218]
+! Preview: Snippet 219 started.
+<-><->
+      
+l.747 \(
+        0.16\) are found, corresponding to rank biserial correlation
+Not a real error.
+
+! Preview: Snippet 219 ended.(380108+7962x1076226).
+<-><->
+      
+l.747 \(0.16\)
+               are found, corresponding to rank biserial correlation
+Not a real error.
+
+[219]
+
+LaTeX Warning: Reference `sec:distr-p-values' on page 3 undefined on input line
+ 749.
+
+! Preview: Snippet 220 started.
+<-><->
+      
+l.750 \(
+        r_b < 0.15\), which are not significant even at the 2-\(\sigma\) level.
+
+Not a real error.
+
+! Preview: Snippet 220 ended.(380108+125363x2352669).
+<-><->
+      
+l.750 \(r_b < 0.15\)
+                    , which are not significant even at the 2-\(\sigma\) level.
+
+Not a real error.
+
+[220]
+! Preview: Snippet 221 started.
+<-><->
+      
+l.750 ...hich are not significant even at the 2-\(
+                                                  \sigma\) level.
+Not a real error.
+
+! Preview: Snippet 221 ended.(260702+7962x429981).
+<-><->
+      
+l.750 ... not significant even at the 2-\(\sigma\)
+                                                   level.
+Not a real error.
+
+[221]
+! Preview: Snippet 222 started.
+<-><->
+      
+l.753 ... shape are the bow shock angular size, \(
+                                                  R_0\), and the
+Not a real error.
+
+! Preview: Snippet 222 ended.(388104+88473x662643).
+<-><->
+      
+l.753 ...e are the bow shock angular size, \(R_0\)
+                                                  , and the
+Not a real error.
+
+[222]
+! Preview: Snippet 223 started.
+<-><->
+      
+l.754 ...rrected magnitude of the central star, \(
+                                                  H_0\), which are
+Not a real error.
+
+! Preview: Snippet 223 ended.(388104+88473x720445).
+<-><->
+      
+l.754 ...ed magnitude of the central star, \(H_0\)
+                                                  , which are
+Not a real error.
+
+[223]
+
+LaTeX Warning: Reference `fig:mipsgal-correlated' on page 3 undefined on input 
+line 755.
+
+! Preview: Snippet 224 started.
+<-><->
+      
+l.757 sub-sample distributions of \(
+                                    R_{90} / R_0\) at the 2-\(\sigma\) level...
+
+Not a real error.
+
+! Preview: Snippet 224 ended.(417300+115900x1857840).
+<-><->
+      
+l.757 sub-sample distributions of \(R_{90} / R_0\)
+                                                   at the 2-\(\sigma\) level...
+
+Not a real error.
+
+[224]
+! Preview: Snippet 225 started.
+<-><->
+      
+l.757 ...ributions of \(R_{90} / R_0\) at the 2-\(
+                                                  \sigma\) level.  It
+Not a real error.
+
+! Preview: Snippet 225 ended.(260702+7962x429981).
+<-><->
+      
+l.757 ...s of \(R_{90} / R_0\) at the 2-\(\sigma\)
+                                                   level.  It
+Not a real error.
+
+[225]
+
+LaTeX Warning: Reference `fig:mipsgal-correlated' on page 3 undefined on input 
+line 759.
+
+! Preview: Snippet 226 started.
+<-><->
+      
+l.760 small/large \(
+                    R_0\) sub-samples it is the width rather than the
+Not a real error.
+
+! Preview: Snippet 226 ended.(388104+88473x662643).
+<-><->
+      
+l.760 small/large \(R_0\)
+                          sub-samples it is the width rather than the
+Not a real error.
+
+[226]
+! Preview: Snippet 227 started.
+<-><->
+      
+l.763 ...en the sub-sample dispersions at the 3-\(
+                                                  \sigma\) level.
+Not a real error.
+
+! Preview: Snippet 227 ended.(260702+7962x429981).
+<-><->
+      
+l.763 ...ub-sample dispersions at the 3-\(\sigma\)
+                                                   level.
+Not a real error.
+
+[227]
+! Preview: Snippet 228 started.
+<-><->
+      
+l.764 In the case of the faint/bright \(
+                                        H_0\) sub-samples
+Not a real error.
+
+! Preview: Snippet 228 ended.(388104+88473x720445).
+<-><->
+      
+l.764 In the case of the faint/bright \(H_0\)
+                                              sub-samples
+Not a real error.
+
+[228]
+
+LaTeX Warning: Reference `fig:mipsgal-heteroscedastic' on page 3 undefined on i
+nput line 765.
+
+! Preview: Snippet 229 started.
+<-><->
+      
+l.769 ..., we divide the independent parameter (\(
+                                                  R_0\) or
+Not a real error.
+
+! Preview: Snippet 229 ended.(388104+88473x662643).
+<-><->
+      
+l.769 ...divide the independent parameter (\(R_0\)
+                                                   or
+Not a real error.
+
+[229]
+! Preview: Snippet 230 started.
+<-><->
+      
+l.770 \(
+        H_0\)) into 5 rather than 2 equal-sized sub-samples, with results
+Not a real error.
+
+! Preview: Snippet 230 ended.(388104+88473x720445).
+<-><->
+      
+l.770 \(H_0\)
+             ) into 5 rather than 2 equal-sized sub-samples, with results
+Not a real error.
+
+[230]
+
+LaTeX Warning: Reference `fig:mipsgal-boxplot' on page 3 undefined on input lin
+e 771.
+
+! Preview: Snippet 231 started.
+<-><->
+      
+l.772 increase with \(
+                      R_0\) in the dispersion of \(R_{90}/R_0\) (upper panel
+Not a real error.
+
+! Preview: Snippet 231 ended.(388104+88473x662643).
+<-><->
+      
+l.772 increase with \(R_0\)
+                            in the dispersion of \(R_{90}/R_0\) (upper panel
+Not a real error.
+
+[231]
+! Preview: Snippet 232 started.
+<-><->
+      
+l.772 ...ease with \(R_0\) in the dispersion of \(
+                                                  R_{90}/R_0\) (upper panel
+Not a real error.
+
+! Preview: Snippet 232 ended.(417300+115900x1857840).
+<-><->
+      
+l.772 ...R_0\) in the dispersion of \(R_{90}/R_0\)
+                                                   (upper panel
+Not a real error.
+
+[232]
+
+LaTeX Warning: Reference `fig:mipsgal-boxplot' on page 3 undefined on input lin
+e 773.
+
+! Preview: Snippet 233 started.
+<-><->
+      
+l.778 ...hock wings and the standard deviation, \(
+                                                  \epsilon(R_{90})\), of the
+Not a real error.
+
+! Preview: Snippet 233 ended.(417300+115900x1601584).
+<-><->
+      
+l.778 ... standard deviation, \(\epsilon(R_{90})\)
+                                                  , of the
+Not a real error.
+
+[233]
+! Preview: Snippet 234 started.
+<-><->
+      
+l.779 ...the bow shock that go into determining \(
+                                                  R_{90}\)
+Not a real error.
+
+! Preview: Snippet 234 ended.(388104+88473x923878).
+<-><->
+      
+l.779 ...shock that go into determining \(R_{90}\)
+                                                  
+Not a real error.
+
+[234]
+
+LaTeX Warning: Reference `step:R90' on page 3 undefined on input line 780.
+
+
+LaTeX Warning: Reference `sec:autom-trac-fitt' on page 3 undefined on input lin
+e 781.
+
+! Preview: Snippet 235 started.
+<-><->
+      
+l.782 these quantities tends to increase with \(
+                                                R_0\), and in fact there is
+Not a real error.
+
+! Preview: Snippet 235 ended.(388104+88473x662643).
+<-><->
+      
+l.782 ...quantities tends to increase with \(R_0\)
+                                                  , and in fact there is
+Not a real error.
+
+[235]
+! Preview: Snippet 236 started.
+<-><->
+      
+l.783 a significant \emph{decrease} in \(
+                                         \epsilon(R_{90})\) with \(R_0\).  This
+
+Not a real error.
+
+! Preview: Snippet 236 ended.(417300+115900x1601584).
+<-><->
+      
+l.783 ...t \emph{decrease} in \(\epsilon(R_{90})\)
+                                                   with \(R_0\).  This
+Not a real error.
+
+[236]
+! Preview: Snippet 237 started.
+<-><->
+      
+l.783 ...decrease} in \(\epsilon(R_{90})\) with \(
+                                                  R_0\).  This
+Not a real error.
+
+! Preview: Snippet 237 ended.(388104+88473x662643).
+<-><->
+      
+l.783 ...ase} in \(\epsilon(R_{90})\) with \(R_0\)
+                                                  .  This
+Not a real error.
+
+[237]
+! Preview: Snippet 238 started.
+<-><->
+      
+l.787 function of source magnitude \(
+                                     H_0\) (Fig.~\ref{fig:mipsgal-boxplot}b)
+Not a real error.
+
+! Preview: Snippet 238 ended.(388104+88473x720445).
+<-><->
+      
+l.787 function of source magnitude \(H_0\)
+                                           (Fig.~\ref{fig:mipsgal-boxplot}b)
+Not a real error.
+
+[238]
+
+LaTeX Warning: Reference `fig:mipsgal-boxplot' on page 3 undefined on input lin
+e 787.
+
+! Preview: Snippet 239 started.
+<-><->
+      
+l.788 leads us to suspect that the \(
+                                     p < 0.05\) result obtained for the
+Not a real error.
+
+! Preview: Snippet 239 ended.(380108+121503x2124670).
+<-><->
+      
+l.788 leads us to suspect that the \(p < 0.05\)
+                                                result obtained for the
+Not a real error.
+
+[239]
+
+LaTeX Warning: Reference `sec:distr-p-values' on page 3 undefined on input line
+ 790.
+
+
+LaTeX Warning: Reference `fig:histo-p-values' on page 3 undefined on input line
+ 791.
+
+! Preview: Snippet 240 started.
+<-><->
+      
+l.794 dispersion of \(
+                      R_{90}/R_0\) with increasing \(R_0\), which is finally
+Not a real error.
+
+! Preview: Snippet 240 ended.(417300+115900x1857840).
+<-><->
+      
+l.794 dispersion of \(R_{90}/R_0\)
+                                   with increasing \(R_0\), which is finally
+Not a real error.
+
+[240]
+! Preview: Snippet 241 started.
+<-><->
+      
+l.794 ...sion of \(R_{90}/R_0\) with increasing \(
+                                                  R_0\), which is finally
+Not a real error.
+
+! Preview: Snippet 241 ended.(388104+88473x662643).
+<-><->
+      
+l.794 ...of \(R_{90}/R_0\) with increasing \(R_0\)
+                                                  , which is finally
+Not a real error.
+
+[241]
+
+LaTeX Warning: Reference `fig:mipsgal-heteroscedastic' on page 3 undefined on i
+nput line 796.
+
+! Preview: Snippet 242 started.
+<-><->
+      
+l.798 of \(
+           \log_{10} R_0\).  As expected from the previous 2-sample and
+Not a real error.
+
+! Preview: Snippet 242 ended.(409600+138608x2099199).
+<-><->
+      
+l.798 of \(\log_{10} R_0\)
+                          .  As expected from the previous 2-sample and
+Not a real error.
+
+[242]
+! Preview: Snippet 243 started.
+<-><->
+      
+l.799 5-sample analyses, the regression of \(
+                                             R_{90}/R_0\) is almost flat,
+Not a real error.
+
+! Preview: Snippet 243 ended.(417300+115900x1857840).
+<-><->
+      
+l.799 ...nalyses, the regression of \(R_{90}/R_0\)
+                                                   is almost flat,
+Not a real error.
+
+[243]
+! Preview: Snippet 244 started.
+<-><->
+      
+l.801 absolute residuals to this fit against \(
+                                               \log_{10} R_0\) shows a
+Not a real error.
+
+! Preview: Snippet 244 ended.(409600+138608x2099199).
+<-><->
+      
+l.801 ...als to this fit against \(\log_{10} R_0\)
+                                                   shows a
+Not a real error.
+
+[244]
+! Preview: Snippet 245 started.
+<-><->
+      
+l.803 angular size is only evident for \(
+                                         R_0 < 30''\), becoming flat at the
+Not a real error.
+
+! Preview: Snippet 245 ended.(431783+88473x2371369).
+<-><->
+      
+l.803 ...r size is only evident for \(R_0 < 30''\)
+                                                  , becoming flat at the
+Not a real error.
+
+[245]
+
+LaTeX Warning: Reference `fig:mipsgal-heteroscedastic' on page 3 undefined on i
+nput line 805.
+
+
+LaTeX Warning: Reference `sec:ob-shapes' on page 4 undefined on input line 807.
+
+
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 4 undefined on input line
+ 809.
+
+! Preview: Snippet 246 started.
+<-><->
+      
+l.809 Fig.~\ref{fig:mipsgal-shapes}b).  The \(
+                                              p\)-values of statistical
+Not a real error.
+
+! Preview: Snippet 246 ended.(260702+121503x320274).
+<-><->
+      
+l.809 Fig.~\ref{fig:mipsgal-shapes}b).  The \(p\)
+                                                 -values of statistical
+Not a real error.
+
+[246]
+
+LaTeX Warning: Reference `tab:big-p' on page 4 undefined on input line 810.
+
+! Preview: Snippet 247 started.
+<-><->
+      
+l.812 in this section (\(
+                         p < 10^{-4}\) for \(R_{90}/R_0\) and
+Not a real error.
+
+! Preview: Snippet 247 ended.(509746+121503x2252921).
+<-><->
+      
+l.812 in this section (\(p < 10^{-4}\)
+                                       for \(R_{90}/R_0\) and
+Not a real error.
+
+[247]
+! Preview: Snippet 248 started.
+<-><->
+      
+l.812 in this section (\(p < 10^{-4}\) for \(
+                                             R_{90}/R_0\) and
+Not a real error.
+
+! Preview: Snippet 248 ended.(417300+115900x1857840).
+<-><->
+      
+l.812 ...ction (\(p < 10^{-4}\) for \(R_{90}/R_0\)
+                                                   and
+Not a real error.
+
+[248]
+! Preview: Snippet 249 started.
+<-><->
+      
+l.813 \(
+        p < 10^{-5}\) for \(R_c/R_0\)).  This means that it cannot be simply
+Not a real error.
+
+! Preview: Snippet 249 ended.(509746+121503x2252921).
+<-><->
+      
+l.813 \(p < 10^{-5}\)
+                      for \(R_c/R_0\)).  This means that it cannot be simply
+Not a real error.
+
+[249]
+! Preview: Snippet 250 started.
+<-><->
+      
+l.813 \(p < 10^{-5}\) for \(
+                            R_c/R_0\)).  This means that it cannot be simply
+Not a real error.
+
+! Preview: Snippet 250 ended.(417300+115900x1608543).
+<-><->
+      
+l.813 \(p < 10^{-5}\) for \(R_c/R_0\)
+                                     ).  This means that it cannot be simply
+Not a real error.
+
+[250]
+! Preview: Snippet 251 started.
+<-><->
+      
+l.818 \subsection
+                 {Far-infrared arcs around late-type stars}
+Not a real error.
+
+! Preview: Snippet 251 ended.(406094+120619x15728640).
+<-><->
+      
+l.818 ...Far-infrared arcs around late-type stars}
+                                                  
+Not a real error.
+
+[251
+
+]
+! Preview: Snippet 252 started.
+<-><->
+      
+l.822 \begin{figure*}
+                     
+Not a real error.
+
+<figs/alphaori-imageplot.pdf, id=1674, 722.7pt x 361.35pt>
+File: figs/alphaori-imageplot.pdf Graphic file (type pdf)
+
+<use figs/alphaori-imageplot.pdf>
+Package pdftex.def Info: figs/alphaori-imageplot.pdf used on input line 827.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/mucep-imageplot.pdf, id=1676, 722.7pt x 361.35pt>
+File: figs/mucep-imageplot.pdf Graphic file (type pdf)
+
+<use figs/mucep-imageplot.pdf>
+Package pdftex.def Info: figs/mucep-imageplot.pdf used on input line 828.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/rhya-imageplot.pdf, id=1678, 722.7pt x 361.35pt>
+File: figs/rhya-imageplot.pdf Graphic file (type pdf)
+
+<use figs/rhya-imageplot.pdf>
+Package pdftex.def Info: figs/rhya-imageplot.pdf used on input line 830.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/rleo-imageplot.pdf, id=1680, 722.7pt x 361.35pt>
+File: figs/rleo-imageplot.pdf Graphic file (type pdf)
+
+<use figs/rleo-imageplot.pdf>
+Package pdftex.def Info: figs/rleo-imageplot.pdf used on input line 831.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/uuaur-imageplot.pdf, id=1682, 722.7pt x 361.35pt>
+File: figs/uuaur-imageplot.pdf Graphic file (type pdf)
+
+<use figs/uuaur-imageplot.pdf>
+Package pdftex.def Info: figs/uuaur-imageplot.pdf used on input line 833.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/v1943sgr-imageplot.pdf, id=1684, 722.7pt x 361.35pt>
+File: figs/v1943sgr-imageplot.pdf Graphic file (type pdf)
+
+<use figs/v1943sgr-imageplot.pdf>
+Package pdftex.def Info: figs/v1943sgr-imageplot.pdf used on input line 834.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/xpav-imageplot.pdf, id=1686, 722.7pt x 361.35pt>
+File: figs/xpav-imageplot.pdf Graphic file (type pdf)
+
+<use figs/xpav-imageplot.pdf>
+Package pdftex.def Info: figs/xpav-imageplot.pdf used on input line 836.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/rcas-imageplot.pdf, id=1688, 722.7pt x 361.35pt>
+File: figs/rcas-imageplot.pdf Graphic file (type pdf)
+
+<use figs/rcas-imageplot.pdf>
+Package pdftex.def Info: figs/rcas-imageplot.pdf used on input line 837.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+
+Package natbib Warning: Citation `Cox:2012a' on page 4 undefined on input line 
+848.
+
+
+Package natbib Warning: Citation `Cox:2012a' on page 4 undefined on input line 
+848.
+
+! Preview: Snippet 252 ended.(38896604+0x33030144).
+<-><->
+      
+l.850 \end{figure*}
+                   
+Not a real error.
+
+[252
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.850 \end{figure*}
+                   
+
+ <./figs/alphaori-imageplot.pdf> <./figs/mucep-imageplot.pdf> <./figs/rhya-imag
+eplot.pdf> <./figs/rleo-imageplot.pdf> <./figs/uuaur-imageplot.pdf> <./figs/v19
+43sgr-imageplot.pdf> <./figs/xpav-imageplot.pdf> <./figs/rcas-imageplot.pdf>]
+! Preview: Snippet 253 started.
+<-><->
+      
+l.852 \begin{figure*}
+                     
+Not a real error.
+
+<figs/cwleo-imageplot.pdf, id=2139, 722.7pt x 361.35pt>
+File: figs/cwleo-imageplot.pdf Graphic file (type pdf)
+
+<use figs/cwleo-imageplot.pdf>
+Package pdftex.def Info: figs/cwleo-imageplot.pdf used on input line 857.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/epaqr-imageplot.pdf, id=2141, 722.7pt x 361.35pt>
+File: figs/epaqr-imageplot.pdf Graphic file (type pdf)
+
+<use figs/epaqr-imageplot.pdf>
+Package pdftex.def Info: figs/epaqr-imageplot.pdf used on input line 858.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/khicyg-imageplot.pdf, id=2143, 722.7pt x 361.35pt>
+File: figs/khicyg-imageplot.pdf Graphic file (type pdf)
+
+<use figs/khicyg-imageplot.pdf>
+Package pdftex.def Info: figs/khicyg-imageplot.pdf used on input line 860.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/rtvir-imageplot.pdf, id=2145, 722.7pt x 361.35pt>
+File: figs/rtvir-imageplot.pdf Graphic file (type pdf)
+
+<use figs/rtvir-imageplot.pdf>
+Package pdftex.def Info: figs/rtvir-imageplot.pdf used on input line 861.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/waql-imageplot.pdf, id=2147, 722.7pt x 361.35pt>
+File: figs/waql-imageplot.pdf Graphic file (type pdf)
+
+<use figs/waql-imageplot.pdf>
+Package pdftex.def Info: figs/waql-imageplot.pdf used on input line 863.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/wpic-imageplot.pdf, id=2149, 722.7pt x 361.35pt>
+File: figs/wpic-imageplot.pdf Graphic file (type pdf)
+
+<use figs/wpic-imageplot.pdf>
+Package pdftex.def Info: figs/wpic-imageplot.pdf used on input line 864.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/rscl-imageplot.pdf, id=2151, 722.7pt x 361.35pt>
+File: figs/rscl-imageplot.pdf Graphic file (type pdf)
+
+<use figs/rscl-imageplot.pdf>
+Package pdftex.def Info: figs/rscl-imageplot.pdf used on input line 866.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+<figs/tetaps-imageplot.pdf, id=2153, 722.7pt x 361.35pt>
+File: figs/tetaps-imageplot.pdf Graphic file (type pdf)
+
+<use figs/tetaps-imageplot.pdf>
+Package pdftex.def Info: figs/tetaps-imageplot.pdf used on input line 867.
+(pdftex.def)             Requested size: 241.91785pt x 122.81874pt.
+
+
+LaTeX Warning: Reference `fig:herschel-arc-fits' on page 4 undefined on input l
+ine 875.
+
+
+Package natbib Warning: Citation `Cox:2012a' on page 4 undefined on input line 
+875.
+
+
+LaTeX Warning: Reference `fig:herschel-arc-fits' on page 4 undefined on input l
+ine 875.
+
+
+Package natbib Warning: Citation `Cox:2012a' on page 4 undefined on input line 
+875.
+
+! Preview: Snippet 253 ended.(38241244+0x33030144).
+<-><->
+      
+l.877 \end{figure*}
+                   
+Not a real error.
+
+[253
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
+s been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.877 \end{figure*}
+                   
+
+ <./figs/cwleo-imageplot.pdf> <./figs/epaqr-imageplot.pdf> <./figs/khicyg-image
+plot.pdf> <./figs/rtvir-imageplot.pdf> <./figs/waql-imageplot.pdf> <./figs/wpic
+-imageplot.pdf> <./figs/rscl-imageplot.pdf> <./figs/tetaps-imageplot.pdf>]
+! Preview: Snippet 254 started.
+<-><->
+      
+l.880 \begin{figure*}
+                     
+Not a real error.
+
+<figs/mipsgal-Rc-R90-vs-Herschel.pdf, id=2608, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-vs-Herschel.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-vs-Herschel.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-vs-Herschel.pdf used on input line
+ 882.
+(pdftex.def)             Requested size: 403.20154pt x 403.22273pt.
+
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 4 undefined on input line
+ 890.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 4 undefined on inpu
+t line 890.
+
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 4 undefined on input line
+ 890.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 4 undefined on inpu
+t line 890.
+
+! Preview: Snippet 254 ended.(29291625+0x33030144).
+<-><->
+      
+l.892 \end{figure*}
+                   
+Not a real error.
+
+[254
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
+as been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.892 \end{figure*}
+                   
+
+ <./figs/mipsgal-Rc-R90-vs-Herschel.pdf>]
+
+Package natbib Warning: Citation `Cox:2012a' on page 4 undefined on input line 
+895.
+
+
+Package natbib Warning: Citation `Groenewegen:2011a' on page 4 undefined on inp
+ut line 898.
+
+
+Package natbib Warning: Citation `Cox:2012a' on page 4 undefined on input line 
+899.
+
+LaTeX Font Info:    Try loading font information for U+fontawesometwo on input 
+line 901.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/fontawesome/ufontawesometwo.fd
+File: ufontawesometwo.fd 2016/05/22 Font definitions for U/fontawesometwo.
+)
+! Preview: Snippet 255 started.
+<-><->
+      
+l.902   \(
+          \odot\)}'' (Class~III), and ``irregular~\staveXXV'' (Class~IV).  Of
+Not a real error.
+
+! Preview: Snippet 255 ended.(440795+38141x547356).
+<-><->
+      
+l.902   \(\odot\)
+                 }'' (Class~III), and ``irregular~\staveXXV'' (Class~IV).  Of
+Not a real error.
+
+[255]
+
+LaTeX Warning: Reference `fig:herschel-arc-fits' on page 4 undefined on input l
+ine 907.
+
+
+LaTeX Warning: Reference `fig:herschel-arc-fits-poor' on page 4 undefined on in
+put line 908.
+
+
+Package natbib Warning: Citation `Cox:2012a' on page 4 undefined on input line 
+909.
+
+! Preview: Snippet 256 started.
+<-><->
+      
+l.910 irregular to reliably determine \(
+                                        R_{c}\) and \(R_{90}\), and are
+Not a real error.
+
+! Preview: Snippet 256 ended.(388104+93017x674581).
+<-><->
+      
+l.910 irregular to reliably determine \(R_{c}\)
+                                                and \(R_{90}\), and are
+Not a real error.
+
+[256]
+! Preview: Snippet 257 started.
+<-><->
+      
+l.910 ...ar to reliably determine \(R_{c}\) and \(
+                                                  R_{90}\), and are
+Not a real error.
+
+! Preview: Snippet 257 ended.(388104+88473x923878).
+<-><->
+      
+l.910 ...liably determine \(R_{c}\) and \(R_{90}\)
+                                                  , and are
+Not a real error.
+
+[257]
+! Preview: Snippet 258 started.
+<-><->
+      
+l.917 \(
+        \alpha\)~Ori (Betelgeuse), shown in
+Not a real error.
+
+! Preview: Snippet 258 ended.(260702+7962x367754).
+<-><->
+      
+l.917 \(\alpha\)
+                ~Ori (Betelgeuse), shown in
+Not a real error.
+
+[258]
+
+LaTeX Warning: Reference `fig:herschel-arc-fits' on page 4 undefined on input l
+ine 918.
+
+
+Package natbib Warning: Citation `Joye:2003a' on page 4 undefined on input line
+ 923.
+
+
+LaTeX Warning: Reference `fig:herschel-arc-fits' on page 4 undefined on input l
+ine 924.
+
+
+LaTeX Warning: Reference `fig:herschel-arc-fits-poor' on page 4 undefined on in
+put line 925.
+
+! Preview: Snippet 259 started.
+<-><->
+      
+l.926 parameters \(
+                   R_0\), \(R_{90}\), and \(R_c\) are determined by circle
+Not a real error.
+
+! Preview: Snippet 259 ended.(388104+88473x662643).
+<-><->
+      
+l.926 parameters \(R_0\)
+                        , \(R_{90}\), and \(R_c\) are determined by circle
+Not a real error.
+
+[259]
+! Preview: Snippet 260 started.
+<-><->
+      
+l.926 parameters \(R_0\), \(
+                            R_{90}\), and \(R_c\) are determined by circle
+Not a real error.
+
+! Preview: Snippet 260 ended.(388104+88473x923878).
+<-><->
+      
+l.926 parameters \(R_0\), \(R_{90}\)
+                                    , and \(R_c\) are determined by circle
+Not a real error.
+
+[260]
+! Preview: Snippet 261 started.
+<-><->
+      
+l.926 parameters \(R_0\), \(R_{90}\), and \(
+                                            R_c\) are determined by circle
+Not a real error.
+
+! Preview: Snippet 261 ended.(388104+93017x674581).
+<-><->
+      
+l.926 parameters \(R_0\), \(R_{90}\), and \(R_c\)
+                                                  are determined by circle
+Not a real error.
+
+[261]
+
+LaTeX Warning: Reference `sec:autom-trac-fitt' on page 4 undefined on input lin
+e 927.
+
+
+LaTeX Warning: Reference `fig:herschel-compare-mipsgal' on page 4 undefined on 
+input line 930.
+
+! Preview: Snippet 262 started.
+<-><->
+      
+l.933 difference between the \(
+                               R_{90}/R_0\) ratio distributions of the two
+Not a real error.
+
+! Preview: Snippet 262 ended.(417300+115900x1857840).
+<-><->
+      
+l.933 difference between the \(R_{90}/R_0\)
+                                            ratio distributions of the two
+Not a real error.
+
+[262]
+! Preview: Snippet 263 started.
+<-><->
+      
+l.935 \(
+        R_c/R_0\) ratio distributions (detailed results are shown in
+Not a real error.
+
+! Preview: Snippet 263 ended.(417300+115900x1608543).
+<-><->
+      
+l.935 \(R_c/R_0\)
+                  ratio distributions (detailed results are shown in
+Not a real error.
+
+[263]
+
+LaTeX Warning: Reference `tab:big-p' on page 4 undefined on input line 936.
+
+! Preview: Snippet 264 started.
+<-><->
+      
+l.937 smaller \(
+                R_{90}\) ratio (median \(R_{90}/R_0 \approx 1.4\), implying bow
+
+Not a real error.
+
+! Preview: Snippet 264 ended.(388104+88473x923878).
+<-><->
+      
+l.937 smaller \(R_{90}\)
+                         ratio (median \(R_{90}/R_0 \approx 1.4\), implying bow
+
+Not a real error.
+
+[264]
+! Preview: Snippet 265 started.
+<-><->
+      
+l.937 smaller \(R_{90}\) ratio (median \(
+                                         R_{90}/R_0 \approx 1.4\), implying bow
+
+Not a real error.
+
+! Preview: Snippet 265 ended.(417300+115900x3333771).
+<-><->
+      
+l.937 ... ratio (median \(R_{90}/R_0 \approx 1.4\)
+                                                  , implying bow
+Not a real error.
+
+[265]
+! Preview: Snippet 266 started.
+<-><->
+      
+l.939 \(
+        R_{90}/R_0 \approx 1.7\)).  For the radius of curvature ratio, there is
+
+Not a real error.
+
+! Preview: Snippet 266 ended.(417300+115900x3333771).
+<-><->
+      
+l.939 \(R_{90}/R_0 \approx 1.7\)
+                                ).  For the radius of curvature ratio, there is
+
+Not a real error.
+
+[266]
+! Preview: Snippet 267 started.
+<-><->
+      
+l.941 \(
+        R_c/R_0 \approx 1.5\) for Herschel versus \(\approx 1.6\) for MIPSGA...
+
+Not a real error.
+
+! Preview: Snippet 267 ended.(417300+115900x3084474).
+<-><->
+      
+l.941 \(R_c/R_0 \approx 1.5\)
+                              for Herschel versus \(\approx 1.6\) for MIPSGA...
+
+Not a real error.
+
+[267]
+! Preview: Snippet 268 started.
+<-><->
+      
+l.941 .../R_0 \approx 1.5\) for Herschel versus \(
+                                                  \approx 1.6\) for MIPSGAL,...
+
+Not a real error.
+
+! Preview: Snippet 268 ended.(380108+7962x1312091).
+<-><->
+      
+l.941 ...1.5\) for Herschel versus \(\approx 1.6\)
+                                                   for MIPSGAL, which is
+Not a real error.
+
+[268]
+! Preview: Snippet 269 started.
+<-><->
+      
+l.942 ...atistically significant (rank biserial \(
+                                                  p = 0.29\)).  On the
+Not a real error.
+
+! Preview: Snippet 269 ended.(380108+121503x2099307).
+<-><->
+      
+l.942 ...y significant (rank biserial \(p = 0.29\)
+                                                  ).  On the
+Not a real error.
+
+[269]
+! Preview: Snippet 270 started.
+<-><->
+      
+l.943 other hand, the dispersion in \(
+                                      R_c/R_0\) is four times smaller for
+Not a real error.
+
+! Preview: Snippet 270 ended.(417300+115900x1608543).
+<-><->
+      
+l.943 other hand, the dispersion in \(R_c/R_0\)
+                                                is four times smaller for
+Not a real error.
+
+[270]
+! Preview: Snippet 271 started.
+<-><->
+      
+l.945 \(
+        p = 0.015\)).  In particular, the MIPSGAL sample shows a significant
+Not a real error.
+
+! Preview: Snippet 271 ended.(380108+121503x2402409).
+<-><->
+      
+l.945 \(p = 0.015\)
+                   ).  In particular, the MIPSGAL sample shows a significant
+Not a real error.
+
+[271]
+! Preview: Snippet 272 started.
+<-><->
+      
+l.946 minority of very flat-nosed shapes (\(
+                                            R_c/R_0 > 2\)), but these are
+Not a real error.
+
+! Preview: Snippet 272 ended.(417300+115900x2639815).
+<-><->
+      
+l.946 ...f very flat-nosed shapes (\(R_c/R_0 > 2\)
+                                                  ), but these are
+Not a real error.
+
+[272]
+
+LaTeX Warning: Reference `fig:herschel-arc-fits' on page 4 undefined on input l
+ine 949.
+
+
+LaTeX Warning: Reference `fig:herschel-arc-fits-poor' on page 4 undefined on in
+put line 950.
+
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 4 undefined on input line
+ 951.
+
+! Preview: Snippet 273 started.
+<-><->
+      
+l.959 \subsection
+                 {Stationary emission line arcs in M42}
+Not a real error.
+
+! Preview: Snippet 273 ended.(406094+120619x15728640).
+<-><->
+      
+l.959 ...ion{Stationary emission line arcs in M42}
+                                                  
+Not a real error.
+
+[273
+
+]
+! Preview: Snippet 274 started.
+<-><->
+      
+l.962 \begin{figure*}
+                     
+Not a real error.
+
+<figs/annotated-ll-arcs.pdf, id=2741, 720.99281pt x 344.27832pt>
+File: figs/annotated-ll-arcs.pdf Graphic file (type pdf)
+
+<use figs/annotated-ll-arcs.pdf>
+Package pdftex.def Info: figs/annotated-ll-arcs.pdf used on input line 964.
+(pdftex.def)             Requested size: 504.0pt x 240.66747pt.
+
+! Preview: Snippet 274 ended.(18048579+0x33030144).
+<-><->
+      
+l.967 \end{figure*}
+                   
+Not a real error.
+
+[274
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
+as been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.967 \end{figure*}
+                   
+
+ <./figs/annotated-ll-arcs.pdf>]
+! Preview: Snippet 275 started.
+<-><->
+      
+l.969 \begin{figure*}
+                     
+Not a real error.
+
+<figs/mipsgal-Rc-R90-vs-Orion.pdf, id=2871, 433.62pt x 433.62pt>
+File: figs/mipsgal-Rc-R90-vs-Orion.pdf Graphic file (type pdf)
+
+<use figs/mipsgal-Rc-R90-vs-Orion.pdf>
+Package pdftex.def Info: figs/mipsgal-Rc-R90-vs-Orion.pdf used on input line 97
+1.
+(pdftex.def)             Requested size: 403.20154pt x 403.22273pt.
+
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 4 undefined on input line
+ 976.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 4 undefined on inpu
+t line 976.
+
+
+LaTeX Warning: Reference `fig:mipsgal-shapes' on page 4 undefined on input line
+ 976.
+
+
+LaTeX Warning: Reference `fig:mipsgal-uncorrelated' on page 4 undefined on inpu
+t line 976.
+
+! Preview: Snippet 275 ended.(28636265+0x33030144).
+<-><->
+      
+l.978 \end{figure*}
+                   
+Not a real error.
+
+[275
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
+as been already used, duplicate ignored
+
+\pr@endbox ...y \pr@markerbox }\else \box \pr@box 
+                                                  \fi }\global \advance \pr@...
+l.978 \end{figure*}
+                   
+
+ <./figs/mipsgal-Rc-R90-vs-Orion.pdf>]
+! Preview: Snippet 276 started.
+<-><->
+      
+l.981 Mention future JWST observations with \(
+                                              0.85\arcsec\) resolution at \S...
+
+Not a real error.
+
+! Preview: Snippet 276 ended.(431783+7962x1450578).
+<-><->
+      
+l.981 ...re JWST observations with \(0.85\arcsec\)
+                                                   resolution at \SI{22}{\um}.
+Not a real error.
+
+[276]  !name(quadrics-bowshock.tex) !offset(-867) 
+
+Package natbib Warning: There were undefined citations.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 991.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 991.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 991.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 991.
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 2.79173pt have occurred.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 991.
+ ) 
+Here is how much of TeX's memory you used:
+ 25653 strings out of 492995
+ 437534 string characters out of 6132704
+ 520919 words of memory out of 5000000
+ 28566 multiletter control sequences out of 15000+600000
+ 166877 words of font info for 435 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 39i,14n,54p,10598b,1159s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-sc.enc}{/u
+sr/local/texlive/2017/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}{/usr/loc
+al/texlive/2017/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/local/texli
+ve/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2017/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
+pe1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2017/texmf-dist/font
+s/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
+1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
+ic/tex-gyre/qtmri.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ne
+wtx/rntxmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rn
+txmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/txfonts/rtxmi.
+pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></u
+sr/local/texlive/2017/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/loca
+l/texlive/2017/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on _region_.pdf (276 pages, 13790361 bytes).
+PDF statistics:
+ 3013 PDF objects out of 3580 (max. 8388607)
+ 1364 compressed objects within 14 object streams
+ 23 named destinations out of 1000 (max. 500000)
+ 33560 words of extra memory for PDF output out of 35830 (max. 10000000)
+
