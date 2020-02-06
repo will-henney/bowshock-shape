@@ -1,4 +1,15 @@
 * Bowshocks around moving OB and RSG stars
+
+** New note for version 2 of Paper IV
+[2020-02-06 Thu 10:48]
+
+*** The extremes of the distributions
++ To what extent are they real, and to what extent are they artefacts of the fitting procedure? 
++ High alatude sources (in the upwards spur):
+  + K274 has \Pi, \Lambda+, \Lambda- = 1.5, 2.2, 3.1
+    + The high \Lambda is genuine, seems to be an oscillation in the wings for \theta > 60
+    + But \Pi might be higher if fitted to peak brightness only
+
 ** Nature of arcs around O stars
 + There is some question whether they are really bow shocks, or are instead dust waves.
   + Example of the latter is 
@@ -236,6 +247,13 @@ CLOSED: [2017-03-28 Tue 13:24]
   + [X] Same but via a Gaussian fit
   + [X] Option to restrict to a subset of sources
   + [ ] Include star ratings
+  + [X] Use 60 deg instead of 45 deg for circle fits
++ Further new improvements
+  + [ ] Compare the different values of ~CIRCLE_THETA~ 50 \to 80
+    + Write each to its own subdir
+    + This will give a handle on the uncertainty in planitude
+  + [ ] Try it with and without combining the mean and peak radii
+    + For the bigger sources, just the peak would be better
 + List of the nicest sources
   + 001 - Rc/R0 = 0.8, R90/R0 = 1.4 (misidentified source)
   + 018 - Rc/R0 = 1.26, R90/R0 = 1.7 in hyperbola zone
@@ -1322,9 +1340,20 @@ Plot KDE of the distribution
   for source in tab[m5]:
       ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
               fontsize=5, color='orange', ha='center', va='center')
-  for source in tab[m4 & ((tab['Rc'] <= 1.2) | (tab['R90'] >= 2.0) | (tab['Rc'] >= 2.5))]:
+
+  for source in tab[m4 & (
+          (tab['Rc'] <= 1.2) | (tab['Rc'] >= 2.5)
+          | (tab['R90'] >= 2.0) 
+  )]:
       ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
               fontsize=4, color='white', ha='center', va='center')
+
+  for source in tab[m3 & (
+          (tab['Rc'] <= 1.0) | (tab['Rc'] >= 3.0)
+          | (tab['R90'] >= 2.0) | (tab['R90'] <= 1.2)
+  )]:
+      ax.text(source['Rc'], source['R90'], f'{source["Seq"]}',
+              fontsize=3, color='0.5', ha='center', va='center')
 
   ax.legend(frameon=True, loc='upper right')
   ax.set(
