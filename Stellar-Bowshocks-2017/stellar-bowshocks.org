@@ -9,6 +9,19 @@
   + K274 has \Pi, \Lambda+, \Lambda- = 1.5, 2.2, 3.1
     + The high \Lambda is genuine, seems to be an oscillation in the wings for \theta > 60
     + But \Pi might be higher if fitted to peak brightness only
+  + K132 has same \Pi, \Lambda as K274
+    + But in this case, it is spurious
+    + There is an unrelated clump that affects one side
+  + K125 has  \Pi, \Lambda+, \Lambda- = 1.4, 1.8, 2.5
+    + So not quite so extreme
+    + The \Lambda's look genuine, but again the \Pi could be higher if fit to peak only
+  + K248 has \Pi, \Lambda+, \Lambda- = 0.95, 1.5, 2.3
+    + Very asymmetrical, possibly two sources superimposed
+    + The \Pi could easily be larger
+  + K230 is close to K125 in diagram: \Pi, \Lambda+, \Lambda- = 1.35, 1.7, 2.6
+    + Again the \Lambda's are legitimate
+    + But \Pi could be bigger, making it more like K635
+    + It has far-wings that are visible into the tail
 
 ** Nature of arcs around O stars
 + There is some question whether they are really bow shocks, or are instead dust waves.
@@ -254,6 +267,11 @@ CLOSED: [2017-03-28 Tue 13:24]
     + This will give a handle on the uncertainty in planitude
   + [ ] Try it with and without combining the mean and peak radii
     + For the bigger sources, just the peak would be better
+  + [ ] Find out why it fails for lots of sources
+    + The large ones such as zeta oph - probably need to download a bigger image
+      + Yes, we have ones that are 4 arcmin - should repeat but for 10 arcmin
+    + The ones in range 316 to 415 - we are missing images - is this because they are only WISE?
+      + Yes, that seems to be the case: they have l in the range 90 \to 270
 + List of the nicest sources
   + 001 - Rc/R0 = 0.8, R90/R0 = 1.4 (misidentified source)
   + 018 - Rc/R0 = 1.26, R90/R0 = 1.7 in hyperbola zone
@@ -973,68 +991,6 @@ First, radius versus radius
 #+RESULTS:
 [[file:mipsgal-r0-r0.pdf]]
 
-Look at thickness vs R0
-
-#+BEGIN_SRC python :return figfile :results file
-  import numpy as np
-  from astropy.table import Table
-  from matplotlib import pyplot as plt
-  import seaborn as sns
-
-  sns.set_style('white')
-  sns.set_color_codes('dark')
-
-  figfile = 'mipsgal-r0-h0.pdf'
-
-  combo_file = 'mipsgal-arcfit.tab'
-  tab = Table.read(combo_file, format='ascii.tab')
-
-  fig, ax = plt.subplots(figsize=(6, 6))
-
-  Q = tab['R0_fit']/tab['R0_sigma']
-
-  # Make quality classes
-  m5 = tab['Rating'] ==  5
-  m4 = tab['Rating'] ==  4
-  m3 = tab['Rating'] ==  3
-  m2 = tab['Rating'] ==  2
-  m1 = tab['Rating'] ==  1
-
-  masks = (m1 | m2), m3, m4, m5
-  alphas = 0.05, 0.3, 0.5, 0.8
-  labels = '1- or 2-star', '3-star', '4-star', '5-star'
-  colors = 'k', 'c', 'r', 'b'
-  sizes = 3, 5, 7, 10
-
-
-  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
-      ax.errorbar('R0_g', 'H_g', xerr='R0_sigma', data=tab[m],
-                  fmt='o', lw=1, c=c, ms=ms, alpha=alpha,
-                  label=f'{label} ($N = {m.sum()}$)')
-  for source in tab[m5]:
-      ax.text(source['R0_g'], source['H_g'], f'{source["Seq"]}',
-              fontsize=5, color='orange', ha='center', va='center')
-  # for source in tab[m4 & (np.abs(np.log10(tab['H_g']/tab['R0_g'])) > 0.15)]:
-  for source in tab[m4]:
-      ax.text(source['R0_g'], source['H_g'], f'{source["Seq"]}',
-              fontsize=4, color='white', ha='center', va='center')
-
-  ax.plot([1.0, 200.0], [1.0, 200.0])
-  ax.axhline(5.5, 0.0, 0.55, ls=':', lw=1, color='k')
-  ax.legend()
-  ax.set(
-      xlim=[2, 110], ylim=[2, 110],
-      xlabel='Radius $R_0$, arcsec',
-      ylabel='Thickness $H_0$, arcsec',
-      xscale='log', yscale='log')
-
-  fig.savefig(figfile)
-
-
-#+END_SRC
-
-#+RESULTS:
-[[file:mipsgal-r0-h0.pdf]]
 
 And now, Rc versus R90
 #+BEGIN_SRC python :return figfile :results file
@@ -1265,7 +1221,8 @@ Plot KDE of the distribution
 + The result is exported in [[file:mipsgal-Rc-R90-thumbnails.pdf]]
 
 
-**** TODO Test out log-log axes for these graphs
+**** DONE Test out log-log axes for these graphs
+CLOSED: [2020-02-06 Thu 18:12]
 + [2019-03-31 Sun 11:30] Return to this project - reborn as Paper IV!
 + I want to see if the graphs would look better with log axes
 + That way, we wouldn't have such a long tail towards high planitude
@@ -1486,6 +1443,374 @@ Plot KDE of the distribution
 #+RESULTS:
 [[file:mipsgal-Rc-R90-kde-log.pdf]]
 
+
+**** Isophotal thickness and breadth
++ These are the new ([2020-02-06 Thu]) quantities that we are measuring:
+  + Shell Thickness :: h = H_0/R_0 where H_0 is FWHM of brightness profile along axis
+  + Shell Breadth :: Angular version is \Delta\theta = \theta+ - \theta- where \theta+, \theta- are the half-brightness points measured around the shell from the star
+    + Currently I am plotting 0.5 \Delta\theta in degrees
+    + But we could also do a dimensionless length version, which might be better since it is more directly comparable with the thickness
+      + For \Lambda = 1, we have \Delta{}s = R_0 \Delta\theta, measured in radians
+      + For \Lambda \gg 1, we have \Delta{}s = R_0 tan \Delta\theta, so \Delta{}s \to \infty as \Delta\theta \to 90\deg
+      + [ ] There must be a simple formula for the intermediate case
+  + Spanish: grosor y anchura
++ There is a clear correlation between breadth and thickness
+  + See [[file:mipsgal-h0-thb.pdf]]
+  + The thin shells (h = 0.3 \to 0.7) are also narrow (HWHM \Delta\theta = 50 \to 60\deg)
+    + These are mainly 5-star sources: 292, 263, 489, 123, 442, 598
+    + And some 4 star: 111, 44 (beautiful and flat!), 110
+    + The also tend to be leptokurtic (peaked
+  + The thick shells (h = 1.5 \to 3) are also broad (HWHM \Delta\theta = 80 \to 100\deg)
+    + Only 4-star sources:
+      + Some supposedly have h > 2, but this is from failed fits, and h should really be smaller:
+        + 048, 696 (actually thin), 046 (is quite thick, but not as much as the fit), 114 (ditto), 215
+      + But some around h = 2 are more legitimate
+        + 060, 589, 197 (but narrow component inside broader one), 215 (ditto), 274, 589, 021, 060, etc (some are small)
+  + Intermediate shells (h = 0.7 \to 1.5)
+    + 5-star: 692, 061 (maybe h should be bigger), 530 is nice, 688
+
+
+***** Look at thickness vs R0
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import seaborn as sns
+
+  sns.set_style('white')
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-r0-h0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  Q = tab['R0_fit']/tab['R0_sigma']
+
+  # Make quality classes
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = (m1 | m2), m3, m4, m5
+  alphas = 0.05, 0.3, 0.5, 0.8
+  labels = '1- or 2-star', '3-star', '4-star', '5-star'
+  colors = 'k', 'c', 'r', 'b'
+  sizes = 3, 5, 7, 10
+
+
+  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
+      ax.errorbar('R0_g', 'H_g', xerr='R0_sigma', data=tab[m],
+                  fmt='o', lw=1, c=c, ms=ms, alpha=alpha,
+                  label=f'{label} ($N = {m.sum()}$)')
+  for source in tab[m5]:
+      ax.text(source['R0_g'], source['H_g'], f'{source["Seq"]}',
+              fontsize=5, color='orange', ha='center', va='center')
+  # for source in tab[m4 & (np.abs(np.log10(tab['H_g']/tab['R0_g'])) > 0.15)]:
+  for source in tab[m4]:
+      ax.text(source['R0_g'], source['H_g'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
+
+  ax.plot([1.0, 200.0], [1.0, 200.0])
+  ax.axhline(5.5, 0.0, 0.55, ls=':', lw=1, color='k')
+  ax.legend()
+  ax.set(
+      xlim=[2, 110], ylim=[2, 110],
+      xlabel='Radius $R_0$, arcsec',
+      ylabel='Thickness $H_0$, arcsec',
+      xscale='log', yscale='log')
+
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-r0-h0.pdf]]
+
+
+***** Plot breadth versus thickness
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-h0-thb.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  Q = tab['R0_fit']/tab['R0_sigma']
+
+  # Make quality classes
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = (m1 | m2), m3, m4, m5
+  alphas = 0.05, 0.3, 0.5, 0.8
+  labels = '1- or 2-star', '3-star', '4-star', '5-star'
+  colors = 'k', 'c', 'r', 'b'
+  sizes = 3, 5, 7, 10
+
+  range_ = [0.25, 8]
+  ticks = [0.3, 0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0]
+
+  # Add some columns
+  tab["th_b"] = 0.5*(tab["th_p"] - tab["th_m"])
+  tab["h"] = tab["H_g"]/tab["R0_g"]
+
+  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
+      ax.plot('h', "th_b", 'o', data=tab[m],
+                  lw=1, c=c, ms=ms, alpha=alpha,
+                  label=f'{label} ($N = {m.sum()}$)')
+  for source in tab[m4]:
+      ax.text(source['h'], source['th_b'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
+  for source in tab[m5]:
+      ax.text(source['h'], source['th_b'], f'{source["Seq"]}',
+              fontsize=5, color='orange', ha='center', va='center')
+
+  ax.legend()
+  ax.set(
+      xlim=range_, ylim=[0, 135],
+      xlabel='Dimensionless shell thickness, $h$',
+      ylabel='Brightness half width half max, degrees',
+      xscale='log', yscale='linear')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-h0-thb.pdf]]
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-R90-thb.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  Q = tab['R0_fit']/tab['R0_sigma']
+
+  # Make quality classes
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = (m1 | m2), m3, m4, m5
+  alphas = 0.05, 0.3, 0.5, 0.8
+  labels = '1- or 2-star', '3-star', '4-star', '5-star'
+  colors = 'k', 'c', 'r', 'b'
+  sizes = 3, 5, 7, 10
+
+  range_ = [0.35, 9.5]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
+  # Add some columns
+  tab["th_b"] = 0.5*(tab["th_p"] - tab["th_m"])
+  tab["h"] = tab["H_g"]/tab["R0_g"]
+  tab["Lambda"] = 0.5*(tab['R90p'] + tab['R90n']) / tab['R0_fit']
+
+  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
+      ax.plot('Lambda', "th_b", 'o', data=tab[m],
+                  lw=1, c=c, ms=ms, alpha=alpha,
+                  label=f'{label} ($N = {m.sum()}$)')
+  for source in tab[m4]:
+      ax.text(source['Lambda'], source['th_b'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
+  for source in tab[m5]:
+      ax.text(source['Lambda'], source['th_b'], f'{source["Seq"]}',
+              fontsize=5, color='orange', ha='center', va='center')
+
+  ax.legend()
+  ax.set(
+      xlim=range_, ylim=[0, 135],
+      xlabel='Alatude, $\Lambda$',
+      ylabel='Brightness half width half max, degrees',
+      xscale='log', yscale='linear')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-R90-thb.pdf]]
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-thb.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  Q = tab['R0_fit']/tab['R0_sigma']
+
+  # Make quality classes
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = (m1 | m2), m3, m4, m5
+  alphas = 0.05, 0.3, 0.5, 0.8
+  labels = '1- or 2-star', '3-star', '4-star', '5-star'
+  colors = 'k', 'c', 'r', 'b'
+  sizes = 3, 5, 7, 10
+
+  range_ = [0.35, 9.5]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
+  # Add some columns
+  tab["th_b"] = 0.5*(tab["th_p"] - tab["th_m"])
+  tab["h"] = tab["H_g"]/tab["R0_g"]
+  tab["Pi"] = tab['Rc'] / tab['R0_fit']
+
+  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
+      ax.plot('Pi', "th_b", 'o', data=tab[m],
+                  lw=1, c=c, ms=ms, alpha=alpha,
+                  label=f'{label} ($N = {m.sum()}$)')
+  for source in tab[m4]:
+      ax.text(source['Pi'], source['th_b'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
+  for source in tab[m5]:
+      ax.text(source['Pi'], source['th_b'], f'{source["Seq"]}',
+              fontsize=5, color='orange', ha='center', va='center')
+
+  ax.legend()
+  ax.set(
+      xlim=range_, ylim=[0, 135],
+      xlabel='Planitude, $\Pi$',
+      ylabel='Brightness half width half max, degrees',
+      xscale='log', yscale='linear')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-thb.pdf]]
+
+#+BEGIN_SRC python :return figfile :results file
+  import numpy as np
+  from astropy.table import Table
+  from matplotlib import pyplot as plt
+  import matplotlib.ticker as mticker
+  import seaborn as sns
+
+  sns.set_color_codes('dark')
+
+  figfile = 'mipsgal-Rc-h0.pdf'
+
+  combo_file = 'mipsgal-arcfit.tab'
+  tab = Table.read(combo_file, format='ascii.tab')
+
+  fig, ax = plt.subplots(figsize=(6, 6))
+
+  Q = tab['R0_fit']/tab['R0_sigma']
+
+  # Make quality classes
+  m5 = tab['Rating'] ==  5
+  m4 = tab['Rating'] ==  4
+  m3 = tab['Rating'] ==  3
+  m2 = tab['Rating'] ==  2
+  m1 = tab['Rating'] ==  1
+
+  masks = (m1 | m2), m3, m4, m5
+  alphas = 0.05, 0.3, 0.5, 0.8
+  labels = '1- or 2-star', '3-star', '4-star', '5-star'
+  colors = 'k', 'c', 'r', 'b'
+  sizes = 3, 5, 7, 10
+
+  range_ = [0.35, 9.5]
+  ticks = [0.4, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0]
+
+  # Add some columns
+  tab["th_b"] = 0.5*(tab["th_p"] - tab["th_m"])
+  tab["h"] = tab["H_g"]/tab["R0_g"]
+  tab["Pi"] = tab['Rc'] / tab['R0_fit']
+
+  for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
+      ax.plot('Pi', "h", 'o', data=tab[m],
+                  lw=1, c=c, ms=ms, alpha=alpha,
+                  label=f'{label} ($N = {m.sum()}$)')
+  for source in tab[m4]:
+      ax.text(source['Pi'], source['h'], f'{source["Seq"]}',
+              fontsize=4, color='white', ha='center', va='center')
+  for source in tab[m5]:
+      ax.text(source['Pi'], source['h'], f'{source["Seq"]}',
+              fontsize=5, color='orange', ha='center', va='center')
+
+  ax.legend()
+  ax.set(
+      xlim=range_, ylim=range_,
+      xlabel='Planitude, $\Pi$',
+      ylabel='Dimensionless shell thickness, $h$',
+      xscale='log', yscale='log')
+  ax.xaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_locator(mticker.FixedLocator(ticks))
+  ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+  ax.xaxis.set_major_formatter(mticker.FormatStrFormatter('%0g'))
+
+  sns.despine()
+  fig.savefig(figfile)
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:mipsgal-Rc-h0.pdf]]
 
 
 *** Histograms of differences in PA
