@@ -329,6 +329,8 @@ CLOSED: [2017-03-28 Tue 13:24]
 
   IMAGE_DIR = 'OB/MipsGal'
 
+
+
   try:
       iseq_min, iseq_max = int(sys.argv[1]), int(sys.argv[2])
   except:
@@ -1551,7 +1553,7 @@ CLOSED: [2020-02-06 Thu 18:12]
      - [X] Something from sklearn, probably overkill
        - But there is TheilSenRegressor and RANSACRegressor
        - This works, but it gives the same answer as the linear one, and it doesn't give an error estimate on the coefficients
-       - Turns out that statsmodels is better for that, but that doesn't cope on errors in x
+       - Turns out that statsmodels is better for that, but that doesn't cope with errors in x
      - [ ] A really sophisticated method is ~linmix~
        - https://github.com/jmeyers314/linmix for python implementation
        - These are based on Kelly:2007a (original in IDL)
@@ -1559,9 +1561,16 @@ CLOSED: [2020-02-06 Thu 18:12]
        - Then what we observe are x = \xi + \sigma_x and y = \eta + \sigma_y where the \sigma_x and \sigma_y are the measurement errors, which can be heteroskedastic and optionally correlated.
        - You get out posterior distributions of the slope and intercept, as well as of the "true" value of \sigma, even if it is less than \sigma_x, \sigma_y
        - It can also be used if some of the data are censored (upper limits), which might be useful in the case of the
-       - I am running it now in a jupyter notebook, but it is taking forever
+       - I am running it now in a jupyter notebook
+         - This ended up working very well
+         - See [[file:Regression-with-linmix.py]]
+         - Clearly shows sensitivity to the observational errors on the x axis
+         - This means that we have to be very careful with calculating a decent uncertainty in R_c, which will need the use of different values for ~CIRCLE_THETA~
      - Finally there is ~leopy~
        - Described in Feldmann:2019
+       - This may be even better, but it is more DIY than ~linmix~
+         - You need to provide the minimization and MCMC yourself, presumably from other packages
+       - So, this is more flexible in principle, but I will save it for a rainy day
 
 #+begin_src python :eval no :tangle regress_utils.py
   import numpy as np
