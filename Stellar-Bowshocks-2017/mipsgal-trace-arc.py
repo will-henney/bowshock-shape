@@ -1,6 +1,7 @@
 import glob
 import os
 import sys
+from pathlib import Path
 from collections import OrderedDict
 import numpy as np
 from astropy.table import Table, QTable
@@ -18,19 +19,40 @@ sns.set_style('white')
 
 DEBUG = False
 
-SOURCE_DIR = 'OB/Kobulnicky2016'
+SOURCE_DIR = Path('OB/Kobulnicky2016')
 source_table = Table.read(
-    os.path.join(SOURCE_DIR, 'table1.dat'),
+    str(SOURCE_DIR / 'table1.dat'),
     format='ascii.cds',
-    readme=os.path.join(SOURCE_DIR, 'ReadMe')
+    readme=str(SOURCE_DIR / 'ReadMe')
 )
 
-IMAGE_DIR = 'OB/MipsGal'
+IMAGE_DIR = Path('OB/MipsGal')
+
+
+##
+## Deal with command-line arguments 
+##
 
 try:
-    iseq_min, iseq_max = int(sys.argv[1]), int(sys.argv[2])
+    CIRCLE_THETA = abs(float(sys.argv[1]))*u.deg
+    TRACE_METHOD = "peak" if float(sys.argv[1]) < 0 else "both"
+except:
+    print("Adopting default CIRCLE_THETA = 60")
+    CIRCLE_THETA = 60.0*u.deg
+    TRACE_METHOD = "both"
+
+try:
+    iseq_min, iseq_max = int(sys.argv[2]), int(sys.argv[3])
 except:
     iseq_min, iseq_max = 0, 999_999_999
+
+
+# 10 Feb 2020 - now use a dedicated folder for output, which is named
+# after the value of CIRCLE_THETA
+OUTPUT_DIR = IMAGE_DIR / Path(f"circ_theta_{int(CIRCLE_THETA.value):03d}_{TRACE_METHOD}")
+
+# Create the output folder if it does not already exist
+OUTPUT_DIR.mkdir(exist_ok=True)
 
 ENVIRONMENTS = {
     'I': 'Isolated',
@@ -50,7 +72,6 @@ OVERRIDE = {
     650: {'R0': 50},
 }
 STEP_BACK_FACTOR = 2.0
-CIRCLE_THETA = 60.0*u.deg
 
 THMIN, THMAX = coord.Angle([-160.0*u.deg, 160.0*u.deg])
 
@@ -93,22 +114,24 @@ for source_data in source_table:
     # Coordinates of source central star
     c = skycoord_from_table_row(source_data)
     # Find all the images for this source
-    provisional_list = glob.glob(
-        f"{IMAGE_DIR}/*-{source_data['Name']}-*.fits")
+    provisional_list = IMAGE_DIR.glob(f"*-{source_data['Name']}-*.fits")
     # Look for an image that is good
     good_image_list = []
-    for image_name in provisional_list:
-        hdu, = fits.open(image_name)
+    for image_path in provisional_list:
+        hdu, = fits.open(image_path)
         looks_good = hdu.header['NAXIS1'] == hdu.header['NAXIS2']
         if looks_good:
-            good_image_list.append(image_name)
+            good_image_list.append(image_path)
 
     if good_image_list:
-        # Use the first one in the list - because: why not? 
-        hdu, = fits.open(good_image_list[0])
+        # Use the first one in the list - because: why not?
+        image_path = good_image_list[0]
+        hdu, = fits.open(image_path)
     else:
         # If there were no good images, then never mind
         continue
+
+    image_stem = image_path.stem
 
     # Create WCS object for this image
     w = WCS(hdu)
@@ -257,10 +280,13 @@ for source_data in source_table:
     cmask_peak = np.abs(theta_peak_grid) <= CIRCLE_THETA
     cmask_mean = np.abs(theta_mean_grid) <= CIRCLE_THETA
     # Use the mean and peak points
-    try: 
-        points2fit = coord_concat((rpeak_coords[cmask_peak],
-                                   rmean_coords[cmask_mean]))
-        # points2fit = rpeak_coords[cmask_peak]
+    try:
+        if TRACE_METHOD == "both":
+            points2fit = coord_concat((rpeak_coords[cmask_peak],
+                                       rmean_coords[cmask_mean]))
+        elif TRACE_METHOD == "peak":
+            points2fit = rpeak_coords[cmask_peak]
+
         # Winnow out the points with radii too far from median
         r2fit = c.separation(points2fit).to(u.arcsec)
         rmed = np.median(r2fit)
@@ -420,7 +446,7 @@ for source_data in source_table:
     Contrast_fom_bright_fit = Peak_from_bright_fit / BG_from_bright_fit
 
     # Save the fit data for each source
-    table_file_name = image_name.replace('.fits', '-arcfit.tab')
+    table_file_name = f"{image_stem}-arcfit.tab"
     save_vars = [
         ['Seq', source_data['Seq']], 
         ['R0_fit', R0_fit.arcsec], 
@@ -444,9 +470,10 @@ for source_data in source_table:
     ]
     colnames, colvals = zip(*save_vars)
     Table(rows=[list(colvals)],
-          names=list(colnames)).write(table_file_name,
-                                      format='ascii.tab',
-                                      overwrite=True)
+          names=list(colnames)).write(
+              OUTPUT_DIR / table_file_name,
+              format='ascii.tab',
+              overwrite=True)
 
     # Save a figure for each source
     fig = plt.figure(figsize=(12, 8))
@@ -543,7 +570,7 @@ for source_data in source_table:
               transform=ax_i.transAxes, ha='center', va='top'
     )
 
-    fig.savefig(image_name.replace('.fits', '-multiplot.pdf'))
+    fig.savefig(OUTPUT_DIR /  f"{image_stem}-multiplot.pdf")
     # Important to close figure explicitly so as not to leak resources
     plt.close(fig)
 
@@ -561,5 +588,5 @@ for source_data in source_table:
         xlabel = "Offset along axis, arcsec",
         ylabel = r"Brightness in strip of width $0.3 \times R_0$",
     )
-    fig.savefig(image_name.replace('.fits', '-rad-bright.pdf'))
+    fig.savefig(OUTPUT_DIR / f'{image_stem}-rad-bright.pdf')
     plt.close(fig)
