@@ -398,6 +398,26 @@ CLOSED: [2017-03-28 Tue 13:24]
       """Like numpy.concatenate but ensures result is of coordinate type"""
       return coord.SkyCoord(np.concatenate(array_tuple, **kwds))
 
+
+  def find_x_for_y_fraction(x, y, ymax, yfrac):
+      """Find `x` where `y` is a fraction `yfrac` of maximum `ymax`
+
+      Returns tuple of left and right x values.  Assumes unimodal peak
+      in y(x) and that the peak is near to x = 0.  If y never falls
+      below the fraction on the left (right), then returns the minimum
+      (maximum) value of x on that side.
+      """
+      try:
+          xleft = np.max(x[(y < yfrac*ymax) & (x < 0.0)])
+      except:
+          xleft = x.min()
+      try:
+          xright = np.min(x[(y < yfrac*ymax) & (x > 0.0)])
+      except:
+          xright = x.max()
+      return xleft, xright
+
+
   fitter = fitting.LevMarLSQFitter()
 
   for source_data in source_table:
@@ -637,10 +657,13 @@ CLOSED: [2017-03-28 Tue 13:24]
       m0_mean = np.abs(theta_mean_grid) <= 10.0*u.deg
 
       # Then concatenate all the R values that meet this condition
-      R0_grid = coord.Angle(
-          np.concatenate((rpeak_grid.value[m0_peak],
-                          rmean_grid.value[m0_mean])),
-          unit=u.arcsec)
+      if TRACE_METHOD == "both":
+          R0_grid = coord.Angle(
+              np.concatenate((rpeak_grid.value[m0_peak],
+                              rmean_grid.value[m0_mean])),
+              unit=u.arcsec)
+      elif TRACE_METHOD == "peak":
+          R0_grid = coord.Angle(rpeak_grid.value[m0_peak], unit=u.arcsec)
 
       R0_fit, R0_sigma = R0_grid.mean(), R0_grid.std()
       fit_msg = f'Fitted R0 = {R0_fit.arcsec:.1f} +/- {R0_sigma.arcsec:.1f} arcsec' + '\n'
@@ -670,14 +693,19 @@ CLOSED: [2017-03-28 Tue 13:24]
       m90p_mean = np.abs(theta_mean_grid - 90.0*u.deg) <= 10.0*u.deg
       m90n_mean = np.abs(theta_mean_grid + 90.0*u.deg) <= 10.0*u.deg
       # Then concatenate all the R values for the two cases
-      R90p_grid = coord.Angle(
-          np.concatenate((rpeak_grid.value[m90p_peak],
-                          rmean_grid.value[m90p_mean])),
-          unit=u.arcsec)
-      R90n_grid = coord.Angle(
-          np.concatenate((rpeak_grid.value[m90n_peak],
-                          rmean_grid.value[m90n_mean])),
-          unit=u.arcsec)
+      if TRACE_METHOD == "both":
+          R90p_grid = coord.Angle(
+              np.concatenate((rpeak_grid.value[m90p_peak],
+                              rmean_grid.value[m90p_mean])),
+              unit=u.arcsec)
+          R90n_grid = coord.Angle(
+              np.concatenate((rpeak_grid.value[m90n_peak],
+                              rmean_grid.value[m90n_mean])),
+              unit=u.arcsec)
+      elif TRACE_METHOD == "peak":
+          R90p_grid = coord.Angle(rpeak_grid.value[m90p_peak], unit=u.arcsec)
+          R90n_grid = coord.Angle(rpeak_grid.value[m90n_peak], unit=u.arcsec)
+
       # And calculate mean and standard deviation
       R90p, R90p_sigma = R90p_grid.mean(), R90p_grid.std()
       R90n, R90n_sigma = R90n_grid.mean(), R90n_grid.std()
@@ -687,29 +715,25 @@ CLOSED: [2017-03-28 Tue 13:24]
       # Calculate angular fwhm width of brightness distribution
       x, y = theta_peak_grid.value, bmax_grid - bright_median
       try:
-          b_halfmax = 0.5*(np.nanmax(bmax_grid[m0_peak]) - bright_median)
+          b_max = np.nanmax(bmax_grid[m0_peak]) - bright_median
       except ValueError:
           print('ABORT - No valid pixels in m0_peak, cannot continue')
           continue
 
-      if not np.isfinite(b_halfmax):
+      if not np.isfinite(b_max):
           print("Axis peak brightnesses:", bmax_grid[m0_peak])
           print("Setting to 10 x median:", bright_median)
-          b_halfmax = 10*bright_median
+          b_max = 20*bright_median
 
-      # Trap the case where the brightness never falls to half maximum 
-      try:
-          theta_peak_left = np.max(x[(y < b_halfmax) & (x < 0.0)])
-      except ValueError:
-          theta_peak_left = x.min()
-      try:
-          theta_peak_right = np.min(x[(y < b_halfmax) & (x > 0.0)])
-      except ValueError:
-          theta_peak_right = x.max()
+      # Use 3 different brightness levels: [0.841, 0.5, 0.210], which
+      # for a Gaussian correspond to [0.5, 1, 1.5] times the FWHM
+      th841_left, th841_right = find_x_for_y_fraction(x, y, b_max, 0.841)
+      th500_left, th500_right = find_x_for_y_fraction(x, y, b_max, 0.5)
+      th210_left, th210_right = find_x_for_y_fraction(x, y, b_max, 0.210)
 
       # Another attempt at angular half width using Gaussian fit
-      g_init = (models.Gaussian1D(amplitude=2*b_halfmax, mean=0.0, stddev=60.0)
-                + models.Const1D(amplitude=0.1*b_halfmax))
+      g_init = (models.Gaussian1D(amplitude=b_max, mean=0.0, stddev=60.0)
+                + models.Const1D(amplitude=0.05*b_max))
       g_fit = fitter(g_init, x, y)
 
       # Finally fit the width on the axis
@@ -761,8 +785,12 @@ CLOSED: [2017-03-28 Tue 13:24]
           ['R90p_sigma', R90p_sigma.arcsec],
           ['R90n', R90n.arcsec],
           ['R90n_sigma', R90n_sigma.arcsec],
-          ['th_p', theta_peak_right],
-          ['th_m', theta_peak_left],
+          ['th_p', th500_right],
+          ['th_m', th500_left],
+          ['th_p_841', th841_right],
+          ['th_m_841', th841_left],
+          ['th_p_210', th210_right],
+          ['th_m_210', th210_left],
           ['th_g', g_fit.mean_0.value],
           ['dth_g', 2.35*g_fit.stddev_0.value],
           ['H_g', H_from_bright_fit],
@@ -797,8 +825,12 @@ CLOSED: [2017-03-28 Tue 13:24]
                ylim=[0.0, None], ylabel='Bow shock radius, arcsec')
       ax_b.plot(theta_mean_grid, bmean_grid - bright_median, 'o', c='c', label='mean')
       ax_b.plot(theta_peak_grid, bmax_grid - bright_median, 'o', c='r', label='peak')
-      ax_b.plot([theta_peak_left, theta_peak_right], [b_halfmax, b_halfmax],
+      ax_b.plot([th500_left, th500_right], [0.5*b_max]*2,
                 "-", c="r", alpha=0.2, lw=5, label="_nolabel_")
+      ax_b.plot([th841_left, th841_right], [0.841*b_max]*2,
+                "-", c="r", alpha=0.2, lw=3, label="_nolabel_")
+      ax_b.plot([th210_left, th210_right], [0.210*b_max]*2,
+                "-", c="r", alpha=0.2, lw=3, label="_nolabel_")
       thgrid = np.linspace(THMIN.deg, THMAX.deg, 101)
       ax_b.plot(thgrid, g_fit(thgrid), '--', c="r", alpha=0.3, lw=3, label="_nolabel_")
       ax_b.axvspan(-90.0, 90.0, facecolor='k', alpha=0.05)
@@ -806,7 +838,7 @@ CLOSED: [2017-03-28 Tue 13:24]
       ax_b.axvline(0.0, c='k', ls='--')
       ax_b.legend()
       ax_b.set(xlim=[THMIN.deg, THMAX.deg], xlabel='Angle from nominal axis, degree',
-               ylim=[0.0, 1.4*2*b_halfmax],
+               ylim=[0.0, 1.4*b_max],
                ylabel='Bow shock brightness',
       )
 
