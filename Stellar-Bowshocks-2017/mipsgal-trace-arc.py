@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 from collections import OrderedDict
 import numpy as np
+from scipy.signal import medfilt, decimate
 from astropy.table import Table, QTable
 from astropy.io import fits
 from astropy.wcs import WCS
@@ -118,6 +119,18 @@ def find_x_for_y_fraction(x, y, ymax, yfrac):
 
 fitter = fitting.LevMarLSQFitter()
 
+#
+# Sherpa/Saba is suspended 11 Feb 2020 - crashes with composite models
+#
+# This one is for getting uncertainties in the fitted shell thickness
+# It require sherpa and saba packages to be installed (I had to
+# install them from source)
+# sfitter = fitting.SherpaFitter(
+#     statistic='chi2',
+#     optimizer='levmar',
+#     estmethod='confidence',
+# )
+
 for source_data in source_table:
 
     if not iseq_min <= source_data['Seq'] <= iseq_max:
@@ -155,6 +168,8 @@ for source_data in source_table:
 
     # Create WCS object for this image
     w = WCS(hdu)
+    # Save pixel scale for later use
+    pix_size = coord.Angle(abs(w.wcs.cdelt[0]), unit=u.deg)
     # Find celestial coordinates for each pixel
     ny, nx = hdu.data.shape
     xpix = np.arange(nx)[None, :]
@@ -186,6 +201,9 @@ for source_data in source_table:
     # Minimum and median brightness, which we might need later
     bright_min = np.nanmin(hdu.data)
     bright_median = np.nanmedian(hdu.data)
+    # Calculate a robust stddev as 1.4826 times MAD
+    bright_mad = np.nanmedian(np.abs(hdu.data - bright_median))
+    bright_sigma = 1.4826*bright_mad
 
     # Next, we trace the arc
 
@@ -444,7 +462,11 @@ for source_data in source_table:
     # offset_pix.lat along the axis and offset_pix.lon across the axis.
 
     # Restrict to a strip of width 0.3 times fitted radius
-    m = np.abs(offset_pix.lon) < 0.15*R0_fit
+    strip_breadth = 0.3*R0_fit
+    m = np.abs(offset_pix.lon) < 0.5*strip_breadth
+    # Estimate number of image pixels across the strip
+    n_across_strip = int(round(strip_breadth.arcsec / pix_size.arcsec))
+
     # Also restrict to points not too far from star
     m = m & (rpix < 4.0*R0_fit) 
     x, y, across = offset_pix.lat[m].arcsec, hdu.data[m], offset_pix.lon[m].arcsec
@@ -458,7 +480,17 @@ for source_data in source_table:
                             stddev=6.0)
         + models.Polynomial1D(degree=2, c0=bright_median)
         )
-    gg_fit = fitter(gg_init, x, y)
+    # Obligatory to provide errors with SherpaFitter, at least for "chi2" statistic
+    # gg_fit = sfitter(gg_init, x, y, err=bright_median*np.ones_like(y))
+    try:
+        gg_fit = fitter(gg_init, x, y)
+    except:
+        print("ABORT: Failed to fit radial brightness profile")
+        continue
+
+    # 11 Feb 2020 - shelve Sherpa for now
+    # # Find the 1-sigma confidence intervals
+    # gg_errors = sfitter.est_errors(sigma=1.0)
 
     # Save derived values from fitting the brightness profile
     R0_from_bright_fit = gg_fit[0].mean.value
@@ -468,6 +500,31 @@ for source_data in source_table:
     # Note we need to unpack a length-1 array here
     BG_from_bright_fit, = gg_fit(R0_from_bright_fit) - Peak_from_bright_fit
     Contrast_fom_bright_fit = Peak_from_bright_fit / BG_from_bright_fit
+
+    # Alternative thickness measurement II: direct FWHM
+    # This is the same as we did for the angle breadth
+
+    # First subtract polynomial background
+    yy = y - gg_fit[-1](x)
+    # Center x axis on peak position
+    xx = x - R0_fit.arcsec
+    # Sort the x, y points by x
+    pts_order = np.argsort(xx)
+    xx = xx[pts_order]
+    yy = yy[pts_order]
+    # Apply median filter by typical number of points in the
+    # transverse direction.
+    n_across_strip = 2*(n_across_strip // 2) + 1  # ensure odd number 
+    yy = medfilt(yy, n_across_strip)
+    xx = medfilt(xx, n_across_strip)
+    # Then winnow down the number of points by a similar factor
+    nwinnow = max(1, n_across_strip // 2)
+    yy = yy[::nwinnow]
+    xx = xx[::nwinnow]
+    yymax = np.nanmax(yy[np.abs(xx <= R0_fit.arcsec)])
+    # Find Half-max points
+    r_in, r_out = find_x_for_y_fraction(xx, yy, yymax, 0.5)
+    H_direct_fwhm = r_out - r_in
 
     # Save the fit data for each source
     table_file_name = f"{image_stem}-arcfit.tab"
@@ -492,6 +549,7 @@ for source_data in source_table:
         ['th_g', g_fit.mean_0.value],
         ['dth_g', 2.35*g_fit.stddev_0.value],
         ['H_g', H_from_bright_fit],
+        ['H_d', H_direct_fwhm],
         ['R0_g', R0_from_bright_fit],
         ['Peak24', Peak_from_bright_fit],
         ['Contrast', Contrast_fom_bright_fit],
@@ -614,6 +672,10 @@ for source_data in source_table:
     xgrid = np.linspace(x.min(), x.max(), 101)
     ax.plot(xgrid, gg_fit(xgrid), '-', color="k")
     ax.plot(xgrid, gg_fit[0](xgrid), '--', lw=0.5, color="k")
+    # And plot the median-filtered profile used to find direct FWHM
+    ax.plot(xx + R0_fit.arcsec, yy, '-', color="g")
+    ax.plot(np.array([r_in, r_out]) + R0_fit.arcsec, [0.5*yymax]*2,
+            "-", color="g", lw=3, alpha=0.3)
     ax.axvline(0.0, c="k", ls="--")
     ax.axvline(R0_fit.arcsec, c="k", ls=":")
     ax.set(
