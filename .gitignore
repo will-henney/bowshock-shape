@@ -66,3 +66,4 @@ Stellar-Bowshocks-2017/irsa.ipac.caltech.edu/
 *.synctex(busy)
 .DS_Store
 /Stellar-Bowshocks-2017/Regression-with-linmix.ipynb
+/Stellar-Bowshocks-2017/*.ipynb

@@ -1094,6 +1094,14 @@ CLOSED: [2017-03-28 Tue 13:24]
 [[file:mipsgal-arcfit-070_peak.tab]]
 
 
+**** Combining all the fit variants
++ This is done in the jupyter notebook:
+  + [[file:Merge-all-MIPSGAL-statistics.ipynb]]
+  + [[file:Merge-all-MIPSGAL-statistics.py]] (editable version)
++ The merged data file is
+  + [[file:mipsgal-arcfit-all-variants.tab]]
++ The columns with ~E something~ are the dispersion between fit variants, while ~e something~ are the internal dispersion within a fit variant. 
+
 *** Plot the radius ratio diagnostics for the OB bowshocks
 First, radius versus radius
 #+BEGIN_SRC python :return figfile :results file
