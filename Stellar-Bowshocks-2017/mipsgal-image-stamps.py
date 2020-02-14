@@ -28,6 +28,7 @@ source_table = Table.read(
 OUTPUT_IMAGE_DIR = 'OB/MipsGal'
 IMAGE_SIZE_DEGREES = 4.0/60.0           
 
+
 def skycoord_from_table_row(data):
     ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
     dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
@@ -43,7 +44,8 @@ except:
     k2 = None
 
 # Loop over all sources in the table
-for source_data in source_table[k1:k2]:
+for source_data in source_table[k1-1:k2]:
+    print(source_data["Seq", "Name", "Alias", "R0"])
     # Make a SkyCoord object
     c = skycoord_from_table_row(source_data)
     # Perform a search around the specified coordinates
@@ -71,6 +73,14 @@ for source_data in source_table[k1:k2]:
         if img_row['file_type'] == 'science' and 'mosaics24' in fname:
             mosaic_images[m_id] = os.path.join(IMG_URL_ROOT, fname)
 
+
+    # Expand the image size for bigger bows
+    expand = 1.0
+    for threshold in 40.0, 80.0, 160.0:
+        if source_data["R0"] > threshold:
+            expand *= 2
+
+
     # Now make postage stamps of all the selected images
     for m_id in mosaic_images:
         hdu = fits.open(mosaic_images[m_id])[0]
@@ -79,8 +89,8 @@ for source_data in source_table[k1:k2]:
         i0, j0 = np.round(c.to_pixel(w))
         # find pixel limits of cut-out image window around source
         xpix_scale, ypix_scale = np.abs(w.wcs.cdelt)
-        di = np.round(0.5*IMAGE_SIZE_DEGREES/xpix_scale)
-        dj = np.round(0.5*IMAGE_SIZE_DEGREES/ypix_scale)
+        di = np.round(0.5*IMAGE_SIZE_DEGREES*expand/xpix_scale)
+        dj = np.round(0.5*IMAGE_SIZE_DEGREES*expand/ypix_scale)
         win = slice(int(j0 - dj), int(j0 + dj)), slice(int(i0 - di), int(i0 + di))
         # Construct a new HDU
         hdr_win = w.slice(win).to_header()

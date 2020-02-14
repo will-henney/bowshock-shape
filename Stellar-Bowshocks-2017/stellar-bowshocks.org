@@ -129,7 +129,6 @@
 mkdir -pv OB/MipsGal
 #+END_SRC
 
-
 #+BEGIN_SRC python :eval no :tangle mipsgal-image-stamps.py
   import os
   import sys
@@ -161,6 +160,7 @@ mkdir -pv OB/MipsGal
   OUTPUT_IMAGE_DIR = 'OB/MipsGal'
   IMAGE_SIZE_DEGREES = 4.0/60.0           
 
+
   def skycoord_from_table_row(data):
       ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
       dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
@@ -176,7 +176,8 @@ mkdir -pv OB/MipsGal
       k2 = None
 
   # Loop over all sources in the table
-  for source_data in source_table[k1:k2]:
+  for source_data in source_table[k1-1:k2]:
+      print(source_data["Seq", "Name", "Alias", "R0"])
       # Make a SkyCoord object
       c = skycoord_from_table_row(source_data)
       # Perform a search around the specified coordinates
@@ -204,6 +205,14 @@ mkdir -pv OB/MipsGal
           if img_row['file_type'] == 'science' and 'mosaics24' in fname:
               mosaic_images[m_id] = os.path.join(IMG_URL_ROOT, fname)
 
+
+      # Expand the image size for bigger bows
+      expand = 1.0
+      for threshold in 40.0, 80.0, 160.0:
+          if source_data["R0"] > threshold:
+              expand *= 2
+
+    
       # Now make postage stamps of all the selected images
       for m_id in mosaic_images:
           hdu = fits.open(mosaic_images[m_id])[0]
@@ -212,8 +221,8 @@ mkdir -pv OB/MipsGal
           i0, j0 = np.round(c.to_pixel(w))
           # find pixel limits of cut-out image window around source
           xpix_scale, ypix_scale = np.abs(w.wcs.cdelt)
-          di = np.round(0.5*IMAGE_SIZE_DEGREES/xpix_scale)
-          dj = np.round(0.5*IMAGE_SIZE_DEGREES/ypix_scale)
+          di = np.round(0.5*IMAGE_SIZE_DEGREES*expand/xpix_scale)
+          dj = np.round(0.5*IMAGE_SIZE_DEGREES*expand/ypix_scale)
           win = slice(int(j0 - dj), int(j0 + dj)), slice(int(i0 - di), int(i0 + di))
           # Construct a new HDU
           hdr_win = w.slice(win).to_header()
@@ -229,6 +238,59 @@ mkdir -pv OB/MipsGal
           imfn = os.path.join(OUTPUT_IMAGE_DIR, f'{imid}.fits')
           imwin.writeto(imfn, overwrite=True)
 #+END_SRC
+**** DONE [2/2] Larger fields of view for larger bow shocks
+CLOSED: [2020-02-14 Fri 12:09]
++ Current FOV is 4 arcmin = 240 arcsec
++ We really need to go out to at least 3 x radius, probably better 5 x radius
+***** DONE Identify the large bow shocks
+CLOSED: [2020-02-14 Fri 11:01]
++ Larger than 40 arcsec, which gets all the ones that get a bit too close to their box
++ This is calculated in jupyter notebook
+  + [[file:Find-big-MIPSGAL-bows.ipynb]]
+  + [[file:Find-big-MIPSGAL-bows.py]]
++ There are 21 potential MIPSGAL sources in all (there are others, but they are WISE only)
++ Many have missing fits files, which is worrying
+  + See last column in table below
+  + Two of them have two FITS files
+  + I suspect that this is because they are WISE-only, because they are off the Galactic plane
++ Of the ones that remain, most have R0 < 80, so 2x window is enough, while two have 80 < R0 < 150, so 4x window for them
+  + Full list: 111, 292, 308, 442, 489, 509, 534, 542, 595, 676, 677, 707
+
+| Seq | Name              | Alias    |    R0 | Rating | Comment            | FITS |
+|-----+-------------------+----------+-------+--------+--------------------+------|
+|  13 | G006.2812+23.5877 | Zeta Oph | 299.0 |      0 | --                 |      |
+|  39 | G013.4900+01.6618 | --       |  73.0 |      0 | --                 |      |
+|  54 | G015.0813-00.6570 | HD165319 |  95.0 |      0 | Missing            |      |
+|  66 | G016.9848+01.7482 | --       |  61.0 |      0 | Missing            |      |
+| 111 | G024.2512+00.7906 | --       |  58.0 |      4 | --                 |    1 |
+| 292 | G056.5717-00.8290 | --       |  43.0 |      5 | Asymmetric         |    1 |
+| 308 | G061.5950-00.6887 | --       |  45.7 |      0 | Fit failed         |    1 |
+| 310 | G061.8355+02.9452 | --       |  40.5 |      0 | Missing            |      |
+| 431 | G302.4232+03.1730 | DY Cru   | 245.0 |      0 | Missing            |      |
+| 432 | G302.4623+03.1796 | Beta Cru | 245.0 |      0 | Missing            |      |
+| 442 | G305.7952+00.1583 | --       |  40.5 |      5 | --                 |    1 |
+| 489 | G311.1657+00.0448 | --       |  41.0 |      5 | --                 |    2 |
+| 509 | G315.3719+00.6043 | --       |  67.0 |      3 | --                 |    1 |
+| 534 | G319.7182-00.7290 | --       | 109.0 |      2 | Bow shock too big! |    1 |
+| 542 | G322.1986+00.5183 | --       | 144.0 |      2 | Bow shock too big! |    1 |
+| 595 | G333.3665-00.4112 | --       |  40.6 |      5 | --                 |    1 |
+| 662 | G347.1413+02.3800 | HD153426 |  65.0 |      0 | Missing            |      |
+| 676 | G349.8858+00.1258 | --       |  42.0 |      2 | Rc a bit too small |    1 |
+| 677 | G350.0056-00.4521 | --       |  41.0 |      3 | Double shell       |    1 |
+| 679 | G350.0969+22.4904 | HD143275 | 318.0 |      0 | Missing            |      |
+| 707 | G359.4811+00.2780 | --       |  44.0 |      0 | Fit failed         |    2 |
+
+
+
+
+***** DONE Download larger field
+CLOSED: [2020-02-14 Fri 12:09]
++ This was done in an eshell
+  #+begin_example
+    for i in 111 292 308 442 489 509 534 542 595 676 677 707 {python mipsgal-image-stamps.py $i $i}
+  #+end_example
++ So we have them all now
+**** TODO Get the WISE images too
 *** DONE How to trace the shapes of the OB bow shocks
 CLOSED: [2017-03-28 Tue 13:24]
 + Strategy is to start at the nominal PA of the bowshock axis and take radial slices
@@ -265,6 +327,7 @@ CLOSED: [2017-03-28 Tue 13:24]
   + [X] Compare the different values of ~CIRCLE_THETA~ 50 \to 80
     + Write each to its own subdir
     + This will give a handle on the uncertainty in planitude
+    + This is now done
   + [X] Try it with and without combining the mean and peak radii
     + For the bigger sources, just the peak would be better
   + [ ] Find out why it fails for lots of sources
@@ -272,6 +335,9 @@ CLOSED: [2017-03-28 Tue 13:24]
       + Yes, we have ones that are 4 arcmin - should repeat but for 10 arcmin
     + The ones in range 316 to 415 - we are missing images - is this because they are only WISE?
       + Yes, that seems to be the case: they have l in the range 90 \to 270
+    + Effects of stars
+      + A lot are impacted by this
+      + We can mask out the stars by making regions by hand in ds9
 + List of the nicest sources
   + 001 - Rc/R0 = 0.8, R90/R0 = 1.4 (misidentified source)
   + 018 - Rc/R0 = 1.26, R90/R0 = 1.7 in hyperbola zone
@@ -987,6 +1053,19 @@ CLOSED: [2017-03-28 Tue 13:24]
       fig.savefig(OUTPUT_DIR / f'{image_stem}-rad-bright.pdf')
       plt.close(fig)
 #+END_SRC
+**** Running ~mipsgal-trace-arc.py~ for all fit variants
++ I have been doing this by hand in a shell
++ It seems to work better when done in chunks of 200 or so
++ Something like
+  #+begin_src sh :eval no
+    time python mipsgal-trace-arc.py -50 1 200
+    time python mipsgal-trace-arc.py -50 201 500
+    time python mipsgal-trace-arc.py -50 501 800
+  #+end_src
++ And then repeat for first argument of ~-50, -60, -70, 50, 60, 70~
+  + The absolute value of argument is ~CIRCLE_THETA~ while the sign determines whether ridge is just the peak (negative) of both peak and mean (positive)
++ Each chunk takes about 200 s, so 5 min per fit variant, and 30 min in total
+
 **** Updated routines for circle fitting
 + Updated version of [[file:~/Work/Bowshocks/Jorge/bowshock-shape/read-shapes-LL/fit-circle-shell.py]]
 + Main difference is that we work in sky coordinates
@@ -1094,7 +1173,8 @@ CLOSED: [2017-03-28 Tue 13:24]
 [[file:mipsgal-arcfit-070_peak.tab]]
 
 
-**** Combining all the fit variants
+**** DONE Combining all the fit variants
+CLOSED: [2020-02-14 Fri 08:51]
 + This is done in the jupyter notebook:
   + [[file:Merge-all-MIPSGAL-statistics.ipynb]]
   + [[file:Merge-all-MIPSGAL-statistics.py]] (editable version)

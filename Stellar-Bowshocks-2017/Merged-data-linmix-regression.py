@@ -242,26 +242,20 @@ dfchain.quantile([0.05, 0.95])
 
 # ## Application to isophotal shape variables
 
-# What we have at the moment are thicknes $h$ and breadth $d\theta$ (which we want to replace with a radius eventually). 
+# What we have at the moment are thickness $h$ and breadth $d\theta$ (which we want to replace with a radius eventually). 
+
+# ### Planitude versus angular breadth
 
 # Start off with $\Pi$ and $d\theta$.  We won't take log of the breadth, for ease of comparison with what I have already done. 
 
 # +
-# Half-width angular breadth
-tab["thb"] = 0.5*(tab["th_p"] - tab["th_m"])
-# Use the asymmetry as estimate of the uncertainty
-tab["thb_sigma"] = 0.5*(tab["th_p"] + tab["th_m"])
+# Add extra 10 deg uncertainty
+tab['breadth50 sigma'] = np.hypot(tab['d_breadth50'], 10.0)
 
 # Use 3 to 5 star
 m = tab["Rating"] >= 3
 
-# Convert to standard form (only log10 on x axis)
-t = tab[m][['Rc', 'Rc_sigma', 'thb', 'thb_sigma']]
-x, xe, y, ye = [np.array(_) for _ in zip(*t.as_array().data)]
-X, Y = np.log10(x), y
-Xe = 0.5*(np.log10(x + xe) - np.log10(x - xe))
-Ye = ye
-
+X, Xe, Y, Ye = [tab[m][_] for _ in ['log Pi', 'log Pi sigma', 'breadth50', 'breadth50 sigma']]
 # -
 
 mgood = np.isfinite(Xe) & np.isfinite(Ye)
@@ -271,9 +265,9 @@ Xe = Xe[mgood]
 Ye = Ye[mgood]
 
 fig, ax = plt.subplots(figsize=(10, 10))
-ax.errorbar(X, Y, xerr=Xe, yerr=Ye, ls=" ", c="m", alpha=0.5)
+ax.errorbar(X, Y, xerr=Xe, yerr=Ye, ls=" ", c="m", alpha=0.2)
 ax.set(
-    xlim=[-0.5, 0.8], ylim=[0, 150],
+    xlim=[-0.25, 1.05], ylim=[0, 150],
     xlabel=r"$\log_{10}\, \Pi$", ylabel=r"$d\theta$, degrees",
 )
 sns.despine()
@@ -289,39 +283,21 @@ dfchain_Rc_thb.describe()
 
 dfchain_Rc_thb.head()
 
-lm_Rc_thb_e = linmix.LinMix(X, Y, Xe + 0.1, Ye, K=2)
-lm_Rc_thb_e.run_mcmc()
-
-dfchain_Rc_thb_e = pd.DataFrame.from_records(
-    lm_Rc_thb_e.chain.tolist(), 
-    columns=lm_Rc_thb_e.chain.dtype.names
-)
-dfchain_Rc_thb_e.describe()
-
-dfchain_Rc_thb_e.head()
-
 # +
-vmin, vmax = -0.5, 0.8
+vmin, vmax = -0.25, 1.05
 xgrid = np.linspace(vmin, vmax, 200)
 
 
 fig, ax = plt.subplots(figsize=(10, 10))
 
-ax.errorbar(X, Y, xerr=Xe+0.1, yerr=Ye, ls=" ", elinewidth=0.2, alpha=1.0, c="k")
 ax.errorbar(X, Y, xerr=Xe, yerr=Ye, ls=" ", elinewidth=0.4, alpha=1.0, c="k")
-ax.scatter(X, Y, marker=".", c="g")
+ax.scatter(X, Y, marker=".", c="g", s=20/Xe)
 # The original fit
 ax.plot(xgrid, dfchain_Rc_thb["alpha"].mean() + xgrid*dfchain_Rc_thb["beta"].mean(), 
         '-', c="k")
 for samp in lm_Rc_thb.chain[::20]:
     ax.plot(xgrid, samp["alpha"] + xgrid*samp["beta"], 
         '-', c="r", alpha=0.2, lw=0.1)
-# The fit with increased X errors
-ax.plot(xgrid, dfchain_Rc_thb_e["alpha"].mean() + xgrid*dfchain_Rc_thb_e["beta"].mean(), 
-        '-', c="k")
-for samp in lm_Rc_thb_e.chain[::20]:
-    ax.plot(xgrid, samp["alpha"] + xgrid*samp["beta"], 
-        '-', c="m", alpha=0.2, lw=0.1)
 
 ax.set(
     xlim=[vmin, vmax], ylim=[0.0, 150.0],
@@ -332,50 +308,26 @@ sns.despine()
 
 pearsonr(X, Y)
 
-# For some reason, the correlation in observables is less than before: -0.34 instead of -0.47. The latent correlation is $-0.37 \pm 0.15$, which is not very well constrained.  
+# For some reason, the correlation in observables is less than before: -0.20 instead of -0.47. The latent correlation is $-0.45 \pm 0.15$, which is not back to being significant again.
 
-dfchain_Rc_thb_both = pd.concat([dfchain_Rc_thb, dfchain_Rc_thb_e], keys=["small sigma", "large sigma"])
-
-sns.pairplot(dfchain_Rc_thb_both[::30].reset_index(), 
-             #kind="reg", 
-             diag_kind="hist",
-             markers=".",
-             plot_kws=dict(marker=".", ec="none", alpha=0.3, s=100), 
-             vars=["alpha", "beta", "corr", "ximean", "xisig"], 
-             hue="level_0",
-             hue_order=["large sigma", "small sigma",]
-            )
-
-# The above shows graphically the large difference between the original (large sigma, orange points) and amplified (small sigma, blue points) observational errors on $\Pi$.  With large sigma, the posterior distributions of $\alpha, \beta, r$ are broadened, while $\sigma_\xi$ is shifted to a smaller value. Interestingly, even $\langle \xi \rangle$ moves a bit. 
-#
 # Here are the 95% confidence limits:
-#
-#
 
 dfchain_Rc_thb.quantile([0.025, 0.975])
 
-dfchain_Rc_thb_e.quantile([0.025, 0.975])
+# And 99% confidence
 
-# And 99% confidence for the large sigma version:
-
-dfchain_Rc_thb_e.quantile([0.005, 0.995])
+dfchain_Rc_thb.quantile([0.005, 0.995])
 
 # And 99.9% for good measure:
 
-dfchain_Rc_thb_e.quantile([0.0005, 0.9995])
+dfchain_Rc_thb.quantile([0.0005, 0.9995])
 
 # So, a latent correlation of zero is excluded at the 99% level, but not at the 99.9% level. 
 
 from scipy.stats import percentileofscore
 
-percentileofscore(dfchain_Rc_thb_e["corr"], 0.0)
-
-# So, it is at the 99.81 level, or $p = 0.0019$
-
 percentileofscore(dfchain_Rc_thb["corr"], 0.0)
 
-# Whereas for the original sigmas, none of the posterior samples had a positive correlation.  So $p < 0.0001$ since we had 10000 samples.
-
-len(dfchain_Rc_thb)
+# So, it is at the 99.79 level, or $p = 0.0021$
 
 
