@@ -1,0 +1,105 @@
+\fixlen = T
+\RowsRetrieved = 4
+\QUERY_STATUS = 'OK'
+\ s_region (deg)
+\ ___ AstroCoordArea Region covered in STC
+\ obs_collection
+\ ___ Data collection this observation belongs to
+\ obs_intent
+\ ___ Intended purpose of data (one of: science, calibration)
+\ algorithm_name
+\ ___ Algorithm that defines the observation
+\ facility_name
+\ ___ Name of telescope used to acquire observation
+\ facility_keywords
+\ ___ Telescope keywords formatted as a JSON string
+\ instrument_name
+\ ___ Name of instrument used to acquire observation
+\ instrument_keywords
+\ ___ Instrument keywords formatted as a JSON string
+\ environment_photometric
+\ ___ Conditions were photometric (0=false, 1=true)
+\ proposal_id
+\ ___ Collection-specific unique proposal identifier
+\ proposal_pi
+\ ___ Proposal principal investigator
+\ proposal_project
+\ ___ Project that created/acquired the observation
+\ proposal_title
+\ ___ Proposal title
+\ target_name
+\ ___ Object of interest
+\ target_type
+\ ___ Classification of intended target ('object' or 'field')
+\ target_standard
+\ ___ Intended target is a standard (0=false, 1=true)
+\ target_moving
+\ ___ Intended target is moving (0=false, 1=true)
+\ target_keywords
+\ ___ Target keywords formatted as a JSON string
+\ calib_level
+\ ___ Calibration level of the observation: in {0, 1, 2, 3}
+\ dataproduct_type
+\ ___ Data product (file content) primary type
+\ s_xel1
+\ ___ Dimensions (number of pixels) along first spatial axis
+\ s_xel2
+\ ___ Dimensions (number of pixels) along second spatial axis
+\ position_samplesize (deg)
+\ ___ Median sample (pixel) size on spatial axes
+\ position_timedependent
+\ ___ Position is time-dependent (0=false, 1=true)
+\ energy_emband
+\ ___ Generic name for energy band (Radio,Millimeter,Infrared,Optical,...)
+\ energy_bandpassname
+\ ___ Collection-specific name for energy band (e.g. filter name)
+\ t_min (d)
+\ ___ Lower bound on time axis (Modified Julian Day)
+\ t_max (d)
+\ ___ Upper bound on time axis (Modified Julian Day)
+\ t_exptime (s)
+\ ___ Median exposure time per pixel
+\ t_resolution (s)
+\ ___ Median resolution on the time axis
+\ t_xel
+\ ___ Number of elements along the time axis
+\ access_url
+\ ___ URI for the physical artifact
+\ access_format
+\ ___ Content-Type of the representation at uri
+\ access_estsize (kbyte)
+\ ___ Size of the representation at uri
+\ obs_id
+\ ___ Internal ID given by the ObsTAP service
+\ obs_publisher_did
+\ ___ IVOA Dataset ID given by the publisher
+\ s_ra (deg)
+\ ___ Central Spatial Position in ICRS Right ascension
+\ s_dec (deg)
+\ ___ Central Spatial Position in ICRS Declination
+\ s_fov (deg)
+\ ___ Estimated size of the covered region as the diameter of a containing circle
+\ s_resolution (arcsec)
+\ ___ Median spatial resolution (FWHM)
+\ em_min (m)
+\ ___ Lower bound on energy axis (barycentric wavelength)
+\ em_max (m)
+\ ___ Upper bound on energy axis (barycentric wavelength)
+\ em_res_power
+\ ___ Median spectral resolving power (R)
+\ em_xel
+\ ___ Number of elements along the spectral axis
+\ pol_states
+\ ___ List of polarization states present in the data file
+\ pol_xel
+\ ___ Number of elements along the polarization axis
+\ o_ucd
+\ ___ Nature of the observable axis
+|                                                                                                                                                                       s_region|   obs_collection|  obs_intent|  algorithm_name|  facility_name|facility_keywords|  instrument_name|instrument_keywords| environment_photometric|proposal_id|     proposal_pi|  proposal_project|                                            proposal_title|target_name|  target_type|         target_standard|           target_moving|target_keywords|             calib_level|  dataproduct_type|                  s_xel1|                  s_xel2|     position_samplesize|  position_timedependent|  energy_emband|  energy_bandpassname|                   t_min|                   t_max|               t_exptime|            t_resolution|                 t_xel_0|                 t_xel_1|                                                                                                    access_url|  access_format|          access_estsize|                              obs_id|                         obs_publisher_did|                    s_ra|                   s_dec|                   s_fov|            s_resolution|                  em_min|                  em_max|            em_res_power|                em_xel_0|                em_xel_1|pol_states|                 pol_xel|o_ucd|
+|                                                                                                                                                                           char|             char|        char|            char|           char|             char|             char|               char|                     int|       char|            char|              char|                                                      char|       char|         char|                     int|                     int|           char|                     int|              char|                    long|                    long|                  double|                     int|           char|                 char|                  double|                  double|                  double|                  double|                  double|                  double|                                                                                                          char|           char|                    long|                                char|                                      char|                  double|                  double|                  double|                  double|                  double|                  double|                  double|                  double|                  double|      char|                    long| char|
+|                                                                                                                                                                            deg|                 |            |                |               |                 |                 |                   |                        |           |                |                  |                                                          |           |             |                        |                        |               |                        |                  |                        |                        |                     deg|                        |               |                     |                       d|                       d|                       s|                       s|                        |                        |                                                                                                              |               |                   kbyte|                                    |                                          |                     deg|                     deg|                     deg|                  arcsec|                       m|                       m|                        |                        |                        |          |                        |     |
+|                                                                                                                                                                           null|             null|        null|            null|           null|             null|             null|               null|                    null|       null|            null|              null|                                                      null|       null|         null|                    null|                    null|           null|                    null|              null|                    null|                    null|                    null|                    null|           null|                 null|                    null|                    null|                    null|                    null|                    null|                    null|                                                                                                          null|           null|                    null|                                null|                                      null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|      null|                    null| null|
+ POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732      wise_allwise      science           mosaic            WISE              null              WISE                null                     null        null Edward L. Wright               WISE Wide-field Infrared Survey Explorer - AllWISE Atlas Images        null         field                        0                        0            null                        3              image                     4095                     4095                     2.75                        0        Infrared                    W1       55306.630670995299         55491.6794671643       196.42699999999999                     null       55306.630670995299         55491.6794671643 https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w1-int-3.fits      image/fits                     null 3e4eb150-2d7a-4282-a42a-b01569b5cbfc ivo://irsa.ipac/wise_allwise/2994p000_ac51      -60.503070000000001                        0       3.1281249999999998       6.0999999999999996   3.1499999999999999e-06   3.7799999999999998e-06                     null   3.1499999999999999e-06   3.7799999999999998e-06       null                     null       
+ POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732      wise_allwise      science           mosaic            WISE              null              WISE                null                     null        null Edward L. Wright               WISE Wide-field Infrared Survey Explorer - AllWISE Atlas Images        null         field                        0                        0            null                        3              image                     4095                     4095                     2.75                        0        Infrared                    W3       55306.630670995299       55309.475280057901       105.80240000000001                     null       55306.630670995299       55309.475280057901 https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w3-int-3.fits      image/fits                     null 3e4eb150-2d7a-4282-a42a-b01569b5cbfc ivo://irsa.ipac/wise_allwise/2994p000_ac51      -60.503070000000001                        0       3.1281249999999998                      6.5   7.9500000000000001e-06   1.6269999999999998e-05                     null   7.9500000000000001e-06   1.6269999999999998e-05       null                     null       
+ POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732      wise_allwise      science           mosaic            WISE              null              WISE                null                     null        null Edward L. Wright               WISE Wide-field Infrared Survey Explorer - AllWISE Atlas Images        null         field                        0                        0            null                        3              image                     4095                     4095                      5.5                        0        Infrared                    W4       55306.630670995299       55309.475280057901       107.19280000000001                     null       55306.630670995299       55309.475280057901 https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w4-int-3.fits      image/fits                     null 3e4eb150-2d7a-4282-a42a-b01569b5cbfc ivo://irsa.ipac/wise_allwise/2994p000_ac51      -60.503070000000001                        0       6.2562499999999996                       12   1.9850000000000001e-05                 2.44e-05                     null   1.9850000000000001e-05                 2.44e-05       null                     null       
+ POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732      wise_allwise      science           mosaic            WISE              null              WISE                null                     null        null Edward L. Wright               WISE Wide-field Infrared Survey Explorer - AllWISE Atlas Images        null         field                        0                        0            null                        3              image                     4095                     4095                     2.75                        0        Infrared                    W2       55306.630670995299         55491.6794671643       197.80529999999999                     null       55306.630670995299         55491.6794671643 https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w2-int-3.fits      image/fits                     null 3e4eb150-2d7a-4282-a42a-b01569b5cbfc ivo://irsa.ipac/wise_allwise/2994p000_ac51      -60.503070000000001                        0       3.1281249999999998       6.4000000000000004   4.0999999999999997e-06   5.1599999999999997e-06                     null   4.0999999999999997e-06   5.1599999999999997e-06       null                     null       

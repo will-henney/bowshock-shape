@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VOTABLE version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ivoa.net/xml/VOTable/v1.3" xmlns:stc="http://www.ivoa.net/xml/STC/v1.30" xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.3 http://www.ivoa.net/xml/VOTable/v1.3 http://www.ivoa.net/xml/STC/v1.30 http://www.ivoa.net/xml/STC/v1.30">
+  <RESOURCE type="results">
+    <INFO name="QUERY_STATUS" value="OK"/>
+    <TABLE>
+      <FIELD name="s_region" datatype="char" arraysize="*" ucd="phys.angArea;obs" unit="deg" utype="obscore:char.spatialaxis.coverage.support.area">
+        <DESCRIPTION>AstroCoordArea Region covered in STC</DESCRIPTION>
+      </FIELD>
+      <FIELD name="obs_collection" datatype="char" arraysize="*" ucd="meta.id" utype="obscore:dataid.collection">
+        <DESCRIPTION>Data collection this observation belongs to</DESCRIPTION>
+      </FIELD>
+      <FIELD name="obs_intent" datatype="char" arraysize="*" utype="caom2:ObservationIntentType">
+        <DESCRIPTION>Intended purpose of data (one of: science, calibration)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="algorithm_name" datatype="char" arraysize="*" utype="caom2:Algorithm">
+        <DESCRIPTION>Algorithm that defines the observation</DESCRIPTION>
+      </FIELD>
+      <FIELD name="facility_name" datatype="char" arraysize="*" ucd="meta.id;instr.tel" utype="obscore:provenance.obsconfig.telescope.name">
+        <DESCRIPTION>Name of telescope used to acquire observation</DESCRIPTION>
+      </FIELD>
+      <FIELD name="facility_keywords" datatype="char" arraysize="*" utype="caom2:Telescope.keywords">
+        <DESCRIPTION>Telescope keywords formatted as a JSON string</DESCRIPTION>
+      </FIELD>
+      <FIELD name="instrument_name" datatype="char" arraysize="*" ucd="meta.id;instr" utype="obscore:provenance.obsconfig.instrument.name">
+        <DESCRIPTION>Name of instrument used to acquire observation</DESCRIPTION>
+      </FIELD>
+      <FIELD name="instrument_keywords" datatype="char" arraysize="*" utype="caom2:Instrument.keywords">
+        <DESCRIPTION>Instrument keywords formatted as a JSON string</DESCRIPTION>
+      </FIELD>
+      <FIELD name="environment_photometric" datatype="boolean" utype="caom2:Environment.photometric">
+        <DESCRIPTION>Conditions were photometric (0=false, 1=true)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="proposal_id" datatype="char" arraysize="*" utype="obscore:provenance.proposal.identifier">
+        <DESCRIPTION>Collection-specific unique proposal identifier</DESCRIPTION>
+      </FIELD>
+      <FIELD name="proposal_pi" datatype="char" arraysize="*" utype="caom2:Proposal.pi">
+        <DESCRIPTION>Proposal principal investigator</DESCRIPTION>
+      </FIELD>
+      <FIELD name="proposal_project" datatype="char" arraysize="*" utype="caom2:Proposal.project">
+        <DESCRIPTION>Project that created/acquired the observation</DESCRIPTION>
+      </FIELD>
+      <FIELD name="proposal_title" datatype="char" arraysize="*" utype="caom2:Proposal.title">
+        <DESCRIPTION>Proposal title</DESCRIPTION>
+      </FIELD>
+      <FIELD name="target_name" datatype="char" arraysize="*" ucd="meta.id;src" utype="obscore:target.name">
+        <DESCRIPTION>Object of interest</DESCRIPTION>
+      </FIELD>
+      <FIELD name="target_type" datatype="char" arraysize="*" utype="caom2:Target.type">
+        <DESCRIPTION>Classification of intended target (&apos;object&apos; or &apos;field&apos;)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="target_standard" datatype="boolean" utype="caom2:Target.standard">
+        <DESCRIPTION>Intended target is a standard (0=false, 1=true)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="target_moving" datatype="boolean" utype="caom2:Target.moving">
+        <DESCRIPTION>Intended target is moving (0=false, 1=true)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="target_keywords" datatype="char" arraysize="*" utype="caom2:Target.keywords">
+        <DESCRIPTION>Target keywords formatted as a JSON string</DESCRIPTION>
+      </FIELD>
+      <FIELD name="calib_level" datatype="short" ucd="meta.code;obs.calib" utype="obscore:obsdataset.caliblevel">
+        <DESCRIPTION>Calibration level of the observation: in {0, 1, 2, 3}</DESCRIPTION>
+      </FIELD>
+      <FIELD name="dataproduct_type" datatype="char" arraysize="*" ucd="meta.id" utype="obscore:obsdataset.dataproducttype">
+        <DESCRIPTION>Data product (file content) primary type</DESCRIPTION>
+      </FIELD>
+      <FIELD name="s_xel1" datatype="long" utype="caom2:Dimension2D.naxis1">
+        <DESCRIPTION>Dimensions (number of pixels) along first spatial axis</DESCRIPTION>
+      </FIELD>
+      <FIELD name="s_xel2" datatype="long" utype="caom2:Dimension2D.naxis1">
+        <DESCRIPTION>Dimensions (number of pixels) along second spatial axis</DESCRIPTION>
+      </FIELD>
+      <FIELD name="position_samplesize" datatype="double" unit="deg" utype="caom2:Position.sampleSize">
+        <DESCRIPTION>Median sample (pixel) size on spatial axes</DESCRIPTION>
+      </FIELD>
+      <FIELD name="position_timedependent" datatype="boolean" utype="caom2:Position.timeDependent">
+        <DESCRIPTION>Position is time-dependent (0=false, 1=true)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="energy_emband" datatype="char" arraysize="*" utype="caom2:Energy.emBand">
+        <DESCRIPTION>Generic name for energy band (Radio,Millimeter,Infrared,Optical,...)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="energy_bandpassname" datatype="char" arraysize="*" utype="caom2:Energy.bandpassName">
+        <DESCRIPTION>Collection-specific name for energy band (e.g. filter name)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="t_min" datatype="double" ucd="time.start;obs.exposure" unit="d" utype="obscore:char.timeaxis.coverage.bounds.limits.interval.starttime">
+        <DESCRIPTION>Lower bound on time axis (Modified Julian Day)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="t_max" datatype="double" ucd="time.end;obs.exposure" unit="d" utype="obscore:char.timeaxis.coverage.bounds.limits.interval.stoptime">
+        <DESCRIPTION>Upper bound on time axis (Modified Julian Day)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="t_exptime" datatype="double" ucd="time.duration;obs.exposure" unit="s" utype="obscore:char.timeaxis.coverage.support.extent">
+        <DESCRIPTION>Median exposure time per pixel</DESCRIPTION>
+      </FIELD>
+      <FIELD name="t_resolution" datatype="double" ucd="time.resolution" unit="s" utype="obscore:char.timeaxis.resolution.refval">
+        <DESCRIPTION>Median resolution on the time axis</DESCRIPTION>
+      </FIELD>
+      <FIELD name="t_xel" datatype="double" arraysize="*" utype="obscore:char.timeaxis.numbins">
+        <DESCRIPTION>Number of elements along the time axis</DESCRIPTION>
+      </FIELD>
+      <FIELD name="access_url" datatype="char" arraysize="*" ucd="meta.ref.url" utype="obscore:access.reference">
+        <DESCRIPTION>URI for the physical artifact</DESCRIPTION>
+      </FIELD>
+      <FIELD name="access_format" datatype="char" arraysize="*" ucd="meta.code.mime" utype="obscore:access.format">
+        <DESCRIPTION>Content-Type of the representation at uri</DESCRIPTION>
+      </FIELD>
+      <FIELD name="access_estsize" datatype="long" ucd="phys.size;meta.file" unit="kbyte" utype="obscore:access.size">
+        <DESCRIPTION>Size of the representation at uri</DESCRIPTION>
+      </FIELD>
+      <FIELD name="obs_id" datatype="char" arraysize="*" ucd="meta.id" utype="obscore:dataid.observationid">
+        <DESCRIPTION>Internal ID given by the ObsTAP service</DESCRIPTION>
+      </FIELD>
+      <FIELD name="obs_publisher_did" datatype="char" arraysize="*" ucd="meta.ref.url;meta.curation" utype="obscore:curation.publisherdid">
+        <DESCRIPTION>IVOA Dataset ID given by the publisher</DESCRIPTION>
+      </FIELD>
+      <FIELD name="s_ra" datatype="double" ucd="pos.eq.ra" unit="deg" utype="obscore:char.spatialaxis.coverage.location.coord.position2d.value2.c1">
+        <DESCRIPTION>Central Spatial Position in ICRS Right ascension</DESCRIPTION>
+      </FIELD>
+      <FIELD name="s_dec" datatype="double" ucd="pos.eq.dec" unit="deg" utype="obscore:char.spatialaxis.coverage.location.coord.position2d.value2.c2">
+        <DESCRIPTION>Central Spatial Position in ICRS Declination</DESCRIPTION>
+      </FIELD>
+      <FIELD name="s_fov" datatype="double" ucd="phys.angSize;instr.fov" unit="deg" utype="obscore:char.spatialaxis.coverage.bounds.extent.diameter">
+        <DESCRIPTION>Estimated size of the covered region as the diameter of a containing circle</DESCRIPTION>
+      </FIELD>
+      <FIELD name="s_resolution" datatype="double" ucd="pos.angResolution" unit="arcsec" utype="obscore:char.spatialaxis.resolution.refval">
+        <DESCRIPTION>Median spatial resolution (FWHM)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="em_min" datatype="double" ucd="em.wl;stat.min" unit="m" utype="obscore:char.spectralaxis.coverage.bounds.limits.interval.lolim">
+        <DESCRIPTION>Lower bound on energy axis (barycentric wavelength)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="em_max" datatype="double" ucd="em.wl;stat.max" unit="m" utype="obscore:char.spectralaxis.coverage.bounds.limits.interval.hilim">
+        <DESCRIPTION>Upper bound on energy axis (barycentric wavelength)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="em_res_power" datatype="double" ucd="spect.resolution" utype="obscore:char.spectralaxis.resolution.resolpower.refval">
+        <DESCRIPTION>Median spectral resolving power (R)</DESCRIPTION>
+      </FIELD>
+      <FIELD name="em_xel" datatype="double" arraysize="*" utype="obscore:char.spectralaxis.numbins">
+        <DESCRIPTION>Number of elements along the spectral axis</DESCRIPTION>
+      </FIELD>
+      <FIELD name="pol_states" datatype="char" arraysize="*" utype="obscore:char.polarizationaxis.statelist">
+        <DESCRIPTION>List of polarization states present in the data file</DESCRIPTION>
+      </FIELD>
+      <FIELD name="pol_xel" datatype="long" utype="obscore:char.polarizationaxis.numbins">
+        <DESCRIPTION>Number of elements along the polarization axis</DESCRIPTION>
+      </FIELD>
+      <FIELD name="o_ucd" datatype="char" arraysize="*" ucd="meta.ucd" utype="obscore:char.observableaxis.ucd">
+        <DESCRIPTION>Nature of the observable axis</DESCRIPTION>
+      </FIELD>
+      <DATA>
+        <TABLEDATA>
+          <TR>
+            <TD>POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732</TD>
+            <TD>wise_allwise</TD>
+            <TD>science</TD>
+            <TD>mosaic</TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+            <TD>Edward L. Wright</TD>
+            <TD>WISE</TD>
+            <TD>Wide-field Infrared Survey Explorer - AllWISE Atlas Images</TD>
+            <TD></TD>
+            <TD>field</TD>
+            <TD>0</TD>
+            <TD>0</TD>
+            <TD></TD>
+            <TD>3</TD>
+            <TD>image</TD>
+            <TD>4095</TD>
+            <TD>4095</TD>
+            <TD>2.75</TD>
+            <TD>0</TD>
+            <TD>Infrared</TD>
+            <TD>W1</TD>
+            <TD>55306.630670995299</TD>
+            <TD>55491.6794671643</TD>
+            <TD>196.42699999999999</TD>
+            <TD></TD>
+            <TD>55306.630670995299 55491.6794671643</TD>
+            <TD>https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w1-int-3.fits</TD>
+            <TD>image/fits</TD>
+            <TD></TD>
+            <TD>3e4eb150-2d7a-4282-a42a-b01569b5cbfc</TD>
+            <TD>ivo://irsa.ipac/wise_allwise/2994p000_ac51</TD>
+            <TD>-60.503070000000001</TD>
+            <TD>0</TD>
+            <TD>3.1281249999999998</TD>
+            <TD>6.0999999999999996</TD>
+            <TD>3.1499999999999999e-06</TD>
+            <TD>3.7799999999999998e-06</TD>
+            <TD></TD>
+            <TD>3.1499999999999999e-06 3.7799999999999998e-06</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+          </TR>
+          <TR>
+            <TD>POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732</TD>
+            <TD>wise_allwise</TD>
+            <TD>science</TD>
+            <TD>mosaic</TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+            <TD>Edward L. Wright</TD>
+            <TD>WISE</TD>
+            <TD>Wide-field Infrared Survey Explorer - AllWISE Atlas Images</TD>
+            <TD></TD>
+            <TD>field</TD>
+            <TD>0</TD>
+            <TD>0</TD>
+            <TD></TD>
+            <TD>3</TD>
+            <TD>image</TD>
+            <TD>4095</TD>
+            <TD>4095</TD>
+            <TD>2.75</TD>
+            <TD>0</TD>
+            <TD>Infrared</TD>
+            <TD>W3</TD>
+            <TD>55306.630670995299</TD>
+            <TD>55309.475280057901</TD>
+            <TD>105.80240000000001</TD>
+            <TD></TD>
+            <TD>55306.630670995299 55309.475280057901</TD>
+            <TD>https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w3-int-3.fits</TD>
+            <TD>image/fits</TD>
+            <TD></TD>
+            <TD>3e4eb150-2d7a-4282-a42a-b01569b5cbfc</TD>
+            <TD>ivo://irsa.ipac/wise_allwise/2994p000_ac51</TD>
+            <TD>-60.503070000000001</TD>
+            <TD>0</TD>
+            <TD>3.1281249999999998</TD>
+            <TD>6.5</TD>
+            <TD>7.9500000000000001e-06</TD>
+            <TD>1.6269999999999998e-05</TD>
+            <TD></TD>
+            <TD>7.9500000000000001e-06 1.6269999999999998e-05</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+          </TR>
+          <TR>
+            <TD>POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732</TD>
+            <TD>wise_allwise</TD>
+            <TD>science</TD>
+            <TD>mosaic</TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+            <TD>Edward L. Wright</TD>
+            <TD>WISE</TD>
+            <TD>Wide-field Infrared Survey Explorer - AllWISE Atlas Images</TD>
+            <TD></TD>
+            <TD>field</TD>
+            <TD>0</TD>
+            <TD>0</TD>
+            <TD></TD>
+            <TD>3</TD>
+            <TD>image</TD>
+            <TD>4095</TD>
+            <TD>4095</TD>
+            <TD>5.5</TD>
+            <TD>0</TD>
+            <TD>Infrared</TD>
+            <TD>W4</TD>
+            <TD>55306.630670995299</TD>
+            <TD>55309.475280057901</TD>
+            <TD>107.19280000000001</TD>
+            <TD></TD>
+            <TD>55306.630670995299 55309.475280057901</TD>
+            <TD>https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w4-int-3.fits</TD>
+            <TD>image/fits</TD>
+            <TD></TD>
+            <TD>3e4eb150-2d7a-4282-a42a-b01569b5cbfc</TD>
+            <TD>ivo://irsa.ipac/wise_allwise/2994p000_ac51</TD>
+            <TD>-60.503070000000001</TD>
+            <TD>0</TD>
+            <TD>6.2562499999999996</TD>
+            <TD>12</TD>
+            <TD>1.9850000000000001e-05</TD>
+            <TD>2.44e-05</TD>
+            <TD></TD>
+            <TD>1.9850000000000001e-05 2.44e-05</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+          </TR>
+          <TR>
+            <TD>POLYGON ICRS -59.720559528929 -0.782437502732 -61.285198455405 -0.782437502732 -61.285198384207 0.782055522693 -59.720559600162 0.782055522693 -59.720559528929 -0.782437502732</TD>
+            <TD>wise_allwise</TD>
+            <TD>science</TD>
+            <TD>mosaic</TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD>WISE</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+            <TD>Edward L. Wright</TD>
+            <TD>WISE</TD>
+            <TD>Wide-field Infrared Survey Explorer - AllWISE Atlas Images</TD>
+            <TD></TD>
+            <TD>field</TD>
+            <TD>0</TD>
+            <TD>0</TD>
+            <TD></TD>
+            <TD>3</TD>
+            <TD>image</TD>
+            <TD>4095</TD>
+            <TD>4095</TD>
+            <TD>2.75</TD>
+            <TD>0</TD>
+            <TD>Infrared</TD>
+            <TD>W2</TD>
+            <TD>55306.630670995299</TD>
+            <TD>55491.6794671643</TD>
+            <TD>197.80529999999999</TD>
+            <TD></TD>
+            <TD>55306.630670995299 55491.6794671643</TD>
+            <TD>https://irsa.ipac.caltech.edu/ibe/data/wise/allwise/p3am_cdd/29/2994/2994p000_ac51/2994p000_ac51-w2-int-3.fits</TD>
+            <TD>image/fits</TD>
+            <TD></TD>
+            <TD>3e4eb150-2d7a-4282-a42a-b01569b5cbfc</TD>
+            <TD>ivo://irsa.ipac/wise_allwise/2994p000_ac51</TD>
+            <TD>-60.503070000000001</TD>
+            <TD>0</TD>
+            <TD>3.1281249999999998</TD>
+            <TD>6.4000000000000004</TD>
+            <TD>4.0999999999999997e-06</TD>
+            <TD>5.1599999999999997e-06</TD>
+            <TD></TD>
+            <TD>4.0999999999999997e-06 5.1599999999999997e-06</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+          </TR>
+        </TABLEDATA>
+      </DATA>
+    </TABLE>
+  </RESOURCE>
+</VOTABLE>

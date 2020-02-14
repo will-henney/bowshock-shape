@@ -212,7 +212,7 @@ mkdir -pv OB/MipsGal
           if source_data["R0"] > threshold:
               expand *= 2
 
-    
+
       # Now make postage stamps of all the selected images
       for m_id in mosaic_images:
           hdu = fits.open(mosaic_images[m_id])[0]
@@ -291,6 +291,12 @@ CLOSED: [2020-02-14 Fri 12:09]
   #+end_example
 + So we have them all now
 **** TODO Get the WISE images too
++ The API is described at https://irsa.ipac.caltech.edu/docs/irsa_image_server.html
++ Looks to be similar to the Atlas one above
++ But also lets you ask for a cutout instead of the entire image
++ Two options: SIA or IRSA - we will try the first
++ Even so, there is more than one way of doing it.
++ 
 *** DONE How to trace the shapes of the OB bow shocks
 CLOSED: [2017-03-28 Tue 13:24]
 + Strategy is to start at the nominal PA of the bowshock axis and take radial slices
