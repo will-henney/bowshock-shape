@@ -1,0 +1,162 @@
+J/A+A/618/A110    IR nebulae around bright massive stars   (Bodensteiner+, 2018)
+================================================================================
+Infrared nebulae around bright massive stars as indicators for binary
+interactions.
+    Bodensteiner J., Baade D., Greiner J., Langer N.
+    <Astron. Astrophys. 618, A110 (2018)>
+    =2018A&A...618A.110B        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, early-type ; Stars, emission ; Stars, Be ;
+              Rotational velocities ; Stars, double and multiple ;
+              Diffuse clouds ; Nebulae
+Keywords: stars: early-type - stars: emission-line, Be - stars: rotation -
+          binaries: general - circumstellar matter - dust, extinction
+
+Abstract:
+    Recent studies show that more than 70% of massive stars do not evolve
+    as effectively single stars, but as members of interacting binary
+    systems. The evolution of these stars is thus strongly altered
+    compared to similar but isolated objects. We investigate the
+    occurrence of parsec-scale mid-infrared nebulae around early-type
+    stars. If they exist over a wide range of stellar properties, one
+    possible overarching explanation is non-conservative mass transfer in
+    binary interactions, or stellar mergers. For ~3850 stars (all OBA
+    stars in the Bright Star Catalogue (BSC, Cat. V/50), Be stars, BeXRBs,
+    and Be+sdO systems), we visually inspect WISE 22um images. Based on
+    nebular shape and relative position, we distinguish five categories:
+    offset bow shocks structurally aligned with the stellar space
+    velocity, unaligned offset bow shocks, and centered, unresolved, and
+    not classified nebulae. In the BSC, we find that 28%, 13%, and 0.4% of
+    all O, B, and A stars, respectively, possess associated infrared (IR)
+    nebulae. Additionally, 34/234 Be stars, 4/72 BeXRBs, and 3/17 Be+sdO
+    systems are associated with IR nebulae. Aligned or unaligned bow
+    shocks result from high relative velocities between star and
+    interstellar medium (ISM) that are dominated by the star or the ISM,
+    respectively. About 13% of the centered nebulae could be bow shocks
+    seen head- or tail-on. For the rest, the data disfavor explanations as
+    remains of parental disks, supernova remnants of a previous companion,
+    and dust production in stellar winds. The existence of centered
+    nebulae also at high Galactic latitudes strongly limits the global
+    risk of coincidental alignments with condensations in the ISM. Mass
+    loss during binary evolution seems a viable mechanism for the
+    formation of at least some of these nebulae. In total, about 29% of
+    the IR nebulae (2% of all OBA stars in the BSC) may find their
+    explanation in the context of binary evolution.
+
+Description:
+    We investigate the surroundings of ~ 3850 stars (all OBA stars in the
+    Bright Star Catalogue (BSC, Cat. V/50), Be stars, BeXRBs, and Be+sdO
+    systems) in WISE 22 micron images.
+
+    For all stars we find associated with extended IR nebulae we gather
+    stellar parameters from the literature, including identifiers,
+    coordinates, HD number, V-band magnitudes, spectral types from SIMBAD.
+
+    Additionally we give Hipparcos parallaxes and Hipparcos proper motions
+    (van Leuwen, 2007A&A...474..653V, Cat. I/311) when available. Proper
+    motions are converted to the rest frame of the local ISM by correcting
+    for the Galactic rotation (Comeron & Pasquali, 2007A&A...467L..23C).
+    Radial velocities are collected mainly from Gontcharov
+    (2006AstL...32..759G, Cat. III/252), but also from Kharchenko et al.
+    (2007, Cat. J/AN/328/889) or Pourbaix et al. (2004A&A...424..727P,
+    Cat. V/122).
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+tableb1.dat      114      255   Compilation of all parameter values from the
+                                 literature
+tableb2.dat      120      255   Overview over all the measured and calculated
+                                 parameters
+--------------------------------------------------------------------------------
+
+See also:
+     V/50 : Bright Star Catalogue, 5th Revised Ed. (Hoffleit+, 1991)
+    I/311 : Hipparcos, the New Reduction (van Leeuwen, 2007)
+  III/252 : Pulkovo radial velocities for 35493 HIP stars (Gontcharov, 2006)
+    V/122 : SB9: 9th Catalogue of Spectroscopic Binary Orbits (Pourbaix+ 2005)
+
+Byte-by-byte Description of file: tableb1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---       Name      BSC Identifier of the star
+  14- 15  I2    h         RAh       Right ascension (J2000.0)
+  17- 18  I2    min       RAm       Right ascension (J2000.0)
+  20- 24  F5.2  s         RAs       Right ascension (J2000.0)
+      26  A1    ---       DE-       Declination sign (J2000.0)
+  27- 28  I2    deg       DEd       Declination (J2000.0)
+  30- 31  I2    arcmin    DEm       Declination (J2000.0)
+  33- 36  F4.1  arcsec    DEs       Declination (J2000.0)
+  38- 43  I6    ---       HD        HD identification number
+  45- 49  F5.2  mag       Vmag      Apparent V-band magnitude
+  50- 64  A15   ---       SpType    Spectral classification listed in SIMBAD
+  67- 71  F5.2  mas       plx       ?=-9.99 Parallax (1) (2)
+  73- 77  F5.2  mas     e_plx       ?=-9.99 Parallax error (1) (2)
+  79- 84  F6.2  mas/yr    pmRA      Proper motion in RA (1)
+  86- 90  F5.2  mas/yr  e_pmRA      ?=-9.99 Proper motion error in RA (1)
+  92- 97  F6.2  mas/yr    pmDE      Proper motion in DEC (1)
+  99-103  F5.2  mas/yr  e_pmDE      ?=-9.99 Proper motion error in DE (1)
+ 105-109  F5.1  km/s      RV        ?=-99.9 Radial velocity
+ 111-114  F4.1  km/s    e_RV        ?=-9.9 Radial velocity error
+--------------------------------------------------------------------------------
+Note (1): no value listed in van Leeuwen (2007A&A...474..653V, Cat. I/311),
+  therefore value is set to -9.99
+Note (2): Parallax and parallax errors taken from van Leeuwen
+   (2007A&A...474..653V, Cat. I/311)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1- 12  A12   ---       Name      BSC Identifier of the star
+  14- 15  I2    h         RAh       Right ascension (J2000.0)
+  17- 18  I2    min       RAm       Right ascension (J2000.0)
+  20- 24  F5.2  s         RAs       Right ascension (J2000.0)
+      26  A1    ---       DE-       Declination sign (J2000.0)
+  27- 28  I2    deg       DEd       Declination (J2000.0)
+  30- 31  I2    arcmin    DEm       Declination (J2000.0)
+  33- 36  F4.1  arcsec    DEs       Declination (J2000.0)
+  38- 42  A5    ---       MClass    Morphological classification (1)
+      44  A1    ---       Be        [x] known Be star ?
+      46  A1    ---       n         [x] has a nebulous spectrum ?
+      48  A1    ---       bin       [x] known binary ?
+  50- 56  F7.2  pc        d         ? Distance determined from the parallax
+  58- 65  F8.2  pc      e_d         ? rms uncertainty on Distance
+  67- 72  F6.2  km/s      Vspace    ? Space velocity calculated from the radial
+                                     velocity, proper motion and distance (2)
+  74- 78  F5.2  km/s    e_Vspace    ? Error in space velocity
+  80- 83  F4.2 arcmin+2   SizeA     ? Angular size of the nebulae
+  85- 90  F6.2  Jy        Flux      ? Total flux at 22um
+  92- 98  F7.3  pc+2      Size      ? Physical size (3)
+ 100-106  F7.3  pc+2    e_Size      ? Error on linear size
+ 108-110  I3    deg       alpha     ? Misalignment angle between the proper
+                                     motion of the star and the bow shock
+                                     shape (4)
+ 112-115  F4.1  arcmin    R0A       ? Angular distance R(0)_ang_ between the
+                                     position of the star and the apex of the
+                                     bow shock
+ 117-120  F4.2  pc        R0        ? Physical distance R(0) between the
+                                     position of the star and the apex of the
+                                     bow shock
+--------------------------------------------------------------------------------
+Note (1): Morphological classification as follows:
+  bs    = bow shock
+  bsna  = not aligned bow shock
+  cent  = centered
+  unres = unresolved
+  nc    = not classified
+Note (2): We determined the total space velocity if the individual uncertainties
+  in distance, proper motion, and radial velocity measurements were <=30%.
+Note (3): angular size converted to physical size using the distance.
+Note (4): It is only given for bow shocks and unaligned bow shocks.
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+   Julia Bodensteiner, julia.bodensteiner(at)kuleuven.be
+
+================================================================================
+(End) J. Bodensteiner [KU Leuven, Belgium], P. Vannier [CDS]         26-Jul-2018

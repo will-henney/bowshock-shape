@@ -27,7 +27,6 @@ source_table = Table.read(
     readme=str(SOURCE_DIR / 'ReadMe')
 )
 
-IMAGE_DIR = Path('OB/MipsGal')
 
 
 ##
@@ -47,6 +46,15 @@ try:
 except:
     iseq_min, iseq_max = 0, 999_999_999
 
+try:
+    IMAGE_DIR = Path(sys.argv[4])
+except:
+    IMAGE_DIR = Path('OB/MipsGal')
+
+try:
+    imglob = sys.argv[5]
+except:
+    imglob = ""
 
 # 10 Feb 2020 - now use a dedicated folder for output, which is named
 # after the value of CIRCLE_THETA
@@ -147,12 +155,16 @@ for source_data in source_table:
     # Coordinates of source central star
     c = skycoord_from_table_row(source_data)
     # Find all the images for this source
-    provisional_list = IMAGE_DIR.glob(f"*-{source_data['Name']}-*.fits")
+    provisional_list = IMAGE_DIR.glob(
+        # f"*-{source_data['Name']}-*.fits"
+        f"{source_data['Seq']:04d}*{imglob}.fits"
+    )
     # Look for an image that is good
     good_image_list = []
     for image_path in provisional_list:
         hdu, = fits.open(image_path)
-        looks_good = hdu.header['NAXIS1'] == hdu.header['NAXIS2']
+        # looks_good = hdu.header['NAXIS1'] == hdu.header['NAXIS2']
+        looks_good = (hdu.header['NAXIS1'] > 100) &  (hdu.header['NAXIS2'] > 100)
         if looks_good:
             good_image_list.append(image_path)
 
@@ -162,6 +174,7 @@ for source_data in source_table:
         hdu, = fits.open(image_path)
     else:
         # If there were no good images, then never mind
+        print("ABORT - no good images")
         continue
 
     image_stem = image_path.stem
@@ -550,6 +563,8 @@ for source_data in source_table:
         ['dth_g', 2.35*g_fit.stddev_0.value],
         ['H_g', H_from_bright_fit],
         ['H_d', H_direct_fwhm],
+        ['H_d_out', r_out],
+        ['H_d_in', r_in],
         ['R0_g', R0_from_bright_fit],
         ['Peak24', Peak_from_bright_fit],
         ['Contrast', Contrast_fom_bright_fit],

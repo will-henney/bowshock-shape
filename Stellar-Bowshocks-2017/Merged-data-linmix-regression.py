@@ -19,7 +19,7 @@ import linmix
 # Read the data of the bow shock shapes from the multiple fit variants
 
 from astropy.table import Table
-combo_file = 'mipsgal-arcfit-all-variants.tab'
+combo_file = 'mipsgal-arcfit-peak-variants.tab'
 tab = Table.read(combo_file, format='ascii.tab')
 tab
 
@@ -35,7 +35,7 @@ m = tab["Rating"] >= 4
 useful_cols = ['log Pi', 'log Pi sigma', 'log Lam', 'log Lam sigma']
 tab[m][useful_cols]
 
-# So that is 94 points.  We extract the columns from the table as indivisual variables to use with linmix. 
+# So that is 144 points.  We extract the columns from the table as individual variables to use with linmix. 
 
 X, Xe, Y, Ye = [tab[m][_] for _ in ['log Pi', 'log Pi sigma', 'log Lam', 'log Lam sigma']]
 
@@ -105,7 +105,7 @@ pearsonr(X, Y)
 
 pd.DataFrame({"X": X, "Xe": Xe, "Y": Y, "Ye": Ye}).describe()
 
-# So note that the observed variable $\log_{10} \Pi$ (`X`) is $0.309 \pm 0.141$, whereas the latent variable $\xi$ from the chain posterior is $0.289 \pm 0.113$, which is narrower and very slightly shifted.  
+# So note that the observed variable $\log_{10} \Pi$ (`X`) is $0.348 \pm 0.188$, whereas the latent variable $\xi$ from the chain posterior is $0.317 \pm 0.139$, which is narrower and very slightly shifted.  
 #
 # The value of $\sigma$ is $0.027 \pm 0.010$, which is the intrinsic spread in the latent $\eta(\xi)$ (or true $\log\Lambda(\log\Pi)$) relation. This is small compared with $\beta \sigma_\xi = 0.06$, which is why the correlation is so high. 
 #
@@ -114,7 +114,7 @@ pd.DataFrame({"X": X, "Xe": Xe, "Y": Y, "Ye": Ye}).describe()
 # Plot the regression (note that the biggest points have the smallest errors). 
 
 # +
-vmin, vmax = -0.2, 0.8
+vmin, vmax = -0.2, 1.0
 xgrid = np.linspace(vmin, vmax, 200)
 
 
@@ -176,14 +176,20 @@ pearsonr(X3, Y3)
 # So, again we get a nice slope, albeit a little lower than the 4,5-star. And the correlation is consistent within 1 sigma. 
 
 # +
-vmin, vmax = -0.25, 1.05
+vmin, vmax = -0.2, 1.1
 xgrid = np.linspace(vmin, vmax, 200)
 
 
 fig, ax = plt.subplots(figsize=(10, 10))
 
-ax.errorbar(X3, Y3, xerr=Xe3, yerr=Ye3, ls=" ", elinewidth=0.4, alpha=1.0, c="k")
-ax.scatter(X3, Y3, marker=".", c="g", s=20/np.hypot(Xe, Ye))
+# The 3-star points
+ax.errorbar(X3, Y3, xerr=Xe3, yerr=Ye3, ls=" ", elinewidth=0.4, alpha=0.3, c="k")
+ax.scatter(X3, Y3, marker=".", c="c", s=20/np.hypot(Xe, Ye), alpha=0.5)
+
+# The 4,5-star points
+ax.errorbar(X, Y, xerr=Xe, yerr=Ye, ls=" ", elinewidth=0.4, alpha=0.3, c="k")
+ax.scatter(X, Y, marker=".", c="y", s=20/np.hypot(Xe, Ye))
+
 # The original fit
 ax.plot(xgrid, dfchain3["alpha"].mean() + xgrid*dfchain3["beta"].mean(), 
         '-', c="k")
@@ -214,17 +220,20 @@ dfchain3p45
 
 dfchain3p45.reset_index(level=0)
 
-sns.pairplot(dfchain3p45[10::30].reset_index().query("xisig < 0.2 and 0.0 < sigsqr < 0.004"), 
+dfchain3p45["sigma"] = np.sqrt(dfchain3p45["sigsqr"])
+
+g = sns.pairplot(dfchain3p45[0::50].reset_index().query("xisig < 0.3 and 0.0 < sigsqr < 0.004"), 
              #kind="reg", 
              diag_kind="hist",
              markers=".",
-             plot_kws=dict(marker=".", ec="none", alpha=0.1, s=100), 
-             vars=["alpha", "beta", "sigsqr", "corr", "ximean", "xisig"], 
+             plot_kws=dict(marker=".", ec="none", alpha=0.5, s=100), 
+             vars=["alpha", "beta", "sigma", "corr", "ximean", "xisig"], 
              hue="level_0",
              hue_order=["3-star", "4,5-star",]
             )
+g.axes[2, 0].set(ylim=[0.0, 0.06])
 
-# So the above shows that the results from the two data partitions are very similar.  All except for the mean of $\xi$ (the latent planitude)
+# So the above shows that the results from the two data partitions are *now completely different*.  All except for the mean of $\xi$ (the latent planitude)
 #
 #
 # The 95% credibility levels on $\beta$ and the other parameters are:
@@ -238,7 +247,7 @@ dfchain3.quantile([0.025, 0.5, 0.975])
 
 dfchain.quantile([0.05, 0.95])
 
-# Note that the parabola family should have $\Lambda = (2 \Pi)^{1/2}$, so $\alpha, \beta = 0.15, 0.5$.  The slope is consistent with the data, but the intercept 
+# Note that the parabola family should have $\Lambda = (2 \Pi)^{1/2}$, so $\alpha, \beta = 0.15, 0.5$.  The slope is consistent with the 4+5-star data, but the intercept is excluded at the 95% level.  The 3-star data gets the slope, but not the intercept.
 
 # ## Application to isophotal shape variables
 
@@ -328,6 +337,6 @@ from scipy.stats import percentileofscore
 
 percentileofscore(dfchain_Rc_thb["corr"], 0.0)
 
-# So, it is at the 99.79 level, or $p = 0.0021$
+# So, it is at the 99.87 level, or $p = 0.0013$, which is pretty good actually.
 
 

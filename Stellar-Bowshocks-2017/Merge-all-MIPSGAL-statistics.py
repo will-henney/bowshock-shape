@@ -99,7 +99,7 @@ df["log Lam"], df["e log Lam"] = logratio(
 df["d log Lam"] = np.log10(1 + 0.5*(df["R90p"] - df["R90n"])/df["R0_fit"])
 df["log R0"], df["d log R0"] = logify(df["R0_fit"], df["R0_sigma"])
 
-# And for the shell thickness.  We use the minimum of the direct and Gaussian methods, with uncertainty given by the absolute difference.
+# And for the shell thickness.  We use the average of the direct and Gaussian methods, with uncertainty given by the absolute difference.
 
 H = 0.5*(df["H_g"] + df["H_d"])
 eH = 0.5*np.abs(df["H_g"] - df["H_d"])
@@ -107,6 +107,9 @@ df["log H"], df["e log H"] = logratio(
     H, eH,
     df["R0_fit"], df["R0_sigma"]
 ) 
+
+# Also add linear versions for later
+df["log h"], df["e log h"] = logify(H, eH)
 
 # For the angular breadth, we don't take log for now (**should we?**).  We also calculate ratios of the widths at different levels, which indicate kurtosis:
 #
@@ -194,7 +197,7 @@ d_by_star
 
 # From this table, we can see the following:
 #
-# * Star-rating is positively correlated with `Peak24`, `Contrast`, `log Pi`, `log Lam`, `log R0`, `core_bratio`
+# * Star-rating is highly positively correlated with `Peak24`, `log Pi`, `log Lam`, `log R0`, `core_bratio`
 # * Negative corelations are mainly with the `E` and `e` dispersions, but are also with the population stddev of `log Lam`, `log Pi`, `core bratio`, and `breadth50`
 #
 #
@@ -327,6 +330,110 @@ sns.pairplot(
 #
 # We should save it as an astropy Table for compatibility with before.
 
-Table.from_pandas(ddf).write("mipsgal-arcfit-all-variants.tab", format='ascii.tab', overwrite=True)
+Table.from_pandas(ddf.reset_index()).write(
+    "mipsgal-arcfit-all-variants.tab", 
+    format='ascii.tab', 
+    overwrite=True
+)
+
+# Note `astropy.table.Table.from_pandas` ignores the index, so that we had to do `reset_index` to get `Seq` o be an actual column.
+
+ddf.reset_index().head()
+
+# ## What if we were to only use the peak method?
+#
+# This will reduce the `E` values, and will shift $\Pi$ and $\Lambda$ to larger values.
+#
+#
+
+dfp = (
+    df
+    .query('RIDGE == "peak"')
+    .query('Rating >= 0')
+    .dropna(subset=["log Pi", "log Lam", "log R0"])
+    .groupby(['Seq'])
+    .agg([np.mean, np.std])
+    .drop(columns=[('Rating', 'std'), ])
+)
+dfp.columns = dfp.columns.map(compress_double_levels)
+
+select_columns = [
+    'log R0',
+    'log Pi', 'E log Pi', 'e log Pi', 
+    'log Lam', 'e log Lam', 'd log Lam',
+    'log H', 'breadth50',
+]
+
+dfp.query("Rating >= 4")[select_columns].describe()
+
+dfp.query("Rating == 3")[select_columns].describe()
+
+# So that seems a lot more consistent between the 3 and 4+5-star sub-samples. And it does indeed move everything to larger $\Pi, \Lambda$. 
+
+dfp_by_star = (
+    dfp
+    .groupby(['Rating'])
+    .agg([np.mean, np.std])
+)
+dfp_by_star[select_columns]
+
+# Compare with the previous version that used both mean and peak. 
+
+d_by_star[select_columns]
+
+# So the only thing that is still correlated with the star rating is the relative shell thickness (and to lesser extent the breadth).  This *might* be due to errors in `R0`, but I don't think so.
+
+# Write out the peak version to a file for use in later steps. *Changed to use pandas native writer*
+
+dfp.to_csv("mipsgal-arcfit-peak-variants.tab", sep="\t")
+
+# Looking at the distributions, it seems a mild set of cut-offs to eliminate outliers could be:
+
+qmild = "`e log H` < 0.25 and `E log Pi` < 0.4"
+dfp.query(f"Rating >= 3 and not ({qmild})").describe()
+
+# So it only eliminates 21, and most of those are 3-star:
+
+dfp.query(f"Rating >= 4 and not ({qmild})")
+
+cols = [
+    "log Pi", "log Lam", 
+    "log R0", "log H",
+    "E log Pi", 
+    "e log Lam", 
+    "e log H",
+]
+g = sns.pairplot(
+    dfp.query("Rating >= 3").query(qmild), 
+    hue="Rating", 
+    vars=cols, 
+    palette="magma_r",
+    plot_kws=dict(s=50), 
+    diag_kind="kde",
+)
+
+
+# It turns out that H is anticorrelated with R0, which is consistent with the angular thickness $h$ being completely uncorellated with $R_0$.  So we try adding a new column $h = H R_0$ to see if the this is true.
+
+dfp["log h"] = dfp["log R0"] + dfp["log H"]
+
+dfp[["log R0", "log h", "log H"]].corr()
+
+g = sns.pairplot(
+    dfp.query("Rating >= 3").query(qmild), 
+    hue="Rating", 
+    vars=["log R0", "log h", "log H"], 
+    palette="magma_r",
+    plot_kws=dict(s=20, alpha=0.8, edgecolor="none"), 
+    diag_kind="kde",
+)
+rgrid = np.linspace(0.5, 2.5)
+g.axes[1, 0].plot(rgrid, 0.5*rgrid + 0.6)
+g.axes[2, 0].plot(rgrid, -0.5*rgrid + 0.7)
+g.fig.set_size_inches(15, 12)
+
+# So this is a very strange result: $h$ is positively correlated with $R_0$, with $r^2 \approx 0.5$, and slope of $m \approx 0.5$ (shown by solid line in graph).  Meanwhile, $H$ is negatively correlated with $R_0$, also with $r^2 \approx 0.5$ but $m \approx -0.5$.
+
+dfp["log R0"]
 
 

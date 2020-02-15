@@ -70,4 +70,43 @@ tab = Table.read(io.BytesIO(r.content), format='votable')
 
 tab
 
+# +
+# Expand the image size for bigger bows
+expand = 1.0
+for threshold in 40.0, 80.0, 160.0:
+    if source_data["R0"] > threshold:
+        expand *= 2
+
+# Size of image in arcmin
+image_size = 8.0*expand
+# -
+
+f"{c.ra.deg:.4f}, {c.dec.deg:.4f}"
+
+image_params = {
+    "center": f"{c.ra.deg:.4f},{c.dec.deg:.4f}",
+    "size": f"{image_size}, {image_size} arcmin",
+    "gzip": 0,
+}
+
+image_params
+
+image_url = tab[0]['access_url']
+
+r = requests.get(image_url, params=image_params)
+
+hdulist = fits.open(io.BytesIO(r.content))
+
+hdulist.info()
+
+hdulist.writeto("test-zeta-oph.fits", overwrite=True)
+
+for data in tab:
+    r = requests.get(data['access_url'], params=image_params)
+    hdulist = fits.open(io.BytesIO(r.content))
+    bpname = data['energy_bandpassname'].decode()
+    hdulist.writeto(f"test-zeta-oph-{bpname}.fits", overwrite=True)
+
+f"{13:04d}"
+
 

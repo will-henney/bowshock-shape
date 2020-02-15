@@ -7,8 +7,8 @@ Seq	Rating	Comment
 6	1	
 7	4	
 8	1	
-9	2	
-10	3	
+9	4	improved
+10	3	STAR
 11	3	
 12	3	
 13	0	
@@ -17,238 +17,238 @@ Seq	Rating	Comment
 16	5	
 17	2	
 18	5	
-19	3	
-20	3	
+19	4	improved
+20	4	improved
 21	4	
-22	1	
-23	2	
-24	1	
-25	2	
-26	3	
+22	2	improved
+23	3	improved
+24	2	improved
+25	3	improved
+26	4	improved
 27	2	
 28	5	
 29	3	
 30	1	
-31	2	
-32	0	
+31	4	much improved
+32	3	much improved
 33	4	
-34	2	
-35	3	
+34	2	Rc too big
+35	4	improved
 36	4	
 37	3	
-38	2	
+38	3	improved
 39	0	
 40	2	Rc too big
-41	1	
+41	3	improved
 42	1	
-43	2	
+43	3	improved
 44	4	But doesn't reach 90
-45	1	
+45	2	improved
 46	4	
-47	3	
+47	4	improved
 48	4	
 49	3	
-50	1	Rc too small
-51	1	Rc too large
+50	3	improved
+51	1	Bad image
 52	0	Bad image
 53	0	Bad image
 54	0	Missing
-55	4	
-56	4	
-57	1	Rc too small
+55	4	STAR
+56	4	STAR
+57	3	improved
 58	3	
-59	0	Center wrong side
+59	3	Much improved
 60	4	Corner at apex
 61	5	
-62	1	Rc too small
-63	1	Rc too small
+62	3	improved
+63	2	Rc too large
 64	0	Missing
 65	1	Rc too small
 66	0	Missing
-67	3	
+67	4	improved
 68	0	Missing
 69	1	Rc too big
-70	1	Rc too small
-71	2	Tiny but OK
-72	0	NaNs in image
-73	2	Irregular
+70	1	Rc too small/big
+71	3	improved, Tiny but OK
+72	3	improved
+73	3	improved, Irregular
 74	1	Rc too big
 75	1	Rc too small
 76	5	
-77	1	Rc too big
+77	2	Rc too big
 78	1	Rc too big
 79	2	
 80	2	
 81	1	Rc too small
 82	1	Rc too small
-83	2	
+83	3	improved
 84	1	Rc too small
 85	1	Rc too large
 86	2	Tiny
 87	5	
-88	2	
+88	3	improved
 89	2	
 90	2	PA wrong
-91	2	Mean affected by stars
+91	3	improved, STARS
 92	2	
 93	2	
 94	3	
 95	2	
-96	3	
+96	4	improved
 97	1	Rc too large
 98	1	Rc too large
 99	4	
 100	2	
 101	3	
-102	2	Irregular
+102	3	improved, Irregular
 103	1	Rc too small
-104	0	Fit failed (fixable?)
-105	1	Rc too small
+104	3	improved
+105	1	Rc too small/large
 106	1	Rc too small
-107	1	Rc too small
+107	3	improved
 108	1	PA0 wrong (fixable?)
 109	4	
 110	4	
-111	4	
-112	3	
+111	4	STAR
+112	4	improved
 113	4	
-114	4	
-115	1	Rc too big
+114	3	demoted
+115	3	improved
 116	3	
-117	1	Rc too small
-118	0	Fit failed (fixable?)
+117	3	improved
+118	4	improved
 119	1	Irregular
 120	2	Irregular and small
 121	1	Rc too small
-122	2	Fails to trace wings
+122	3	improved
 123	5	
-124	0	Fit Failed
+124	3	improved
 125	4	
 126	1	Rc too small
 127	5	
-128	1	Rc too small
+128	3	improved
 129	2	PA is off
 130	1	Mess
 131	2	Irregular
 132	3	Wing on + side lost
 133	4	
-134	1	Rc too small
+134	3	improved
 135	0	Fit failed
-136	0	Fit failed
+136	1	Rc too small
 137	3	
 138	0	Fit failed
 139	1	Rc too small
 140	1	Rc too small
-141	2	PA0 was wrong
+141	3	improved, PA0 was wrong
 142	1	Rc too small
-143	0	Fit failed
-144	2	Star off axis
-145	2	Star off axis
-146	2	R0 problem (fixable)
-147	1	Rc too small
-148	2	Circle fit problem
-149	0	Fit failed
+143	2	asymmetric
+144	3	improved, Star off axis
+145	3	improved, Star off axis
+146	4	improved
+147	2	lop-sided
+148	3	wrong star?
+149	4	improved
 150	3	
-151	0	Fit failed
-152	0	Rc too small
-153	0	Rc too small
+151	1	irregular
+152	3	improved
+153	2	irregular
 154	0	Missing
-155	0	Rc too small
+155	3	improved
 156	0	Missing
-157	0	Fit failed
+157	2	Rc too large
 158	4	
 159	3	
 160	3	
-161	1	Rc too small
+161	2	Rc too large
 162	2	Tiny
 163	2	Star off axis
-164	2	Rc a bit too big
+164	3	improved
 165	4	
 166	0	Fit failed
 167	3	
-168	2	Rc a bit too small
-169	2	Irregular
+168	3	improved
+169	2	STARS, Irregular
 170	3	
-171	2	Rc a bit too large
+171	1	Rc a bit too large
 172	1	Rc too small
 173	2	Rc a bit too large
-174	2	Irregular
+174	2	star off axis
 175	3	
-176	2	Rc a bit too small
-177	0	Fit failed (fixable?)
+176	3	improved
+177	4	improved
 178	0	Fit failed
-179	1	Rc too small
-180	2	Rc a bit too small
+179	3	improved
+180	3	improved
 181	1	Rc too small
 182	2	Star off axis
 183	4	
 184	3	
-185	0	Fit failed
+185	3	improved
 186	4	
 187	3	
-188	1	Rc too small
+188	3	improved
 189	0	Fit failed
 190	1	Rc too small
 191	1	Rc too small
 192	4	
 193	3	
-194	2	Rc a bit too small
-195	1	Rc too small
-196	2	Rc too small
+194	3	improved
+195	3	improved
+196	3	improved
 197	4	
 198	3	
 199	4	
 200	0	Fit failed
 201	3	
 202	5	
-203	1	Rc too small
-204	1	Rc too small
-205	0	Fit failed
-206	1	Rc too small
-207	1	Rc too small
-208	0	Fit failed
+203	2	Rc too small
+204	2	Rc too small
+205	2	Rc too large
+206	3	improved, asymmetric
+207	2	Rc too small
+208	3	improved
 209	3	Corner at apex
-210	0	Fit failed
+210	3	improved
 211	0	Missing
 212	0	Missing
-213	1	Rc too small
+213	3	improved
 214	3	Some NaNs in image
 215	4	
 216	3	
 217	2	Rc a bit too small
 218	3	
-219	0	Fit failed
+219	1	super small
 220	1	Rc too small
 221	3	Asymmetric
-222	0	Fit failed
+222	3	improved
 223	4	
 224	0	Missing
 225	3	
-226	2	Rc bit too small
+226	3	improved
 227	0	Missing
-228	3	But R90+ is wrong
+228	4	improved
 229	1	Rc too large
 230	3	
-231	0	Fit failed
+231	4	improved, weird corners
 232	2	Irregular
-233	2	Rc bit too small
-234	1	Rc too small
-235	0	Fit failed
+233	3	improved, Rc bit too small
+234	1	Rc too small/large
+235	3	improved
 236	3	
-237	0	Fit failed
-238	3	
-239	0	Fit failed
+237	3	improved
+238	4	improved
+239	3	improved
 240	0	Missing
-241	1	Rc too small
-242	1	Rc too small
+241	2	Rc too small
+242	2	Rc too small
 243	3	
 244	3	
 245	3	
-246	1	Center wrong side
+246	1	STARS, Center wrong side
 247	4	
 248	3	Maybe double
-249	0	Fit failed
-250	0	Fit failed
+249	3	improved
+250	2	asymmetric
 251	3	
 252	0	Fit failed
 253	4	
@@ -256,55 +256,55 @@ Seq	Rating	Comment
 255	1	Rc too small
 256	0	Fit failed
 257	3	
-258	1	Rc too small
+258	3	improved
 259	3	
 260	3	
-261	0	Fit failed
+261	3	improved, double peak
 262	0	Fit failed
-263	5	
-264	4	
-265	2	Rc a bit too small
-266	1	Rc too small
-267	2	Rc a bit too large
+263	5	split wing
+264	4	improved
+265	3	improved
+266	2	Rc too small/large
+267	3	improved
 268	1	Rc too small
 269	3	
 270	2	Asymmetric
 271	0	Fit failed
 272	0	Missing
-273	2	Star in wrong place?
+273	3	improved, Star in wrong place?
 274	4	
-275	1	Rc too small
-276	1	Rc too small
-277	2	Star off axis
-278	1	Rc too small
+275	2	Rc too small
+276	2	Rc too small
+277	3	improved, Star off axis
+278	2	Very small
 279	0	Fit failed
-280	0	Fit failed
-281	0	Fit failed
-282	4	
+280	2	Rc too big
+281	3	STARS, improved
+282	4	asymmetric
 283	1	Rc too small
-284	2	Asymmetric
+284	3	improved, Asymmetric
 285	5	
 286	0	Fit failed
-287	1	Rc too small
+287	3	improved
 288	3	
 289	2	Rc bit too big + asym
 290	0	Fit failed
 291	2	Star off axis
 292	5	Asymmetric
-293	0	Fit failed
+293	2	Rc too small
 294	0	Fit failed
-295	0	Fit failed
+295	1	Rc too small
 296	0	Fit failed
-297	4	
+297	4	STARS
 298	0	Missing
-299	1	Star interferes
+299	1	STARS
 300	3	Fat shell
 301	3	
 302	1	Rc too small
 303	3	
 304	0	Fit failed
-305	0	Fit failed
-306	2	Rc a bit too small
+305	1	Rc too small
+306	4	improved
 307	0	Fit failed
 308	0	Fit failed
 309	0	Fit failed
@@ -312,301 +312,301 @@ Seq	Rating	Comment
 311	0	Fit failed
 312	3	
 313	0	Missing
-314	0	Fit failed
+314	1	Rc to small
 315	0	Missing
 316	0	Fit failed
-415	2	
+415	3	improved
 416	0	Fit failed
-417	0	Fit failed
-418	0	Fit failed
-419	0	Fit failed
-420	0	Fit failed
-421	3	Wings uncertain
-422	1	Rc too small
+417	3	improved
+418	2	Rc too big
+419	2	Rc too big
+420	1	Rc too small
+421	4	STARS
+422	2	Tiny
 423	0	Fit failed
-424	3	
+424	4	
 425	2	Tiny
-426	3	
-427	0	Fit failed
-428	0	Fit failed
-429	1	Rc too small
+426	3	wing oscillation
+427	2	STARS, Rc too big
+428	2	Tiny
+429	2	Tiny
 430	3	
 431	0	Missing
 432	0	Missing
-433	3	
+433	4	
 434	4	
 435	0	Fit failed
 436	4	
 437	3	
 438	0	Missing
-439	0	Fit failed
+439	3	improved, multiple shell, STARS
 440	3	
-441	2	A mess
+441	2	Star misidentified
 442	5	
 443	1	Rc too small
-444	1	Rc too small
-445	1	Rc too small
+444	3	improved
+445	3	improved
 446	4	
 447	5	
-448	3	
+448	4	
 449	3	
-450	1	Rc too small
+450	3	improved, smallish
 451	1	Rc too small
 452	4	asymmetric
-453	3	
+453	4	
 454	1	Rc too small
-455	0	Fit failed
-456	0	Fit failed
-457	2	Rc a bit too big
-458	1	Rc too big
-459	0	Fit failed
-460	2	Rc a bit too small
-461	2	Rc a bit too small
-462	3	
-463	3	
-464	2	Bit of a mess
-465	1	Rc too small
-466	3	
-467	3	
-468	2	Rc a bit too small
+455	1	tiny
+456	3	improved
+457	4	improved
+458	4	improved
+459	4	improved
+460	2	STARS, asymmetrical
+461	3	improved
+462	4	
+463	4	
+464	2	double shell
+465	3	improved
+466	4	
+467	4	
+468	3	improved
 469	1	Rc too small
-470	2	Rc a bit too small
-471	2	Rc a bit too small
+470	3	improved
+471	3	improved
 472	3	
 473	3	
 474	0	Fit failed
-475	1	Rc too small
+475	2	Rc too large
 476	1	Rc too small
-477	2	R0 too big (fixable?)
-478	1	Rc too small
+477	4	asymmetric
+478	3	smallish
 479	3	
 480	0	Fit failed
-481	1	Rc too small
+481	2	Rc too small
 482	1	Rc too small
 483	3	
 484	4	
 485	4	
 486	1	Rc to big
-487	2	Rc a bit too big
-488	2	Rc a bit too small
-489	5	
+487	3	improved
+488	3	improved
+489	5	asymmetric
 490	2	Rc a bit too small
-491	5	
+491	5	asymmetric
 492	4	
 493	4	
-494	0	Fit failed
+494	3	improved
 495	3	
 496	4	
-497	0	Fit failed
-498	1	Rc too small
-499	2	Rc a bit too small
-500	2	Rc a bit too big
+497	1	Rc too small
+498	3	improved, smallish
+499	3	improved, smallish
+500	2	tiny
 501	0	Fit failed
-502	1	Rc too smalled
+502	2	tiny
 503	3	
 504	3	
 505	4	
 506	4	
-507	2	
-508	1	Rc too small
-509	3	
+507	3	improved
+508	2	Rc too large
+509	4	
 510	3	
-511	3	
-512	0	Fit failed
-513	0	Fit failed
+511	4	
+512	3	improved
+513	3	improved
 514	0	Fit failed
-515	2	R0 too big (fixable?)
-516	0	Fit failed
+515	4	strange bright knot
+516	2	tiny
 517	5	
-518	1	Rc too small
+518	2	tiny
 519	1	Rc too small
-520	3	Asymmetric
+520	3	Asymmetric, multiple shells
 521	4	
-522	0	Fit failed
-523	0	Fit failed
+522	3	improved
+523	3	improved
 524	0	Fit failed
 525	1	Rc too small
 526	2	Very small
-527	5	
+527	5	wing splits
 528	3	
-529	3	
+529	3	outer H II ring
 530	5	
-531	1	Rc too small
+531	2	tiny
 532	4	
-533	3	
-534	2	Bow shock too big!
+533	4	
+534	4	STARS
 535	0	Fit failed
 536	3	
-537	1	Rc too small
+537	3	improved
 538	1	Rc too small
 539	3	
 540	3	
 541	1	Rc too small
-542	2	Bow shock too big!
-543	2	Rc a bit too small
+542	2	STARS, could be 5 star
+543	3	improved
 544	5	
-545	2	Rc a bit too small
+545	3	improved
 546	1	Rc too small
 547	1	Rc too small
 548	4	
-549	0	Fit failed
+549	3	improved, smallish
 550	0	Fit failed
 551	1	Rc too small
 552	1	Rc too small
 553	1	Rc too small
 554	3	
-555	1	Rc too small
-556	2	Double source
+555	2	Rc too large
+556	3	Double source
 557	3	
 558	3	Asymmetric
 559	3	
 560	3	
-561	0	Fit failed
+561	1	tiny
 562	4	
 563	4	
-564	0	Fit failed
+564	1	Tiny
 565	4	
 566	4	
-567	2	Too small
+567	2	Tiny
 568	3	
 569	4	
-570	0	Fit failed
+570	1	Fit failed
 571	3	
 572	5	
-573	2	
-574	2	
+573	3	improved
+574	3	improved
 575	0	Missing
-576	2	Rc a bit too small
-577	2	Rc a bit too small
+576	4	improved, STARS
+577	3	improved
 578	3	
 579	0	Fit failed
-580	3	
+580	3	asymmetrical
 581	0	Missing
-582	2	Rc a bit too big
-583	2	Rc a bit too big
-584	3	
-585	1	Rc too small
+582	3	improved
+583	3	improved
+584	4	
+585	3	smallish
 586	4	
-587	2	Rc a bit too small
-588	1	Rc too small
+587	5	improved, triangle shape
+588	2	tiny
 589	4	
-590	1	Rc too small
+590	2	tiny
 591	3	
-592	1	Rc too small
+592	2	tiny
 593	3	
 594	2	Rc a bit too large
 595	5	
 596	4	
 597	3	
 598	5	
-599	2	Rc a bit too small
-600	0	Fit failed
-601	1	Rc too small
+599	3	improved
+600	1	tiny
+601	2	tiny
 602	2	Tiny
 603	4	
-604	2	Mean radius messes up
+604	3	improved, In filament, STARS
 605	3	
 606	3	
 607	2	Rc a bit too big
-608	1	Rc too small
-609	1	Rc too small
-610	3	Very large Rc/R0
+608	3	Tiny
+609	1	Tiny
+610	4	Very large Rc/R0
 611	3	
-612	2	Double arc?
+612	3	improved, asymmetric, double shell
 613	4	
-614	2	Rc a bit too small
-615	2	Rc a bit too small
+614	2	Tiny
+615	3	improved
 616	3	
-617	2	Rc a bit too big
-618	3	
+617	3	improved
+618	4	
 619	0	Fit failed
-620	3	
+620	4	
 621	3	
-622	1	Rc too big
-623	2	Rc a bit too big
+622	1	Tiny
+623	3	improved
 624	4	
 625	2	Rc a bit too small
 626	4	
-627	1	Rc too big
+627	3	improved, STARS
 628	0	Missing
 629	2	Tiny
-630	3	
-631	2	Rc a bit too small
-632	1	Rc too big
-633	3	
-634	4	
+630	4	STARS
+631	3	improved
+632	4	improved, asymmetric, double shell
+633	4	
+634	5	double shell
 635	5	
-636	3	
-637	3	Very big Rc
-638	0	Fit failed
-639	1	Rc too small
-640	2	Rc a bit too small
-641	0	Fit failed
+636	4	
+637	3	
+638	3	improved, smallish
+639	3	improved, smallish
+640	3	improved, smallish
+641	3	improved
 642	4	
-643	3	
-644	3	
-645	0	Fit failed
-646	1	Rc too small
+643	3	smallish
+644	3	smallish
+645	0	missing
+646	1	Tiny
 647	3	
 648	3	
 649	0	Fit failed
-650	0	Fit failed (shame!)
-651	0	Fit failed
-652	1	Rc too small
+650	5	improved, star maybe wrong
+651	3	improved
+652	1	Tiny
 653	0	Fit failed
-654	0	Fit failed
-655	0	Fit failed
-656	2	Rc a bit too small
+654	2	Tiny
+655	2	Tiny
+656	2	STARS
 657	3	
-658	2	Rc a bit too small
+658	3	improved
 659	4	
-660	0	Fit failed
-661	1	Rc too small
+660	3	improved, STARS
+661	1	Tiny
 662	0	Missing
-663	0	Fit failed
+663	3	improved
 664	0	Fit failed
-665	1	Rc too small
-666	1	Rc too small
+665	2	asymmetric
+666	3	improved
 667	4	
 668	2	Rc a bit too small
-669	0	Fit failed
-670	0	Fit failed
-671	0	Fit failed
+669	3	improved, smallish
+670	3	improved, smallish
+671	3	improved, smallish
 672	3	
-673	2	Rc too big
-674	1	Rc too small
-675	5	
-676	2	Rc a bit too small
-677	3	Double shell
+673	3	improved, smallish
+674	3	improved, smallish
+675	5	axial bulge
+676	5	improved, asymmetric, double shell
+677	5	asymmetric
 678	0	Fit failed
 679	0	Missing
-680	3	
+680	4	
 681	0	Missing
 682	0	Missing
-683	2	Rc a bit too big
+683	3	improved
 684	3	
-685	3	
-686	3	
-687	2	Rc a bit too big
+685	4	
+686	3	smallish
+687	3	improved, smallish
 688	5	
-689	3	
+689	3	smallish
 690	1	Mess
-691	1	Mess
-692	5	
-693	0	Fit failed
-694	2	Rc too big
-695	2	Rc a bit too small
+691	2	asymmetric
+692	5	corners
+693	0	
+694	3	improved, smallish
+695	4	improved
 696	4	
-697	3	R90+ unreliable
+697	4	R90+ unreliable
 698	3	
 699	3	
-700	1	Mess
-701	0	Fit failed
-702	1	Rc too small
+700	2	STARS
+701	1	Tiny
+702	3	smallish
 703	3	
 704	2	Rc a bit too small
 705	5	Asymmetric
-706	3	
-707	0	Fit failed
-708	2	Rc a bit too small
-709	3	
+706	3	smallish
+707	5	STARS
+708	3	improved, smallish
+709	4	

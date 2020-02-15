@@ -1,0 +1,709 @@
+Seq	Rating	Comment
+1	4	
+2	3	
+3	0	missing
+4	3	
+5	3	
+6	0	missing
+7	0	missing
+8	2	too small
+9	3	
+10	3	
+11	2	too small
+12	3	
+13	5	
+14	3	
+15	0	missing
+16	4	
+17	1	too small
+18	5	excellent
+19	3	small
+20	3	small
+21	3	small
+22	1	too small
+23	2	too small, Rc too big
+24	0	missing
+25	2	too small
+26	2	too small
+27	1	way too small
+28	3	
+29	2	too small
+30	1	bright nebula
+31	3	
+32	0	missing
+33	3	
+34	0	missing
+35	3	
+36	3	
+37	2	too small
+38	1	too small
+39	5	
+40	2	too small
+41	0	missing
+42	1	way too small
+43	0	missing
+44	3	asymmetric
+45	0	missing
+46	3	
+47	2	too small
+48	2	too small
+49	2	too small
+50	0	missing
+51	0	image has nans
+52	0	image has nans
+53	0	image has nans
+54	5	
+55	4	STAR
+56	4	STAR
+57	2	too small
+58	2	too small
+59	1	too small
+60	3	
+61	4	
+62	0	missing
+63	0	missing
+64	5	
+65	1	way too small
+66	5	
+67	3	
+68	1	way too small
+69	3	
+70	1	way too small
+71	1	way too small
+72	3	
+73	1	way too small
+74	1	way too small
+75	1	way too small
+76	4	
+77	1	too small
+78	1	too small
+79	1	way too small
+80	2	small, asymmetric
+81	2	way too small
+82	2	too small
+83	2	too small
+84	0	missing
+85	3	
+86	1	way too small
+87	4	
+88	2	too small
+89	1	way too small
+90	2	too small
+91	2	too small
+92	1	way too small
+93	1	way too small
+94	2	too small
+95	1	way too small
+96	3	
+97	0	missing
+98	1	way too small
+99	4	
+100	0	missing
+101	2	too small
+102	3	
+103	1	way too small
+104	2	too small
+105	1	way too small
+106	0	missing
+107	1	way too small
+108	0 	missing
+109	3	
+110	4	
+111	4	STAR
+112	3	
+113	0	missing
+114	1	too small
+115	3	
+116	3	
+117	0	missing
+118	3	
+119	2	irregular
+120	2	too small
+121	0	missing
+122	1	way too small
+123	5	
+124	0	missing
+125	4	
+126	1	way too small
+127	4	
+128	2	too small
+129	3	
+130	1	way too small
+131	0	missing
+132	3	
+133	2	too small
+134	1	way too small
+135	3	
+136	2	way too small
+137	3	
+138	3	
+139	1	way too small
+140	1	way too small
+141	2	too small
+142	1	way too small
+143	2	way too small
+144	2	too small
+145	3	
+146	3	
+147	2	way too small
+148	3	
+149	4	
+150	3	
+151	1	way too small
+152	2	way too small
+153	0	missing
+154	3	
+155	3	
+156	0	no source visible
+157	1	way too small
+158	3	
+159	3	
+160	3	
+161	1	way too small
+162	1	way too small
+163	0	missing
+164	1	too small
+165	3	
+166	1	way too small
+167	3	
+168	0	missing
+169	1	irregular
+170	2	too small
+171	1	way too small
+172	1	way too small
+173	1	way too small
+174	2	asymmetric
+175	3	
+176	3	
+177	3	
+178	0	missing
+179	0	missing
+180	3	
+181	1	way too small
+182	0	missing
+183	3	
+184	2	too small
+185	3	
+186	4	
+187	1	too small
+188	2	way too small
+189	3	
+190	1	way too small
+191	0	missing
+192	4	
+193	3	
+194	3	
+195	1	way too small
+196	3	
+197	4	
+198	2	too small
+199	3	
+200	0	missing
+201	2	too small
+202	3	
+203	0	missing
+204	2	too small
+205	1	way too small
+206	3	
+207	3	
+208	2	too small
+209	3	
+210	1	way too small
+211	1	too small
+212	1	a mess
+213	2	too small
+214	3	
+215	4	
+216	0	missing
+217	3	
+218	3	
+219	1	way too small
+220	1	way too small
+221	3	
+222	2	too small
+223	3	
+224	1	way too small
+225	0	missing
+226	3	
+227	1	cannot see bow
+228	4	
+229	0	missing
+230	3	peak only
+231	2	too small
+232	3	
+233	3	
+234	0	missing
+235	2	too small
+236	3	
+237	3	
+238	3	
+239	2	too small
+240	3	
+241	0	
+242	0	
+243	3	
+244	0	
+245	3	
+246	1	STARS
+247	4	
+248	3	
+249	2	too small
+250	1	way too small
+251	2	too small
+252	1	way too small
+253	3	
+254	1	way too small
+255	1	way too small
+256	4	
+257	3	
+258	3	
+259	3	
+260	2	too small
+261	2	too small
+262	0	missing
+263	5	
+264	4	
+265	1	too small
+266	1	way too small
+267	2	too small
+268	1	too small
+269	3	
+270	3	
+271	4	
+272	3	
+273	3	
+274	3	
+275	1	too small
+276	1	way too small
+277	3	
+278	1	way too small
+279	1	way too small
+280	3	
+281	3	
+282	3	asymmetric
+283	1	too small
+284	2	too small
+285	4	
+286	2	asymmetric
+287	1	too small
+288	1	too small
+289	0	failed
+290	0	failed
+291	2	too small
+292	5	asymmetric
+293	1	too small
+294	0	missing
+295	1	too small
+296	1	too small
+297	3	
+298	4	
+299	0	missing
+300	2	too small
+301	3	
+302	1	too small
+303	3	
+304	0	missing
+305	0	missing
+306	3	
+307	1	way too small
+308	0	missing
+309	4	STARS
+310	3	
+311	1	too small
+312	3	smallish
+313	3	
+314	1	too small
+315	4	split wing
+316	0	missing
+317	3	asymmetric
+318	3	
+319	4	
+320	4	fat shell
+321	3	
+322	4	
+323	3	
+324	3	asymmetric
+325	3	
+326	4	
+327	4	
+328	3	
+329	3	
+330	5	
+331	0	image truncated
+332	2	STARS
+333	0	missing
+334	1	too small
+335	2	asymmetric
+336	3	
+337	3	
+338	4	
+339	2	asymmetric, STARS
+340	3	
+341	4	fat shell
+342	3	
+343	5	asymmetric
+344	5	
+345	3	asymmetric
+346	3	
+347	4	
+348	4	
+349	3	
+350	4	
+351	4	
+352	0	
+353	4	
+354	0	missing
+355	3	
+356	2	STARS, binary
+357	2	STARS, binary
+358	3	smallish
+359	5	
+360	5	
+361	3	strong variable BG
+362	4	
+363	5	
+364	4	
+365	4	
+366	5	
+367	4	asymmetric
+368	4	
+369	3	STARS, image truncated
+370	4	STARS, double shell
+371	4	
+372	4	
+373	0	missing
+374	4	
+375	4	
+376	5	
+377	0	fit failed, asymmetric
+378	3	asymmetric
+379	4	
+380	4	
+381	2	step-back problem (R0 wrong)
+382	5	Rc wrong, REDO
+383	5	
+384	5	
+385	5	
+386	0	
+387	4	
+388	4	double shell
+389	3	smallish
+390	4	
+391	4	
+392	4	
+393	3	
+394	4	lop-sided
+395	4	
+396	3	
+397	4	
+398	0	
+399	2	too small
+401	0	NaNs in image
+402	0	
+403	4	
+404	4	
+405	4	
+406	3	image truncated
+407	0	
+408	0	NaNs in image
+409	3	
+410	0	
+411	1	way too small
+412	3	
+413	4	
+414	2	too small
+415	1	too small
+416	0	
+417	2	too small
+418	1	too small
+419	3	
+420	2	too small
+421	4	
+422	2	too small
+423	1	too small
+424	3	
+425	1	way too small
+426	3	
+427	1	way too small
+428	1	way too small
+429	0	
+430	2	too small
+431	3	STARS
+432	0	
+433	3	smallish
+434	3	
+435	1	way too small
+436	4	
+437	3	
+438	1	way too small
+439	2	Rc too big
+440	2	too small
+441	2	too small
+442	4	
+443	2	too small
+444	1	too small
+445	1	too small
+446	3	
+447	5	
+448	3	
+449	2	too small
+450	1	way too small
+451	1	too small
+452	4	
+453	3	
+454	1	too small
+455	1	way too small
+456	3	
+457	4	
+458	4	
+459	3	
+460	1	too small
+461	3	smallish
+462	2	too small
+463	4	
+464	3	asymmetric
+465	3	
+466	0	
+467	3	smallish
+468	0	
+469	2	too small
+470	2	too small
+471	2	too small
+472	3	
+473	3	
+474	1	too small
+475	1	too small
+476	1	way too small
+477	3	smallish
+478	3	smallish
+479	0	
+480	1	way too small
+481	1	way too small
+482	2	too small
+483	2	too small
+484	3	smallish
+485	4	
+486	4	
+487	3	smallish
+488	2	too small
+489	3	asymmetric
+490	0	
+491	4	
+492	3	
+493	2	too small
+494	1	too small
+495	3	smallish
+496	3	smallish
+497	0	
+498	0	
+499	0	
+500	0	
+501	1	too small
+502	1	way too small
+503	2	too small
+504	2	too small
+505	3	
+506	3	
+507	2	too small
+508	0	
+509	4	
+510	2	too small
+511	3	smallish
+512	2	too small
+513	2	too small
+514	1	way too small
+515	4	
+516	1	way too small
+517	4	
+518	1	way too small
+519	1	too small
+520	3	asymmetric
+521	4	
+522	2	too small
+523	1	too small
+524	1	way too small
+525	1	too small
+526	0	
+527	5	
+528	2	too small
+529	0	
+530	2	too small
+531	2	too small
+532	2	too small
+533	2	too small
+534	3	
+535	1	way too small
+536	3	smallish
+537	0	
+538	1	way too small
+539	1	too small
+540	3	smallish
+541	1	way too small
+542	3	STARS, asymmetric
+543	2	too small
+544	4	
+545	2	too small
+546	1	too small
+547	1	way too small
+548	3	
+549	0	
+550	1	too small
+551	1	way too small
+552	0	
+553	1	way too small
+554	3	smallish
+555	2	too small
+556	3	
+557	3	smallish
+558	3	
+559	3	
+560	3	
+561	1	way too small
+562	3	smallish
+563	3	
+564	1	way too small
+565	3	
+566	4	
+567	1	way too small
+568	2	too small
+569	3	
+570	0	
+571	1	too small
+572	4	
+573	0	
+574	2	too small
+575	4	
+576	1	STARS
+577	2	too small
+578	2	too small
+579	3	smallish
+580	3	smallish
+581	3	smallish
+582	1	too small
+583	0	
+584	3	smallish
+585	1	way too small
+586	3	smallish
+587	2	STARS
+588	1	way too small
+589	3	smallish
+590	1	way too small
+591	3	smallish
+592	1	way too small
+593	3	smallish
+594	0	
+595	5	
+596	3	smallish
+597	2	too small
+598	5	
+599	1	too small
+600	1	way too small
+601	1	way too small
+602	0	
+603	3	smallish
+604	3	
+605	2	too small
+606	1	too small
+607	3	smallish
+608	1	way too small
+609	1	way too small
+610	3	
+611	1	too small
+612	3	smallish
+613	3	smallish
+614	0	
+615	2	too small
+616	2	too small
+617	2	too small
+618	3	smallish
+619	0	
+620	3	smallish
+621	2	too small
+622	1	way too small
+623	1	too small
+624	3	
+625	1	way too small
+626	2	NaNs in image
+627	1	too small
+628	1	too small
+629	1	too small
+630	4	
+631	2	too small
+632	3	smallish
+633	3	smallish
+634	5	
+635	2	image truncated
+636	3	
+637	0	
+638	0	
+639	2	too small
+640	3	smallish
+641	3	smallish
+642	4	
+643	1	too small
+644	2	too small
+645	1	way too small
+646	2	too small
+647	3	smallish
+648	4	STARS
+649	3	smallish
+650	0	
+651	0	
+652	1	way too small
+653	1	way too small
+654	1	way too small
+655	1	way too small
+656	3	STARS
+657	0	
+658	3	smallish
+659	3	smallish
+660	1	STARS
+661	1	way too small
+662	4	asymmetric
+663	2	too small
+664	0	
+665	1	way too small
+666	2	too small
+667	4	
+668	1	way too small
+669	1	way too small
+670	1	too small
+671	2	too small
+672	3	
+673	2	too small
+674	2	too small
+675	4	
+676	4	
+677	4	asymmetric
+678	3	asymmetric
+679	0	
+680	3	
+681	3	
+682	0	
+683	2	too small
+684	2	too small
+685	4	
+686	3	smallish
+687	2	smallish
+688	4	smallish
+689	3	smallish
+690	0	
+691	2	too small
+692	4	
+693	1	way too small
+694	2	too small
+695	0	
+696	4	
+697	4	
+698	3	
+699	0	
+700	3	
+701	1	tiny
+702	0	
+703	0	
+704	0	
+705	3	asymmetric
+706	0	
+707	4	multiple shell
+708	0	
+709	4	

@@ -1,5 +1,62 @@
 * Bowshocks around moving OB and RSG stars
 
+** Comments on paper by Struck 2020
++ Struck:2020a
++ Has some interesting stuff on the inner shock, but there are various strangenesses
++ Outer i-front
+  + They say it is R-type, but they also talk about a shock, which is strange
+  + Also, they have the i-front being wilkinoid, which makes no sense since it is not a momentum balance surface
++ Collisional mean-free path
+  + Their eq (2) does not have the coulomb logarithm, so only includes large-angle scattering
+  + So it should be shorter by a factor of \ln \Lambda \approx 20
++ Weibel zone *most important*
+  + Instead of a wind shock they have an instability zone, where "weibel filaments" form
+  + One problem with this is that it only seems to occur for a quasi-parallel field, whereas we expect field to be quasi-perpendicular
+  + Mpst importantly, they are wrong about the wind particles being able to "penetrate" the turbulent layer
+    + As is stated clearly in Caprioli:2014a, the vast majority of the wind protons are thermalized in the shock
+      + This occurs over scale of order 1000 skin depths
+      + Also, the Weibel instability is the wind interacting with itself: incident stream and reflected stream
+    + A small fraction (0.0001 to 0.001) of the particles are accelerated to non-thermal energies E > 4 E_shock
+      + They develop a power law distribution f(E) \sim E^-1.5 in non-relativistic regime (E^-2 relativistic)
+      + It takes a bit further to fully develop the power law - 7000 skin depths
+      + Also takes about 2000 ion cyclotron times in time-dependent shock simulation
+      + Acceleration is diffusive shock acceleration (DSA)
+    + Although the fraction of DSA non-thermal protons is small, their energy is substantial
+      + Typically 10% of the shock energy (Caprioli:2014a, Fig 3)
+      + But only efficient for quasi-parallel shocks (\theta < 45 deg)
+      + And only a mild dependence on Mach number (for M > 5 at least)
+    + There is also Shock Drift Acceleration (SDA)
+      + This operates in quasi-perpendicular shocks
+      + But it does not generate a high-energy "non-thermal" power law tail
+      + Instead, it gives a "suprathermal" population, which is quasi-Gaussian with T \approx 2.2 T_shock
+      + Note that "suprathermal" and "nonthermal" are different things here
+    + Note however, that pre-existing turbulence in the upstream wind *could* cause DSA in the quasi-perpendicular case so long as \delta B / B ~ 1
+  + I am not sure how they get around the argument in 4.1.3 of our Paper III
+    + That proton Larmor radius is order 1e10 cm, so wind protons can't possibly penetrate across the tangential discontinuity into the ISM and heat the dust
+    + They cite Caprioli:2004a to say that Weibel zone thickness is about 1000 c / \omega_p
+    + Plasma frequency \omega_p = sqrt(4 \pi n e^2 / m) = 1316 rad/s for protons if n = 1 pcc
+      + For electrons it is 56.4 kHz
+    + So skin depth is c / \omega_p = 2.27e7 cm, scaling as 1/sqrt(n)
+    + Cyclotron frequency is \omega_c = e B_0 / m c = 0.009579 Hz for B = 1 \mu G for protons
+      + larmor radius for V = 2000 km/s is 2.088e+10 cm
+      + electron cyclotron frequency is 17.6 Hz
+    + Alfven speed is c \omega_c / \omega_p = B_0 / sqrt(4 \pi n m) = 2.2 km/s times (B (\mu{}G) / sqrt(n (pcc)))
+      + The paper uses n = 0.1, B = 3 so that it is more like 20 km/s
+    + Larmor radius divided by skin depth is V \omega_p / \omega_c c = V / v_A = M_A
+  + Possibly, a highly turbulent field in the H II region could allow the shocked wind protons to leak in
+  + A much better paper (than Struck) is del-Valle:2018a
+    + They are mainly concerned with high-energy electrons produced by DSA, which then give rise to synchrotron and (by interacting with IR photons emitted by bowshock) inverse Compton gamma rays
+    + But they also mention
+      : The hadronic component in the SED is completely negligible; protons diffuse and advect into the ISM almost without losing energy.
+    + Note that these are relativistic: GeV to TeV energies
+    + Whereas wind protons have 20 keV
+    + So they quickly diffuse out of nebula
+
++ Bubble nebula
+  : This structure is suggestive of a broader diffusive mixing region. If the bubble is a diffusive Weibel zone, then we do not need projection effects to account for it. We simply observe (a thicker shell than that of a shock) through a larger column density at the edges, regardless of projection angle.
+  + This is clearly wrong - by the bubble they mean the [O III] shell
+  + It can't be the weibel zone, since that would have far too low a density 
+
 ** New note for version 2 of Paper IV
 [2020-02-06 Thu 10:48]
 
@@ -290,12 +347,262 @@ CLOSED: [2020-02-14 Fri 12:09]
     for i in 111 292 308 442 489 509 534 542 595 676 677 707 {python mipsgal-image-stamps.py $i $i}
   #+end_example
 + So we have them all now
-**** TODO Get the WISE images too
+**** DONE Get the WISE images too
+CLOSED: [2020-07-11 Sat 20:54]
 + The API is described at https://irsa.ipac.caltech.edu/docs/irsa_image_server.html
 + Looks to be similar to the Atlas one above
 + But also lets you ask for a cutout instead of the entire image
 + Two options: SIA or IRSA - we will try the first
 + Even so, there is more than one way of doing it.
++ I have worked everything out in this notebook:
+  + [[file:Test-WISE-image-search.py]]
+  + [[file:Test-WISE-image-search.ipynb]]
++ Now for the production version
+
+#+begin_src python :eval no :tangle wise-image-stamps.py
+  import sys
+  import io
+  from pathlib import Path
+  import requests
+  import numpy as np
+  from astropy.table import Table
+  from astropy.io import fits
+  import astropy.units as u
+  import astropy.coordinates as coord
+
+  SIA_URL = 'https://irsa.ipac.caltech.edu/SIA'
+
+  sia_params = {
+      'COLLECTION': 'wise_allwise',
+      'RESPONSEFORMAT': 'VOTABLE',
+      'FORMAT': 'image/fits',
+      'POS': 'circle $RA $DEC 0.0',
+  }
+
+  SOURCE_DIR = Path('OB/Kobulnicky2016')
+  source_table = Table.read(
+      str(SOURCE_DIR / 'table1.dat'),
+      format='ascii.cds',
+      readme=str(SOURCE_DIR / 'ReadMe')
+  )
+
+  OUTPUT_IMAGE_DIR = Path('OB/WISE')
+  OUTPUT_IMAGE_DIR.mkdir(exist_ok=True)
+
+  BASE_IMAGE_SIZE_ARCMIN = 8.0
+
+  def skycoord_from_table_row(data):
+      ra = f"{data['RAh']} {data['RAm']} {data['RAs']}"
+      dec = f"{data['DE-']}{data['DEd']} {data['DEm']} {data['DEs']}"
+      return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
+
+  try:
+      k1 = int(sys.argv[1])
+  except:
+      k1 = 1
+  try:
+      k2 = int(sys.argv[2])
+  except:
+      k2 = None
+
+  # Loop over all sources in the table
+  for source_data in source_table[k1-1:k2]:
+      print(source_data["Seq", "Name", "Alias", "R0"])
+
+      # Make a SkyCoord object
+      c = skycoord_from_table_row(source_data)
+      sia_params['POS'] = f"circle {c.to_string()} 0.0"
+
+      # Perform a search around the specified coordinates
+      r = requests.get(SIA_URL, params=sia_params)
+
+      tab = Table.read(io.BytesIO(r.content), format='votable')
+
+      # Expand the image size for bigger bows
+      expand = 1.0
+      for threshold in 40.0, 80.0, 160.0:
+          if source_data["R0"] > threshold:
+              expand *= 2
+      image_size = BASE_IMAGE_SIZE_ARCMIN*expand
+      image_params = {
+          "center": f"{c.ra.deg:.4f},{c.dec.deg:.4f}",
+          "size": f"{image_size}, {image_size} arcmin",
+          "gzip": 0,
+      }
+      # Now fetch images in each band
+      for data in tab:
+          print(
+              f"Fetching image ({image_size} arcmin square) from",
+              data['access_url'].decode(),
+          )
+          r = requests.get(data['access_url'], params=image_params)
+          hdulist = fits.open(io.BytesIO(r.content))
+          # Get name of WISE bandpass as a unicode string
+          bpname = data['energy_bandpassname'].decode()
+          hdulist.writeto(
+              OUTPUT_IMAGE_DIR / f"{source_data['Seq']:04d}-{bpname}.fits",
+              overwrite=True,
+          )
+
+
+#+end_src
+*** Get WISE images of the Bodensteiner BSC sources
++ Copy the methodology of Kobulnicky-WISE sources
+  + Except that we use astroquery to download the catalog on the fly
++ Tests in this notebook
+  + [[file:Look at the Bodensteiner sample.py]]
+  + [[file:Look at the Bodensteiner sample.ipynb]]
++ Now for the production version
+
+#+begin_src python :eval no :tangle bsc-wise-image-stamps.py
+  import sys
+  import io
+  from pathlib import Path
+  import requests
+  import numpy as np
+  from astropy.table import Table, join
+  from astropy.io import fits
+  import astropy.units as u
+  import astropy.coordinates as coord
+  from astroquery.vizier import Vizier
+
+  SIA_URL = 'https://irsa.ipac.caltech.edu/SIA'
+
+  sia_params = {
+      'COLLECTION': 'wise_allwise',
+      'RESPONSEFORMAT': 'VOTABLE',
+      'FORMAT': 'image/fits',
+      'POS': 'circle $RA $DEC 0.0',
+  }
+
+  Vizier.ROW_LIMIT = -1
+  catalogs = Vizier.get_catalogs("J/A+A/618/A110")
+  source_table = join(catalogs[0], catalogs[1])
+  source_table.sort(keys=["RAJ2000", "DEJ2000"])
+  # Restrict to only bow shock sources
+  m = (source_table["MClass"] == "bs") | (source_table["MClass"] == "bsna")
+  source_table = source_table[m]
+
+  OUTPUT_IMAGE_DIR = Path('OB/BSC-WISE')
+  OUTPUT_IMAGE_DIR.mkdir(exist_ok=True)
+
+  BASE_IMAGE_SIZE_ARCMIN = 8.0
+
+  def skycoord_from_table_row(data):
+      ra = data["RAJ2000"]
+      dec = data["DEJ2000"]
+      return coord.SkyCoord(f'{ra} {dec}', unit=(u.hourangle, u.deg))
+
+  try:
+      k1 = int(sys.argv[1])
+  except:
+      k1 = 1
+  try:
+      k2 = int(sys.argv[2])
+  except:
+      k2 = None
+
+  # Loop over all sources in the table
+  for source_data in source_table[k1-1:k2]:
+      print(source_data["HD", "Name", "R0A"])
+
+      # Make a SkyCoord object
+      c = skycoord_from_table_row(source_data)
+      sia_params['POS'] = f"circle {c.to_string()} 0.0"
+
+      # Perform a search around the specified coordinates
+      r = requests.get(SIA_URL, params=sia_params)
+
+      tab = Table.read(io.BytesIO(r.content), format='votable')
+
+      # Expand the image size for bigger bows
+      expand = 1.0
+      for threshold in 40.0, 80.0, 160.0:
+          if 60*source_data["R0A"] > threshold:
+              expand *= 2
+      image_size = BASE_IMAGE_SIZE_ARCMIN*expand
+      image_params = {
+          "center": f"{c.ra.deg:.4f},{c.dec.deg:.4f}",
+          "size": f"{image_size}, {image_size} arcmin",
+          "gzip": 0,
+      }
+      # Now fetch images in each band
+      for data in tab:
+          print(
+              f"Fetching image ({image_size} arcmin square) from",
+              data['access_url'].decode(),
+          )
+          r = requests.get(data['access_url'], params=image_params)
+          hdulist = fits.open(io.BytesIO(r.content))
+          # Get name of WISE bandpass as a unicode string
+          bpname = data['energy_bandpassname'].decode()
+          hdulist.writeto(
+              OUTPUT_IMAGE_DIR / f"HD{source_data['HD']:06d}-{bpname}.fits",
+              overwrite=True,
+          )
+
+
+#+end_src
+**** TODO Initial comments on the BSC WISE sources
++ Lots of sources have straight filaments crossing the curved bow
+  + Sometimes these are chiefly seen in W3 (12 micron)
+  + Sometimes they also light up near the source in W4 (22 micron)
+    + An example is HD 111123 - \beta Cru, D = 85 pc, B1IV
+      + This has a nice curved bow (R = 0.12 pc)
+      + But also, straight filaments which are mainly visible in W4
+      + And which are brighter closer to the star
++ Small bows visible in the same field
+  + In same field as HD 115842 - HR 5027, D = 1540 pc
+  + B0.5Ia/ab supergiant with big symmetric bow (R = 1.70 pc)
+    + Bow is very bright in Akari 60 micron too
+  + Another source at 13:23:38.3027 -56:02:27.293
+    + Has a much smaller bow, which is visible in W3 and W2
+    + Source seems to be TYC 8666-1967-1
+      + parallax = 0.6490 +/- 0.0512 => D = 1540 +/- 121 pc
+      + Amazingly, this is the same as HR 5027 (although Gaia distance for HR 5027 puts it slightly further away)
+      + The are 0.5 deg away from one another, which is 13 pc at 1.5 kpc
++ Maybe not a bow shock?
+  + HD 213087 - 26 Cep, D = 1600 pc, R = 2.58 pc, B0.5 Ib
+  + This one does look suspiciously sharp-edged, which originally made me think it was an H II region
+  + But looking at the 3-color image, it doesn't look like it, since it has no 12 micron emission
+  + The star seems to have excavated a 
++ Super straight bows
+  + HD 214680 - 10 Lac, O9V, D = 500 pc, R = 0.94 pc
+    + Very straight at 22 micron
+    + Looks slightly more curved in Akari 60 micron
+  + HD 203064 - 68 Cyg, O7.5 III n((f)), d = 1400 pc, R = 1.5 pc	
+    + Various filaments at different angles
++ Multiple bows
+  + HD 175362 - V686 CrA, B3V, D = 132 pc, R0 = 0.25 pc
+    + Beautiful wide bow, with 12 \to 22 micron color gradient
+    + W3 is brighter on inside and W4 is brighter on outside
+    + Also seen in optical!
+      + DSS2 shows blue filaments (Pleiades-like) that cross the star
+      + Plus blue continuum from inner edge of bow shock
+        + (we have to be careful with the PSF, which shows a ring with a similar radius)
+      + DSS2-red shows the outer part of bow shock (H alpha/)
+        + (Again, though, there may be some artifacts related to joins between fields)
+    + The bow also shows up strongly at longer wavelengths in Akari and IRAF
+    + The source is close to the globular cluster NGC 6723
+    + Also close to the Corona Australis Molecular Cloud (about 3 pc away)
+      + This has the embedded source R CrA, which supposedly is B5 III and has jets and everything
+      + Two bright reflection nebulae also in this cloud
+        + One around TY CrA (B9e) and HD 176386 (B9 V)
+          + Maybe TY CrA has a tiny bow-shock visible in K-band (R = 14 arcsec = 0.009 pc), which is 30 times smaller than V686 CrA
+        + Another around HD 176270 (B9V) and HD 176269 (B9V)
+        + These are pleiades type with blue filaments
+**** Add in the Peri E-BOSS bow shocks
+**** Uncatalogued bow shocks
++ LS I +66 4
+  + HIP 338
+  + RA, Dec: 00 04 16.1623262190 +66 20 56.862121655
+  + l, b = 118.2184091433160 +03.9099992686053
+  + O9
+  + D = 1090 pc
+  + Beautiful 24 micron and 60 micron bow
+  + Very surprising that it is not in the Peri catalogs
+    + I have double-checked and it doesn't seem to be there
++ Other objects listed in [[id:14E5C827-B660-44C4-A4EF-000254FAE8D2][Particular objects]] in [[file:~/Dropbox/dust-wave-case-studies/dust-wave-case-studies.org][file:~/Dropbox/dust-wave-case-studies/dust-wave-case-studies.org]]
 + 
 *** DONE How to trace the shapes of the OB bow shocks
 CLOSED: [2017-03-28 Tue 13:24]
@@ -336,12 +643,12 @@ CLOSED: [2017-03-28 Tue 13:24]
     + This is now done
   + [X] Try it with and without combining the mean and peak radii
     + For the bigger sources, just the peak would be better
-  + [ ] Find out why it fails for lots of sources
-    + The large ones such as zeta oph - probably need to download a bigger image
+  + [-] Find out why it fails for lots of sources
+    + [X] The large ones such as zeta oph - probably need to download a bigger image
       + Yes, we have ones that are 4 arcmin - should repeat but for 10 arcmin
-    + The ones in range 316 to 415 - we are missing images - is this because they are only WISE?
+    + [X] The ones in range 316 to 415 - we are missing images - is this because they are only WISE?
       + Yes, that seems to be the case: they have l in the range 90 \to 270
-    + Effects of stars
+    + [ ] Effects of stars
       + A lot are impacted by this
       + We can mask out the stars by making regions by hand in ds9
 + List of the nicest sources
@@ -401,7 +708,6 @@ CLOSED: [2017-03-28 Tue 13:24]
       readme=str(SOURCE_DIR / 'ReadMe')
   )
 
-  IMAGE_DIR = Path('OB/MipsGal')
 
 
   ##
@@ -421,6 +727,15 @@ CLOSED: [2017-03-28 Tue 13:24]
   except:
       iseq_min, iseq_max = 0, 999_999_999
 
+  try:
+      IMAGE_DIR = Path(sys.argv[4])
+  except:
+      IMAGE_DIR = Path('OB/MipsGal')
+
+  try:
+      imglob = sys.argv[5]
+  except:
+      imglob = ""
 
   # 10 Feb 2020 - now use a dedicated folder for output, which is named
   # after the value of CIRCLE_THETA
@@ -521,12 +836,16 @@ CLOSED: [2017-03-28 Tue 13:24]
       # Coordinates of source central star
       c = skycoord_from_table_row(source_data)
       # Find all the images for this source
-      provisional_list = IMAGE_DIR.glob(f"*-{source_data['Name']}-*.fits")
+      provisional_list = IMAGE_DIR.glob(
+          # f"*-{source_data['Name']}-*.fits"
+          f"{source_data['Seq']:04d}*{imglob}.fits"
+      )
       # Look for an image that is good
       good_image_list = []
       for image_path in provisional_list:
           hdu, = fits.open(image_path)
-          looks_good = hdu.header['NAXIS1'] == hdu.header['NAXIS2']
+          # looks_good = hdu.header['NAXIS1'] == hdu.header['NAXIS2']
+          looks_good = (hdu.header['NAXIS1'] > 100) &  (hdu.header['NAXIS2'] > 100)
           if looks_good:
               good_image_list.append(image_path)
 
@@ -536,6 +855,7 @@ CLOSED: [2017-03-28 Tue 13:24]
           hdu, = fits.open(image_path)
       else:
           # If there were no good images, then never mind
+          print("ABORT - no good images")
           continue
 
       image_stem = image_path.stem
@@ -924,6 +1244,8 @@ CLOSED: [2017-03-28 Tue 13:24]
           ['dth_g', 2.35*g_fit.stddev_0.value],
           ['H_g', H_from_bright_fit],
           ['H_d', H_direct_fwhm],
+          ['H_d_out', r_out],
+          ['H_d_in', r_in],
           ['R0_g', R0_from_bright_fit],
           ['Peak24', Peak_from_bright_fit],
           ['Contrast', Contrast_fom_bright_fit],
@@ -1107,9 +1429,13 @@ CLOSED: [2017-03-28 Tue 13:24]
 
 #+END_SRC
 
+**** The star ratings
++ These are in [[file:star-ratings.tab]] for the MIPSGAL fits
++ We need to also do it for WISE
+
 **** Combining the fit data into one table
-#+name: combine-arcfit-results
-#+BEGIN_SRC python :results file :return combo_file :var SUFF="060_both"
+#+name: combine-arcfit-results :eval no
+#+BEGIN_SRC python :results file :return combo_file :var SUFF="060_both" SET="MipsGal"
   import os
   import sys
   import glob
@@ -1122,9 +1448,10 @@ CLOSED: [2017-03-28 Tue 13:24]
       readme=os.path.join(SOURCE_DIR, 'ReadMe')
   )
 
-  IMAGE_DIR = f'OB/MipsGal/circ_theta_{SUFF}'
+  IMAGE_DIR = f'OB/{SET}/circ_theta_{SUFF}'
 
-  NCOLUMNS = 24                   # What it *should* be
+  # Updated 19 Feb 2020 to include inner/outer widths
+  NCOLUMNS = 26                   # What it *should* be
   list_of_rows = []
   tabfiles = glob.glob(f"{IMAGE_DIR}/*-arcfit.tab")
   print(tabfiles)
@@ -1135,33 +1462,20 @@ CLOSED: [2017-03-28 Tue 13:24]
 
   print(list_of_rows)
 
+  star_prefix = "" if SET == "MipsGal" else f"{SET.lower()}-"
   fit_table = Table(rows=list_of_rows, names=t.colnames)
-  star_table = Table.read('star-ratings.tab', format='ascii.tab')
+  star_table = Table.read(f'{star_prefix}star-ratings.tab', format='ascii.tab')
 
   combo_table = join(
       join(source_table, fit_table, join_type='outer'),
       star_table, join_type='outer')
 
 
-  combo_file = f'mipsgal-arcfit-{SUFF}.tab'
+  combo_file = f'{SET.lower()}-arcfit-{SUFF}.tab'
   combo_table.write(combo_file, format='ascii.tab', overwrite=True)
 #+END_SRC
 
-#+RESULTS: combine-arcfit-results
-[[file:mipsgal-arcfit-060_both.tab]]
-
-
-
-#+call: combine-arcfit-results(SUFF="070_both")
-
-#+RESULTS:
-[[file:mipsgal-arcfit-070_both.tab]]
-
-#+call: combine-arcfit-results(SUFF="050_both")
-
-#+RESULTS:
-[[file:mipsgal-arcfit-050_both.tab]]
-
+Note that we are no longer including the ~both~ method. 
 
 #+call: combine-arcfit-results(SUFF="050_peak")
 
@@ -1178,6 +1492,23 @@ CLOSED: [2017-03-28 Tue 13:24]
 #+RESULTS:
 [[file:mipsgal-arcfit-070_peak.tab]]
 
+***** Also combine the WISE fit data
+The ~both~ method has serious problems, so we ditch it.
+
+#+call: combine-arcfit-results(SUFF="050_peak", SET="WISE")
+
+#+RESULTS:
+[[file:wise-arcfit-050_peak.tab]]
+
+#+call: combine-arcfit-results(SUFF="060_peak", SET="WISE")
+
+#+RESULTS:
+[[file:wise-arcfit-060_peak.tab]]
+
+#+call: combine-arcfit-results(SUFF="070_peak", SET="WISE")
+
+#+RESULTS:
+[[file:wise-arcfit-070_peak.tab]]
 
 **** DONE Combining all the fit variants
 CLOSED: [2020-02-14 Fri 08:51]
@@ -1190,7 +1521,9 @@ CLOSED: [2020-02-14 Fri 08:51]
 
 *** Plot the radius ratio diagnostics for the OB bowshocks
 First, radius versus radius
-#+BEGIN_SRC python :return figfile :results file
+
+#+name: plot-r0-r0
+#+BEGIN_SRC python :return figfile :results file :var SET="mipsgal" SUFF="060_both"
   from astropy.table import Table
   from matplotlib import pyplot as plt
   import seaborn as sns
@@ -1198,9 +1531,9 @@ First, radius versus radius
   sns.set_style('white')
   sns.set_color_codes('dark')
 
-  figfile = 'mipsgal-r0-r0.pdf'
+  figfile = f'{SET}-r0-r0-{SUFF}.pdf'
 
-  combo_file = 'mipsgal-arcfit.tab'
+  combo_file = f'{SET}-arcfit-{SUFF}.tab'
   tab = Table.read(combo_file, format='ascii.tab')
 
   fig, ax = plt.subplots(figsize=(6, 6))
@@ -1214,22 +1547,26 @@ First, radius versus radius
   m2 = tab['Rating'] ==  2
   m1 = tab['Rating'] ==  1
 
+  # Unrated and 0 stars
+  m0 = ~(m1 | m2 | m3 | m4 | m5)
+
   masks = (m1 | m2), m3, m4, m5
   alphas = 0.05, 0.3, 0.5, 0.8
   labels = '1- or 2-star', '3-star', '4-star', '5-star'
   colors = 'k', 'c', 'r', 'b'
   sizes = 3, 5, 7, 10
-
+  
+  resolution_limit = 12.0 if SET == "wise" else 5.5
 
   for m, alpha, c, ms, label in zip(masks, alphas, colors, sizes, labels):
       ax.errorbar('R0', 'R0_fit', yerr='R0_sigma', data=tab[m],
                   fmt='o', lw=1, c=c, ms=ms, alpha=alpha,
                   label=f'{label} ($N = {m.sum()}$)')
-  ax.plot([1.0, 200.0], [1.0, 200.0])
-  ax.axhline(5.5, 0.0, 0.55, ls=':', lw=1, color='k')
+  ax.plot([1.0, 400.0], [1.0, 400.0])
+  ax.axhline(resolution_limit, 0.0, 0.55, ls=':', lw=1, color='k')
   ax.legend()
   ax.set(
-      xlim=[2, 110], ylim=[2, 110],
+      xlim=[2, 330], ylim=[2, 330],
       xlabel='Catalog $R_0$, arcsec',
       ylabel='Fitted $R_0$, arcsec',
       xscale='log', yscale='log')
@@ -1239,8 +1576,36 @@ First, radius versus radius
 
 #+END_SRC
 
-#+RESULTS:
+#+RESULTS: plot-r0-r0
+[[file:mipsgal-r0-r0-060_both.pdf]]
+
+
+Old version:
 [[file:mipsgal-r0-r0.pdf]]
+
+Difference with peak method
+#+call: plot-r0-r0(SET="mipsgal", SUFF="060_peak")
+
+#+RESULTS:
+[[file:mipsgal-r0-r0-060_peak.pdf]]
+
+#+call: plot-r0-r0(SET="wise", SUFF="060_both")
+
+#+RESULTS:
+[[file:wise-r0-r0-060_both.pdf]]
+
+#+call: plot-r0-r0(SET="wise", SUFF="060_peak")
+
+#+RESULTS:
+[[file:wise-r0-r0-060_peak.pdf]]
+
+Various conclusions can be drawn from these: 
+1. There are a lot more WISE sources (symbols), and they extend to large radii
+2. The ~both~ results show a deviation to larger radii for R <= 2 W, where
+   - W = 5.5 arcsec for Spitzer
+   - W = 12 arcsec for WISE
+3. The ~peak~ results don't seem to show a bias, just an increased spread for R <= 2 W
+4. So, if we restrict ourselves to R > 20 arcsec, we can probably be free of resolution effects
 
 
 And now, Rc versus R90
@@ -1719,6 +2084,74 @@ CLOSED: [2020-02-06 Thu 18:12]
         + 060, 589, 197 (but narrow component inside broader one), 215 (ditto), 274, 589, 021, 060, etc (some are small)
   + Intermediate shells (h = 0.7 \to 1.5)
     + 5-star: 692, 061 (maybe h should be bigger), 530 is nice, 688
+
+
+***** Shell angular breadth and arc-length breadth
++ So far I have the angular breadth, but I want to convert it to an arc length
++ Two ways of doing it (see Apple Notes):
+  1. Planitude method, which assumes arc is a circle
+
+     |   \theta | s, \Pi = 1 | s, \Pi = 1.5 | s, \Pi = 2 | s, \Pi = 3 | s, \Pi = 10 | s, \Pi = \infty |
+     |-----+----------+------------+----------+----------+-----------+----------|
+     |   0 |     0.00 |       0.00 |     0.00 |     0.00 |      0.00 |        0 |
+     |  15 |     0.26 |       0.26 |     0.26 |     0.27 |      0.27 |     0.27 |
+     |  30 |     0.52 |       0.53 |     0.54 |     0.55 |      0.57 |     0.58 |
+     |  45 |     0.79 |       0.82 |     0.85 |     0.88 |      0.96 |     1.00 |
+     |  50 |     0.87 |       0.92 |     0.96 |     1.01 |      1.12 |     1.19 |
+     |  60 |     1.05 |       1.13 |     1.20 |     1.30 |      1.53 |     1.73 |
+     |  70 |     1.22 |       1.35 |     1.47 |     1.63 |      2.14 |     2.75 |
+     |  80 |     1.40 |       1.59 |     1.76 |     2.04 |      3.07 |     5.67 |
+     |  90 |     1.57 |       1.85 |     2.09 |     2.52 |      4.51 |  tan(90) |
+     | 100 |     1.75 |       2.12 |     2.46 |     3.09 |      6.56 |    -5.67 |
+     | 110 |     1.92 |       2.40 |     2.86 |     3.73 |      9.12 |    -2.75 |
+     | 120 |     2.09 |       2.70 |     3.29 |     4.44 |     12.01 |    -1.73 |
+     | 130 |     2.27 |       3.02 |     3.75 |     5.20 |     15.08 |    -1.19 |
+     | 140 |     2.44 |       3.34 |     4.23 |     6.00 |     18.27 |    -0.84 |
+     | 150 |     2.62 |       3.68 |     4.73 |     6.83 |     21.51 |    -0.58 |
+     | 160 |     2.79 |       4.02 |     5.24 |     7.69 |     24.80 |    -0.36 |
+     | 170 |     2.97 |       4.36 |     5.76 |     8.55 |     28.10 |    -0.18 |
+     #+TBLFM: $2=rad($1);f2::$3=rad(1.5 arccos(cos($1) sqrt(1 - (sin($1)/3)**2) + (sin($1)**2)/3));f2::$4=rad(2 arccos(cos($1) sqrt(1 - (sin($1)/2)**2) + (sin($1)**2)/2));f2::$5=rad(3 arccos(cos($1) sqrt(1 - (2 sin($1)/3)**2) + (2 sin($1)**2)/3));f2::$6=rad(10 arccos(cos($1) sqrt(1 - (9 sin($1)/10)**2) + (9 sin($1)**2)/10));f2::$7=tan($1);f2
+
+  2. Alatude method, which assumes arc is a parabola
+     
+     This uses an auxiliary variable, t
+
+     |    \theta | t, \Lambda = 2 | s, \Lambda = 2 | t, \Lambda = 1.5 | s, \Lambda = 1.5 |
+     |------+----------+----------+------------+------------|
+     | 0.01 |   8.7e-5 |   1.7e-4 |     1.6e-4 |     1.8e-4 |
+     |   15 |     0.13 |     0.26 |       0.23 |       0.26 |
+     |   30 |     0.27 |     0.55 |       0.45 |       0.52 |
+     |   45 |     0.41 |     0.84 |       0.67 |       0.81 |
+     |   50 |     0.47 |     0.97 |       0.74 |       0.90 |
+     |   60 |     0.58 |     1.22 |       0.88 |       1.11 |
+     |   70 |     0.70 |     1.51 |       1.02 |       1.32 |
+     |   80 |     0.84 |     1.86 |       1.17 |       1.57 |
+     |   90 |     1.00 |     2.30 |       1.33 |       1.86 |
+     |  100 |     1.19 |     2.86 |       1.52 |       2.23 |
+     |  110 |     1.43 |     3.65 |       1.75 |       2.73 |
+     |  120 |     1.73 |     4.77 |       2.03 |       3.40 |
+     |  130 |     2.14 |     6.56 |       2.41 |       4.44 |
+     |  140 |     2.75 |     9.78 |       2.98 |       6.29 |
+     |  150 |     3.73 |    16.43 |       3.92 |      10.09 |
+     |  160 |     5.67 |    35.08 |       5.80 |      20.58 |
+     |  170 |    11.43 |   134.28 |      11.50 |      76.44 |
+     #+TBLFM: $2=(2/2) sqrt(1 + (1/4) (2)**2 cot($1)**2) - cot($1);f2::$3=((1/4) 2**2) ($2 sqrt(1 + $2**2) + arcsinh($2));f2::$4=(2/1.5) sqrt(1 + (1/4) (1.5)**2 cot($1)**2) - cot($1);f2::$5=((1/4) 1.5**2) ($4 sqrt(1 + $4**2) + arcsinh($4));f2
+
+     So, the \Lambda = 1.5 parabola case, starts off very similar to the \Pi = 1.5 circle case, up until about \theta = 90, and then after that it increases faster. This is just what we expect. 
+
+
+
+***** TODO Solving the thickness problem
++ There were two puzzling issues
+  1. The very good correlation of h with sqrt(R0)
+  2. The discrepancy between WISE and Spitzer for the same source
++ It turns out that the two are linked, and are due to resolution effects
++ The brightness profiles have peak+wing structure and this means that Spitzer measures the width of the peak, while WISE measures the width of the wings
+  + A clear example is K489, where Spitzer measures h = 23 but WISE measures h = 47, even though
++ [ ] *Solution* might be to only measure the outer width, which is generally more compact.
++ Also, should look at the behaviour of FWHM of Voigt function as you increase gaussian width \sigma, but keep Lorentzian constant.
+  + So a = \Gamma/\Delta\nu_D \propto 1/\sigma
+  + That isn't going to give me what I want, since wings are less important as \sigma increases :(
 
 
 ***** Look at thickness vs R0
