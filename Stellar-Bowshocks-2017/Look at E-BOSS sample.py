@@ -42,8 +42,12 @@ catalogs[4]
 
 # The new sources in E-BOSS 2, with derived parameters
 
-catalogs[2]
+catalogs[2].show_in_notebook()
 
 # Unfortunately, the other 28 objects are listed in Peri:2012a, and are not in Vizier.  The best we an do is get the formatted table from the A&A web page. 
+
+catalogs[1].show_in_notebook()
+
+catalogs[3].show_in_notebook()
 
 

@@ -60,7 +60,7 @@ m.sum()
 
 table = table[m]
 
-table
+table.show_in_notebook()
 
 import astropy.units as u
 import astropy.coordinates as coord
@@ -157,4 +157,8 @@ table[table["HD"] == 175362]
 
 table[table["HD"] == 34078]
 
+83979 in table["HD"]
 
+table[table["HD"] == 83979]
+
+    

@@ -551,6 +551,8 @@ CLOSED: [2020-07-11 Sat 20:54]
       + This has a nice curved bow (R = 0.12 pc)
       + But also, straight filaments which are mainly visible in W4
       + And which are brighter closer to the star
+      + Strangely, the bow shock is apparently misaligned by 150 deg, despite having a very large space velocity of 150 km/s
+    + Note that HD 108248, alpha Cru has a misaligned image
 + Small bows visible in the same field
   + In same field as HD 115842 - HR 5027, D = 1540 pc
   + B0.5Ia/ab supergiant with big symmetric bow (R = 1.70 pc)
@@ -563,15 +565,30 @@ CLOSED: [2020-07-11 Sat 20:54]
       + The are 0.5 deg away from one another, which is 13 pc at 1.5 kpc
 + Maybe not a bow shock?
   + HD 213087 - 26 Cep, D = 1600 pc, R = 2.58 pc, B0.5 Ib
-  + This one does look suspiciously sharp-edged, which originally made me think it was an H II region
-  + But looking at the 3-color image, it doesn't look like it, since it has no 12 micron emission
-  + The star seems to have excavated a 
+    + This one does look suspiciously sharp-edged, which originally made me think it was an H II region
+    + But looking at the 3-color image, it doesn't look like it, since it has no 12 micron emission
+    + The star seems to have excavated a rectangular cavity, so maybe it is a bow shock
+  + HD 135742, Beta Lib, B8 Vn, D = 57 pc, R = 0.01 pc
+    + I just can't see it at all
+  + HD 141637, b Sco, B1.5 Vn, R = 0.02 pc, again can't see it
+  + HD 110879, beta Mus, D = 105 pc, R = 0.03 pc, 
++ Certainly not a bow shock
+  + HD 203280, alpha Cep, Avn, D = 15 pc !!!
+    + Their is IR emission all around and it looks lie molecular filaments
+      + In Akari it is brighter at 150 than 70
+    + What is identified as the bow shock looks like a chance superposition
+    + The molecular gas may be associated with the Dark cloud TGU H598 - Dobashi:2005a
+      + It is very close to clump P8 of this cloud
+      + alpha Cep is even marked in their Fig 11
 + Super straight bows
   + HD 214680 - 10 Lac, O9V, D = 500 pc, R = 0.94 pc
     + Very straight at 22 micron
     + Looks slightly more curved in Akari 60 micron
   + HD 203064 - 68 Cyg, O7.5 III n((f)), d = 1400 pc, R = 1.5 pc	
     + Various filaments at different angles
+  + HD 044743, beta CMa, B1II-III, D = 151 pc, R = 0.25 pc
+    + Filaments are slightly curved around star, but I am not totally convinced there is a dynamic interaction
+    + But there again, we never see filaments that curve the other way
 + Multiple bows
   + HD 175362 - V686 CrA, B3V, D = 132 pc, R0 = 0.25 pc
     + Beautiful wide bow, with 12 \to 22 micron color gradient
@@ -591,7 +608,17 @@ CLOSED: [2020-07-11 Sat 20:54]
           + Maybe TY CrA has a tiny bow-shock visible in K-band (R = 14 arcsec = 0.009 pc), which is 30 times smaller than V686 CrA
         + Another around HD 176270 (B9V) and HD 176269 (B9V)
         + These are pleiades type with blue filaments
-**** Add in the Peri E-BOSS bow shocks
+  + HD 210839, lam Cep, O6.5 In, D = 606 pc, R = 1.4 pc
+    + Very complicated structure, but clearly a bow shock
+  + HD 143275, del Sco, B0.3 IV, D = 150 pc
+    + Has fainter stuff on the other side, so maybe a shell rather than a bow
+    + Although space velocity is high, 140 km/s
++ Small bows
+  + Maia in the Pleiades - HD 23408
+    + B8 III, D = 120 pc, R = 0.01 pc
+    + Strangely, Maia is no longer believed to be in the class of Maia variables that were named after it (see intro to Balona:2020a)
+    + May also be a larger bow, but it is hard to tell with so many filaments around
+**** TODO Add in the Peri E-BOSS bow shocks
 **** Uncatalogued bow shocks
 + LS I +66 4
   + HIP 338
@@ -603,9 +630,23 @@ CLOSED: [2020-07-11 Sat 20:54]
   + Very surprising that it is not in the Peri catalogs
     + I have double-checked and it doesn't seem to be there
 + Other objects listed in [[id:14E5C827-B660-44C4-A4EF-000254FAE8D2][Particular objects]] in [[file:~/Dropbox/dust-wave-case-studies/dust-wave-case-studies.org][file:~/Dropbox/dust-wave-case-studies/dust-wave-case-studies.org]]
-+ 
+**** TODO [#A] Tracing shapes of the new samples
++ For the others this was done in [[id:52F0288C-C469-4559-98A9-6F195AA9EEDF][How to trace the shapes of the OB bow shocks]] with [[file:mipsgal-trace-arc.py]]
+  + But that reads the Kobulnicky:2016a data table, so we need to replace that part
+  + The main things it needs are the nominal radius and PA of the bow
+    + Radius is given in Bodensteiner
+    + PA can be backtracked from the alpha column in the table, which is the misalignment between the PA of the bow and the proper motion
+      + Since the give the proper motions too
+      + Which supposedly are corrected for the local Galactic rotation according to eq (2) in Comeron:2007a
+  + Two options for how to proceed:
+    1. Try to wrangle the BSC sources into same form as Kobulnicky table
+    2. Write a new version of the tracing program that is dedicated to the BSC sources
+  + Option 2 seems easier, but first we should merge in the EBOSS sample if we can
 *** DONE How to trace the shapes of the OB bow shocks
 CLOSED: [2017-03-28 Tue 13:24]
+:PROPERTIES:
+:ID:       52F0288C-C469-4559-98A9-6F195AA9EEDF
+:END:
 + Strategy is to start at the nominal PA of the bowshock axis and take radial slices
   + Maybe fit a Gaussian brightness as function of radius for each \theta
   + calculate \theta and R for each pixel
